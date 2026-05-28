@@ -1,0 +1,16 @@
+# Backups
+*.bak_*
+
+# Large PDFs
+*.pdf
+
+# Raw OCR / extracted text
+*.txt
+*.md
+
+# Claude internal
+.claude/
+
+# OS
+Thumbs.db
+.DS_Store
