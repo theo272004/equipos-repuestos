@@ -1860,46 +1860,77 @@
         from { transform: translateY(100%); opacity: 0; }
         to { transform: translateY(0); opacity: 1; }
       }
-      .section-edit-btn {
-        display: none;
-        min-height: 26px;
-        border: 1px solid var(--line);
-        border-radius: 999px;
-        background: #fff;
+      /* ===== Edición directa en la página (contenteditable) ===== */
+      .editable-content { outline: none; }
+      .is-edit-mode .editable-content {
+        outline: 1px dashed var(--line-strong);
+        outline-offset: 8px;
+        border-radius: 6px;
+        cursor: text;
+        transition: outline-color 0.15s ease, background 0.15s ease;
+      }
+      .is-edit-mode .editable-content:hover { outline-color: var(--blue); }
+      .is-edit-mode .editable-content:focus {
+        outline: 2px solid var(--blue);
+        outline-offset: 8px;
+        background: #fbfdff;
+      }
+      .is-edit-mode .editable-content:empty::before {
+        content: "Escribe el contenido de esta sección…";
         color: var(--muted);
-        font-size: 0.76rem;
-        font-weight: 700;
-        padding: 0 9px;
-        cursor: pointer;
-        gap: 4px;
-        align-items: center;
-        float: right;
-        margin-left: auto;
-        transition: border-color 0.15s, color 0.15s;
       }
-      .section-edit-btn:hover { border-color: #000; color: #000; }
-      .is-edit-mode .section-edit-btn { display: inline-flex; }
-      .section-edit-bar { display: flex; justify-content: flex-end; margin-bottom: 8px; }
-      .section-editor {
-        width: 100%;
-        min-height: 180px;
-        border: 2px solid var(--blue);
-        border-radius: 10px;
-        padding: 12px 14px;
-        font: inherit;
-        font-size: 0.88rem;
-        resize: vertical;
-        outline: none;
-        background: #fafcff;
-        color: var(--text);
-        box-shadow: 0 0 0 3px rgba(37,99,235,0.08);
+      .edit-saved-flash { animation: editFlash 1s ease; border-radius: 6px; }
+      @keyframes editFlash {
+        0% { background: #dcfce7; }
+        100% { background: transparent; }
       }
-      .section-editor-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 8px;
-        justify-content: flex-end;
-      }
+
+      /* ===== Componentes de guía enriquecida (manual ES) ===== */
+      /* Marco Entrada -> Transformación -> Salida */
+      .io-flow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin: 16px 0; }
+      .io-col { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); box-shadow: var(--shadow-card); }
+      .io-col__head { padding: 11px 14px; font-weight: 800; font-size: 0.92rem; color: #fff; }
+      .io-col__head small { display: block; font-weight: 600; font-size: 0.72rem; opacity: 0.9; }
+      .io-col--in .io-col__head { background: #2563eb; }
+      .io-col--proc .io-col__head { background: #7c3aed; }
+      .io-col--out .io-col__head { background: #0e9f6e; }
+      .io-col__body { padding: 12px 14px; }
+      .io-col__body ul { margin: 0; padding-left: 18px; }
+      .io-col__body li { margin: 6px 0; font-size: 0.89rem; line-height: 1.4; }
+      @media (max-width: 760px) { .io-flow { grid-template-columns: 1fr; } }
+
+      /* Tarjetas de paso (¿cómo funciona?) */
+      .step-card { border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 12px; padding: 14px 16px; margin: 12px 0; background: var(--surface); box-shadow: var(--shadow-card); }
+      .step-card__head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+      .step-card__num { width: 30px; height: 30px; flex: 0 0 30px; border-radius: 9px; background: var(--blue); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 0.95rem; }
+      .step-card__title { font-weight: 800; font-size: 1rem; }
+      .step-card__row { display: grid; grid-template-columns: 130px 1fr; gap: 4px 12px; margin: 7px 0; font-size: 0.9rem; line-height: 1.45; }
+      .step-card__row > span:first-child { font-weight: 700; color: var(--muted); }
+      .step-card__params { margin-top: 8px; padding: 8px 10px; background: var(--blue-soft); border-radius: 8px; font-size: 0.85rem; }
+      @media (max-width: 620px) { .step-card__row { grid-template-columns: 1fr; gap: 1px; } }
+
+      /* Tarjetas de indicadores (KPI) */
+      .kpi-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 16px 0; }
+      .kpi-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: var(--soft); }
+      .kpi-card h5 { margin: 0 0 2px; font-size: 1rem; }
+      .kpi-card .kpi-sig { font-size: 0.78rem; color: var(--muted); font-weight: 700; }
+      .kpi-card .kpi-formula { margin-top: 9px; padding: 8px 10px; background: #0f172a; color: #e2e8f0; border-radius: 8px; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.8rem; }
+      .kpi-card p { font-size: 0.87rem; margin: 9px 0 0; line-height: 1.45; }
+      @media (max-width: 620px) { .kpi-grid { grid-template-columns: 1fr; } }
+
+      /* Niveles de mantenimiento (encabezados) */
+      .tier-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 20px 0 8px; }
+      .tier-chip { font-weight: 800; font-size: 0.85rem; padding: 4px 12px; border-radius: 999px; color: #fff; }
+      .tier-chip--m { background: #0e9f6e; }
+      .tier-chip--3m { background: #2563eb; }
+      .tier-chip--6m { background: #b45309; }
+      .tier-chip--otros { background: #64748b; }
+      .tier-head small { color: var(--muted); font-weight: 600; font-size: 0.82rem; }
+
+      /* Etiqueta de origen del dato (manual vs recomendación) */
+      .src-tag { font-size: 0.68rem; font-weight: 800; padding: 1px 7px; border-radius: 999px; vertical-align: middle; white-space: nowrap; }
+      .src-manual { background: #eef4ff; color: #2563eb; }
+      .src-reco { background: #fff3e8; color: #b45309; }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -2305,7 +2336,7 @@
 
     <!-- Edit Mode Bar -->
     <div class="edit-mode-bar" id="editModeBar" hidden>
-      <span class="edit-mode-label">Modo edición activo — haz clic en "Editar" en cualquier sección de la guía</span>
+      <span class="edit-mode-label">✎ Modo edición — haz clic sobre cualquier texto de la guía y escribe directamente. Pulsa "Guardar y salir" para conservar los cambios.</span>
       <div style="display:flex;gap:8px">
         <button class="button button--light" id="cancelEditMode" type="button">Cancelar</button>
         <button class="button button--dark" id="saveEditMode" type="button">Guardar y salir</button>
@@ -2420,7 +2451,7 @@
               content: `
                 <div class="guide-media">
                   <div class="guide-media__img">
-                    <img src="njp3500-specs.jpg" alt="Parámetros técnicos" />
+                    <img src="assets/manual_es/manual-es-p12.jpg" alt="Parámetros técnicos" />
                   </div>
                   <div class="guide-media__body">
                     <p>Esta sección separa lo <strong>confirmado por manual</strong> de lo que proviene de <strong>ficha comercial</strong>. Cuando existan diferencias, la prioridad técnica para soporte debe ser el manual y luego la placa del equipo.</p>
@@ -2453,7 +2484,7 @@
               content: `
                 <div class="guide-media" style="grid-template-columns:1fr">
                   <div class="guide-media__img">
-                    <img src="njp3500-diagram.jpg" alt="Diagrama de línea completa" />
+                    <img src="assets/manual_es/manual-es-p18.jpg" alt="Diagrama de línea completa" />
                   </div>
                 </div>
                 <p>La máquina no trabaja sola. La línea completa está compuesta por:</p>
@@ -2840,18 +2871,282 @@
               id: "pendientes",
               title: "Datos pendientes por confirmar",
               content: `
-                <p>Información por validar en planta con placa, manual y configuración real:</p>
+                <p>Estos son los <strong>vacíos reales del manual</strong>: cosas que el manual NO especifica y que conviene validar en planta antes de depender de ellas. Pensado para que no te confíes de un dato que no existe.</p>
+                <h4>Vacíos detectados en el manual en español</h4>
                 <ul>
-                  <li><strong>Placa física:</strong> modelo exacto, serial y año reales</li>
-                  <li><strong>Voltaje, frecuencia y amperaje reales</strong></li>
-                  <li><strong>Potencia instalada real: 10.5 kW vs 11.5 kW</strong></li>
-                  <li><strong>Dimensiones exactas con accesorios</strong></li>
-                  <li><strong>Plano eléctrico y neumático</strong></li>
-                  <li><strong>Lista de repuestos originales con códigos</strong></li>
-                  <li><strong>Herramental disponible (moldes y punzones instalados)</strong></li>
-                  <li><strong>Programa final de mantenimiento del fabricante</strong></li>
+                  <li><strong>Presión del aire comprimido:</strong> el manual no da el valor (MPa/bar) ni el consumo neumático → medir el suministro real en planta.</li>
+                  <li><strong>Aceite del reductor:</strong> solo dice “según el fabricante del lubricante”; falta tipo, viscosidad y volumen → conseguir la ficha del reductor SEW.</li>
+                  <li><strong>Acometida eléctrica:</strong> tensión, corriente y frecuencia reales no documentadas (el esquema eléctrico p74–75 está poco legible) → validar en placa y en el armario.</li>
+                  <li><strong>Códigos de alarma del PLC/HMI:</strong> no hay tabla de fallas codificadas → pedir el listado de alarmas al fabricante.</li>
+                  <li><strong>Rodamientos “zxl/zxt”:</strong> es nomenclatura interna del fabricante → conseguir la equivalencia comercial estándar para comprarlos.</li>
+                  <li><strong>Pares de apriete (torque):</strong> no se detallan para la tornillería (M3, M5, M6, M8, M12, M16) → definir tabla de torques.</li>
+                  <li><strong>Limpieza/validación sanitaria (GMP):</strong> faltan protocolos de limpieza entre lotes y cambio de producto → definir con calidad.</li>
+                  <li><strong>Agua de la bomba de vacío SK:</strong> no se indica caudal ni calidad/temperatura del agua → validar con la ficha de la bomba (Zhejiang Xinhuan).</li>
+                  <li><strong>Errata de levas (p42):</strong> el manual rotula dos como “Leva 4” → confirmar la numeración real de las 6 levas.</li>
                 </ul>
-                <div class="alert-box">La ficha ya sirve para soporte técnico y consulta operativa, pero antes de operación rutinaria conviene cerrar estos puntos con placa, fotos y levantamiento en planta.</div>
+                <h4>Confirmar contra el equipo físico</h4>
+                <ul>
+                  <li><strong>Placa física:</strong> modelo, serial y año reales · <strong>Potencia:</strong> 10,5 kW (manual) vs ficha comercial.</li>
+                  <li><strong>Herramental instalado:</strong> tallas de moldes y punzones realmente montados.</li>
+                  <li><strong>Plano eléctrico y neumático</strong> legibles y <strong>lista de repuestos con códigos comerciales</strong>.</li>
+                </ul>
+                <div class="alert-box">Nota: las páginas 76–78 del manual son <strong>certificados de inspección del material</strong> (acero), no información operativa. La ficha ya sirve para soporte y consulta; cierra estos puntos antes de operación rutinaria.</div>
+              `
+            },
+            {
+              id: "como-funciona",
+              title: "¿Cómo funciona? — qué hace y cómo lo hace",
+              content: `
+                <p style="font-size:1.02rem"><strong>En una frase:</strong> la NJP-3500 toma cápsulas duras vacías, las abre, les mete una dosis exacta de polvo (o micropellets), las vuelve a cerrar y las expulsa terminadas — hasta <strong>3.500 cápsulas por minuto</strong>.</p>
+                <p>Lo hace en una <strong>mesa giratoria (torreta)</strong> con segmentos de <strong>25 orificios</strong> que avanzan paso a paso por varias estaciones. En cada parada se hace una operación distinta, y todo se sincroniza con un <strong>juego de 6 levas</strong>, accionado por un motor principal SEW con variador Emerson y un PLC Siemens con pantalla táctil. El vacío (bomba de anillo de agua serie SK) y la aspiración de polvo (colector EDC) van aparte para hacer menos ruido.</p>
+                <div class="alert-box" style="background:#eef4ff;border-color:#cdddff">Idea clave para entenderla: <strong>los 8 pasos de abajo ocurren al mismo tiempo</strong>, cada uno en una estación distinta de la torreta. Una cápsula entra por el paso 1 y, vuelta a vuelta, va pasando por todos los pasos hasta salir terminada.</div>
+
+                <h4>El proceso en 8 pasos</h4>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Ordenamiento y alimentación de cápsulas vacías</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Guarda las cápsulas vacías y las entrega <strong>de una en una</strong> a la torreta.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>Las cápsulas se cargan en la tolva y bajan por una compuerta regulable (la altura de cápsulas en la salida debe ser ≈ la mitad de la altura total de salida). Caen por el tubo de alimentación; unas uñas de retención con muelle dejan pasar <strong>una sola cápsula por ciclo</strong> y un empujador vertical controla el avance.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Tolva con compuerta y tapa transparente, tuerca de ajuste, tubo de alimentación, uñas de retención, muelle, marco soporte, empujador vertical.</span></div>
+                  <div class="step-card__row"><span>Eléctrica</span><span>Movimiento accionado por el motor principal a través de la transmisión por cadena.</span></div>
+                  <div class="step-card__params"><strong>Ajuste clave:</strong> altura de cápsulas ≈ ½ de la altura de salida · una cápsula por ciclo.</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Dispensación y corrección de orientación</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Reparte las cápsulas y <strong>voltea las que vienen al revés</strong> para que todas queden igual.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>El tubo dispensador hace movimientos de ida y vuelta (alimenta, almacena, invierte, dispensa y empuja). Un empujador clasifica cada cápsula según dónde la toca, definiendo su orientación.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Conjunto de tubo dispensador (cara A), peine de cápsulas (cara B), varilla de ajuste de dos puntas, bloque y empujador de clasificación.</span></div>
+                  <div class="step-card__row"><span>Eléctrica</span><span>Movimiento alternativo accionado por el motor / las levas.</span></div>
+                  <div class="step-card__params"><strong>Ajuste clave:</strong> distancia entre la cara A (tubo) y la cara B (peine) = <strong>2–3 mm</strong>, con la varilla roscada de dos puntas.</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">3</span><span class="step-card__title">Apertura de la cápsula por vacío</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Separa la cápsula en sus dos mitades (<strong>cuerpo y tapa</strong>) succionando con vacío.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>El asiento de succión, empujado por un muelle, succiona la cápsula. En reposo hay una holgura entre el asiento y el molde; en marcha hacen contacto total y la cápsula entra al asiento. El vacío lo genera la bomba de anillo de agua serie SK.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Molde superior e inferior, asiento de succión, muelle de compresión, varilla de ajuste, balancín.</span></div>
+                  <div class="step-card__row"><span>Eléctrica / vacío</span><span>Bomba de vacío SK; nivel leído en manómetro; válvula de entrada de agua para regularlo.</span></div>
+                  <div class="step-card__params"><strong>Ajustes clave:</strong> holgura asiento de succión–molde en reposo <strong>1,8–2,5 mm</strong> · vacío de trabajo <strong>0,02–0,04 MPa</strong> (ni más ni menos, o las cápsulas no se abren o se dañan).</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">4</span><span class="step-card__title">Dosificación y llenado del polvo</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Mide la dosis de polvo y la <strong>compacta dentro del cuerpo</strong> de la cápsula.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>El polvo cae a la tolva; un mezclador giratorio y un tornillo transportador lo reparten en la posición de llenado. Las varillas de llenado (punzones) entran en el disco dosificador a profundidades distintas por estación: <strong>a mayor profundidad, más dosis</strong>. Un detector capacitivo vigila el nivel de polvo.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Tolva de polvo, mezclador, tornillo transportador, reductor, disco dosificador, módulo y varillas de llenado, almohadilla de cobre, bloque de bloqueo de polvo, raspador, anillo de almacenaje.</span></div>
+                  <div class="step-card__row"><span>Eléctrica</span><span>Motorreductor del mezclador y tornillo; detector capacitivo de nivel (soporte M6, altura 18–28 mm).</span></div>
+                  <div class="step-card__params"><strong>Ajustes clave:</strong> profundidad de punzón por estación <strong>6 / 4 / 3 / 2 / 0,5 mm</strong> (Est. 1–5) · disco–almohadilla de cobre <strong>0,05–0,15 mm</strong> · raspador de polvo <strong>0,05–0,1 mm</strong> · detector de nivel <strong>18–28 mm</strong>.</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">5</span><span class="step-card__title">Rechazo de cápsulas no abiertas o defectuosas</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Aparta y desecha las cápsulas que no se separaron o salieron mal.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>La cámara de vacío aspira esas cápsulas hacia la caja de desecho. Se ajusta la varilla de tracción del molde inferior para fijar la separación con la cámara de vacío.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Cámara de vacío, manija, poste guía, pasador eyector, varilla de tracción, módulos superior e inferior.</span></div>
+                  <div class="step-card__row"><span>Eléctrica / vacío</span><span>Asistido por la bomba de vacío SK.</span></div>
+                  <div class="step-card__params"><strong>Ajuste clave:</strong> separación entre el plano inferior de la cámara de vacío y el plano superior del módulo inferior <strong>1,5–2 mm</strong>.</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">6</span><span class="step-card__title">Cierre de la cápsula</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Une la tapa con el cuerpo lleno hasta la <strong>longitud correcta</strong> de cápsula cerrada.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>Se gira la palanca para subir el pasador eyector; la distancia desde la placa superior debe ser igual a la longitud de la cápsula ya cerrada. Para calibrar, se coloca una cápsula abierta en el orificio frontal, se gira hasta el bloqueo, se mide y se aprietan tornillos y tuercas. Lo sincroniza la <strong>Leva 5 (Cierre)</strong>.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Palanca, pasador eyector, módulos sup/inf, deflector superior, junta universal, poste guía, barra inferior.</span></div>
+                  <div class="step-card__row"><span>Eléctrica</span><span>No aplica: es movimiento mecánico por levas.</span></div>
+                  <div class="step-card__params"><strong>Ajuste clave:</strong> distancia desde la placa superior = longitud de la cápsula cerrada.</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">7</span><span class="step-card__title">Expulsión y salida del producto terminado</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Saca la cápsula terminada del molde <strong>sin que choque</strong>.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>Se gira la palanca elevando el extremo del pasador eyector por encima del plano del molde; en el retorno se mantiene una holgura para evitar golpes. La <strong>Leva 4 (Descargas)</strong> gestiona la salida.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Palanca, pasador eyector, módulos, deflector superior, junta universal, conjunto de descarga.</span></div>
+                  <div class="step-card__row"><span>Eléctrica / vacío</span><span>Asistencia por vacío para separar la cápsula.</span></div>
+                  <div class="step-card__params"><strong>Ajustes clave:</strong> pasador eyector <strong>1–2 mm</strong> sobre el plano superior del molde · <strong>1,5–2 mm</strong> de holgura en el retorno.</div>
+                </div>
+
+                <div class="step-card">
+                  <div class="step-card__head"><span class="step-card__num">8</span><span class="step-card__title">Limpieza del polvo residual</span></div>
+                  <div class="step-card__row"><span>Qué hace</span><span>Limpia el polvo sobrante de las estaciones antes de reiniciar el ciclo.</span></div>
+                  <div class="step-card__row"><span>Cómo lo hace</span><span>La aspiradora industrial / colector de polvo (EDC) succiona el polvo y las cápsulas de desecho por una malla de filtro y un tubo hacia un contenedor.</span></div>
+                  <div class="step-card__row"><span>Mecánica</span><span>Conjunto de limpieza, filtro insonorizado, malla, tubo de succión, cubo de almacenamiento, botón de limpieza.</span></div>
+                  <div class="step-card__row"><span>Eléctrica</span><span>Ventilador de aspiración (aspiradora EDC).</span></div>
+                  <div class="step-card__params"><strong>Atención:</strong> si el filtro o el tubo se tapan, la aspiradora hace <strong>ruidos anormales</strong> — hay que limpiarlos seguido.</div>
+                </div>
+
+                <div class="alert-box">Todo este ciclo lo coordinan <strong>6 levas</strong> (Alimentación, Admisión, Dosificación, Descargas, Cierre y Eliminación de residuos). Su posición viene ajustada de fábrica: <strong>no se reajusta</strong> salvo emergencia, porque desincronizarlas daña componentes.</div>
+              `
+            },
+            {
+              id: "flujo-es",
+              title: "Entradas → Transformación → Salidas",
+              content: `
+                <p>Es la forma más sencilla de entender (y diagnosticar) cualquier máquina: todo lo que <strong>entra</strong>, cómo se <strong>transforma</strong> y todo lo que <strong>sale</strong>. Si una salida está mal, casi siempre el problema está en una entrada o en la transformación.</p>
+
+                <div class="io-flow">
+                  <div class="io-col io-col--in">
+                    <div class="io-col__head">↘ ENTRADAS<small>Lo que la máquina necesita para trabajar</small></div>
+                    <div class="io-col__body">
+                      <ul>
+                        <li><strong>Energía eléctrica</strong> — 10,5 kW, alimentación trifásica AC + fuente conmutada 24 VDC. Mueve motor, variador, PLC y controles.</li>
+                        <li><strong>Aire comprimido / equipos a presión</strong> — para partes a presión. (El manual no da el valor de presión: <span class="src-tag src-reco">VALIDAR EN PLANTA</span>)</li>
+                        <li><strong>Vacío</strong> — 0,02–0,04 MPa, de la bomba de anillo de agua serie SK. Abre las cápsulas y asiste el rechazo.</li>
+                        <li><strong>Agua de servicio</strong> — alimenta la bomba de vacío de anillo de agua (regula el nivel de vacío).</li>
+                        <li><strong>Cápsulas vacías</strong> — materia prima, formatos 000# a 5#.</li>
+                        <li><strong>Producto</strong> — polvo o micropellets a encapsular.</li>
+                        <li><strong>Lubricantes</strong> — STABYL 300 AL 2, Fuchs GERALYN 1, N4B GB443-84, ZL2 / ZLD SY1412-75.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="io-col io-col--proc">
+                    <div class="io-col__head">⟳ TRANSFORMACIÓN<small>Lo que pasa adentro</small></div>
+                    <div class="io-col__body">
+                      <ul>
+                        <li>El <strong>ciclo de 8 pasos</strong>: ordena → abre por vacío → dosifica → rechaza → cierra → expulsa → limpia.</li>
+                        <li>En una <strong>torreta giratoria</strong> de segmentos de 25 orificios.</li>
+                        <li>Sincronizado por <strong>6 levas</strong>.</li>
+                        <li>Accionado por <strong>motor SEW + variador Emerson + PLC Siemens</strong> con HMI táctil.</li>
+                        <li>Auxiliares: <strong>vacío</strong> (bomba SK) y <strong>aspiración de polvo</strong> (colector EDC).</li>
+                      </ul>
+                      <p style="font-size:0.84rem;color:var(--muted);margin:8px 0 0">Ver el detalle paso a paso en <strong>“¿Cómo funciona?”</strong>.</p>
+                    </div>
+                  </div>
+                  <div class="io-col io-col--out">
+                    <div class="io-col__head">↗ SALIDAS<small>Lo que sale (deseado y no deseado)</small></div>
+                    <div class="io-col__body">
+                      <ul>
+                        <li><strong>✓ Producto:</strong> cápsulas llenas y cerradas (se pueden pulir en pulidora opcional).</li>
+                        <li><strong>Cápsulas rechazadas</strong> / de desecho, aspiradas a la caja de desecho.</li>
+                        <li><strong>⚠ Polvo / partículas</strong> — pueden ser <strong>tóxicas</strong> y hay <strong>riesgo de explosión de polvo</strong>. Se filtran, pero el filtro no atrapa todo.</li>
+                        <li><strong>Polvo residual</strong> aspirado al contenedor del colector.</li>
+                        <li><strong>Drenaje, rebose y escape</strong> del circuito de vacío (agua/aire).</li>
+                        <li><strong>Ruido</strong> — por eso bomba y colector van separados.</li>
+                        <li><strong>Residuos peligrosos</strong> — gestionarlos con el sistema de eliminación de sustancias peligrosas.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <h4>La salida que nos importa en mantenimiento: “máquina funcional”</h4>
+                <p>Para producción la salida es el producto; para <strong>mantenimiento</strong>, nuestra salida es que la <strong>máquina esté funcional y disponible</strong>. Eso no se mide “a ojo”: se mide con <strong>indicadores</strong> (MTBF, MTTF, MTTR, disponibilidad, tiempo de paro). Ver la sección <strong>“Indicadores de mantenimiento”</strong>.</p>
+
+                <div class="alert-box">⚠ <strong>Seguridad (aplica en todo el flujo):</strong> energía cero antes de intervenir (apagar interruptor principal y bloquear) · liberar la presión antes de tocar sistemas neumáticos/de vacío · limpiar el interior <strong>solo con aspiradora</strong>, nunca con aire soplado · el polvo puede ser tóxico e inflamable: usar ropa antiestática y retirarlo de inmediato.</div>
+              `
+            },
+            {
+              id: "indicadores",
+              title: "Indicadores de mantenimiento (MTBF, MTTF, MTTR, disponibilidad)",
+              content: `
+                <p><span class="src-tag src-reco">NO ESTÁ EN EL MANUAL</span> &nbsp;El manual no define indicadores. Los agregamos como <strong>estándar de mantenimiento</strong> porque son la forma de medir si la máquina cumple su salida real: <strong>estar funcional y disponible</strong>. Para calcularlos solo necesitas anotar cada falla: <strong>fecha, qué falló y cuánto tardó en repararse</strong>.</p>
+
+                <div class="kpi-grid">
+                  <div class="kpi-card">
+                    <h5>MTBF</h5>
+                    <div class="kpi-sig">Tiempo medio entre fallas · mide fiabilidad</div>
+                    <div class="kpi-formula">MTBF = horas de operación ÷ nº de fallas</div>
+                    <p>Cuánto aguanta la máquina trabajando antes de fallar. <strong>Mientras más alto, mejor.</strong> Si baja, la máquina está fallando más seguido.</p>
+                  </div>
+                  <div class="kpi-card">
+                    <h5>MTTF</h5>
+                    <div class="kpi-sig">Tiempo medio hasta la falla · piezas que se cambian</div>
+                    <div class="kpi-formula">MTTF = horas totales ÷ nº de piezas</div>
+                    <p>Para piezas que <strong>no se reparan, se reemplazan</strong> (rodamientos, filtros, correas). Te dice cada cuánto cambiar el consumible.</p>
+                  </div>
+                  <div class="kpi-card">
+                    <h5>MTTR</h5>
+                    <div class="kpi-sig">Tiempo medio de reparación · mide rapidez</div>
+                    <div class="kpi-formula">MTTR = horas de reparación ÷ nº de reparaciones</div>
+                    <p>Cuánto tardas en dejarla andando otra vez. <strong>Mientras más bajo, mejor.</strong> Mejora con repuestos a mano y procedimientos claros.</p>
+                  </div>
+                  <div class="kpi-card">
+                    <h5>Disponibilidad</h5>
+                    <div class="kpi-sig">% del tiempo que la máquina está lista</div>
+                    <div class="kpi-formula">Disponibilidad = MTBF ÷ (MTBF + MTTR) × 100</div>
+                    <p>El resumen de todo: qué porcentaje del tiempo la máquina <strong>puede producir</strong>. Es el número que mira tu jefe.</p>
+                  </div>
+                  <div class="kpi-card">
+                    <h5>Tiempo de paro</h5>
+                    <div class="kpi-sig">Downtime · horas detenida por falla</div>
+                    <div class="kpi-formula">Σ horas que la máquina estuvo parada</div>
+                    <p>El total de horas perdidas por fallas en un periodo. Sirve para priorizar qué falla atacar primero (la que más para la máquina).</p>
+                  </div>
+                  <div class="kpi-card">
+                    <h5>Paro post-mantenimiento</h5>
+                    <div class="kpi-sig">Calidad del mantenimiento</div>
+                    <div class="kpi-formula">Horas hasta volver a producir bien tras un mtto.</div>
+                    <p>Cuánto tarda en volver a producir <strong>bien</strong> después de un mantenimiento. Si es alto, el mantenimiento se está haciendo mal o incompleto.</p>
+                  </div>
+                </div>
+
+                <div class="alert-box" style="background:#eef4ff;border-color:#cdddff"><strong>Cómo empezar sin complicarte:</strong> lleva una bitácora simple por máquina con una fila por falla → <em>fecha · sistema · qué pasó · cuánto tardó en repararse · repuesto usado</em>. Con eso ya puedes calcular MTBF, MTTR y disponibilidad mes a mes, y ver si una falla se repite mucho (eso es lo que dispara ajustar el plan de mantenimiento).</div>
+              `
+            },
+            {
+              id: "plan-mantenimiento",
+              title: "Plan de mantenimiento por niveles (Mensual / Trimestral / Semestral)",
+              content: `
+                <p>El manual da las <strong>tareas</strong>, pero casi no da frecuencias (la mayoría dice solo “según lote”). Así que las <strong>frecuencias por nivel las definimos nosotros</strong> con criterio de mantenimiento, y se <strong>ajustan según cómo se comporte la máquina</strong>.</p>
+                <p style="font-size:0.9rem;color:var(--muted)"><span class="src-tag src-manual">MANUAL</span> = frecuencia que sí indica el manual. &nbsp; <span class="src-tag src-reco">RECOMENDADO</span> = frecuencia que proponemos nosotros (ajústala a tu planta).</p>
+
+                <div class="tier-head"><span class="tier-chip tier-chip--otros">RUTINA</span> <small>Diario y semanal · lo básico que evita el 80% de los problemas</small></div>
+                <table class="crit-table"><tbody>
+                  <tr><th>Frecuencia</th><th>Tarea</th><th>Sistema</th></tr>
+                  <tr><td>Diario <span class="src-tag src-manual">MANUAL</span></td><td>Limpieza: retirar restos y limpiar la cubierta protectora — <strong>solo con aspiradora</strong></td><td>Limpieza</td></tr>
+                  <tr><td>Diario <span class="src-tag src-reco">RECOM.</span></td><td>Inspección visual general + verificar nivel de vacío en el manómetro (0,02–0,04 MPa)</td><td>General / Vacío</td></tr>
+                  <tr><td>Diario <span class="src-tag src-reco">RECOM.</span></td><td>Limpiar sensores (paño suave sin pelusa) y la zona de descarga de cápsulas vacías al terminar</td><td>Control / Alimentación</td></tr>
+                  <tr><td>Semanal <span class="src-tag src-reco">RECOM.</span></td><td>Limpieza a fondo de moldes y estaciones (solo aspiradora); revisar fugas de mangueras y racores</td><td>Moldes / Neumática</td></tr>
+                  <tr><td>Semanal <span class="src-tag src-reco">RECOM.</span></td><td>Inspeccionar filtro/malla del colector de polvo y tubo de succión (ruido anormal = obstrucción)</td><td>Aspiración</td></tr>
+                  <tr><td>Semanal <span class="src-tag src-reco">RECOM.</span></td><td>Lubricar bloqueos de torque de estaciones (rechazo, cierre, dispensación) con STABYL 300 AL 2</td><td>Lubricación</td></tr>
+                </tbody></table>
+
+                <div class="tier-head"><span class="tier-chip tier-chip--m">MENSUAL · M</span> <small>Inspección y limpieza más a fondo</small></div>
+                <table class="crit-table"><tbody>
+                  <tr><th>Tarea</th><th>Sistema</th><th>Criterio</th></tr>
+                  <tr><td>Comprobar elementos de fijación: pernos, tornillos, tuercas y autoblocantes</td><td>Estructura</td><td>Sin aflojamiento ni desprendimiento</td></tr>
+                  <tr><td>Revisar tensión y estado de la correa de distribución y la cadena</td><td>Transmisión</td><td>Sin daños y bien tensada</td></tr>
+                  <tr><td>Limpiar el dispositivo de filtro de vacío, reemplazar filtro y limpiar el interruptor de presión</td><td>Vacío</td><td>Filtro limpio; sin fugas</td></tr>
+                  <tr><td>Probar el interruptor de la puerta (enclavamiento de seguridad)</td><td>Seguridad</td><td>Enclavamiento funcionando</td></tr>
+                  <tr><td>Comprobar equipos eléctricos sin daños (con LOTO / máquina sin tensión)</td><td>Eléctrico</td><td>Sin daños</td></tr>
+                  <tr><td>Lubricar leva radial (STABYL 300 AL 2) y riel guía / propulsor direccional (Fuchs GERALYN 1)</td><td>Lubricación</td><td>1–2 disparos por punto</td></tr>
+                </tbody></table>
+
+                <div class="tier-head"><span class="tier-chip tier-chip--3m">TRIMESTRAL · 3M</span> <small>Consumibles, aceite y verificación de holguras</small></div>
+                <table class="crit-table"><tbody>
+                  <tr><th>Tarea</th><th>Sistema</th><th>Criterio / dato</th></tr>
+                  <tr><td>Comprobar y rellenar el aceite del reductor</td><td>Reductor</td><td>Nivel correcto (aceite según fabricante del reductor SEW)</td></tr>
+                  <tr><td>Lubricación general según Tabla 4.1: cadena, rodamientos, componente guía (N4B GB443-84); levas (ZL2 SY1412-75); caja de distribución (ZLD SY1412-75)</td><td>Lubricación</td><td>Todos los puntos cubiertos</td></tr>
+                  <tr><td>Verificar holguras de dosificación: disco–almohadilla de cobre y raspador de polvo</td><td>Dosificación</td><td>0,05–0,15 mm y 0,05–0,1 mm</td></tr>
+                  <tr><td>Verificar nivel de detector de polvo y vacío + holgura del asiento de succión</td><td>Vacío / Control</td><td>Detector 18–28 mm · asiento 1,8–2,5 mm</td></tr>
+                  <tr><td>Reemplazar consumibles de desgaste según estado (filtros, sellos)</td><td>Varios</td><td>Cambio preventivo</td></tr>
+                </tbody></table>
+
+                <div class="tier-head"><span class="tier-chip tier-chip--6m">SEMESTRAL · 6M</span> <small>Revisión profunda / overhaul</small></div>
+                <table class="crit-table"><tbody>
+                  <tr><th>Tarea</th><th>Sistema</th><th>Criterio / dato</th></tr>
+                  <tr><td>Calibrar moldes: concentricidad de orificios y separación entre módulos</td><td>Moldes</td><td>Concentricidad 0,01–0,02 mm · separación 0,2–0,3 mm</td></tr>
+                  <tr><td>Revisar rodamientos por zona (catálogo Tabla 4.3) y reemplazar los desgastados</td><td>Rodamientos</td><td>Sin juego ni ruido</td></tr>
+                  <tr><td>Revisar punzones y disco dosificador por desgaste</td><td>Dosificación</td><td>Dosis estable; sin marcas</td></tr>
+                  <tr><td>Cambiar el aceite del reductor</td><td>Reductor</td><td>Aceite renovado</td></tr>
+                  <tr><td>Verificación completa de calibraciones de cierre, eyección y rechazo</td><td>Cierre / Rechazo</td><td>Holguras dentro de rango</td></tr>
+                </tbody></table>
+
+                <div class="tier-head"><span class="tier-chip tier-chip--6m">ANUAL</span> <small>Indicado por el manual</small></div>
+                <table class="crit-table"><tbody>
+                  <tr><th>Tarea</th><th>Sistema</th><th>Frecuencia</th></tr>
+                  <tr><td>Sustituir la batería de reserva del PLC</td><td>Control / PLC</td><td>Cada 12 meses <span class="src-tag src-manual">MANUAL</span></td></tr>
+                  <tr><td>Inspección profesional de dispositivos de seguridad, bloqueos y sistema de eliminación de sustancias peligrosas (registrar en certificado)</td><td>Seguridad</td><td>Anual <span class="src-tag src-manual">MANUAL</span></td></tr>
+                </tbody></table>
+
+                <h4>Cómo ajustar la frecuencia (lo más importante)</h4>
+                <p>El plan no es fijo. Se mueve según cómo se porte la máquina:</p>
+                <ul>
+                  <li><strong>Si una falla se repite</strong> o hubo un golpe / desgaste acelerado → <strong>haz ese mantenimiento más seguido</strong> (sube de nivel: lo semestral pásalo a trimestral, etc.).</li>
+                  <li><strong>Si una falla concreta sube en frecuencia</strong> → atácala en su sistema con mantenimiento más regular hasta que se estabilice.</li>
+                  <li><strong>Si todo está estable mucho tiempo</strong> → puedes espaciar un poco (sin pasarte).</li>
+                  <li>Conéctalo a los <strong>indicadores</strong>: si el <strong>MTBF baja</strong> (falla más seguido), aumenta la frecuencia preventiva en ese sistema.</li>
+                </ul>
+                <div class="alert-box">Regla práctica: el plan preventivo existe para que las fallas <strong>no</strong> aparezcan. Si una falla igual aparece seguido, el plan de ese sistema se quedó corto → acórtale el intervalo y revisa la causa raíz.</div>
               `
             }
           ],
@@ -2905,7 +3200,7 @@
                 page: 23,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual_es/pages/pagina 23.png",
+                  src: "assets/manual_es/manual-es-p14.jpg",
                   alt: "Arquitectura general de la NJP-3500 (traducida)",
                   title: "Mapa principal de subconjuntos",
                   page: 23,
@@ -2930,7 +3225,7 @@
                 page: 38,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p038.jpg",
+                  src: "assets/manual_es/manual-es-p22.jpg",
                   alt: "Tolva y compuerta de cápsulas",
                   title: "Tolva, compuerta y zona de descarga",
                   page: 38,
@@ -2950,7 +3245,7 @@
                 page: 43,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p043.jpg",
+                  src: "assets/manual_es/manual-es-p24.jpg",
                   alt: "Gap entre tubo y peine",
                   title: "Tubo de cápsulas vs. peine",
                   page: 43,
@@ -2970,7 +3265,7 @@
                 page: 50,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p050.jpg",
+                  src: "assets/manual_es/manual-es-p28.jpg",
                   alt: "Sistema de separación por vacío",
                   title: "Asiento de succión y moldes",
                   page: 50,
@@ -2990,7 +3285,7 @@
                 page: 55,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p055.jpg",
+                  src: "assets/manual_es/manual-es-p30.jpg",
                   alt: "Calibración de módulos superior e inferior",
                   title: "Módulo superior / inferior de la torreta",
                   page: 55,
@@ -3010,7 +3305,7 @@
                 page: 61,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p061.jpg",
+                  src: "assets/manual_es/manual-es-p33.jpg",
                   alt: "Gap del disco dosificador",
                   title: "Disco dosificador vs. copper pad",
                   page: 61,
@@ -3030,7 +3325,7 @@
                 page: 65,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p065.jpg",
+                  src: "assets/manual_es/manual-es-p36.jpg",
                   alt: "Ajuste del bloqueador de polvo",
                   title: "Bloqueador de polvo sobre el disco",
                   page: 65,
@@ -3050,7 +3345,7 @@
                 page: 72,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p072.jpg",
+                  src: "assets/manual_es/manual-es-p39.jpg",
                   alt: "Mecanismo de rechazo",
                   title: "Push handle, cámara de aire y top needle",
                   page: 72,
@@ -3070,7 +3365,7 @@
                 page: 75,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p075.jpg",
+                  src: "assets/manual_es/manual-es-p40.jpg",
                   alt: "Sistema de cierre de cápsulas",
                   title: "Bloqueo de tapa y cuerpo",
                   page: 75,
@@ -3090,7 +3385,7 @@
                 page: 78,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p078.jpg",
+                  src: "assets/manual_es/manual-es-p41.jpg",
                   alt: "Descarga de cápsulas terminadas",
                   title: "Expulsión hacia la salida",
                   page: 78,
@@ -3110,7 +3405,7 @@
                 page: 81,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p081.jpg",
+                  src: "assets/manual_es/manual-es-p42.jpg",
                   alt: "Levas de transmisión de la NJP-3500",
                   title: "Levas por función",
                   page: 81,
@@ -3130,7 +3425,7 @@
                 page: 85,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p085.jpg",
+                  src: "assets/manual_es/manual-es-p45.jpg",
                   alt: "Bomba de vacío SK",
                   title: "Vacío SK y control por agua",
                   page: 85,
@@ -3150,7 +3445,7 @@
                 page: 90,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p090.jpg",
+                  src: "assets/manual_es/manual-es-p48.jpg",
                   alt: "Aspiradora industrial de la línea",
                   title: "Aspiradora / recolector de polvo",
                   page: 90,
@@ -3170,7 +3465,7 @@
                 page: 30,
                 status: "Manual consolidado",
                 figure: {
-                  src: "assets/njp3500_manual/njp3500-manual-p030.jpg",
+                  src: "assets/manual_es/manual-es-p71.jpg",
                   alt: "Pantalla HMI Siemens Smart Line",
                   title: "Panel HMI y mandos principales",
                   page: 30,
@@ -3185,35 +3480,77 @@
             ]
           },
           spareParts: [
-            { name: "Filtro de vacío", system: "Vacío", type: "Consumible", criticality: "Muy alta", status: "Por validar", function: "Proteger sistema de vacío contra polvo." },
-            { name: "Manguera de vacío", system: "Vacío", type: "Neumático", criticality: "Alta", status: "Por validar", function: "Conducir vacío desde bomba a estación." },
-            { name: "Racor neumático", system: "Neumática", type: "Neumático", criticality: "Media", status: "Por validar", function: "Conectar líneas neumáticas." },
-            { name: "Punzón de dosificación", system: "Dosificación", type: "Desgaste", criticality: "Muy alta", status: "Por validar", function: "Compactar polvo en cámara." },
-            { name: "Disco dosificador", system: "Dosificación", type: "Mecánico", criticality: "Muy alta", status: "Por validar", function: "Dosificar volumen exacto de material." },
-            { name: "Aguja de limpieza", system: "Limpieza", type: "Consumible", criticality: "Alta", status: "Por validar", function: "Inyectar aire para limpiar molde." },
-            { name: "Molde superior", system: "Moldes", type: "Mecánico", criticality: "Muy alta", status: "Por validar", function: "Sujetar la tapa de la cápsula." },
-            { name: "Molde inferior", system: "Moldes", type: "Mecánico", criticality: "Muy alta", status: "Por validar", function: "Sujetar el cuerpo de la cápsula." },
-            { name: "Junta/sello de vacío", system: "Vacío", type: "Sello", criticality: "Alta", status: "Por validar", function: "Estanqueidad del circuito de vacío." },
-            { name: "Varilla de expulsión", system: "Expulsión", type: "Mecánico", criticality: "Media", status: "Por validar", function: "Empujar cápsula fuera del molde." },
-            { name: "Copper pad / anillo de cobre", system: "Dosificación", type: "Mecánico", criticality: "Muy alta", status: "Por validar", function: "Mantener holgura crítica del disco dosificador." },
-            { name: "Bloqueador de polvo", system: "Dosificación", type: "Mecánico", criticality: "Alta", status: "Por validar", function: "Controlar el paso de polvo sobre el disco." },
-            { name: "Barras de calibración", system: "Moldes", type: "Herramental", criticality: "Alta", status: "Por validar", function: "Centrado y alineación de moldes y estaciones." },
-            { name: "Rodamientos de estación", system: "Transmisión", type: "Rodamiento", criticality: "Alta", status: "Por validar", function: "Soporte mecánico y precisión de movimiento." }
+            { name: "Pantalla táctil HMI", system: "Eléctrico", type: "Electrónico", criticality: "Alta", reference: "SMART1000IE V3 · 10 pulg. (Siemens)", function: "Interfaz hombre-máquina; muestra estado, fallas, causas y soluciones." },
+            { name: "PLC (controlador lógico)", system: "Eléctrico", type: "Electrónico", criticality: "Alta", reference: "Siemens CPU222 (8E/6S)", function: "Cerebro de control de la máquina." },
+            { name: "Módulo de expansión PLC", system: "Eléctrico", type: "Electrónico", criticality: "Media", reference: "Siemens Em232", function: "Expansión de entradas/salidas del PLC." },
+            { name: "Batería de respaldo del PLC", system: "Eléctrico", type: "Consumible", criticality: "Alta", reference: "Cambiar cada 12 meses", function: "Mantiene la memoria del PLC." },
+            { name: "Fuente conmutada 24 VDC", system: "Eléctrico", type: "Electrónico", criticality: "Alta", reference: "S-35-24 · 24VDC 35W (Ming Wei)", function: "Alimentación de control 24 VDC." },
+            { name: "Variador de frecuencia", system: "Eléctrico", type: "Electrónico", criticality: "Alta", reference: "Emerson EV1000", function: "Regula la velocidad del motor principal." },
+            { name: "Contactor AC", system: "Eléctrico", type: "Electromecánico", criticality: "Media", reference: "Siemens 3TB41 / 3TB43 (x2)", function: "Maniobra de motores." },
+            { name: "Relé intermedio", system: "Eléctrico", type: "Electromecánico", criticality: "Media", reference: "Omron MY4NJ (x6)", function: "Relé auxiliar de control." },
+            { name: "Interruptor magnetotérmico", system: "Eléctrico", type: "Protección", criticality: "Media", reference: "CHNT DZ47-60-C32 / C5", function: "Protección de circuitos." },
+            { name: "Cortacircuito de protección", system: "Eléctrico", type: "Protección", criticality: "Media", reference: "Siemens 11E 3VE1 (x3)", function: "Protección contra sobrecorriente." },
+            { name: "Fusible", system: "Eléctrico", type: "Consumible", criticality: "Alta", reference: "Específico del fabricante (no puentear)", function: "Protección eléctrica; usar siempre el fusible especificado." },
+            { name: "Sensor de nivel de material", system: "Eléctrico", type: "Sensor", criticality: "Media", reference: "Omron E2K-C25ME1", function: "Detecta el nivel de polvo/material." },
+            { name: "Motor principal", system: "Transmisión", type: "Electromecánico", criticality: "Alta", reference: "SEW R57DR S112M4/2W (Alemania)", function: "Acciona la torreta y los mecanismos." },
+            { name: "Caja de levas de precisión", system: "Transmisión", type: "Mecánico", criticality: "Alta", reference: "RU180DF-12-150 / RU140DF-6-120", function: "Genera el movimiento intermitente de dosificación." },
+            { name: "Juego de 6 levas de sincronización", system: "Transmisión", type: "Mecánico", criticality: "Alta", reference: "Levas 1–6 (alimentación, admisión, dosificación, descargas, cierre, residuos)", function: "Sincroniza todas las fases del ciclo." },
+            { name: "Cadena de transmisión y piñón tensor", system: "Transmisión", type: "Mecánico", criticality: "Alta", reference: "—", function: "Transmite el movimiento del motor; tensado regulable." },
+            { name: "Correa de distribución", system: "Transmisión", type: "Consumible", criticality: "Alta", reference: "—", function: "Transmisión sincronizada; revisar tensión y estado." },
+            { name: "Bomba de vacío de anillo de agua", system: "Vacío", type: "Mecánico", criticality: "Alta", reference: "Serie SK (Zhejiang Xinhuan)", function: "Genera el vacío para abrir y separar las cápsulas." },
+            { name: "Filtro de vacío", system: "Vacío", type: "Consumible", criticality: "Muy alta", reference: "—", function: "Protege la bomba contra el polvo." },
+            { name: "Junta / sello de vacío", system: "Vacío", type: "Sello", criticality: "Alta", reference: "—", function: "Estanqueidad del circuito de vacío." },
+            { name: "Manguera de vacío", system: "Vacío", type: "Neumático", criticality: "Alta", reference: "—", function: "Conduce el vacío a las estaciones." },
+            { name: "Manómetro de vacío", system: "Vacío", type: "Instrumento", criticality: "Media", reference: "—", function: "Lectura del nivel de vacío (0,02–0,04 MPa)." },
+            { name: "Válvula de entrada de agua", system: "Vacío", type: "Mecánico", criticality: "Media", reference: "—", function: "Regula el nivel de vacío admitiendo agua." },
+            { name: "Válvula solenoide", system: "Vacío", type: "Electromecánico", criticality: "Media", reference: "—", function: "Control eléctrico del circuito de vacío." },
+            { name: "Válvula cheque (anti-retorno)", system: "Vacío", type: "Mecánico", criticality: "Media", reference: "—", function: "Evita el retorno de agua/aire en el circuito." },
+            { name: "Asiento de succión", system: "Vacío", type: "Mecánico", criticality: "Alta", reference: "Holgura 1,8–2,5 mm", function: "Aplica vacío a cada cápsula para abrirla." },
+            { name: "Disco / plato dosificador", system: "Dosificación", type: "Mecánico", criticality: "Muy alta", reference: "—", function: "Dosifica el volumen exacto de polvo." },
+            { name: "Varillas de llenado / punzones", system: "Dosificación", type: "Desgaste", criticality: "Muy alta", reference: "Profundidad 6/4/3/2/0,5 mm por estación", function: "Compactan el polvo dentro de la cápsula." },
+            { name: "Almohadilla de cobre (copper pad)", system: "Dosificación", type: "Mecánico", criticality: "Muy alta", reference: "Holgura 0,05–0,15 mm con el disco", function: "Mantiene la holgura crítica de dosificación." },
+            { name: "Bloque y raspador de polvo", system: "Dosificación", type: "Mecánico", criticality: "Alta", reference: "Holgura raspador 0,05–0,1 mm", function: "Controla y raspa el polvo sobre el disco." },
+            { name: "Anillo de sellado y de almacenaje de polvo", system: "Dosificación", type: "Sello", criticality: "Alta", reference: "—", function: "Sella y retiene el polvo en el módulo de llenado." },
+            { name: "Detector capacitivo de nivel de polvo", system: "Dosificación", type: "Sensor", criticality: "Media", reference: "Soporte M6 · altura 18–28 mm", function: "Vigila el nivel de polvo en la tolva." },
+            { name: "Molde / módulo superior", system: "Moldes", type: "Mecánico", criticality: "Muy alta", reference: "Conjunto izq./der. NO intercambiable", function: "Retiene la tapa de la cápsula." },
+            { name: "Molde / módulo inferior", system: "Moldes", type: "Mecánico", criticality: "Muy alta", reference: "Conjunto izq./der. NO intercambiable", function: "Retiene el cuerpo de la cápsula." },
+            { name: "Barras / pines de calibración", system: "Moldes", type: "Herramental", criticality: "Alta", reference: "Concentricidad 0,01–0,02 mm", function: "Centrado y alineación de moldes y estaciones." },
+            { name: "Aguja de limpieza de molde", system: "Moldes", type: "Consumible", criticality: "Alta", reference: "—", function: "Inyecta aire para limpiar el alojamiento del molde." },
+            { name: "Rodamiento lineal de estación", system: "Rodamientos", type: "Rodamiento", criticality: "Media", reference: "zxl 16·26·36 (x96)", function: "Guía lineal de las estaciones de trabajo." },
+            { name: "Rodamiento de bolas de estación", system: "Rodamientos", type: "Rodamiento", criticality: "Media", reference: "6302 · d15 D42 B13 (x12)", function: "Soporte de eje de estación." },
+            { name: "Seguidor de leva (estación)", system: "Rodamientos", type: "Rodamiento", criticality: "Media", reference: "CF-6 (x12)", function: "Seguidor de leva de estación." },
+            { name: "Rodamientos sección cápsulas", system: "Rodamientos", type: "Rodamiento", criticality: "Media", reference: "625 / 626 / 608 / 6004", function: "Soporte de ejes de la sección de cápsulas." },
+            { name: "Rodamiento lineal columnas de llenado", system: "Rodamientos", type: "Rodamiento", criticality: "Media", reference: "zxl 50·80·100 (x4)", function: "Guía de las columnas de llenado." },
+            { name: "Rodamientos de transmisión", system: "Rodamientos", type: "Rodamiento", criticality: "Media", reference: "zxt 25·40·58 / 1309 / 1507 / CF-18 / 62200-2RS / NA4905", function: "Soporte y guía del mecanismo de transmisión." },
+            { name: "Colector de polvo / aspiradora", system: "Otros", type: "Mecánico", criticality: "Alta", reference: "EDC series (Kaixinlong)", function: "Aspira el polvo del proceso y las cápsulas de desecho." },
+            { name: "Malla / filtro del colector", system: "Otros", type: "Consumible", criticality: "Alta", reference: "—", function: "Filtra el polvo aspirado; limpiar periódicamente." },
+            { name: "Lubricantes (set)", system: "Otros", type: "Consumible", criticality: "Media", reference: "STABYL 300 AL2 · Fuchs GERALYN 1 · N4B GB443-84 · ZL2/ZLD SY1412-75", function: "Lubricación de levas, guías, cadena, rodamientos y reductor." }
           ],
           maintenanceTasks: [
-            { name: "Limpieza filtros de vacío", system: "Vacío", frequency: "Semanal", type: "Preventivo", status: "Por validar", acceptance: "Separación estable, vacío estable." },
-            { name: "Inspección visual general", system: "General", frequency: "Diario", type: "Rutina", status: "Por validar", acceptance: "Sin fugas, ruidos, alarmas." },
-            { name: "Verificación nivel de vacío", system: "Vacío", frequency: "Diario", type: "Rutina", status: "Por validar", acceptance: "Vacío dentro de -0.03 a -0.06 MPa." },
-            { name: "Limpieza aguja de molde", system: "Limpieza", frequency: "Diario", type: "Rutina", status: "Por validar", acceptance: "Aguja sin obstrucciones." },
-            { name: "Limpieza de sensores", system: "Control", frequency: "Diario", type: "Rutina", status: "Por validar", acceptance: "Lectura estable y sin residuos." },
-            { name: "Lubricación de punzones", system: "Dosificación", frequency: "Semanal", type: "Preventivo", status: "Por validar", acceptance: "Movimiento suave sin desgaste." },
-            { name: "Revisión mangueras y racores", system: "Neumática", frequency: "Mensual", type: "Preventivo", status: "Por validar", acceptance: "Sin fugas, conexiones firmes." },
-            { name: "Calibración peso de llenado", system: "Dosificación", frequency: "Por lote", type: "Control calidad", status: "Por validar", acceptance: "Peso dentro de ±2.5% a ±5%." },
-            { name: "Limpieza general de moldes", system: "Moldes", frequency: "Semanal", type: "Preventivo", status: "Por validar", acceptance: "Sin polvo ni residuos." },
-            { name: "Revisión sistema de rechazo", system: "Rechazo", frequency: "Mensual", type: "Preventivo", status: "Por validar", acceptance: "Rechazo preciso sin falsos positivos." },
-            { name: "Revisión de interruptores de puerta", system: "Seguridad", frequency: "Mensual", type: "Preventivo", status: "Por validar", acceptance: "Interlock operativo y parada automática al abrir." },
-            { name: "Revisión de cadena y tensión", system: "Transmisión", frequency: "Mensual", type: "Preventivo", status: "Por validar", acceptance: "Sin elongación crítica ni pérdida de sincronía." },
-            { name: "Limpieza de filtro y ducto del colector", system: "Colector de polvo", frequency: "Semanal", type: "Preventivo", status: "Por validar", acceptance: "Extracción estable y sin ruido anormal." }
+            { name: "Limpieza: retirar restos y limpiar la cubierta protectora (solo aspiradora)", system: "Limpieza", frequency: "Diario", type: "Limpieza", acceptance: "Sin restos; usar únicamente aspiradora (manual)." },
+            { name: "Inspección visual general y verificación del nivel de vacío en el manómetro", system: "General", frequency: "Diario", type: "Inspección", acceptance: "Vacío 0,02–0,04 MPa; sin fugas, ruidos ni alarmas." },
+            { name: "Limpieza de sensores con paño suave sin pelusa", system: "Control", frequency: "Diario", type: "Limpieza", acceptance: "Lectura estable, sin residuos." },
+            { name: "Limpiar la zona de descarga de cápsulas vacías al terminar", system: "Alimentación", frequency: "Diario", type: "Limpieza", acceptance: "Sin atascos para el siguiente lote." },
+            { name: "Limpieza a fondo de moldes y estaciones (solo aspiradora)", system: "Moldes", frequency: "Semanal", type: "Limpieza", acceptance: "Sin polvo ni residuos." },
+            { name: "Revisar mangueras, racores y fugas de vacío/aire", system: "Neumática", frequency: "Semanal", type: "Inspección", acceptance: "Sin fugas; conexiones firmes." },
+            { name: "Inspeccionar filtro/malla del colector de polvo y tubo de succión", system: "Aspiración", frequency: "Semanal", type: "Limpieza", acceptance: "Sin obstrucción; sin ruido anormal de la aspiradora." },
+            { name: "Lubricar bloqueos de torque de estaciones (rechazo, cierre, dispensación)", system: "Lubricación", frequency: "Semanal", type: "Lubricación", acceptance: "STABYL 300 AL 2; movimiento suave." },
+            { name: "Comprobar fijaciones: pernos, tornillos, tuercas y autoblocantes", system: "Estructura", frequency: "Mensual", type: "Inspección", acceptance: "Sin aflojamiento ni desprendimiento." },
+            { name: "Revisar tensión y estado de la correa de distribución y la cadena", system: "Transmisión", frequency: "Mensual", type: "Inspección", acceptance: "Bien tensada y sin daños." },
+            { name: "Limpiar filtro de vacío, reemplazarlo y limpiar el interruptor de presión", system: "Vacío", frequency: "Mensual", type: "Reemplazo", acceptance: "Filtro limpio; sin fugas." },
+            { name: "Probar el interruptor de la puerta (enclavamiento de seguridad)", system: "Seguridad", frequency: "Mensual", type: "Inspección", acceptance: "Parada automática al abrir la guarda." },
+            { name: "Comprobar equipos eléctricos sin daños (con LOTO, máquina sin tensión)", system: "Eléctrico", frequency: "Mensual", type: "Inspección", acceptance: "Sin daños; intervención sin tensión." },
+            { name: "Lubricar leva radial (STABYL 300 AL2) y riel guía / propulsor (Fuchs GERALYN 1)", system: "Lubricación", frequency: "Mensual", type: "Lubricación", acceptance: "1–2 disparos por punto." },
+            { name: "Comprobar y rellenar el aceite del reductor", system: "Reductor", frequency: "Trimestral", type: "Inspección", acceptance: "Nivel correcto (aceite según fabricante del reductor)." },
+            { name: "Lubricación general (Tabla 4.1): cadena, rodamientos, levas, caja de distribución", system: "Lubricación", frequency: "Trimestral", type: "Lubricación", acceptance: "N4B GB443-84 · ZL2/ZLD SY1412-75 aplicados." },
+            { name: "Verificar holguras de dosificación: disco–almohadilla y raspador de polvo", system: "Dosificación", frequency: "Trimestral", type: "Ajuste", acceptance: "0,05–0,15 mm y 0,05–0,1 mm." },
+            { name: "Verificar vacío, holgura del asiento de succión y altura del detector de polvo", system: "Vacío", frequency: "Trimestral", type: "Ajuste", acceptance: "Asiento 1,8–2,5 mm; detector 18–28 mm." },
+            { name: "Calibrar moldes: concentricidad de orificios y separación entre módulos", system: "Moldes", frequency: "Semestral", type: "Ajuste", acceptance: "Concentricidad 0,01–0,02 mm; separación 0,2–0,3 mm." },
+            { name: "Revisar rodamientos por zona (Tabla 4.3) y reemplazar los desgastados", system: "Rodamientos", frequency: "Semestral", type: "Reemplazo", acceptance: "Sin juego ni ruido." },
+            { name: "Revisar punzones y disco dosificador por desgaste", system: "Dosificación", frequency: "Semestral", type: "Inspección", acceptance: "Dosis estable; sin marcas ni mellas." },
+            { name: "Cambiar el aceite del reductor", system: "Reductor", frequency: "Semestral", type: "Reemplazo", acceptance: "Aceite renovado según fabricante." },
+            { name: "Sustituir la batería de respaldo del PLC", system: "Control", frequency: "Anual", type: "Reemplazo", acceptance: "Cada 12 meses (indicado por el manual)." },
+            { name: "Inspección profesional de seguridad y del sistema de eliminación de sustancias peligrosas", system: "Seguridad", frequency: "Anual", type: "Inspección", acceptance: "Verificado y registrado en certificado (manual)." }
           ],
           failureModes: [
             {
@@ -3937,10 +4274,12 @@
               <input type="text" id="spares-search-input" placeholder="Buscar repuesto, sistema o función..." onkeyup="filterSpares()" />
               <div class="spares-filter-tags">
                 <button class="filter-tag-btn active" onclick="filterSparesCategory('All', this)">Todos</button>
+                <button class="filter-tag-btn" onclick="filterSparesCategory('Eléctrico', this)">Eléctrico</button>
                 <button class="filter-tag-btn" onclick="filterSparesCategory('Dosificación', this)">Dosificación</button>
                 <button class="filter-tag-btn" onclick="filterSparesCategory('Vacío', this)">Vacío</button>
                 <button class="filter-tag-btn" onclick="filterSparesCategory('Moldes', this)">Moldes</button>
                 <button class="filter-tag-btn" onclick="filterSparesCategory('Transmisión', this)">Transmisión</button>
+                <button class="filter-tag-btn" onclick="filterSparesCategory('Rodamientos', this)">Rodamientos</button>
                 <button class="filter-tag-btn" onclick="filterSparesCategory('Otros', this)">Otros</button>
               </div>
             </div>
@@ -3950,6 +4289,7 @@
                 <thead>
                   <tr>
                     <th>Nombre de Repuesto</th>
+                    <th>Referencia / Modelo</th>
                     <th>Sistema</th>
                     <th>Tipo</th>
                     <th>Criticidad</th>
@@ -3958,8 +4298,9 @@
                 </thead>
                 <tbody>
                   ${(machine.spareParts ?? []).map((p) => `
-                    <tr class="spare-row" data-system="${p.system}" data-name="${p.name.toLowerCase()}" data-func="${p.function.toLowerCase()}">
+                    <tr class="spare-row" data-system="${p.system}" data-name="${p.name.toLowerCase()}" data-func="${p.function.toLowerCase()}" data-ref="${(p.reference ?? '').toLowerCase()}">
                       <td><strong>${p.name}</strong></td>
+                      <td style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.82rem">${p.reference ?? "—"}</td>
                       <td><span class="system-badge">${p.system}</span></td>
                       <td><span class="type-badge">${p.type}</span></td>
                       <td><span class="criticality-badge criticality-${p.criticality.toLowerCase().replace(' ', '-')}">${p.criticality}</span></td>
@@ -4018,14 +4359,15 @@
         const query = normalize(document.getElementById('spares-search-input')?.value ?? "");
         const activeBtn = document.querySelector('.filter-tag-btn.active');
         const category = activeBtn ? activeBtn.textContent.trim() : 'Todos';
-        const knownCats = ['Dosificación', 'Vacío', 'Moldes', 'Transmisión'];
+        const knownCats = ['Eléctrico', 'Dosificación', 'Vacío', 'Moldes', 'Transmisión', 'Rodamientos'];
         const rows = document.querySelectorAll('#spares-table tbody tr');
         rows.forEach(row => {
           const name = normalize(row.getAttribute('data-name') ?? "");
           const func = normalize(row.getAttribute('data-func') ?? "");
+          const ref = normalize(row.getAttribute('data-ref') ?? "");
           const system = row.getAttribute('data-system') ?? '';
           const systemNorm = normalize(system);
-          const textMatch = !query || name.includes(query) || func.includes(query) || systemNorm.includes(query);
+          const textMatch = !query || name.includes(query) || func.includes(query) || ref.includes(query) || systemNorm.includes(query);
           let catMatch = true;
           if (category !== 'Todos' && category !== 'All') {
             if (category === 'Otros') {
@@ -4057,7 +4399,9 @@
               <button class="maint-tab-btn" onclick="filterMaint('Diario', this)">Diario</button>
               <button class="maint-tab-btn" onclick="filterMaint('Semanal', this)">Semanal</button>
               <button class="maint-tab-btn" onclick="filterMaint('Mensual', this)">Mensual</button>
-              <button class="maint-tab-btn" onclick="filterMaint('Otros', this)">Por Lote / Otros</button>
+              <button class="maint-tab-btn" onclick="filterMaint('Trimestral', this)">Trimestral</button>
+              <button class="maint-tab-btn" onclick="filterMaint('Semestral', this)">Semestral</button>
+              <button class="maint-tab-btn" onclick="filterMaint('Anual', this)">Anual</button>
             </div>
 
             <div class="table-container">
@@ -4405,6 +4749,8 @@
       // ── Guide Groups (ID-based, not fragile index-based) ──────────────────────
       const GUIDE_GROUPS = {
         njp3500: [
+          { title: "¿Cómo funciona?", hint: "Qué hace la máquina, cómo lo hace paso a paso y el flujo entradas–salidas",
+            ids: ["como-funciona","flujo-es","indicadores"] },
           { title: "Ficha técnica", hint: "Identificación, especificaciones y variables críticas de operación",
             ids: ["id-general","parametros","variables-criticas"] },
           { title: "Proceso de operación", hint: "Cómo funciona la máquina: secuencia completa y cada estación",
@@ -4413,8 +4759,8 @@
             ids: ["instalacion-arranque","diagrama-linea","mandos-hmi"] },
           { title: "Sistemas y componentes", hint: "Tabla de sistemas, componentes eléctricos y rodamientos por zona",
             ids: ["sistemas-principales","electrico","rodamientos"] },
-          { title: "Ajustes y mantenimiento", hint: "Tolerancias críticas, cambio de formato, limpieza y lubricación",
-            ids: ["mantenimiento-limpieza","mantenimiento","lubricacion","cambio-formato"] },
+          { title: "Ajustes y mantenimiento", hint: "Plan por niveles, tolerancias críticas, cambio de formato, limpieza y lubricación",
+            ids: ["plan-mantenimiento","mantenimiento-limpieza","mantenimiento","lubricacion","cambio-formato"] },
           { title: "Diagnóstico y fallas", hint: "Fallas comunes, síntomas, verificaciones, correcciones y seguridad",
             ids: ["fallas-comunes","repuestos-criticos","seguridad"] },
           { title: "Datos por confirmar", hint: "Información pendiente de validar en planta con el equipo real",
@@ -4448,10 +4794,7 @@
               <span>${section.title}</span>
             </summary>
             <div class="guide-accordion__body" id="gbody-${section.id}">
-              <div class="section-edit-bar">
-                <button class="section-edit-btn" type="button" data-start-edit="${section.id}" data-machine-id="${machineId}">✎ Editar sección</button>
-              </div>
-              ${content}
+              <div class="editable-content" data-editable data-edit-store="section" data-section-id="${section.id}" data-machine-id="${machineId}">${content}</div>
             </div>
           </details>
         `;
@@ -4807,90 +5150,96 @@
 
       // ── Edit mode ─────────────────────────────────────────────────────────────
       let isEditMode = false;
-      const sectionEditCache = {};
+      let editSnapshot = null;
+      const editBaselines = new Map();
       const editModeBar = document.getElementById("editModeBar");
       const editMachineBtn = document.getElementById("editMachineBtn");
 
+      // Activa/desactiva la edición directa sobre el texto de la guía
+      function setContentEditable(on) {
+        if (on) editBaselines.clear();
+        document.querySelectorAll("#guidePanels [data-editable]").forEach((el) => {
+          el.contentEditable = on ? "true" : "false";
+          el.spellcheck = on;
+          // Guardamos el estado inicial para saber qué cambió de verdad
+          if (on && el.dataset.sectionId) editBaselines.set(el.dataset.sectionId, el.innerHTML.trim());
+        });
+        // Mientras se edita, dejamos todos los acordeones abiertos
+        document.querySelectorAll("#guidePanels details.guide-accordion").forEach((d) => {
+          if (on) {
+            d.dataset.prevOpen = d.open ? "1" : "0";
+            d.open = true;
+          } else if (d.dataset.prevOpen !== undefined) {
+            d.open = d.dataset.prevOpen === "1";
+            delete d.dataset.prevOpen;
+          }
+        });
+      }
+
+      // Guarda en localStorage SOLO las secciones que el usuario cambió
+      function persistInlineEdits() {
+        const edits = loadMachineEdits();
+        document.querySelectorAll('#guidePanels [data-editable][data-edit-store="section"]').forEach((el) => {
+          const mid = el.dataset.machineId;
+          const sid = el.dataset.sectionId;
+          if (!mid || !sid) return;
+          const current = el.innerHTML.trim();
+          const baseline = editBaselines.get(sid);
+          if (baseline !== undefined && current === baseline) return; // sin cambios → no se guarda
+          if (!edits[mid]) edits[mid] = {};
+          edits[mid][sid] = current;
+        });
+        saveMachineEditsToStorage(edits);
+      }
+
       function toggleEditMode(forceOff) {
-        isEditMode = forceOff === true ? false : !isEditMode;
+        const turningOn = forceOff === true ? false : !isEditMode;
+
+        if (turningOn) {
+          // Copia de seguridad para poder cancelar sin perder lo anterior
+          editSnapshot = JSON.stringify(loadMachineEdits());
+          // Llevar al usuario directo a la guía editable
+          const guideTabBtn = guideTabs.querySelector('[data-profile-tab="guide"]');
+          if (guideTabBtn) guideTabBtn.click();
+        }
+
+        isEditMode = turningOn;
         document.body.classList.toggle("is-edit-mode", isEditMode);
         editModeBar.hidden = !isEditMode;
         editMachineBtn.textContent = isEditMode ? "Ver ficha" : "Editar equipo";
+        setContentEditable(isEditMode);
+
+        if (turningOn) {
+          const first = document.querySelector('#guidePanels [data-editable]');
+          if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
       }
 
-      function buildBodyWithBar(sectionId, machineId, contentHtml) {
-        return `<div class="section-edit-bar"><button class="section-edit-btn" type="button" data-start-edit="${sectionId}" data-machine-id="${machineId}">✎ Editar sección</button></div>${contentHtml}`;
-      }
-
-      function startSectionEdit(machineId, sectionId) {
-        const body = document.getElementById(`gbody-${sectionId}`);
-        if (!body || body.dataset.editing === "true") return;
-        body.dataset.editing = "true";
-        body.dataset.machineId = machineId;
-
-        // Strip the edit bar so only the actual section content goes into the textarea
-        const bar = body.querySelector(".section-edit-bar");
-        const contentHtml = bar ? body.innerHTML.replace(bar.outerHTML, "").trim() : body.innerHTML;
-        sectionEditCache[sectionId] = contentHtml;
-
-        const textarea = document.createElement("textarea");
-        textarea.className = "section-editor";
-        textarea.value = contentHtml;
-
-        const actions = document.createElement("div");
-        actions.className = "section-editor-actions";
-        actions.innerHTML = `
-          <button class="button button--light" type="button" data-cancel-edit="${sectionId}">Cancelar</button>
-          <button class="button button--dark" type="button" data-save-edit="${sectionId}" data-machine-id="${machineId}">Guardar sección</button>`;
-
-        body.innerHTML = "";
-        body.appendChild(textarea);
-        body.appendChild(actions);
-        textarea.focus();
-      }
-
-      function cancelSectionEdit(sectionId) {
-        const body = document.getElementById(`gbody-${sectionId}`);
-        if (!body) return;
-        const mid = body.dataset.machineId ?? "";
-        body.innerHTML = buildBodyWithBar(sectionId, mid, sectionEditCache[sectionId] ?? "");
-        delete body.dataset.editing;
-        delete sectionEditCache[sectionId];
-      }
-
-      function saveSectionEdit(machineId, sectionId) {
-        const body = document.getElementById(`gbody-${sectionId}`);
-        if (!body) return;
-        const textarea = body.querySelector(".section-editor");
-        if (!textarea) return;
-        const newContent = textarea.value;
-        const edits = loadMachineEdits();
-        if (!edits[machineId]) edits[machineId] = {};
-        edits[machineId][sectionId] = newContent; // pure content, no edit bar
-        saveMachineEditsToStorage(edits);
-        body.innerHTML = buildBodyWithBar(sectionId, machineId, newContent);
-        delete body.dataset.editing;
-        delete sectionEditCache[sectionId];
-        body.style.transition = "background 0.4s";
-        body.style.background = "#f0fdf4";
-        setTimeout(() => { body.style.background = ""; }, 900);
-      }
-
-      guidePanels.addEventListener("click", (e) => {
-        const startBtn = e.target.closest("[data-start-edit]");
-        if (startBtn) { e.stopPropagation(); startSectionEdit(startBtn.dataset.machineId, startBtn.dataset.startEdit); return; }
-        const cancelBtn = e.target.closest("[data-cancel-edit]");
-        if (cancelBtn) { cancelSectionEdit(cancelBtn.dataset.cancelEdit); return; }
-        const saveBtn = e.target.closest("[data-save-edit]");
-        if (saveBtn) { saveSectionEdit(saveBtn.dataset.machineId, saveBtn.dataset.saveEdit); return; }
-      });
-
-      document.getElementById("cancelEditMode").addEventListener("click", () => {
-        Object.keys(sectionEditCache).forEach(id => cancelSectionEdit(id));
+      function finishEdit(save) {
+        if (save) {
+          persistInlineEdits();
+        } else if (editSnapshot !== null) {
+          // Restaurar lo que había antes de entrar a edición y volver a pintar
+          saveMachineEditsToStorage(JSON.parse(editSnapshot));
+          const machine = machines.find((m) => m.id === selectedId);
+          if (machine) renderProfile(machine);
+          const guideTabBtn = guideTabs.querySelector('[data-profile-tab="guide"]');
+          if (guideTabBtn) guideTabBtn.click();
+        }
+        const wasSave = save;
+        editSnapshot = null;
         toggleEditMode(true);
-      });
-      document.getElementById("saveEditMode").addEventListener("click", () => toggleEditMode(true));
-      editMachineBtn.addEventListener("click", toggleEditMode);
+        if (wasSave) {
+          document.querySelectorAll('#guidePanels [data-editable]').forEach((el) => {
+            el.classList.add("edit-saved-flash");
+            setTimeout(() => el.classList.remove("edit-saved-flash"), 1000);
+          });
+        }
+      }
+
+      document.getElementById("cancelEditMode").addEventListener("click", () => finishEdit(false));
+      document.getElementById("saveEditMode").addEventListener("click", () => finishEdit(true));
+      editMachineBtn.addEventListener("click", () => toggleEditMode());
 
       // ── Diagnostic Assistant ──────────────────────────────────────────────────
       const assistantPanel = document.getElementById("assistantPanel");
