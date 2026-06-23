@@ -1931,6 +1931,31 @@
       .src-tag { font-size: 0.68rem; font-weight: 800; padding: 1px 7px; border-radius: 999px; vertical-align: middle; white-space: nowrap; }
       .src-manual { background: #eef4ff; color: #2563eb; }
       .src-reco { background: #fff3e8; color: #b45309; }
+
+      /* Tarjetas de falla expandibles (pestaña Fallas) */
+      .failures-list { display: flex; flex-direction: column; gap: 10px; }
+      .failure-card { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+      .failure-card[open] { box-shadow: var(--shadow-card); border-color: var(--line-strong); }
+      .failure-card__summary { list-style: none; cursor: pointer; padding: 14px 16px; }
+      .failure-card__summary::-webkit-details-marker { display: none; }
+      .failure-card__top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .failure-card__name { font-weight: 800; font-size: 1rem; }
+      .failure-card__sym { color: var(--muted); font-size: 0.86rem; margin-top: 5px; }
+      .failure-card__steps { color: var(--blue); font-weight: 700; }
+      .failure-card__body { padding: 8px 16px 16px; border-top: 1px solid var(--line); margin-top: 6px; }
+      .origin-badge { font-size: 0.7rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; margin-left: auto; }
+      .origin-badge--manual { background: #e0f2fe; color: #0369a1; }
+      .origin-badge--user { background: #fef3c7; color: #b45309; }
+
+      /* Usabilidad móvil: tablas con scroll horizontal en vez de cortar el contenido */
+      @media (max-width: 760px) {
+        .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .premium-table, .lubrication-table { min-width: 640px; }
+      }
+
+      /* Navegación lateral: área tocable >=44px y asistente destacado */
+      .side-nav__button { width: 44px; height: 44px; }
+      #navAssistant { color: var(--orange); }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -2192,13 +2217,13 @@
   </head>
   <body>
     <nav class="side-nav" aria-label="Navegación principal">
-      <button class="side-nav__button is-active" type="button" data-nav-home aria-label="Inicio">
+      <button class="side-nav__button is-active" type="button" data-nav-home aria-label="Inicio" title="Inicio">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3V10.5Z"/></svg>
       </button>
-      <button class="side-nav__button" type="button" data-nav-search aria-label="Búsqueda">
+      <button class="side-nav__button" type="button" data-nav-search aria-label="Búsqueda" title="Buscar equipos">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg>
       </button>
-      <button class="side-nav__button" type="button" id="navAssistant" aria-label="Asistente técnico">
+      <button class="side-nav__button" type="button" id="navAssistant" aria-label="Asistente técnico" title="Asistente técnico (diagnóstico)">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       </button>
     </nav>
@@ -2382,7 +2407,7 @@
             <input type="password" id="assistantApiKeyInput" placeholder="API key de Anthropic (claude.ai → Account → API keys)" />
             <button class="button button--light" id="assistantSaveApiBtn" type="button" style="height:32px;padding:0 10px;font-size:0.78rem">Guardar</button>
           </div>
-          <p class="assistant-api-note">La clave se guarda localmente. Se usa claude-haiku para las respuestas.</p>
+          <p class="assistant-api-note">⚠ La clave queda guardada y accesible en este navegador/equipo. Usa una clave dedicada con límite de gasto bajo. Se usa claude-haiku para las respuestas.</p>
         </div>
       </div>
     </aside>
@@ -2418,10 +2443,10 @@
             brand: "Canaan / Kaixinlong",
             serialNumber: "260201",
             year: "202602",
-            voltage: "380V 60Hz",
+            voltage: "380 V · 60 Hz (confirmado en placa)",
             power: "10.5 kW (manual) / 11.5 kW (ficha comercial)",
             weight: "2.200 kg",
-            dimensions: "1555 × 1165 × 2040 mm (manual) / 1435(+550) × 1248(+280) × 1960 mm (ficha comercial)"
+            dimensions: "1555 × 1185 × 2040 mm (manual) / 1435(+550) × 1248(+280) × 1960 mm (ficha comercial)"
           },
           guideSections: [
             {
@@ -2440,8 +2465,18 @@
                     <p><strong>Proceso:</strong> Orientación, separación, llenado, rechazo, cierre, descarga y limpieza de moldes</p>
                     <p><strong>Producto:</strong> Cápsulas duras con polvo, gránulo, pellets o microgránulos</p>
                     <p><strong>Área sugerida:</strong> Producción / Encapsulado · <strong>Criticidad:</strong> Alta</p>
-                    <p><strong>Estado documental:</strong> Manual principal ya leído por OCR y consolidado en esta ficha.</p>
+                    <p><strong>Estado documental:</strong> Manual principal consolidado en esta ficha.</p>
                   </div>
+                </div>
+                <h4>Datos confirmados en placa <span class="src-tag src-manual">PLACA</span></h4>
+                <div class="spec-grid">
+                  <div class="spec-item"><span class="spec-item__label">Modelo</span><span class="spec-item__value">NJP-3500</span></div>
+                  <div class="spec-item"><span class="spec-item__label">N° de serie</span><span class="spec-item__value">260201</span></div>
+                  <div class="spec-item"><span class="spec-item__label">Voltaje</span><span class="spec-item__value">380 V · 60 Hz</span></div>
+                  <div class="spec-item"><span class="spec-item__label">Eficiencia</span><span class="spec-item__value">3500 cáps/min</span></div>
+                  <div class="spec-item"><span class="spec-item__label">Peso</span><span class="spec-item__value">2200 kg</span></div>
+                  <div class="spec-item"><span class="spec-item__label">Fecha de fabricación</span><span class="spec-item__value">2026.02</span></div>
+                  <div class="spec-item"><span class="spec-item__label">Fabricante</span><span class="spec-item__value">Ruian Kaixinlong Pharmaceutical Machinery Works, China</span></div>
                 </div>
               `
             },
@@ -2465,7 +2500,7 @@
                   <div class="spec-item"><span class="spec-item__label">Potencia manual</span><span class="spec-item__value">10.5 kW</span></div>
                   <div class="spec-item"><span class="spec-item__label">Potencia ficha comercial</span><span class="spec-item__value">11.5 kW</span></div>
                   <div class="spec-item"><span class="spec-item__label">Peso</span><span class="spec-item__value">2.200 kg</span></div>
-                  <div class="spec-item"><span class="spec-item__label">Dimensiones manual</span><span class="spec-item__value">1555 × 1165 × 2040 mm</span></div>
+                  <div class="spec-item"><span class="spec-item__label">Dimensiones manual</span><span class="spec-item__value">1555 × 1185 × 2040 mm</span></div>
                   <div class="spec-item"><span class="spec-item__label">Dimensiones ficha comercial</span><span class="spec-item__value">1435(+550) × 1248(+280) × 1960 mm</span></div>
                   <div class="spec-item"><span class="spec-item__label">Temperatura ambiente</span><span class="spec-item__value">21 ± 3 °C</span></div>
                   <div class="spec-item"><span class="spec-item__label">Humedad relativa</span><span class="spec-item__value">45–50 %</span></div>
@@ -2607,7 +2642,7 @@
               content: `
                 <p>Una <strong>varilla o sistema de rechazo</strong> expulsa cápsulas que no fueron correctamente abiertas, llenadas o posicionadas.</p>
                 <p><strong>Cápsulas defectuosas:</strong> sin cuerpo separado, sin polvo, mal colocadas, deformadas, rotas o parcialmente cerradas.</p>
-                <p><strong>Ajuste del manual:</strong> holgura de 1.5–2 mm entre empujador/manija y plano inferior del molde superior; 1–1.5 mm entre cámara de aire y plano superior del módulo superior.</p>
+                <p><strong>Ajuste del manual (p39):</strong> holgura de <strong>1,5–2 mm</strong> entre el plano inferior de la cámara de vacío y el plano superior del <strong>módulo inferior</strong>, ajustable con la varilla de tracción del molde inferior. Es la única holgura que da el manual para esta estación.</p>
                 <p>Si esta estación se ensucia, desajusta o pierde sincronía, puede rechazar cápsulas buenas o dejar pasar cápsulas malas.</p>
               `
             },
@@ -2793,7 +2828,7 @@
                   <tr><td>Cápsulas no se separan</td><td>Vacío / Alimentación</td><td>Cápsulas sin abrir, paradas</td><td>Vacío, asiento de succión 1.8–2.5 mm, filtros, mangueras, agua bomba SK</td></tr>
                   <tr><td>Variación de peso</td><td>Dosificación</td><td>Peso fuera de rango</td><td>Disco 0.05–0.15 mm, bloqueador 0.05–0.1 mm, detector 18–28 mm, punzones, fluidez/humedad</td></tr>
                   <tr><td>Cápsulas rotas o roce</td><td>Cierre / Moldes</td><td>Dañadas, ruido, marcas</td><td>Alineación, concentricidad 0.01–0.02 mm, altura de cierre, calidad de cápsulas</td></tr>
-                  <tr><td>Rechazo excesivo</td><td>Rechazo / Vacío</td><td>Muchas al descarte</td><td>Sincronía, holguras 1.5–2 mm y 1–1.5 mm, vacío, posicionamiento</td></tr>
+                  <tr><td>Rechazo excesivo</td><td>Rechazo / Vacío</td><td>Muchas al descarte</td><td>Sincronía, holgura 1,5–2 mm (cámara de vacío vs módulo inferior), vacío, posicionamiento</td></tr>
                   <tr><td>Atascos en molde</td><td>Limpieza / Moldes</td><td>Paradas por atasco</td><td>Aguja limpieza, polvo acumulado, desgaste, limpieza de torreta</td></tr>
                   <tr><td>Ruido anormal en aspiración</td><td>Colector de polvo</td><td>Sonido raro, baja extracción</td><td>Filtro y tubería de aspiración obstruidos</td></tr>
                 </table>
@@ -2855,12 +2890,12 @@
               content: `
                 <table class="crit-table">
                   <tr><th>Zona</th><th>Referencia</th><th>Cantidad</th></tr>
-                  <tr><td>Estaciones</td><td>Linear rolling bearing zxt 16 26 36</td><td>96</td></tr>
+                  <tr><td>Estaciones</td><td>Linear rolling bearing zxl 16 26 36</td><td>96</td></tr>
                   <tr><td>Estaciones</td><td>6302</td><td>12</td></tr>
                   <tr><td>Estaciones</td><td>CF-6</td><td>12</td></tr>
-                  <tr><td>Alimentación de cápsulas</td><td>zxt 16 26 36 / zxt 12 22 32</td><td>8 / 8</td></tr>
+                  <tr><td>Alimentación de cápsulas</td><td>zxl 16 26 36 / zxl 12 22 32</td><td>8 / 8</td></tr>
                   <tr><td>Alimentación de cápsulas</td><td>625 / 626 / 608 / 6004</td><td>2 / 2 / 4 / 4</td></tr>
-                  <tr><td>Columna de llenado</td><td>zxt 50 80 100</td><td>4</td></tr>
+                  <tr><td>Columna de llenado</td><td>zxl 50 80 100</td><td>4</td></tr>
                   <tr><td>Transmisión</td><td>zxt 25 40 58 / zxt 12 22 32</td><td>16 / 3</td></tr>
                   <tr><td>Transmisión</td><td>1309 / 1507 / CF-18 / 62200-2RS / NA4905 / NA4906</td><td>2 / OCR parcial / 7 / 8 / 10 / 2</td></tr>
                 </table>
@@ -2876,7 +2911,7 @@
                 <ul>
                   <li><strong>Presión del aire comprimido:</strong> el manual no da el valor (MPa/bar) ni el consumo neumático → medir el suministro real en planta.</li>
                   <li><strong>Aceite del reductor:</strong> solo dice “según el fabricante del lubricante”; falta tipo, viscosidad y volumen → conseguir la ficha del reductor SEW.</li>
-                  <li><strong>Acometida eléctrica:</strong> tensión, corriente y frecuencia reales no documentadas (el esquema eléctrico p74–75 está poco legible) → validar en placa y en el armario.</li>
+                  <li><strong>Acometida eléctrica:</strong> tensión confirmada en placa (<strong>380 V · 60 Hz</strong>); falta confirmar corriente/amperaje en el armario (esquema p74–75 poco legible).</li>
                   <li><strong>Códigos de alarma del PLC/HMI:</strong> no hay tabla de fallas codificadas → pedir el listado de alarmas al fabricante.</li>
                   <li><strong>Rodamientos “zxl/zxt”:</strong> es nomenclatura interna del fabricante → conseguir la equivalencia comercial estándar para comprarlos.</li>
                   <li><strong>Pares de apriete (torque):</strong> no se detallan para la tornillería (M3, M5, M6, M8, M12, M16) → definir tabla de torques.</li>
@@ -2886,7 +2921,8 @@
                 </ul>
                 <h4>Confirmar contra el equipo físico</h4>
                 <ul>
-                  <li><strong>Placa física:</strong> modelo, serial y año reales · <strong>Potencia:</strong> 10,5 kW (manual) vs ficha comercial.</li>
+                  <li><strong>Placa:</strong> ✓ confirmada — NJP-3500, serie 260201, 380 V · 60 Hz, 2200 kg, fab. 2026.02 (ver “Identificación general”).</li>
+                  <li><strong>Potencia:</strong> 10,5 kW (manual) vs ficha comercial → confirmar amperaje en el armario.</li>
                   <li><strong>Herramental instalado:</strong> tallas de moldes y punzones realmente montados.</li>
                   <li><strong>Plano eléctrico y neumático</strong> legibles y <strong>lista de repuestos con códigos comerciales</strong>.</li>
                 </ul>
@@ -3148,6 +3184,363 @@
                 </ul>
                 <div class="alert-box">Regla práctica: el plan preventivo existe para que las fallas <strong>no</strong> aparezcan. Si una falla igual aparece seguido, el plan de ese sistema se quedó corto → acórtale el intervalo y revisa la causa raíz.</div>
               `
+            },
+            {
+              id: "loto",
+              title: "Bloqueo y consignación de energía (LOTO)",
+              content: `
+<div class="alert-box">⚠ NO intervengas la encapsuladora NJP-3500 sin completar antes TODO este procedimiento. Solo personal capacitado y autorizado puede realizar instalación, mantenimiento o reparación. Si el trabajo es eléctrico o sobre partes conductoras, debe hacerse SIEMPRE acompañado de una segunda persona que pueda accionar el paro de emergencia.</div>
+
+<p>Este procedimiento de Bloqueo y Consignación de Energía (LOTO) se ejecuta <strong>antes de cualquier mantenimiento, reparación, limpieza interna o cambio de formato</strong>. Sigue los pasos en orden. No saltes ninguno. La máquina tiene varias fuentes de energía peligrosa que debes neutralizar: energía eléctrica, vacío y aire comprimido/presión, y energía mecánica almacenada en partes móviles.</p>
+
+<table class="crit-table"><tbody>
+<tr><th>Fuente de energía</th><th>Cómo se neutraliza en este procedimiento</th></tr>
+<tr><td>Eléctrica (motor SEW, variador, PLC, 10,5 kW)</td><td>Apagar interruptor principal + desconectar conector principal + bloquear armario</td></tr>
+<tr><td>Vacío (bomba anillo de agua serie SK, 0,02-0,04 MPa)</td><td>Liberar el vacío y abrir a presión atmosférica</td></tr>
+<tr><td>Aire comprimido / presión</td><td>Asegurar el generador de presión y liberar la presión almacenada <span class="src-tag src-reco">VALIDAR EN PLANTA</span> el valor de presión</td></tr>
+<tr><td>Mecánica almacenada / térmica</td><td>Detener el movimiento, fijar partes móviles y dejar enfriar componentes calientes</td></tr>
+</tbody></table>
+
+<h3>A) Consignación: dejar la máquina sin energía</h3>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Parada normal de la máquina</span></div>
+<div class="step-card__row"><span>Acción</span><span>Detén la máquina con el botón de Parada del HMI y espera a que el plato giratorio y todos los mecanismos queden completamente quietos. No uses el paro de emergencia como parada de rutina.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Movimiento totalmente detenido en la mesa giratoria, alimentador y dosificador antes de continuar.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Aislar la unidad de potencia</span></div>
+<div class="step-card__row"><span>Acción</span><span>Aísla la unidad de potencia antes de intervenir. Asegúrate de que la máquina no pueda encenderse de forma inesperada durante el trabajo.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Que ninguna persona pueda volver a poner la máquina en marcha mientras se trabaja (origen: aislamiento previo a mantenimiento, p5 / 2.4).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">3</span><span class="step-card__title">Apagar el interruptor principal</span></div>
+<div class="step-card__row"><span>Acción</span><span>Lleva el interruptor principal a la posición OFF (apagado). Este es el corte de la energía eléctrica de la máquina.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Interruptor principal en OFF; el HMI y los pilotos de la máquina se apagan.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">4</span><span class="step-card__title">Desconectar el conector principal</span></div>
+<div class="step-card__row"><span>Acción</span><span>Desconecta físicamente el conector principal de alimentación, de modo que la máquina quede separada de la red. Apagar el interruptor por sí solo no basta.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Conector principal desenchufado/desacoplado (origen: 2.4, p5).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">5</span><span class="step-card__title">Cerrar con llave el armario de control y retirar la llave</span></div>
+<div class="step-card__row"><span>Acción</span><span>Cierra con llave el armario de control principal, retira la llave y guárdala en poder de quien realiza la intervención. Así nadie puede reconectar ni manipular el control.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Armario cerrado con llave y llave retirada y en custodia del técnico (origen: Tabla 2.5 / 5.1).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">6</span><span class="step-card__title">Colocar señal / candado-tarjeta en el interruptor principal</span></div>
+<div class="step-card__row"><span>Acción</span><span>Coloca la señal de advertencia (y candado-tarjeta de bloqueo) en el interruptor principal indicando que la máquina está consignada y NO debe energizarse. Esto activa el bloqueo de seguridad antes de trabajar.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Señal de advertencia colocada en el interruptor principal. El manual exige señal y bloqueo; el tipo y modelo de candado/tarjeta físico <span class="src-tag src-reco">VALIDAR EN PLANTA</span> (origen: Tabla 2.5 / 5.1).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">7</span><span class="step-card__title">Liberar la presión de vacío y neumática</span></div>
+<div class="step-card__row"><span>Acción</span><span>Antes de usar o intervenir equipos con aire comprimido, presión de vapor o presión hidráulica, asegura el generador de presión y libera toda la presión almacenada. Libera también el vacío del circuito de la bomba serie SK (que opera a 0,02-0,04 MPa). Si vas a abrir la tapa del filtro de vacío, libera primero su presión.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Manómetro de vacío en cero; sistema a presión atmosférica; sin presión residual antes de abrir filtros o tapas (origen: Tabla 2.5; 10.1; vacío p44). Valor de presión del aire comprimido <span class="src-tag src-reco">VALIDAR EN PLANTA</span> (el manual no lo especifica).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">8</span><span class="step-card__title">Fijar partes móviles y dejar enfriar</span></div>
+<div class="step-card__row"><span>Acción</span><span>Protege y asegura las partes móviles a presión con sus dispositivos de fijación, para que no se desplacen por energía mecánica almacenada. Deja enfriar por completo todos los componentes que generan calor antes de tocarlos.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Partes móviles fijadas; componentes calientes a temperatura segura al tacto (origen: Tabla 2.5). Tiempo de enfriamiento <span class="src-tag src-reco">VALIDAR EN PLANTA</span>.</div>
+</div>
+
+<h3>B) Verificación de energía cero (obligatoria para trabajo eléctrico)</h3>
+
+<div class="alert-box">⚠ El trabajo sobre partes conductoras o de alto voltaje NUNCA se hace en solitario. Trabaja siempre con una segunda persona que pueda presionar el interruptor de emergencia. Acordona/acuerda la zona y usa únicamente herramientas eléctricas aisladas.</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">9</span><span class="step-card__title">Verificar ausencia de tensión</span></div>
+<div class="step-card__row"><span>Acción</span><span>Con instrumento adecuado, comprueba que NO hay tensión en los puntos donde vas a trabajar. No confíes solo en que el interruptor esté en OFF: verifica.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Ausencia de tensión confirmada antes de tocar conductores (origen: trabajo en partes conductoras, 2.6.1).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">10</span><span class="step-card__title">Aterrizar y cortocircuitar con varilla de puesta a tierra</span></div>
+<div class="step-card__row"><span>Acción</span><span>Tras desconectar la fuente, conecta a tierra y cortocircuita los componentes con la varilla de puesta a tierra. Esto descarga cualquier energía residual antes de manipular.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Componentes aterrizados y cortocircuitados con varilla de puesta a tierra; herramientas usadas, todas aisladas (origen: 2.6.1).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">11</span><span class="step-card__title">Trabajar acompañado y con la zona controlada</span></div>
+<div class="step-card__row"><span>Acción</span><span>Realiza el trabajo con una segunda persona presente que pueda accionar el paro de emergencia. Mantén la zona acordonada. NO laves el armario de control con pistola de agua ni equipos de limpieza a alta presión.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Segunda persona en posición para el paro de emergencia; zona acordonada; prohibición de agua a presión sobre el armario respetada (origen: 2.6.1; 2.7.1).</div>
+</div>
+
+<div class="alert-box">⚠ Riesgo de polvo: el polvo del producto puede causar intoxicación grave y explosión por chispa o electricidad estática. Usa ropa antiestática, retira el polvo de inmediato y nunca generes chispas cerca de acumulaciones de polvo (origen: 2.8). En caso de incendio, usa extintor de CO2 (2.7.1).</div>
+
+<h3>C) Reposición segura de energía al terminar</h3>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">12</span><span class="step-card__title">Retirar herramientas, tierras y cerrar la máquina</span></div>
+<div class="step-card__row"><span>Acción</span><span>Retira la varilla de puesta a tierra/cortocircuito y todas las herramientas del interior. Confirma que no quedan piezas, trapos ni objetos sueltos. Vuelve a montar y asegurar las protecciones: la máquina solo debe usarse con todos los dispositivos de protección instalados y funcionando.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Varilla de tierra retirada; cero herramientas u objetos dentro; todas las protecciones y resguardos montados (origen: 2.3).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">13</span><span class="step-card__title">Comprobar fijaciones y enclavamientos</span></div>
+<div class="step-card__row"><span>Acción</span><span>Revisa que pernos, tornillos, tuercas y elementos de fijación queden apretados (reemplaza de inmediato los tornillos autoblocantes sueltos). Verifica que el interruptor de la puerta (enclavamiento de seguridad) funciona correctamente.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Sin fijaciones sueltas; enclavamiento de puerta operativo (origen: plan de mantenimiento puntos 6 y 8; 3.3.7.1).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">14</span><span class="step-card__title">Retirar el bloqueo y reconectar</span></div>
+<div class="step-card__row"><span>Acción</span><span>Solo quien colocó el bloqueo retira la señal/candado-tarjeta del interruptor principal. Avisa y aleja a todo el personal de las partes móviles. Vuelve a conectar el conector principal, abre el armario con su llave (vuelve a cerrarlo) y pon el interruptor principal en ON.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Solo el responsable del bloqueo lo retira; personal alejado de zonas móviles antes de energizar (origen: Tabla 2.5 / 5.1).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">15</span><span class="step-card__title">Giro manual de verificación antes de arrancar</span></div>
+<div class="step-card__row"><span>Acción</span><span>Antes de arrancar el motor, coloca el volante en el eje del motor principal y gira manualmente 3 a 5 vueltas en sentido horario, observando que todas las piezas se muevan correctamente, sin ruido anormal ni fricción.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> 3 a 5 vueltas sin anomalías, sin ruido ni roce (origen: 3.3.7.2, p21 / p68).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">16</span><span class="step-card__title">Restablecer vacío/presión y arranque gradual</span></div>
+<div class="step-card__row"><span>Acción</span><span>Restablece la entrada de agua y ajusta el vacío con su válvula leyendo el manómetro. Arranca la máquina desde el HMI y aumenta la velocidad de forma gradual, vigilando el funcionamiento.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Vacío operativo entre 0,02 y 0,04 MPa; arranque con velocidad creciente y funcionamiento correcto (origen: 3.4.15, p44; arranque gradual p68).</div>
+</div>
+
+<div class="alert-box">⚠ Si durante la verificación o el arranque aparece cualquier ruido anormal, fricción, fuga o comportamiento inesperado, vuelve a parar la máquina, repite la consignación (pasos 1-8) e investiga antes de continuar. No operes la máquina con errores ni con protecciones retiradas.</div>
+              `
+            },
+            {
+              id: "arranque-produccion",
+              title: "Arranque de producción (paso a paso)",
+              content: `
+<div class="alert-box">⚠ Antes de tocar nada: lee y entiende el manual y las medidas de seguridad. Solo personal capacitado y autorizado puede operar la NJP-3500. La máquina solo debe usarse con TODOS los dispositivos de protección instalados y funcionando. Usa ropa antiestática (riesgo de explosión e intoxicación por polvo del producto).</div>
+
+<p>Este es el procedimiento de arranque de producción de la encapsuladora NJP-3500. Sigue los pasos EN ORDEN. No saltes ninguna verificación previa. Los botones que se nombran (entre comillas) son los botones reales de la pantalla táctil (HMI) de la máquina.</p>
+
+<h3>Botones de la HMI que vas a usar</h3>
+<table class="crit-table"><tbody>
+<tr><th>Botón en la HMI</th><th>Para qué sirve</th></tr>
+<tr><td>"Paso a paso (jogging) unidad principal"</td><td>Gira la máquina principal poco a poco (impulsos cortos) para posicionar/verificar sin arrancar a velocidad.</td></tr>
+<tr><td>"Paso a paso ventilador"</td><td>Acciona por impulsos el ventilador del colector de polvo para comprobar que aspira.</td></tr>
+<tr><td>"Ascenso/Descenso de la tolva (Hopper Up/Descent)"</td><td>Sube o baja la tolva para cargar cápsulas vacías y dejarla en posición de trabajo.</td></tr>
+<tr><td>"Apertura/Cierre de cápsulas (Open/Close capsule)"</td><td>Abre o cierra el mecanismo de cápsulas (posición de carga / posición de proceso).</td></tr>
+<tr><td>"Arranque"</td><td>Pone la máquina en marcha de producción.</td></tr>
+<tr><td>"Parada (Stop)"</td><td>Detiene la máquina de forma normal. (El paro de emergencia es un botón físico aparte.)</td></tr>
+</tbody></table>
+
+<h3>BLOQUE A — Verificaciones previas (NO arrancar sin completarlas)</h3>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Guardas cerradas y enclavamiento de puerta OK</span></div>
+<div class="step-card__row"><span>Acción</span><span>Cierra todas las puertas y guardas de protección. Comprueba que el interruptor de la puerta (enclavamiento de seguridad) no esté dañado y actúe: la máquina no debe poder arrancar con una guarda abierta.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Enclavamiento de puerta funcionando correctamente. Todos los dispositivos de protección instalados. El botón de paro de emergencia accesible y sin enclavar.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Fijaciones, moldes y entorno</span></div>
+<div class="step-card__row"><span>Acción</span><span>Revisa que pernos, tornillos, tuercas y pasadores estén apretados (las vibraciones de transporte aflojan tornillos). Confirma que los moldes y la placa dosificadora estén montados sin golpes ni daños. La mesa debe estar nivelada, estable y sobre su almohadilla de goma, sin tambaleos.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Sin tornillos sueltos ni piezas flojas. Reemplaza de inmediato cualquier tornillo autoblocante suelto.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">3</span><span class="step-card__title">Nivel de agua de la bomba de vacío SK</span></div>
+<div class="step-card__row"><span>Acción</span><span>Comprueba el agua de la bomba de vacío de anillo de agua serie SK: abre la válvula de entrada de agua en la parte inferior del tanque para que la bomba tenga su anillo de agua antes de generar vacío. Verifica el depósito de agua de circulación de vacío.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> La bomba SK trabaja con anillo de agua (no en seco). <span class="src-tag src-reco">VALIDAR EN PLANTA</span> El manual no da el nivel/caudal/temperatura exactos del agua: definir con la ficha de la bomba SK (Zhejiang Xinhuan).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">4</span><span class="step-card__title">Vacío en rango en el manómetro</span></div>
+<div class="step-card__row"><span>Acción</span><span>Arranca la bomba de vacío y lee el manómetro de vacío. Si está fuera de rango, ajusta abriendo/cerrando la válvula de entrada de agua del tanque hasta entrar en rango. Sin el vacío correcto las cápsulas no se separan o se dañan.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Vacío operativo entre <strong>0,02 y 0,04 MPa</strong> en el manómetro (p44).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">5</span><span class="step-card__title">Colector de polvo operativo</span></div>
+<div class="step-card__row"><span>Acción</span><span>Confirma que la aspiradora / colector de polvo (EDC) esté encendido y aspirando. Comprueba que la malla del filtro y el tubo de succión no estén obstruidos (un colector tapado hace ruidos anormales). Usa "Paso a paso ventilador" para verificar el accionamiento del ventilador.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Colector aspirando, malla y tubo limpios, sin ruidos anormales. El colector previene intoxicación por polvo y reduce riesgo de explosión.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">6</span><span class="step-card__title">Carga de cápsulas vacías (tolva)</span></div>
+<div class="step-card__row"><span>Acción</span><span>Con "Ascenso/Descenso de la tolva (Hopper Up/Descent)" sube/baja la tolva según necesites cargarla. Carga las cápsulas vacías del formato correcto (000# a 5#). Ajusta la compuerta deslizante con su tuerca para que la altura de las cápsulas en la salida sea aproximadamente la mitad de la altura total de salida.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Formato de cápsula correcto. Altura de cápsulas en la compuerta ≈ mitad de la altura total de salida (p22). Una cápsula administrada a la vez.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">7</span><span class="step-card__title">Carga de producto y dosificación</span></div>
+<div class="step-card__row"><span>Acción</span><span>Vierte el polvo (o micropellets) en la tolva de polvo. Confirma que las profundidades de los punzones por estación correspondan a la dosis deseada (a más profundidad, más densidad/dosis).</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Profundidad de émbolo por estación 6 / 4 / 3 / 2 / 0,5 mm (Est. 1-5, p38). Solo producto y material autorizados por el pedido.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">8</span><span class="step-card__title">Posicionar el mecanismo de cápsulas</span></div>
+<div class="step-card__row"><span>Acción</span><span>Con "Apertura/Cierre de cápsulas (Open/Close capsule)" deja el mecanismo en la posición correcta de proceso. Usa "Paso a paso (jogging) unidad principal" en impulsos cortos para acompañar el posicionamiento si hace falta.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Mecanismo de cápsulas en posición de trabajo, sin atascos en la zona de descarga de cápsulas vacías.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">9</span><span class="step-card__title">Giro manual de verificación (3-5 vueltas)</span></div>
+<div class="step-card__row"><span>Acción</span><span>Coloca el volante en el eje trasero del motor principal y gira a mano en sentido horario. Observa que todas las piezas se muevan correctamente, sin ruido anormal ni fricción. Si notas desalineación o roce, NO arranques: revisa el montaje.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> 3 a 5 vueltas completas sin anomalías, sin ruido ni fricción (p21, p68).</div>
+</div>
+
+<div class="alert-box">⚠ Si CUALQUIERA de los pasos 1 a 9 falla (guarda abierta, vacío fuera de rango, colector tapado, ruido al girar a mano, tornillo suelto), detente y corrige antes de continuar. No fuerces el arranque.</div>
+
+<h3>BLOQUE B — Arranque con rampa gradual de velocidad</h3>
+
+<div class="alert-box">⚠ NUNCA arranques a velocidad máxima de golpe. Tras pulsar "Arranque", sube la velocidad de forma gradual con el regulador de velocidad de la HMI (variador de frecuencia).</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">10</span><span class="step-card__title">Energizar y poner en marcha</span></div>
+<div class="step-card__row"><span>Acción</span><span>Con todas las verificaciones del Bloque A correctas (guardas cerradas, vacío 0,02-0,04 MPa, colector aspirando), enciende el interruptor de alimentación y pulsa "Arranque" en la HMI. Deja la velocidad en el valor MÍNIMO al iniciar.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> La HMI no muestra ninguna alarma. Si aparece un error, la máquina se detiene: consulta en pantalla síntoma/causa/solución y resuelve antes de seguir.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">11</span><span class="step-card__title">Subir la velocidad por rampa</span></div>
+<div class="step-card__row"><span>Acción</span><span>Aumenta la velocidad de forma gradual y escalonada con el regulador de la HMI, no de golpe. En cada escalón, observa el funcionamiento (alimentación de cápsulas, dosificación, cierre, expulsión) antes de subir más. Detente con "Parada (Stop)" si escuchas o ves algo anómalo.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Movimiento suave, sin ruidos ni golpes, dosificación estable. <span class="src-tag src-reco">VALIDAR EN PLANTA</span> El manual indica subir la velocidad "gradualmente" tras el arranque (p68) pero NO da los escalones ni los segundos de cada rampa ni la velocidad de régimen: definir según el producto y la experiencia de planta.</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">12</span><span class="step-card__title">Marcha de prueba y control de calidad</span></div>
+<div class="step-card__row"><span>Acción</span><span>Deja estabilizar la máquina y revisa las primeras cápsulas: peso/dosis, cierre completo y sin defectos. Comprueba que las cápsulas rechazadas salgan a la caja de almacenamiento y que el colector limpie el polvo residual.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Vacío sigue en 0,02-0,04 MPa. Cápsulas bien cerradas y con dosis correcta. <span class="src-tag src-reco">VALIDAR EN PLANTA</span> El manual no define criterios de aceptación (peso objetivo, % rechazo, OEE): establecerlos en planta. En la puesta en marcha inicial, hacer marcha de prueba en vacío 1-2 horas (p21).</div>
+</div>
+
+<div class="step-card">
+<div class="step-card__head"><span class="step-card__num">13</span><span class="step-card__title">Llevar a velocidad de producción</span></div>
+<div class="step-card__row"><span>Acción</span><span>Una vez confirmada la calidad, termina de subir la velocidad por rampa hasta el régimen de producción y deja la máquina en marcha continua bajo vigilancia.</span></div>
+<div class="step-card__params"><strong>Verificar:</strong> Producción nominal de referencia 3500 cápsulas/min con 25 orificios por segmento (p12). Mantén la velocidad final dentro de lo validado para tu producto.</div>
+</div>
+
+<h3>Parada</h3>
+<p>Para detener la producción de forma normal, baja la velocidad y pulsa "Parada (Stop)" en la HMI. Para emergencias usa el botón físico de parada de emergencia. Tras parar, limpia de inmediato la zona de descarga de cápsulas vacías para evitar atascos en el siguiente arranque. Para cualquier intervención de mantenimiento: apaga el interruptor principal, aplica bloqueo (LOTO) y libera la presión de los equipos a presión antes de tocar partes móviles.</p>
+
+<table class="crit-table"><tbody>
+<tr><th>Dato crítico de arranque</th><th>Valor</th><th>Fuente</th></tr>
+<tr><td>Vacío operativo (manómetro)</td><td>0,02 - 0,04 MPa</td><td>Manual p44</td></tr>
+<tr><td>Giro manual de verificación previo</td><td>3 a 5 vueltas sin anomalías</td><td>Manual p21 / p68</td></tr>
+<tr><td>Arranque de velocidad</td><td>Gradual (rampa), no a tope de golpe</td><td>Manual p68</td></tr>
+<tr><td>Profundidad de punzón Est. 1-5</td><td>6 / 4 / 3 / 2 / 0,5 mm</td><td>Manual p38</td></tr>
+<tr><td>Formato de cápsula</td><td>000# a 5#</td><td>Manual p12</td></tr>
+<tr><td>Marcha en vacío (puesta en marcha inicial)</td><td>1 - 2 horas</td><td>Manual p21</td></tr>
+<tr><td>Escalones/segundos de la rampa de velocidad</td><td>No especificado en el manual</td><td><span class="src-tag src-reco">VALIDAR EN PLANTA</span></td></tr>
+</tbody></table>
+              `
+            },
+            {
+              id: "paro-vaciado",
+              title: "Paro y vaciado de fin de lote",
+              content: `
+<p>Esta sección explica cómo detener la encapsuladora NJP-3500 al terminar un lote de forma ordenada, vaciarla y dejarla limpia y lista para el siguiente lote. Sigue los pasos en orden. No te saltes la limpieza de la zona de descarga de cápsulas vacías: el manual la exige de inmediato (Nota 3.4.1) para evitar atascos en el arranque siguiente.</p>
+
+<div class="alert-box">Antes de empezar: distingue dos situaciones distintas. El <strong>paro normal de fin de lote</strong> es el que describe esta sección (paso a paso, con la máquina vacía y limpia). El <strong>paro de emergencia</strong> solo se usa si hay peligro para una persona o para el equipo (atasco grave, ruido o golpeteo anormal, riesgo de atrapamiento). Para la diferencia entre ambos, ver la tabla al final.</div>
+
+<h3>A. Paro normal de fin de lote</h3>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Dejar de alimentar cápsulas y producto</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Con la máquina aún en marcha, deja de cargar cápsulas vacías en la tolva de cápsulas y deja de añadir polvo (o micropellets) en la tolva de producto. Si hay alimentador automático de cápsulas o dosificador de polvo, detén su alimentación primero.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>Permite que la máquina consuma lo que ya está dentro y se vacíe sola antes de parar, dejando menos producto y cápsulas sueltas dentro del circuito.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> deja de entrar cápsulas y polvo nuevos; el nivel de las dos tolvas baja.</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Dejar correr la máquina hasta vaciar el circuito</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Deja que la máquina siga girando unos segundos/minutos hasta que ya no salgan cápsulas terminadas y se hayan procesado las cápsulas que quedaban en las estaciones. Puedes ir bajando la velocidad desde la HMI.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>Vaciar "en marcha" evita dejar cápsulas a medio llenar o polvo compactado atrapado en los moldes y el disco dosificador.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> no salen más cápsulas por la descarga; la salida de producto terminado queda vacía.</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">3</span><span class="step-card__title">Vaciar las tolvas</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Retira las cápsulas vacías que queden en la tolva de cápsulas y el polvo (o micropellets) que quede en la tolva de producto. Recoge el producto sobrante según el procedimiento de tu planta.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>El producto y las cápsulas que quedan en las tolvas pueden humedecerse, apelmazarse o contaminar el lote siguiente.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> ambas tolvas quedan vacías. <span class="src-tag src-reco">VALIDAR EN PLANTA</span> El destino del producto sobrante (reproceso, descarte o registro de lote) se define con el protocolo de la planta; el manual no lo especifica.</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">4</span><span class="step-card__title">Parar con el botón Parada (Stop)</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Pulsa el botón <strong>Parada</strong> (Stop) de la HMI / panel para detener el motor principal de forma controlada. Espera a que la máquina se detenga por completo antes de tocar nada.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>El botón Parada es el modo de paro previsto para la operación normal. No uses el paro de emergencia para terminar un lote (ver sección B).</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> el plato giratorio queda totalmente detenido y la HMI indica máquina parada.</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">5</span><span class="step-card__title">Apagar sistemas auxiliares (vacío y aspiración)</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Detén la bomba de vacío de anillo de agua (serie SK) y la aspiradora / colector de polvo (EDC). Si vas a abrir o intervenir el circuito de vacío o el filtro, libera primero la presión.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>Estos equipos están separados de la unidad principal por ruido y se gobiernan aparte; deben quedar parados al terminar el lote.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> bomba de vacío y aspiradora detenidas; el manómetro de vacío deja de marcar depresión. <span class="src-tag src-reco">VALIDAR EN PLANTA</span> El orden y el modo exacto de apagado del agua de la bomba SK se confirma en planta; el manual no detalla la secuencia de parada de auxiliares.</div>
+</div>
+
+<div class="alert-box">⚠ El polvo del producto puede ser tóxico y, acumulado, generar riesgo de explosión por chispa o electricidad estática. Retira el polvo de inmediato, usa ropa antiestática y no dejes polvo acumulado en la máquina ni en los equipos (manual 2.8).</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">6</span><span class="step-card__title">Limpiar de inmediato la zona de descarga de cápsulas vacías</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Apenas termina la producción, limpia la zona de descarga de cápsulas vacías (salida/dispensado de cápsulas). Retira cápsulas atascadas, partidas o sueltas.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>El manual lo exige expresamente (Nota 3.4.1): limpiar de inmediato esta zona evita atascos en la producción siguiente. Es el paso que más fallos de arranque previene.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> zona de descarga de cápsulas vacías limpia, sin cápsulas atascadas ni restos. Criterio del manual: "zona de descarga limpia, sin atascos".</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">7</span><span class="step-card__title">Limpieza interior SOLO con aspiradora</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Limpia el interior de la máquina (estaciones, moldes, disco dosificador, zona de llenado, restos de polvo) usando <strong>únicamente aspiradora</strong>. Limpia también los sensores con un paño suave sin pelusa.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>El manual indica que para la limpieza del interior solo pueden utilizarse aspiradoras (puntos 1/1.1). El molde tiene diseño de ensamblaje sellado y puede limpiarse sin desmontar.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> interior sin restos de polvo ni de cápsulas. No uses pistola de aire ni agua a presión sobre el armario de control (está prohibido lavarlo con agua a presión, 2.7.1).</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">8</span><span class="step-card__title">Limpiar el filtro/malla del colector si hubo ruido</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Si durante el lote la aspiradora / colector de polvo hizo ruidos anormales, desmonta y limpia la malla del filtro y el tubo de succión (usa el botón de limpieza del colector). Antes de abrir la tapa del filtro de vacío, libera la presión.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>El ruido anormal indica obstrucción de la malla y el tubo por acumulación de polvo. Si no se limpian, el colector pierde aspiración y el polvo se acumula en la máquina.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> malla y tubo de succión sin obstrucción; al volver a usarlo, la aspiradora no hace ruidos anormales.</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">9</span><span class="step-card__title">Dejar consignada (LOTO) si se va a intervenir</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Si después del paro vas a entrar a hacer mantenimiento, ajuste o reparación: apaga el interruptor principal, desconecta el conector principal, cierra con llave el armario de control y retira la llave, y coloca una señal de advertencia en el interruptor. Si hay equipos a presión, libera la presión antes de intervenir.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>Aísla la energía y evita un arranque inesperado mientras alguien trabaja en la máquina (manual 2.4, Tabla 2.5, punto 5.1).</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> máquina sin tensión y sin presión; armario cerrado con llave retirada y señal colocada. Los trabajos eléctricos solo los realiza un electricista cualificado.</div>
+</div>
+
+<div class="alert-box">⚠ Si solo vas a dejar la máquina en reposo entre lotes (sin abrirla ni intervenir), basta con el paro por botón Parada y el apagado ordenado. El bloqueo LOTO completo (paso 9) es obligatorio únicamente cuando alguien va a meter las manos en la máquina.</div>
+
+<h3>B. Paro de emergencia (solo ante peligro)</h3>
+
+<div class="alert-box">⚠ Usa el paro de emergencia solo si hay riesgo para una persona o para el equipo: atrapamiento, atasco grave, golpeteo o ruido anormal fuerte, humo, u olor a quemado. No es el modo normal de terminar un lote.</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Pulsar el paro de emergencia</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Golpea el botón de parada de emergencia (seta roja). La máquina se detiene de inmediato.</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>Corta el movimiento al instante para proteger a la persona o evitar mayor daño al equipo. El control automatizado también detiene la máquina ante errores o activación de seguridad.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> todo movimiento detenido. No rearmes hasta entender la causa.</div>
+</div>
+
+<div class="step-card">
+  <div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Identificar y resolver la causa antes de rearmar</span></div>
+  <div class="step-card__row"><span>Acción</span><span>Mantén la máquina apagada hasta resolver. Consulta la HMI (muestra síntoma, causa y método de solución). Si la causa es eléctrica, la corrige un electricista cualificado; si es un componente, corrígelo de inmediato. Si vas a intervenir, aplica LOTO (sección A, paso 9).</span></div>
+  <div class="step-card__row"><span>Por qué</span><span>No se debe operar con errores o condiciones inadecuadas (manual 2.6.1). Rearmar sin resolver la causa repite el fallo o agrava el daño.</span></div>
+  <div class="step-card__params"><strong>Verificar:</strong> causa resuelta y registrada; condiciones seguras antes de rearmar y volver al procedimiento normal. <span class="src-tag src-reco">VALIDAR EN PLANTA</span> El manual no incluye una tabla de códigos de alarma del PLC/HMI; solicitar el listado de alarmas al fabricante.</div>
+</div>
+
+<h3>C. Diferencia entre paro normal y paro de emergencia</h3>
+
+<table class="crit-table">
+  <tbody>
+    <tr><th>Aspecto</th><th>Paro normal de fin de lote</th><th>Paro de emergencia</th></tr>
+    <tr><td>Cuándo se usa</td><td>Al terminar el lote, de forma planificada</td><td>Solo ante peligro para persona o equipo</td></tr>
+    <tr><td>Cómo se detiene</td><td>Botón Parada (Stop) tras vaciar el circuito</td><td>Botón de parada de emergencia (seta roja), de inmediato</td></tr>
+    <tr><td>Estado de la máquina</td><td>Vacía: tolvas vacías, sin cápsulas en proceso</td><td>Se detiene como esté, posiblemente con producto dentro</td></tr>
+    <tr><td>Antes de detener</td><td>Se deja de alimentar y se deja vaciar (pasos 1-3)</td><td>No hay preparación: se actúa al instante</td></tr>
+    <tr><td>Después</td><td>Limpieza completa y máquina lista para el siguiente lote</td><td>Identificar y resolver la causa antes de rearmar</td></tr>
+    <tr><td>LOTO</td><td>Solo si se va a intervenir la máquina</td><td>Aplicar LOTO antes de cualquier intervención por la falla</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Resultado esperado al cerrar el lote:</strong> máquina detenida con el botón Parada, tolvas vacías, zona de descarga de cápsulas vacías limpia (sin atascos para el siguiente lote), interior limpio solo con aspiradora, filtro/malla del colector limpios si hubo ruido, y consignada con LOTO si quedó pendiente una intervención.</p>
+              `
             }
           ],
           systems: [
@@ -3354,7 +3747,7 @@
                 summary: "El rechazo evita que cápsulas mal separadas continúen hacia cierre y salida.",
                 flow: ["La máquina identifica la cápsula no separada en el punto de descarte.", "El mecanismo empuja la cápsula defectuosa fuera del flujo productivo.", "El puerto de succión la conduce al depósito de descarte.", "La torreta continúa con las posiciones sanas."],
                 components: ["Top needle", "Push handle", "Guide pillar", "Positioning block", "Lower pull rod", "Air chamber", "Universal joint"],
-                adjustments: ["Gap push handle / cara inferior del molde superior: 1.5–2 mm.", "Gap cámara de aire / cara superior del módulo superior: 1–1.5 mm.", "Ajustar con tirante inferior y verificar sincronía real en posición de rechazo.", "Evitar exceso de carrera para no marcar moldes."],
+                adjustments: ["Holgura cámara de vacío / plano superior del módulo inferior: 1,5–2 mm (manual p39), con la varilla de tracción del molde inferior.", "Ajustar con tirante inferior y verificar sincronía real en posición de rechazo.", "Evitar exceso de carrera para no marcar moldes."],
                 diagnostics: ["Si rechaza demasiado, revisar vacío, sincronía y holguras del rechazo.", "Si deja pasar cápsulas mal separadas, revisar carrera insuficiente.", "Si golpea o hace ruido, revisar top needle tocando planos del molde."]
               },
               {
@@ -3560,9 +3953,9 @@
               correction: "Limpiar filtros de succión, ajustar asiento a 1.8–2.5 mm, verificar nivel de agua en bomba SK.",
               steps: [
                 { title: "Nivel de agua en bomba SK", where: "Visor lateral de la bomba de vacío SK (bomba de anillo líquido), al costado de la máquina.", how: "Mira el visor de vidrio: el agua debe llegar entre las marcas MIN y MAX. Si está por debajo de MIN, agrega agua destilada o de red limpia hasta MAX.", spec: "Entre marcas MIN–MAX del visor", tool: null, ifFail: "Sin agua la bomba cavita, no genera vacío y suena distinto (golpeteo o chirrido). Llena hasta MAX y reinicia. Si pierde nivel constantemente, verificar sello mecánico de la bomba." },
-                { title: "Filtros de succión", where: "Líneas de vacío entre la torreta y la bomba SK: hay un bloque-filtro metálico lateral y filtros en las mangueras de unión.", how: "Para la máquina. Desconecta la manguera de entrada del filtro. Extrae el elemento filtrante (malla o cartucho). Sopla con aire comprimido a 5–6 bar. Revisa la malla: si está negra, apelmazada o rota, reemplaza.", spec: null, tool: "Compresor de aire, llave de tubo o llave fija", ifFail: "Filtro obstruido reduce el vacío de ~60 kPa a menos de 20 kPa — insuficiente para separar la cápsula. Limpiar o cambiar el elemento filtrante." },
+                { title: "Filtros de succión", where: "Líneas de vacío entre la torreta y la bomba SK: hay un bloque-filtro metálico lateral y filtros en las mangueras de unión.", how: "Para la máquina. Desconecta la manguera de entrada del filtro. Extrae el elemento filtrante (malla o cartucho). Sopla con aire comprimido de planta. Revisa la malla: si está negra, apelmazada o rota, reemplaza.", spec: null, tool: "Compresor de aire, llave de tubo o llave fija", ifFail: "Filtro obstruido baja el vacío por debajo del rango operativo de 0,02–0,04 MPa (20–40 kPa) — insuficiente para separar la cápsula. Limpiar o cambiar el elemento filtrante." },
                 { title: "Altura del asiento de succión", where: "Cabezal de vacío sobre el molde superior. El asiento es la pieza cilíndrica que baja a tocar el molde para aplicar vacío a cada cápsula.", how: "Con la máquina parada, gira lentamente con la manivela hasta que el cabezal esté en posición de trabajo (asiento hacia abajo). Mide con calibrador la distancia entre la base del asiento y la superficie del molde inferior.", spec: "1.8–2.5 mm", tool: "Calibrador vernier (pie de rey)", ifFail: "< 1.8 mm: roza el molde, genera desgaste y ruido. > 2.5 mm: el vacío se rompe y la cápsula no abre. Ajustar con el tornillo de regulación de altura (llave hex 4 mm), ¼ vuelta a la vez. Re-verificar con calibrador." },
-                { title: "Mangueras de vacío", where: "Recorrido completo desde la bomba SK hasta los cabezales en la torreta.", how: "Recorre cada tramo con la mano mientras la bomba corre. Busca: dobleces (la manguera no debe doblarse a menos de 5 cm de radio), grietas en dobleces y uniones, abrazaderas flojas. Aprieta abrazaderas con destornillador.", spec: null, tool: "Destornillador plano", ifFail: "Una fuga pequeña puede bajar el vacío de 60 kPa a 30 kPa. Reemplaza el tramo afectado con la misma sección nominal de manguera." }
+                { title: "Mangueras de vacío", where: "Recorrido completo desde la bomba SK hasta los cabezales en la torreta.", how: "Recorre cada tramo con la mano mientras la bomba corre. Busca: dobleces (la manguera no debe doblarse a menos de 5 cm de radio), grietas en dobleces y uniones, abrazaderas flojas. Aprieta abrazaderas con destornillador.", spec: null, tool: "Destornillador plano", ifFail: "Una fuga pequeña baja el vacío por debajo de 0,02 MPa (20 kPa), fuera del rango operativo. Reemplaza el tramo afectado con la misma sección nominal de manguera." }
               ]
             },
             {
@@ -3586,17 +3979,17 @@
               steps: [
                 { title: "Calidad de las cápsulas de entrada", where: "Tolva de alimentación de cápsulas.", how: "Toma 10 cápsulas al azar. Revisa cada una: ¿hay aplastadas, con rebabas, con diferencia de color, o más duras de lo normal al apretar? Mide el diámetro externo de la tapa con micrómetro y compara con el nominal de la talla.", spec: "Sin deformaciones; diámetro dentro de ±0.05 mm del nominal de la talla", tool: "Micrómetro exterior", ifFail: "Cápsulas defectuosas se rompen en el cierre independientemente del ajuste de la máquina. Cambiar de lote. No mezclar tallas ni lotes distintos." },
                 { title: "Concentricidad de moldes superior e inferior", where: "Torreta de moldes: el molde superior retiene la tapa y el molde inferior retiene el cuerpo.", how: "Inserta las 2 barras de calibración del herramental en los alojamientos del molde. Gira la torreta manualmente despacio, 3–5 vueltas completas. No debe haber fricción ni ruido seco. Si hay resistencia, apoya el comparador de carátula en las barras y lee la oscilación al girar.", spec: "Oscilación máxima 0.01–0.02 mm", tool: "Barras de calibración del herramental + comparador de carátula", ifFail: "> 0.02 mm: afloja los tornillos de fijación del molde superior, centra usando las barras como referencia, aprieta en cruz (no en secuencia circular) y repite la medición." },
-                { title: "Altura de cierre", where: "Zona de cierre de la torreta, varilla de cierre y guías en la última estación antes de la salida.", how: "Corre la máquina lentamente con la manivela hasta la zona de cierre. Observa que la varilla empuje la tapa hacia el cuerpo en una sola acción suave. Luego toma una cápsula cerrada de la salida y mide la longitud total con calibrador.", spec: "Talla 0: 21.7 mm · Talla 1: 19.4 mm · Talla 2: 18.0 mm (confirmar con herramental del fabricante)", tool: "Calibrador vernier", ifFail: "Cápsula más larga que el nominal → cierre incompleto, la tapa puede soltarse en empaque. Más corta → exceso de presión aplasta la tapa. Ajustar el tope de altura de la varilla de cierre media vuelta a la vez." }
+                { title: "Altura de cierre", where: "Zona de cierre de la torreta, varilla de cierre y guías en la última estación antes de la salida.", how: "Corre la máquina lentamente con la manivela hasta la zona de cierre. Observa que la varilla empuje la tapa hacia el cuerpo en una sola acción suave. Luego toma una cápsula cerrada de la salida y mide la longitud total con calibrador.", spec: "El manual NO da tabla por talla: mide una cápsula de TU talla ya cerrada y calibra a esa longitud exacta", tool: "Calibrador vernier", ifFail: "Cápsula más larga que el nominal → cierre incompleto, la tapa puede soltarse en empaque. Más corta → exceso de presión aplasta la tapa. Ajustar el tope de altura de la varilla de cierre media vuelta a la vez." }
               ]
             },
             {
               name: "Rechazo excesivo", probableSystem: "Rechazo / Vacío", status: "Base manual consolidada",
               symptoms: ["Muchas cápsulas al descarte"],
-              checks: ["Sincronía expulsor", "Nivel de vacío", "Holguras varillas 1.5–2 mm / 1–1.5 mm", "Posicionamiento"],
+              checks: ["Sincronía expulsor", "Nivel de vacío", "Holgura cámara de vacío vs módulo inferior 1,5–2 mm", "Posicionamiento"],
               correction: "Comprobar sincronía del expulsor neumático, reajustar varillas de rechazo y verificar vacío.",
               steps: [
-                { title: "Sincronía del expulsor de rechazo", where: "Zona de rechazo, entre estación de dosificación y cierre.", how: "Corre la máquina muy lento con la manivela. Observa el ciclo del expulsor: debe actuar exactamente cuando la cápsula sin separar llega al punto de rechazo. Si actúa antes o después, ajusta el temporizador del solenoide o mueve la leva de activación según el diagrama de tiempos del manual.", spec: "Acción del expulsor coincide ±1 posición de torreta con la cápsula defectuosa", tool: null, ifFail: "Desincronizado temprano: rechaza cápsulas buenas. Desincronizado tarde: la cápsula mala pasa a llenado → contaminación y atascos. Ajustar temporizador del solenoide de a 10 ms." },
-                { title: "Holgura de varillas de rechazo", where: "Varillas guía en el canal de rechazo.", how: "Con la máquina parada, mueve las varillas manualmente e introduce galga de espesores en el punto de guía.", spec: "Varillas principales: 1.5–2 mm · Varillas secundarias: 1–1.5 mm", tool: "Galga de espesores", ifFail: "> 2 mm: varillas bailan y desalinean las cápsulas antes del rechazo. Ajustar posición de la guía o cambiar varilla desgastada." }
+                { title: "Sincronía del expulsor de rechazo", where: "Zona de rechazo, entre estación de dosificación y cierre.", how: "Corre la máquina muy lento con la manivela. Observa el ciclo del expulsor: debe actuar exactamente cuando la cápsula sin separar llega al punto de rechazo. Si actúa antes o después, ajusta el temporizador del solenoide o mueve la leva de activación según el diagrama de tiempos del manual.", spec: "Acción del expulsor coincide ±1 posición de torreta con la cápsula defectuosa", tool: null, ifFail: "Desincronizado temprano: rechaza cápsulas buenas. Desincronizado tarde: la cápsula mala pasa a llenado → contaminación y atascos. Ajustar el temporizador del solenoide en pasos pequeños (el manual no da el valor exacto)." },
+                { title: "Holgura cámara de vacío vs módulo inferior", where: "Estación de rechazo: entre el plano inferior de la cámara de vacío y el plano superior del módulo inferior.", how: "Con la máquina parada, introduce la galga de espesores entre el plano inferior de la cámara de vacío y el plano superior del módulo inferior; ajusta con la varilla de tracción del molde inferior.", spec: "1,5–2 mm (única holgura que da el manual, p39)", tool: "Galga de espesores", ifFail: "Fuera de 1,5–2 mm el rechazo desalinea o no actúa bien. Ajustar con la varilla de tracción del molde inferior." }
               ]
             },
             {
@@ -3605,9 +3998,9 @@
               checks: ["Aguja limpieza activa", "Polvo acumulado", "Desgaste moldes", "Presión aire"],
               correction: "Verificar aguja de limpieza activa, remover residuos y chequear presión de aire de limpieza.",
               steps: [
-                { title: "Presión de aire de la aguja de limpieza", where: "Aguja de limpieza de moldes (pieza con boquilla de aire entre la estación de descarga y la de alimentación en la torreta).", how: "Verifica el manómetro de la línea de aire de la máquina. Desconecta la línea de la aguja y aplica aire manualmente — debe salir un chorro seco y fuerte.", spec: "Presión de línea 5–6 bar; flujo continuo, sin agua ni aceite", tool: "Manómetro de línea", ifFail: "Sin aire o presión < 4 bar: polvo no se expulsa del alojamiento y la cápsula siguiente no asienta. Verificar filtro-regulador-lubricador (unidad de mantenimiento): purgar agua, limpiar filtro, regular a 5.5 bar." },
+                { title: "Presión de aire de la aguja de limpieza", where: "Aguja de limpieza de moldes (pieza con boquilla de aire entre la estación de descarga y la de alimentación en la torreta).", how: "Verifica el manómetro de la línea de aire de la máquina. Desconecta la línea de la aguja y aplica aire manualmente — debe salir un chorro seco y fuerte.", spec: "El manual no especifica la presión de aire: valida la de tu red en planta. Debe salir un chorro seco y fuerte, sin agua ni aceite", tool: "Manómetro de línea", ifFail: "Sin aire suficiente: el polvo no se expulsa del alojamiento y la cápsula siguiente no asienta. Verificar filtro-regulador-lubricador (unidad de mantenimiento): purgar agua, limpiar filtro y regular a una presión estable (valor a validar en planta)." },
                 { title: "Residuos en alojamientos del molde", where: "Interior de los alojamientos del molde superior e inferior en toda la torreta.", how: "Para la máquina. Retira los moldes de 3 estaciones al azar. Con luz y lupa si es necesario, inspecciona el fondo del alojamiento. Limpia con brocha seca y aire comprimido a 4–5 bar. Si hay polvo húmedo adherido, usa hisopo de alcohol isopropílico.", spec: "Interior limpio y seco, sin residuos visibles", tool: "Brocha, compresor, hisopo de alcohol isopropílico", ifFail: "Polvo compactado en el fondo impide que la cápsula asiente y la máquina para o rompe la cápsula. Si toda la torreta está contaminada, programar limpieza completa por estación." },
-                { title: "Desgaste del alojamiento del molde", where: "Diámetro interno del alojamiento en el molde superior e inferior.", how: "Mide el diámetro interno del alojamiento con calibre de interiores o calibre tipo pasador. Compara con el diámetro nominal de la cápsula del tamaño que estás corriendo.", spec: "Holgura entre cápsula y alojamiento: 0.05–0.1 mm", tool: "Calibre de interiores o juego de pasadores de verificación", ifFail: "> 0.1 mm: cápsula baila → desalineación → atasco. Holgura negativa (la cápsula no entra): molde comprimido o contaminado. Reemplazar el molde desgastado." }
+                { title: "Desgaste del alojamiento del molde", where: "Diámetro interno del alojamiento en el molde superior e inferior.", how: "Mide el diámetro interno del alojamiento con calibre de interiores o calibre tipo pasador. Compara con el diámetro nominal de la cápsula del tamaño que estás corriendo.", spec: "El manual no especifica esta holgura; el alojamiento desgastado deja la cápsula floja respecto al diámetro nominal de su talla", tool: "Calibre de interiores o juego de pasadores de verificación", ifFail: "Alojamiento agrandado por desgaste: la cápsula baila → desalineación → atasco. Holgura negativa (la cápsula no entra): molde comprimido o contaminado. Reemplazar el molde desgastado." }
               ]
             },
             {
@@ -4320,7 +4713,7 @@
                 <div class="rod-card">
                   <h5>Estaciones de Trabajo</h5>
                   <ul>
-                    <li><strong>Bujes lineales zxt 16 26 36:</strong> 96 unidades</li>
+                    <li><strong>Bujes lineales zxl 16 26 36:</strong> 96 unidades</li>
                     <li><strong>Rodamientos de bolas 6302:</strong> 12 unidades (d15 D42 B13)</li>
                     <li><strong>Seguidores de leva CF-6:</strong> 12 unidades (D6 d16 B11)</li>
                   </ul>
@@ -4328,7 +4721,7 @@
                 <div class="rod-card">
                   <h5>Alimentación de Cápsulas</h5>
                   <ul>
-                    <li><strong>Bujes lineales zxt 16 26 36 / zxt 12 22 32:</strong> 8 / 8 unidades</li>
+                    <li><strong>Bujes lineales zxl 16 26 36 / zxl 12 22 32:</strong> 8 / 8 unidades</li>
                     <li><strong>Rodamientos 625 / 626:</strong> 2 / 2 unidades</li>
                     <li><strong>Rodamientos 608 / 6004:</strong> 4 / 4 unidades</li>
                   </ul>
@@ -4336,7 +4729,7 @@
                 <div class="rod-card">
                   <h5>Dosificación y Llenado</h5>
                   <ul>
-                    <li><strong>Bujes de columna zxt 50 80 100:</strong> 4 unidades</li>
+                    <li><strong>Bujes de columna zxl 50 80 100:</strong> 4 unidades</li>
                   </ul>
                 </div>
                 <div class="rod-card">
@@ -4391,7 +4784,7 @@
           <div class="maintenance-panel-container">
             <div class="panel-header-clean">
               <h3>Plan de Mantenimiento Preventivo y Lubricación</h3>
-              <p>Cronograma técnico estructurado de tareas preventivas y lubricantes homologados según la página 32 y 33 del manual oficial de la NJP-3500.</p>
+              <p>Cronograma de tareas según el plan de mantenimiento del manual (pág. 50–53) y la tabla de lubricación (pág. 70). Las frecuencias por nivel son <strong>propuesta de planta</strong>, salvo las marcadas como del manual (batería del PLC cada 12 meses e inspección de seguridad anual).</p>
             </div>
 
             <div class="maintenance-filter-tabs" style="margin-bottom: 16px;">
@@ -4431,7 +4824,7 @@
 
             <div class="lubrication-section">
               <div class="rodamientos-header">
-                <h4>Plan de Lubricación del Fabricante (pág. 32-33)</h4>
+                <h4>Plan de Lubricación del Fabricante (pág. 70 · Tabla 4.1)</h4>
                 <p>Detalle de productos recomendados y puntos de aplicación para conservar la garantía y vida útil del equipo:</p>
               </div>
               <div class="lubrication-table-container">
@@ -4449,25 +4842,25 @@
                       <td><strong>Cadena de transmisión</strong></td>
                       <td>Aceite N4B GB443-84</td>
                       <td>Lubricación directa</td>
-                      <td>Mensual (según plan del fabricante)</td>
+                      <td>Propuesta de planta · revisar regularmente</td>
                     </tr>
                     <tr>
                       <td><strong>Rodamientos de rodillos / Guías lineales</strong></td>
                       <td>Grasa N4B GB443-84</td>
                       <td>Rodamiento lineal</td>
-                      <td>Inspección y engrase semanal</td>
+                      <td>Propuesta de planta · inspección regular</td>
                     </tr>
                     <tr>
                       <td><strong>Levas principales</strong></td>
                       <td>Grasa ZL2SY1412-75</td>
                       <td>Grasa para levas</td>
-                      <td>Inspección mensual</td>
+                      <td>Propuesta de planta · inspección regular</td>
                     </tr>
                     <tr>
                       <td><strong>Caja de engranajes / Reductor principal</strong></td>
                       <td>Aceite ZLDSY1412-75</td>
                       <td>Lubricación en baño</td>
-                      <td>Control de nivel mensual / Cambio anual</td>
+                      <td>Revisar nivel regularmente · cambio según fabricante</td>
                     </tr>
                     <tr>
                       <td><strong>Levas de estaciones y carros móviles</strong></td>
@@ -4593,57 +4986,29 @@
               </form>
             </div>
 
-            <!-- Tabla de fallas -->
-            <div class="table-container">
-              <table class="premium-table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Falla / Sistema</th>
-                    <th style="width: 25%;">Síntomas</th>
-                    <th style="width: 25%;">Qué verificar</th>
-                    <th style="width: 25%;">Cómo corregirlo / Resolución</th>
-                    <th style="width: 10%; text-align: center;">Origen</th>
-                  </tr>
-                </thead>
-                <tbody id="failures-table-body">
-                  ${failures.map((f) => {
-                    const symptomsList = Array.isArray(f.symptoms) ? f.symptoms : [f.symptoms];
-                    const checksList = Array.isArray(f.checks) ? f.checks : [f.checks];
-                    
-                    const originLabel = f.status || "Base manual consolidada";
-                    const isUserReported = originLabel.includes("Reportada");
-                    
-                    return `
-                      <tr>
-                        <td>
-                          <div style="font-weight: 700; color: var(--text);">${f.name}</div>
-                          <div style="margin-top: 4px;"><span class="system-badge" style="background: #f1f5f9; color: #475569; font-size: 0.78rem;">${f.probableSystem}</span></div>
-                        </td>
-                        <td>
-                          <ul style="margin: 0; padding-left: 16px; font-size: 0.88rem; color: var(--text);">
-                            ${symptomsList.map(s => `<li>${s}</li>`).join("")}
-                          </ul>
-                        </td>
-                        <td>
-                          <ul style="margin: 0; padding-left: 16px; font-size: 0.88rem; color: var(--muted);">
-                            ${checksList.map(c => `<li>${c}</li>`).join("")}
-                          </ul>
-                        </td>
-                        <td>
-                          <div style="font-size: 0.88rem; color: #1e293b; font-weight: 500; line-height: 1.4;">
-                            ${f.correction || "<em>No especificado en manual (verificar según síntomas)</em>"}
-                          </div>
-                        </td>
-                        <td style="text-align: center;">
-                          <span class="badge ${isUserReported ? "badge--pending" : ""}" style="font-size: 0.75rem; padding: 4px 8px; border-radius: 6px; font-weight: 600; background: ${isUserReported ? '#fef3c7' : '#e0f2fe'}; color: ${isUserReported ? '#b45309' : '#0369a1'}; border: 1px solid ${isUserReported ? '#fde68a' : '#bae6fd'};">
-                            ${isUserReported ? "Usuario" : "Manual"}
-                          </span>
-                        </td>
-                      </tr>
-                    `;
-                  }).join("")}
-                </tbody>
-              </table>
+            <!-- Lista de fallas (tarjetas expandibles con diagnóstico paso a paso) -->
+            <p style="color:var(--muted);font-size:0.9rem;margin:0 0 12px">Toca una falla para ver el <strong>diagnóstico paso a paso</strong>: dónde mirar, cómo hacerlo, la medida esperada, la herramienta y qué hacer si está fuera de rango.</p>
+            <div class="failures-list" id="failures-table-body">
+              ${failures.map((f) => {
+                const symptomsList = [].concat(f.symptoms);
+                const originLabel = f.status || "Base manual consolidada";
+                const isUserReported = originLabel.includes("Reportada") || originLabel.includes("Usuario");
+                const nSteps = (f.steps?.length || 0);
+                return `
+                  <details class="failure-card">
+                    <summary class="failure-card__summary">
+                      <div class="failure-card__top">
+                        <span class="failure-card__name">${f.name}</span>
+                        <span class="system-badge">${f.probableSystem}</span>
+                        <span class="origin-badge ${isUserReported ? "origin-badge--user" : "origin-badge--manual"}">${isUserReported ? "Reportada" : "Manual"}</span>
+                      </div>
+                      <div class="failure-card__sym">Síntomas: ${symptomsList.join(" · ")}${nSteps ? ` · <span class="failure-card__steps">${nSteps} pasos de diagnóstico</span>` : ""}</div>
+                    </summary>
+                    <div class="failure-card__body">
+                      ${ruleResponseHtml(f, machine)}
+                    </div>
+                  </details>`;
+              }).join("")}
             </div>
           </div>
         `;
@@ -4751,19 +5116,19 @@
         njp3500: [
           { title: "¿Cómo funciona?", hint: "Qué hace la máquina, cómo lo hace paso a paso y el flujo entradas–salidas",
             ids: ["como-funciona","flujo-es","indicadores"] },
-          { title: "Ficha técnica", hint: "Identificación, especificaciones y variables críticas de operación",
+          { title: "Operación y seguridad", hint: "Arranque y paro paso a paso, bloqueo de energía (LOTO), mandos HMI y seguridad",
+            ids: ["arranque-produccion","paro-vaciado","loto","mandos-hmi","seguridad"] },
+          { title: "Ficha técnica", hint: "Identificación (placa), especificaciones y variables críticas de operación",
             ids: ["id-general","parametros","variables-criticas"] },
-          { title: "Proceso de operación", hint: "Cómo funciona la máquina: secuencia completa y cada estación",
+          { title: "Proceso de operación", hint: "Secuencia completa y cada estación de la torreta",
             ids: ["proceso-completo","estacion-alimentacion","estacion-molde","estacion-vacio","estacion-llenado","estacion-rechazo","estacion-cierre","estacion-descarga","estacion-limpieza"] },
-          { title: "Instalación y arranque", hint: "Primera vez, commissioning, línea de auxiliares y mandos HMI",
-            ids: ["instalacion-arranque","diagrama-linea","mandos-hmi"] },
-          { title: "Sistemas y componentes", hint: "Tabla de sistemas, componentes eléctricos y rodamientos por zona",
-            ids: ["sistemas-principales","electrico","rodamientos"] },
-          { title: "Ajustes y mantenimiento", hint: "Plan por niveles, tolerancias críticas, cambio de formato, limpieza y lubricación",
-            ids: ["plan-mantenimiento","mantenimiento-limpieza","mantenimiento","lubricacion","cambio-formato"] },
-          { title: "Diagnóstico y fallas", hint: "Fallas comunes, síntomas, verificaciones, correcciones y seguridad",
-            ids: ["fallas-comunes","repuestos-criticos","seguridad"] },
-          { title: "Datos por confirmar", hint: "Información pendiente de validar en planta con el equipo real",
+          { title: "Instalación y puesta en marcha", hint: "Primera vez, commissioning y línea de equipos auxiliares",
+            ids: ["instalacion-arranque","diagrama-linea"] },
+          { title: "Ajustes y cambio de formato", hint: "Plan de mantenimiento por niveles, tolerancias críticas y cambio de formato",
+            ids: ["plan-mantenimiento","mantenimiento-limpieza","cambio-formato"] },
+          { title: "Componentes (referencia)", hint: "Componentes eléctricos y rodamientos por zona, según el manual",
+            ids: ["electrico","rodamientos"] },
+          { title: "Datos por confirmar", hint: "Lo que el manual NO da y hay que validar en planta",
             ids: ["pendientes"] }
         ],
         controlsa114rl: [
@@ -4834,10 +5199,11 @@
 
         const tabs = [
           ["summary", "Resumen"],
-          ["systems", "Sistemas"],
-          ["spares", "Repuestos"],
-          ["maintenance", "Mantenimiento"],
+          ["guide", "Guía / Operación"],
           ["failures", "Fallas"],
+          ["systems", "Sistemas"],
+          ["maintenance", "Mantenimiento"],
+          ["spares", "Repuestos"],
           ["documents", "Documentos"]
         ];
 
@@ -4932,13 +5298,6 @@
             ${renderGuideAccordion(machine)}
           </section>
         `;
-        // Add the "Guía profesional" tab
-        const guideTabBtn = document.createElement("button");
-        guideTabBtn.className = "profile-tab";
-        guideTabBtn.type = "button";
-        guideTabBtn.dataset.profileTab = "guide";
-        guideTabBtn.textContent = "Guía profesional";
-        guideTabs.appendChild(guideTabBtn);
       }
 
       function renderEmptyState(query) {
@@ -5286,10 +5645,15 @@
 
       function closeAssistant() { assistantPanel.classList.remove("is-open"); }
 
+      // Palabras genéricas que no deben disparar una coincidencia de falla
+      const ASSIST_STOPWORDS = new Set(["maquina","equipo","como","hace","pasa","tiene","esta","sale","problema","falla","ayuda","quiero","necesito","puede","para","con","del","los","las","una","por","que","esto","muy","hay","cual","donde","cuando"]);
+      function assistWords(query) {
+        return normalize(query).split(/\s+/).filter(w => w.length > 2 && !ASSIST_STOPWORDS.has(w));
+      }
+
       function matchRuleResponse(query, machine) {
         if (!machine?.failureModes?.length) return null;
-        const q = normalize(query);
-        const words = q.split(/\s+/).filter(w => w.length > 2);
+        const words = assistWords(query);
         if (!words.length) return null;
         let best = null, bestScore = 0;
         for (const f of machine.failureModes) {
@@ -5304,7 +5668,31 @@
           const score = hits / words.length;
           if (score > bestScore) { bestScore = score; best = f; }
         }
-        return bestScore >= 0.18 ? best : null;
+        // Umbral más alto: evita forzar una falla equivocada por una palabra suelta
+        return bestScore >= 0.4 ? best : null;
+      }
+
+      // Búsqueda offline (sin IA) en mantenimiento y repuestos
+      function offlineKnowledge(query, machine) {
+        const words = assistWords(query);
+        if (!words.length) return "";
+        const score = (text) => { const h = normalize(text); return words.filter(w => h.includes(w)).length; };
+        const maint = (machine.maintenanceTasks ?? [])
+          .map(t => ({ t, s: score(`${t.name} ${t.system} ${t.acceptance}`) }))
+          .filter(x => x.s > 0).sort((a,b)=>b.s-a.s).slice(0,3);
+        const spares = (machine.spareParts ?? [])
+          .map(p => ({ p, s: score(`${p.name} ${p.system} ${p.reference ?? ""} ${p.function}`) }))
+          .filter(x => x.s > 0).sort((a,b)=>b.s-a.s).slice(0,3);
+        let html = "";
+        if (maint.length) {
+          html += `<div class="diag-symptoms">🛠️ Mantenimiento relacionado:</div><ul>` +
+            maint.map(({t}) => `<li><strong>${t.name}</strong> — ${t.frequency} · ${t.acceptance}</li>`).join("") + `</ul>`;
+        }
+        if (spares.length) {
+          html += `<div class="diag-symptoms">📦 Repuestos relacionados:</div><ul>` +
+            spares.map(({p}) => `<li><strong>${p.name}</strong>${p.reference && p.reference !== "—" ? ` — ${p.reference}` : ""} · ${p.system}</li>`).join("") + `</ul>`;
+        }
+        return html;
       }
 
       function buildMachineContext(machine) {
@@ -5531,11 +5919,15 @@ ${buildMachineContext(machine)}`;
               ? formatAiResponse(aiText)
               : `<p>La IA no devolvió respuesta. Intenta de nuevo o describe el síntoma con más detalle.</p>`;
           } else {
+            const offline = offlineKnowledge(query, assistantMachine);
             const guideRefs = findRelevantGuideSections(query, assistantMachine);
-            const refsHtml = guideRefs.length
-              ? `<br>Secciones relacionadas en la guía:${guideRefs.map(s => ` <strong>${s.groupTitle} › ${s.sectionTitle}</strong>`).join(",")} — ábrelas con el botón de abajo.`
-              : "";
-            responseHtml = `<p>No encontré esa falla en la base de datos del equipo.${refsHtml}</p><p>Para respuestas detalladas paso a paso, configura tu <strong>API key de Anthropic</strong> en ⚙ — usa claude-haiku, es rápido y económico.</p>`;
+            if (offline) {
+              responseHtml = `<p>Esto encontré en la ficha del equipo (sin IA):</p>${offline}<p style="color:var(--muted);font-size:0.85rem">Para un diagnóstico paso a paso por IA, configura tu API key en ⚙ (usa claude-haiku).</p>`;
+            } else if (guideRefs.length) {
+              responseHtml = `<p>No tengo una respuesta directa para eso, pero estas secciones de la guía pueden ayudarte 👇</p>`;
+            } else {
+              responseHtml = `<p>No encontré información sobre eso en la ficha. Prueba describiendo el síntoma, el sistema (vacío, dosificación, cierre…) o el repuesto. Para respuestas paso a paso por IA, configura tu API key en ⚙.</p>`;
+            }
           }
         } else {
           responseHtml = "<p>Selecciona un equipo en el menú de arriba para que pueda ayudarte con diagnósticos específicos.</p>";
@@ -5609,7 +6001,13 @@ ${buildMachineContext(machine)}`;
       } else if (restoredState.activeView === "results" || currentQuery) {
         goResults({ keepSelection: true });
       } else {
-        setView("home");
+        // Sin estado previo: abrir directo el equipo actual en vez del buscador vacío
+        const current = machines.find((m) => m.current === "Equipo actual") || (machines.length === 1 ? machines[0] : null);
+        if (current) {
+          openDetail(current.id);
+        } else {
+          setView("home");
+        }
       }
     </script>
   </body>
