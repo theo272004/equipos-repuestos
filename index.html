@@ -2057,6 +2057,17 @@
       .cn-row code { background: var(--blue-soft); color: var(--blue); padding: 1px 6px; border-radius: 5px; font-weight: 700; }
       .cn-go { margin-left: auto; border: none; background: #111827; color: #fff; border-radius: 6px; padding: 3px 9px; font-size: 0.74rem; font-weight: 700; cursor: pointer; }
       .cn-go:hover { background: var(--blue); }
+      /* Caja de explicación de conexiones en palabras */
+      .ex-box { border: 1px solid var(--line); border-left: 4px solid var(--blue); border-radius: 12px; background: var(--surface); padding: 14px 16px; margin-top: 14px; box-shadow: var(--shadow-card); }
+      .ex-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+      .ex-id { font-size: 1.1rem; font-weight: 800; }
+      .ex-tag { display: inline-block; font-size: 0.68rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: #eef4ff; color: #2563eb; margin-bottom: 6px; }
+      .ex-tag--full { background: #dcfce7; color: #15803d; }
+      .ex-box ul { margin: 6px 0; padding-left: 18px; }
+      .ex-box li { margin: 5px 0; line-height: 1.45; font-size: 0.9rem; }
+      .ex-box code { background: var(--blue-soft); color: var(--blue); padding: 1px 6px; border-radius: 5px; font-weight: 700; }
+      .ex-pins { font-size: 0.82rem; background: var(--soft); border-radius: 8px; padding: 8px 10px; font-family: ui-monospace, Menlo, Consolas, monospace; word-break: break-word; }
+      .ex-note { font-size: 0.78rem; color: var(--muted); margin: 8px 0 0; }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -5477,7 +5488,9 @@
             </div>
             <div class="cn-panel" id="cnPanel">${schConnPanel(machine.id, "44")}</div>
           </div>
-          <p class="sv-hint">Tip: busca un componente arriba (p. ej. <strong>A29.1</strong>, <strong>M31.1</strong>, <strong>F19.1</strong>) y se abre su hoja con sus conexiones.</p>`;
+          <p class="sv-hint">Tip: busca un componente arriba (p. ej. <strong>A29.1</strong>, <strong>M31.1</strong>, <strong>F19.1</strong>) y se abre su hoja con sus conexiones.</p>
+          <div class="panel-header-clean" style="margin-top:18px"><h4>Explicación de la conexión</h4><p>Toca un componente (en el panel de la derecha o en el buscador) y aquí se explica en palabras cómo se conecta y qué activa.</p></div>
+          <div class="ex-box" id="schExplain">${schExplainHtml(machine.id, sel)}</div>`;
       }
 
       function schListHtml(mid, query = "", group = "") {
@@ -5570,6 +5583,7 @@
         // Abrir la hoja del componente en el visor de todo el plano + enfocarlo en el panel
         const dev = schDev(schGet(mid), id);
         if (dev && dev.s && document.getElementById("svImg")) schOpenSheet(mid, dev.s, id);
+        schShowExplain(mid, id);
       }
 
       function schFilter(mid) {
@@ -5792,7 +5806,7 @@
             const td = schDev(sch, to);
             return `<div class="cn-row"><code>${w}</code> <strong>${to}</strong> ${td ? `<span class="cn-comp__d">${(td.d || td.t).slice(0, 24)} · h.${td.s}</span>` : ""} <button class="cn-go" type="button" onclick="schGoTo('${mid}','${schEsc(to)}')">ir →</button></div>`;
           }).join("") : '<div class="cn-row" style="color:var(--muted)">Sin conexiones punto a punto registradas (puede estar solo en buses).</div>';
-          return `<details class="cn-comp" ${d.i === focus ? "open" : ""}><summary><span class="cn-comp__id">${d.i}</span> <span class="cn-comp__d">${(d.d || d.t).slice(0, 38)}</span></summary><div class="cn-conns">${rows}</div></details>`;
+          return `<details class="cn-comp" ${d.i === focus ? "open" : ""}><summary onclick="schShowExplain('${mid}','${schEsc(d.i)}')"><span class="cn-comp__id">${d.i}</span> <span class="cn-comp__d">${(d.d || d.t).slice(0, 38)}</span></summary><div class="cn-conns">${rows}</div></details>`;
         }).join("") : '<p style="color:var(--muted);font-size:0.84rem">Esta hoja no tiene componentes en el modelo (mira la imagen).</p>';
         return `<h5>Componentes de la hoja ${sheetNo} (${comps.length})</h5>${jumps ? `<div class="cn-jumps"><span style="font-size:0.74rem;color:var(--muted);font-weight:700;align-self:center">Conecta con:</span>${jumps}</div>` : ""}<div class="cn-list">${list}</div>`;
       }
@@ -5801,7 +5815,51 @@
         schSelected[mid] = compId;
         if (dev && dev.s) schOpenSheet(mid, dev.s, compId);
         const det = document.getElementById("schDetail"); if (det) det.innerHTML = schDetailHtml(mid, compId);
+        schShowExplain(mid, compId);
       }
+
+      // ===== Explicación en palabras de las conexiones (auto + detalladas, una por una) =====
+      const COMP_EXPLAIN = {
+        "KM44.4": `<p><strong>KM44.4</strong> es el contactor que da o quita la corriente a las resistencias de las planchas. Funciona así:</p>
+          <ul>
+            <li>El <strong>PLC le ordena cerrar</strong>: la salida <strong>A12.9 OUT11</strong> energiza su <strong>bobina</strong> (borne A1) por el hilo <strong>4407</strong>; el otro extremo de la bobina (A2) va a 0 V / GND.</li>
+            <li>Al energizarse la bobina, <strong>se cierran sus 3 contactos de potencia</strong> (1-2, 3-4, 5-6): dejan pasar la trifásica <code>2L1/2L2/2L3</code> hacia <code>44L1/44L2/44L3</code> → a las resistencias (hojas 19 / 19A / 41).</li>
+            <li>Además tiene un <strong>contacto auxiliar 13-14</strong> que, al cerrar el contactor, manda 24 V por el hilo <strong>4408</strong> a la entrada <strong>A12.4 IN2</strong> del PLC: así el PLC <strong>confirma que cerró</strong> ("resistencias insertadas").</li>
+            <li>Si el PLC ordena (OUT11) pero <strong>no recibe la confirmación</strong> (IN2) en el tiempo esperado → salta la <strong>Anomalía telerruptor</strong>.</li>
+          </ul>`,
+        "A12.9": `<p><strong>A12.9</strong> es el módulo de <strong>salidas</strong> del PLC (Beckhoff EL2809, 16 salidas de 24 V). Cada salida manda 24 V para activar una bobina o relé.</p>
+          <ul><li>Su salida <strong>OUT11</strong> (hilo <strong>4407</strong>) energiza la <strong>bobina de KM44.4</strong> → activa las resistencias.</li>
+          <li>Otras salidas mandan los relés estáticos de calentamiento <strong>A41.2 / A41.6</strong> (OUT6 / OUT7).</li></ul>`,
+        "A12.4": `<p><strong>A12.4</strong> es el módulo de <strong>entradas</strong> del PLC (Beckhoff EL1809, 16 entradas). Lee señales de 24 V que le llegan desde la máquina.</p>
+          <ul><li>Su entrada <strong>IN2</strong> (hilo <strong>4408</strong>) lee el contacto auxiliar <strong>13-14 de KM44.4</strong>: así el PLC sabe si el contactor cerró de verdad ("resistencias insertadas").</li></ul>`,
+        "F19.1": `<p><strong>F19.1</strong> es un magnetotérmico de <strong>10 A</strong> (Siemens 5SY6) que <strong>protege las resistencias de la plancha derecha</strong>.</p>
+          <ul><li>Recibe la trifásica desde <strong>KM44.4</strong> (<code>44L1/44L2</code>) y la entrega a los relés de control <strong>K19.1…K19.5</strong> → resistencias <strong>R41.x</strong>.</li>
+          <li>Si hay sobrecarga o cortocircuito en las resistencias, <strong>dispara</strong> y corta esa plancha. (F19A.1 hace lo mismo para la plancha izquierda.)</li></ul>`,
+        "A41.2": `<p><strong>A41.2</strong> es un <strong>relé estático</strong> (Omron G3PJ-525B, 25 A) que <strong>modula el calentamiento de la plancha derecha</strong>.</p>
+          <ul><li>El PLC (<strong>A12.9 OUT6</strong>) le indica cuándo/cuánto calentar; el relé conmuta rápido la corriente a las resistencias <strong>R41.1.x</strong>. La temperatura se lee con un PT100 en <strong>A12.11</strong>.</li></ul>`,
+        "A41.6": `<p><strong>A41.6</strong> es un <strong>relé estático</strong> (Omron G3PJ-525B, 25 A) que <strong>modula el calentamiento de la plancha izquierda</strong> (gemelo de A41.2), mandado por <strong>A12.9 OUT7</strong> sobre las resistencias <strong>R41.6.x</strong>.</p>`,
+        "K10.3": `<p><strong>K10.3</strong> es un <strong>relé de seguridad</strong> (Omron G7SA) del circuito de seguridad de la ensobradora (canal 1).</p>
+          <ul><li>Lo manda el módulo de seguridad del PLC <strong>A12.28</strong> (SAFETY OUT); su contacto <strong>NC 11-12</strong> realimenta a <strong>A12.5 IN15</strong> para verificar que actuó.</li>
+          <li>Trabaja en redundancia con <strong>K10.4</strong> (canal 2): los dos deben coincidir para considerar la seguridad OK.</li></ul>`,
+        "K10.4": `<p><strong>K10.4</strong> es el <strong>relé de seguridad del canal 2</strong> (redundante con K10.3, Omron G7SA). Lo manda <strong>A12.28</strong> y su contacto <strong>NC 11-12</strong> realimenta a <strong>A12.5 IN16</strong>.</p>`
+      };
+      function schExplainHtml(mid, id){
+        const sch = schGet(mid);
+        const d = schDev(sch, id);
+        if (!d) return `<p style="color:var(--muted)">Toca un componente (en el panel o en el buscador) para ver la explicación de sus conexiones.</p>`;
+        const head = `<div class="ex-head"><span class="ex-id">${id}</span> <span class="type-badge">${d.t}</span> <span class="system-badge">hoja ${d.s}</span></div>`;
+        if (COMP_EXPLAIN[id]) return head + `<span class="ex-tag ex-tag--full">explicación detallada</span>` + COMP_EXPLAIN[id];
+        const conns = sch.adj[id] || [];
+        const connText = conns.length
+          ? "<ul class='ex-conns'>" + conns.map(([w, to]) => { const td = schDev(sch, to); return `<li>Por el <code>${w}</code> se conecta con <strong>${to}</strong>${td ? ` — ${td.d || td.t} (hoja ${td.s})` : ""}.</li>`; }).join("") + "</ul>"
+          : "<p style='color:var(--muted)'>No tiene conexiones punto a punto registradas (puede compartir solo buses de potencia o 24 V).</p>";
+        return head + `<span class="ex-tag">explicación automática</span>
+          <p>${d.d || d.t}.</p>
+          ${d.p ? `<p class="ex-pins"><strong>Pines / hilos:</strong> ${d.p}</p>` : ""}
+          <p><strong>Conexiones:</strong></p>${connText}
+          <p class="ex-note">Esta explicación se genera del modelo. Las detalladas (escritas a mano) se van completando una por una.</p>`;
+      }
+      function schShowExplain(mid, id){ const e = document.getElementById("schExplain"); if (e) e.innerHTML = schExplainHtml(mid, id); }
 
       function renderProfile(machine) {
         const technicalHighlights = machine.summarySpecs ?? [
