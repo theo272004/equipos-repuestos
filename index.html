@@ -1997,6 +1997,30 @@
       .sch-alarm__node { background: #fff; border: 1px solid var(--orange); border-radius: 8px; padding: 4px 9px; font-weight: 800; font-size: 0.82rem; cursor: pointer; display: flex; flex-direction: column; line-height: 1.15; }
       .sch-alarm__node small { font-weight: 600; color: var(--muted); font-size: 0.68rem; }
       .sch-alarm__wire { font-family: ui-monospace, monospace; font-size: 0.8rem; color: #b45309; font-weight: 700; }
+
+      /* ===== Esquema eléctrico interactivo (circuito real con resaltado) ===== */
+      .es-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin: 14px 0 8px; }
+      .es-head h4 { margin: 0; }
+      .es-head p { margin: 4px 0 0; font-size: 0.88rem; color: var(--muted); }
+      .es-label { color: var(--orange); font-weight: 700; }
+      .es-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .es-wrap { border: 1px solid var(--line); border-radius: 12px; background: #fff; padding: 8px; overflow-x: auto; box-shadow: var(--shadow-card); }
+      .es-svg { width: 100%; min-width: 820px; height: auto; display: block; }
+      .es-svg text { font-family: "Outfit", sans-serif; }
+      .es-wire { stroke: #475569; stroke-width: 2.2; fill: none; }
+      .es-sym { stroke: #1e293b; stroke-width: 2; fill: #fff; }
+      .es-cmp-box { fill: #f8fafc; stroke: #1e293b; stroke-width: 1.6; }
+      .es-lbl { fill: #1e293b; font-size: 12px; }
+      .es-lbl-sm { fill: #64748b; font-size: 10px; }
+      .es-rail { stroke: #94a3b8; stroke-width: 2.4; }
+      .es-mech { stroke: #94a3b8; stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+      .es-svg [data-comp], .es-svg [data-net] { cursor: pointer; }
+      .es-svg line.es-hl, .es-svg polyline.es-hl { stroke: #ea580c; stroke-width: 4.5; }
+      .es-svg g.es-hl line, .es-svg g.es-hl polyline { stroke: #ea580c; stroke-width: 3.2; }
+      .es-svg g.es-hl rect, .es-svg g.es-hl circle { stroke: #ea580c; }
+      .es-svg g.es-hl .es-cmp-box { fill: #fff7ed; }
+      .es-svg g.es-hl text { fill: #c2410c; font-weight: 800; }
+      .es-svg .es-dim { opacity: 0.18; }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -5369,11 +5393,27 @@
         if (!sch) return "<p>Este equipo no tiene plano eléctrico cargado.</p>";
         const sel = schSelected[machine.id] || (schDev(sch, "KM44.4") ? "KM44.4" : sch.devices[0]?.i);
         schSelected[machine.id] = sel;
+        const esBlock = sch.alarmPath ? `
+          <div class="es-head">
+            <div>
+              <h4>Circuito del telerruptor KM44.4 — esquema interactivo</h4>
+              <p>Toca un <strong>componente</strong> o un <strong>cable</strong> para resaltar en naranja todo su recorrido. <span id="esLabel" class="es-label"></span></p>
+            </div>
+            <div class="es-actions">
+              <button class="button button--dark" type="button" onclick="esTrace()">⚡ Lazo de la alarma</button>
+              <button class="button button--light" type="button" onclick="esClear()">Quitar resaltado</button>
+              <button class="button button--light" type="button" onclick="schViewSheet('${machine.id}','44')">📄 Hoja 44 original</button>
+            </div>
+          </div>
+          <div class="es-wrap">${esSchematicSvg()}</div>
+        ` : "";
         return `
           <div class="panel-header-clean">
-            <h3>Explorador del plano eléctrico</h3>
-            <p>${sch.maquina} · esquema ${sch.ref} · ${sch.devices.length} componentes · ${sch.sheets.length} hojas. Selecciona un componente y verás <strong>todas sus conexiones</strong> resaltadas, con referencias cruzadas entre hojas.</p>
+            <h3>Plano eléctrico — ${sch.maquina}</h3>
+            <p>Esquema ${sch.ref} · ${sch.devices.length} componentes · ${sch.sheets.length} hojas.</p>
           </div>
+          ${esBlock}
+          <div class="panel-header-clean" style="margin-top:18px"><h4>Buscador de componentes (todo el plano)</h4><p>Busca cualquier componente para ver su ficha, hoja y conexiones.</p></div>
           <div class="sch-toolbar">
             <input id="schSearch" placeholder="Buscar: KM44.4, A12.9, fusible, motor…" oninput="schFilter('${machine.id}')" />
             <select id="schGroup" onchange="schFilter('${machine.id}')">
@@ -5455,7 +5495,6 @@
             <p class="sch-card__desc">${d.d || ""}</p>
             ${d.p ? `<div class="sch-card__pins"><strong>Pines / hilos:</strong> ${d.p}</div>` : ""}
             ${sheet ? `<p class="sch-card__sheet">Hoja <strong>${d.s}</strong> — ${sheet.t}</p>` : ""}
-            ${schGraphSvg(mid, id)}
             <div class="sch-conns">
               <h5>Conexiones (${neighbors.length})</h5>
               ${neighbors.length ? `<table class="crit-table"><tbody>
@@ -5513,6 +5552,117 @@
         } else {
           alert(`La imagen de la hoja ${sheetNo} no está incluida en la app. Consúltala en el PDF del esquema ES4220003 (hoja ${sheetNo}).`);
         }
+      }
+
+      // ===== Esquema eléctrico interactivo del circuito KM44.4 (símbolos reales + resaltado) =====
+      const ES_COMP_NETS = {
+        "KM44.4": ["p1","p2","p3","o1","o2","o3","4407","wgnd","4408","w24"],
+        "A12.9": ["4407"],
+        "A12.4": ["4408"],
+        "F19.1": ["o1","o2","o3"],
+        "RES": ["o1","o2","o3"]
+      };
+      const ES_NET_LABEL = { p1:"2L1", p2:"2L2", p3:"2L3", o1:"44L1", o2:"44L2", o3:"44L3", "4407":"4407", "4408":"4408", wgnd:"GND", w24:"24V" };
+      function esCompsForNet(n){ return Object.keys(ES_COMP_NETS).filter(c => ES_COMP_NETS[c].includes(n)); }
+      function esApply(nets, comps, label){
+        const svg = document.getElementById("esSvg"); if (!svg) return;
+        const ns = new Set(nets), cs = new Set(comps);
+        const active = ns.size > 0 || cs.size > 0;
+        svg.querySelectorAll("[data-net]").forEach(el => { const on = ns.has(el.getAttribute("data-net")); el.classList.toggle("es-hl", on); el.classList.toggle("es-dim", active && !on); });
+        svg.querySelectorAll("[data-comp]").forEach(el => { const on = cs.has(el.getAttribute("data-comp")); el.classList.toggle("es-hl", on); el.classList.toggle("es-dim", active && !on); });
+        const lbl = document.getElementById("esLabel"); if (lbl) lbl.textContent = label || "";
+      }
+      function esHl(kind, name){
+        if (kind === "comp"){
+          const nets = ES_COMP_NETS[name] || [];
+          const comps = new Set([name]);
+          nets.forEach(n => esCompsForNet(n).forEach(c => comps.add(c)));
+          esApply(nets, [...comps], "Resaltado: " + name + " y todas sus conexiones");
+        } else {
+          const comps = esCompsForNet(name);
+          esApply([name], comps, "Cable " + (ES_NET_LABEL[name] || name) + " · conecta: " + comps.join(", "));
+        }
+      }
+      function esClear(){ esApply([], [], ""); }
+      function esTrace(){ esApply(["4407","wgnd","w24","4408"], ["KM44.4","A12.9","A12.4"], "Lazo de la alarma: mando 4407 (A12.9→bobina) + realimentación 4408 (aux→A12.4)"); }
+
+      function esSchematicSvg(){
+        const phases = [{x:650,i:1},{x:725,i:2},{x:800,i:3}];
+        let power = "";
+        phases.forEach(ph => {
+          const x = ph.x, i = ph.i;
+          power += `<line class="es-wire" data-net="p${i}" data-net2 x1="${x}" y1="60" x2="${x}" y2="150"/>`;
+          power += `<g data-comp="KM44.4" onclick="esHl('comp','KM44.4');event.stopPropagation()">`
+            + `<line class="es-sym" x1="${x}" y1="150" x2="${x}" y2="159"/>`
+            + `<line class="es-sym" x1="${x}" y1="159" x2="${x+15}" y2="187"/>`
+            + `<line class="es-sym" x1="${x}" y1="183" x2="${x}" y2="191"/>`
+            + `<circle class="es-sym" cx="${x}" cy="159" r="2.6"/></g>`;
+          power += `<line class="es-wire" data-net="o${i}" x1="${x}" y1="191" x2="${x}" y2="300"/>`;
+          power += `<g data-comp="F19.1" onclick="esHl('comp','F19.1');event.stopPropagation()"><rect class="es-cmp-box" x="${x-9}" y="300" width="18" height="34" rx="2"/><line class="es-sym" x1="${x}" y1="300" x2="${x}" y2="334"/></g>`;
+          power += `<line class="es-wire" data-net="o${i}" x1="${x}" y1="334" x2="${x}" y2="416"/>`;
+          power += `<polyline class="es-sym" data-comp="RES" onclick="esHl('comp','RES');event.stopPropagation()" points="${x},416 ${x-8},424 ${x+8},432 ${x-8},440 ${x+8},448 ${x},456"/>`;
+        });
+        return `<svg id="esSvg" class="es-svg" viewBox="0 0 920 540" preserveAspectRatio="xMidYMid meet" onclick="esClear()">
+          <!-- POTENCIA -->
+          <text class="es-lbl-sm" x="650" y="44">2L1 / 2L2 / 2L3 — trifásica desde hoja 22</text>
+          <line class="es-rail" x1="640" y1="60" x2="810" y2="60"/>
+          ${power}
+          <text class="es-lbl-sm" x="828" y="172">KM44.4</text>
+          <text class="es-lbl-sm" x="828" y="186">1-2/3-4/5-6</text>
+          <text class="es-lbl-sm" x="828" y="252">44L1/44L2/44L3</text>
+          <text class="es-lbl-sm" x="828" y="320">F19.1 / F19A.1 · 10A</text>
+          <g data-comp="RES" onclick="esHl('comp','RES');event.stopPropagation()">
+            <rect class="es-cmp-box" x="612" y="468" width="236" height="40" rx="6"/>
+            <text class="es-lbl" x="730" y="486" text-anchor="middle">Resistencias de planchas (R41.x)</text>
+            <text class="es-lbl-sm" x="730" y="500" text-anchor="middle">hojas 19 / 19A / 41 · K19.x control</text>
+          </g>
+
+          <!-- CONTROL: bobina -->
+          <g data-comp="A12.9" onclick="esHl('comp','A12.9');event.stopPropagation()">
+            <rect class="es-cmp-box" x="70" y="70" width="170" height="48" rx="6"/>
+            <text class="es-lbl" x="155" y="92" text-anchor="middle">PLC · A12.9 (Beckhoff)</text>
+            <text class="es-lbl-sm" x="155" y="108" text-anchor="middle">OUT 11 — manda la bobina</text>
+          </g>
+          <text class="es-lbl-sm" x="162" y="150">4407</text>
+          <line class="es-wire" data-net="4407" x1="155" y1="118" x2="155" y2="250"/>
+          <g data-comp="KM44.4" onclick="esHl('comp','KM44.4');event.stopPropagation()">
+            <rect class="es-sym" x="130" y="250" width="50" height="58" rx="3"/>
+            <text class="es-lbl" x="155" y="276" text-anchor="middle">KM44.4</text>
+            <text class="es-lbl-sm" x="155" y="292" text-anchor="middle">bobina A1/A2</text>
+            <polyline class="es-sym" points="192,256 192,302"/>
+            <polyline class="es-sym" points="192,272 200,280 192,288 192,272"/>
+            <line class="es-sym" x1="196" y1="270" x2="196" y2="290"/>
+          </g>
+          <text class="es-lbl-sm" x="206" y="248">diodo</text>
+          <line class="es-wire" data-net="wgnd" x1="155" y1="308" x2="155" y2="500"/>
+
+          <!-- CONTROL: realimentación -->
+          <text class="es-lbl-sm" x="360" y="74">+24 V (X06-3, hoja 42)</text>
+          <circle class="es-sym" cx="400" cy="84" r="3"/>
+          <line class="es-wire" data-net="w24" x1="400" y1="84" x2="400" y2="188"/>
+          <g data-comp="KM44.4" onclick="esHl('comp','KM44.4');event.stopPropagation()">
+            <line class="es-sym" x1="400" y1="188" x2="400" y2="197"/>
+            <line class="es-sym" x1="400" y1="197" x2="415" y2="225"/>
+            <line class="es-sym" x1="400" y1="221" x2="400" y2="229"/>
+            <circle class="es-sym" cx="400" cy="197" r="2.6"/>
+            <text class="es-lbl-sm" x="418" y="212">aux 13-14 (NA)</text>
+          </g>
+          <text class="es-lbl-sm" x="407" y="270">4408</text>
+          <line class="es-wire" data-net="4408" x1="400" y1="229" x2="400" y2="320"/>
+          <g data-comp="A12.4" onclick="esHl('comp','A12.4');event.stopPropagation()">
+            <rect class="es-cmp-box" x="315" y="320" width="170" height="48" rx="6"/>
+            <text class="es-lbl" x="400" y="342" text-anchor="middle">PLC · A12.4 (Beckhoff)</text>
+            <text class="es-lbl-sm" x="400" y="358" text-anchor="middle">IN 2 — feedback (resistencias insertadas)</text>
+          </g>
+
+          <!-- enlace mecánico bobina -> contactos -->
+          <polyline class="es-mech" data-comp="KM44.4" onclick="esHl('comp','KM44.4');event.stopPropagation()" points="180,279 560,279 560,170 638,170"/>
+          <text class="es-lbl-sm" x="300" y="273">la bobina cierra los contactos de potencia</text>
+
+          <!-- riel GND -->
+          <line class="es-rail" x1="70" y1="500" x2="450" y2="500"/>
+          <text class="es-lbl-sm" x="74" y="516">0 V / GND (retorno del mando 24 V)</text>
+        </svg>`;
       }
 
       function renderProfile(machine) {
