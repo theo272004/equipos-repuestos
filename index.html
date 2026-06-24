@@ -2021,6 +2021,15 @@
       .es-svg g.es-hl .es-cmp-box { fill: #fff7ed; }
       .es-svg g.es-hl text { fill: #c2410c; font-weight: 800; }
       .es-svg .es-dim { opacity: 0.18; }
+
+      /* Capa interactiva sobre el plano real escaneado */
+      .es2-svg { width: 100%; min-width: 820px; height: auto; display: block; }
+      .es2-net { stroke: rgba(37,99,235,0.001); stroke-width: 16; fill: none; cursor: pointer; }
+      .es2-net:hover { stroke: rgba(37,99,235,0.35); }
+      .es2-net.es-hl { stroke: rgba(234,88,12,0.9); stroke-width: 8; filter: drop-shadow(0 0 2px rgba(234,88,12,0.6)); }
+      .es2-comp { fill: rgba(37,99,235,0.001); cursor: pointer; stroke: transparent; }
+      .es2-comp:hover { fill: rgba(37,99,235,0.10); }
+      .es2-comp.es-hl { fill: rgba(234,88,12,0.14); stroke: #ea580c; stroke-width: 3; }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -5396,16 +5405,17 @@
         const esBlock = sch.alarmPath ? `
           <div class="es-head">
             <div>
-              <h4>Circuito del telerruptor KM44.4 — esquema interactivo</h4>
-              <p>Toca un <strong>componente</strong> o un <strong>cable</strong> para resaltar en naranja todo su recorrido. <span id="esLabel" class="es-label"></span></p>
+              <h4>Plano del circuito del telerruptor KM44.4 (interactivo)</h4>
+              <p>Sobre el <strong>plano real</strong>: toca un <strong>componente</strong> o un <strong>cable</strong> y se resalta en naranja todo su recorrido. <span id="esLabel" class="es-label"></span></p>
             </div>
             <div class="es-actions">
               <button class="button button--dark" type="button" onclick="esTrace()">⚡ Lazo de la alarma</button>
               <button class="button button--light" type="button" onclick="esClear()">Quitar resaltado</button>
-              <button class="button button--light" type="button" onclick="schViewSheet('${machine.id}','44')">📄 Hoja 44 original</button>
+              <button class="button button--light" id="esToggleBtn" type="button" onclick="es2Toggle('${machine.id}')">Ver esquema simplificado</button>
+              <button class="button button--light" type="button" onclick="schViewSheet('${machine.id}','44')">🔍 Hoja 44 a pantalla completa</button>
             </div>
           </div>
-          <div class="es-wrap">${esSchematicSvg()}</div>
+          <div class="es-wrap" id="esWrap" data-mode="real">${es2OverlaySvg(machine.id)}</div>
         ` : "";
         return `
           <div class="panel-header-clean">
@@ -5565,7 +5575,7 @@
       const ES_NET_LABEL = { p1:"2L1", p2:"2L2", p3:"2L3", o1:"44L1", o2:"44L2", o3:"44L3", "4407":"4407", "4408":"4408", wgnd:"GND", w24:"24V" };
       function esCompsForNet(n){ return Object.keys(ES_COMP_NETS).filter(c => ES_COMP_NETS[c].includes(n)); }
       function esApply(nets, comps, label){
-        const svg = document.getElementById("esSvg"); if (!svg) return;
+        const svg = document.getElementById("esSvg") || document.getElementById("es2Svg"); if (!svg) return;
         const ns = new Set(nets), cs = new Set(comps);
         const active = ns.size > 0 || cs.size > 0;
         svg.querySelectorAll("[data-net]").forEach(el => { const on = ns.has(el.getAttribute("data-net")); el.classList.toggle("es-hl", on); el.classList.toggle("es-dim", active && !on); });
@@ -5663,6 +5673,35 @@
           <line class="es-rail" x1="70" y1="500" x2="450" y2="500"/>
           <text class="es-lbl-sm" x="74" y="516">0 V / GND (retorno del mando 24 V)</text>
         </svg>`;
+      }
+
+      // ===== Capa interactiva SOBRE el plano real escaneado (hoja 44) =====
+      function es2OverlaySvg(mid){
+        const sch = schGet(mid);
+        const img = (sch.img && sch.img["44"]) || "";
+        const nets = {
+          p1: "140,190 238,190 238,470", p2: "140,205 262,205 262,470", p3: "140,218 288,218 288,470",
+          o1: "238,490 238,725 490,725", o2: "262,490 262,700 490,700", o3: "288,490 288,680 490,680",
+          "4407": "575,408 575,555", wgnd: "420,232 575,232 575,375", w24: "420,250 700,250 700,375", "4408": "700,408 700,555"
+        };
+        const comps = [
+          { c: "KM44.4", r: [200,445,118,62] }, { c: "KM44.4", r: [535,363,98,55] }, { c: "KM44.4", r: [660,363,68,55] },
+          { c: "A12.9", r: [582,551,86,68] }, { c: "A12.4", r: [707,551,86,68] }
+        ];
+        const netSvg = Object.entries(nets).map(([k, pts]) => `<polyline class="es2-net" data-net="${k}" points="${pts}" onclick="esHl('net','${k}');event.stopPropagation()"></polyline>`).join("");
+        const compSvg = comps.map(o => `<rect class="es2-comp" data-comp="${o.c}" x="${o.r[0]}" y="${o.r[1]}" width="${o.r[2]}" height="${o.r[3]}" rx="4" onclick="esHl('comp','${o.c}');event.stopPropagation()"></rect>`).join("");
+        return `<svg id="es2Svg" class="es2-svg" viewBox="0 0 1400 990" preserveAspectRatio="xMidYMid meet" onclick="esClear()">
+          <image href="${img}" xlink:href="${img}" x="0" y="0" width="1400" height="990"></image>
+          ${netSvg}${compSvg}
+        </svg>`;
+      }
+      function es2Toggle(mid){
+        const wrap = document.getElementById("esWrap"); if (!wrap) return;
+        const btn = document.getElementById("esToggleBtn");
+        const isClean = wrap.getAttribute("data-mode") === "clean";
+        if (isClean){ wrap.innerHTML = es2OverlaySvg(mid); wrap.setAttribute("data-mode","real"); if (btn) btn.textContent = "Ver esquema simplificado"; }
+        else { wrap.innerHTML = esSchematicSvg(); wrap.setAttribute("data-mode","clean"); if (btn) btn.textContent = "Ver plano real"; }
+        esClear();
       }
 
       function renderProfile(machine) {
