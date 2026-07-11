@@ -2069,39 +2069,47 @@
       .ex-pins { font-size: 0.82rem; background: var(--soft); border-radius: 8px; padding: 8px 10px; font-family: ui-monospace, Menlo, Consolas, monospace; word-break: break-word; }
       .ex-note { font-size: 0.78rem; color: var(--muted); margin: 8px 0 0; }
 
-      /* ===== Tareas pendientes (mini orden de trabajo) ===== */
+      /* ===== Tareas / Recordatorios (mini orden de trabajo) ===== */
       .tasks-view.is-active { display: block; }
-      .tk-grid { display: grid; grid-template-columns: 330px 1fr; gap: 20px; align-items: start; margin-top: 16px; }
-      @media (max-width: 820px) { .tk-grid { grid-template-columns: 1fr; } }
-      .tk-form { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: var(--surface); box-shadow: var(--shadow-card); display: grid; gap: 10px; position: sticky; top: 20px; }
-      .tk-form h4 { margin: 0 0 2px; }
-      .tk-form label { display: grid; gap: 4px; font-size: 0.8rem; font-weight: 700; color: var(--muted); }
-      .tk-form input, .tk-form select, .tk-form textarea { font: inherit; font-size: 0.9rem; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 8px; outline: none; background: #fff; color: var(--text); resize: vertical; }
-      .tk-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-      .tk-filters { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
-      .tk-filters select { height: 38px; border: 1px solid var(--line-strong); border-radius: 9px; padding: 0 10px; font: inherit; background: #fff; }
-      .tk-card { border: 1px solid var(--line); border-left: 4px solid var(--line-strong); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; background: var(--surface); box-shadow: var(--shadow-card); }
-      .tk-st--pendiente { border-left-color: #64748b; }
-      .tk-st--en-progreso { border-left-color: var(--blue); }
-      .tk-st--hecha { border-left-color: #0e9f6e; opacity: 0.72; }
-      .tk-card__top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-      .tk-title { font-size: 1rem; flex: 1; }
+      /* minmax(0,1fr) evita que los títulos/pasos largos empujen las tarjetas fuera del contenedor */
+      .tk-grid { display: grid; grid-template-columns: 340px minmax(0, 1fr); gap: 22px; align-items: start; margin-top: 18px; max-width: 1040px; }
+      @media (max-width: 860px) { .tk-grid { grid-template-columns: 1fr; } }
+      .tk-form { min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: var(--surface); box-shadow: var(--shadow-card); display: grid; gap: 11px; position: sticky; top: 20px; }
+      .tk-form h4 { margin: 0 0 4px; font-size: 1.02rem; }
+      .tk-form label { display: grid; gap: 5px; font-size: 0.76rem; font-weight: 700; letter-spacing: 0.01em; color: var(--muted); min-width: 0; }
+      .tk-form input, .tk-form select, .tk-form textarea { width: 100%; max-width: 100%; box-sizing: border-box; font: inherit; font-size: 0.9rem; padding: 9px 11px; border: 1px solid var(--line-strong); border-radius: 10px; outline: none; background: #fff; color: var(--text); resize: vertical; transition: border-color .15s, box-shadow .15s; }
+      .tk-form input:focus, .tk-form select:focus, .tk-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+      .tk-form .button { margin-top: 4px; }
+      .tk-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
+      .tk-list { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+      .tk-filters { display: flex; gap: 10px; flex-wrap: wrap; }
+      .tk-filters select { height: 40px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 0 12px; font: inherit; background: #fff; min-width: 0; flex: 1 1 160px; }
+      .tk-card { min-width: 0; border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px 15px 20px; background: var(--surface); box-shadow: var(--shadow-card); position: relative; overflow: hidden; transition: box-shadow .18s ease; }
+      .tk-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #94a3b8; }
+      .tk-card:hover { box-shadow: 0 10px 30px rgba(16,24,40,0.10); }
+      .tk-st--pendiente::before { background: #64748b; }
+      .tk-st--en-progreso::before { background: var(--blue); }
+      .tk-st--hecha::before { background: #0e9f6e; }
+      .tk-st--hecha { opacity: 0.72; }
+      .tk-card__top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+      .tk-title { font-size: 1.02rem; font-weight: 700; flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
       .tk-st--hecha .tk-title { text-decoration: line-through; }
-      .tk-pr { font-size: 0.66rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; color: #fff; }
+      .tk-pr { font-size: 0.63rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: #fff; white-space: nowrap; flex-shrink: 0; }
       .tk-pr--alta { background: #dc2626; } .tk-pr--media { background: #f59e0b; } .tk-pr--baja { background: #64748b; }
-      .tk-status { font-size: 0.72rem; font-weight: 700; color: var(--muted); }
-      .tk-desc { font-size: 0.88rem; color: var(--text); margin: 8px 0; }
-      .tk-steps { margin: 8px 0; display: grid; gap: 4px; }
-      .tk-step { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; cursor: pointer; }
+      .tk-status { font-size: 0.7rem; font-weight: 700; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; white-space: nowrap; flex-shrink: 0; }
+      .tk-desc { font-size: 0.9rem; color: var(--text); margin: 10px 0 0; overflow-wrap: anywhere; }
+      .tk-steps { margin: 12px 0 0; display: grid; gap: 6px; min-width: 0; }
+      .tk-step { display: flex; align-items: flex-start; gap: 9px; font-size: 0.89rem; cursor: pointer; overflow-wrap: anywhere; }
+      .tk-step input { margin-top: 3px; flex-shrink: 0; }
       .tk-step.is-done { color: var(--muted); text-decoration: line-through; }
-      .tk-prog { font-size: 0.74rem; color: var(--muted); font-weight: 700; margin-top: 2px; }
-      .tk-meta { font-size: 0.76rem; color: var(--muted); margin-top: 6px; }
-      .tk-actions { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
-      .tk-actions .button { min-height: 30px; padding: 0 10px; font-size: 0.8rem; }
-      .tk-follow { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; background: var(--blue-soft); padding: 8px; border-radius: 8px; align-items: center; }
-      .tk-follow input { flex: 1; min-width: 160px; border: 1px solid var(--line-strong); border-radius: 7px; padding: 6px 9px; font: inherit; }
-      .tk-follow__lbl { font-size: 0.8rem; font-weight: 700; color: var(--blue); width: 100%; }
-      .tk-empty { color: var(--muted); padding: 24px; text-align: center; border: 1px dashed var(--line-strong); border-radius: 12px; }
+      .tk-prog { font-size: 0.74rem; color: var(--muted); font-weight: 700; margin-top: 4px; }
+      .tk-meta { font-size: 0.76rem; color: var(--muted); margin-top: 12px; overflow-wrap: anywhere; }
+      .tk-actions { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 13px; }
+      .tk-actions .button { min-height: 32px; padding: 0 12px; font-size: 0.8rem; }
+      .tk-follow { display: flex; gap: 8px; margin-top: 13px; flex-wrap: wrap; background: var(--blue-soft); padding: 11px; border-radius: 10px; align-items: center; }
+      .tk-follow input { flex: 1 1 150px; min-width: 0; border: 1px solid var(--line-strong); border-radius: 8px; padding: 7px 10px; font: inherit; }
+      .tk-follow__lbl { font-size: 0.82rem; font-weight: 700; color: var(--blue); width: 100%; }
+      .tk-empty { color: var(--muted); padding: 40px 24px; text-align: center; border: 1.5px dashed var(--line-strong); border-radius: 14px; background: #fafbfc; }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -2564,6 +2572,36 @@
         </div>
       </div>
     </aside>
+
+    <!-- ===== Firebase: sincroniza los recordatorios en la nube para TODOS los dispositivos ===== -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script>
+      // ▼▼▼ PEGA AQUÍ la configuración de tu proyecto Firebase ▼▼▼
+      // (Firebase Console → ⚙ Configuración del proyecto → "Tus apps" → app Web → objeto firebaseConfig)
+      const firebaseConfig = {
+        apiKey: "AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ",
+        authDomain: "mantenimiento-f405b.firebaseapp.com",
+        projectId: "mantenimiento-f405b",
+        storageBucket: "mantenimiento-f405b.firebasestorage.app",
+        messagingSenderId: "1026028107442",
+        appId: "1:1026028107442:web:c4a15a817ac5d55623fbab"
+      };
+      // ▲▲▲ No cambies nada debajo de esta línea ▲▲▲
+      window.CLOUD = { db: null, enabled: false };
+      try {
+        if (firebaseConfig.projectId && window.firebase) {
+          firebase.initializeApp(firebaseConfig);
+          window.CLOUD.db = firebase.firestore();
+          window.CLOUD.enabled = true;
+          console.log("[Recordatorios] Firebase conectado:", firebaseConfig.projectId);
+        } else {
+          console.log("[Recordatorios] Sin config de Firebase: se usa almacenamiento local del dispositivo.");
+        }
+      } catch (e) {
+        console.error("[Recordatorios] No se pudo iniciar Firebase, se usa almacenamiento local:", e);
+      }
+    </script>
 
     <script>
       // ========================================================================
@@ -6043,11 +6081,39 @@
         renderPreview(selectedMachine);
       }
 
-      // ===== Tareas pendientes (mini orden de trabajo, guardadas en este navegador) =====
+      // ===== Tareas / Recordatorios (mini orden de trabajo) =====
+      // Se guardan en la nube (Firebase) cuando hay config; si no, en este navegador.
       const tasksKey = "equipos-tareas-v1";
+      const cloud = window.CLOUD || { db: null, enabled: false };
+      let cloudKnownIds = new Set();
       function loadTasks(){ try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
       let tasks = loadTasks();
-      function saveTasks(){ try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch(e){} }
+      function saveLocal(){ try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch(e){} }
+      function saveTasks(){ saveLocal(); if (cloud.enabled && cloud.db) cloudSync(); }
+      // Sube el estado actual a Firestore (upsert de lo presente + borra lo que ya no está)
+      function cloudSync(){
+        try {
+          const col = cloud.db.collection("tareas");
+          const batch = cloud.db.batch();
+          const ids = new Set();
+          tasks.forEach(t => { ids.add(t.id); batch.set(col.doc(t.id), JSON.parse(JSON.stringify(t))); });
+          cloudKnownIds.forEach(id => { if (!ids.has(id)) batch.delete(col.doc(id)); });
+          cloudKnownIds = ids;
+          batch.commit().catch(e => console.error("[Recordatorios] Error guardando en la nube:", e));
+        } catch(e){ console.error("[Recordatorios] cloudSync:", e); }
+      }
+      // Escucha en tiempo real: cualquier cambio de cualquier dispositivo actualiza la vista
+      function cloudSubscribe(){
+        if (!(cloud.enabled && cloud.db)) return;
+        cloud.db.collection("tareas").onSnapshot(snap => {
+          const remote = [];
+          snap.forEach(d => remote.push(d.data()));
+          tasks = remote;
+          cloudKnownIds = new Set(remote.map(t => t.id));
+          saveLocal();
+          if (document.getElementById("tasksRoot")) renderTasks();
+        }, err => console.error("[Recordatorios] onSnapshot:", err));
+      }
       function tuid(){ return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
       const taskFilter = { machine: "", status: "" };
       function taskMachineName(id){ const m = machines.find(x => x.id === id); return m ? (m.model || m.name) : "General / Otra"; }
@@ -6070,7 +6136,7 @@
               <button class="button button--light" type="button" onclick="taskImport()">Importar</button>
             </div>
           </div>
-          <p style="color:var(--muted);font-size:0.86rem;margin:-6px 0 4px">Las tareas se guardan en este navegador/equipo. Usa Exportar/Importar para compartirlas con otro equipo.</p>
+          <p style="font-size:0.86rem;margin:-6px 0 4px;${cloud.enabled ? "color:#0e7a4e" : "color:var(--muted)"}">${cloud.enabled ? "☁️ Sincronizado en la nube: cualquier persona ve y edita estos recordatorios en tiempo real desde cualquier dispositivo." : "Las tareas se guardan solo en este navegador/equipo. Conecta Firebase para verlas en todos los dispositivos, o usa Exportar/Importar."}</p>
           <div class="tk-grid">
             <form class="tk-form" id="tkForm" onsubmit="taskSubmit(event)">
               <h4>➕ Nueva tarea</h4>
@@ -6151,6 +6217,7 @@ Chequear y probar"></textarea></label>
       function taskExport(){ const data = JSON.stringify(tasks, null, 2); try { navigator.clipboard?.writeText(data); } catch(e){} window.prompt("Copia este texto para respaldar o compartir las tareas:", data); }
       function taskImport(){ const txt = window.prompt("Pega el texto de tareas exportado (se agregan las que no existan):"); if (!txt) return; try { const arr = JSON.parse(txt); if (Array.isArray(arr)) { const ids = new Set(tasks.map(t => t.id)); arr.forEach(t => { if (t && t.id && !ids.has(t.id)) tasks.push(t); }); saveTasks(); renderTasks(); } } catch(e){ window.alert("El texto no es válido."); } }
       function goTasks(){ setView("tasks"); renderTasks(); saveUiState({ activeView: "tasks" }); }
+      cloudSubscribe(); // arranca la sincronización en la nube en tiempo real (si hay config)
 
       function setView(viewName) {
         Object.entries(views).forEach(([name, element]) => { element.classList.toggle("is-active", name === viewName); });
