@@ -2081,7 +2081,7 @@
       .tk-form input:focus, .tk-form select:focus, .tk-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
       .tk-form .button { margin-top: 4px; }
       .tk-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; min-width: 0; }
-      .tk-list { min-width: 0; display: flex; flex-direction: column; gap: 12px; }
+      .tk-list { min-width: 0; max-width: 800px; display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
       .tk-filters { display: flex; gap: 10px; flex-wrap: wrap; }
       .tk-filters select { height: 40px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 0 12px; font: inherit; background: #fff; min-width: 0; flex: 1 1 160px; }
       .tk-card { min-width: 0; border: 1px solid var(--line); border-radius: 14px; padding: 15px 17px 15px 20px; background: var(--surface); box-shadow: var(--shadow-card); position: relative; overflow: hidden; transition: box-shadow .18s ease; }
@@ -2110,6 +2110,45 @@
       .tk-follow input { flex: 1 1 150px; min-width: 0; border: 1px solid var(--line-strong); border-radius: 8px; padding: 7px 10px; font: inherit; }
       .tk-follow__lbl { font-size: 0.82rem; font-weight: 700; color: var(--blue); width: 100%; }
       .tk-empty { color: var(--muted); padding: 40px 24px; text-align: center; border: 1.5px dashed var(--line-strong); border-radius: 14px; background: #fafbfc; }
+
+      /* Cabecera con título + indicador de nube */
+      .tk-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      /* Indicador de estado de la nube */
+      .cloud-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 30px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+      .cloud-chip__icon { flex-shrink: 0; }
+      .cloud-dot { width: 9px; height: 9px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
+      .cloud-chip.is-online { color: #0e7a4e; border-color: #b7ead0; background: #f0fdf6; }
+      .cloud-chip.is-online .cloud-dot { background: #12b76a; animation: cloudPulse 1.4s ease-out infinite; }
+      .cloud-chip.is-offline { color: #b42318; border-color: #f3c0bb; background: #fef3f2; }
+      .cloud-chip.is-offline .cloud-dot { background: #f04438; }
+      .cloud-chip.is-local { color: #b54708; border-color: #f0d0a0; background: #fffaeb; }
+      .cloud-chip.is-local .cloud-dot { background: #f79009; }
+      @keyframes cloudPulse { 0% { box-shadow: 0 0 0 0 rgba(18,183,106,0.55); } 70% { box-shadow: 0 0 0 6px rgba(18,183,106,0); } 100% { box-shadow: 0 0 0 0 rgba(18,183,106,0); } }
+      @media (max-width: 560px) { .cloud-chip__txt { display: none; } .cloud-chip { padding: 0 9px; } }
+
+      /* Botón flotante (+) para nueva tarea */
+      .tk-fab { position: fixed; right: 26px; bottom: 26px; z-index: 30; display: inline-flex; align-items: center; gap: 9px; height: 54px; padding: 0 22px 0 18px; border: none; border-radius: 999px; background: #111; color: #fff; font: inherit; font-weight: 700; font-size: 0.95rem; cursor: pointer; box-shadow: 0 10px 30px rgba(16,24,40,0.28); transition: transform .15s, box-shadow .15s; }
+      .tk-fab:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(16,24,40,0.34); }
+      .tk-fab:active { transform: translateY(0); }
+      .tk-fab svg { flex-shrink: 0; }
+      @media (max-width: 640px) { .tk-fab { right: 16px; bottom: 16px; height: 58px; width: 58px; padding: 0; justify-content: center; } .tk-fab__txt { display: none; } }
+
+      /* Panel flotante (hoja) para crear la tarea */
+      .tk-sheet-backdrop { position: fixed; inset: 0; z-index: 40; background: rgba(16,24,40,0.45); animation: tkFade .2s ease; }
+      .tk-sheet-backdrop[hidden] { display: none; }
+      .tk-sheet { position: fixed; z-index: 41; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(460px, calc(100vw - 40px)); max-height: 88vh; overflow-y: auto; background: var(--surface); border-radius: 18px; padding: 20px; box-shadow: 0 24px 60px rgba(16,24,40,0.28); animation: tkPop .22s cubic-bezier(0.16,1,0.3,1); }
+      .tk-sheet[hidden] { display: none; }
+      .tk-sheet__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+      .tk-sheet__head h4 { margin: 0; font-size: 1.12rem; }
+      .tk-sheet__close { border: none; background: #f1f5f9; width: 34px; height: 34px; border-radius: 10px; font-size: 1.5rem; line-height: 1; color: var(--muted); cursor: pointer; flex-shrink: 0; }
+      .tk-sheet__close:hover { background: #e2e8f0; color: var(--text); }
+      .tk-sheet .tk-form { position: static; border: none; box-shadow: none; padding: 0; background: transparent; top: auto; }
+      @media (max-width: 640px) {
+        .tk-sheet { top: auto; bottom: 0; left: 0; transform: none; width: 100%; max-height: 90vh; border-radius: 20px 20px 0 0; padding: 18px 16px calc(20px + env(safe-area-inset-bottom)); animation: tkSlideUp .26s cubic-bezier(0.16,1,0.3,1); }
+      }
+      @keyframes tkFade { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes tkPop { from { opacity: 0; transform: translate(-50%, -46%) scale(0.97); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+      @keyframes tkSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -2462,6 +2501,32 @@
 
       <section class="tasks-view view" id="tasksView" aria-label="Tareas pendientes">
         <div id="tasksRoot"></div>
+
+        <!-- Botón flotante (+) para crear una nueva tarea -->
+        <button class="tk-fab" type="button" id="tkFab" onclick="taskFormToggle()" aria-label="Nueva tarea" title="Nueva tarea">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          <span class="tk-fab__txt">Nueva tarea</span>
+        </button>
+
+        <!-- Panel flotante para crear la tarea -->
+        <div class="tk-sheet-backdrop" id="tkSheetBackdrop" hidden onclick="taskFormToggle(false)"></div>
+        <aside class="tk-sheet" id="tkSheet" hidden aria-label="Nueva tarea">
+          <div class="tk-sheet__head">
+            <h4>➕ Nueva tarea</h4>
+            <button class="tk-sheet__close" type="button" onclick="taskFormToggle(false)" aria-label="Cerrar">&times;</button>
+          </div>
+          <form class="tk-form" id="tkForm" onsubmit="taskSubmit(event)">
+            <label>Máquina<select name="machine" id="tkMachineSel"></select></label>
+            <label>Título *<input name="title" required placeholder="Ej. Cambiar rodamiento estación 3"></label>
+            <label>Descripción<textarea name="desc" rows="2" placeholder="Qué hay que hacer y por qué…"></textarea></label>
+            <div class="tk-row2">
+              <label>Prioridad<select name="priority"><option>Media</option><option>Alta</option><option>Baja</option></select></label>
+              <label>Reportado por<input name="reporter" placeholder="Tu nombre"></label>
+            </div>
+            <label>Pasos (uno por línea)<textarea name="steps" rows="4" placeholder="Desmonte de la pieza&#10;Llevar a mecanizado&#10;Reinstalar la pieza&#10;Chequear y probar"></textarea></label>
+            <button class="button button--dark" type="submit">Guardar tarea</button>
+          </form>
+        </aside>
       </section>
     </main>
 
@@ -6085,6 +6150,7 @@
       // Se guardan en la nube (Firebase) cuando hay config; si no, en este navegador.
       const tasksKey = "equipos-tareas-v1";
       const cloud = window.CLOUD || { db: null, enabled: false };
+      cloud.connected = false; // se pone true al recibir datos del servidor
       let cloudKnownIds = new Set();
       function loadTasks(){ try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
       let tasks = loadTasks();
@@ -6104,16 +6170,55 @@
       }
       // Escucha en tiempo real: cualquier cambio de cualquier dispositivo actualiza la vista
       function cloudSubscribe(){
-        if (!(cloud.enabled && cloud.db)) return;
-        cloud.db.collection("tareas").onSnapshot(snap => {
+        if (!(cloud.enabled && cloud.db)) { updateCloudChip(); return; }
+        cloud.db.collection("tareas").onSnapshot({ includeMetadataChanges: true }, snap => {
+          cloud.connected = !snap.metadata.fromCache; // fromCache=false => datos del servidor
           const remote = [];
           snap.forEach(d => remote.push(d.data()));
           tasks = remote;
           cloudKnownIds = new Set(remote.map(t => t.id));
           saveLocal();
-          if (document.getElementById("tasksRoot")) renderTasks();
-        }, err => console.error("[Recordatorios] onSnapshot:", err));
+          if (document.getElementById("tasksRoot")) renderTasks(); else updateCloudChip();
+        }, err => { console.error("[Recordatorios] onSnapshot:", err); cloud.connected = false; updateCloudChip(); });
       }
+      // Indicador de estado de la nube (chip con punto verde/rojo)
+      function updateCloudChip(){
+        const chip = document.getElementById("cloudChip");
+        if (!chip) return;
+        const txt = chip.querySelector(".cloud-chip__txt");
+        chip.classList.remove("is-online", "is-offline", "is-local");
+        if (!cloud.enabled){
+          chip.classList.add("is-local");
+          chip.title = "Solo en este dispositivo (sin nube)";
+          if (txt) txt.textContent = "Solo local";
+        } else if (cloud.connected){
+          chip.classList.add("is-online");
+          chip.title = "Conectado: sincronizado en la nube en tiempo real";
+          if (txt) txt.textContent = "Conectado";
+        } else {
+          chip.classList.add("is-offline");
+          chip.title = "Sin conexión: se sincronizará al reconectar";
+          if (txt) txt.textContent = "Sin conexión";
+        }
+      }
+      // Abre/cierra el panel flotante de nueva tarea
+      let taskFormOpen = false;
+      function taskFormToggle(force){
+        const open = (typeof force === "boolean") ? force : !taskFormOpen;
+        taskFormOpen = open;
+        const sheet = document.getElementById("tkSheet");
+        const back = document.getElementById("tkSheetBackdrop");
+        if (!sheet || !back) return;
+        if (open){
+          const sel = document.getElementById("tkMachineSel");
+          if (sel) sel.innerHTML = taskMachineOpts("");
+          back.hidden = false; sheet.hidden = false;
+          setTimeout(() => sheet.querySelector('input[name="title"]')?.focus(), 60);
+        } else {
+          sheet.hidden = true; back.hidden = true;
+        }
+      }
+      document.addEventListener("keydown", e => { if (e.key === "Escape" && taskFormOpen) taskFormToggle(false); });
       function tuid(){ return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
       const taskFilter = { machine: "", status: "" };
       function taskMachineName(id){ const m = machines.find(x => x.id === id); return m ? (m.model || m.name) : "General / Otra"; }
@@ -6129,38 +6234,31 @@
           .sort((a, b) => (order[a.status] - order[b.status]) || (b.createdAt || "").localeCompare(a.createdAt || ""));
         root.innerHTML = `
           <div class="section-bar">
-            <div><p class="eyebrow">Mantenimiento</p><h2>Tareas pendientes</h2></div>
+            <div>
+              <p class="eyebrow">Mantenimiento</p>
+              <div class="tk-title-row">
+                <h2>Tareas pendientes</h2>
+                <span class="cloud-chip" id="cloudChip" title="Estado de sincronización">
+                  <svg class="cloud-chip__icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .45-8.98A6 6 0 0 0 6.3 9.5 4.5 4.5 0 0 0 7 19h10.5Z"/></svg>
+                  <span class="cloud-dot"></span>
+                  <span class="cloud-chip__txt"></span>
+                </span>
+              </div>
+            </div>
             <div class="section-actions">
-              <span class="counter">${c.pendiente} pendientes · ${c["en-progreso"]} en progreso · ${c.hecha} hechas</span>
+              <span class="counter">${c.pendiente} pend. · ${c["en-progreso"]} en curso · ${c.hecha} hechas</span>
               <button class="button button--light" type="button" onclick="taskExport()">Exportar</button>
               <button class="button button--light" type="button" onclick="taskImport()">Importar</button>
             </div>
           </div>
-          <p style="font-size:0.86rem;margin:-6px 0 4px;${cloud.enabled ? "color:#0e7a4e" : "color:var(--muted)"}">${cloud.enabled ? "☁️ Sincronizado en la nube: cualquier persona ve y edita estos recordatorios en tiempo real desde cualquier dispositivo." : "Las tareas se guardan solo en este navegador/equipo. Conecta Firebase para verlas en todos los dispositivos, o usa Exportar/Importar."}</p>
-          <div class="tk-grid">
-            <form class="tk-form" id="tkForm" onsubmit="taskSubmit(event)">
-              <h4>➕ Nueva tarea</h4>
-              <label>Máquina<select name="machine">${taskMachineOpts("")}</select></label>
-              <label>Título *<input name="title" required placeholder="Ej. Cambiar rodamiento estación 3"></label>
-              <label>Descripción<textarea name="desc" rows="2" placeholder="Qué hay que hacer y por qué…"></textarea></label>
-              <div class="tk-row2">
-                <label>Prioridad<select name="priority"><option>Media</option><option>Alta</option><option>Baja</option></select></label>
-                <label>Reportado por<input name="reporter" placeholder="Tu nombre"></label>
-              </div>
-              <label>Pasos (uno por línea)<textarea name="steps" rows="4" placeholder="Desmonte de la pieza
-Llevar a mecanizado
-Reinstalar la pieza
-Chequear y probar"></textarea></label>
-              <button class="button button--dark" type="submit">Guardar tarea</button>
-            </form>
-            <div class="tk-list">
-              <div class="tk-filters">
-                <select onchange="taskSetFilter('machine', this.value)"><option value="">Todas las máquinas</option>${machines.map(m => `<option value="${m.id}" ${taskFilter.machine === m.id ? "selected" : ""}>${m.model || m.name}</option>`).join("")}</select>
-                <select onchange="taskSetFilter('status', this.value)"><option value="">Todos los estados</option><option value="pendiente" ${taskFilter.status === "pendiente" ? "selected" : ""}>Pendientes</option><option value="en-progreso" ${taskFilter.status === "en-progreso" ? "selected" : ""}>En progreso</option><option value="hecha" ${taskFilter.status === "hecha" ? "selected" : ""}>Hechas</option></select>
-              </div>
-              ${list.length ? list.map(renderTaskCard).join("") : '<p class="tk-empty">No hay tareas todavía. Crea la primera con el formulario de la izquierda.</p>'}
+          <div class="tk-list">
+            <div class="tk-filters">
+              <select onchange="taskSetFilter('machine', this.value)"><option value="">Todas las máquinas</option>${machines.map(m => `<option value="${m.id}" ${taskFilter.machine === m.id ? "selected" : ""}>${m.model || m.name}</option>`).join("")}</select>
+              <select onchange="taskSetFilter('status', this.value)"><option value="">Todos los estados</option><option value="pendiente" ${taskFilter.status === "pendiente" ? "selected" : ""}>Pendientes</option><option value="en-progreso" ${taskFilter.status === "en-progreso" ? "selected" : ""}>En progreso</option><option value="hecha" ${taskFilter.status === "hecha" ? "selected" : ""}>Hechas</option></select>
             </div>
+            ${list.length ? list.map(renderTaskCard).join("") : '<p class="tk-empty">No hay tareas todavía. Toca el botón <strong>＋ Nueva tarea</strong> para crear la primera.</p>'}
           </div>`;
+        updateCloudChip();
       }
 
       function renderTaskCard(t){
@@ -6201,7 +6299,7 @@ Chequear y probar"></textarea></label>
         const f = e.target;
         const steps = (f.steps.value || "").split("\n").map(s => s.trim()).filter(Boolean).map(text => ({ text, done: false }));
         tasks.unshift({ id: tuid(), machine: f.machine.value, title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
-        saveTasks(); renderTasks();
+        saveTasks(); f.reset(); taskFormToggle(false); renderTasks();
       }
       function taskToggleStep(id, i){ const t = tasks.find(x => x.id === id); if (t && t.steps[i]) { t.steps[i].done = !t.steps[i].done; if (t.status === "pendiente" && t.steps.some(s => s.done)) t.status = "en-progreso"; saveTasks(); renderTasks(); } }
       function taskSetStatus(id, st){ const t = tasks.find(x => x.id === id); if (t) { t.status = st; if (st === "hecha") t.doneAt = new Date().toISOString(); saveTasks(); renderTasks(); } }
