@@ -82,6 +82,13 @@
         stroke-width: 2;
       }
 
+      /* Etiquetas de texto del menú: ocultas en escritorio (solo iconos) */
+      .side-nav__label { display: none; }
+
+      /* Botón hamburguesa y fondo: ocultos en escritorio, visibles en celular */
+      .nav-burger { display: none; }
+      .nav-backdrop { display: none; }
+
       .app-shell {
         width: min(1180px, calc(100% - 88px));
         min-height: 100vh;
@@ -1788,8 +1795,41 @@
       }
 
       @media (max-width: 640px) {
-        .side-nav { width: 44px; }
-        .app-shell { width: calc(100% - 58px); padding: 20px 0 42px 44px; }
+        /* Menú hamburguesa desplegable en celular */
+        .nav-burger {
+          display: flex; flex-direction: column; justify-content: center; gap: 5px;
+          position: fixed; top: 12px; left: 12px; z-index: 20;
+          width: 44px; height: 44px; padding: 0 11px;
+          border: 1px solid var(--line); border-radius: 12px;
+          background: #fff; box-shadow: var(--shadow-card); cursor: pointer;
+        }
+        .nav-burger span { display: block; height: 2.5px; width: 100%; border-radius: 2px; background: #1f2937; transition: transform .22s ease, opacity .18s ease; }
+        .nav-burger.is-open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+        .nav-burger.is-open span:nth-child(2) { opacity: 0; }
+        .nav-burger.is-open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+        .nav-backdrop { display: block; position: fixed; inset: 0; z-index: 14; background: rgba(16,24,40,0.4); animation: tkFade .2s ease; }
+        .nav-backdrop[hidden] { display: none; }
+
+        .side-nav {
+          inset: auto auto auto 0;
+          top: 64px; left: 12px; bottom: auto;
+          z-index: 15;
+          width: auto; min-width: 210px;
+          flex-direction: column; align-items: stretch;
+          gap: 3px; padding: 8px;
+          border: 1px solid var(--line); border-right: 1px solid var(--line);
+          border-radius: 16px; background: #fff; box-shadow: var(--shadow);
+          transform-origin: top left;
+          transform: translateY(-10px) scale(0.97); opacity: 0; pointer-events: none;
+          transition: transform .2s cubic-bezier(0.16,1,0.3,1), opacity .2s ease;
+        }
+        .side-nav.is-open { transform: none; opacity: 1; pointer-events: auto; }
+        #sideNav .side-nav__button { display: flex; align-items: center; justify-content: flex-start; gap: 13px; width: 100%; height: auto; padding: 11px 13px; border-radius: 11px; }
+        #sideNav .side-nav__button svg { flex-shrink: 0; }
+        #sideNav .side-nav__label { display: inline; font-size: 0.95rem; font-weight: 600; color: inherit; }
+
+        .app-shell { width: calc(100% - 32px); padding: 66px 0 42px; }
         .hero-content { padding: 34px 12px; }
         h1 { font-size: 2.35rem; }
         .search-box input { height: 62px; padding-left: 58px; padding-right: 20px; }
@@ -2409,18 +2449,28 @@
     </style>
   </head>
   <body>
-    <nav class="side-nav" aria-label="Navegación principal">
+    <!-- Botón hamburguesa (solo visible en celular) -->
+    <button class="nav-burger" type="button" id="navBurger" aria-label="Abrir menú" aria-expanded="false" aria-controls="sideNav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-backdrop" id="navBackdrop" hidden></div>
+
+    <nav class="side-nav" id="sideNav" aria-label="Navegación principal">
       <button class="side-nav__button is-active" type="button" data-nav-home aria-label="Inicio" title="Inicio">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3V10.5Z"/></svg>
+        <span class="side-nav__label">Inicio</span>
       </button>
       <button class="side-nav__button" type="button" data-nav-search aria-label="Búsqueda" title="Buscar equipos">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg>
+        <span class="side-nav__label">Buscar equipos</span>
       </button>
       <button class="side-nav__button" type="button" id="navAssistant" aria-label="Asistente técnico" title="Asistente técnico (diagnóstico)">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <span class="side-nav__label">Asistente técnico</span>
       </button>
       <button class="side-nav__button" type="button" data-nav-tasks aria-label="Tareas" title="Tareas pendientes">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <span class="side-nav__label">Tareas pendientes</span>
       </button>
     </nav>
 
@@ -6495,6 +6545,22 @@
       navHome.addEventListener("click", goHome);
       navSearch.addEventListener("click", () => goResults({ keepSelection: true }));
       navTasks.addEventListener("click", goTasks);
+
+      // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
+      const navBurger = document.getElementById("navBurger");
+      const navBackdrop = document.getElementById("navBackdrop");
+      const sideNav = document.getElementById("sideNav");
+      function setMenu(open){
+        if (!sideNav || !navBurger || !navBackdrop) return;
+        sideNav.classList.toggle("is-open", open);
+        navBurger.classList.toggle("is-open", open);
+        navBurger.setAttribute("aria-expanded", open ? "true" : "false");
+        navBackdrop.hidden = !open;
+      }
+      navBurger && navBurger.addEventListener("click", () => setMenu(!sideNav.classList.contains("is-open")));
+      navBackdrop && navBackdrop.addEventListener("click", () => setMenu(false));
+      sideNav && sideNav.querySelectorAll(".side-nav__button").forEach(b => b.addEventListener("click", () => setMenu(false)));
+      document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
       modalOpeners.forEach((button) => button.addEventListener("click", openModal));
       modalClosers.forEach((button) => button.addEventListener("click", closeModal));
       equipmentForm.addEventListener("submit", handleSubmit);
