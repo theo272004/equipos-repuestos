@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Tareas · Mantenimiento</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%85%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #f4f6fb; --surface: #ffffff; --text: #101828; --muted: #667085;
+      --line: #e4e7ec; --line-strong: #cfd6e1; --blue: #2563eb; --blue-soft: #eef4ff;
+      --shadow: 0 16px 40px rgba(16, 24, 40, 0.08); --shadow-card: 0 8px 26px rgba(16, 24, 40, 0.06);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text); -webkit-font-smoothing: antialiased;
+      background:
+        radial-gradient(1100px 500px at 50% -8%, #eaf0fb 0%, rgba(234,240,251,0) 60%),
+        var(--bg);
+      min-height: 100vh;
+    }
+    button, input, select, textarea { font: inherit; }
+    a { color: inherit; }
+
+    /* ===== Barra superior ===== */
+    .topbar {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar__wrap { max-width: 860px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 12px 20px; }
+    .back-link { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-weight: 700; font-size: 0.88rem; color: var(--muted); padding: 8px 13px; border-radius: 10px; border: 1px solid var(--line); background: #fff; transition: color .15s, border-color .15s; }
+    .back-link:hover { color: var(--text); border-color: var(--line-strong); }
+    .topbar__brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.98rem; letter-spacing: -0.01em; }
+    .topbar__brand .logo { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, #2563eb, #0ea5e9); display: grid; place-items: center; color: #fff; font-size: 0.85rem; }
+    .topbar__spacer { flex: 1; }
+
+    /* ===== Indicador de nube ===== */
+    .cloud-chip { display: inline-flex; align-items: center; gap: 7px; min-height: 32px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--line); background: #fff; color: var(--muted); font-size: 0.78rem; font-weight: 700; white-space: nowrap; }
+    .cloud-chip__icon { flex-shrink: 0; }
+    .cloud-dot { width: 9px; height: 9px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
+    .cloud-chip.is-online { color: #0e7a4e; border-color: #b7ead0; background: #f0fdf6; }
+    .cloud-chip.is-online .cloud-dot { background: #12b76a; animation: cloudPulse 1.4s ease-out infinite; }
+    .cloud-chip.is-offline { color: #b42318; border-color: #f3c0bb; background: #fef3f2; }
+    .cloud-chip.is-offline .cloud-dot { background: #f04438; }
+    .cloud-chip.is-local { color: #b54708; border-color: #f0d0a0; background: #fffaeb; }
+    .cloud-chip.is-local .cloud-dot { background: #f79009; }
+    @keyframes cloudPulse { 0% { box-shadow: 0 0 0 0 rgba(18,183,106,0.55); } 70% { box-shadow: 0 0 0 6px rgba(18,183,106,0); } 100% { box-shadow: 0 0 0 0 rgba(18,183,106,0); } }
+    @media (max-width: 560px) { .cloud-chip__txt { display: none; } .cloud-chip { padding: 0 9px; } .topbar__brand span { display: none; } }
+
+    /* ===== Contenedor centrado ===== */
+    .wrap { max-width: 860px; margin: 0 auto; padding: 30px 20px 130px; }
+    .page-head { text-align: center; margin-bottom: 22px; }
+    .eyebrow { margin: 0 0 8px; color: var(--blue); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
+    .page-head h1 { margin: 0 0 14px; font-size: 2.1rem; letter-spacing: -0.02em; }
+    .counter-row { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .stat { display: inline-flex; align-items: center; gap: 7px; padding: 6px 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-size: 0.82rem; font-weight: 700; color: var(--muted); box-shadow: var(--shadow-card); }
+    .stat b { color: var(--text); }
+    .stat .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .stat--pend .dot { background: #64748b; } .stat--prog .dot { background: var(--blue); } .stat--done .dot { background: #12b76a; }
+
+    /* ===== Filtros / acciones ===== */
+    .toolbar { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; margin-bottom: 20px; }
+    .toolbar select { height: 42px; border: 1px solid var(--line-strong); border-radius: 11px; padding: 0 12px; background: #fff; color: var(--text); flex: 1 1 190px; min-width: 160px; max-width: 250px; }
+    .toolbar select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .io-btns { display: flex; gap: 8px; }
+    .btn { min-height: 42px; padding: 0 15px; border-radius: 11px; border: 1px solid var(--line-strong); background: #fff; color: var(--text); font-weight: 700; font-size: 0.85rem; cursor: pointer; transition: background .15s, border-color .15s; }
+    .btn:hover { background: #f8fafc; border-color: var(--muted); }
+
+    /* ===== Lista y tarjetas ===== */
+    .tk-list { display: flex; flex-direction: column; gap: 14px; }
+    .tk-card { min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 17px 19px 17px 22px; background: var(--surface); box-shadow: var(--shadow-card); position: relative; overflow: hidden; transition: box-shadow .18s ease, transform .18s ease; }
+    .tk-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #94a3b8; }
+    .tk-card:hover { box-shadow: 0 12px 34px rgba(16,24,40,0.10); transform: translateY(-1px); }
+    .tk-st--pendiente::before { background: #64748b; }
+    .tk-st--en-progreso::before { background: var(--blue); }
+    .tk-st--hecha::before { background: #12b76a; }
+    .tk-st--hecha { opacity: 0.74; }
+    .tk-card__top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; min-width: 0; }
+    .tk-title { font-size: 1.05rem; font-weight: 700; flex: 1 1 auto; min-width: 0; overflow-wrap: anywhere; }
+    .tk-st--hecha .tk-title { text-decoration: line-through; }
+    .tk-pr { font-size: 0.63rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; padding: 3px 9px; border-radius: 999px; color: #fff; white-space: nowrap; flex-shrink: 0; }
+    .tk-pr--alta { background: #dc2626; } .tk-pr--media { background: #f59e0b; } .tk-pr--baja { background: #64748b; }
+    .badge { font-size: 0.72rem; font-weight: 700; color: var(--muted); background: #f1f5f9; border-radius: 999px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; }
+    .tk-status { font-size: 0.7rem; font-weight: 700; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; white-space: nowrap; flex-shrink: 0; }
+    .tk-desc { font-size: 0.92rem; color: var(--text); margin: 11px 0 0; overflow-wrap: anywhere; }
+    .tk-steps { margin: 13px 0 0; display: grid; gap: 7px; min-width: 0; }
+    .tk-step { display: flex; align-items: flex-start; gap: 9px; font-size: 0.9rem; cursor: pointer; overflow-wrap: anywhere; }
+    .tk-step input { margin-top: 3px; flex-shrink: 0; }
+    .tk-step.is-done { color: var(--muted); text-decoration: line-through; }
+    .tk-prog { font-size: 0.74rem; color: var(--muted); font-weight: 700; margin-top: 5px; }
+    .tk-meta { font-size: 0.76rem; color: var(--muted); margin-top: 13px; overflow-wrap: anywhere; }
+    .tk-actions { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 14px; }
+    .tk-actions .abtn { min-height: 34px; padding: 0 13px; border-radius: 9px; border: 1px solid var(--line-strong); background: #fff; color: var(--text); font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: background .15s; }
+    .tk-actions .abtn:hover { background: #f8fafc; }
+    .tk-actions .abtn--dark { background: #111; color: #fff; border-color: #111; }
+    .tk-actions .abtn--dark:hover { background: #000; }
+    .tk-follow { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; background: var(--blue-soft); padding: 12px; border-radius: 11px; align-items: center; }
+    .tk-follow input { flex: 1 1 150px; min-width: 0; border: 1px solid var(--line-strong); border-radius: 9px; padding: 8px 11px; }
+    .tk-follow__lbl { font-size: 0.83rem; font-weight: 700; color: var(--blue); width: 100%; }
+    .tk-empty { color: var(--muted); padding: 54px 24px; text-align: center; border: 1.5px dashed var(--line-strong); border-radius: 16px; background: #fff; }
+
+    /* ===== Botón flotante (+) ===== */
+    .tk-fab { position: fixed; right: 26px; bottom: 26px; z-index: 30; display: inline-flex; align-items: center; gap: 9px; height: 56px; padding: 0 24px 0 20px; border: none; border-radius: 999px; background: #111; color: #fff; font-weight: 700; font-size: 0.98rem; cursor: pointer; box-shadow: 0 12px 32px rgba(16,24,40,0.30); transition: transform .15s, box-shadow .15s; }
+    .tk-fab:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(16,24,40,0.36); }
+    .tk-fab:active { transform: translateY(0); }
+    .tk-fab svg { flex-shrink: 0; }
+    @media (max-width: 640px) { .tk-fab { right: 16px; bottom: 16px; height: 60px; width: 60px; padding: 0; justify-content: center; } .tk-fab__txt { display: none; } }
+
+    /* ===== Panel flotante (hoja) ===== */
+    .tk-sheet-backdrop { position: fixed; inset: 0; z-index: 40; background: rgba(16,24,40,0.45); animation: tkFade .2s ease; }
+    .tk-sheet-backdrop[hidden] { display: none; }
+    .tk-sheet { position: fixed; z-index: 41; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(470px, calc(100vw - 40px)); max-height: 88vh; overflow-y: auto; background: var(--surface); border-radius: 20px; padding: 22px; box-shadow: 0 24px 60px rgba(16,24,40,0.28); animation: tkPop .22s cubic-bezier(0.16,1,0.3,1); }
+    .tk-sheet[hidden] { display: none; }
+    .tk-sheet__head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .tk-sheet__head h2 { margin: 0; font-size: 1.2rem; }
+    .tk-sheet__close { border: none; background: #f1f5f9; width: 36px; height: 36px; border-radius: 11px; font-size: 1.5rem; line-height: 1; color: var(--muted); cursor: pointer; flex-shrink: 0; }
+    .tk-sheet__close:hover { background: #e2e8f0; color: var(--text); }
+    .tk-form { display: grid; gap: 12px; }
+    .tk-form label { display: grid; gap: 5px; font-size: 0.76rem; font-weight: 700; color: var(--muted); }
+    .tk-form input, .tk-form select, .tk-form textarea { width: 100%; font-size: 0.92rem; padding: 10px 12px; border: 1px solid var(--line-strong); border-radius: 11px; outline: none; background: #fff; color: var(--text); resize: vertical; transition: border-color .15s, box-shadow .15s; }
+    .tk-form input:focus, .tk-form select:focus, .tk-form textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .tk-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .tk-form .submit { margin-top: 4px; min-height: 46px; border: none; border-radius: 12px; background: #111; color: #fff; font-weight: 700; font-size: 0.95rem; cursor: pointer; }
+    .tk-form .submit:hover { background: #000; }
+    @media (max-width: 640px) {
+      .tk-sheet { top: auto; bottom: 0; left: 0; transform: none; width: 100%; max-height: 90vh; border-radius: 22px 22px 0 0; padding: 20px 16px calc(22px + env(safe-area-inset-bottom)); animation: tkSlideUp .26s cubic-bezier(0.16,1,0.3,1); }
+    }
+    @keyframes tkFade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes tkPop { from { opacity: 0; transform: translate(-50%, -46%) scale(0.97); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
+    @keyframes tkSlideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+  </style>
+
+  <!-- Firebase: sincroniza los recordatorios en la nube -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ",
+      authDomain: "mantenimiento-f405b.firebaseapp.com",
+      projectId: "mantenimiento-f405b",
+      storageBucket: "mantenimiento-f405b.firebasestorage.app",
+      messagingSenderId: "1026028107442",
+      appId: "1:1026028107442:web:c4a15a817ac5d55623fbab"
+    };
+    window.CLOUD = { db: null, enabled: false, connected: false };
+    try {
+      if (firebaseConfig.projectId && window.firebase) {
+        firebase.initializeApp(firebaseConfig);
+        window.CLOUD.db = firebase.firestore();
+        window.CLOUD.enabled = true;
+      }
+    } catch (e) { console.error("[Tareas] Firebase:", e); }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__wrap">
+      <a class="back-link" href="index.html" aria-label="Volver a la app">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        Volver
+      </a>
+      <span class="topbar__brand"><span class="logo">🔧</span><span>Mantenimiento</span></span>
+      <span class="topbar__spacer"></span>
+      <span class="cloud-chip" id="cloudChip" title="Estado de sincronización">
+        <svg class="cloud-chip__icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .45-8.98A6 6 0 0 0 6.3 9.5 4.5 4.5 0 0 0 7 19h10.5Z"/></svg>
+        <span class="cloud-dot"></span>
+        <span class="cloud-chip__txt"></span>
+      </span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="page-head">
+      <p class="eyebrow">Mantenimiento</p>
+      <h1>Tareas pendientes</h1>
+      <div class="counter-row" id="counterRow"></div>
+    </div>
+
+    <div class="toolbar">
+      <select id="filterMachine" onchange="renderTasks()"></select>
+      <select id="filterStatus" onchange="renderTasks()">
+        <option value="">Todos los estados</option>
+        <option value="pendiente">Pendientes</option>
+        <option value="en-progreso">En progreso</option>
+        <option value="hecha">Hechas</option>
+      </select>
+      <div class="io-btns">
+        <button class="btn" type="button" onclick="taskExport()">Exportar</button>
+        <button class="btn" type="button" onclick="taskImport()">Importar</button>
+      </div>
+    </div>
+
+    <div class="tk-list" id="tkList"></div>
+  </main>
+
+  <!-- Botón flotante (+) -->
+  <button class="tk-fab" type="button" id="tkFab" onclick="taskFormToggle()" aria-label="Nueva tarea">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    <span class="tk-fab__txt">Nueva tarea</span>
+  </button>
+
+  <!-- Panel flotante -->
+  <div class="tk-sheet-backdrop" id="tkSheetBackdrop" hidden onclick="taskFormToggle(false)"></div>
+  <aside class="tk-sheet" id="tkSheet" hidden aria-label="Nueva tarea">
+    <div class="tk-sheet__head">
+      <h2>➕ Nueva tarea</h2>
+      <button class="tk-sheet__close" type="button" onclick="taskFormToggle(false)" aria-label="Cerrar">&times;</button>
+    </div>
+    <form class="tk-form" id="tkForm" onsubmit="taskSubmit(event)">
+      <label>Máquina<select name="machine" id="tkMachineSel"></select></label>
+      <label>Título *<input name="title" required placeholder="Ej. Cambiar rodamiento estación 3"></label>
+      <label>Descripción<textarea name="desc" rows="2" placeholder="Qué hay que hacer y por qué…"></textarea></label>
+      <div class="tk-row2">
+        <label>Prioridad<select name="priority"><option>Media</option><option>Alta</option><option>Baja</option></select></label>
+        <label>Reportado por<input name="reporter" placeholder="Tu nombre"></label>
+      </div>
+      <label>Pasos (uno por línea)<textarea name="steps" rows="4" placeholder="Desmonte de la pieza&#10;Llevar a mecanizado&#10;Reinstalar la pieza&#10;Chequear y probar"></textarea></label>
+      <button class="submit" type="submit">Guardar tarea</button>
+    </form>
+  </aside>
+
+  <script>
+    // ===== Utilidades =====
+    function escapeHtml(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
+
+    // ===== Máquinas (se leen del almacenamiento compartido con la app; con respaldo) =====
+    const FALLBACK_MACHINES = [
+      { id: "njp3500", model: "NJP-3500", name: "Encapsuladora automática NJP-3500" },
+      { id: "controlsa114rl", model: "114 RL", name: "Puerta rápida autorreparable de laboratorio CONTROLSA" },
+      { id: "ms235", model: "MS235", name: "Ensobradora MS235 (Schmucker / Marchesini)" }
+    ];
+    function loadMachines(){
+      try { const s = JSON.parse(localStorage.getItem("equipos-machines-v4") || "[]"); if (Array.isArray(s) && s.length) return s; } catch {}
+      return FALLBACK_MACHINES;
+    }
+    let machines = loadMachines();
+    function taskMachineName(id){ const m = machines.find(x => x.id === id); return m ? (m.model || m.name) : "General / Otra"; }
+    function machineOptions(sel){ return `<option value="">General / Otra</option>` + machines.map(m => `<option value="${escapeHtml(m.id)}" ${sel === m.id ? "selected" : ""}>${escapeHtml(m.model || m.name)}</option>`).join(""); }
+
+    // ===== Almacenamiento (nube + respaldo local) =====
+    const tasksKey = "equipos-tareas-v1";
+    const cloud = window.CLOUD || { db: null, enabled: false, connected: false };
+    let cloudKnownIds = new Set();
+    function loadTasks(){ try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
+    let tasks = loadTasks();
+    function saveLocal(){ try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch(e){} }
+    function saveTasks(){ saveLocal(); if (cloud.enabled && cloud.db) cloudSync(); }
+    function cloudSync(){
+      try {
+        const col = cloud.db.collection("tareas");
+        const batch = cloud.db.batch();
+        const ids = new Set();
+        tasks.forEach(t => { ids.add(t.id); batch.set(col.doc(t.id), JSON.parse(JSON.stringify(t))); });
+        cloudKnownIds.forEach(id => { if (!ids.has(id)) batch.delete(col.doc(id)); });
+        cloudKnownIds = ids;
+        batch.commit().catch(e => console.error("[Tareas] guardar nube:", e));
+      } catch(e){ console.error("[Tareas] cloudSync:", e); }
+    }
+    function cloudSubscribe(){
+      if (!(cloud.enabled && cloud.db)) { updateCloudChip(); return; }
+      cloud.db.collection("tareas").onSnapshot({ includeMetadataChanges: true }, snap => {
+        cloud.connected = !snap.metadata.fromCache;
+        const remote = [];
+        snap.forEach(d => remote.push(d.data()));
+        tasks = remote;
+        cloudKnownIds = new Set(remote.map(t => t.id));
+        saveLocal();
+        renderTasks();
+      }, err => { console.error("[Tareas] onSnapshot:", err); cloud.connected = false; updateCloudChip(); });
+    }
+    function updateCloudChip(){
+      const chip = document.getElementById("cloudChip");
+      if (!chip) return;
+      const txt = chip.querySelector(".cloud-chip__txt");
+      chip.classList.remove("is-online", "is-offline", "is-local");
+      if (!cloud.enabled){ chip.classList.add("is-local"); chip.title = "Solo en este dispositivo"; if (txt) txt.textContent = "Solo local"; }
+      else if (cloud.connected){ chip.classList.add("is-online"); chip.title = "Conectado en tiempo real"; if (txt) txt.textContent = "Conectado"; }
+      else { chip.classList.add("is-offline"); chip.title = "Sin conexión"; if (txt) txt.textContent = "Sin conexión"; }
+    }
+
+    function tuid(){ return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+    // ===== Render =====
+    function renderTasks(){
+      const c = { pendiente: 0, "en-progreso": 0, hecha: 0 };
+      tasks.forEach(t => { c[t.status] = (c[t.status] || 0) + 1; });
+      document.getElementById("counterRow").innerHTML =
+        `<span class="stat stat--pend"><span class="dot"></span><b>${c.pendiente}</b> pendientes</span>` +
+        `<span class="stat stat--prog"><span class="dot"></span><b>${c["en-progreso"]}</b> en progreso</span>` +
+        `<span class="stat stat--done"><span class="dot"></span><b>${c.hecha}</b> hechas</span>`;
+      const order = { pendiente: 0, "en-progreso": 1, hecha: 2 };
+      const fm = document.getElementById("filterMachine").value;
+      const fs = document.getElementById("filterStatus").value;
+      const list = tasks
+        .filter(t => (!fm || t.machine === fm) && (!fs || t.status === fs))
+        .sort((a, b) => (order[a.status] - order[b.status]) || (b.createdAt || "").localeCompare(a.createdAt || ""));
+      document.getElementById("tkList").innerHTML = list.length
+        ? list.map(renderTaskCard).join("")
+        : '<p class="tk-empty">No hay tareas todavía. Toca <strong>＋ Nueva tarea</strong> para crear la primera.</p>';
+      updateCloudChip();
+    }
+
+    function renderTaskCard(t){
+      const steps = t.steps || [];
+      const done = steps.filter(s => s.done).length;
+      const prCls = { Alta: "tk-pr--alta", Media: "tk-pr--media", Baja: "tk-pr--baja" }[t.priority] || "tk-pr--media";
+      const stLabel = { pendiente: "Pendiente", "en-progreso": "En progreso", hecha: "Hecha" }[t.status] || t.status;
+      const body = t.followPrompt
+        ? `<div class="tk-follow">
+             <span class="tk-follow__lbl">✓ Antes de cerrar, ¿hay una tarea siguiente?</span>
+             <input id="fu-${t.id}" placeholder="Ej. Reinstalar y calibrar (opcional)">
+             <button class="abtn abtn--dark" type="button" onclick="taskFinish('${t.id}', true)">Crear y cerrar</button>
+             <button class="abtn" type="button" onclick="taskFinish('${t.id}', false)">Solo cerrar</button>
+           </div>`
+        : `<div class="tk-actions">
+             ${t.status !== "hecha" ? `<button class="abtn" type="button" onclick="taskSetStatus('${t.id}','${t.status === "pendiente" ? "en-progreso" : "pendiente"}')">${t.status === "pendiente" ? "▶ Empezar" : "⏸ Pausar"}</button>` : ""}
+             ${t.status !== "hecha" ? `<button class="abtn abtn--dark" type="button" onclick="taskComplete('${t.id}')">✓ Completar</button>` : `<button class="abtn" type="button" onclick="taskSetStatus('${t.id}','pendiente')">↺ Reabrir</button>`}
+             <button class="abtn" type="button" onclick="taskAddStep('${t.id}')">+ paso</button>
+             <button class="abtn" type="button" onclick="taskDelete('${t.id}')">Eliminar</button>
+           </div>`;
+      return `<div class="tk-card tk-st--${t.status}">
+        <div class="tk-card__top">
+          <span class="tk-pr ${prCls}">${escapeHtml(t.priority)}</span>
+          <strong class="tk-title">${escapeHtml(t.title)}</strong>
+          <span class="badge">${escapeHtml(taskMachineName(t.machine))}</span>
+          <span class="tk-status">${stLabel}</span>
+        </div>
+        ${t.desc ? `<p class="tk-desc">${escapeHtml(t.desc)}</p>` : ""}
+        ${steps.length ? `<div class="tk-steps">${steps.map((s, i) => `<label class="tk-step ${s.done ? "is-done" : ""}"><input type="checkbox" ${s.done ? "checked" : ""} onchange="taskToggleStep('${t.id}', ${i})"> ${escapeHtml(s.text)}</label>`).join("")}<div class="tk-prog">${done}/${steps.length} pasos completados</div></div>` : ""}
+        <div class="tk-meta">${t.reporter ? "por " + escapeHtml(t.reporter) + " · " : ""}${escapeHtml((t.createdAt || "").slice(0, 10))}${t.parent ? ` · seguimiento de: “${escapeHtml(t.parent)}”` : ""}</div>
+        ${body}
+      </div>`;
+    }
+
+    // ===== Acciones =====
+    function taskSubmit(e){
+      e.preventDefault();
+      const f = e.target;
+      const steps = (f.steps.value || "").split("\n").map(s => s.trim()).filter(Boolean).map(text => ({ text, done: false }));
+      tasks.unshift({ id: tuid(), machine: f.machine.value, title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
+      saveTasks(); f.reset(); taskFormToggle(false); renderTasks();
+    }
+    function taskToggleStep(id, i){ const t = tasks.find(x => x.id === id); if (t && t.steps[i]) { t.steps[i].done = !t.steps[i].done; if (t.status === "pendiente" && t.steps.some(s => s.done)) t.status = "en-progreso"; saveTasks(); renderTasks(); } }
+    function taskSetStatus(id, st){ const t = tasks.find(x => x.id === id); if (t) { t.status = st; if (st === "hecha") t.doneAt = new Date().toISOString(); saveTasks(); renderTasks(); } }
+    function taskAddStep(id){ const txt = window.prompt("Nuevo paso:"); if (txt && txt.trim()) { const t = tasks.find(x => x.id === id); if (t) { (t.steps = t.steps || []).push({ text: txt.trim(), done: false }); saveTasks(); renderTasks(); } } }
+    function taskComplete(id){ const t = tasks.find(x => x.id === id); if (t) { t.followPrompt = true; renderTasks(); document.getElementById("fu-" + id)?.focus(); } }
+    function taskFinish(id, createFollow){
+      const t = tasks.find(x => x.id === id); if (!t) return;
+      if (createFollow){ const fu = document.getElementById("fu-" + id); const title = fu && fu.value.trim(); if (title) tasks.unshift({ id: tuid(), machine: t.machine, title, desc: "", priority: t.priority, reporter: t.reporter, status: "pendiente", steps: [], createdAt: new Date().toISOString(), parent: t.title }); }
+      delete t.followPrompt; t.status = "hecha"; t.doneAt = new Date().toISOString();
+      saveTasks(); renderTasks();
+    }
+    function taskDelete(id){ if (window.confirm("¿Eliminar esta tarea?")) { tasks = tasks.filter(x => x.id !== id); saveTasks(); renderTasks(); } }
+    function taskExport(){ const data = JSON.stringify(tasks, null, 2); try { navigator.clipboard?.writeText(data); } catch(e){} window.prompt("Copia este texto para respaldar o compartir las tareas:", data); }
+    function taskImport(){ const txt = window.prompt("Pega el texto de tareas exportado (se agregan las que no existan):"); if (!txt) return; try { const arr = JSON.parse(txt); if (Array.isArray(arr)) { const ids = new Set(tasks.map(t => t.id)); arr.forEach(t => { if (t && t.id && !ids.has(t.id)) tasks.push(t); }); saveTasks(); renderTasks(); } } catch(e){ window.alert("El texto no es válido."); } }
+
+    // ===== Panel flotante =====
+    let taskFormOpen = false;
+    function taskFormToggle(force){
+      const open = (typeof force === "boolean") ? force : !taskFormOpen;
+      taskFormOpen = open;
+      const sheet = document.getElementById("tkSheet");
+      const back = document.getElementById("tkSheetBackdrop");
+      if (!sheet || !back) return;
+      if (open){
+        const sel = document.getElementById("tkMachineSel");
+        if (sel) sel.innerHTML = machineOptions("");
+        back.hidden = false; sheet.hidden = false;
+        setTimeout(() => sheet.querySelector('input[name="title"]')?.focus(), 60);
+      } else { sheet.hidden = true; back.hidden = true; }
+    }
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && taskFormOpen) taskFormToggle(false); });
+
+    // ===== Inicio =====
+    document.getElementById("filterMachine").innerHTML =
+      `<option value="">Todas las máquinas</option>` + machines.map(m => `<option value="${escapeHtml(m.id)}">${escapeHtml(m.model || m.name)}</option>`).join("");
+    renderTasks();
+    cloudSubscribe();
+  </script>
+</body>
+</html>

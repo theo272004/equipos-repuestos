@@ -6544,7 +6544,7 @@
       backToResults.addEventListener("click", () => goResults({ keepSelection: true }));
       navHome.addEventListener("click", goHome);
       navSearch.addEventListener("click", () => goResults({ keepSelection: true }));
-      navTasks.addEventListener("click", goTasks);
+      navTasks.addEventListener("click", () => { window.location.href = "tareas.html"; });
 
       // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
       const navBurger = document.getElementById("navBurger");
@@ -7057,9 +7057,7 @@ ${buildMachineContext(machine)}`;
       homeSearch.value = currentQuery;
       resultsSearch.value = currentQuery;
 
-      if (restoredState.activeView === "tasks") {
-        goTasks();
-      } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
+      if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
       } else if (restoredState.activeView === "results" || currentQuery) {
         goResults({ keepSelection: true });
