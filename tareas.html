@@ -101,6 +101,11 @@
     .tk-follow input { flex: 1 1 150px; min-width: 0; border: 1px solid var(--line-strong); border-radius: 9px; padding: 8px 11px; }
     .tk-follow__lbl { font-size: 0.83rem; font-weight: 700; color: var(--blue); width: 100%; }
     .tk-empty { color: var(--muted); padding: 54px 24px; text-align: center; border: 1.5px dashed var(--line-strong); border-radius: 16px; background: #fff; }
+    .tk-remind { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 0.78rem; font-weight: 700; color: #7c3aed; background: #f5f3ff; border: 1px solid #ddd6fe; border-radius: 999px; padding: 4px 11px; }
+    .remind-preview { margin: 2px 0 0; font-size: 0.82rem; color: var(--muted); background: #f8fafc; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; min-height: 20px; }
+    .remind-preview b { color: var(--text); }
+    .remind-remove { width: 100%; margin-top: 2px; min-height: 40px; border: 1px solid #f3c0bb; border-radius: 11px; background: #fef3f2; color: #b42318; font-weight: 700; font-size: 0.85rem; cursor: pointer; }
+    .remind-remove:hover { background: #fee4e2; }
 
     /* ===== Botón flotante (+) ===== */
     .tk-fab { position: fixed; right: 26px; bottom: 26px; z-index: 30; display: inline-flex; align-items: center; gap: 9px; height: 56px; padding: 0 24px 0 20px; border: none; border-radius: 999px; background: #111; color: #fff; font-weight: 700; font-size: 0.98rem; cursor: pointer; box-shadow: 0 12px 32px rgba(16,24,40,0.30); transition: transform .15s, box-shadow .15s; }
@@ -222,6 +227,35 @@
     </form>
   </aside>
 
+  <!-- Modal: programar recordatorio -->
+  <div class="tk-sheet-backdrop" id="remindBackdrop" hidden onclick="closeRemind()"></div>
+  <aside class="tk-sheet" id="remindSheet" hidden aria-label="Programar recordatorio">
+    <div class="tk-sheet__head">
+      <h2>🔔 Programar aviso</h2>
+      <button class="tk-sheet__close" type="button" onclick="closeRemind()" aria-label="Cerrar">&times;</button>
+    </div>
+    <form class="tk-form" id="remindForm" onsubmit="saveRemind(event)">
+      <label>¿Cada cuánto recordar?
+        <select name="freq" id="remindFreqSel" onchange="remindSyncFields()">
+          <option value="">Sin aviso</option>
+          <option value="once">Una vez (en una fecha)</option>
+          <option value="daily">Diario</option>
+          <option value="weekly">Semanal</option>
+          <option value="monthly">Mensual</option>
+          <option value="everyN">Cada N meses</option>
+        </select>
+      </label>
+      <div class="tk-row2">
+        <label id="remindDateWrap">Fecha (inicio)<input type="date" name="date" onchange="remindSyncFields()"></label>
+        <label>Hora<input type="time" name="time" value="08:00" onchange="remindSyncFields()"></label>
+      </div>
+      <label id="remindEveryWrap" hidden>Cada cuántos meses<input type="number" name="everyN" min="1" max="60" value="4" oninput="remindSyncFields()"></label>
+      <p class="remind-preview" id="remindPreview">Elige cada cuánto quieres el aviso.</p>
+      <button class="submit" type="submit">Guardar aviso</button>
+      <button type="button" class="remind-remove" id="remindRemoveBtn" onclick="clearRemind()" hidden>Quitar aviso de esta tarea</button>
+    </form>
+  </aside>
+
   <script>
     // ===== Utilidades =====
     function escapeHtml(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])); }
@@ -319,6 +353,7 @@
              ${t.status !== "hecha" ? `<button class="abtn" type="button" onclick="taskSetStatus('${t.id}','${t.status === "pendiente" ? "en-progreso" : "pendiente"}')">${t.status === "pendiente" ? "▶ Empezar" : "⏸ Pausar"}</button>` : ""}
              ${t.status !== "hecha" ? `<button class="abtn abtn--dark" type="button" onclick="taskComplete('${t.id}')">✓ Completar</button>` : `<button class="abtn" type="button" onclick="taskSetStatus('${t.id}','pendiente')">↺ Reabrir</button>`}
              <button class="abtn" type="button" onclick="taskAddStep('${t.id}')">+ paso</button>
+             <button class="abtn" type="button" onclick="openRemind('${t.id}')">🔔 ${t.remindFreq ? "Aviso" : "Recordar"}</button>
              <button class="abtn" type="button" onclick="taskDelete('${t.id}')">Eliminar</button>
            </div>`;
       return `<div class="tk-card tk-st--${t.status}">
@@ -330,6 +365,7 @@
         </div>
         ${t.desc ? `<p class="tk-desc">${escapeHtml(t.desc)}</p>` : ""}
         ${steps.length ? `<div class="tk-steps">${steps.map((s, i) => `<label class="tk-step ${s.done ? "is-done" : ""}"><input type="checkbox" ${s.done ? "checked" : ""} onchange="taskToggleStep('${t.id}', ${i})"> ${escapeHtml(s.text)}</label>`).join("")}<div class="tk-prog">${done}/${steps.length} pasos completados</div></div>` : ""}
+        ${t.remindFreq ? `<div class="tk-remind">${escapeHtml(remindLabel(t))}</div>` : ""}
         <div class="tk-meta">${t.reporter ? "por " + escapeHtml(t.reporter) + " · " : ""}${escapeHtml((t.createdAt || "").slice(0, 10))}${t.parent ? ` · seguimiento de: “${escapeHtml(t.parent)}”` : ""}</div>
         ${body}
       </div>`;
@@ -340,7 +376,7 @@
       e.preventDefault();
       const f = e.target;
       const steps = (f.steps.value || "").split("\n").map(s => s.trim()).filter(Boolean).map(text => ({ text, done: false }));
-      tasks.unshift({ id: tuid(), machine: f.machine.value, title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
+      tasks.unshift({ id: tuid(), machine: f.machine.value, machineName: taskMachineName(f.machine.value), title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
       saveTasks(); f.reset(); taskFormToggle(false); renderTasks();
     }
     function taskToggleStep(id, i){ const t = tasks.find(x => x.id === id); if (t && t.steps[i]) { t.steps[i].done = !t.steps[i].done; if (t.status === "pendiente" && t.steps.some(s => s.done)) t.status = "en-progreso"; saveTasks(); renderTasks(); } }
@@ -373,6 +409,82 @@
       } else { sheet.hidden = true; back.hidden = true; }
     }
     document.addEventListener("keydown", e => { if (e.key === "Escape" && taskFormOpen) taskFormToggle(false); });
+
+    // ===== Recordatorios (avisos programados por Telegram) =====
+    const FREQ_LABEL = { once: "Una vez", daily: "Diario", weekly: "Semanal", monthly: "Mensual", everyN: "Cada N meses" };
+    // Etiqueta legible del aviso para la tarjeta
+    function remindLabel(t){
+      if (!t.remindFreq) return "";
+      let base = t.remindFreq === "everyN" ? `Cada ${t.remindEveryN || "?"} meses` : (FREQ_LABEL[t.remindFreq] || t.remindFreq);
+      const next = t.remindNextAt ? new Date(t.remindNextAt) : null;
+      const nice = next && !isNaN(next) ? next.toLocaleDateString("es", { day: "2-digit", month: "short" }) + " " + (t.remindTime || "") : "";
+      return `🔔 ${base}${nice ? " · próx. " + nice.trim() : (t.remindTime ? " · " + t.remindTime : "")}`;
+    }
+    // Calcula el primer disparo (fecha+hora local -> ISO UTC). Para recurrentes, adelanta al futuro.
+    function remindComputeNext(freq, dateStr, timeStr){
+      const d = dateStr || new Date().toISOString().slice(0, 10);
+      const t = timeStr || "08:00";
+      let dt = new Date(`${d}T${t}`);
+      if (isNaN(dt)) return null;
+      const now = new Date();
+      if (freq !== "once"){
+        let guard = 0;
+        while (dt <= now && guard++ < 1000){
+          if (freq === "daily") dt.setDate(dt.getDate() + 1);
+          else if (freq === "weekly") dt.setDate(dt.getDate() + 7);
+          else if (freq === "monthly") dt.setMonth(dt.getMonth() + 1);
+          else break;
+        }
+      }
+      return dt.toISOString();
+    }
+
+    let remindEditId = null;
+    function openRemind(id){
+      const t = tasks.find(x => x.id === id); if (!t) return;
+      remindEditId = id;
+      const form = document.getElementById("remindForm");
+      form.freq.value = t.remindFreq || "";
+      form.date.value = t.remindNextAt ? new Date(t.remindNextAt).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10);
+      form.time.value = t.remindTime || "08:00";
+      form.everyN.value = t.remindEveryN || 4;
+      document.getElementById("remindRemoveBtn").hidden = !t.remindFreq;
+      remindSyncFields();
+      document.getElementById("remindBackdrop").hidden = false;
+      document.getElementById("remindSheet").hidden = false;
+    }
+    function closeRemind(){ remindEditId = null; document.getElementById("remindBackdrop").hidden = true; document.getElementById("remindSheet").hidden = true; }
+    function remindSyncFields(){
+      const form = document.getElementById("remindForm");
+      const freq = form.freq.value;
+      document.getElementById("remindEveryWrap").hidden = freq !== "everyN";
+      const prev = document.getElementById("remindPreview");
+      if (!freq){ prev.innerHTML = "Sin aviso: esta tarea no enviará notificación."; return; }
+      const iso = remindComputeNext(freq, form.date.value, form.time.value);
+      const next = iso ? new Date(iso) : null;
+      const nstr = next ? next.toLocaleString("es", { weekday: "long", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit" }) : "—";
+      let label = freq === "everyN" ? `cada ${form.everyN.value} meses` : (FREQ_LABEL[freq] || freq).toLowerCase();
+      prev.innerHTML = `Se avisará <b>${label}</b>. Próximo aviso:<br><b>${nstr}</b>`;
+    }
+    function saveRemind(e){
+      e.preventDefault();
+      const t = tasks.find(x => x.id === remindEditId); if (!t) { closeRemind(); return; }
+      const form = e.target;
+      const freq = form.freq.value;
+      if (!freq){ clearRemind(); return; }
+      t.remindFreq = freq;
+      t.remindTime = form.time.value || "08:00";
+      t.remindNextAt = remindComputeNext(freq, form.date.value, form.time.value);
+      if (freq === "everyN") t.remindEveryN = Math.max(1, parseInt(form.everyN.value) || 1); else delete t.remindEveryN;
+      if (!t.machineName) t.machineName = taskMachineName(t.machine);
+      saveTasks(); closeRemind(); renderTasks();
+    }
+    function clearRemind(){
+      const t = tasks.find(x => x.id === remindEditId);
+      if (t){ delete t.remindFreq; delete t.remindTime; delete t.remindNextAt; delete t.remindEveryN; saveTasks(); }
+      closeRemind(); renderTasks();
+    }
+    document.addEventListener("keydown", e => { if (e.key === "Escape" && !document.getElementById("remindSheet").hidden) closeRemind(); });
 
     // ===== Inicio =====
     document.getElementById("filterMachine").innerHTML =
