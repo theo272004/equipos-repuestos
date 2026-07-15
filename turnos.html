@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Turnos · Mantenimiento</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%93%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #f4f6fb; --surface: #ffffff; --text: #101828; --muted: #667085;
+      --line: #e4e7ec; --line-strong: #cfd6e1; --blue: #2563eb;
+      --shadow: 0 16px 40px rgba(16,24,40,.08); --shadow-card: 0 8px 26px rgba(16,24,40,.06);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text); -webkit-font-smoothing: antialiased;
+      background: radial-gradient(1100px 500px at 50% -8%, #eaf0fb 0%, rgba(234,240,251,0) 60%), var(--bg);
+      min-height: 100vh;
+    }
+    button, input, select { font: inherit; }
+    a { color: inherit; }
+
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .topbar__wrap { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 12px 20px; }
+    .back-link { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-weight: 700; font-size: 0.88rem; color: var(--muted); padding: 8px 13px; border-radius: 10px; border: 1px solid var(--line); background: #fff; transition: color .15s, border-color .15s; }
+    .back-link:hover { color: var(--text); border-color: var(--line-strong); }
+    .topbar__brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.98rem; }
+    .topbar__brand .logo { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, #2563eb, #0ea5e9); display: grid; place-items: center; font-size: 0.9rem; }
+    .topbar__spacer { flex: 1; }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 30px 20px 90px; }
+    .page-head { text-align: center; margin-bottom: 22px; }
+    .eyebrow { margin: 0 0 8px; color: var(--blue); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.09em; text-transform: uppercase; }
+    .page-head h1 { margin: 0 0 6px; font-size: 2.1rem; letter-spacing: -0.02em; }
+    .page-head p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+    /* Controles */
+    .controls { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; align-items: flex-end; margin-bottom: 8px; }
+    .ctrl { display: grid; gap: 6px; }
+    .ctrl > span { font-size: 0.74rem; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; color: var(--muted); text-align: center; }
+    .seg { display: inline-flex; background: #eef1f6; border-radius: 12px; padding: 4px; gap: 4px; }
+    .seg button { border: none; background: transparent; padding: 9px 16px; border-radius: 9px; font-weight: 700; font-size: 0.9rem; color: var(--muted); cursor: pointer; transition: background .15s, color .15s; }
+    .seg button.is-active { background: #fff; color: var(--text); box-shadow: var(--shadow-card); }
+    .date-ctrl input { height: 44px; border: 1px solid var(--line-strong); border-radius: 12px; padding: 0 12px; background: #fff; color: var(--text); }
+    .date-ctrl input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37,99,235,0.12); }
+    .today-btn { height: 44px; border: 1px solid var(--line-strong); background: #fff; border-radius: 12px; padding: 0 15px; font-weight: 700; cursor: pointer; }
+    .today-btn:hover { background: #f8fafc; }
+
+    .datebar { text-align: center; margin: 18px 0 20px; font-size: 1.05rem; font-weight: 700; }
+    .datebar span { color: var(--muted); font-weight: 600; text-transform: capitalize; }
+
+    /* Tarjetas de turno */
+    .shift-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 760px) { .shift-grid { grid-template-columns: 1fr; } }
+    .shift-card { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow-card); overflow: hidden; }
+    .shift-head { display: flex; align-items: center; gap: 9px; padding: 14px 16px; font-weight: 800; font-size: 1.05rem; color: #fff; }
+    .shift--dia .shift-head { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+    .shift--noche .shift-head { background: linear-gradient(135deg, #4338ca, #6366f1); }
+    .shift--descanso .shift-head { background: linear-gradient(135deg, #475569, #64748b); }
+    .shift-body { padding: 14px 16px 16px; }
+    .shift-group { font-size: 0.78rem; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; color: var(--blue); margin-bottom: 10px; }
+    .shift-people { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .shift-people li { display: flex; align-items: center; gap: 10px; font-size: 0.95rem; font-weight: 600; }
+    .shift-people li .ini { width: 30px; height: 30px; flex-shrink: 0; border-radius: 50%; display: grid; place-items: center; font-size: 0.78rem; font-weight: 800; color: #fff; background: #94a3b8; }
+    .shift--dia .ini { background: #f59e0b; } .shift--noche .ini { background: #6366f1; } .shift--descanso .ini { background: #64748b; }
+    .shift-empty { color: var(--muted); font-size: 0.9rem; }
+
+    /* Apoyo fijo */
+    .support { margin-top: 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); box-shadow: var(--shadow-card); padding: 16px 18px; }
+    .support h3 { margin: 0 0 4px; font-size: 1rem; }
+    .support .sub { margin: 0 0 12px; color: var(--muted); font-size: 0.82rem; }
+    .support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .support-item { border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; }
+    .support-item b { display: block; font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.02em; color: #7c3aed; margin-bottom: 5px; }
+    .support-item div { font-size: 0.92rem; }
+
+    .note { margin-top: 20px; font-size: 0.82rem; color: var(--muted); background: #fffaeb; border: 1px solid #f0d0a0; border-radius: 12px; padding: 11px 14px; }
+    .hide { display: none !important; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__wrap">
+      <a class="back-link" href="index.html" aria-label="Volver">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        Volver
+      </a>
+      <span class="topbar__brand"><span class="logo">🗓️</span><span>Turnos</span></span>
+      <span class="topbar__spacer"></span>
+      <a class="back-link" href="tareas.html">Tareas →</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="page-head">
+      <p class="eyebrow">Mantenimiento</p>
+      <h1>Quién está en turno</h1>
+      <p>Elige la sede y la fecha. Los turnos se calculan con el ciclo de 21 días (7 día · 7 noche · 7 descanso).</p>
+    </div>
+
+    <div class="controls">
+      <div class="ctrl">
+        <span>Sede</span>
+        <div class="seg" id="segSede">
+          <button data-sede="sede4" class="is-active">Sede 4</button>
+          <button data-sede="sede2">Sede 2 (Vía 40)</button>
+        </div>
+      </div>
+      <div class="ctrl date-ctrl">
+        <span>Fecha</span>
+        <div style="display:flex;gap:8px">
+          <input type="date" id="fecha">
+          <button class="today-btn" id="hoyBtn" type="button">Hoy</button>
+        </div>
+      </div>
+      <div class="ctrl">
+        <span>Turno</span>
+        <div class="seg" id="segTurno">
+          <button data-turno="todos" class="is-active">Todos</button>
+          <button data-turno="dia">Día</button>
+          <button data-turno="noche">Noche</button>
+          <button data-turno="descanso">Descanso</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="datebar" id="datebar"></div>
+
+    <div class="shift-grid" id="shiftGrid"></div>
+
+    <div class="support" id="support"></div>
+
+    <p class="note">⚠️ Esto muestra la <b>rotación</b> del ciclo. No refleja <b>vacaciones, permisos ni cambios</b> puntuales — para esas excepciones, confírmalo con el cuadro oficial. Si algún nombre o grupo está mal, dime y lo corrijo.</p>
+  </main>
+
+  <script>
+    // ===== Roster (leído del cuadro de julio 2026 — verificar nombres) =====
+    const ROSTER = {
+      sede4: {
+        label: "Sede 4",
+        groups: [
+          { name: "Grupo Sede 4-1", phase: "dia",      members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "Jair Mesa Rincón"] },
+          { name: "Grupo Sede 4-2", phase: "noche",    members: ["Vladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés Vega"] },
+          { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] },
+        ],
+      },
+      sede2: {
+        label: "Sede 2 (Vía 40)",
+        groups: [
+          { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo"] },
+          { name: "Grupo Vía 40-2", phase: "noche",    members: ["Samith Arick Sanjuán Otálora"] },
+          { name: "Grupo Vía 40-3", phase: "dia",      members: ["Oscar Antonio Hernández Sarabia"] },
+        ],
+      },
+    };
+    const SUPPORT = [
+      { area: "Eléctrico", members: ["Jaime Villa Pérez"] },
+      { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"] },
+      { area: "Preventivo", members: ["Alexi Alexander Arroyo De Moya", "Leiner Andrés Montañez Rodríguez"] },
+      { area: "Refrigeración", members: ["Juan Carlos Estupiñán De la Cruz"] },
+    ];
+
+    // ===== Lógica del ciclo (ancla: 1 de julio de 2026 = inicio) =====
+    const ANCHOR = Date.UTC(2026, 6, 1); // julio = mes 6
+    // Para cada fase, orden de los 3 bloques de 7 días
+    const PHASE_BLOCKS = {
+      dia:      ["dia", "noche", "descanso"],
+      noche:    ["noche", "descanso", "dia"],
+      descanso: ["descanso", "dia", "noche"],
+    };
+    function estadoDe(phase, dateStr){
+      const d = Date.parse(dateStr + "T00:00:00Z");
+      const days = Math.floor((d - ANCHOR) / 86400000);
+      const n = ((days % 21) + 21) % 21;   // día del ciclo 0..20
+      return PHASE_BLOCKS[phase][Math.floor(n / 7)];
+    }
+    const ESTADO_INFO = {
+      dia:      { icon: "🌞", label: "Día",      cls: "shift--dia" },
+      noche:    { icon: "🌙", label: "Noche",    cls: "shift--noche" },
+      descanso: { icon: "😴", label: "Descanso", cls: "shift--descanso" },
+    };
+    function iniciales(nombre){ const p = nombre.trim().split(/\s+/); return ((p[0]||"")[0] || "") + ((p[1]||"")[0] || ""); }
+
+    // ===== Estado de la UI =====
+    let sede = "sede4";
+    let turno = "todos";
+    function bogotaHoy(){ return new Date(Date.now() - 5 * 3600 * 1000).toISOString().slice(0, 10); }
+
+    function render(){
+      const fecha = document.getElementById("fecha").value || bogotaHoy();
+      // barra de fecha
+      const d = new Date(fecha + "T12:00:00Z");
+      document.getElementById("datebar").innerHTML =
+        d.toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })
+          .replace(/^\w/, c => c.toUpperCase()) + ` &nbsp;·&nbsp; <span>${ROSTER[sede].label}</span>`;
+
+      // calcular estado de cada grupo de la sede
+      const buckets = { dia: [], noche: [], descanso: [] };
+      ROSTER[sede].groups.forEach(g => {
+        const est = estadoDe(g.phase, fecha);
+        buckets[est].push(g);
+      });
+
+      const orden = ["dia", "noche", "descanso"];
+      document.getElementById("shiftGrid").innerHTML = orden.map(est => {
+        if (turno !== "todos" && turno !== est) return "";
+        const info = ESTADO_INFO[est];
+        const groups = buckets[est];
+        const body = groups.length ? groups.map(g => `
+          <div class="shift-group">${g.name}</div>
+          <ul class="shift-people">${g.members.map(m => `<li><span class="ini">${iniciales(m).toUpperCase()}</span>${m}</li>`).join("")}</ul>
+        `).join("") : `<p class="shift-empty">—</p>`;
+        return `<section class="shift-card ${info.cls}">
+          <div class="shift-head">${info.icon} ${info.label}</div>
+          <div class="shift-body">${body}</div>
+        </section>`;
+      }).join("");
+
+      // ajustar columnas si hay filtro
+      const grid = document.getElementById("shiftGrid");
+      const visibles = turno === "todos" ? 3 : 1;
+      grid.style.gridTemplateColumns = window.innerWidth <= 760 ? "1fr" : `repeat(${visibles}, minmax(0,1fr))`;
+      grid.style.maxWidth = visibles === 1 ? "460px" : "none";
+      grid.style.marginLeft = "auto"; grid.style.marginRight = "auto";
+
+      // apoyo fijo
+      const showSupport = (turno === "todos" || turno === "dia");
+      document.getElementById("support").innerHTML = showSupport ? `
+        <h3>🛠️ Personal de apoyo · turno fijo</h3>
+        <p class="sub">Trabajan horario fijo de día (no rotan). Cubren ambas sedes.</p>
+        <div class="support-grid">
+          ${SUPPORT.map(s => `<div class="support-item"><b>${s.area}</b><div>${s.members.join("<br>")}</div></div>`).join("")}
+        </div>` : "";
+      document.getElementById("support").classList.toggle("hide", !showSupport);
+    }
+
+    // ===== Eventos =====
+    document.getElementById("segSede").addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      sede = b.dataset.sede;
+      [...e.currentTarget.children].forEach(x => x.classList.toggle("is-active", x === b));
+      render();
+    });
+    document.getElementById("segTurno").addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      turno = b.dataset.turno;
+      [...e.currentTarget.children].forEach(x => x.classList.toggle("is-active", x === b));
+      render();
+    });
+    document.getElementById("fecha").addEventListener("change", render);
+    document.getElementById("hoyBtn").addEventListener("click", () => { document.getElementById("fecha").value = bogotaHoy(); render(); });
+    window.addEventListener("resize", render);
+
+    // ===== Inicio =====
+    document.getElementById("fecha").value = bogotaHoy();
+    render();
+  </script>
+</body>
+</html>
