@@ -46,6 +46,7 @@ function buildMsg(f) {
   if (str(f.priority)) lines.push(`Prioridad: ${esc(str(f.priority))}`);
   const st = { pendiente: "Pendiente", "en-progreso": "En progreso", hecha: "Hecha" }[str(f.status)] || str(f.status);
   if (st) lines.push(`Estado: ${esc(st)}`);
+  if (str(f.remindTime)) lines.push(`🕐 Programado: ${esc(str(f.remindTime))} (Colombia)`);
   if (str(f.desc)) lines.push("", esc(str(f.desc)));
   return lines.join("\n");
 }
