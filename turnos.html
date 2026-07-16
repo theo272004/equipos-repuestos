@@ -97,7 +97,7 @@
     <div class="page-head">
       <p class="eyebrow">Mantenimiento</p>
       <h1>Quién está en turno</h1>
-      <p>Elige la sede y la fecha. Los turnos se calculan con el ciclo de 21 días (7 día · 7 noche · 7 descanso).</p>
+      <p>Elige la sede y la fecha. Los turnos se calculan con el ciclo de 6 días (2 día · 2 noche · 2 descanso).</p>
     </div>
 
     <div class="controls">
@@ -163,8 +163,10 @@
     ];
 
     // ===== Lógica del ciclo (ancla: 1 de julio de 2026 = inicio) =====
+    // Ciclo de 6 días: DD NN XX (2 día, 2 noche, 2 descanso). Cada grupo arranca en un punto.
     const ANCHOR = Date.UTC(2026, 6, 1); // julio = mes 6
-    // Para cada fase, orden de los 3 bloques de 7 días
+    const CICLO = 6, BLOQUE = 2;
+    // Para cada fase, orden de los 3 bloques de 2 días
     const PHASE_BLOCKS = {
       dia:      ["dia", "noche", "descanso"],
       noche:    ["noche", "descanso", "dia"],
@@ -173,8 +175,8 @@
     function estadoDe(phase, dateStr){
       const d = Date.parse(dateStr + "T00:00:00Z");
       const days = Math.floor((d - ANCHOR) / 86400000);
-      const n = ((days % 21) + 21) % 21;   // día del ciclo 0..20
-      return PHASE_BLOCKS[phase][Math.floor(n / 7)];
+      const n = ((days % CICLO) + CICLO) % CICLO;   // día del ciclo 0..5
+      return PHASE_BLOCKS[phase][Math.floor(n / BLOQUE)];
     }
     const ESTADO_INFO = {
       dia:      { icon: "🌞", label: "Día",      cls: "shift--dia" },
