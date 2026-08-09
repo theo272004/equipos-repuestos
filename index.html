@@ -2255,6 +2255,31 @@
       .px-overview { margin: 0 0 14px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: #fff; cursor: zoom-in; }
       .px-overview img { width: 100%; height: auto; display: block; }
       .px-overview figcaption { font-size: 0.78rem; color: var(--muted); padding: 7px 12px; border-top: 1px solid var(--line); background: var(--soft); font-weight: 600; }
+
+      /* ===== Lista de pedido de repuestos ===== */
+      .od-box { border: 1px solid var(--line); border-left: 4px solid var(--orange); border-radius: 12px; background: var(--surface); margin-bottom: 16px; box-shadow: var(--shadow-card); }
+      .od-box > summary { list-style: none; cursor: pointer; padding: 12px 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+      .od-box > summary::-webkit-details-marker { display: none; }
+      .od-box__t { font-weight: 800; font-size: 1rem; flex: 1; min-width: 180px; }
+      .od-badge { font-size: 0.72rem; font-weight: 800; border-radius: 999px; padding: 3px 10px; background: #fff3e8; color: #b45309; }
+      .od-badge--0 { background: var(--soft); color: var(--muted); }
+      .od-body { padding: 0 14px 14px; border-top: 1px solid var(--line); }
+      .od-actions { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0; }
+      .od-actions .button { min-height: 32px; padding: 0 12px; font-size: 0.82rem; }
+      .od-tbl { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+      .od-tbl th { text-align: left; font-size: 0.7rem; text-transform: uppercase; color: var(--muted); padding: 6px 6px; border-bottom: 1px solid var(--line); }
+      .od-tbl td { padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+      .od-tbl tr.st-pedido td { background: #eff6ff; }
+      .od-tbl tr.st-recibido td { background: #f0fdf4; color: var(--muted); }
+      .od-tbl tr.st-recibido .px-ref { text-decoration: line-through; }
+      .od-qty { width: 58px; border: 1px solid var(--line-strong); border-radius: 6px; padding: 3px 6px; font: inherit; font-size: 0.82rem; }
+      .od-sel { border: 1px solid var(--line-strong); border-radius: 6px; padding: 3px 6px; font: inherit; font-size: 0.78rem; background: #fff; }
+      .od-del { border: none; background: transparent; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 2px 6px; border-radius: 6px; }
+      .od-del:hover { background: #fee2e2; color: #b91c1c; }
+      .od-add { border: 1px solid var(--line-strong); background: #fff; color: var(--text); border-radius: 7px; padding: 2px 9px; font: inherit; font-size: 0.76rem; font-weight: 700; cursor: pointer; white-space: nowrap; }
+      .od-add:hover { border-color: var(--orange); color: #b45309; background: #fff8f3; }
+      .od-add.is-in { background: #fff3e8; border-color: var(--orange); color: #b45309; }
+      .od-where { font-size: 0.76rem; color: var(--muted); }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -6298,6 +6323,106 @@
       function schDev(sch, id) { return sch.devices.find(d => d.i === id); }
       function schEsc(id) { return String(id).replace(/['"\\]/g, ""); }
 
+      // ===== Lista de pedido de repuestos =====
+      const orderKey = "equipos-pedido-v1";
+      const ORDER_SEED = [
+        { ref: "8-108-168-189", d: "Presostato diferencial LGW 10A2 (Dungs)", w: "Est. 9 · Estación de cierre", q: "1", n: "Etiqueta de máquina =GKF1.G05-B13" },
+        { ref: "8-108-125-802", d: "Bola de cabezal articulado I BRF8 (8/M8)", w: "Est. 10 y 11 · Expulsión", q: "1", n: "OJO: rosca DERECHA" },
+        { ref: "8-108-125-924", d: "Bola de cabezal articulado I BRF8L (8/M8L)", w: "Est. 10 y 11 · Expulsión", q: "1", n: "OJO: rosca IZQUIERDA" },
+        { ref: "8-101-210-194", d: "Casquillo deslizante de collarín XFM-0405-06", w: "Est. 10 y 11 · Expulsión", q: "18", n: "Se cambia junto con 8-104-236-330 y 8-108-100-311" },
+        { ref: "8-104-236-330", d: "Anillo rascador 14x4/6", w: "Est. 10 y 11 · Expulsión", q: "18", n: "" },
+        { ref: "8-108-100-311", d: "Casquillo de bolas 12x19", w: "Est. 10 y 11 · Expulsión", q: "36", n: "" },
+        { ref: "8-108-160-149", d: "Manguera 38 x 1,5", w: "Aspiración, rechazo, cierre y limpieza", q: "8", n: "Va en 4 estaciones" },
+        { ref: "8-104-233-011", d: "Soporte de bloque de clasificación", w: "Est. 1 y 2 · Clasificación", q: "1", n: "" },
+        { ref: "8-108-643-460", d: "Cartucho de filtro Micro-Top C 15-124/1", w: "Vacío · filtro", q: "1", n: "Consumible del filtro de vacío" },
+        { ref: "8-108-136-294", d: "Filtro de vacío completo", w: "Vacío de la estación de separación", q: "1", n: "" },
+        { ref: "8-108-136-292", d: "Correa dentada Z=150 · 1200-8M-30", w: "Accionamiento principal", q: "1", n: "Correa 1 de 5" },
+        { ref: "8-108-148-303", d: "Correa dentada CXP 8M-960-50 HTD", w: "Accionamiento principal y est. dosificadora", q: "2", n: "Correa 2 de 5 · va en 2 sitios" },
+        { ref: "8-108-136-291", d: "Correa dentada Z=160 · 1280-8M-50", w: "Accionamiento dosificación de polvo", q: "1", n: "Correa 3 de 5" },
+        { ref: "8-108-137-973", d: "Correa dentada Z=228 · 684-3M-9", w: "Accionamiento est. dosificadora desconectable", q: "1", n: "Correa 4 de 5" },
+        { ref: "8-108-136-023", d: "Correa dentada 10T5/885", w: "Regulación del disco dosificador por motor", q: "1", n: "Correa 5 de 5" }
+      ];
+      function loadOrder() {
+        try {
+          const raw = localStorage.getItem(orderKey);
+          if (raw === null) {
+            const seed = ORDER_SEED.map(o => ({ ...o, m: "gkf2600", s: "por-pedir" }));
+            localStorage.setItem(orderKey, JSON.stringify(seed));
+            return seed;
+          }
+          return JSON.parse(raw) || [];
+        } catch { return []; }
+      }
+      let orderList = loadOrder();
+      function saveOrder() { try { localStorage.setItem(orderKey, JSON.stringify(orderList)); } catch (e) {} }
+      function odIn(ref) { return orderList.some(o => o.ref === ref); }
+      function odCount(mid) { return orderList.filter(o => !mid || o.m === mid).length; }
+
+      function renderOrderBox(mid) {
+        const list = orderList.filter(o => o.m === mid);
+        const pend = list.filter(o => o.s === "por-pedir").length;
+        const ped = list.filter(o => o.s === "pedido").length;
+        const rec = list.filter(o => o.s === "recibido").length;
+        const rows = list.map((o, i) => {
+          const gi = orderList.indexOf(o);
+          return `<tr class="st-${o.s}">
+            <td class="px-ref">${o.ref}</td>
+            <td>${o.d}${o.n ? `<div class="od-where">📝 ${o.n}</div>` : ""}</td>
+            <td class="od-where">${o.w || ""}</td>
+            <td><input class="od-qty" type="text" value="${o.q || ""}" onchange="odSetQty(${gi}, this.value)"></td>
+            <td><select class="od-sel" onchange="odSetStatus(${gi}, this.value)">
+              <option value="por-pedir" ${o.s === "por-pedir" ? "selected" : ""}>Por pedir</option>
+              <option value="pedido" ${o.s === "pedido" ? "selected" : ""}>Pedido</option>
+              <option value="recibido" ${o.s === "recibido" ? "selected" : ""}>Recibido</option>
+            </select></td>
+            <td><button class="od-del" type="button" title="Quitar" onclick="odRemove(${gi})">×</button></td>
+          </tr>`;
+        }).join("");
+        return `<details class="od-box" id="odBox" ${list.length ? "open" : ""}>
+          <summary>
+            <span class="od-box__t">🧾 Lista de pedido de repuestos</span>
+            <span class="od-badge ${list.length ? "" : "od-badge--0"}">${list.length} pieza${list.length === 1 ? "" : "s"}</span>
+            ${pend ? `<span class="od-badge">${pend} por pedir</span>` : ""}
+            ${ped ? `<span class="od-badge" style="background:#eff6ff;color:#1d4ed8">${ped} pedido${ped === 1 ? "" : "s"}</span>` : ""}
+            ${rec ? `<span class="od-badge" style="background:#f0fdf4;color:#15803d">${rec} recibido${rec === 1 ? "" : "s"}</span>` : ""}
+          </summary>
+          <div class="od-body">
+            <p style="font-size:0.84rem;color:var(--muted);margin:10px 0 0">Añade piezas con el botón <strong>+ pedido</strong> de cada fila del despiece. Se guarda en este equipo; usa <strong>Copiar para compras</strong> para enviarla.</p>
+            <div class="od-actions">
+              <button class="button button--dark" type="button" onclick="odExport('${mid}')">📋 Copiar para compras</button>
+              <button class="button button--light" type="button" onclick="odClear('${mid}')">Vaciar lista</button>
+            </div>
+            ${list.length ? `<div class="table-container"><table class="od-tbl">
+              <thead><tr><th>Referencia</th><th>Pieza</th><th>Dónde va</th><th>Cant.</th><th>Estado</th><th></th></tr></thead>
+              <tbody>${rows}</tbody></table></div>` : '<p class="tk-empty">La lista está vacía. Busca una pieza abajo y pulsa <strong>+ pedido</strong>.</p>'}
+          </div>
+        </details>`;
+      }
+      function odRefreshBox(mid) {
+        const box = document.getElementById("odBox");
+        if (box) { const wasOpen = box.open; box.outerHTML = renderOrderBox(mid); const nb = document.getElementById("odBox"); if (nb) nb.open = wasOpen || true; }
+      }
+      function odAdd(mid, ref, d, w, q) {
+        if (odIn(ref)) { odRemoveByRef(ref); }
+        else { orderList.push({ ref, d, w, q: (q || "").replace(/[^\d]/g, "") || "1", n: "", m: mid, s: "por-pedir" }); saveOrder(); }
+        odRefreshBox(mid); pxRefresh(mid);
+      }
+      function odRemoveByRef(ref) { orderList = orderList.filter(o => o.ref !== ref); saveOrder(); }
+      function odRemove(i) { const mid = orderList[i]?.m; orderList.splice(i, 1); saveOrder(); odRefreshBox(mid); pxRefresh(mid); }
+      function odSetQty(i, v) { if (orderList[i]) { orderList[i].q = v; saveOrder(); } }
+      function odSetStatus(i, v) { if (orderList[i]) { orderList[i].s = v; saveOrder(); odRefreshBox(orderList[i].m); } }
+      function odClear(mid) { if (window.confirm("¿Vaciar la lista de pedido de este equipo?")) { orderList = orderList.filter(o => o.m !== mid); saveOrder(); odRefreshBox(mid); pxRefresh(mid); } }
+      function odExport(mid) {
+        const m = machines.find(x => x.id === mid);
+        const list = orderList.filter(o => o.m === mid && o.s !== "recibido");
+        if (!list.length) { window.alert("No hay piezas por pedir en la lista."); return; }
+        const head = `PEDIDO DE REPUESTOS\nEquipo: ${m ? m.name : mid}${m && m.technicalData?.serialNumber ? ` · N.º de serie ${m.technicalData.serialNumber}` : ""}\nFecha: ${new Date().toLocaleDateString("es-CO")}\n`;
+        const body = list.map((o, i) => `${i + 1}. ${o.ref}  —  ${o.d}\n   Cantidad: ${o.q}   |   Ubicación: ${o.w || "—"}${o.n ? `\n   Nota: ${o.n}` : ""}`).join("\n");
+        const txt = `${head}\n${body}\n\nTotal: ${list.length} referencias.`;
+        try { navigator.clipboard?.writeText(txt); } catch (e) {}
+        window.prompt("Lista copiada. Puedes pegarla en el correo o WhatsApp de compras:", txt);
+      }
+
       // ===== Explorador de despiece: mapa de la máquina <-> repuestos (bidireccional) =====
       const pxState = { station: "S5", hits: [], hitRefs: new Set() };
       function getParts(mid) { return (typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[mid]) || null; }
@@ -6368,13 +6493,20 @@
         const body = grps.map((g, i) => {
           const list = partsByG[g.p] || [];
           const anyHit = list.some(p => pxState.hitRefs.has(p.r));
-          const rows = list.map(p => `
+          const stLabel = (M.stations.find(s => s.id === stId) || {});
+          const wLabel = (stLabel.no && stLabel.no !== "—" ? "Est. " + stLabel.no + " · " : "") + (stLabel.n || "");
+          const rows = list.map(p => {
+            const inOrder = odIn(p.r);
+            const safeD = (p.d || "").replace(/'/g, "");
+            return `
             <tr class="${pxState.hitRefs.has(p.r) ? "is-hit" : ""}" id="pxr-${p.r}">
               <td class="px-ref">${p.r}</td>
               <td>${p.d}${p.x ? ` <small style="color:var(--muted)">${p.x}</small>` : ""}</td>
               <td style="white-space:nowrap">${p.q || ""}</td>
               <td>${p.c ? `<span class="px-cls px-cls--${p.c}">${p.c}</span>` : ""}</td>
-            </tr>`).join("");
+              <td><button class="od-add${inOrder ? " is-in" : ""}" type="button" onclick="odAdd('${mid}','${p.r}','${safeD}','${wLabel.replace(/'/g, "")}','${p.q || ""}')">${inOrder ? "✓ en lista" : "+ pedido"}</button></td>
+            </tr>`;
+          }).join("");
           const figs = (g.img || []).map((src, k) => `
             <figure class="px-fig" onclick="openLightbox('${src}','Despiece ${g.p} · ${g.n.replace(/'/g, "")}')">
               <img src="${src}" alt="Despiece de ${g.n}" loading="lazy">
@@ -6389,7 +6521,7 @@
             </summary>
             <div class="px-grp__body">
               ${figs}
-              <table class="px-tbl"><thead><tr><th>Referencia</th><th>Pieza</th><th>Cant.</th><th>Tipo</th></tr></thead>
+              <table class="px-tbl"><thead><tr><th>Referencia</th><th>Pieza</th><th>Cant.</th><th>Tipo</th><th>Pedido</th></tr></thead>
               <tbody>${rows}</tbody></table>
             </div>
           </details>`;
@@ -6408,6 +6540,7 @@
             <h3>Despiece interactivo — dónde va cada repuesto</h3>
             <p>Toca una <strong>estación del diagrama</strong> para ver qué piezas lleva, o <strong>busca una referencia</strong> y te muestro en qué estación va. Catálogo ${M.ref} · ${M.parts.length} piezas.</p>
           </div>
+          ${renderOrderBox(machine.id)}
           <div class="px-search">
             <input id="pxSearch" type="search" placeholder="Busca referencia (8-108-160-149) o nombre (correa, rodamiento, filtro)…" oninput="pxSearch('${machine.id}')" />
           </div>
