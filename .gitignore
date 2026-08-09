@@ -1,8 +1,9 @@
 # Backups
 *.bak_*
 
-# Large PDFs
-*.pdf
+# PDFs sueltos en la raíz (los oficiales van en manuales/)
+/*.pdf
+!manuales/**/*.pdf
 
 # Raw OCR / extracted text
 *.txt
