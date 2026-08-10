@@ -2280,6 +2280,19 @@
       .od-add:hover { border-color: var(--orange); color: #b45309; background: #fff8f3; }
       .od-add.is-in { background: #fff3e8; border-color: var(--orange); color: #b45309; }
       .od-where { font-size: 0.76rem; color: var(--muted); }
+
+      /* ===== Referencia comercial (editable) ===== */
+      .cm-cell { cursor: text; min-width: 120px; }
+      .cm-val { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.8rem; font-weight: 700; color: #15803d; border-bottom: 1px dashed #86efac; }
+      .cm-val--manual { color: #b45309; border-bottom-color: #fcd34d; }
+      .cm-empty { font-size: 0.76rem; color: var(--line-strong); border-bottom: 1px dashed var(--line-strong); }
+      .cm-cell:hover .cm-val, .cm-cell:hover .cm-empty { background: #fffbeb; }
+      .cm-input { width: 100%; min-width: 110px; border: 2px solid var(--blue); border-radius: 6px; padding: 3px 6px; font: inherit; font-size: 0.8rem; font-family: ui-monospace, Menlo, Consolas, monospace; outline: none; }
+      .cm-tag { font-size: 0.62rem; font-weight: 800; border-radius: 999px; padding: 1px 6px; margin-left: 5px; vertical-align: middle; }
+      .cm-tag--auto { background: #dcfce7; color: #15803d; }
+      .cm-tag--manual { background: #fef3c7; color: #b45309; }
+      .cm-bar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin: 10px 0 4px; font-size: 0.82rem; color: var(--muted); }
+      .cm-bar .button { min-height: 30px; padding: 0 11px; font-size: 0.78rem; }
       .guide-accordion summary {
         display: flex;
         align-items: center;
@@ -6323,6 +6336,123 @@
       function schDev(sch, id) { return sch.devices.find(d => d.i === id); }
       function schEsc(id) { return String(id).replace(/['"\\]/g, ""); }
 
+      // ===== Referencia comercial: detección automática + edición manual =====
+      const commKey = "equipos-comerciales-v1";
+      function loadComm() { try { return JSON.parse(localStorage.getItem(commKey) || "{}"); } catch { return {}; } }
+      let commOverrides = loadComm();
+      function saveComm() { try { localStorage.setItem(commKey, JSON.stringify(commOverrides)); } catch (e) {} }
+
+      // Patrones de referencia comercial dentro de la descripción del catálogo
+      const COMM_PATTERNS = [
+        [/\b(XFM-\d{4}-\d{2})\b/, "igus"],
+        [/\b(PAE\d+\w*)\b/, "INA"],
+        [/\b(KR\d+\w*)\b/, "INA"],
+        [/\b(PWKR\s?\d+[-\w]*)/, "INA"],
+        [/\b(NA\d{4})\b/, "INA"],
+        [/\b(CF-?\d+)\b/, "INA"],
+        [/\b(\d{3,4}-8M-\d+)\b/, "correa HTD"],
+        [/\b(CXP\s?8M-[\d-]+)/, "correa HTD"],
+        [/\b(\d{3}-3M-\d+)\b/, "correa HTD"],
+        [/\b(\d+T5\/\d+)\b/, "correa T5"],
+        [/\b((?:6|3|1|5|62)\d{3}(?:-2RS1?|-2Z|-2RS|-ZZ)?)\b/, "rodamiento DIN"],
+        [/\b(6\d{4}-2RS1?)\b/, "rodamiento DIN"],
+        [/\b(IFS\s?\d+)\b/, "ifm"],
+        [/\b(IEK\d+)\b/, "sensor"],
+        [/\b(IQ\d{2}-[\w]+)\b/, "SICK"],
+        [/\b(E2K-[\w-]+)\b/, "Omron"],
+        [/\b(KAS-[\w./-]+)/, "sensor capacitivo"],
+        [/\b(LGW\s?\d+\s?A\d)\b/, "Dungs"],
+        [/\b(FFA\.\d\w\.\d+[\w.]*)/, "LEMO"],
+        [/\b(FGG\.\d\w\.\d+[\w.]*)/, "LEMO"],
+        [/\b(GMA\.\d\w\.\d+[\w.]*)/, "LEMO"],
+        [/\b(HAN\d\w?)\b/, "HARTING"],
+        [/\b(Micro-Top\s?[\w\s/-]*\d)/, "filtro"],
+        [/\b(MCR\s?\d+[-.\d]*)/, "neumática"],
+        [/\b(VK\s?\d+\/\d+)\b/, "válvula"],
+        [/\b(PLN\d+[-\w]*)/, "Neugart"],
+        [/\b(SH\d{3}\/\d+)\b/, "ELAU/Schneider"],
+        [/\b(GKR\d+[-\w]*)/, "motorreductor"],
+        [/\b(ELMO-\w+)\b/, "Siemens"],
+        [/\b(BRF\d+L?)\b/, "rótula"],
+        [/\b(KJL?\d+D)\b/, "cabezal articulado"],
+        [/\b(KWSE\d+)\b/, "carro guía"],
+        [/\b(TKSD\s?[\d/]+)/, "riel lineal"],
+        [/\b(AFS60[\w-]+)/, "SICK encoder"],
+        [/\b(IFK\d+)\b/, "sensor"],
+        [/\b(TV10S[\s\w-]*)/, "interruptor seguridad"],
+        [/\b(AL-[\w/-]+)/, "cable"],
+        [/\b(BRE\.\d\w\.\d+[\w.]*)/, "LEMO"],
+        [/\b(AIRDUC[\s\w]*)/, "Norres"],
+        [/\b(CONDUFLEX)\b/, "manguera PVC"],
+        [/\b(CAL-\w+)\b/, "casquillo"],
+        [/\b(V-\d{3}S)\b/, "anillo V"],
+        [/\b(KM\d+|MB\d+)\b/, "SKF tuerca/chapa"],
+        [/\b(HN\d{4})\b/, "junta"],
+        [/\b(MSAL\s?\d+\s?\w?)/, "iluminación"],
+        [/\b(DA\d{2}-\d{2}-\d{2}|RH\d{2}-\d{2})\b/, "indicador"],
+        [/n\.[º°]\s?([\w-]{6,})/, "n.º proveedor"],
+        [/n[º°]\s?de pedido\s?([\w-]{5,})/, "n.º pedido"],
+        [/tipo:?\s?([\w.\/-]{5,})/i, "tipo"],
+      ];
+      function detectComm(desc) {
+        for (const [rx, marca] of COMM_PATTERNS) {
+          const m = rx.exec(desc || "");
+          if (m) return { v: m[1].trim(), b: marca };
+        }
+        return null;
+      }
+      function getComm(ref, desc) {
+        const ov = commOverrides[ref];
+        if (ov !== undefined) return { v: ov.v || "", b: ov.b || "", src: "manual" };
+        const d = detectComm(desc);
+        return d ? { v: d.v, b: d.b, src: "auto" } : { v: "", b: "", src: "none" };
+      }
+      function commCellHtml(ref, desc) {
+        const c = getComm(ref, desc);
+        const inner = c.v
+          ? `<span class="cm-val ${c.src === "manual" ? "cm-val--manual" : ""}">${c.v}</span>${c.b ? `<span class="cm-tag cm-tag--${c.src === "manual" ? "manual" : "auto"}">${c.b}</span>` : ""}`
+          : `<span class="cm-empty">+ añadir</span>`;
+        return `<td class="cm-cell" data-ref="${ref}" title="Toca para editar la referencia comercial" onclick="commEdit(this,'${ref}')">${inner}</td>`;
+      }
+      function commEdit(td, ref) {
+        if (td.querySelector("input")) return;
+        const cur = getComm(ref, "");
+        const ov = commOverrides[ref];
+        const val = ov !== undefined ? (ov.v || "") : (td.querySelector(".cm-val")?.textContent || "");
+        const brand = ov !== undefined ? (ov.b || "") : (td.querySelector(".cm-tag")?.textContent || "");
+        td.innerHTML = `<input class="cm-input" value="${val.replace(/"/g, "&quot;")}" placeholder="ref. comercial" data-brand="${brand.replace(/"/g, "&quot;")}">`;
+        const inp = td.querySelector("input");
+        inp.focus(); inp.select();
+        const commit = () => {
+          const v = inp.value.trim();
+          if (v) commOverrides[ref] = { v, b: inp.dataset.brand || "manual" };
+          else delete commOverrides[ref];
+          saveComm();
+          td.outerHTML = commCellHtml(ref, td.getAttribute("data-desc") || "");
+        };
+        inp.addEventListener("blur", commit);
+        inp.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); inp.blur(); } if (e.key === "Escape") { td.outerHTML = commCellHtml(ref, ""); } });
+      }
+      function commStats(mid) {
+        const M = getParts(mid); if (!M) return { auto: 0, manual: 0, total: 0 };
+        let auto = 0, manual = 0;
+        M.parts.forEach(p => { const c = getComm(p.r, p.d); if (c.src === "manual") manual++; else if (c.src === "auto") auto++; });
+        return { auto, manual, total: M.parts.length };
+      }
+      function commExport() {
+        const data = JSON.stringify(commOverrides, null, 2);
+        try { navigator.clipboard?.writeText(data); } catch (e) {}
+        window.prompt("Referencias comerciales que has añadido (cópialas para respaldar o compartir):", data);
+      }
+      function commImport(mid) {
+        const txt = window.prompt("Pega aquí las referencias comerciales exportadas:");
+        if (!txt) return;
+        try {
+          const obj = JSON.parse(txt);
+          if (obj && typeof obj === "object") { commOverrides = { ...commOverrides, ...obj }; saveComm(); pxRefresh(mid); }
+        } catch (e) { window.alert("El texto no es válido."); }
+      }
+
       // ===== Lista de pedido de repuestos =====
       const orderKey = "equipos-pedido-v1";
       const ORDER_SEED = [
@@ -6417,7 +6547,11 @@
         const list = orderList.filter(o => o.m === mid && o.s !== "recibido");
         if (!list.length) { window.alert("No hay piezas por pedir en la lista."); return; }
         const head = `PEDIDO DE REPUESTOS\nEquipo: ${m ? m.name : mid}${m && m.technicalData?.serialNumber ? ` · N.º de serie ${m.technicalData.serialNumber}` : ""}\nFecha: ${new Date().toLocaleDateString("es-CO")}\n`;
-        const body = list.map((o, i) => `${i + 1}. ${o.ref}  —  ${o.d}\n   Cantidad: ${o.q}   |   Ubicación: ${o.w || "—"}${o.n ? `\n   Nota: ${o.n}` : ""}`).join("\n");
+        const body = list.map((o, i) => {
+          const c = getComm(o.ref, o.d);
+          const cLine = c.v ? `\n   Equivalente comercial: ${c.v}${c.b ? ` (${c.b})` : ""}` : "";
+          return `${i + 1}. ${o.ref}  —  ${o.d}\n   Cantidad: ${o.q}   |   Ubicación: ${o.w || "—"}${cLine}${o.n ? `\n   Nota: ${o.n}` : ""}`;
+        }).join("\n");
         const txt = `${head}\n${body}\n\nTotal: ${list.length} referencias.`;
         try { navigator.clipboard?.writeText(txt); } catch (e) {}
         window.prompt("Lista copiada. Puedes pegarla en el correo o WhatsApp de compras:", txt);
@@ -6502,6 +6636,7 @@
             <tr class="${pxState.hitRefs.has(p.r) ? "is-hit" : ""}" id="pxr-${p.r}">
               <td class="px-ref">${p.r}</td>
               <td>${p.d}${p.x ? ` <small style="color:var(--muted)">${p.x}</small>` : ""}</td>
+              ${commCellHtml(p.r, p.d)}
               <td style="white-space:nowrap">${p.q || ""}</td>
               <td>${p.c ? `<span class="px-cls px-cls--${p.c}">${p.c}</span>` : ""}</td>
               <td><button class="od-add${inOrder ? " is-in" : ""}" type="button" onclick="odAdd('${mid}','${p.r}','${safeD}','${wLabel.replace(/'/g, "")}','${p.q || ""}')">${inOrder ? "✓ en lista" : "+ pedido"}</button></td>
@@ -6521,7 +6656,7 @@
             </summary>
             <div class="px-grp__body">
               ${figs}
-              <table class="px-tbl"><thead><tr><th>Referencia</th><th>Pieza</th><th>Cant.</th><th>Tipo</th><th>Pedido</th></tr></thead>
+              <table class="px-tbl"><thead><tr><th>Ref. Bosch</th><th>Pieza</th><th>Ref. comercial ✎</th><th>Cant.</th><th>Tipo</th><th>Pedido</th></tr></thead>
               <tbody>${rows}</tbody></table>
             </div>
           </details>`;
@@ -6541,6 +6676,12 @@
             <p>Toca una <strong>estación del diagrama</strong> para ver qué piezas lleva, o <strong>busca una referencia</strong> y te muestro en qué estación va. Catálogo ${M.ref} · ${M.parts.length} piezas.</p>
           </div>
           ${renderOrderBox(machine.id)}
+          ${(() => { const s = commStats(machine.id); return `<div class="cm-bar">
+            <span>🏷️ <strong>Referencia comercial:</strong> ${s.auto} detectadas del catálogo · ${s.manual} añadidas por ti · de ${s.total} piezas.</span>
+            <span>Toca la celda <em>Ref. comercial</em> para escribirla o corregirla.</span>
+            <button class="button button--light" type="button" onclick="commExport()">Exportar mis referencias</button>
+            <button class="button button--light" type="button" onclick="commImport('${machine.id}')">Importar</button>
+          </div>`; })()}
           <div class="px-search">
             <input id="pxSearch" type="search" placeholder="Busca referencia (8-108-160-149) o nombre (correa, rodamiento, filtro)…" oninput="pxSearch('${machine.id}')" />
           </div>
