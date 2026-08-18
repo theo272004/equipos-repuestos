@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Expedientes · Mantenimiento</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%97%82%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #f4f6fb; --surface: #ffffff; --text: #101828; --muted: #667085;
+      --line: #e4e7ec; --line-strong: #cfd6e1; --blue: #2563eb; --blue-soft: #eef4ff;
+      --green: #067647; --green-soft: #ecfdf3; --amber: #b54708; --amber-soft: #fffaeb;
+      --shadow: 0 16px 40px rgba(16,24,40,.08); --shadow-card: 0 8px 26px rgba(16,24,40,.06);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text); -webkit-font-smoothing: antialiased;
+      background: radial-gradient(1100px 500px at 50% -8%, #eaf0fb 0%, rgba(234,240,251,0) 60%), var(--bg);
+      min-height: 100vh;
+    }
+    button, input, select { font: inherit; }
+    a { color: inherit; }
+
+    .topbar { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .topbar__wrap { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 12px; padding: 12px 20px; }
+    .back-link { display: inline-flex; align-items: center; gap: 7px; text-decoration: none; font-weight: 700; font-size: .88rem; color: var(--muted); padding: 8px 13px; border-radius: 10px; border: 1px solid var(--line); background: #fff; transition: color .15s, border-color .15s; }
+    .back-link:hover { color: var(--text); border-color: var(--line-strong); }
+    .topbar__brand { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: .98rem; }
+    .topbar__brand .logo { width: 26px; height: 26px; border-radius: 8px; background: linear-gradient(135deg, #2563eb, #0ea5e9); display: grid; place-items: center; font-size: .9rem; }
+    .topbar__spacer { flex: 1; }
+    @media (max-width: 560px) { .topbar__brand span:last-child { display: none; } }
+
+    .wrap { max-width: 900px; margin: 0 auto; padding: 22px 20px 60px; }
+    h1 { font-size: 1.5rem; margin: 6px 0 4px; letter-spacing: -.02em; }
+    .lead { color: var(--muted); margin: 0 0 20px; font-size: .95rem; line-height: 1.55; }
+
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; box-shadow: var(--shadow-card); padding: 18px; margin-bottom: 16px; }
+
+    /* ===== Cómo se consigue cada documento ===== */
+    .howto summary { cursor: pointer; font-weight: 800; font-size: .95rem; list-style: none; display: flex; align-items: center; gap: 9px; }
+    .howto summary::-webkit-details-marker { display: none; }
+    .howto summary::before { content: "▸"; color: var(--blue); transition: transform .15s; }
+    .howto[open] summary::before { transform: rotate(90deg); }
+    .howto__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+    @media (max-width: 640px) { .howto__grid { grid-template-columns: 1fr; } }
+    .howto__box { border: 1px solid var(--line); border-radius: 12px; padding: 13px 15px; background: #fcfdff; }
+    .howto__box h3 { margin: 0 0 8px; font-size: .9rem; }
+    .howto__box h3 code { background: var(--blue-soft); color: var(--blue); padding: 2px 7px; border-radius: 6px; font-size: .85rem; }
+    .howto__box ol { margin: 0; padding-left: 18px; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+
+    /* ===== Barra de acciones ===== */
+    .toolbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+    .btn { border: 1px solid var(--line); background: #fff; color: var(--text); border-radius: 10px; padding: 9px 14px; font-weight: 700; font-size: .88rem; cursor: pointer; transition: border-color .15s, background .15s; }
+    .btn:hover { border-color: var(--line-strong); }
+    .btn--primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+    .btn--primary:hover { background: #1d4ed8; }
+    .btn--ghost { color: var(--muted); }
+    .toolbar__spacer { flex: 1; }
+    .count { color: var(--muted); font-size: .87rem; font-weight: 600; }
+
+    /* ===== Tarjeta de equipo ===== */
+    .eq__head { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 4px; }
+    .eq__title { font-size: 1.05rem; font-weight: 800; letter-spacing: -.01em; margin: 0; }
+    .eq__sub { color: var(--muted); font-size: .86rem; margin: 2px 0 0; }
+    .eq__spacer { flex: 1; }
+    .pill { font-size: .78rem; font-weight: 800; padding: 5px 11px; border-radius: 999px; white-space: nowrap; }
+    .pill--ok { background: var(--green-soft); color: var(--green); }
+    .pill--wip { background: var(--amber-soft); color: var(--amber); }
+    .bar { height: 6px; border-radius: 999px; background: var(--line); overflow: hidden; margin: 12px 0 4px; }
+    .bar > i { display: block; height: 100%; background: linear-gradient(90deg, #2563eb, #0ea5e9); transition: width .25s; }
+
+    .doc { display: flex; align-items: flex-start; gap: 11px; padding: 11px 2px; border-top: 1px solid var(--line); }
+    .doc:first-of-type { border-top: 0; }
+    .doc input[type=checkbox] { width: 19px; height: 19px; margin-top: 2px; accent-color: var(--blue); flex: none; cursor: pointer; }
+    .doc__body { flex: 1; min-width: 0; }
+    .doc__name { font-weight: 700; font-size: .92rem; }
+    .doc__name.is-done { color: var(--green); }
+    .doc__note { width: 100%; margin-top: 5px; border: 1px solid transparent; background: transparent; border-radius: 8px; padding: 5px 8px; color: var(--muted); font-size: .86rem; }
+    .doc__note:hover { border-color: var(--line); }
+    .doc__note:focus { outline: none; border-color: var(--blue); background: #fff; color: var(--text); }
+    .doc__del { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 1.05rem; padding: 2px 6px; border-radius: 8px; }
+    .doc__del:hover { background: #fef3f2; color: #b42318; }
+
+    .empty { text-align: center; color: var(--muted); padding: 40px 20px; }
+    .foot { color: var(--muted); font-size: .82rem; text-align: center; margin-top: 26px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__wrap">
+      <a class="back-link" href="index.html" aria-label="Volver a la app">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+        Volver
+      </a>
+      <span class="topbar__brand"><span class="logo">🗂️</span><span>Mantenimiento</span></span>
+      <span class="topbar__spacer"></span>
+      <a class="back-link" href="tareas.html">✅ Tareas</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1>Expediente documental de equipos</h1>
+    <p class="lead">
+      Cada equipo nuevo necesita seis documentos antes de darse por recibido.
+      Marca lo que ya tengas y anota al lado el número o la fecha del documento; todo queda guardado en este dispositivo.
+    </p>
+
+    <details class="card howto">
+      <summary>Cómo se consigue cada documento</summary>
+      <div class="howto__grid">
+        <div class="howto__box">
+          <h3>Orden de compra · <code>RE085</code></h3>
+          <ol>
+            <li>Entra con el código del proveedor.</li>
+            <li>Busca el nombre del proveedor.</li>
+            <li>Consulta el documento.</li>
+            <li>Descarga la OC.</li>
+            <li>Ahí sale el código del equipo.</li>
+          </ol>
+        </div>
+        <div class="howto__box">
+          <h3>Requisición · <code>RE064B</code></h3>
+          <ol>
+            <li>Coloca el código del equipo que sacaste de la OC.</li>
+            <li>Verifica que corresponda a esa misma OC.</li>
+            <li>Descarga la RQ.</li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <div class="toolbar">
+      <button class="btn btn--primary" id="addEq" type="button">+ Equipo</button>
+      <button class="btn" id="toggleFilter" type="button">Ver solo incompletos</button>
+      <span class="toolbar__spacer"></span>
+      <span class="count" id="count"></span>
+      <button class="btn btn--ghost" id="reset" type="button" title="Volver a la lista inicial">Restablecer</button>
+    </div>
+
+    <div id="list"></div>
+
+    <p class="foot">
+      Los documentos con precios (OC, RQ y cotizaciones) no se guardan aquí, solo su número de referencia.
+    </p>
+  </main>
+
+  <script>
+    const LS_KEY = "equipos-expedientes-v1";
+    const DOCS = ["URS", "RQ", "OC", "GANT", "Oferta o contrato", "Fotografías"];
+
+    const SEED = [
+      {
+        nombre: "Encapsuladora NJP 3500C",
+        proveedor: "American Farmagrup · equipo NJP 3",
+        docs: [
+          { ok: true,  nota: "URS elaborada 2026-08-17 — falta código de documento y firmas" },
+          { ok: false, nota: "Buscar en RE064B con el código del equipo" },
+          { ok: false, nota: "Buscar en RE085 por el proveedor" },
+          { ok: false, nota: "" },
+          { ok: false, nota: "Oferta Mercantil 0253D-25 (20-jun-2025) — solo tenemos la carta de ampliación de entrega" },
+          { ok: false, nota: "" },
+        ],
+      },
+      {
+        nombre: "Blisteadora Uhlmann UPS 300",
+        proveedor: "Domal Pharma · blíster 9",
+        docs: [
+          { ok: true,  nota: "URS elaborada 2026-08-17 — falta código de documento y firmas" },
+          { ok: true,  nota: "RQ 3009485 del 2025-11-11" },
+          { ok: true,  nota: "OC 233193 del 2026-02-26 · código de equipo 724001113" },
+          { ok: false, nota: "" },
+          { ok: false, nota: "Contrato 019-2026 — verificar que la cotización que hay corresponda a esta OC y no a la repotenciación de la máquina #5" },
+          { ok: false, nota: "" },
+        ],
+      },
+      {
+        nombre: "Mezclador 300 kg",
+        proveedor: "Metal Arango",
+        docs: [
+          { ok: false, nota: "" },
+          { ok: false, nota: "" },
+          { ok: false, nota: "" },
+          { ok: false, nota: "" },
+          { ok: false, nota: "Cotización A 634-25 disponible, pero es de un Ribbon Blender de 450 kg — confirmar capacidad" },
+          { ok: false, nota: "" },
+        ],
+      },
+    ];
+
+    const nuevoEquipo = (nombre, proveedor) => ({
+      nombre, proveedor,
+      docs: DOCS.map(() => ({ ok: false, nota: "" })),
+    });
+
+    let equipos = cargar();
+    let soloIncompletos = false;
+
+    function cargar() {
+      try {
+        const s = JSON.parse(localStorage.getItem(LS_KEY));
+        if (Array.isArray(s) && s.length) return s;
+      } catch {}
+      return structuredClone(SEED);
+    }
+    function guardar() {
+      try { localStorage.setItem(LS_KEY, JSON.stringify(equipos)); } catch {}
+    }
+
+    const listados = (eq) => eq.docs.filter(d => d.ok).length;
+
+    function render() {
+      const cont = document.getElementById("list");
+      const visibles = soloIncompletos ? equipos.filter(e => listados(e) < DOCS.length) : equipos;
+
+      const completos = equipos.filter(e => listados(e) === DOCS.length).length;
+      document.getElementById("count").textContent =
+        `${completos} de ${equipos.length} expediente${equipos.length === 1 ? "" : "s"} completo${completos === 1 ? "" : "s"}`;
+
+      if (!visibles.length) {
+        cont.innerHTML = `<div class="card empty">No hay equipos que mostrar.</div>`;
+        return;
+      }
+
+      cont.innerHTML = visibles.map((eq) => {
+        const i = equipos.indexOf(eq);
+        const n = listados(eq);
+        const pct = Math.round((n / DOCS.length) * 100);
+        const completo = n === DOCS.length;
+        return `
+          <section class="card">
+            <div class="eq__head">
+              <div>
+                <h2 class="eq__title">${escape(eq.nombre)}</h2>
+                <p class="eq__sub">${escape(eq.proveedor)}</p>
+              </div>
+              <span class="eq__spacer"></span>
+              <span class="pill ${completo ? "pill--ok" : "pill--wip"}">${n}/${DOCS.length}</span>
+              <button class="doc__del" type="button" data-del-eq="${i}" title="Quitar equipo">✕</button>
+            </div>
+            <div class="bar"><i style="width:${pct}%"></i></div>
+            ${eq.docs.map((doc, j) => `
+              <label class="doc">
+                <input type="checkbox" data-eq="${i}" data-doc="${j}" ${doc.ok ? "checked" : ""} />
+                <span class="doc__body">
+                  <span class="doc__name ${doc.ok ? "is-done" : ""}">${DOCS[j]}</span>
+                  <input class="doc__note" data-note-eq="${i}" data-note-doc="${j}"
+                         value="${escape(doc.nota)}" placeholder="Número, fecha o dónde buscarlo" />
+                </span>
+              </label>
+            `).join("")}
+          </section>`;
+      }).join("");
+    }
+
+    function escape(s) {
+      return String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+    }
+
+    document.getElementById("list").addEventListener("change", (e) => {
+      const cb = e.target.closest("input[type=checkbox]");
+      if (!cb) return;
+      equipos[+cb.dataset.eq].docs[+cb.dataset.doc].ok = cb.checked;
+      guardar(); render();
+    });
+
+    document.getElementById("list").addEventListener("input", (e) => {
+      const note = e.target.closest(".doc__note");
+      if (!note) return;
+      equipos[+note.dataset.noteEq].docs[+note.dataset.noteDoc].nota = note.value;
+      guardar();
+    });
+
+    document.getElementById("list").addEventListener("click", (e) => {
+      const del = e.target.closest("[data-del-eq]");
+      if (!del) return;
+      const i = +del.dataset.delEq;
+      if (confirm(`¿Quitar "${equipos[i].nombre}" de la lista?`)) {
+        equipos.splice(i, 1); guardar(); render();
+      }
+    });
+
+    document.getElementById("addEq").addEventListener("click", () => {
+      const nombre = prompt("Nombre del equipo:");
+      if (!nombre) return;
+      const proveedor = prompt("Proveedor:") || "";
+      equipos.push(nuevoEquipo(nombre.trim(), proveedor.trim()));
+      guardar(); render();
+    });
+
+    document.getElementById("toggleFilter").addEventListener("click", (e) => {
+      soloIncompletos = !soloIncompletos;
+      e.target.textContent = soloIncompletos ? "Ver todos" : "Ver solo incompletos";
+      render();
+    });
+
+    document.getElementById("reset").addEventListener("click", () => {
+      if (!confirm("Se pierde lo que hayas marcado y vuelve la lista inicial. ¿Seguir?")) return;
+      equipos = structuredClone(SEED);
+      guardar(); render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
