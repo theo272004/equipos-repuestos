@@ -2855,8 +2855,14 @@
             <p id="detailSubtitle">Llenadora automática de cápsulas duras · Ficha técnica completa</p>
           </div>
           <div style="display:flex;gap:8px">
-            <button class="button button--light" id="backToResults" type="button">Volver a resultados</button>
-            <button class="button button--light" id="editMachineBtn" type="button">Editar equipo</button>
+            <button class="button button--light" id="backToResults" type="button" style="display:inline-flex;align-items:center;gap:6px">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+              Volver a resultados
+            </button>
+            <button class="button button--light" id="editMachineBtn" type="button" style="display:inline-flex;align-items:center;gap:6px">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Editar equipo
+            </button>
           </div>
         </div>
 
@@ -3068,6 +3074,105 @@
           <div class="modal__actions">
             <button class="button button--light" type="button" id="cancelModal">Cancelar</button>
             <button class="button button--blue" type="submit">Guardar equipo</button>
+          </div>
+        </form>
+      </section>
+    </div>
+
+    <!-- Modal Editar Equipo -->
+    <div class="modal-backdrop" id="editModalBackdrop" hidden>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle" style="max-width: 680px;">
+        <div class="modal__header">
+          <div>
+            <p class="eyebrow">Edición de ficha técnica</p>
+            <h2 id="editModalTitle">Editar información del equipo</h2>
+          </div>
+          <button class="icon-button" id="closeEditModal" type="button" aria-label="Cerrar">&times;</button>
+        </div>
+
+        <form class="equipment-form" id="editEquipmentForm">
+          <label>
+            Nombre del equipo
+            <input name="name" type="text" required placeholder="Ej. Encapsuladora BOSCH GKF 2600" />
+          </label>
+          <label>
+            Modelo / Denominación
+            <input name="model" type="text" required placeholder="Ej. GKF 2600" />
+          </label>
+          <label>
+            Línea o área
+            <input name="area" type="text" placeholder="Ej. Sede 4 · Producción · Encapsulado" />
+          </label>
+          <label>
+            Ubicación
+            <input name="location" type="text" placeholder="Ej. Sede 4" />
+          </label>
+          <label>
+            Estado del equipo
+            <select name="status" style="padding: 10px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.95rem;">
+              <option value="Operativo">Operativo</option>
+              <option value="En mantenimiento">En mantenimiento</option>
+              <option value="Fuera de servicio">Fuera de servicio</option>
+              <option value="Por confirmar">Por confirmar</option>
+              <option value="Equipo nuevo">Equipo nuevo</option>
+            </select>
+          </label>
+          <label>
+            Criticidad
+            <select name="criticality" style="padding: 10px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.95rem;">
+              <option value="Alta">Alta</option>
+              <option value="Media">Media</option>
+              <option value="Baja">Baja</option>
+              <option value="Por definir">Por definir</option>
+            </select>
+          </label>
+          <label>
+            Fabricante
+            <input name="manufacturer" type="text" placeholder="Ej. Bosch / Marchesini / Huttlin" />
+          </label>
+          <label>
+            Marca
+            <input name="brand" type="text" placeholder="Ej. Bosch" />
+          </label>
+          <label>
+            Número de serie
+            <input name="serialNumber" type="text" placeholder="Ej. 745632" />
+          </label>
+          <label>
+            Año de fabricación
+            <input name="year" type="text" placeholder="Ej. 2018" />
+          </label>
+          <label class="form-field--wide">
+            Función principal
+            <input name="function" type="text" placeholder="Ej. Llenado y cierre de cápsulas duras..." />
+          </label>
+          <label class="form-field--wide">
+            Descripción general
+            <textarea name="description" rows="3" placeholder="Descripción técnica del equipo"></textarea>
+          </label>
+          <label>
+            Capacidad
+            <input name="capacity" type="text" placeholder="Ej. 3500 cápsulas/hora" />
+          </label>
+          <label>
+            Sistema de dosificación
+            <input name="dosingSystem" type="text" placeholder="Ej. Disco dosificador con 5 puntos" />
+          </label>
+          <label>
+            Manual / Documentación
+            <input name="manual" type="text" placeholder="Ej. Manual 745632 v1.0 es" />
+          </label>
+          <label class="form-field--wide">
+            Imagen principal del equipo (opcional)
+            <span class="upload-zone">
+              <input name="image" type="file" accept="image/*" />
+              <span>Selecciona una nueva imagen para actualizar la foto del equipo.</span>
+            </span>
+          </label>
+
+          <div class="modal__actions">
+            <button class="button button--light" type="button" id="cancelEditModal">Cancelar</button>
+            <button class="button button--blue" type="submit" style="background:#000;color:#fff">Guardar cambios</button>
           </div>
         </form>
       </section>
@@ -9812,98 +9917,116 @@
       modalBackdrop.addEventListener("click", (event) => { if (event.target === modalBackdrop) closeModal(); });
       document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !modalBackdrop.hidden) closeModal(); });
 
-      // ── Edit mode ─────────────────────────────────────────────────────────────
-      let isEditMode = false;
-      let editSnapshot = null;
-      const editBaselines = new Map();
-      const editModeBar = document.getElementById("editModeBar");
-      const editMachineBtn = document.getElementById("editMachineBtn");
+      // ── Edit Equipment Modal ─────────────────────────────────────────────────
+      const editModalBackdrop = document.getElementById("editModalBackdrop");
+      const editEquipmentForm = document.getElementById("editEquipmentForm");
+      const closeEditModalBtn = document.getElementById("closeEditModal");
+      const cancelEditModalBtn = document.getElementById("cancelEditModal");
 
-      // Activa/desactiva la edición directa sobre el texto de la guía
-      function setContentEditable(on) {
-        if (on) editBaselines.clear();
-        document.querySelectorAll("#guidePanels [data-editable]").forEach((el) => {
-          el.contentEditable = on ? "true" : "false";
-          el.spellcheck = on;
-          // Guardamos el estado inicial para saber qué cambió de verdad
-          if (on && el.dataset.sectionId) editBaselines.set(el.dataset.sectionId, el.innerHTML.trim());
-        });
-        // Mientras se edita, dejamos todos los acordeones abiertos
-        document.querySelectorAll("#guidePanels details.guide-accordion").forEach((d) => {
-          if (on) {
-            d.dataset.prevOpen = d.open ? "1" : "0";
-            d.open = true;
-          } else if (d.dataset.prevOpen !== undefined) {
-            d.open = d.dataset.prevOpen === "1";
-            delete d.dataset.prevOpen;
+      function openEditModal() {
+        const machine = machines.find(m => m.id === selectedId);
+        if (!machine) return;
+        const f = editEquipmentForm;
+        f.elements.name.value = machine.name ?? "";
+        f.elements.model.value = machine.model ?? "";
+        f.elements.area.value = machine.area ?? "";
+        f.elements.location.value = machine.location ?? "";
+        f.elements.status.value = machine.status ?? "Operativo";
+        f.elements.criticality.value = machine.criticality ?? "Alta";
+        f.elements.manufacturer.value = (machine.technicalData ?? {}).manufacturer ?? "";
+        f.elements.brand.value = (machine.technicalData ?? {}).brand ?? "";
+        f.elements.serialNumber.value = (machine.technicalData ?? {}).serialNumber ?? "";
+        f.elements.year.value = (machine.technicalData ?? {}).year ?? "";
+        f.elements["function"].value = (machine.technicalData ?? {}).function ?? "";
+        f.elements.description.value = machine.description ?? "";
+        f.elements.capacity.value = (machine.technicalData ?? {}).capacity ?? "";
+        f.elements.dosingSystem.value = (machine.technicalData ?? {}).dosingSystem ?? "";
+        f.elements.manual.value = machine.manual ?? "";
+        editModalBackdrop.hidden = false;
+        f.elements.name.focus();
+      }
+
+      function closeEditModal() {
+        editModalBackdrop.hidden = true;
+        editEquipmentForm.reset();
+      }
+
+      function handleEditSubmit(e) {
+        e.preventDefault();
+        const machine = machines.find(m => m.id === selectedId);
+        if (!machine) return;
+        const f = editEquipmentForm;
+        machine.name = f.elements.name.value.trim() || machine.name;
+        machine.model = f.elements.model.value.trim() || machine.model;
+        machine.area = f.elements.area.value.trim() || machine.area;
+        machine.location = f.elements.location.value.trim() || machine.location;
+        machine.status = f.elements.status.value;
+        machine.criticality = f.elements.criticality.value;
+        machine.manual = f.elements.manual.value.trim() || machine.manual;
+        machine.description = f.elements.description.value.trim() || machine.description;
+        if (!machine.technicalData) machine.technicalData = {};
+        machine.technicalData.manufacturer = f.elements.manufacturer.value.trim() || machine.technicalData.manufacturer;
+        machine.technicalData.brand = f.elements.brand.value.trim() || machine.technicalData.brand;
+        machine.technicalData.serialNumber = f.elements.serialNumber.value.trim() || machine.technicalData.serialNumber;
+        machine.technicalData.year = f.elements.year.value.trim() || machine.technicalData.year;
+        machine.technicalData["function"] = f.elements["function"].value.trim() || machine.technicalData["function"];
+        machine.technicalData.capacity = f.elements.capacity.value.trim() || machine.technicalData.capacity;
+        machine.technicalData.dosingSystem = f.elements.dosingSystem.value.trim() || machine.technicalData.dosingSystem;
+
+        // Imagen nueva (opcional)
+        const imgFile = f.elements.image.files[0];
+        if (imgFile) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            machine.image = reader.result;
+            renderProfile(machine);
+            renderResults();
+          };
+          reader.readAsDataURL(imgFile);
+        }
+
+        // Persistir en localStorage
+        const edits = JSON.parse(localStorage.getItem("machineProfileEdits") || "{}");
+        edits[machine.id] = {
+          name: machine.name, model: machine.model, area: machine.area,
+          location: machine.location, status: machine.status, criticality: machine.criticality,
+          manual: machine.manual, description: machine.description,
+          technicalData: machine.technicalData
+        };
+        localStorage.setItem("machineProfileEdits", JSON.stringify(edits));
+
+        closeEditModal();
+        renderProfile(machine);
+        renderResults();
+      }
+
+      closeEditModalBtn.addEventListener("click", closeEditModal);
+      cancelEditModalBtn.addEventListener("click", closeEditModal);
+      editModalBackdrop.addEventListener("click", (e) => { if (e.target === editModalBackdrop) closeEditModal(); });
+      editEquipmentForm.addEventListener("submit", handleEditSubmit);
+      editMachineBtn.addEventListener("click", openEditModal);
+
+      // Cargar ediciones guardadas al inicio
+      (function restoreProfileEdits() {
+        const edits = JSON.parse(localStorage.getItem("machineProfileEdits") || "{}");
+        for (const [mid, data] of Object.entries(edits)) {
+          const machine = machines.find(m => m.id === mid);
+          if (!machine) continue;
+          if (data.name) machine.name = data.name;
+          if (data.model) machine.model = data.model;
+          if (data.area) machine.area = data.area;
+          if (data.location) machine.location = data.location;
+          if (data.status) machine.status = data.status;
+          if (data.criticality) machine.criticality = data.criticality;
+          if (data.manual) machine.manual = data.manual;
+          if (data.description) machine.description = data.description;
+          if (data.technicalData) {
+            if (!machine.technicalData) machine.technicalData = {};
+            Object.assign(machine.technicalData, data.technicalData);
           }
-        });
-      }
-
-      // Guarda en localStorage SOLO las secciones que el usuario cambió
-      function persistInlineEdits() {
-        const edits = loadMachineEdits();
-        document.querySelectorAll('#guidePanels [data-editable][data-edit-store="section"]').forEach((el) => {
-          const mid = el.dataset.machineId;
-          const sid = el.dataset.sectionId;
-          if (!mid || !sid) return;
-          const current = el.innerHTML.trim();
-          const baseline = editBaselines.get(sid);
-          if (baseline !== undefined && current === baseline) return; // sin cambios → no se guarda
-          if (!edits[mid]) edits[mid] = {};
-          edits[mid][sid] = current;
-        });
-        saveMachineEditsToStorage(edits);
-      }
-
-      function toggleEditMode(forceOff) {
-        const turningOn = forceOff === true ? false : !isEditMode;
-
-        if (turningOn) {
-          // Copia de seguridad para poder cancelar sin perder lo anterior
-          editSnapshot = JSON.stringify(loadMachineEdits());
-          // Llevar al usuario directo a la guía editable
-          const summaryTabBtn = guideTabs.querySelector('[data-profile-tab="summary"]');
-          if (summaryTabBtn) summaryTabBtn.click();
         }
+      })();
 
-        isEditMode = turningOn;
-        document.body.classList.toggle("is-edit-mode", isEditMode);
-        editModeBar.hidden = !isEditMode;
-        editMachineBtn.textContent = isEditMode ? "Ver ficha" : "Editar equipo";
-        setContentEditable(isEditMode);
-
-        if (turningOn) {
-          const first = document.querySelector('#guidePanels [data-editable]');
-          if (first) first.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-      }
-
-      function finishEdit(save) {
-        if (save) {
-          persistInlineEdits();
-        } else if (editSnapshot !== null) {
-          // Restaurar lo que había antes de entrar a edición y volver a pintar
-          saveMachineEditsToStorage(JSON.parse(editSnapshot));
-          const machine = machines.find((m) => m.id === selectedId);
-          if (machine) renderProfile(machine);
-          const summaryTabBtn = guideTabs.querySelector('[data-profile-tab="summary"]');
-          if (summaryTabBtn) summaryTabBtn.click();
-        }
-        const wasSave = save;
-        editSnapshot = null;
-        toggleEditMode(true);
-        if (wasSave) {
-          document.querySelectorAll('#guidePanels [data-editable]').forEach((el) => {
-            el.classList.add("edit-saved-flash");
-            setTimeout(() => el.classList.remove("edit-saved-flash"), 1000);
-          });
-        }
-      }
-
-      document.getElementById("cancelEditMode").addEventListener("click", () => finishEdit(false));
-      document.getElementById("saveEditMode").addEventListener("click", () => finishEdit(true));
-      editMachineBtn.addEventListener("click", () => toggleEditMode());
 
       // ── Diagnostic Assistant ──────────────────────────────────────────────────
       const assistantPanel = document.getElementById("assistantPanel");
