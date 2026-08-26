@@ -393,6 +393,11 @@
         background: #ffffff;
         box-shadow: var(--shadow-card);
         animation: cardIn 420ms cubic-bezier(0.16, 1, 0.3, 1) both;
+        cursor: pointer;
+        transition: transform 180ms ease, box-shadow 180ms ease;
+      }
+      .equipment-card:hover {
+        box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.12);
       }
 
       .equipment-card__top {
@@ -9733,8 +9738,8 @@
         const result = event.target.closest("[data-select-id]");
         if (!result) return;
         selectedId = result.dataset.selectId;
-        renderResults();
         saveUiState({ activeView: "results" });
+        openDetail(selectedId);
       });
 
       resultsList.addEventListener("dblclick", (event) => {
@@ -9744,9 +9749,12 @@
       });
 
       previewPanel.addEventListener("click", (event) => {
+        if (event.target.closest("a, .download-link")) return;
         const detailButton = event.target.closest("[data-open-detail]");
-        if (!detailButton) return;
-        openDetail(detailButton.dataset.openDetail);
+        const targetId = detailButton ? detailButton.dataset.openDetail : selectedId;
+        if (targetId) {
+          openDetail(targetId);
+        }
       });
 
       previewPanel.addEventListener("dblclick", (event) => {
