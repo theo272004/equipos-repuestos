@@ -2715,6 +2715,16 @@
       .pl-hit { background: #fff4cc; border-radius: 3px; padding: 0 1px; }
       /* Separa dos bloques que ahora viven en la misma pestaña (el plan y los
          repuestos del manual, o las fallas y las alarmas). */
+      /* Celdas que se pueden escribir: sin marco hasta que se pasa por encima,
+         para que la tabla siga leyéndose como una tabla y no como un formulario. */
+      .pl-edit { width: 100%; min-width: 74px; border: 1px solid transparent; border-radius: 7px; padding: 3px 6px; background: transparent; color: inherit; font: inherit; }
+      .pl-edit:hover { border-color: var(--line); background: #ffffff; }
+      .pl-edit:focus { outline: none; border-color: var(--blue); background: #ffffff; box-shadow: 0 0 0 3px var(--blue-soft); }
+      .pl-edit::placeholder { color: var(--line-strong); }
+      .pl-edit--cod { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.83rem; font-weight: 700; color: #1849a9; }
+      .pl-edit--num { text-align: right; font-variant-numeric: tabular-nums; }
+      .pl-table tr.is-fuera td:first-child::before { content: "fuera del Excel"; display: inline-block; border: 1px solid var(--line); border-radius: 999px; padding: 1px 7px; background: var(--soft); color: var(--muted); font-size: 0.68rem; font-weight: 700; }
+
       .panel-split { height: 1px; margin: 30px 0; background: var(--line); }
 
       .pl-soft { color: var(--muted); font-size: 0.8rem; }
