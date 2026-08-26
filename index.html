@@ -2599,6 +2599,58 @@
       }
       .side-nav__button { position: relative; }
 
+      /* ===================== TAREAS: contadores y recordatorios ===================== */
+      .tk-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+      .tk-stat { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: #ffffff; box-shadow: var(--shadow-card); color: var(--muted); font-size: 0.82rem; font-weight: 700; }
+      .tk-stat b { color: var(--text); }
+      .tk-stat .dot { width: 8px; height: 8px; border-radius: 50%; }
+      .tk-stat--pend .dot { background: #64748b; }
+      .tk-stat--prog .dot { background: var(--blue); }
+      .tk-stat--done .dot { background: #12b76a; }
+      .tk-remind { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; border: 1px solid #ddd6fe; border-radius: 999px; padding: 4px 11px; background: #f5f3ff; color: #7c3aed; font-size: 0.78rem; font-weight: 700; }
+      .remind-preview { margin: 2px 0 0; border: 1px solid var(--line); border-radius: 10px; padding: 9px 11px; background: #f8fafc; color: var(--muted); font-size: 0.82rem; min-height: 20px; }
+      .remind-preview b { color: var(--text); }
+      .remind-remove { width: 100%; margin-top: 2px; min-height: 40px; border: 1px solid #f3c0bb; border-radius: 11px; background: #fef3f2; color: #b42318; font-weight: 700; font-size: 0.85rem; }
+      .remind-remove:hover { background: #fee4e2; }
+
+      /* ===================== TURNOS ===================== */
+      .turnos-view.is-active { display: block; }
+      .turnos-view .section-actions input[type="date"] { height: 34px; border: 1px solid var(--line); border-radius: 999px; padding: 0 13px; background: #ffffff; color: var(--text); }
+      .turnos-view .section-actions input[type="date"]:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+      .tn-controls { display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; margin-bottom: 6px; }
+      .tn-ctrl { display: grid; gap: 6px; }
+      .tn-ctrl > span { color: var(--muted); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+      .tn-seg { display: inline-flex; gap: 4px; border-radius: 12px; padding: 4px; background: #eef1f6; }
+      .tn-seg button { border: 0; border-radius: 9px; padding: 8px 15px; background: transparent; color: var(--muted); font-size: 0.88rem; font-weight: 700; }
+      .tn-seg button.is-active { background: #ffffff; color: var(--text); box-shadow: var(--shadow-card); }
+      .tn-datebar { margin: 18px 0 18px; font-size: 1.02rem; font-weight: 700; }
+      .tn-datebar span { color: var(--muted); font-weight: 600; text-transform: capitalize; }
+      .tn-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+      .tn-card { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: var(--shadow-card); overflow: hidden; }
+      .tn-head { display: flex; align-items: center; gap: 9px; padding: 13px 16px; color: #ffffff; font-size: 1.02rem; font-weight: 800; }
+      .tn--dia .tn-head { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+      .tn--noche .tn-head { background: linear-gradient(135deg, #4338ca, #6366f1); }
+      .tn--descanso .tn-head { background: linear-gradient(135deg, #475569, #64748b); }
+      .tn-body { padding: 13px 16px 16px; }
+      .tn-group { margin-bottom: 10px; color: var(--blue); font-size: 0.76rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
+      .tn-people { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 8px; }
+      .tn-people:last-child { margin-bottom: 0; }
+      .tn-people li { display: flex; align-items: center; gap: 10px; font-size: 0.92rem; font-weight: 600; }
+      .tn-people li .tn-ini { flex: none; display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #94a3b8; color: #ffffff; font-size: 0.75rem; font-weight: 800; }
+      .tn--dia .tn-ini { background: #f59e0b; }
+      .tn--noche .tn-ini { background: #6366f1; }
+      .tn--descanso .tn-ini { background: #64748b; }
+      .tn-empty { color: var(--muted); font-size: 0.9rem; }
+      .tn-support { margin-top: 20px; border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; background: var(--surface); box-shadow: var(--shadow-card); }
+      .tn-support h3 { margin: 0 0 4px; font-size: 1rem; }
+      .tn-support .tn-sub { margin: 0 0 12px; color: var(--muted); font-size: 0.82rem; }
+      .tn-support-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+      .tn-support-item { border: 1px solid var(--line); border-radius: 12px; padding: 11px 13px; }
+      .tn-support-item b { display: block; margin-bottom: 5px; color: #7c3aed; font-size: 0.74rem; letter-spacing: 0.03em; text-transform: uppercase; }
+      .tn-support-item div { font-size: 0.9rem; }
+      .tn-note { margin-top: 20px; border: 1px solid #f0d0a0; border-radius: 12px; padding: 11px 14px; background: #fffaeb; color: var(--muted); font-size: 0.82rem; }
+      @media (max-width: 760px) { .tn-grid { grid-template-columns: 1fr; } }
+
       /* ===================== PLAN DE MANTENIMIENTO (Excel de la empresa) ===================== */
       .plan-view.is-active { display: block; }
       .pl-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 10px; margin-bottom: 16px; }
@@ -2802,33 +2854,133 @@
       </section>
 
       <section class="tasks-view view" id="tasksView" aria-label="Tareas pendientes">
-        <div id="tasksRoot"></div>
+        <div class="section-bar">
+          <div>
+            <p class="eyebrow">Mantenimiento</p>
+            <h2>Tareas pendientes</h2>
+          </div>
+          <div class="section-actions">
+            <span class="cloud-chip" id="cloudChip" title="Estado de sincronizaci&oacute;n">
+              <svg class="cloud-chip__icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .45-8.98A6 6 0 0 0 6.3 9.5 4.5 4.5 0 0 0 7 19h10.5Z"/></svg>
+              <span class="cloud-dot"></span>
+              <span class="cloud-chip__txt"></span>
+            </span>
+            <button class="button button--light" type="button" onclick="taskExport()">Exportar</button>
+            <button class="button button--light" type="button" onclick="taskImport()">Importar</button>
+          </div>
+        </div>
 
-        <!-- Botón flotante (+) para crear una nueva tarea -->
+        <div class="tk-stats" id="counterRow"></div>
+
+        <div class="pl-filters">
+          <select id="filterMachine" onchange="renderTasks()" aria-label="Filtrar por m&aacute;quina"></select>
+          <select id="filterStatus" onchange="renderTasks()" aria-label="Filtrar por estado">
+            <option value="">Todos los estados</option>
+            <option value="pendiente">Pendientes</option>
+            <option value="en-progreso">En progreso</option>
+            <option value="hecha">Hechas</option>
+          </select>
+        </div>
+
+        <div class="tk-list" id="tkList"></div>
+
+        <!-- Bot&oacute;n flotante (+) para crear una nueva tarea -->
         <button class="tk-fab" type="button" id="tkFab" onclick="taskFormToggle()" aria-label="Nueva tarea" title="Nueva tarea">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
           <span class="tk-fab__txt">Nueva tarea</span>
         </button>
 
-        <!-- Panel flotante para crear la tarea -->
+        <!-- Panel flotante: nueva tarea -->
         <div class="tk-sheet-backdrop" id="tkSheetBackdrop" hidden onclick="taskFormToggle(false)"></div>
         <aside class="tk-sheet" id="tkSheet" hidden aria-label="Nueva tarea">
           <div class="tk-sheet__head">
-            <h4>➕ Nueva tarea</h4>
+            <h4>&#10133; Nueva tarea</h4>
             <button class="tk-sheet__close" type="button" onclick="taskFormToggle(false)" aria-label="Cerrar">&times;</button>
           </div>
           <form class="tk-form" id="tkForm" onsubmit="taskSubmit(event)">
-            <label>Máquina<select name="machine" id="tkMachineSel"></select></label>
-            <label>Título *<input name="title" required placeholder="Ej. Cambiar rodamiento estación 3"></label>
-            <label>Descripción<textarea name="desc" rows="2" placeholder="Qué hay que hacer y por qué…"></textarea></label>
+            <label>M&aacute;quina<select name="machine" id="tkMachineSel"></select></label>
+            <label>T&iacute;tulo *<input name="title" required placeholder="Ej. Cambiar rodamiento estaci&oacute;n 3"></label>
+            <label>Descripci&oacute;n<textarea name="desc" rows="2" placeholder="Qu&eacute; hay que hacer y por qu&eacute;&hellip;"></textarea></label>
             <div class="tk-row2">
               <label>Prioridad<select name="priority"><option>Media</option><option>Alta</option><option>Baja</option></select></label>
               <label>Reportado por<input name="reporter" placeholder="Tu nombre"></label>
             </div>
-            <label>Pasos (uno por línea)<textarea name="steps" rows="4" placeholder="Desmonte de la pieza&#10;Llevar a mecanizado&#10;Reinstalar la pieza&#10;Chequear y probar"></textarea></label>
+            <label>Pasos (uno por l&iacute;nea)<textarea name="steps" rows="4" placeholder="Desmonte de la pieza&#10;Llevar a mecanizado&#10;Reinstalar la pieza&#10;Chequear y probar"></textarea></label>
             <button class="button button--dark" type="submit">Guardar tarea</button>
           </form>
         </aside>
+
+        <!-- Panel flotante: programar recordatorio -->
+        <div class="tk-sheet-backdrop" id="remindBackdrop" hidden onclick="closeRemind()"></div>
+        <aside class="tk-sheet" id="remindSheet" hidden aria-label="Programar recordatorio">
+          <div class="tk-sheet__head">
+            <h4>&#128276; Programar aviso</h4>
+            <button class="tk-sheet__close" type="button" onclick="closeRemind()" aria-label="Cerrar">&times;</button>
+          </div>
+          <form class="tk-form" id="remindForm" onsubmit="saveRemind(event)">
+            <label>&iquest;Cada cu&aacute;nto recordar?
+              <select name="freq" id="remindFreqSel" onchange="remindSyncFields()">
+                <option value="">Sin aviso</option>
+                <option value="once">Una vez (en una fecha)</option>
+                <option value="daily">Diario</option>
+                <option value="weekly">Semanal</option>
+                <option value="monthly">Mensual</option>
+                <option value="everyN">Cada N meses</option>
+              </select>
+            </label>
+            <div class="tk-row2">
+              <label id="remindDateWrap">Fecha (inicio)<input type="date" name="date" onchange="remindSyncFields()"></label>
+              <label>Hora<input type="time" name="time" value="08:00" onchange="remindSyncFields()"></label>
+            </div>
+            <label id="remindEveryWrap" hidden>Cada cu&aacute;ntos meses<input type="number" name="everyN" min="1" max="60" value="4" oninput="remindSyncFields()"></label>
+            <p class="remind-preview" id="remindPreview">Elige cada cu&aacute;nto quieres el aviso.</p>
+            <button class="button button--dark" type="submit">Guardar aviso</button>
+            <button type="button" class="remind-remove" id="remindRemoveBtn" onclick="clearRemind()" hidden>Quitar aviso de esta tarea</button>
+          </form>
+        </aside>
+      </section>
+
+      <section class="turnos-view view" id="turnosView" aria-label="Turnos del personal">
+        <div class="section-bar">
+          <div>
+            <p class="eyebrow">Mantenimiento</p>
+            <h2>Qui&eacute;n est&aacute; en turno</h2>
+          </div>
+          <div class="section-actions">
+            <input type="date" id="tnFecha" aria-label="Fecha">
+            <button class="button button--light" type="button" id="tnHoyBtn">Hoy</button>
+          </div>
+        </div>
+
+        <p class="pl-note">
+          Elige la sede y la fecha. Los turnos se calculan con el ciclo de 6 d&iacute;as
+          (2 de d&iacute;a &middot; 2 de noche &middot; 2 de descanso) sobre el cuadro de julio de 2026.
+        </p>
+
+        <div class="tn-controls">
+          <div class="tn-ctrl">
+            <span>Sede</span>
+            <div class="tn-seg" id="tnSegSede">
+              <button data-sede="sede4" class="is-active" type="button">Sede 4</button>
+              <button data-sede="sede2" type="button">Sede 2 (V&iacute;a 40)</button>
+            </div>
+          </div>
+          <div class="tn-ctrl">
+            <span>Turno</span>
+            <div class="tn-seg" id="tnSegTurno">
+              <button data-turno="todos" class="is-active" type="button">Todos</button>
+              <button data-turno="dia" type="button">D&iacute;a</button>
+              <button data-turno="noche" type="button">Noche</button>
+              <button data-turno="descanso" type="button">Descanso</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="tn-datebar" id="tnDatebar"></div>
+        <div class="tn-grid" id="tnShiftGrid"></div>
+        <div class="tn-support" id="tnSupport"></div>
+
+        <p class="tn-note">&#9888;&#65039; Esto muestra la <b>rotaci&oacute;n</b> del ciclo. No refleja <b>vacaciones, permisos ni cambios</b> puntuales &mdash; para esas excepciones, confirma con el cuadro oficial.</p>
       </section>
 
       <section class="plan-view view" id="planView" aria-label="Plan de mantenimiento por equipo">
@@ -6214,7 +6366,8 @@
         results: document.querySelector("#resultsView"),
         detail: document.querySelector("#detailView"),
         tasks: document.querySelector("#tasksView"),
-        plan: document.querySelector("#planView")
+        plan: document.querySelector("#planView"),
+        turnos: document.querySelector("#turnosView")
       };
       const homeSearchForm = document.querySelector("#homeSearchForm");
       const resultsSearchForm = document.querySelector("#resultsSearchForm");
@@ -6234,6 +6387,7 @@
       const navSearch = document.querySelector("[data-nav-search]");
       const navTasks = document.querySelector("[data-nav-tasks]");
       const navPlan = document.querySelector("[data-nav-plan]");
+      const navTurnos = document.querySelector("[data-nav-turnos]");
       const detailTitle = document.querySelector("#detailTitle");
       const detailSubtitle = document.querySelector("#detailSubtitle");
       const guideTabs = document.querySelector("#guideTabs");
@@ -8355,124 +8509,93 @@
         renderPreview(selectedMachine);
       }
 
-      // ===== Tareas / Recordatorios (mini orden de trabajo) =====
-      // Se guardan en la nube (Firebase) cuando hay config; si no, en este navegador.
+      // ======================================================================
+      //  TAREAS PENDIENTES Y RECORDATORIOS
+      //  Estaba en tareas.html, una pagina aparte con su propio diseno y sin el
+      //  menu lateral. Se trae aqui tal cual (con los recordatorios de Telegram)
+      //  y la version vieja y mas pobre que habia en este archivo desaparece.
+      // ======================================================================
+      function escapeHtml(s) {
+        return String(s == null ? "" : s).replace(/[&<>"']/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+      }
+
       const tasksKey = "equipos-tareas-v1";
-      const cloud = window.CLOUD || { db: null, enabled: false };
-      cloud.connected = false; // se pone true al recibir datos del servidor
+      const cloud = window.CLOUD || { db: null, enabled: false, connected: false };
+      cloud.connected = false; // se pone a true al recibir datos del servidor
       let cloudKnownIds = new Set();
-      function loadTasks(){ try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
+      function loadTasks() { try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
       let tasks = loadTasks();
-      function saveLocal(){ try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch(e){} }
-      function saveTasks(){ saveLocal(); if (cloud.enabled && cloud.db) cloudSync(); }
-      // Sube el estado actual a Firestore (upsert de lo presente + borra lo que ya no está)
-      function cloudSync(){
+      function saveLocal() { try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch (e) {} }
+      function saveTasks() { saveLocal(); if (cloud.enabled && cloud.db) cloudSync(); }
+
+      // Las maquinas salen de la propia app, no de una copia en el navegador.
+      function taskMachineName(id) { const m = machines.find((x) => x.id === id); return m ? (m.model || m.name) : "General / Otra"; }
+      function machineOptions(sel) {
+        return `<option value="">General / Otra</option>` + machines.map((m) => `<option value="${escapeHtml(m.id)}" ${sel === m.id ? "selected" : ""}>${escapeHtml(m.model || m.name)}</option>`).join("");
+      }
+
+      // Sube el estado actual a Firestore (upsert de lo presente + borra lo que ya no esta)
+      function cloudSync() {
         try {
           const col = cloud.db.collection("tareas");
           const batch = cloud.db.batch();
           const ids = new Set();
-          tasks.forEach(t => { ids.add(t.id); batch.set(col.doc(t.id), JSON.parse(JSON.stringify(t))); });
-          cloudKnownIds.forEach(id => { if (!ids.has(id)) batch.delete(col.doc(id)); });
+          tasks.forEach((t) => { ids.add(t.id); batch.set(col.doc(t.id), JSON.parse(JSON.stringify(t))); });
+          cloudKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
           cloudKnownIds = ids;
-          batch.commit().catch(e => console.error("[Recordatorios] Error guardando en la nube:", e));
-        } catch(e){ console.error("[Recordatorios] cloudSync:", e); }
+          batch.commit().catch((e) => console.error("[Tareas] guardar nube:", e));
+        } catch (e) { console.error("[Tareas] cloudSync:", e); }
       }
-      // Escucha en tiempo real: cualquier cambio de cualquier dispositivo actualiza la vista
-      function cloudSubscribe(){
+
+      function cloudSubscribe() {
         if (!(cloud.enabled && cloud.db)) { updateCloudChip(); return; }
-        cloud.db.collection("tareas").onSnapshot({ includeMetadataChanges: true }, snap => {
-          cloud.connected = !snap.metadata.fromCache; // fromCache=false => datos del servidor
+        cloud.db.collection("tareas").onSnapshot({ includeMetadataChanges: true }, (snap) => {
+          cloud.connected = !snap.metadata.fromCache;
           const remote = [];
-          snap.forEach(d => remote.push(d.data()));
+          snap.forEach((d) => remote.push(d.data()));
           tasks = remote;
-          cloudKnownIds = new Set(remote.map(t => t.id));
+          cloudKnownIds = new Set(remote.map((t) => t.id));
           saveLocal();
-          if (document.getElementById("tasksRoot")) renderTasks(); else updateCloudChip();
-        }, err => { console.error("[Recordatorios] onSnapshot:", err); cloud.connected = false; updateCloudChip(); });
+          if (document.getElementById("tkList")) renderTasks(); else updateCloudChip();
+        }, (err) => { console.error("[Tareas] onSnapshot:", err); cloud.connected = false; updateCloudChip(); });
       }
-      // Indicador de estado de la nube (chip con punto verde/rojo)
-      function updateCloudChip(){
+
+      function updateCloudChip() {
         const chip = document.getElementById("cloudChip");
         if (!chip) return;
         const txt = chip.querySelector(".cloud-chip__txt");
         chip.classList.remove("is-online", "is-offline", "is-local");
-        if (!cloud.enabled){
-          chip.classList.add("is-local");
-          chip.title = "Solo en este dispositivo (sin nube)";
-          if (txt) txt.textContent = "Solo local";
-        } else if (cloud.connected){
-          chip.classList.add("is-online");
-          chip.title = "Conectado: sincronizado en la nube en tiempo real";
-          if (txt) txt.textContent = "Conectado";
-        } else {
-          chip.classList.add("is-offline");
-          chip.title = "Sin conexión: se sincronizará al reconectar";
-          if (txt) txt.textContent = "Sin conexión";
-        }
+        if (!cloud.enabled) { chip.classList.add("is-local"); chip.title = "Solo en este dispositivo (sin nube)"; if (txt) txt.textContent = "Solo local"; }
+        else if (cloud.connected) { chip.classList.add("is-online"); chip.title = "Conectado: sincronizado en la nube en tiempo real"; if (txt) txt.textContent = "Conectado"; }
+        else { chip.classList.add("is-offline"); chip.title = "Sin conexión: se sincronizará al reconectar"; if (txt) txt.textContent = "Sin conexión"; }
       }
-      // Abre/cierra el panel flotante de nueva tarea
-      let taskFormOpen = false;
-      function taskFormToggle(force){
-        const open = (typeof force === "boolean") ? force : !taskFormOpen;
-        taskFormOpen = open;
-        const sheet = document.getElementById("tkSheet");
-        const back = document.getElementById("tkSheetBackdrop");
-        if (!sheet || !back) return;
-        if (open){
-          const sel = document.getElementById("tkMachineSel");
-          if (sel) sel.innerHTML = taskMachineOpts("");
-          back.hidden = false; sheet.hidden = false;
-          setTimeout(() => sheet.querySelector('input[name="title"]')?.focus(), 60);
-        } else {
-          sheet.hidden = true; back.hidden = true;
-        }
-      }
-      document.addEventListener("keydown", e => { if (e.key === "Escape" && taskFormOpen) taskFormToggle(false); });
-      function tuid(){ return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
-      const taskFilter = { machine: "", status: "" };
-      function taskMachineName(id){ const m = machines.find(x => x.id === id); return m ? (m.model || m.name) : "General / Otra"; }
-      function taskMachineOpts(sel){ return `<option value="">General / Otra</option>` + machines.map(m => `<option value="${m.id}" ${sel === m.id ? "selected" : ""}>${m.model || m.name}</option>`).join(""); }
 
-      function renderTasks(){
-        const root = document.getElementById("tasksRoot"); if (!root) return;
+      function tuid() { return "t" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+      function renderTasks() {
+        const lista = document.getElementById("tkList");
+        if (!lista) return;
         const c = { pendiente: 0, "en-progreso": 0, hecha: 0 };
-        tasks.forEach(t => { c[t.status] = (c[t.status] || 0) + 1; });
+        tasks.forEach((t) => { c[t.status] = (c[t.status] || 0) + 1; });
+        document.getElementById("counterRow").innerHTML =
+          `<span class="tk-stat tk-stat--pend"><span class="dot"></span><b>${c.pendiente}</b> pendientes</span>` +
+          `<span class="tk-stat tk-stat--prog"><span class="dot"></span><b>${c["en-progreso"]}</b> en progreso</span>` +
+          `<span class="tk-stat tk-stat--done"><span class="dot"></span><b>${c.hecha}</b> hechas</span>`;
         const order = { pendiente: 0, "en-progreso": 1, hecha: 2 };
+        const fm = document.getElementById("filterMachine").value;
+        const fs = document.getElementById("filterStatus").value;
         const list = tasks
-          .filter(t => (!taskFilter.machine || t.machine === taskFilter.machine) && (!taskFilter.status || t.status === taskFilter.status))
+          .filter((t) => (!fm || t.machine === fm) && (!fs || t.status === fs))
           .sort((a, b) => (order[a.status] - order[b.status]) || (b.createdAt || "").localeCompare(a.createdAt || ""));
-        root.innerHTML = `
-          <div class="section-bar">
-            <div>
-              <p class="eyebrow">Mantenimiento</p>
-              <div class="tk-title-row">
-                <h2>Tareas pendientes</h2>
-                <span class="cloud-chip" id="cloudChip" title="Estado de sincronización">
-                  <svg class="cloud-chip__icon" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 0 0 .45-8.98A6 6 0 0 0 6.3 9.5 4.5 4.5 0 0 0 7 19h10.5Z"/></svg>
-                  <span class="cloud-dot"></span>
-                  <span class="cloud-chip__txt"></span>
-                </span>
-              </div>
-            </div>
-            <div class="section-actions">
-              <span class="counter">${c.pendiente} pend. · ${c["en-progreso"]} en curso · ${c.hecha} hechas</span>
-              <button class="button button--light" type="button" onclick="taskExport()">Exportar</button>
-              <button class="button button--light" type="button" onclick="taskImport()">Importar</button>
-            </div>
-          </div>
-          <div class="tk-list">
-            <div class="tk-filters">
-              <select onchange="taskSetFilter('machine', this.value)"><option value="">Todas las máquinas</option>${machines.map(m => `<option value="${m.id}" ${taskFilter.machine === m.id ? "selected" : ""}>${m.model || m.name}</option>`).join("")}</select>
-              <select onchange="taskSetFilter('status', this.value)"><option value="">Todos los estados</option><option value="pendiente" ${taskFilter.status === "pendiente" ? "selected" : ""}>Pendientes</option><option value="en-progreso" ${taskFilter.status === "en-progreso" ? "selected" : ""}>En progreso</option><option value="hecha" ${taskFilter.status === "hecha" ? "selected" : ""}>Hechas</option></select>
-            </div>
-            ${list.length ? list.map(renderTaskCard).join("") : '<p class="tk-empty">No hay tareas todavía. Toca el botón <strong>＋ Nueva tarea</strong> para crear la primera.</p>'}
-          </div>`;
+        lista.innerHTML = list.length
+          ? list.map(renderTaskCard).join("")
+          : '<p class="tk-empty">No hay tareas todavía. Toca el botón <strong>＋ Nueva tarea</strong> para crear la primera.</p>';
         updateCloudChip();
       }
 
-      function renderTaskCard(t){
+      function renderTaskCard(t) {
         const steps = t.steps || [];
-        const done = steps.filter(s => s.done).length;
+        const done = steps.filter((s) => s.done).length;
         const prCls = { Alta: "tk-pr--alta", Media: "tk-pr--media", Baja: "tk-pr--baja" }[t.priority] || "tk-pr--media";
         const stLabel = { pendiente: "Pendiente", "en-progreso": "En progreso", hecha: "Hecha" }[t.status] || t.status;
         const body = t.followPrompt
@@ -8486,45 +8609,287 @@
                ${t.status !== "hecha" ? `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','${t.status === "pendiente" ? "en-progreso" : "pendiente"}')">${t.status === "pendiente" ? "▶ Empezar" : "⏸ Pausar"}</button>` : ""}
                ${t.status !== "hecha" ? `<button class="button button--dark" type="button" onclick="taskComplete('${t.id}')">✓ Completar</button>` : `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','pendiente')">↺ Reabrir</button>`}
                <button class="button button--light" type="button" onclick="taskAddStep('${t.id}')">+ paso</button>
+               <button class="button button--light" type="button" onclick="openRemind('${t.id}')">🔔 ${t.remindFreq ? "Aviso" : "Recordar"}</button>
                <button class="button button--light" type="button" onclick="taskDelete('${t.id}')">Eliminar</button>
              </div>`;
         return `<div class="tk-card tk-st--${t.status}">
           <div class="tk-card__top">
-            <span class="tk-pr ${prCls}">${t.priority}</span>
-            <strong class="tk-title">${t.title}</strong>
-            <span class="system-badge">${taskMachineName(t.machine)}</span>
+            <span class="tk-pr ${prCls}">${escapeHtml(t.priority)}</span>
+            <strong class="tk-title">${escapeHtml(t.title)}</strong>
+            <span class="system-badge">${escapeHtml(taskMachineName(t.machine))}</span>
             <span class="tk-status">${stLabel}</span>
           </div>
-          ${t.desc ? `<p class="tk-desc">${t.desc}</p>` : ""}
-          ${steps.length ? `<div class="tk-steps">${steps.map((s, i) => `<label class="tk-step ${s.done ? "is-done" : ""}"><input type="checkbox" ${s.done ? "checked" : ""} onchange="taskToggleStep('${t.id}', ${i})"> ${s.text}</label>`).join("")}<div class="tk-prog">${done}/${steps.length} pasos completados</div></div>` : ""}
-          <div class="tk-meta">${t.reporter ? "por " + t.reporter + " · " : ""}${(t.createdAt || "").slice(0, 10)}${t.parent ? ` · seguimiento de: “${t.parent}”` : ""}</div>
+          ${t.desc ? `<p class="tk-desc">${escapeHtml(t.desc)}</p>` : ""}
+          ${steps.length ? `<div class="tk-steps">${steps.map((s, i) => `<label class="tk-step ${s.done ? "is-done" : ""}"><input type="checkbox" ${s.done ? "checked" : ""} onchange="taskToggleStep('${t.id}', ${i})"> ${escapeHtml(s.text)}</label>`).join("")}<div class="tk-prog">${done}/${steps.length} pasos completados</div></div>` : ""}
+          ${t.remindFreq ? `<div class="tk-remind">${escapeHtml(remindLabel(t))}</div>` : ""}
+          <div class="tk-meta">${t.reporter ? "por " + escapeHtml(t.reporter) + " · " : ""}${escapeHtml((t.createdAt || "").slice(0, 10))}${t.parent ? ` · seguimiento de: “${escapeHtml(t.parent)}”` : ""}</div>
           ${body}
         </div>`;
       }
 
-      function taskSetFilter(k, v){ taskFilter[k] = v; renderTasks(); }
-      function taskSubmit(e){
+      function taskSubmit(e) {
         e.preventDefault();
         const f = e.target;
-        const steps = (f.steps.value || "").split("\n").map(s => s.trim()).filter(Boolean).map(text => ({ text, done: false }));
-        tasks.unshift({ id: tuid(), machine: f.machine.value, title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
+        const steps = (f.steps.value || "").split("\n").map((s) => s.trim()).filter(Boolean).map((text) => ({ text, done: false }));
+        tasks.unshift({ id: tuid(), machine: f.machine.value, machineName: taskMachineName(f.machine.value), title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
         saveTasks(); f.reset(); taskFormToggle(false); renderTasks();
       }
-      function taskToggleStep(id, i){ const t = tasks.find(x => x.id === id); if (t && t.steps[i]) { t.steps[i].done = !t.steps[i].done; if (t.status === "pendiente" && t.steps.some(s => s.done)) t.status = "en-progreso"; saveTasks(); renderTasks(); } }
-      function taskSetStatus(id, st){ const t = tasks.find(x => x.id === id); if (t) { t.status = st; if (st === "hecha") t.doneAt = new Date().toISOString(); saveTasks(); renderTasks(); } }
-      function taskAddStep(id){ const txt = window.prompt("Nuevo paso:"); if (txt && txt.trim()) { const t = tasks.find(x => x.id === id); if (t) { (t.steps = t.steps || []).push({ text: txt.trim(), done: false }); saveTasks(); renderTasks(); } } }
-      function taskComplete(id){ const t = tasks.find(x => x.id === id); if (t) { t.followPrompt = true; renderTasks(); document.getElementById("fu-" + id)?.focus(); } }
-      function taskFinish(id, createFollow){
-        const t = tasks.find(x => x.id === id); if (!t) return;
-        if (createFollow){ const fu = document.getElementById("fu-" + id); const title = fu && fu.value.trim(); if (title) tasks.unshift({ id: tuid(), machine: t.machine, title, desc: "", priority: t.priority, reporter: t.reporter, status: "pendiente", steps: [], createdAt: new Date().toISOString(), parent: t.title }); }
+      function taskToggleStep(id, i) { const t = tasks.find((x) => x.id === id); if (t && t.steps[i]) { t.steps[i].done = !t.steps[i].done; if (t.status === "pendiente" && t.steps.some((s) => s.done)) t.status = "en-progreso"; saveTasks(); renderTasks(); } }
+      function taskSetStatus(id, st) { const t = tasks.find((x) => x.id === id); if (t) { t.status = st; if (st === "hecha") t.doneAt = new Date().toISOString(); saveTasks(); renderTasks(); } }
+      function taskAddStep(id) { const txt = window.prompt("Nuevo paso:"); if (txt && txt.trim()) { const t = tasks.find((x) => x.id === id); if (t) { (t.steps = t.steps || []).push({ text: txt.trim(), done: false }); saveTasks(); renderTasks(); } } }
+      function taskComplete(id) { const t = tasks.find((x) => x.id === id); if (t) { t.followPrompt = true; renderTasks(); document.getElementById("fu-" + id)?.focus(); } }
+      function taskFinish(id, createFollow) {
+        const t = tasks.find((x) => x.id === id); if (!t) return;
+        if (createFollow) { const fu = document.getElementById("fu-" + id); const title = fu && fu.value.trim(); if (title) tasks.unshift({ id: tuid(), machine: t.machine, title, desc: "", priority: t.priority, reporter: t.reporter, status: "pendiente", steps: [], createdAt: new Date().toISOString(), parent: t.title }); }
         delete t.followPrompt; t.status = "hecha"; t.doneAt = new Date().toISOString();
         saveTasks(); renderTasks();
       }
-      function taskDelete(id){ if (window.confirm("¿Eliminar esta tarea?")) { tasks = tasks.filter(x => x.id !== id); saveTasks(); renderTasks(); } }
-      function taskExport(){ const data = JSON.stringify(tasks, null, 2); try { navigator.clipboard?.writeText(data); } catch(e){} window.prompt("Copia este texto para respaldar o compartir las tareas:", data); }
-      function taskImport(){ const txt = window.prompt("Pega el texto de tareas exportado (se agregan las que no existan):"); if (!txt) return; try { const arr = JSON.parse(txt); if (Array.isArray(arr)) { const ids = new Set(tasks.map(t => t.id)); arr.forEach(t => { if (t && t.id && !ids.has(t.id)) tasks.push(t); }); saveTasks(); renderTasks(); } } catch(e){ window.alert("El texto no es válido."); } }
-      function goTasks(){ setView("tasks"); renderTasks(); saveUiState({ activeView: "tasks" }); }
+      function taskDelete(id) { if (window.confirm("¿Eliminar esta tarea?")) { tasks = tasks.filter((x) => x.id !== id); saveTasks(); renderTasks(); } }
+      function taskExport() { const data = JSON.stringify(tasks, null, 2); try { navigator.clipboard?.writeText(data); } catch (e) {} window.prompt("Copia este texto para respaldar o compartir las tareas:", data); }
+      function taskImport() { const txt = window.prompt("Pega el texto de tareas exportado (se agregan las que no existan):"); if (!txt) return; try { const arr = JSON.parse(txt); if (Array.isArray(arr)) { const ids = new Set(tasks.map((t) => t.id)); arr.forEach((t) => { if (t && t.id && !ids.has(t.id)) tasks.push(t); }); saveTasks(); renderTasks(); } } catch (e) { window.alert("El texto no es válido."); } }
+
+      // Abre/cierra el panel flotante de nueva tarea
+      let taskFormOpen = false;
+      function taskFormToggle(force) {
+        const open = (typeof force === "boolean") ? force : !taskFormOpen;
+        taskFormOpen = open;
+        const sheet = document.getElementById("tkSheet");
+        const back = document.getElementById("tkSheetBackdrop");
+        if (!sheet || !back) return;
+        if (open) {
+          const sel = document.getElementById("tkMachineSel");
+          if (sel) sel.innerHTML = machineOptions("");
+          back.hidden = false; sheet.hidden = false;
+          setTimeout(() => sheet.querySelector('input[name="title"]')?.focus(), 60);
+        } else { sheet.hidden = true; back.hidden = true; }
+      }
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && taskFormOpen) taskFormToggle(false); });
+
+      // ----- Recordatorios (los avisos que manda el bot de Telegram) -----
+      const FREQ_LABEL = { once: "Una vez", daily: "Diario", weekly: "Semanal", monthly: "Mensual", everyN: "Cada N meses" };
+      // Colombia es UTC-5 fijo (sin horario de verano). La hora elegida se interpreta
+      // SIEMPRE como hora de Colombia, sin importar la zona del dispositivo.
+      const CO_TZ = "America/Bogota";
+      const CO_OFFSET = "-05:00";
+      const CO_MS = 5 * 3600 * 1000;
+      function bogotaToday() { return new Date(Date.now() - CO_MS).toISOString().slice(0, 10); }
+      function bogotaDateStr(iso) { return new Date(new Date(iso).getTime() - CO_MS).toISOString().slice(0, 10); }
+      function remindLabel(t) {
+        if (!t.remindFreq) return "";
+        const base = t.remindFreq === "everyN" ? `Cada ${t.remindEveryN || "?"} meses` : (FREQ_LABEL[t.remindFreq] || t.remindFreq);
+        const next = t.remindNextAt ? new Date(t.remindNextAt) : null;
+        const nice = next && !isNaN(next) ? next.toLocaleDateString("es", { day: "2-digit", month: "short", timeZone: CO_TZ }) + " " + (t.remindTime || "") : "";
+        return `🔔 ${base}${nice ? " · próx. " + nice.trim() : (t.remindTime ? " · " + t.remindTime : "")}`;
+      }
+      // Avanza un instante manteniendo la MISMA hora de Colombia
+      function remindAdvance(freq, dt, everyN) {
+        const t = dt.getTime();
+        if (freq === "daily") return new Date(t + 86400000);
+        if (freq === "weekly") return new Date(t + 7 * 86400000);
+        if (freq === "monthly" || freq === "everyN") {
+          const wall = new Date(t - CO_MS);
+          wall.setUTCMonth(wall.getUTCMonth() + (freq === "monthly" ? 1 : (everyN || 1)));
+          return new Date(wall.getTime() + CO_MS);
+        }
+        return null;
+      }
+      // Primer disparo (fecha+hora de Colombia -> ISO UTC). Para recurrentes, adelanta al futuro.
+      function remindComputeNext(freq, dateStr, timeStr, everyN) {
+        const d = dateStr || bogotaToday();
+        const t = timeStr || "08:00";
+        let dt = new Date(`${d}T${t}:00${CO_OFFSET}`);
+        if (isNaN(dt)) return null;
+        if (freq !== "once") {
+          const now = new Date();
+          let guard = 0;
+          while (dt <= now && guard++ < 2000) {
+            const nx = remindAdvance(freq, dt, everyN);
+            if (!nx) break;
+            dt = nx;
+          }
+        }
+        return dt.toISOString();
+      }
+
+      let remindEditId = null;
+      function openRemind(id) {
+        const t = tasks.find((x) => x.id === id); if (!t) return;
+        remindEditId = id;
+        const form = document.getElementById("remindForm");
+        form.freq.value = t.remindFreq || "";
+        form.date.value = t.remindNextAt ? bogotaDateStr(t.remindNextAt) : bogotaToday();
+        form.time.value = t.remindTime || "08:00";
+        form.everyN.value = t.remindEveryN || 4;
+        document.getElementById("remindRemoveBtn").hidden = !t.remindFreq;
+        remindSyncFields();
+        document.getElementById("remindBackdrop").hidden = false;
+        document.getElementById("remindSheet").hidden = false;
+      }
+      function closeRemind() { remindEditId = null; document.getElementById("remindBackdrop").hidden = true; document.getElementById("remindSheet").hidden = true; }
+      function remindSyncFields() {
+        const form = document.getElementById("remindForm");
+        const freq = form.freq.value;
+        document.getElementById("remindEveryWrap").hidden = freq !== "everyN";
+        const prev = document.getElementById("remindPreview");
+        if (!freq) { prev.innerHTML = "Sin aviso: esta tarea no enviará notificación."; return; }
+        const iso = remindComputeNext(freq, form.date.value, form.time.value, parseInt(form.everyN.value, 10) || 1);
+        const next = iso ? new Date(iso) : null;
+        const nstr = next ? next.toLocaleString("es", { weekday: "long", day: "2-digit", month: "long", hour: "2-digit", minute: "2-digit", timeZone: CO_TZ }) + " (Colombia)" : "—";
+        const label = freq === "everyN" ? `cada ${form.everyN.value} meses` : (FREQ_LABEL[freq] || freq).toLowerCase();
+        prev.innerHTML = `Se avisará <b>${label}</b>. Próximo aviso:<br><b>${nstr}</b>`;
+      }
+      function saveRemind(e) {
+        e.preventDefault();
+        const t = tasks.find((x) => x.id === remindEditId); if (!t) { closeRemind(); return; }
+        const form = e.target;
+        const freq = form.freq.value;
+        if (!freq) { clearRemind(); return; }
+        t.remindFreq = freq;
+        t.remindTime = form.time.value || "08:00";
+        t.remindNextAt = remindComputeNext(freq, form.date.value, form.time.value, parseInt(form.everyN.value, 10) || 1);
+        if (freq === "everyN") t.remindEveryN = Math.max(1, parseInt(form.everyN.value, 10) || 1); else delete t.remindEveryN;
+        if (!t.machineName) t.machineName = taskMachineName(t.machine);
+        saveTasks(); closeRemind(); renderTasks();
+      }
+      function clearRemind() {
+        const t = tasks.find((x) => x.id === remindEditId);
+        if (t) { delete t.remindFreq; delete t.remindTime; delete t.remindNextAt; delete t.remindEveryN; saveTasks(); }
+        closeRemind(); renderTasks();
+      }
+      document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !document.getElementById("remindSheet")?.hidden) closeRemind(); });
+
+      function goTasks() {
+        setView("tasks");
+        const sel = document.getElementById("filterMachine");
+        if (sel && !sel.options.length) {
+          sel.innerHTML = `<option value="">Todas las máquinas</option>` + machines.map((m) => `<option value="${escapeHtml(m.id)}">${escapeHtml(m.model || m.name)}</option>`).join("");
+        }
+        renderTasks();
+        saveUiState({ activeView: "tasks" });
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+
       cloudSubscribe(); // arranca la sincronización en la nube en tiempo real (si hay config)
+
+      // ======================================================================
+      //  TURNOS DEL PERSONAL
+      //  Tambien estaba suelto en turnos.html. Calcula la rotacion del ciclo de
+      //  6 dias (2 dia, 2 noche, 2 descanso) a partir del cuadro de julio de 2026.
+      // ======================================================================
+      const TN_ROSTER = {
+        sede4: {
+          label: "Sede 4",
+          groups: [
+            { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "Jair Mesa Rincón"] },
+            { name: "Grupo Sede 4-2", phase: "noche", members: ["Vladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés Vega"] },
+            { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
+          ]
+        },
+        sede2: {
+          label: "Sede 2 (Vía 40)",
+          groups: [
+            { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo"] },
+            { name: "Grupo Vía 40-2", phase: "noche", members: ["Samith Arick Sanjuán Otálora"] },
+            { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia"] }
+          ]
+        }
+      };
+      const TN_SUPPORT = [
+        { area: "Eléctrico", members: ["Jaime Villa Pérez"] },
+        { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"] },
+        { area: "Preventivo", members: ["Alexi Alexander Arroyo De Moya", "Leiner Andrés Montañez Rodríguez"] },
+        { area: "Refrigeración", members: ["Juan Carlos Estupiñán De la Cruz"] }
+      ];
+      const TN_ANCHOR = Date.UTC(2026, 6, 1); // ancla del ciclo: 1 de julio de 2026
+      const TN_CICLO = 6;
+      const TN_BLOQUE = 2;
+      const TN_PHASE_BLOCKS = {
+        dia: ["dia", "noche", "descanso"],
+        noche: ["noche", "descanso", "dia"],
+        descanso: ["descanso", "dia", "noche"]
+      };
+      const TN_INFO = {
+        dia: { icon: "🌞", label: "Día", cls: "tn--dia" },
+        noche: { icon: "🌙", label: "Noche", cls: "tn--noche" },
+        descanso: { icon: "😴", label: "Descanso", cls: "tn--descanso" }
+      };
+      let tnSede = "sede4";
+      let tnTurno = "todos";
+
+      function tnEstadoDe(phase, dateStr) {
+        const d = Date.parse(dateStr + "T00:00:00Z");
+        const days = Math.floor((d - TN_ANCHOR) / 86400000);
+        const n = ((days % TN_CICLO) + TN_CICLO) % TN_CICLO;
+        return TN_PHASE_BLOCKS[phase][Math.floor(n / TN_BLOQUE)];
+      }
+      function tnIniciales(nombre) { const p = String(nombre).trim().split(/\s+/); return ((p[0] || "")[0] || "") + ((p[1] || "")[0] || ""); }
+
+      function renderTurnos() {
+        const campo = document.getElementById("tnFecha");
+        if (!campo) return;
+        const fecha = campo.value || bogotaToday();
+        const d = new Date(fecha + "T12:00:00Z");
+        document.getElementById("tnDatebar").innerHTML =
+          d.toLocaleDateString("es", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).replace(/^\w/, (c) => c.toUpperCase()) +
+          ` &nbsp;·&nbsp; <span>${escapeHtml(TN_ROSTER[tnSede].label)}</span>`;
+
+        const buckets = { dia: [], noche: [], descanso: [] };
+        TN_ROSTER[tnSede].groups.forEach((g) => { buckets[tnEstadoDe(g.phase, fecha)].push(g); });
+
+        const grid = document.getElementById("tnShiftGrid");
+        grid.innerHTML = ["dia", "noche", "descanso"].map((est) => {
+          if (tnTurno !== "todos" && tnTurno !== est) return "";
+          const info = TN_INFO[est];
+          const groups = buckets[est];
+          const body = groups.length
+            ? groups.map((g) => `<div class="tn-group">${escapeHtml(g.name)}</div><ul class="tn-people">${g.members.map((m) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(m).toUpperCase())}</span>${escapeHtml(m)}</li>`).join("")}</ul>`).join("")
+            : '<p class="tn-empty">—</p>';
+          return `<section class="tn-card ${info.cls}"><div class="tn-head">${info.icon} ${info.label}</div><div class="tn-body">${body}</div></section>`;
+        }).join("");
+        const visibles = tnTurno === "todos" ? 3 : 1;
+        grid.style.gridTemplateColumns = window.innerWidth <= 760 ? "1fr" : `repeat(${visibles}, minmax(0,1fr))`;
+        grid.style.maxWidth = visibles === 1 ? "460px" : "none";
+
+        // El personal de apoyo no rota: solo tiene sentido verlo con el turno de día.
+        const soporte = document.getElementById("tnSupport");
+        const mostrar = (tnTurno === "todos" || tnTurno === "dia");
+        soporte.innerHTML = mostrar
+          ? `<h3>🛠️ Personal de apoyo · turno fijo</h3>
+             <p class="tn-sub">Trabajan horario fijo de día (no rotan). Cubren ambas sedes.</p>
+             <div class="tn-support-grid">${TN_SUPPORT.map((s) => `<div class="tn-support-item"><b>${escapeHtml(s.area)}</b><div>${s.members.map(escapeHtml).join("<br>")}</div></div>`).join("")}</div>`
+          : "";
+        soporte.hidden = !mostrar;
+      }
+
+      function goTurnos() {
+        setView("turnos");
+        const campo = document.getElementById("tnFecha");
+        if (campo && !campo.value) campo.value = bogotaToday();
+        renderTurnos();
+        saveUiState({ activeView: "turnos" });
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+
+      document.getElementById("tnSegSede")?.addEventListener("click", (e) => {
+        const b = e.target.closest("button"); if (!b) return;
+        tnSede = b.dataset.sede;
+        [...e.currentTarget.children].forEach((x) => x.classList.toggle("is-active", x === b));
+        renderTurnos();
+      });
+      document.getElementById("tnSegTurno")?.addEventListener("click", (e) => {
+        const b = e.target.closest("button"); if (!b) return;
+        tnTurno = b.dataset.turno;
+        [...e.currentTarget.children].forEach((x) => x.classList.toggle("is-active", x === b));
+        renderTurnos();
+      });
+      document.getElementById("tnFecha")?.addEventListener("change", renderTurnos);
+      document.getElementById("tnHoyBtn")?.addEventListener("click", () => {
+        const campo = document.getElementById("tnFecha");
+        if (campo) campo.value = bogotaToday();
+        renderTurnos();
+      });
+      window.addEventListener("resize", () => { if (document.getElementById("turnosView")?.classList.contains("is-active")) renderTurnos(); });
+
 
 
       // ======================================================================
@@ -9128,6 +9493,7 @@
         navSearch.classList.toggle("is-active", viewName === "results" || viewName === "detail");
         if (navTasks) navTasks.classList.toggle("is-active", viewName === "tasks");
         if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
+        if (navTurnos) navTurnos.classList.toggle("is-active", viewName === "turnos");
       }
 
       function goResults({ keepSelection = false } = {}) {
@@ -9300,9 +9666,9 @@
       backToResults.addEventListener("click", () => goResults({ keepSelection: true }));
       navHome.addEventListener("click", goHome);
       navSearch.addEventListener("click", () => goResults({ keepSelection: true }));
-      navTasks.addEventListener("click", () => { window.location.href = "tareas.html"; });
+      navTasks.addEventListener("click", () => goTasks());
       if (navPlan) navPlan.addEventListener("click", () => goPlan());
-      document.querySelector("[data-nav-turnos]").addEventListener("click", () => { window.location.href = "turnos.html"; });
+      if (navTurnos) navTurnos.addEventListener("click", () => goTurnos());
 
       // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
       const navBurger = document.getElementById("navBurger");
@@ -9815,8 +10181,19 @@ ${buildMachineContext(machine)}`;
       homeSearch.value = currentQuery;
       resultsSearch.value = currentQuery;
 
-      if (restoredState.activeView === "plan") {
+      // Enlace directo a una pestaña: index.html?v=plan | tareas | turnos.
+      // Lo usan tareas.html y turnos.html, que ahora solo redirigen aquí.
+      const vistaPedida = new URLSearchParams(window.location.search).get("v");
+      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos };
+
+      if (vistaPedida && abrirVista[vistaPedida]) {
+        abrirVista[vistaPedida]();
+      } else if (restoredState.activeView === "plan") {
         goPlan();
+      } else if (restoredState.activeView === "tasks") {
+        goTasks();
+      } else if (restoredState.activeView === "turnos") {
+        goTurnos();
       } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
       } else if (restoredState.activeView === "results" || currentQuery) {
