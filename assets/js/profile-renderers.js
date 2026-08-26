@@ -435,8 +435,8 @@ function dt(machine, campo) {
         sede4: {
           label: "Sede 4",
           groups: [
-            { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "Jair Mesa Rincón"] },
-            { name: "Grupo Sede 4-2", phase: "noche", members: ["Vladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés Vega"] },
+            { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "Jair Mesa Rincón", "José Luis Vargas Buitrago"] },
+            { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak"] },
             { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
           ]
         },
@@ -449,6 +449,15 @@ function dt(machine, campo) {
           ]
         }
       };
+      // Hay quien figura dentro de un grupo pero no rota con él: hace turno fijo.
+      // En el cuadro se le marca con "2" todos los días en vez de D/N/L.
+      const TN_FIJOS = {
+        sede4: [
+          { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", nota: "Pasará a rotar con su grupo; falta confirmar la fecha." }
+        ],
+        sede2: []
+      };
+
       const TN_SUPPORT = [
         { area: "Eléctrico", members: ["Jaime Villa Pérez"] },
         { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"] },
@@ -496,9 +505,16 @@ function dt(machine, campo) {
           if (tnTurno !== "todos" && tnTurno !== est) return "";
           const info = TN_INFO[est];
           const groups = buckets[est];
-          const body = groups.length
+          // Los de turno fijo van siempre en la tarjeta de día: trabajan de 8 a 20
+          // todos los días laborables, no rotan con su grupo.
+          const fijos = est === "dia" ? (TN_FIJOS[tnSede] || []) : [];
+          const rotan = groups.length
             ? groups.map((g) => `<div class="tn-group">${escapeHtml(g.name)}</div><ul class="tn-people">${g.members.map((m) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(m).toUpperCase())}</span>${escapeHtml(m)}</li>`).join("")}</ul>`).join("")
-            : '<p class="tn-empty">—</p>';
+            : "";
+          const bloqueFijos = fijos.length
+            ? `<div class="tn-group">Turno fijo</div><ul class="tn-people">${fijos.map((f) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(f.nombre).toUpperCase())}</span><span>${escapeHtml(f.nombre)}<span class="tn-fijo">${escapeHtml(f.horario)} &middot; ${escapeHtml(f.grupo)}</span></span></li>`).join("")}</ul>`
+            : "";
+          const body = (rotan + bloqueFijos) || '<p class="tn-empty">—</p>';
           return `<section class="tn-card ${info.cls}"><div class="tn-head">${info.icon} ${info.label}</div><div class="tn-body">${body}</div></section>`;
         }).join("");
         const visibles = tnTurno === "todos" ? 3 : 1;
