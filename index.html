@@ -3174,6 +3174,7 @@
       const initialMachines = [
         {
           id: "njp3500",
+          equipoCod: "17333009",
           name: "Encapsuladora automática NJP-3500",
           model: "NJP-3500",
           current: "Equipo actual",
@@ -4783,6 +4784,7 @@
         },
 {
           id: "controlsa114rl",
+          equipoCod: "114RL",
           name: "Puerta rápida autorreparable de laboratorio CONTROLSA",
           model: "114 RL",
           current: "Equipo nuevo",
@@ -5091,6 +5093,7 @@
         },
         {
           id: "ms235",
+          equipoCod: "17334017",
           name: "Ensobradora MS235 (Schmucker / Marchesini)",
           model: "MS235",
           current: "",
@@ -5215,11 +5218,12 @@
         },
         {
           id: "gkf2600",
-          name: "Encapsuladora Bosch GKF 2600",
-          model: "GKF 2600",
-          current: "",
-          area: "Producción · Encapsulado",
-          location: "Farmacápsulas Colombia",
+          equipoCod: "17333005",
+          name: "Encapsuladora BOSCH GKF 2600",
+          model: "Encapsuladora BOSCH GKF 2600",
+          current: "Código 17333005",
+          area: "Sede 4 · Producción · Encapsulado",
+          location: "Sede 4",
           status: "Operativo",
           criticality: "Alta",
           manual: "Manual 745632 v1.0 es (594 págs.)",
@@ -5227,7 +5231,7 @@
           completion: 90,
           image: "assets/gkf2600/vista-general.jpg",
           notes: "",
-          searchAliases: ["gkf","gkf2600","gkf 2600","bosch","encapsuladora","capsulas","cápsulas","llenado","cierre","farmacapsulas","farmacápsulas","745632","pm kits","alarmas","hmi","dosificacion","dosificación","pellets","pastillas","segmentos","codigo interno","código interno","repuestos","inspeccion","inspección","724002341","724002342","724002343","724002338","724002339","724002340","7240022312","721703041","741203258","741203259","741203260","741203261","741203262"],
+          searchAliases: ["17333005","gkf","gkf2600","gkf 2600","bosch","encapsuladora bosch","encapsuladora bosch gkf 2600","encapsuladora","capsulas","cápsulas","llenado","cierre","farmacapsulas","farmacápsulas","745632","pm kits","alarmas","hmi","dosificacion","dosificación","pellets","pastillas","segmentos","codigo interno","código interno","repuestos","inspeccion","inspección","724002341","724002342","724002343","724002338","724002339","724002340","7240022312","721703041","741203258","741203259","741203260","741203261","741203262"],
           description: "Máquina Bosch de llenado y cierre de cápsulas duras, modular, con 12 estaciones en 2 líneas (18 cápsulas por ciclo). Dosifica polvo, pellets, pastillas o líquido. Documentación completa: manual de 594 págs., catálogo de repuestos de 196 págs. y PM Kits del fabricante. Incluye las 211 alarmas del HMI con su causa y remedio.",
           technicalData: {
             function: "Llenado y cierre de cápsulas duras de gelatina con polvo, pellets, pastillas o líquido, en 12 estaciones y 2 líneas simultáneas.",
@@ -5815,6 +5819,7 @@
         },
         {
           id: "integra320",
+          equipoCod: "17332004",
           name: "Blistera Marchesini Integra 320",
           model: "Integra 320",
           current: "",
@@ -8434,7 +8439,10 @@
       }
 
       function renderProfile(machine) {
-        const technicalHighlights = machine.summarySpecs ?? [
+        const eqPlan = equipoDeMachine(machine);
+        const codigoEquipo = machine.equipoCod || eqPlan?.c || (machine.id.startsWith("eq-") ? machine.id.replace("eq-", "").replace("-s4", "").replace("-p2", "") : "—");
+
+        const baseSpecs = machine.summarySpecs ?? [
           { label: "Capacidad", value: dt(machine, "capacity") },
           { label: "Tamaños de cápsula", value: dt(machine, "capsuleSizes") },
           { label: "Dosificación", value: dt(machine, "dosingSystem") },
@@ -8443,8 +8451,12 @@
           { label: "Dimensiones", value: dt(machine, "dimensions") }
         ];
 
+        const technicalHighlights = [
+          { label: "Código de equipo", value: codigoEquipo },
+          ...baseSpecs.filter(s => s.label !== "Código de equipo")
+        ];
+
         // Estandarización unificada de las pestañas para todas las máquinas
-        const eqPlan = equipoDeMachine(machine);
         const tabs = [
           ["summary", "Resumen"],
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
@@ -8460,7 +8472,7 @@
         ];
 
         detailTitle.textContent = machine.model;
-        detailSubtitle.textContent = `${machine.name} · ${machine.area}`;
+        detailSubtitle.textContent = `Código: ${codigoEquipo} · ${machine.name} · ${machine.area}`;
         guideTabs.innerHTML = tabs.map(([id, label], index) =>
           `<button class="profile-tab ${index === 0 ? "is-active" : ""}" type="button" data-profile-tab="${id}">${label}</button>`
         ).join("");
@@ -8488,6 +8500,7 @@
                 <div class="summary-section">
                   <h4>Identificación y estado</h4>
                   <div class="summary-kv">
+                    <div><span>Código de equipo</span><strong>${codigoEquipo}</strong></div>
                     <div><span>Modelo</span><strong>${machine.model}</strong></div>
                     <div><span>Área</span><strong>${machine.area}</strong></div>
                     <div><span>Ubicación</span><strong>${machine.location}</strong></div>
