@@ -3285,6 +3285,7 @@ const initialMachines = [
         detail: document.querySelector("#detailView"),
         tasks: document.querySelector("#tasksView"),
         plan: document.querySelector("#planView"),
+        insp: document.querySelector("#inspView"),
         turnos: document.querySelector("#turnosView")
       };
       const homeSearchForm = document.querySelector("#homeSearchForm");
@@ -3305,6 +3306,7 @@ const initialMachines = [
       const navSearch = document.querySelector("[data-nav-search]");
       const navTasks = document.querySelector("[data-nav-tasks]");
       const navPlan = document.querySelector("[data-nav-plan]");
+      const navInsp = document.querySelector("[data-nav-insp]");
       const navTurnos = document.querySelector("[data-nav-turnos]");
       const detailTitle = document.querySelector("#detailTitle");
       const detailSubtitle = document.querySelector("#detailSubtitle");

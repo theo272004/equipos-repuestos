@@ -34,7 +34,7 @@ function dt(machine, campo) {
           ["summary", "Resumen"],
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
           ...((eqPlan || (machine.spareParts ?? []).length) ? [["spares", "Repuestos"]] : []),
-          ...((machine.maintenanceTasks ?? []).length ? [["maintenance", "Mantenimiento"]] : []),
+          ["maintenance", "Mantenimiento"],
           ["failures", "Fallas y alarmas"],
           ...(hayDespiece ? [["partsmap", "Despiece"]] : []),
           ...(machine.schematic ? [["schematic", "Plano eléctrico"]] : []),
@@ -106,7 +106,8 @@ function dt(machine, campo) {
           </section>
 
           <section class="profile-panel" data-profile-panel="maintenance">
-            ${renderMaintenancePanel(machine)}
+            ${renderInspMaquina(machine)}
+            ${(machine.maintenanceTasks ?? []).length ? '<div class="panel-split"></div>' + renderMaintenancePanel(machine) : ""}
           </section>
           <section class="profile-panel" data-profile-panel="failures">
             ${machine.alarms ? renderAlarmsPanel(machine) + '<div class="panel-split"></div>' : ""}
@@ -435,6 +436,304 @@ function dt(machine, campo) {
       }
 
       cloudSubscribe(); // arranca la sincronización en la nube en tiempo real (si hay config)
+
+      // ======================================================================
+      //  INSPECCIONES
+      //  Lo que se revisa en planta: qué se miró, qué se encontró y qué piezas
+      //  hay que cambiar. Cuelga del equipo, se ve en su ficha, y las piezas
+      //  que marca salen señaladas en la tabla de repuestos hasta que se
+      //  cambian de verdad y se registra el cambio.
+      // ======================================================================
+      const inspKey = "equipos-inspecciones-v1";
+      let inspecciones = loadInsp();
+      let inspKnownIds = new Set();
+      const inspNube = { conectado: false, error: "" };
+      const inspFiltro = { q: "", eq: "", tipo: "", estado: "" };
+
+      const INSP_TIPOS = {
+        rutina: "Inspección de rutina",
+        parada: "Parada programada",
+        correctiva: "Revisión por falla",
+        arranque: "Arranque o puesta a punto"
+      };
+      const INSP_URGENCIA = { alta: "Cambiar ya", media: "Programar", baja: "Vigilar" };
+
+      function loadInsp() { try { return JSON.parse(localStorage.getItem(inspKey) || "[]"); } catch { return []; } }
+      function saveInspLocal() { try { localStorage.setItem(inspKey, JSON.stringify(inspecciones)); } catch (e) {} }
+      function saveInsp() {
+        saveInspLocal();
+        if (cloud.enabled && cloud.db) inspSync();
+        renderInspIfVisible();
+        renderFichaSiVisible();
+      }
+
+      function inspSync() {
+        try {
+          const col = cloud.db.collection("inspecciones");
+          const batch = cloud.db.batch();
+          const ids = new Set();
+          inspecciones.forEach((i) => { ids.add(i.id); batch.set(col.doc(i.id), JSON.parse(JSON.stringify(i))); });
+          inspKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
+          inspKnownIds = ids;
+          batch.commit().catch((e) => { inspNube.error = e && e.code ? e.code : "error"; console.error("[Inspecciones] guardar nube:", e); });
+        } catch (e) { console.error("[Inspecciones] inspSync:", e); }
+      }
+
+      function inspSubscribe() {
+        if (!(cloud.enabled && cloud.db)) return;
+        cloud.db.collection("inspecciones").onSnapshot({ includeMetadataChanges: true }, (snap) => {
+          const remoto = [];
+          snap.forEach((d) => remoto.push(d.data()));
+          inspecciones = remoto;
+          inspKnownIds = new Set(remoto.map((i) => i.id));
+          inspNube.conectado = !snap.metadata.fromCache;
+          inspNube.error = "";
+          saveInspLocal();
+          renderInspIfVisible();
+          renderFichaSiVisible();
+        }, (err) => { inspNube.conectado = false; inspNube.error = err && err.code ? err.code : "error"; console.error("[Inspecciones] onSnapshot:", err); });
+      }
+
+      function inspDeEquipo(eqCod) {
+        return inspecciones.filter((i) => i.eq === eqCod).sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+      }
+
+      // Piezas que alguna inspección abierta marcó para cambiar, por código.
+      function inspPendientesDe(eqCod) {
+        const m = new Map();
+        inspecciones.filter((i) => i.eq === eqCod && i.estado !== "cerrada").forEach((i) => {
+          (i.piezas || []).forEach((p) => { if (p.cod) m.set(p.cod, { urgencia: p.urgencia, fecha: i.fecha }); });
+        });
+        return m;
+      }
+
+      function inspNombreEquipo(eqCod) {
+        const eq = PLAN_EQUIPOS.find((e) => e.c === eqCod);
+        return eq ? eq.n : eqCod;
+      }
+
+      // ----- Vista -----
+      function renderInspIfVisible() {
+        const v = document.getElementById("inspView");
+        if (v && v.classList.contains("is-active")) renderInspecciones();
+      }
+
+      function inspFiltradas() {
+        const tokens = planTokens(inspFiltro.q);
+        return inspecciones
+          .filter((i) => {
+            if (inspFiltro.eq && i.eq !== inspFiltro.eq) return false;
+            if (inspFiltro.tipo && i.tipo !== inspFiltro.tipo) return false;
+            if (inspFiltro.estado && (i.estado || "abierta") !== inspFiltro.estado) return false;
+            if (!tokens.length) return true;
+            const hay = planPlain([inspNombreEquipo(i.eq), i.eq, i.quien, i.revisado, i.hallazgos,
+              (i.piezas || []).map((p) => p.cod + " " + p.d).join(" ")].join(" "));
+            return tokens.every((t) => hay.includes(t));
+          })
+          .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+      }
+
+      function renderInspecciones() {
+        const root = document.getElementById("inspRoot");
+        if (!root) return;
+        const lista = inspFiltradas();
+        const abiertas = lista.filter((i) => (i.estado || "abierta") !== "cerrada").length;
+        const piezas = lista.reduce((n, i) => n + (i.piezas || []).length, 0);
+        const equipos = [...new Set(inspecciones.map((i) => i.eq))].sort((a, b) => inspNombreEquipo(a).localeCompare(inspNombreEquipo(b)));
+
+        root.innerHTML = `
+          <div class="section-bar">
+            <div>
+              <p class="eyebrow">Mantenimiento</p>
+              <h2>Inspecciones</h2>
+            </div>
+            <div class="section-actions">
+              <span class="counter">${lista.length} ${lista.length === 1 ? "inspección" : "inspecciones"} &middot; ${piezas} ${piezas === 1 ? "pieza" : "piezas"}</span>
+              <button class="button button--dark" type="button" onclick="inspAbrirForm()">Nueva inspección</button>
+            </div>
+          </div>
+
+          <p class="pl-note">
+            Lo que se revisa en planta: qu&eacute; se mir&oacute;, qu&eacute; se encontr&oacute; y qu&eacute; piezas hay que cambiar.
+            Las piezas que marques aparecen se&ntilde;aladas en la pesta&ntilde;a <strong>Repuestos</strong> de ese equipo hasta que se cambien de verdad
+            y se registre el cambio. Una inspecci&oacute;n <strong>abierta</strong> es trabajo pendiente; ci&eacute;rrala cuando ya no quede nada por hacer.
+          </p>
+
+          <div class="pl-kpis">
+            <div class="pl-kpi"><span class="pl-kpi__n">${lista.length}</span><span class="pl-kpi__l">Inspecciones</span></div>
+            <div class="pl-kpi pl-kpi--warn"><span class="pl-kpi__n">${abiertas}</span><span class="pl-kpi__l">Abiertas</span></div>
+            <div class="pl-kpi"><span class="pl-kpi__n">${piezas}</span><span class="pl-kpi__l">Piezas marcadas</span></div>
+            <div class="pl-kpi"><span class="pl-kpi__n">${equipos.length}</span><span class="pl-kpi__l">Equipos revisados</span></div>
+          </div>
+
+          <div class="pl-filters">
+            <input type="search" id="inspSearch" placeholder="Buscar por equipo, hallazgo, pieza o persona&hellip;" value="${planEsc(inspFiltro.q)}" oninput="inspSetFiltro('q', this.value)" aria-label="Buscar inspecciones">
+            <select onchange="inspSetFiltro('eq', this.value)" aria-label="Filtrar por equipo">
+              <option value="">Todos los equipos</option>
+              ${equipos.map((c) => `<option value="${planEsc(c)}" ${inspFiltro.eq === c ? "selected" : ""}>${planEsc(inspNombreEquipo(c))}</option>`).join("")}
+            </select>
+            <select onchange="inspSetFiltro('tipo', this.value)" aria-label="Filtrar por tipo">
+              <option value="">Todos los tipos</option>
+              ${Object.entries(INSP_TIPOS).map(([k, v]) => `<option value="${k}" ${inspFiltro.tipo === k ? "selected" : ""}>${planEsc(v)}</option>`).join("")}
+            </select>
+            <select onchange="inspSetFiltro('estado', this.value)" aria-label="Filtrar por estado">
+              <option value="">Abiertas y cerradas</option>
+              <option value="abierta" ${inspFiltro.estado === "abierta" ? "selected" : ""}>Solo abiertas</option>
+              <option value="cerrada" ${inspFiltro.estado === "cerrada" ? "selected" : ""}>Solo cerradas</option>
+            </select>
+          </div>
+
+          ${lista.length ? lista.map((i) => inspTarjeta(i, true)).join("") : '<div class="pl-empty"><h3>Todavía no hay inspecciones</h3><p>Toca <strong>Nueva inspección</strong> para anotar la primera.</p></div>'}`;
+      }
+
+      function inspTarjeta(i, conEquipo) {
+        const cerrada = (i.estado || "abierta") === "cerrada";
+        const piezas = i.piezas || [];
+        return `
+          <article class="in-card ${cerrada ? "is-cerrada" : ""}">
+            <div class="in-card__top">
+              <span class="in-fecha">${planEsc(i.fecha)}</span>
+              <span class="in-tipo">${planEsc(INSP_TIPOS[i.tipo] || i.tipo || "Inspección")}</span>
+              ${conEquipo ? `<button class="in-eq" type="button" onclick="inspIrAEquipo('${planEsc(i.eq)}')">${planEsc(inspNombreEquipo(i.eq))}</button>` : ""}
+              <span class="in-estado ${cerrada ? "in-estado--cerrada" : ""}">${cerrada ? "Cerrada" : "Abierta"}</span>
+            </div>
+            ${i.revisado ? `<p class="in-bloque"><span class="in-lbl">Qué se revisó</span>${planEsc(i.revisado)}</p>` : ""}
+            ${i.hallazgos ? `<p class="in-bloque"><span class="in-lbl">Qué se encontró</span>${planEsc(i.hallazgos)}</p>` : ""}
+            ${piezas.length ? `<div class="in-piezas">
+              <span class="in-lbl">Piezas para cambiar</span>
+              ${piezas.map((p) => `<div class="in-pieza">
+                <span class="pl-code">${planEsc(p.cod) || "&mdash;"}</span>
+                <span class="in-pieza__d">${planEsc(p.d)}</span>
+                ${p.q ? `<span class="in-pieza__q">${planEsc(p.q)} ud.</span>` : ""}
+                <span class="in-urg in-urg--${planEsc(p.urgencia || "media")}">${planEsc(INSP_URGENCIA[p.urgencia] || "Programar")}</span>
+              </div>`).join("")}
+            </div>` : ""}
+            <div class="in-card__pie">
+              <span class="in-quien">${i.quien ? "Revisó " + planEsc(i.quien) : "Sin firmar"}</span>
+              <span class="in-acciones">
+                <button class="button button--light" type="button" onclick="inspCambiarEstado('${planEsc(i.id)}')">${cerrada ? "Reabrir" : "Cerrar"}</button>
+                <button class="button button--light" type="button" onclick="inspBorrar('${planEsc(i.id)}')">Eliminar</button>
+              </span>
+            </div>
+          </article>`;
+      }
+
+      function inspSetFiltro(k, v) {
+        inspFiltro[k] = v;
+        renderInspecciones();
+        if (k === "q") { const c = document.getElementById("inspSearch"); if (c) { c.focus(); c.setSelectionRange(c.value.length, c.value.length); } }
+      }
+
+      function inspIrAEquipo(eqCod) {
+        const eq = PLAN_EQUIPOS.find((e) => e.c === eqCod);
+        if (!eq) return;
+        openDetail(eq.id);
+        const b = guideTabs.querySelector('[data-profile-tab="maintenance"]');
+        if (b) b.click();
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+
+      function inspCambiarEstado(id) {
+        const i = inspecciones.find((x) => x.id === id);
+        if (!i) return;
+        i.estado = (i.estado || "abierta") === "cerrada" ? "abierta" : "cerrada";
+        saveInsp();
+        renderInspecciones();
+      }
+
+      function inspBorrar(id) {
+        if (!window.confirm("¿Eliminar esta inspección?")) return;
+        inspecciones = inspecciones.filter((x) => x.id !== id);
+        saveInsp();
+        renderInspecciones();
+      }
+
+      // ----- Formulario -----
+      let inspPiezas = [];
+      let inspEquipoFijo = "";
+
+      function inspAbrirForm(eqCod) {
+        inspPiezas = [];
+        inspEquipoFijo = eqCod || "";
+        const form = document.getElementById("inspForm");
+        const sel = document.getElementById("inspEqSel");
+        if (!form || !sel) return;
+        sel.innerHTML = PLAN_EQUIPOS.map((e) => `<option value="${planEsc(e.c)}" ${e.c === inspEquipoFijo ? "selected" : ""}>${planEsc(e.n)}</option>`).join("");
+        form.reset();
+        if (inspEquipoFijo) sel.value = inspEquipoFijo;
+        form.fecha.value = bogotaToday();
+        inspPintarPiezas();
+        document.getElementById("inspSheetBackdrop").hidden = false;
+        document.getElementById("inspSheet").hidden = false;
+      }
+
+      function inspCerrarForm() {
+        const s = document.getElementById("inspSheet");
+        const b = document.getElementById("inspSheetBackdrop");
+        if (s) s.hidden = true;
+        if (b) b.hidden = true;
+      }
+
+      function inspAnadirPieza() {
+        inspPiezas.push({ cod: "", d: "", q: "", urgencia: "media" });
+        inspPintarPiezas();
+      }
+
+      function inspQuitarPieza(i) { inspPiezas.splice(i, 1); inspPintarPiezas(); }
+
+      function inspEditarPieza(i, campo, valor) { if (inspPiezas[i]) inspPiezas[i][campo] = valor; }
+
+      function inspPintarPiezas() {
+        const cont = document.getElementById("inspPiezas");
+        if (!cont) return;
+        cont.innerHTML = inspPiezas.length
+          ? inspPiezas.map((p, i) => `<div class="in-fila">
+              <input placeholder="Código interno" value="${planEsc(p.cod)}" oninput="inspEditarPieza(${i}, 'cod', this.value)">
+              <input placeholder="Qué pieza es" value="${planEsc(p.d)}" oninput="inspEditarPieza(${i}, 'd', this.value)">
+              <input placeholder="Cant." value="${planEsc(p.q)}" oninput="inspEditarPieza(${i}, 'q', this.value)">
+              <select onchange="inspEditarPieza(${i}, 'urgencia', this.value)">
+                ${Object.entries(INSP_URGENCIA).map(([k, v]) => `<option value="${k}" ${p.urgencia === k ? "selected" : ""}>${planEsc(v)}</option>`).join("")}
+              </select>
+              <button type="button" class="in-quitar" onclick="inspQuitarPieza(${i})" aria-label="Quitar">&times;</button>
+            </div>`).join("")
+          : '<p class="pl-soft">Ninguna todavía. Si la revisión no encontró nada para cambiar, déjalo vacío.</p>';
+      }
+
+      function inspGuardar(e) {
+        e.preventDefault();
+        const f = e.target;
+        const fecha = String(f.fecha.value || "").slice(0, 10);
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) { window.alert("Pon una fecha válida."); return; }
+        if (!f.eq.value) { window.alert("Elige el equipo."); return; }
+        inspecciones.unshift({
+          id: "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+          eq: f.eq.value,
+          fecha,
+          tipo: f.tipo.value,
+          quien: String(f.quien.value || "").trim(),
+          revisado: String(f.revisado.value || "").trim(),
+          hallazgos: String(f.hallazgos.value || "").trim(),
+          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim()),
+          estado: "abierta",
+          createdAt: new Date().toISOString()
+        });
+        saveInsp();
+        inspCerrarForm();
+        renderInspecciones();
+      }
+
+      function goInsp() {
+        setView("insp");
+        renderInspecciones();
+        saveUiState({ activeView: "insp" });
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !document.getElementById("inspSheet")?.hidden) inspCerrarForm();
+      });
+
+      inspSubscribe();
 
       // ======================================================================
       //  TURNOS DEL PERSONAL
@@ -1019,6 +1318,24 @@ function dt(machine, campo) {
         return `<th class="${clase || ""} pl-th-sort ${activa ? "is-sorted" : ""}" onclick="fichaPlanOrdenar('${col}')" title="Ordenar por ${etiqueta}">${etiqueta}${flecha}</th>`;
       }
 
+      // Las inspecciones de este equipo, dentro de su ficha.
+      function renderInspMaquina(machine) {
+        const eq = equipoDeMachine(machine);
+        const cod = eq ? eq.c : (machine.equipoCod || "");
+        const lista = cod ? inspDeEquipo(cod) : [];
+        const abiertas = lista.filter((i) => (i.estado || "abierta") !== "cerrada").length;
+        return `
+          <div class="panel-header-clean">
+            <h3>Inspecciones de este equipo</h3>
+            <p>Qu&eacute; se ha revisado, qu&eacute; se encontr&oacute; y qu&eacute; piezas quedaron marcadas para cambiar.</p>
+          </div>
+          <div class="in-barra">
+            <span class="counter">${lista.length} ${lista.length === 1 ? "inspección" : "inspecciones"}${abiertas ? " · " + abiertas + " abierta" + (abiertas === 1 ? "" : "s") : ""}</span>
+            ${cod ? `<button class="button button--dark" type="button" onclick="inspAbrirForm('${planEsc(cod)}')">Anotar inspección</button>` : ""}
+          </div>
+          ${lista.length ? lista.map((i) => inspTarjeta(i, false)).join("") : '<p class="pl-soft" style="padding:6px 2px 2px">Todavía no se ha anotado ninguna inspección de este equipo.</p>'}`;
+      }
+
       // Todo lo que hace falta para el mantenimiento de UN equipo, dentro de su ficha.
       function renderPlanPanel(eq) {
         const total = eq.r.length;
@@ -1162,11 +1479,12 @@ function dt(machine, campo) {
           : historial.length === 1
             ? '<span class="pl-soft">1 registro &mdash; falta otro para medirla</span>'
             : '<span class="pl-soft">sin registrar</span>';
-        const fila = `<tr class="${historial.length ? "" : "is-nuevo"} ${r.fuera ? "is-fuera" : ""}">
+        const pend = inspPendientesDe(eq.c).get(repCodigo(eq, r));
+        const fila = `<tr class="${historial.length ? "" : "is-nuevo"} ${r.fuera ? "is-fuera" : ""} ${pend ? "is-pendiente" : ""}">
           <td>${planMark(r.s, query) || "&mdash;"}</td>
           <td>${planEsc(r.a) || "&mdash;"}</td>
           <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(repCodigo(eq, r))}" placeholder="—" title="Código interno con el que se pide en almacén. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(clave)}', 'cod')"></td>
-          <td class="pl-desc">${planMark(r.d, query) || "&mdash;"}${r.o ? `<span class="pl-obs">${planEsc(r.o)}</span>` : ""}</td>
+          <td class="pl-desc">${planMark(r.d, query) || "&mdash;"}${r.o ? `<span class="pl-obs">${planEsc(r.o)}</span>` : ""}${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspección del ${planEsc(pend.fecha)}</span>` : ""}</td>
           <td class="pl-num">${r.q || "&mdash;"}</td>
           <td class="pl-num"><input class="pl-edit pl-edit--num" value="${planEsc(repExistencia(eq, r))}" placeholder="—" title="${r.e ? "El Excel decía " + r.e + ". " : ""}Escribe la existencia real; se comparte con todo el taller." onchange="editarDato(this, '${planEsc(clave)}', 'exist')"></td>
           <td class="pl-loc">${ultimo ? planEsc(ultimo) : "&mdash;"}${historial.length ? `<button class="pl-hist-btn" type="button" onclick="planHistToggle('${planEsc(clave)}')">${historial.length} ${historial.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
@@ -1327,6 +1645,7 @@ function dt(machine, campo) {
         navSearch.classList.toggle("is-active", viewName === "results" || viewName === "detail");
         if (navTasks) navTasks.classList.toggle("is-active", viewName === "tasks");
         if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
+        if (navInsp) navInsp.classList.toggle("is-active", viewName === "insp");
         if (navTurnos) navTurnos.classList.toggle("is-active", viewName === "turnos");
       }
 
@@ -1505,6 +1824,7 @@ function dt(machine, campo) {
       navSearch.addEventListener("click", () => goResults({ keepSelection: true }));
       navTasks.addEventListener("click", () => goTasks());
       if (navPlan) navPlan.addEventListener("click", () => goPlan());
+      if (navInsp) navInsp.addEventListener("click", () => goInsp());
       if (navTurnos) navTurnos.addEventListener("click", () => goTurnos());
 
       // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
