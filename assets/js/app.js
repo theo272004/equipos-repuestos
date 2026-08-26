@@ -140,6 +140,7 @@
         }
 
         assistantPanel.classList.add("is-open");
+        document.getElementById("navAssistant")?.classList.add("is-active");
         assistantInput.focus();
       }
 
@@ -152,7 +153,10 @@
         }
       });
 
-      function closeAssistant() { assistantPanel.classList.remove("is-open"); }
+      function closeAssistant() {
+        assistantPanel.classList.remove("is-open");
+        document.getElementById("navAssistant")?.classList.remove("is-active");
+      }
 
       // Palabras genéricas que no deben disparar una coincidencia de falla
       const ASSIST_STOPWORDS = new Set(["maquina","equipo","como","hace","pasa","tiene","esta","sale","problema","falla","ayuda","quiero","necesito","puede","para","con","del","los","las","una","por","que","esto","muy","hay","cual","donde","cuando"]);
@@ -473,7 +477,12 @@ ${buildMachineContext(machine)}`;
         if (thumb) openLightbox(thumb.dataset.lightboxSrc, thumb.dataset.lightboxCaption);
       });
 
-      document.getElementById("navAssistant").addEventListener("click", openAssistant);
+      // El botón del menú abre y cierra. Antes solo abría, así que volver a
+      // pulsarlo no escondía el panel.
+      document.getElementById("navAssistant").addEventListener("click", () => {
+        if (assistantPanel.classList.contains("is-open")) closeAssistant();
+        else openAssistant();
+      });
       document.getElementById("closeAssistantBtn").addEventListener("click", closeAssistant);
       document.getElementById("assistantSendBtn").addEventListener("click", sendAssistantMessage);
       assistantInput.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); sendAssistantMessage(); } });

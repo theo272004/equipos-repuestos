@@ -274,7 +274,9 @@ function dt(machine, campo) {
           </div>
           ${t.desc ? `<p class="tk-desc">${escapeHtml(t.desc)}</p>` : ""}
           ${steps.length ? `<div class="tk-steps">${steps.map((s, i) => `<label class="tk-step ${s.done ? "is-done" : ""}"><input type="checkbox" ${s.done ? "checked" : ""} onchange="taskToggleStep('${t.id}', ${i})"> ${escapeHtml(s.text)}</label>`).join("")}<div class="tk-prog">${done}/${steps.length} pasos completados</div></div>` : ""}
-          ${t.remindFreq ? `<div class="tk-remind">${escapeHtml(remindLabel(t))}</div>` : ""}
+          ${t.remindFreq ? (t.status === "hecha"
+            ? `<div class="tk-remind tk-remind--off">Aviso en pausa &middot; la tarea está hecha. Si la reabres, vuelve a avisar.</div>`
+            : `<div class="tk-remind">${escapeHtml(remindLabel(t))}</div>`) : ""}
           <div class="tk-meta">${t.reporter ? "por " + escapeHtml(t.reporter) + " · " : ""}${escapeHtml((t.createdAt || "").slice(0, 10))}${t.parent ? ` · seguimiento de: “${escapeHtml(t.parent)}”` : ""}</div>
           ${body}
         </div>`;
@@ -879,6 +881,50 @@ function dt(machine, campo) {
           ${groups.length > shown.length ? `<button class="pl-more" type="button" onclick="planShowMore()">Ver ${groups.length - shown.length} equipos m&aacute;s</button>` : ""}`;
       }
 
+      // Buscador y orden por columna del plan de cada ficha, al estilo de una hoja
+      // de cálculo: se busca por código, repuesto, sistema o actividad, y se ordena
+      // pulsando la cabecera.
+      const fichaPlan = { q: "", orden: "", dir: 1 };
+
+      function fichaPlanFilas(eq) {
+        const tokens = planTokens(fichaPlan.q);
+        let filas = eq.r.filter((r) => planRowMatches(r, tokens));
+        const col = fichaPlan.orden;
+        if (col) {
+          const valor = (r) => {
+            if (col === "q" || col === "e") return r[col];
+            if (col === "ultimo") { const hh = planCambiosDe(eq.c, r.cod); return hh.length ? hh[hh.length - 1].fecha : ""; }
+            if (col === "freq") { const m = planMedicion(planCambiosDe(eq.c, r.cod)); return m ? m.prom : -1; }
+            return planPlain(r[col] || "");
+          };
+          filas = [...filas].sort((a, b) => {
+            const va = valor(a), vb = valor(b);
+            if (typeof va === "number" && typeof vb === "number") return (va - vb) * fichaPlan.dir;
+            return String(va).localeCompare(String(vb)) * fichaPlan.dir;
+          });
+        }
+        return filas;
+      }
+
+      function fichaPlanOrdenar(col) {
+        if (fichaPlan.orden === col) fichaPlan.dir = -fichaPlan.dir;
+        else { fichaPlan.orden = col; fichaPlan.dir = 1; }
+        renderFichaSiVisible();
+      }
+
+      function fichaPlanBuscar(valor) {
+        fichaPlan.q = valor;
+        renderFichaSiVisible();
+        const caja = document.getElementById("fichaPlanSearch");
+        if (caja) { caja.focus(); caja.setSelectionRange(caja.value.length, caja.value.length); }
+      }
+
+      function fichaPlanTh(col, etiqueta, clase) {
+        const activa = fichaPlan.orden === col;
+        const flecha = activa ? (fichaPlan.dir === 1 ? " \u2191" : " \u2193") : "";
+        return `<th class="${clase || ""} pl-th-sort ${activa ? "is-sorted" : ""}" onclick="fichaPlanOrdenar('${col}')" title="Ordenar por ${etiqueta}">${etiqueta}${flecha}</th>`;
+      }
+
       // Todo lo que hace falta para el mantenimiento de UN equipo, dentro de su ficha.
       function renderPlanPanel(eq) {
         const total = eq.r.length;
@@ -897,14 +943,18 @@ function dt(machine, campo) {
             <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${conHist}</span><span class="pl-kpi__l">Con cambios registrados</span></div>
             <div class="pl-kpi pl-kpi--warn"><span class="pl-kpi__n">${conMedida}</span><span class="pl-kpi__l">Con frecuencia medida</span></div>
           </div>
+          <div class="pl-filters">
+            <input type="search" id="fichaPlanSearch" placeholder="Buscar en este equipo: c&oacute;digo interno, repuesto, sistema&hellip;" value="${planEsc(fichaPlan.q)}" oninput="fichaPlanBuscar(this.value)" aria-label="Buscar en el plan de este equipo">
+            <span class="counter">${fichaPlanFilas(eq).length} de ${eq.r.length}</span>
+          </div>
           <div class="pl-tablewrap">
             <table class="pl-table">
               <thead><tr>
-                <th>Sistema</th><th>Actividad</th><th>C&oacute;d. interno</th><th>Repuesto</th>
-                <th class="pl-num">Cant.</th><th class="pl-num">Exist.</th>
-                <th>&Uacute;ltimo cambio</th><th>Frecuencia medida</th><th></th>
+                ${fichaPlanTh("s", "Sistema")}${fichaPlanTh("a", "Actividad")}${fichaPlanTh("cod", "C\u00f3d. interno")}${fichaPlanTh("d", "Repuesto")}
+                ${fichaPlanTh("q", "Cant.", "pl-num")}${fichaPlanTh("e", "Exist.", "pl-num")}
+                ${fichaPlanTh("ultimo", "\u00daltimo cambio")}${fichaPlanTh("freq", "Frecuencia medida")}<th></th>
               </tr></thead>
-              <tbody>${eq.r.map((r) => planRowHtml(eq, r, [])).join("")}</tbody>
+              <tbody>${(() => { const f = fichaPlanFilas(eq); const tk = planTokens(fichaPlan.q); return f.length ? f.map((r) => planRowHtml(eq, r, tk)).join("") : '<tr><td colspan="9" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'; })()}</tbody>
             </table>
           </div>
           ${planSueltosHtml(eq)}`;

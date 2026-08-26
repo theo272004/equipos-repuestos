@@ -79,11 +79,15 @@
       .nav-burger { display: none; }
       .nav-backdrop { display: none; }
 
+      /* El hueco del menú lateral va en el body, no dentro de la caja centrada:
+         si va dentro, el contenido queda desplazado media anchura del menú. */
+      body { padding-left: 50px; }
+
       .app-shell {
         width: min(1180px, calc(100% - 88px));
         min-height: 100vh;
         margin: 0 auto;
-        padding: 44px 0 64px 50px;
+        padding: 44px 0 64px;
       }
 
       .view { display: none; }
@@ -1824,6 +1828,7 @@
         #sideNav .side-nav__button svg { flex-shrink: 0; }
         #sideNav .side-nav__label { display: inline; font-size: 0.95rem; font-weight: 600; color: inherit; }
 
+        body { padding-left: 0; }
         .app-shell { width: calc(100% - 32px); padding: 66px 0 42px; }
         .hero-content { padding: 34px 12px; }
         h1 { font-size: 2.35rem; }
@@ -2703,6 +2708,9 @@
       .pl-zero { color: #b42318; font-weight: 800; }
       .pl-hit { background: #fff4cc; border-radius: 3px; padding: 0 1px; }
       .pl-soft { color: var(--muted); font-size: 0.8rem; }
+      .pl-th-sort { cursor: pointer; user-select: none; }
+      .pl-th-sort:hover, .pl-th-sort.is-sorted { color: var(--blue); }
+      .tk-remind--off { border-color: var(--line); background: var(--soft); color: var(--muted); font-weight: 600; }
       .pl-nube { display: inline-flex; align-items: center; gap: 6px; min-height: 34px; border: 1px solid var(--line); border-radius: 999px; padding: 0 13px; font-size: 0.82rem; font-weight: 700; white-space: nowrap; cursor: help; }
       .pl-nube::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
       .pl-nube--ok { border-color: #a6f4c5; background: #ecfdf3; color: #067647; }
