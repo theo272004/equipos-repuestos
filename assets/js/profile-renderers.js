@@ -595,6 +595,74 @@ function dt(machine, campo) {
       //  Se guarda en la nube (Firebase) igual que las tareas, para que lo que
       //  registre un tecnico lo vean todos; si no hay nube, queda en el navegador.
       // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      //  LO QUE SE ESCRIBE A MANO EN LA TABLA DE REPUESTOS
+      //  El código interno y la existencia no vienen fiables del Excel: el código
+      //  falta en casi todos los equipos y la existencia es una foto vieja. Se
+      //  dejan editables y lo que se escribe se guarda en la nube, igual que las
+      //  tareas y el historial, para que lo vea todo el taller y no solo quien
+      //  lo escribió.
+      // ----------------------------------------------------------------------
+      const datosKey = "equipos-datos-repuesto-v1";
+      let datosRep = loadDatosRep();
+      let datosKnownIds = new Set();
+      const datosNube = { conectado: false, error: "" };
+
+      function loadDatosRep() { try { return JSON.parse(localStorage.getItem(datosKey) || "{}"); } catch { return {}; } }
+      function saveDatosLocal() { try { localStorage.setItem(datosKey, JSON.stringify(datosRep)); } catch (e) {} }
+
+      // Clave estable de una fila: el código interno si lo tiene, y si no el
+      // sistema y la descripción, que es lo único que no cambia entre importaciones.
+      function datoClave(eq, r) { return eq.c + "|" + (r.cod || ("d:" + (r.s || "") + "·" + (r.d || "")).slice(0, 90)); }
+      function datoDe(eq, r) { return datosRep[datoClave(eq, r)] || {}; }
+
+      function guardarDato(clave, campo, valor) {
+        const actual = datosRep[clave] || { id: clave };
+        const limpio = String(valor ?? "").trim();
+        if (limpio === "") delete actual[campo]; else actual[campo] = limpio;
+        actual.id = clave;
+        actual.actualizado = new Date().toISOString();
+        if (Object.keys(actual).filter((k) => k !== "id" && k !== "actualizado").length === 0) delete datosRep[clave];
+        else datosRep[clave] = actual;
+        saveDatosLocal();
+        if (cloud.enabled && cloud.db) datosSync();
+      }
+
+      function datosSync() {
+        try {
+          const col = cloud.db.collection("datos");
+          const batch = cloud.db.batch();
+          const ids = new Set();
+          Object.values(datosRep).forEach((d) => { ids.add(d.id); batch.set(col.doc(encodeURIComponent(d.id)), JSON.parse(JSON.stringify(d))); });
+          datosKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(encodeURIComponent(id))); });
+          datosKnownIds = ids;
+          batch.commit().catch((e) => { datosNube.error = e && e.code ? e.code : "error"; console.error("[Datos] guardar nube:", e); });
+        } catch (e) { console.error("[Datos] datosSync:", e); }
+      }
+
+      function datosSubscribe() {
+        if (!(cloud.enabled && cloud.db)) return;
+        cloud.db.collection("datos").onSnapshot({ includeMetadataChanges: true }, (snap) => {
+          const remoto = {};
+          snap.forEach((d) => { const v = d.data(); if (v && v.id) remoto[v.id] = v; });
+          datosRep = remoto;
+          datosKnownIds = new Set(Object.keys(remoto));
+          datosNube.conectado = !snap.metadata.fromCache;
+          datosNube.error = "";
+          saveDatosLocal();
+          renderFichaSiVisible();
+        }, (err) => { datosNube.conectado = false; datosNube.error = err && err.code ? err.code : "error"; console.error("[Datos] onSnapshot:", err); });
+      }
+
+      // Lo que escribe el usuario manda sobre lo que traía el Excel.
+      function repCodigo(eq, r) { return datoDe(eq, r).cod || r.cod || ""; }
+      function repExistencia(eq, r) { const v = datoDe(eq, r).exist; return v === undefined ? "" : v; }
+
+      function editarDato(input, clave, campo) {
+        guardarDato(clave, campo, input.value);
+        renderFichaSiVisible();
+      }
+
       const cambiosKey = "equipos-cambios-v1";
       const CAMBIOS_SEED_ID = "__seed_ago2026";
       let cambios = loadCambios();
@@ -957,6 +1025,13 @@ function dt(machine, campo) {
         const sinStock = eq.r.filter((r) => r.e === 0).length;
         const conHist = eq.r.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
         const conMedida = eq.r.filter((r) => planMedicion(planCambiosDe(eq.c, r.cod))).length;
+        const filas = fichaPlanFilas(eq);
+        const tokens = planTokens(fichaPlan.q);
+        // Las piezas que el Excel no listaba pero sí se han cambiado ya no van
+        // en un apartado aparte: son parte de los repuestos del equipo.
+        const sueltas = planSueltosDe(eq).map(({ cod, lista }) => ({
+          s: "", a: "", cod, d: (lista[lista.length - 1].d || ""), q: lista[lista.length - 1].q || 0, e: 0, o: "", fuera: true
+        })).filter((r) => planRowMatches(r, tokens));
         return `<div class="pl-panel">
           <div class="panel-header-clean">
             <h3>Plan de mantenimiento &middot; c&oacute;digo de equipo ${planEsc(eq.c)}</h3>
@@ -971,7 +1046,7 @@ function dt(machine, campo) {
           </div>
           <div class="pl-filters">
             <input type="search" id="fichaPlanSearch" placeholder="Buscar en este equipo: c&oacute;digo interno, repuesto, sistema&hellip;" value="${planEsc(fichaPlan.q)}" oninput="fichaPlanBuscar(this.value)" aria-label="Buscar en el plan de este equipo">
-            <span class="counter">${fichaPlanFilas(eq).length} de ${eq.r.length}</span>
+            <span class="counter">${filas.length + sueltas.length} de ${eq.r.length + planSueltosDe(eq).length}</span>
           </div>
           <div class="pl-tablewrap">
             <table class="pl-table">
@@ -980,10 +1055,10 @@ function dt(machine, campo) {
                 ${fichaPlanTh("q", "Cant.", "pl-num")}${fichaPlanTh("e", "Exist.", "pl-num")}
                 ${fichaPlanTh("ultimo", "\u00daltimo cambio")}${fichaPlanTh("freq", "Frecuencia medida")}<th></th>
               </tr></thead>
-              <tbody>${(() => { const f = fichaPlanFilas(eq); const tk = planTokens(fichaPlan.q); return f.length ? f.map((r) => planRowHtml(eq, r, tk)).join("") : '<tr><td colspan="9" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'; })()}</tbody>
+              <tbody>${(filas.length + sueltas.length) ? [...filas, ...sueltas].map((r) => planRowHtml(eq, r, tokens)).join("") : '<tr><td colspan="9" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'}</tbody>
             </table>
           </div>
-          ${planSueltosHtml(eq)}</div>`;
+          </div>`;
       }
 
       // Repinta la ficha abierta cuando cambia el historial, para no perder el sitio.
@@ -1080,23 +1155,23 @@ function dt(machine, campo) {
         const historial = planCambiosDe(eq.c, r.cod);
         const medicion = planMedicion(historial);
         const ultimo = historial.length ? historial[historial.length - 1].fecha : "";
-        const clave = eq.c + "|" + r.cod;
+        const clave = datoClave(eq, r);
         const abierto = planHistOpen.has(clave);
         const freq = medicion
           ? `<strong>cada ${planEsc(planFmtDias(medicion.prom))}</strong><span class="pl-obs">${medicion.mediciones} ${medicion.mediciones === 1 ? "intervalo medido" : "intervalos medidos"} &middot; pr&oacute;ximo hacia ${planEsc(medicion.proximo)}</span>`
           : historial.length === 1
             ? '<span class="pl-soft">1 registro &mdash; falta otro para medirla</span>'
             : '<span class="pl-soft">sin registrar</span>';
-        const fila = `<tr class="${historial.length ? "" : "is-nuevo"}">
+        const fila = `<tr class="${historial.length ? "" : "is-nuevo"} ${r.fuera ? "is-fuera" : ""}">
           <td>${planMark(r.s, query) || "&mdash;"}</td>
           <td>${planEsc(r.a) || "&mdash;"}</td>
-          <td class="pl-code">${r.cod ? planMark(r.cod, query) : "&mdash;"}</td>
+          <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(repCodigo(eq, r))}" placeholder="—" title="Código interno con el que se pide en almacén. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(clave)}', 'cod')"></td>
           <td class="pl-desc">${planMark(r.d, query) || "&mdash;"}${r.o ? `<span class="pl-obs">${planEsc(r.o)}</span>` : ""}</td>
           <td class="pl-num">${r.q || "&mdash;"}</td>
-          <td class="pl-num ${r.e === 0 ? "pl-zero" : ""}">${r.e}</td>
+          <td class="pl-num"><input class="pl-edit pl-edit--num" value="${planEsc(repExistencia(eq, r))}" placeholder="—" title="${r.e ? "El Excel decía " + r.e + ". " : ""}Escribe la existencia real; se comparte con todo el taller." onchange="editarDato(this, '${planEsc(clave)}', 'exist')"></td>
           <td class="pl-loc">${ultimo ? planEsc(ultimo) : "&mdash;"}${historial.length ? `<button class="pl-hist-btn" type="button" onclick="planHistToggle('${planEsc(clave)}')">${historial.length} ${historial.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
           <td class="pl-freq">${freq}</td>
-          <td class="pl-num">${r.cod ? `<button class="pl-reg" type="button" onclick="planRegistrar('${planEsc(eq.c)}','${planEsc(r.cod)}')" title="Registrar un cambio de esta pieza">Registrar</button>` : ""}</td>
+          <td class="pl-num">${repCodigo(eq, r) ? `<button class="pl-reg" type="button" onclick="planRegistrar('${planEsc(eq.c)}','${planEsc(repCodigo(eq, r))}')" title="Registrar un cambio de esta pieza">Registrar</button>` : ""}</td>
         </tr>`;
         if (!abierto || !historial.length) return fila;
         return fila + `<tr class="pl-histrow"><td colspan="9">
@@ -1244,6 +1319,7 @@ function dt(machine, campo) {
       }
 
       cambiosSubscribe(); // historial de cambios en tiempo real (o local si no hay nube)
+      datosSubscribe();   // código interno y existencias escritos a mano, compartidos
 
       function setView(viewName) {
         Object.entries(views).forEach(([name, element]) => { element.classList.toggle("is-active", name === viewName); });
