@@ -513,7 +513,7 @@ ${buildMachineContext(machine)}`;
       // Enlace directo a una pestaña: index.html?v=plan | tareas | turnos.
       // Lo usan tareas.html y turnos.html, que ahora solo redirigen aquí.
       const vistaPedida = new URLSearchParams(window.location.search).get("v");
-      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos };
+      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos, inspecciones: goInsp, insp: goInsp };
 
       if (vistaPedida && abrirVista[vistaPedida]) {
         abrirVista[vistaPedida]();
@@ -521,6 +521,8 @@ ${buildMachineContext(machine)}`;
         goPlan();
       } else if (restoredState.activeView === "tasks") {
         goTasks();
+      } else if (restoredState.activeView === "insp") {
+        goInsp();
       } else if (restoredState.activeView === "turnos") {
         goTurnos();
       } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
