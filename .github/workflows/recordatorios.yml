@@ -27,3 +27,14 @@ jobs:
           FIREBASE_PROJECT_ID: mantenimiento-f405b
           # La API key web es pública (ya está en el sitio), no es un secreto.
           FIREBASE_API_KEY: AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ
+
+      # Atiende lo que la gente pulsa o escribe en el grupo. Va después de enviar
+      # para que los botones del aviso recién mandado se puedan usar ya.
+      - name: Atender botones y comandos
+        run: node scripts/bot-updates.mjs
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FIREBASE_PROJECT_ID: mantenimiento-f405b
+          # La API key web es pública (ya está en el sitio), no es un secreto.
+          FIREBASE_API_KEY: AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ

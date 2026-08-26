@@ -51,11 +51,23 @@ function buildMsg(f) {
   return lines.join("\n");
 }
 
-async function sendTelegram(text) {
+// Botones del aviso. Los atiende scripts/bot-updates.mjs en la siguiente pasada
+// del cron. "data" viaja de vuelta tal cual, así que lleva la acción y el id.
+function teclado(id) {
+  return {
+    inline_keyboard: [
+      [{ text: "Hecho", callback_data: `d:${id}` }],
+      [{ text: "Posponer 1 día", callback_data: `p1:${id}` }, { text: "Posponer 1 semana", callback_data: `p7:${id}` }],
+      [{ text: "Quitar aviso", callback_data: `m:${id}` }],
+    ],
+  };
+}
+
+async function sendTelegram(text, id) {
   const r = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: CHAT, text, parse_mode: "HTML", disable_web_page_preview: true }),
+    body: JSON.stringify({ chat_id: CHAT, text, parse_mode: "HTML", disable_web_page_preview: true, reply_markup: id ? teclado(id) : undefined }),
   });
   const j = await r.json();
   if (!j.ok) console.error("Telegram error:", JSON.stringify(j));
@@ -104,10 +116,10 @@ async function main() {
     if (isNaN(nextAt) || nextAt > now) continue; // aún no toca
     if (str(f.status) === "hecha") continue; // no molestar con tareas ya hechas
 
-    const ok = await sendTelegram(buildMsg(f));
+    const id = doc.name.split("/").pop();
+    const ok = await sendTelegram(buildMsg(f), id);
     if (ok) {
       sent++;
-      const id = doc.name.split("/").pop();
       await patchTask(id, freq, advance(freq, nextAt, num(f.remindEveryN)));
     }
   }
