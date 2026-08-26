@@ -119,6 +119,30 @@ async function atenderBoton(cb) {
   await responder(`✔️ ${esc(aviso)} · <i>${esc(quien)}</i>`);
 }
 
+// ---------------------------------------------------------------- menú de "/"
+// La lista que Telegram despliega al escribir "/" en el chat. Se registra con
+// setMyCommands; a partir de ahí el propio Telegram la ofrece con
+// autocompletado, sin que el bot tenga que hacer nada más.
+//
+// Se comprueba antes de escribir para no repetir la llamada en cada pasada del
+// cron, y como la lista vive aquí, esta es la única fuente: si alguien la toca
+// desde BotFather, la próxima pasada la devuelve a lo que diga el código.
+const COMANDOS = [
+  { command: "tarea", description: "Crear una tarea" },
+  { command: "falta", description: "Anotar que hace falta un repuesto" },
+  { command: "hoy", description: "Qué toca hoy y qué queda abierto" },
+  { command: "ayuda", description: "Ver qué puedo hacer" },
+];
+
+async function registrarMenu() {
+  const actual = await tg("getMyCommands", {});
+  const puestos = JSON.stringify((actual.result || []).map((c) => [c.command, c.description]));
+  const nuestros = JSON.stringify(COMANDOS.map((c) => [c.command, c.description]));
+  if (puestos === nuestros) return false;
+  await tg("setMyCommands", { commands: COMANDOS });
+  return true;
+}
+
 // ---------------------------------------------------------------- comandos
 const AYUDA = [
   "<b>Qué sé hacer</b>",
@@ -187,6 +211,8 @@ async function main() {
     console.log("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID. Nada que atender.");
     return;
   }
+
+  if (await registrarMenu()) console.log("Menú de comandos actualizado en Telegram.");
 
   const filtro = encodeURIComponent(JSON.stringify(["message", "callback_query"]));
   const r = await fetch(`https://api.telegram.org/bot${TOKEN}/getUpdates?timeout=0&limit=100&allowed_updates=${filtro}`);
