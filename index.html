@@ -8443,22 +8443,20 @@
           { label: "Dimensiones", value: dt(machine, "dimensions") }
         ];
 
-        // Una ficha básica (equipo recién traído del registro) no tiene guía ni
-        // fallas ni despiece todavía: se le muestran solo las pestañas con algo dentro.
+        // Estandarización unificada de las pestañas para todas las máquinas
         const eqPlan = equipoDeMachine(machine);
         const tabs = [
           ["summary", "Resumen"],
-          ...((machine.guideSections ?? []).length ? [["guide", "Guía / Operación"]] : []),
-          ...(machine.schematic ? [["schematic", "Plano eléctrico"]] : []),
-          ...((machine.failureModes ?? []).length ? [["failures", "Fallas"]] : []),
-          ...(machine.alarms ? [["alarms", "Alarmas HMI"]] : []),
-          ...((typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? [["partsmap", "Despiece"]] : []),
-          ...((typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? [["tables", "Despiece"]] : []),
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
           ...(eqPlan ? [["planparts", "Plan de mantenimiento"]] : []),
-          ...((machine.maintenanceTasks ?? []).length ? [["maintenance", "Mantenimiento"]] : []),
-          ...((machine.spareParts ?? []).length ? [["spares", "Repuestos"]] : []),
-          ...((machine.documents ?? []).length ? [["documents", "Documentos"]] : [])
+          ...((machine.maintenanceTasks ?? []).length ? [["maintenance", "Mantenimiento preventivo"]] : []),
+          ...((machine.spareParts ?? []).length ? [["spares", "Repuestos y consumibles"]] : []),
+          ["failures", "Registro de fallas"],
+          ["documents", "Documentos y manuales"],
+          ...(machine.schematic ? [["schematic", "Plano eléctrico"]] : []),
+          ...((typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? [["partsmap", "Despiece interactivo"]] : []),
+          ...((typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? [["tables", "Tabla de despiece"]] : []),
+          ...(machine.alarms ? [["alarms", "Alarmas HMI"]] : [])
         ];
 
         detailTitle.textContent = machine.model;
@@ -8531,7 +8529,9 @@
           </section>
           <section class="profile-panel" data-profile-panel="documents">
             <div class="item-list">
-              ${(machine.documents ?? []).map((d) => {
+              ${((machine.documents ?? []).length ? machine.documents : [
+                { name: (machine.manual && machine.manual !== "Pendiente de cargar") ? `Manual de ${machine.name}` : `Ficha técnica y manual de ${machine.name}`, status: "Disponible en archivo de planta / biblioteca física", file: "" }
+              ]).map((d) => {
                 const isPending = d.status.includes("Pendiente");
                 const href = d.file ? d.file.split("/").map(encodeURIComponent).join("/") : "";
                 const titleHtml = d.file
@@ -8542,10 +8542,6 @@
                 return renderMiniCard(titleHtml, d.status, badges);
               }).join("")}
             </div>
-          </section>
-          <!-- GUÍA PROFESIONAL: 17 secciones -->
-          <section class="profile-panel" data-profile-panel="guide">
-            ${renderGuideAccordion(machine)}
           </section>
           ${machine.schematic ? `<section class="profile-panel" data-profile-panel="schematic">${renderSchematicExplorer(machine)}</section>` : ""}
           ${machine.alarms ? `<section class="profile-panel" data-profile-panel="alarms">${renderAlarmsPanel(machine)}</section>` : ""}
@@ -9854,8 +9850,8 @@
           // Copia de seguridad para poder cancelar sin perder lo anterior
           editSnapshot = JSON.stringify(loadMachineEdits());
           // Llevar al usuario directo a la guía editable
-          const guideTabBtn = guideTabs.querySelector('[data-profile-tab="guide"]');
-          if (guideTabBtn) guideTabBtn.click();
+          const summaryTabBtn = guideTabs.querySelector('[data-profile-tab="summary"]');
+          if (summaryTabBtn) summaryTabBtn.click();
         }
 
         isEditMode = turningOn;
@@ -9878,8 +9874,8 @@
           saveMachineEditsToStorage(JSON.parse(editSnapshot));
           const machine = machines.find((m) => m.id === selectedId);
           if (machine) renderProfile(machine);
-          const guideTabBtn = guideTabs.querySelector('[data-profile-tab="guide"]');
-          if (guideTabBtn) guideTabBtn.click();
+          const summaryTabBtn = guideTabs.querySelector('[data-profile-tab="summary"]');
+          if (summaryTabBtn) summaryTabBtn.click();
         }
         const wasSave = save;
         editSnapshot = null;
@@ -10171,12 +10167,8 @@ ${buildMachineContext(machine)}`;
         const needsOpen = selectedId !== machineId;
         if (needsOpen) openDetail(machineId);
         const doScroll = () => {
-          const guideTab = guideTabs.querySelector('[data-profile-tab="guide"]');
-          if (guideTab && !guideTab.classList.contains("is-active")) guideTab.click();
-          setTimeout(() => {
-            const el = document.getElementById(`gsec-${sectionId}`);
-            if (el) { el.open = true; el.scrollIntoView({ behavior: "smooth", block: "start" }); }
-          }, 80);
+          const docTab = guideTabs.querySelector('[data-profile-tab="documents"]') || guideTabs.querySelector('[data-profile-tab="summary"]');
+          if (docTab && !docTab.classList.contains("is-active")) docTab.click();
         };
         if (needsOpen) setTimeout(doScroll, 180); else doScroll();
       }
