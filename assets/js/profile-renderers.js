@@ -22,18 +22,23 @@ function dt(machine, campo) {
         ];
 
         // Estandarización unificada de las pestañas para todas las máquinas
+        // Misma estructura para todos los equipos, siempre en el mismo orden.
+        // Una pestaña solo desaparece si no hay absolutamente nada que enseñar,
+        // y las que antes estaban partidas en dos van juntas:
+        //   Repuestos  = los del plan (con código interno) + los del manual
+        //   Fallas y alarmas = registro de fallas + alarmas del HMI
+        //   Despiece   = despiece interactivo + tabla de despiece
+        const hayDespiece = (typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id])
+          || (typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]);
         const tabs = [
           ["summary", "Resumen"],
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
-          ...(eqPlan ? [["planparts", "Plan de mantenimiento"]] : []),
-          ...((machine.maintenanceTasks ?? []).length ? [["maintenance", "Mantenimiento preventivo"]] : []),
-          ...((machine.spareParts ?? []).length ? [["spares", "Repuestos y consumibles"]] : []),
-          ["failures", "Registro de fallas"],
-          ["documents", "Documentos y manuales"],
+          ...((eqPlan || (machine.spareParts ?? []).length) ? [["spares", "Repuestos"]] : []),
+          ...((machine.maintenanceTasks ?? []).length ? [["maintenance", "Mantenimiento"]] : []),
+          ["failures", "Fallas y alarmas"],
+          ...(hayDespiece ? [["partsmap", "Despiece"]] : []),
           ...(machine.schematic ? [["schematic", "Plano eléctrico"]] : []),
-          ...((typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? [["partsmap", "Despiece interactivo"]] : []),
-          ...((typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? [["tables", "Tabla de despiece"]] : []),
-          ...(machine.alarms ? [["alarms", "Alarmas HMI"]] : [])
+          ["documents", "Documentos"]
         ];
 
         detailTitle.textContent = machine.model;
@@ -95,14 +100,16 @@ function dt(machine, campo) {
           </section>
           <section class="profile-panel" data-profile-panel="systems">${renderSystemsPanel(machine)}</section>
           <section class="profile-panel" data-profile-panel="spares">
+            ${eqPlan ? renderPlanPanel(eqPlan) : ""}
+            ${(machine.spareParts ?? []).length && eqPlan ? '<div class="panel-split"></div>' : ""}
             ${renderSparesPanel(machine)}
           </section>
-          ${eqPlan ? `<section class="profile-panel" data-profile-panel="planparts">${renderPlanPanel(eqPlan)}</section>` : ""}
 
           <section class="profile-panel" data-profile-panel="maintenance">
             ${renderMaintenancePanel(machine)}
           </section>
           <section class="profile-panel" data-profile-panel="failures">
+            ${machine.alarms ? renderAlarmsPanel(machine) + '<div class="panel-split"></div>' : ""}
             ${renderFailuresPanel(machine)}
           </section>
           <section class="profile-panel" data-profile-panel="documents">
@@ -122,9 +129,12 @@ function dt(machine, campo) {
             </div>
           </section>
           ${machine.schematic ? `<section class="profile-panel" data-profile-panel="schematic">${renderSchematicExplorer(machine)}</section>` : ""}
-          ${machine.alarms ? `<section class="profile-panel" data-profile-panel="alarms">${renderAlarmsPanel(machine)}</section>` : ""}
-          ${(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? `<section class="profile-panel" data-profile-panel="partsmap">${renderPartsExplorer(machine)}</section>` : ""}
-          ${(typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? `<section class="profile-panel" data-profile-panel="tables">${renderTablesExplorer(machine)}</section>` : ""}
+          ${hayDespiece ? `<section class="profile-panel" data-profile-panel="partsmap">
+            ${(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? renderPartsExplorer(machine) : ""}
+            ${(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id] && typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? '<div class="panel-split"></div>' : ""}
+            ${(typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? renderTablesExplorer(machine) : ""}
+          </section>` : ""}
+
         `;
       }
 
@@ -242,7 +252,7 @@ function dt(machine, campo) {
           .sort((a, b) => (order[a.status] - order[b.status]) || (b.createdAt || "").localeCompare(a.createdAt || ""));
         lista.innerHTML = list.length
           ? list.map(renderTaskCard).join("")
-          : '<p class="tk-empty">No hay tareas todavía. Toca el botón <strong>＋ Nueva tarea</strong> para crear la primera.</p>';
+          : '<p class="tk-empty">No hay tareas todavía. Toca el botón <strong>Nueva tarea</strong> para crear la primera.</p>';
         updateCloudChip();
       }
 
@@ -253,16 +263,16 @@ function dt(machine, campo) {
         const stLabel = { pendiente: "Pendiente", "en-progreso": "En progreso", hecha: "Hecha" }[t.status] || t.status;
         const body = t.followPrompt
           ? `<div class="tk-follow">
-               <span class="tk-follow__lbl">✓ Antes de cerrar, ¿hay una tarea siguiente?</span>
+               <span class="tk-follow__lbl">Antes de cerrar, ¿hay una tarea siguiente?</span>
                <input id="fu-${t.id}" placeholder="Ej. Reinstalar y calibrar (opcional)">
                <button class="button button--dark" type="button" onclick="taskFinish('${t.id}', true)">Crear y cerrar</button>
                <button class="button button--light" type="button" onclick="taskFinish('${t.id}', false)">Solo cerrar</button>
              </div>`
           : `<div class="tk-actions">
-               ${t.status !== "hecha" ? `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','${t.status === "pendiente" ? "en-progreso" : "pendiente"}')">${t.status === "pendiente" ? "▶ Empezar" : "⏸ Pausar"}</button>` : ""}
-               ${t.status !== "hecha" ? `<button class="button button--dark" type="button" onclick="taskComplete('${t.id}')">✓ Completar</button>` : `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','pendiente')">↺ Reabrir</button>`}
+               ${t.status !== "hecha" ? `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','${t.status === "pendiente" ? "en-progreso" : "pendiente"}')">${t.status === "pendiente" ? "Empezar" : "Pausar"}</button>` : ""}
+               ${t.status !== "hecha" ? `<button class="button button--dark" type="button" onclick="taskComplete('${t.id}')">Completar</button>` : `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','pendiente')">Reabrir</button>`}
                <button class="button button--light" type="button" onclick="taskAddStep('${t.id}')">+ paso</button>
-               <button class="button button--light" type="button" onclick="openRemind('${t.id}')">🔔 ${t.remindFreq ? "Aviso" : "Recordar"}</button>
+               <button class="button button--light" type="button" onclick="openRemind('${t.id}')">${t.remindFreq ? "Aviso programado" : "Programar aviso"}</button>
                <button class="button button--light" type="button" onclick="taskDelete('${t.id}')">Eliminar</button>
              </div>`;
         return `<div class="tk-card tk-st--${t.status}">
@@ -334,7 +344,7 @@ function dt(machine, campo) {
         const base = t.remindFreq === "everyN" ? `Cada ${t.remindEveryN || "?"} meses` : (FREQ_LABEL[t.remindFreq] || t.remindFreq);
         const next = t.remindNextAt ? new Date(t.remindNextAt) : null;
         const nice = next && !isNaN(next) ? next.toLocaleDateString("es", { day: "2-digit", month: "short", timeZone: CO_TZ }) + " " + (t.remindTime || "") : "";
-        return `🔔 ${base}${nice ? " · próx. " + nice.trim() : (t.remindTime ? " · " + t.remindTime : "")}`;
+        return `${base}${nice ? " · próx. " + nice.trim() : (t.remindTime ? " · " + t.remindTime : "")}`;
       }
       // Avanza un instante manteniendo la MISMA hora de Colombia
       function remindAdvance(freq, dt, everyN) {
@@ -473,9 +483,9 @@ function dt(machine, campo) {
         descanso: ["descanso", "dia", "noche"]
       };
       const TN_INFO = {
-        dia: { icon: "🌞", label: "Día", cls: "tn--dia" },
-        noche: { icon: "🌙", label: "Noche", cls: "tn--noche" },
-        descanso: { icon: "😴", label: "Descanso", cls: "tn--descanso" }
+        dia: { icon: "", label: "Día", cls: "tn--dia" },
+        noche: { icon: "", label: "Noche", cls: "tn--noche" },
+        descanso: { icon: "", label: "Descanso", cls: "tn--descanso" }
       };
       let tnSede = "sede4";
       let tnTurno = "todos";
@@ -525,7 +535,7 @@ function dt(machine, campo) {
         const soporte = document.getElementById("tnSupport");
         const mostrar = (tnTurno === "todos" || tnTurno === "dia");
         soporte.innerHTML = mostrar
-          ? `<h3>🛠️ Personal de apoyo · turno fijo</h3>
+          ? `<h3>Personal de apoyo · turno fijo</h3>
              <p class="tn-sub">Trabajan horario fijo de día (no rotan). Cubren ambas sedes.</p>
              <div class="tn-support-grid">${TN_SUPPORT.map((s) => `<div class="tn-support-item"><b>${escapeHtml(s.area)}</b><div>${s.members.map(escapeHtml).join("<br>")}</div></div>`).join("")}</div>`
           : "";
@@ -947,7 +957,7 @@ function dt(machine, campo) {
         const sinStock = eq.r.filter((r) => r.e === 0).length;
         const conHist = eq.r.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
         const conMedida = eq.r.filter((r) => planMedicion(planCambiosDe(eq.c, r.cod))).length;
-        return `
+        return `<div class="pl-panel">
           <div class="panel-header-clean">
             <h3>Plan de mantenimiento &middot; c&oacute;digo de equipo ${planEsc(eq.c)}</h3>
             <p>Los repuestos de este equipo con el <strong>c&oacute;digo interno</strong> con el que se piden en almac&eacute;n.
@@ -973,7 +983,7 @@ function dt(machine, campo) {
               <tbody>${(() => { const f = fichaPlanFilas(eq); const tk = planTokens(fichaPlan.q); return f.length ? f.map((r) => planRowHtml(eq, r, tk)).join("") : '<tr><td colspan="9" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'; })()}</tbody>
             </table>
           </div>
-          ${planSueltosHtml(eq)}`;
+          ${planSueltosHtml(eq)}</div>`;
       }
 
       // Repinta la ficha abierta cuando cambia el historial, para no perder el sitio.
@@ -982,7 +992,7 @@ function dt(machine, campo) {
         if (!vista || !vista.classList.contains("is-active")) return;
         const machine = machines.find((m) => m.id === selectedId);
         if (!machine) return;
-        const panel = document.querySelector('[data-profile-panel="planparts"]');
+        const panel = document.querySelector('[data-profile-panel="spares"] .pl-panel');
         const eq = equipoDeMachine(machine);
         if (panel && eq) panel.innerHTML = renderPlanPanel(eq);
       }
