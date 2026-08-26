@@ -2598,6 +2598,79 @@
         background: var(--blue);
       }
       .side-nav__button { position: relative; }
+
+      /* ===================== PLAN DE MANTENIMIENTO (Excel de la empresa) ===================== */
+      .plan-view.is-active { display: block; }
+      .pl-kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(132px, 1fr)); gap: 10px; margin-bottom: 16px; }
+      .pl-kpi { border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; background: var(--surface); box-shadow: var(--shadow-card); }
+      .pl-kpi__n { display: block; font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+      .pl-kpi__l { display: block; margin-top: 3px; color: var(--muted); font-size: 0.76rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+      .pl-kpi--late .pl-kpi__n { color: #b42318; }
+      .pl-kpi--warn .pl-kpi__n { color: #b54708; }
+      .pl-kpi--ok .pl-kpi__n { color: #067647; }
+      .pl-kpi--stock .pl-kpi__n { color: #6941c6; }
+
+      .pl-filters { display: flex; flex-wrap: wrap; gap: 9px; align-items: center; margin-bottom: 16px; }
+      .pl-filters input[type="search"] { flex: 1 1 260px; min-width: 0; height: 38px; border: 1px solid var(--line); border-radius: 999px; padding: 0 15px; background: #ffffff; color: var(--text); }
+      .pl-filters select { height: 38px; border: 1px solid var(--line); border-radius: 999px; padding: 0 11px; background: #ffffff; color: #293445; }
+      .pl-filters input[type="search"]:focus, .pl-filters select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+      .pl-chk { display: inline-flex; align-items: center; gap: 7px; height: 38px; border: 1px solid var(--line); border-radius: 999px; padding: 0 14px; background: #ffffff; color: #293445; font-size: 0.86rem; font-weight: 600; cursor: pointer; }
+      .pl-chk input { accent-color: var(--blue); }
+
+      .pl-note { margin: 0 0 16px; border: 1px solid var(--line); border-left: 3px solid var(--blue); border-radius: 12px; padding: 11px 15px; background: var(--soft); color: #3f4a5c; font-size: 0.87rem; line-height: 1.5; }
+      .pl-note strong { color: var(--text); }
+
+      .pl-eq { border: 1px solid var(--line); border-radius: 14px; margin-bottom: 11px; background: var(--surface); box-shadow: var(--shadow-card); overflow: hidden; }
+      .pl-eq__head { width: 100%; display: flex; align-items: center; gap: 12px; border: 0; padding: 14px 17px; background: transparent; text-align: left; }
+      .pl-eq__head:hover { background: #fbfcfe; }
+      .pl-eq__arrow { flex: none; color: var(--muted); transition: transform .18s ease; }
+      .pl-eq.is-open .pl-eq__arrow { transform: rotate(90deg); }
+      .pl-eq__main { flex: 1 1 auto; min-width: 0; }
+      .pl-eq__name { display: block; font-weight: 700; letter-spacing: -0.01em; }
+      .pl-eq__sub { display: block; margin-top: 2px; color: var(--muted); font-size: 0.81rem; }
+      .pl-eq__tags { flex: none; display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+      .pl-tag { display: inline-flex; align-items: center; border-radius: 999px; padding: 3px 9px; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.02em; white-space: nowrap; }
+      .pl-tag--late { background: #fef3f2; color: #b42318; }
+      .pl-tag--warn { background: #fffaeb; color: #b54708; }
+      .pl-tag--ok { background: #ecfdf3; color: #067647; }
+      .pl-tag--n { background: var(--soft); color: #475467; }
+      .pl-tag--link { background: var(--blue-soft); color: #1849a9; }
+      .pl-eq__body { display: none; border-top: 1px solid var(--line); padding: 4px 0 0; }
+      .pl-eq.is-open .pl-eq__body { display: block; }
+      .pl-eq__actions { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px 17px 6px; }
+
+      .pl-tablewrap { overflow-x: auto; padding: 6px 6px 12px; }
+      .pl-table { width: 100%; min-width: 940px; border-collapse: collapse; font-size: 0.84rem; }
+      .pl-table th { position: sticky; top: 0; z-index: 1; border-bottom: 1px solid var(--line-strong); padding: 8px 10px; background: var(--soft); color: #475467; font-size: 0.73rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; text-align: left; white-space: nowrap; }
+      .pl-table td { border-bottom: 1px solid var(--line); padding: 9px 10px; vertical-align: top; }
+      .pl-table tbody tr:hover { background: #fbfcfe; }
+      .pl-table tr.is-late td { background: #fffbfa; }
+      .pl-table tr.is-late:hover td { background: #fef6f5; }
+      .pl-code { font-family: "SFMono-Regular", ui-monospace, Menlo, Consolas, monospace; font-size: 0.83rem; font-weight: 700; color: #1849a9; white-space: nowrap; }
+      .pl-desc { min-width: 210px; }
+      .pl-obs { display: block; margin-top: 3px; color: var(--muted); font-size: 0.78rem; font-style: italic; }
+      .pl-num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+      .pl-zero { color: #b42318; font-weight: 800; }
+      .pl-loc { color: var(--muted); font-size: 0.78rem; white-space: nowrap; }
+      .pl-st { display: inline-flex; border-radius: 999px; padding: 2px 8px; font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
+      .pl-st--late { background: #fef3f2; color: #b42318; }
+      .pl-st--warn { background: #fffaeb; color: #b54708; }
+      .pl-st--ok { background: #ecfdf3; color: #067647; }
+      .pl-st--n { background: var(--soft); color: #667085; }
+      .pl-hit { background: #fff4cc; border-radius: 3px; padding: 0 1px; }
+      .pl-empty { border: 1px dashed var(--line-strong); border-radius: 14px; padding: 30px; background: var(--soft); color: var(--muted); text-align: center; }
+      .pl-more { display: block; width: 100%; border: 1px dashed var(--line-strong); border-radius: 12px; padding: 11px; margin: 4px 0 10px; background: #ffffff; color: #1849a9; font-weight: 700; }
+      .pl-more:hover { background: var(--blue-soft); }
+
+      .pl-bridge { display: flex; flex-wrap: wrap; align-items: center; gap: 11px; border: 1px solid var(--line); border-left: 3px solid var(--blue); border-radius: 12px; padding: 12px 15px; margin-bottom: 12px; background: var(--blue-soft); }
+      .pl-bridge__txt { flex: 1 1 220px; min-width: 0; color: #1c2a45; font-size: 0.87rem; line-height: 1.45; }
+
+      @media (max-width: 720px) {
+        .pl-eq__head { flex-wrap: wrap; }
+        .pl-eq__tags { width: 100%; justify-content: flex-start; }
+        .pl-kpis { grid-template-columns: repeat(auto-fit, minmax(108px, 1fr)); }
+      }
+
     </style>
   </head>
   <body>
@@ -2623,6 +2696,10 @@
       <button class="side-nav__button" type="button" data-nav-tasks aria-label="Tareas" title="Tareas pendientes">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
         <span class="side-nav__label">Tareas pendientes</span>
+      </button>
+      <button class="side-nav__button" type="button" data-nav-plan aria-label="Plan de mantenimiento" title="Plan de mantenimiento por equipo">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1Z"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="m9 13 2 2 4-4"/></svg>
+        <span class="side-nav__label">Plan de mantenimiento</span>
       </button>
       <button class="side-nav__button" type="button" data-nav-turnos aria-label="Turnos" title="Turnos (quién está en turno)">
         <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -2733,6 +2810,10 @@
             <button class="button button--dark" type="submit">Guardar tarea</button>
           </form>
         </aside>
+      </section>
+
+      <section class="plan-view view" id="planView" aria-label="Plan de mantenimiento por equipo">
+        <div id="planRoot"></div>
       </section>
     </main>
 
@@ -2873,6 +2954,8 @@
         console.error("[Recordatorios] No se pudo iniciar Firebase, se usa almacenamiento local:", e);
       }
     </script>
+
+    <script src="assets/plan-mtto.js"></script>
 
     <script>
       // ========================================================================
@@ -6092,7 +6175,8 @@
         home: document.querySelector("#homeView"),
         results: document.querySelector("#resultsView"),
         detail: document.querySelector("#detailView"),
-        tasks: document.querySelector("#tasksView")
+        tasks: document.querySelector("#tasksView"),
+        plan: document.querySelector("#planView")
       };
       const homeSearchForm = document.querySelector("#homeSearchForm");
       const resultsSearchForm = document.querySelector("#resultsSearchForm");
@@ -6111,6 +6195,7 @@
       const navHome = document.querySelector("[data-nav-home]");
       const navSearch = document.querySelector("[data-nav-search]");
       const navTasks = document.querySelector("[data-nav-tasks]");
+      const navPlan = document.querySelector("[data-nav-plan]");
       const detailTitle = document.querySelector("#detailTitle");
       const detailSubtitle = document.querySelector("#detailSubtitle");
       const guideTabs = document.querySelector("#guideTabs");
@@ -6371,9 +6456,28 @@
         `;
       }
 
+      // Aviso que enlaza la ficha con el plan de mantenimiento de la empresa,
+      // para las maquinas que si estan en el Excel (por ahora GKF 2600, Integra 320 y MS235).
+      function planBridgeForMachine(machineId) {
+        if (typeof PLAN_EQUIPOS === "undefined") return "";
+        const eq = PLAN_EQUIPOS.find((item) => item.mid === machineId);
+        if (!eq) return "";
+        const late = eq.r.filter((row) => row.st === "RETRASADO").length;
+        const sinStock = eq.r.filter((row) => row.e === 0).length;
+        return `<div class="pl-bridge">
+            <span class="pl-bridge__txt">
+              Esta m&aacute;quina est&aacute; en el <strong>plan de mantenimiento de la empresa</strong> como
+              <strong>${planEsc(eq.n)}</strong> (c&oacute;digo de equipo ${planEsc(eq.c)}):
+              <strong>${eq.r.length}</strong> repuestos con su c&oacute;digo interno${late ? `, <strong>${late}</strong> retrasado${late === 1 ? "" : "s"}` : ""}${sinStock ? ` y <strong>${sinStock}</strong> sin existencia en almac&eacute;n` : ""}.
+            </span>
+            <button class="button button--dark" type="button" data-q="${planEsc(eq.c)}" onclick="goPlan(this.dataset.q)">Ver el plan de esta m&aacute;quina</button>
+          </div>`;
+      }
+
       function renderSparesPanel(machine) {
         return `
           <div class="spares-panel-container">
+            ${planBridgeForMachine(machine.id)}
             <div class="panel-header-clean">
               <h3>Repuestos y Consumibles Críticos</h3>
               <p>Inventario de repuestos críticos y cíclicos extraídos del manual del fabricante y listado detallado de rodamientos de la NJP-3500.</p>
@@ -8193,13 +8297,23 @@
         resultCount.textContent = `${filtered.length} ${filtered.length === 1 ? "equipo" : "equipos"}`;
         resultTitle.textContent = query ? `Resultados para "${currentQuery}"` : "Todos los equipos";
 
+        // Puente al plan de mantenimiento: muchos codigos internos pertenecen a equipos
+        // que todavia no tienen ficha, asi que el buscador general avisa y lleva alli.
+        const planHits = planCountFor(currentQuery);
+        const bridge = planHits
+          ? `<div class="pl-bridge">
+               <span class="pl-bridge__txt"><strong>${planHits}</strong> ${planHits === 1 ? "l&iacute;nea" : "l&iacute;neas"} del <strong>plan de mantenimiento</strong> ${planHits === 1 ? "coincide" : "coinciden"} con esta b&uacute;squeda: equipo, sistema, c&oacute;digo interno, cantidad y existencias en almac&eacute;n.</span>
+               <button class="button button--dark" type="button" data-q="${planEsc(currentQuery)}" onclick="goPlan(this.dataset.q)">Ver en el plan</button>
+             </div>`
+          : "";
+
         if (filtered.length === 0) {
-          resultsList.innerHTML = renderEmptyState(query);
+          resultsList.innerHTML = bridge + renderEmptyState(query);
           renderPreview(null);
           return;
         }
 
-        resultsList.innerHTML = filtered.map(renderResultItem).join("");
+        resultsList.innerHTML = bridge + filtered.map(renderResultItem).join("");
         renderPreview(selectedMachine);
       }
 
@@ -8374,11 +8488,303 @@
       function goTasks(){ setView("tasks"); renderTasks(); saveUiState({ activeView: "tasks" }); }
       cloudSubscribe(); // arranca la sincronización en la nube en tiempo real (si hay config)
 
+
+      // ======================================================================
+      //  PLAN DE MANTENIMIENTO POR EQUIPO
+      //  Datos importados del Excel de la empresa (assets/plan-mtto.js):
+      //  "MANTENIMIENTO POR SISTEMAS CON RESALTADOR.xlsm", hoja "PLAN MTTO".
+      //  Cruza equipo -> sistema -> codigo interno de repuesto -> existencias.
+      // ======================================================================
+      const PLAN = window.PLAN_MTTO || null;
+      const PLAN_EQUIPOS = PLAN ? PLAN.equipos : [];
+      // Codigos de frecuencia tal como los define la hoja "DATOS" del mismo Excel.
+      const PLAN_FREQ = { "1S": "Semanal", "2S": "Catorcenal", "1M": "Mensual", "2M": "Bimensual", "3M": "Trimestral", "4M": "Cuatrimestral", "6M": "Semestral", "9M": "Cada 9 meses", "1A": "Anual", "1,5A": "Cada 1,5 años", "1B": "Bianual", "3A": "Trianual", "4A": "Tetraanual" };
+      const planFilter = { q: "", ub: "", st: "", act: "", sinStock: false };
+      const planOpen = new Set();
+      let planLimit = 15;
+
+      function planFreqLabel(f) { return PLAN_FREQ[f] || f || ""; }
+
+      // Texto emergente de la celda de existencia: desglose por almacen y aviso si no cuadra.
+      function planStockTip(row) {
+        const nombres = ["R01", "R02", "R04", "T51"];
+        const partes = row.w.map((cantidad, i) => `${nombres[i]}: ${cantidad}`).join(" \u00b7 ");
+        const suma = row.w.reduce((a, b) => a + b, 0);
+        const aviso = suma === row.e ? "" : ` \u2014 ojo: el desglose suma ${suma} y el total del Excel dice ${row.e}`;
+        return `Total ${row.e}${partes ? " (" + partes + ")" : ""}${aviso}`;
+      }
+      function planStKey(st) { return st === "RETRASADO" ? "late" : st === "ALERTA" ? "warn" : st === "EN TIEMPO" ? "ok" : "n"; }
+      function planStLabel(st) { return st || "Sin programar"; }
+      function planEsc(v) { return String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+      // Igual que normalize() pero sin recortar los extremos, para que las posiciones
+      // del texto original y las del texto normalizado sigan coincidiendo.
+      function planPlain(value) {
+        return String(value ?? "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      }
+
+      // Parte la busqueda en palabras: "rodamiento 6000" encuentra "RODAMIENTO DE BOLA REF 6000 ZZ".
+      function planTokens(query) {
+        return normalize(query).split(/\s+/).filter(Boolean);
+      }
+
+      // Resalta cada palabra buscada dentro del texto (escapando siempre el original).
+      function planMark(text, tokens) {
+        const raw = String(text ?? "");
+        if (!tokens || !tokens.length || !raw) return planEsc(raw);
+        const plain = planPlain(raw);
+        const hits = [];
+        tokens.forEach((token) => {
+          let at = plain.indexOf(token);
+          while (at >= 0) { hits.push([at, at + token.length]); at = plain.indexOf(token, at + token.length); }
+        });
+        if (!hits.length) return planEsc(raw);
+        hits.sort((a, b) => a[0] - b[0]);
+        const merged = [];
+        hits.forEach((hit) => {
+          const last = merged[merged.length - 1];
+          if (last && hit[0] <= last[1]) last[1] = Math.max(last[1], hit[1]);
+          else merged.push([hit[0], hit[1]]);
+        });
+        let out = "";
+        let pos = 0;
+        merged.forEach(([from, to]) => {
+          out += planEsc(raw.slice(pos, from)) + '<span class="pl-hit">' + planEsc(raw.slice(from, to)) + "</span>";
+          pos = to;
+        });
+        return out + planEsc(raw.slice(pos));
+      }
+
+      // Coincide si TODAS las palabras buscadas aparecen en algun campo de la linea.
+      function planRowMatches(row, tokens) {
+        if (!tokens.length) return true;
+        const hay = planPlain([row.cod, row.d, row.s, row.a, row.ub, row.rq].join(" "));
+        return tokens.every((token) => hay.includes(token));
+      }
+
+      // Devuelve [{ eq, rows }] aplicando la busqueda y los filtros de la barra.
+      function planFiltered() {
+        const tokens = planTokens(planFilter.q);
+        const out = [];
+        PLAN_EQUIPOS.forEach((eq) => {
+          if (planFilter.ub && eq.u !== planFilter.ub) return;
+          const eqHay = planPlain([eq.n, eq.c, eq.tipo].join(" "));
+          const eqHit = tokens.length > 0 && tokens.every((token) => eqHay.includes(token));
+          const rows = eq.r.filter((row) => {
+            if (planFilter.st && (row.st || "SIN PROGRAMAR") !== planFilter.st) return false;
+            if (planFilter.act && row.a !== planFilter.act) return false;
+            if (planFilter.sinStock && row.e > 0) return false;
+            return eqHit || planRowMatches(row, tokens);
+          });
+          if (rows.length) out.push({ eq, rows });
+        });
+        return out;
+      }
+
+      function renderPlan() {
+        const root = document.getElementById("planRoot");
+        if (!root) return;
+        if (!PLAN) {
+          root.innerHTML = '<div class="pl-empty"><h3>No se pudo cargar el plan</h3><p>Falta el archivo <code>assets/plan-mtto.js</code>. Recarga la página; si sigue igual, avisa a mantenimiento.</p></div>';
+          return;
+        }
+
+        const groups = planFiltered();
+        const rows = groups.flatMap((g) => g.rows);
+        const late = rows.filter((r) => r.st === "RETRASADO").length;
+        const warn = rows.filter((r) => r.st === "ALERTA").length;
+        const ok = rows.filter((r) => r.st === "EN TIEMPO").length;
+        const noStock = rows.filter((r) => r.e === 0).length;
+
+        const acts = [...new Set(PLAN_EQUIPOS.flatMap((e) => e.r.map((r) => r.a)).filter(Boolean))].sort();
+        const ubis = [...new Set(PLAN_EQUIPOS.map((e) => e.u).filter(Boolean))].sort();
+        const shown = groups.slice(0, planLimit);
+        const query = planTokens(planFilter.q);
+
+        root.innerHTML = `
+          <div class="section-bar">
+            <div>
+              <p class="eyebrow">Mantenimiento</p>
+              <h2>Plan de mantenimiento por equipo</h2>
+            </div>
+            <div class="section-actions">
+              <span class="counter">${groups.length} ${groups.length === 1 ? "equipo" : "equipos"} &middot; ${rows.length} ${rows.length === 1 ? "repuesto" : "repuestos"}</span>
+              <button class="button button--light" type="button" onclick="planExport()">Exportar CSV</button>
+            </div>
+          </div>
+
+          <p class="pl-note">
+            Importado del Excel de la empresa <strong>&ldquo;MANTENIMIENTO POR SISTEMAS CON RESALTADOR&rdquo;</strong>, hoja <strong>PLAN MTTO</strong>.
+            Corte de datos: <strong>${planEsc(PLAN.corte)}</strong>. El <strong>c&oacute;digo interno</strong> es el que se usa para pedir la pieza en almac&eacute;n.
+            La <strong>existencia</strong> es la que trae el Excel en su columna de total; el desglose por almac&eacute;n (R01/R02/R04/T51) viene en columnas aparte
+            y en 264 de las 849 l&iacute;neas <strong>no cuadra</strong> con ese total &mdash; es as&iacute; en el archivo original, no es un error de la importaci&oacute;n.
+            P&aacute;salo por encima de la existencia para ver el desglose. Es una foto del Excel: no se actualiza sola.
+          </p>
+
+          <div class="pl-kpis">
+            <div class="pl-kpi"><span class="pl-kpi__n">${groups.length}</span><span class="pl-kpi__l">Equipos</span></div>
+            <div class="pl-kpi"><span class="pl-kpi__n">${rows.length}</span><span class="pl-kpi__l">Repuestos</span></div>
+            <div class="pl-kpi pl-kpi--late"><span class="pl-kpi__n">${late}</span><span class="pl-kpi__l">Retrasados</span></div>
+            <div class="pl-kpi pl-kpi--warn"><span class="pl-kpi__n">${warn}</span><span class="pl-kpi__l">En alerta</span></div>
+            <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${ok}</span><span class="pl-kpi__l">En tiempo</span></div>
+            <div class="pl-kpi pl-kpi--stock"><span class="pl-kpi__n">${noStock}</span><span class="pl-kpi__l">Sin existencia</span></div>
+          </div>
+
+          <div class="pl-filters">
+            <input type="search" id="planSearch" placeholder="Buscar equipo, código interno, repuesto o sistema…" value="${planEsc(planFilter.q)}" oninput="planSetFilter('q', this.value)" aria-label="Buscar en el plan de mantenimiento">
+            <select onchange="planSetFilter('ub', this.value)" aria-label="Filtrar por ubicación">
+              <option value="">Todas las ubicaciones</option>
+              ${ubis.map((u) => `<option value="${planEsc(u)}" ${planFilter.ub === u ? "selected" : ""}>${planEsc(u)}</option>`).join("")}
+            </select>
+            <select onchange="planSetFilter('st', this.value)" aria-label="Filtrar por estado">
+              <option value="">Todos los estados</option>
+              <option value="RETRASADO" ${planFilter.st === "RETRASADO" ? "selected" : ""}>Retrasado</option>
+              <option value="ALERTA" ${planFilter.st === "ALERTA" ? "selected" : ""}>En alerta</option>
+              <option value="EN TIEMPO" ${planFilter.st === "EN TIEMPO" ? "selected" : ""}>En tiempo</option>
+              <option value="SIN PROGRAMAR" ${planFilter.st === "SIN PROGRAMAR" ? "selected" : ""}>Sin programar</option>
+            </select>
+            <select onchange="planSetFilter('act', this.value)" aria-label="Filtrar por actividad">
+              <option value="">Todas las actividades</option>
+              ${acts.map((a) => `<option value="${planEsc(a)}" ${planFilter.act === a ? "selected" : ""}>${planEsc(a)}</option>`).join("")}
+            </select>
+            <label class="pl-chk"><input type="checkbox" ${planFilter.sinStock ? "checked" : ""} onchange="planSetFilter('sinStock', this.checked)"> Solo sin existencia</label>
+          </div>
+
+          ${shown.length ? shown.map((g) => planEquipoCard(g, query)).join("") : '<div class="pl-empty"><h3>Nada coincide con ese filtro</h3><p>Prueba con el código interno (9 dígitos), el nombre del repuesto o el del equipo.</p></div>'}
+          ${groups.length > shown.length ? `<button class="pl-more" type="button" onclick="planShowMore()">Ver ${groups.length - shown.length} equipos más</button>` : ""}`;
+      }
+
+      function planEquipoCard(group, query) {
+        const eq = group.eq;
+        const rows = group.rows;
+        const late = rows.filter((r) => r.st === "RETRASADO").length;
+        const warn = rows.filter((r) => r.st === "ALERTA").length;
+        const noStock = rows.filter((r) => r.e === 0).length;
+        const open = planOpen.has(eq.c);
+        const machine = eq.mid ? machines.find((m) => m.id === eq.mid) : null;
+        return `
+          <article class="pl-eq ${open ? "is-open" : ""}" id="pl-eq-${planEsc(eq.c)}">
+            <button class="pl-eq__head" type="button" onclick="planToggle('${planEsc(eq.c)}')" aria-expanded="${open}">
+              <svg class="pl-eq__arrow" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <span class="pl-eq__main">
+                <span class="pl-eq__name">${planMark(eq.n, query)}</span>
+                <span class="pl-eq__sub">Código de equipo ${planMark(eq.c, query)}${eq.u ? " &middot; " + planEsc(eq.u) : ""}${eq.cc ? " &middot; centro de costo " + planEsc(eq.cc) : ""}</span>
+              </span>
+              <span class="pl-eq__tags">
+                ${machine ? '<span class="pl-tag pl-tag--link">Tiene ficha</span>' : ""}
+                ${late ? `<span class="pl-tag pl-tag--late">${late} retrasado${late === 1 ? "" : "s"}</span>` : ""}
+                ${warn ? `<span class="pl-tag pl-tag--warn">${warn} en alerta</span>` : ""}
+                ${noStock ? `<span class="pl-tag pl-tag--n">${noStock} sin stock</span>` : ""}
+                <span class="pl-tag pl-tag--n">${rows.length} repuesto${rows.length === 1 ? "" : "s"}</span>
+              </span>
+            </button>
+            <div class="pl-eq__body">
+              ${machine ? `<div class="pl-eq__actions"><button class="button button--dark" type="button" onclick="planGoMachine('${planEsc(eq.mid)}')">Ver la ficha de ${planEsc(machine.model || machine.name)}</button></div>` : ""}
+              <div class="pl-tablewrap">
+                <table class="pl-table">
+                  <thead><tr>
+                    <th>Sistema</th><th>Actividad</th><th>Cód. interno</th><th>Repuesto</th>
+                    <th class="pl-num">Cant.</th><th class="pl-num">Exist.</th><th>Almacén</th>
+                    <th>Frecuencia</th><th>Último</th><th>Próximo</th><th>Estado</th>
+                  </tr></thead>
+                  <tbody>${rows.map((r) => planRowHtml(r, query)).join("")}</tbody>
+                </table>
+              </div>
+            </div>
+          </article>`;
+      }
+
+      function planRowHtml(r, query) {
+        const st = planStKey(r.st);
+        return `<tr class="${st === "late" ? "is-late" : ""}">
+          <td>${planMark(r.s, query) || "&mdash;"}</td>
+          <td>${planEsc(r.a) || "&mdash;"}</td>
+          <td class="pl-code">${r.cod ? planMark(r.cod, query) : "&mdash;"}</td>
+          <td class="pl-desc">${planMark(r.d, query) || "&mdash;"}${r.o ? `<span class="pl-obs">${planEsc(r.o)}</span>` : ""}</td>
+          <td class="pl-num">${r.q || "&mdash;"}</td>
+          <td class="pl-num ${r.e === 0 ? "pl-zero" : ""}" title="${planEsc(planStockTip(r))}">${r.e}</td>
+          <td class="pl-loc">${planEsc(r.ub) || "&mdash;"}</td>
+          <td>${planEsc(planFreqLabel(r.f)) || "&mdash;"}</td>
+          <td class="pl-loc">${planEsc(r.ej) || "&mdash;"}</td>
+          <td class="pl-loc">${planEsc(r.px) || "&mdash;"}</td>
+          <td><span class="pl-st pl-st--${st}">${planEsc(planStLabel(r.st))}</span>${r.st === "RETRASADO" && r.al ? `<span class="pl-obs">${Math.abs(r.al)} días</span>` : ""}</td>
+        </tr>`;
+      }
+
+      function planSetFilter(key, value) {
+        planFilter[key] = value;
+        planLimit = 15;
+        renderPlan();
+        if (key === "q") {
+          const box = document.getElementById("planSearch");
+          if (box) { box.focus(); box.setSelectionRange(box.value.length, box.value.length); }
+        }
+      }
+
+      function planToggle(code) {
+        if (planOpen.has(code)) planOpen.delete(code); else planOpen.add(code);
+        const card = document.getElementById("pl-eq-" + code);
+        if (card) {
+          card.classList.toggle("is-open", planOpen.has(code));
+          const head = card.querySelector(".pl-eq__head");
+          if (head) head.setAttribute("aria-expanded", String(planOpen.has(code)));
+        }
+      }
+
+      function planShowMore() { planLimit += 15; renderPlan(); }
+      function planGoMachine(mid) { openDetail(mid); }
+
+      // Exporta lo que se esta viendo (con los filtros aplicados) como CSV para Excel.
+      function planExport() {
+        const head = ["Código equipo", "Equipo", "Ubicación", "Sistema", "Actividad", "Código interno", "Repuesto", "Cantidad", "Existencia", "R01", "R02", "R04", "T51", "Almacén", "Frecuencia", "Último mtto", "Próximo mtto", "Alerta días", "Estado", "Observaciones"];
+        const cell = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+        const lines = [head.map(cell).join(";")];
+        planFiltered().forEach(({ eq, rows }) => {
+          rows.forEach((r) => {
+            lines.push([eq.c, eq.n, eq.u, r.s, r.a, r.cod, r.d, r.q, r.e, r.w[0], r.w[1], r.w[2], r.w[3], r.ub, planFreqLabel(r.f), r.ej, r.px, r.al, planStLabel(r.st), r.o].map(cell).join(";"));
+          });
+        });
+        const csv = "\ufeff" + lines.join("\r\n");
+        const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "plan-mantenimiento.csv";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+      }
+
+      // Abre la vista; si se pasa una busqueda, entra ya filtrada y con los equipos desplegados.
+      function goPlan(query) {
+        if (typeof query === "string") {
+          planFilter.q = query;
+          planLimit = 15;
+          planFiltered().slice(0, 4).forEach(({ eq }) => planOpen.add(eq.c));
+        }
+        setView("plan");
+        renderPlan();
+        saveUiState({ activeView: "plan" });
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+
+      // Cuenta cuantas lineas del plan coinciden con lo que se busca en el buscador general.
+      function planCountFor(query) {
+        const tokens = planTokens(query);
+        if (!tokens.length || normalize(query).length < 3) return 0;
+        return PLAN_EQUIPOS.reduce((acc, eq) => {
+          const eqHay = planPlain([eq.n, eq.c].join(" "));
+          const eqHit = tokens.every((token) => eqHay.includes(token));
+          return acc + eq.r.filter((row) => eqHit || planRowMatches(row, tokens)).length;
+        }, 0);
+      }
+
       function setView(viewName) {
         Object.entries(views).forEach(([name, element]) => { element.classList.toggle("is-active", name === viewName); });
         navHome.classList.toggle("is-active", viewName === "home");
         navSearch.classList.toggle("is-active", viewName === "results" || viewName === "detail");
         if (navTasks) navTasks.classList.toggle("is-active", viewName === "tasks");
+        if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
       }
 
       function goResults({ keepSelection = false } = {}) {
@@ -8552,6 +8958,7 @@
       navHome.addEventListener("click", goHome);
       navSearch.addEventListener("click", () => goResults({ keepSelection: true }));
       navTasks.addEventListener("click", () => { window.location.href = "tareas.html"; });
+      if (navPlan) navPlan.addEventListener("click", () => goPlan());
       document.querySelector("[data-nav-turnos]").addEventListener("click", () => { window.location.href = "turnos.html"; });
 
       // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
@@ -9065,7 +9472,9 @@ ${buildMachineContext(machine)}`;
       homeSearch.value = currentQuery;
       resultsSearch.value = currentQuery;
 
-      if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
+      if (restoredState.activeView === "plan") {
+        goPlan();
+      } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
       } else if (restoredState.activeView === "results" || currentQuery) {
         goResults({ keepSelection: true });
