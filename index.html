@@ -2599,6 +2599,12 @@
       }
       .side-nav__button { position: relative; }
 
+      /* Sin esto, el contenedor de paneles de la ficha crece con su contenido (es un
+         hijo de rejilla, y su min-width por defecto es auto) y una tabla ancha empuja
+         la página entera en móvil en vez de hacer scroll dentro de su caja. */
+      #guidePanels { min-width: 0; }
+      #guidePanels .profile-panel { min-width: 0; }
+
       /* ===================== TAREAS: contadores y recordatorios ===================== */
       .tk-stats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
       .tk-stat { display: inline-flex; align-items: center; gap: 7px; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: #ffffff; box-shadow: var(--shadow-card); color: var(--muted); font-size: 0.82rem; font-weight: 700; }
@@ -2674,8 +2680,8 @@
       .pl-eq { border: 1px solid var(--line); border-radius: 14px; margin-bottom: 11px; background: var(--surface); box-shadow: var(--shadow-card); overflow: hidden; }
       .pl-eq__head { width: 100%; display: flex; align-items: center; gap: 12px; border: 0; padding: 14px 17px; background: transparent; text-align: left; }
       .pl-eq__head:hover { background: #fbfcfe; }
-      .pl-eq__arrow { flex: none; color: var(--muted); transition: transform .18s ease; }
-      .pl-eq.is-open .pl-eq__arrow { transform: rotate(90deg); }
+      .pl-eq__go { flex: none; color: var(--muted); }
+      .pl-eq__head:hover .pl-eq__go { color: var(--blue); }
       .pl-eq__main { flex: 1 1 auto; min-width: 0; }
       .pl-eq__name { display: block; font-weight: 700; letter-spacing: -0.01em; }
       .pl-eq__sub { display: block; margin-top: 2px; color: var(--muted); font-size: 0.81rem; }
@@ -3145,7 +3151,7 @@
       }
     </script>
 
-    <script src="assets/plan-mtto.js"></script>
+    <script src="assets/equipos.js"></script>
 
     <script>
       // ========================================================================
@@ -6323,6 +6329,13 @@
         }
       ];
 
+      // ----- Registro de equipos (assets/equipos.js) -----
+      const EQ_DATA = window.EQUIPOS_PLAN || null;
+      const PLAN_EQUIPOS = EQ_DATA ? EQ_DATA.equipos : [];
+      const EQ_POR_ID = new Map(PLAN_EQUIPOS.map((eq) => [eq.id, eq]));
+      // Repuestos del registro que le tocan a una maquina (tenga ficha rica o basica).
+      function equipoDeMachine(machine) { return machine ? EQ_POR_ID.get(machine.id) || null : null; }
+
       // Sync and load machines from localStorage
       const storageMachinesKey = "equipos-machines-v4";
       let machines = [];
@@ -6350,9 +6363,77 @@
         ];
       }
 
+      // ======================================================================
+      //  REGISTRO UNICO DE EQUIPOS
+      //  Antes habia dos mundos: 5 maquinas con ficha y 80 filas de un Excel
+      //  aparte. Ahora todo equipo es una maquina; las que ya tenian ficha rica
+      //  simplemente tienen mas profundidad, y el resto nacen con lo basico.
+      // ======================================================================
+      // Todos los campos técnicos que pinta el resumen. Una ficha básica los trae
+      // vacíos pero presentes: si falta alguno, la ficha escribe "undefined".
+      const FICHA_TECNICA_VACIA = Object.fromEntries(
+        ["brand", "capacity", "capsuleSizes", "dimensions", "dosingSystem", "function",
+         "manufacturer", "power", "serialNumber", "voltage", "weight", "year"]
+          .map((campo) => [campo, "Por registrar"])
+      );
+
+      function equipoAMachine(eq) {
+        const total = eq.r.length;
+        const sinStock = eq.r.filter((r) => r.e === 0).length;
+        const codigos = [...new Set(eq.r.map((r) => r.cod).filter(Boolean))];
+        return {
+          id: eq.id,
+          equipoCod: eq.c,
+          fromRegistry: true,          // no se guarda en el navegador: sale del registro
+          name: eq.n,
+          model: eq.n,
+          current: "Código " + eq.c,
+          area: [eq.u, eq.tipo ? "tipo " + eq.tipo.toLowerCase() : ""].filter(Boolean).join(" · "),
+          location: eq.u || "Por confirmar",
+          status: "Por confirmar",
+          criticality: "Por definir",
+          manual: "Pendiente de cargar",
+          maintenance: total ? `${total} ${total === 1 ? "repuesto" : "repuestos"} en el plan` : "Sin repuestos en el plan",
+          completion: total ? 20 : 10,
+          image: "",
+          notes: "",
+          description: "Ficha básica creada desde el registro de mantenimiento de la empresa. Todavía no tiene manual, despiece ni guía cargados: por ahora trae sus repuestos con el código interno con el que se piden en almacén.",
+          technicalData: { ...FICHA_TECNICA_VACIA, function: "Por registrar." },
+          summarySpecs: [
+            { label: "Código de equipo", value: eq.c },
+            { label: "Ubicación", value: eq.u || "Por confirmar" },
+            { label: "Centro de costo", value: eq.cc || "—" },
+            { label: "Tipo", value: eq.tipo || "—" },
+            { label: "Repuestos en el plan", value: String(total) },
+            { label: "Sin existencia", value: String(sinStock) }
+          ],
+          documents: [],
+          searchAliases: [eq.c, eq.n, eq.nOriginal, eq.tipo, eq.u, ...codigos].filter(Boolean)
+        };
+      }
+
+      // Anade al catalogo los equipos que aun no tienen ficha propia, y a las que
+      // si la tienen les mete sus codigos internos en el buscador.
+      function integrarEquipos() {
+        const yaHay = new Set(machines.map((m) => m.id));
+        PLAN_EQUIPOS.forEach((eq) => {
+          const codigos = [...new Set(eq.r.map((r) => r.cod).filter(Boolean))];
+          if (yaHay.has(eq.id)) {
+            const m = machines.find((x) => x.id === eq.id);
+            if (m) {
+              m.equipoCod = eq.c;
+              m.searchAliases = [...new Set([...(m.searchAliases ?? []), eq.c, ...codigos])];
+            }
+            return;
+          }
+          machines.push(equipoAMachine(eq));
+        });
+      }
+      integrarEquipos();
+
       function saveMachinesToStorage() {
         try {
-          localStorage.setItem(storageMachinesKey, JSON.stringify(machines));
+          localStorage.setItem(storageMachinesKey, JSON.stringify(machines.filter((m) => !m.fromRegistry)));
         } catch (e) {
           console.error("Error saving machines to localStorage:", e);
         }
@@ -6648,28 +6729,9 @@
         `;
       }
 
-      // Aviso que enlaza la ficha con el plan de mantenimiento de la empresa,
-      // para las maquinas que si estan en el Excel (por ahora GKF 2600, Integra 320 y MS235).
-      function planBridgeForMachine(machineId) {
-        if (typeof PLAN_EQUIPOS === "undefined") return "";
-        const eq = PLAN_EQUIPOS.find((item) => item.mid === machineId);
-        if (!eq) return "";
-        const conHist = eq.r.filter((row) => planCambiosDe(eq.c, row.cod).length).length;
-        const sinStock = eq.r.filter((row) => row.e === 0).length;
-        return `<div class="pl-bridge">
-            <span class="pl-bridge__txt">
-              Esta m&aacute;quina est&aacute; en el <strong>plan de mantenimiento de la empresa</strong> como
-              <strong>${planEsc(eq.n)}</strong> (c&oacute;digo de equipo ${planEsc(eq.c)}):
-              <strong>${eq.r.length}</strong> repuestos con su c&oacute;digo interno${conHist ? `, <strong>${conHist}</strong> con cambios ya registrados` : ""}${sinStock ? ` y <strong>${sinStock}</strong> sin existencia en almac&eacute;n` : ""}.
-            </span>
-            <button class="button button--dark" type="button" data-q="${planEsc(eq.c)}" onclick="goPlan(this.dataset.q)">Ver el plan de esta m&aacute;quina</button>
-          </div>`;
-      }
-
       function renderSparesPanel(machine) {
         return `
           <div class="spares-panel-container">
-            ${planBridgeForMachine(machine.id)}
             <div class="panel-header-clean">
               <h3>Repuestos y Consumibles Críticos</h3>
               <p>Inventario de repuestos críticos y cíclicos extraídos del manual del fabricante y listado detallado de rodamientos de la NJP-3500.</p>
@@ -8360,28 +8422,38 @@
       }
       function schShowExplain(mid, id){ const e = document.getElementById("schExplain"); if (e) e.innerHTML = schExplainHtml(mid, id); }
 
+      // Un dato técnico que falte se muestra como "Por registrar", nunca como "undefined".
+      function dt(machine, campo) {
+        const v = (machine.technicalData ?? {})[campo];
+        return (v === undefined || v === null || v === "") ? "Por registrar" : v;
+      }
+
       function renderProfile(machine) {
         const technicalHighlights = machine.summarySpecs ?? [
-          { label: "Capacidad", value: machine.technicalData.capacity },
-          { label: "Tamaños de cápsula", value: machine.technicalData.capsuleSizes },
-          { label: "Dosificación", value: machine.technicalData.dosingSystem },
-          { label: "Potencia", value: machine.technicalData.power },
-          { label: "Peso", value: machine.technicalData.weight },
-          { label: "Dimensiones", value: machine.technicalData.dimensions }
+          { label: "Capacidad", value: dt(machine, "capacity") },
+          { label: "Tamaños de cápsula", value: dt(machine, "capsuleSizes") },
+          { label: "Dosificación", value: dt(machine, "dosingSystem") },
+          { label: "Potencia", value: dt(machine, "power") },
+          { label: "Peso", value: dt(machine, "weight") },
+          { label: "Dimensiones", value: dt(machine, "dimensions") }
         ];
 
+        // Una ficha básica (equipo recién traído del registro) no tiene guía ni
+        // fallas ni despiece todavía: se le muestran solo las pestañas con algo dentro.
+        const eqPlan = equipoDeMachine(machine);
         const tabs = [
           ["summary", "Resumen"],
-          ["guide", "Guía / Operación"],
+          ...((machine.guideSections ?? []).length ? [["guide", "Guía / Operación"]] : []),
           ...(machine.schematic ? [["schematic", "Plano eléctrico"]] : []),
-          ["failures", "Fallas"],
+          ...((machine.failureModes ?? []).length ? [["failures", "Fallas"]] : []),
           ...(machine.alarms ? [["alarms", "Alarmas HMI"]] : []),
           ...((typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? [["partsmap", "Despiece"]] : []),
           ...((typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? [["tables", "Despiece"]] : []),
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
-          ["maintenance", "Mantenimiento"],
-          ["spares", "Repuestos"],
-          ["documents", "Documentos"]
+          ...(eqPlan ? [["planparts", "Plan de mantenimiento"]] : []),
+          ...((machine.maintenanceTasks ?? []).length ? [["maintenance", "Mantenimiento"]] : []),
+          ...((machine.spareParts ?? []).length ? [["spares", "Repuestos"]] : []),
+          ...((machine.documents ?? []).length ? [["documents", "Documentos"]] : [])
         ];
 
         detailTitle.textContent = machine.model;
@@ -8408,7 +8480,7 @@
                 <div class="summary-section">
                   <h4>Descripción y función principal</h4>
                   <p>${machine.description}</p>
-                  <p><strong>Función principal:</strong> ${machine.technicalData.function}</p>
+                  <p><strong>Función principal:</strong> ${dt(machine, "function")}</p>
                 </div>
                 <div class="summary-section">
                   <h4>Identificación y estado</h4>
@@ -8429,11 +8501,11 @@
                 <div class="summary-section">
                   <h4>Fabricante y trazabilidad</h4>
                   <div class="summary-kv">
-                    <div><span>Fabricante</span><strong>${machine.technicalData.manufacturer}</strong></div>
-                    <div><span>Marca</span><strong>${machine.technicalData.brand}</strong></div>
-                    <div><span>Serie</span><strong>${machine.technicalData.serialNumber}</strong></div>
-                    <div><span>Año</span><strong>${machine.technicalData.year}</strong></div>
-                    <div><span>Voltaje</span><strong>${machine.technicalData.voltage}</strong></div>
+                    <div><span>Fabricante</span><strong>${dt(machine, "manufacturer")}</strong></div>
+                    <div><span>Marca</span><strong>${dt(machine, "brand")}</strong></div>
+                    <div><span>Serie</span><strong>${dt(machine, "serialNumber")}</strong></div>
+                    <div><span>Año</span><strong>${dt(machine, "year")}</strong></div>
+                    <div><span>Voltaje</span><strong>${dt(machine, "voltage")}</strong></div>
                     <div><span>Mantenimiento</span><strong>${machine.maintenance}</strong></div>
                   </div>
                 </div>
@@ -8444,6 +8516,8 @@
           <section class="profile-panel" data-profile-panel="spares">
             ${renderSparesPanel(machine)}
           </section>
+          ${eqPlan ? `<section class="profile-panel" data-profile-panel="planparts">${renderPlanPanel(eqPlan)}</section>` : ""}
+
           <section class="profile-panel" data-profile-panel="maintenance">
             ${renderMaintenancePanel(machine)}
           </section>
@@ -8894,7 +8968,7 @@
 
       // ======================================================================
       //  PLAN DE MANTENIMIENTO POR EQUIPO
-      //  Catalogo importado del Excel de la empresa (assets/plan-mtto.js):
+      //  Catalogo importado del Excel de la empresa (assets/equipos.js):
       //  "MANTENIMIENTO POR SISTEMAS CON RESALTADOR.xlsm", hoja "PLAN MTTO".
       //  Del Excel se usa solo lo que es estable: equipo, sistema, actividad,
       //  codigo interno, repuesto, cantidad y existencia.
@@ -8902,10 +8976,7 @@
       //  muestran: esa frecuencia estaba puesta a mano y no reflejaba la planta.
       //  A partir de ahora la frecuencia se MIDE del historial de cambios reales.
       // ======================================================================
-      const PLAN = window.PLAN_MTTO || null;
-      const PLAN_EQUIPOS = PLAN ? PLAN.equipos : [];
       const planFilter = { q: "", ub: "", act: "", sinStock: false, hist: "" };
-      const planOpen = new Set();
       const planHistOpen = new Set();
       let planLimit = 15;
 
@@ -9151,13 +9222,14 @@
       function renderPlanIfVisible() {
         const vista = document.getElementById("planView");
         if (vista && vista.classList.contains("is-active")) renderPlan();
+        renderFichaSiVisible();
       }
 
       function renderPlan() {
         const root = document.getElementById("planRoot");
         if (!root) return;
-        if (!PLAN) {
-          root.innerHTML = '<div class="pl-empty"><h3>No se pudo cargar el plan</h3><p>Falta el archivo <code>assets/plan-mtto.js</code>. Recarga la p&aacute;gina; si sigue igual, avisa a mantenimiento.</p></div>';
+        if (!EQ_DATA) {
+          root.innerHTML = '<div class="pl-empty"><h3>No se pudo cargar el plan</h3><p>Falta el archivo <code>assets/equipos.js</code>. Recarga la p&aacute;gina; si sigue igual, avisa a mantenimiento.</p></div>';
           return;
         }
 
@@ -9191,10 +9263,10 @@
           </div>
 
           <p class="pl-note">
-            Cat&aacute;logo importado del Excel de la empresa <strong>&ldquo;MANTENIMIENTO POR SISTEMAS CON RESALTADOR&rdquo;</strong>, hoja <strong>PLAN MTTO</strong> (corte ${planEsc(PLAN.corte)}).
-            De ah&iacute; se usa lo estable: equipo, sistema, <strong>c&oacute;digo interno</strong>, repuesto, cantidad y existencia.
-            <strong>La frecuencia no viene del Excel: se mide aqu&iacute;.</strong> Cada vez que una pieza se cambia o se solicita, se registra con su fecha;
-            con dos registros ya hay un intervalo real y con tres o m&aacute;s, un promedio y una estimaci&oacute;n del pr&oacute;ximo cambio.
+            Los <strong>${PLAN_EQUIPOS.length} equipos</strong> de la planta, del Excel de la empresa (hoja <strong>PLAN MTTO</strong>, corte ${planEsc(EQ_DATA.corte)}).
+            <strong>Elige un equipo</strong> y se abre su ficha con todo lo suyo: repuestos, c&oacute;digo interno, existencias e historial.
+            Los que todav&iacute;a no tienen manual ni despiece salen como <em>ficha b&aacute;sica</em> y se les va a&ntilde;adiendo.
+            <strong>La frecuencia no viene del Excel: se mide.</strong> Cada cambio que se registra acerca la pieza a tener su frecuencia real.
           </p>
 
           <div class="pl-kpis">
@@ -9228,43 +9300,46 @@
           ${groups.length > shown.length ? `<button class="pl-more" type="button" onclick="planShowMore()">Ver ${groups.length - shown.length} equipos m&aacute;s</button>` : ""}`;
       }
 
-      function planEquipoCard(group, query) {
-        const eq = group.eq;
-        const rows = group.rows;
-        const noStock = rows.filter((r) => r.e === 0).length;
-        const conHist = rows.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
-        const open = planOpen.has(eq.c);
-        const machine = eq.mid ? machines.find((m) => m.id === eq.mid) : null;
+      // Todo lo que hace falta para el mantenimiento de UN equipo, dentro de su ficha.
+      function renderPlanPanel(eq) {
+        const total = eq.r.length;
+        const sinStock = eq.r.filter((r) => r.e === 0).length;
+        const conHist = eq.r.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
+        const conMedida = eq.r.filter((r) => planMedicion(planCambiosDe(eq.c, r.cod))).length;
         return `
-          <article class="pl-eq ${open ? "is-open" : ""}" id="pl-eq-${planEsc(eq.c)}">
-            <button class="pl-eq__head" type="button" onclick="planToggle('${planEsc(eq.c)}')" aria-expanded="${open}">
-              <svg class="pl-eq__arrow" aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-              <span class="pl-eq__main">
-                <span class="pl-eq__name">${planMark(eq.n, query)}</span>
-                <span class="pl-eq__sub">C&oacute;digo de equipo ${planMark(eq.c, query)}${eq.u ? " &middot; " + planEsc(eq.u) : ""}${eq.cc ? " &middot; centro de costo " + planEsc(eq.cc) : ""}</span>
-              </span>
-              <span class="pl-eq__tags">
-                ${machine ? '<span class="pl-tag pl-tag--link">Tiene ficha</span>' : ""}
-                ${conHist ? `<span class="pl-tag pl-tag--ok">${conHist} con historial</span>` : ""}
-                ${noStock ? `<span class="pl-tag pl-tag--n">${noStock} sin stock</span>` : ""}
-                <span class="pl-tag pl-tag--n">${rows.length} repuesto${rows.length === 1 ? "" : "s"}</span>
-              </span>
-            </button>
-            <div class="pl-eq__body">
-              ${machine ? `<div class="pl-eq__actions"><button class="button button--dark" type="button" onclick="planGoMachine('${planEsc(eq.mid)}')">Ver la ficha de ${planEsc(machine.model || machine.name)}</button></div>` : ""}
-              <div class="pl-tablewrap">
-                <table class="pl-table">
-                  <thead><tr>
-                    <th>Sistema</th><th>Actividad</th><th>C&oacute;d. interno</th><th>Repuesto</th>
-                    <th class="pl-num">Cant.</th><th class="pl-num">Exist.</th>
-                    <th>&Uacute;ltimo cambio</th><th>Frecuencia medida</th><th></th>
-                  </tr></thead>
-                  <tbody>${rows.map((r) => planRowHtml(eq, r, query)).join("")}</tbody>
-                </table>
-              </div>
-              ${planSueltosHtml(eq)}
-            </div>
-          </article>`;
+          <div class="panel-header-clean">
+            <h3>Plan de mantenimiento &middot; c&oacute;digo de equipo ${planEsc(eq.c)}</h3>
+            <p>Los repuestos de este equipo con el <strong>c&oacute;digo interno</strong> con el que se piden en almac&eacute;n.
+               La frecuencia no viene del Excel: se mide de los cambios que se van registrando aqu&iacute;.</p>
+          </div>
+          <div class="pl-kpis">
+            <div class="pl-kpi"><span class="pl-kpi__n">${total}</span><span class="pl-kpi__l">Repuestos</span></div>
+            <div class="pl-kpi pl-kpi--stock"><span class="pl-kpi__n">${sinStock}</span><span class="pl-kpi__l">Sin existencia</span></div>
+            <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${conHist}</span><span class="pl-kpi__l">Con cambios registrados</span></div>
+            <div class="pl-kpi pl-kpi--warn"><span class="pl-kpi__n">${conMedida}</span><span class="pl-kpi__l">Con frecuencia medida</span></div>
+          </div>
+          <div class="pl-tablewrap">
+            <table class="pl-table">
+              <thead><tr>
+                <th>Sistema</th><th>Actividad</th><th>C&oacute;d. interno</th><th>Repuesto</th>
+                <th class="pl-num">Cant.</th><th class="pl-num">Exist.</th>
+                <th>&Uacute;ltimo cambio</th><th>Frecuencia medida</th><th></th>
+              </tr></thead>
+              <tbody>${eq.r.map((r) => planRowHtml(eq, r, [])).join("")}</tbody>
+            </table>
+          </div>
+          ${planSueltosHtml(eq)}`;
+      }
+
+      // Repinta la ficha abierta cuando cambia el historial, para no perder el sitio.
+      function renderFichaSiVisible() {
+        const vista = document.getElementById("detailView");
+        if (!vista || !vista.classList.contains("is-active")) return;
+        const machine = machines.find((m) => m.id === selectedId);
+        if (!machine) return;
+        const panel = document.querySelector('[data-profile-panel="planparts"]');
+        const eq = equipoDeMachine(machine);
+        if (panel && eq) panel.innerHTML = renderPlanPanel(eq);
       }
 
       function planSueltosHtml(eq) {
@@ -9305,6 +9380,45 @@
         back.hidden = false;
         sheet.hidden = false;
         setTimeout(() => form.fecha.focus(), 60);
+      }
+
+      // Fila del indice: lo justo para decidir, y un botón que abre la ficha del equipo
+      // en su pestaña de plan. El detalle vive en la máquina, no aquí.
+      function planEquipoCard(group, query) {
+        const eq = group.eq;
+        const rows = group.rows;
+        const noStock = rows.filter((r) => r.e === 0).length;
+        const conHist = rows.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
+        const conMedida = rows.filter((r) => planMedicion(planCambiosDe(eq.c, r.cod))).length;
+        const machine = machines.find((m) => m.id === eq.id);
+        const rica = machine && !machine.fromRegistry;
+        return `
+          <article class="pl-eq" id="pl-eq-${planEsc(eq.c)}">
+            <button class="pl-eq__head" type="button" onclick="planAbrirEquipo('${planEsc(eq.id)}')" title="Abrir la ficha de este equipo">
+              <span class="pl-eq__main">
+                <span class="pl-eq__name">${planMark(eq.n, query)}</span>
+                <span class="pl-eq__sub">C&oacute;digo de equipo ${planMark(eq.c, query)}${eq.u ? " &middot; " + planEsc(eq.u) : ""}${eq.cc ? " &middot; centro de costo " + planEsc(eq.cc) : ""}</span>
+              </span>
+              <span class="pl-eq__tags">
+                ${rica ? '<span class="pl-tag pl-tag--link">Ficha completa</span>' : '<span class="pl-tag pl-tag--n">Ficha b&aacute;sica</span>'}
+                ${conMedida ? `<span class="pl-tag pl-tag--warn">${conMedida} con frecuencia</span>` : ""}
+                ${conHist ? `<span class="pl-tag pl-tag--ok">${conHist} con historial</span>` : ""}
+                ${noStock ? `<span class="pl-tag pl-tag--n">${noStock} sin stock</span>` : ""}
+                <span class="pl-tag pl-tag--n">${rows.length} repuesto${rows.length === 1 ? "" : "s"}</span>
+              </span>
+              <span class="pl-eq__go" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </span>
+            </button>
+          </article>`;
+      }
+
+      // Abre la ficha del equipo directamente en su pestaña de plan.
+      function planAbrirEquipo(id) {
+        openDetail(id);
+        const boton = guideTabs.querySelector('[data-profile-tab="planparts"]');
+        if (boton) boton.click();
+        window.scrollTo({ top: 0, behavior: "auto" });
       }
 
       function planRowHtml(eq, r, query) {
@@ -9352,16 +9466,6 @@
         if (key === "q") {
           const box = document.getElementById("planSearch");
           if (box) { box.focus(); box.setSelectionRange(box.value.length, box.value.length); }
-        }
-      }
-
-      function planToggle(code) {
-        if (planOpen.has(code)) planOpen.delete(code); else planOpen.add(code);
-        const card = document.getElementById("pl-eq-" + code);
-        if (card) {
-          card.classList.toggle("is-open", planOpen.has(code));
-          const head = card.querySelector(".pl-eq__head");
-          if (head) head.setAttribute("aria-expanded", String(planOpen.has(code)));
         }
       }
 
@@ -9466,7 +9570,6 @@
         if (typeof query === "string") {
           planFilter.q = query;
           planLimit = 15;
-          planFiltered().slice(0, 4).forEach(({ eq }) => planOpen.add(eq.c));
         }
         setView("plan");
         renderPlan();
