@@ -2399,7 +2399,42 @@ const initialMachines = [
               `
             }
           ],
-          systems: [],
+          systems: [
+            { name: "Alimentación y orientación (Est. 1-2)", function: "Clasificar, orientar e introducir cápsulas en segmentos y abrirlas por vacío.", components: ["Depósito y almacenes", "Bloque clasificador + correderas KWSE20/TKSD", "Zapatas de aspiración + pasadores separación", "Sensor ultrasónico"], status: "Manual pág. 393-396" },
+            { name: "Exploración y control (Est. 3)", function: "Detectar tapa/cuerpo en cada taladro; opción IPK/balanza.", components: ["Pasadores exploración", "Sensores IQ08-02BPSKT0 / IFS 5036"], status: "Manual pág. 340-352" },
+            { name: "Dosificación principal (Est. 5)", function: "Compactar polvo en 5 puntos o dosificar pellets/pastillas.", components: ["Depósito producto 1", "Disco dosificador ajustable/fijo", "Anillo producto + pistones 8-104-233-801", "Válvula ED02 proporcional"], status: "Manual pág. 417-438" },
+            { name: "Llenado pellets/pastillas (Est. 4,6,8)", function: "Estaciones opcionales para pellets y pastillas.", components: ["Depósitos 2-3", "Discos dosificadores, vibrador, pastillas"], status: "Manual pág. 491-493" },
+            { name: "Rechazo y cierre (Est. 7 y 9)", function: "Rechazar no conformes y cerrar cápsulas con control de fuerza.", components: ["Estación 7 vacío + aspiración", "Estación 9 con sensor parte inferior + contrasoporte"], status: "Manual pág. 497-499" },
+            { name: "Expulsión y limpieza (Est. 10-12)", function: "Expulsar conformes y limpiar segmentos con aire aspirado.", components: ["Estaciones 10-11 expulsión", "Estación 12 limpieza + aspiradora Krahnen"], status: "Manual pág. 550-567" },
+            { name: "Control y neumática", function: "HMI Schneider PacDrive, seguridad PLUTO B46, neumática y aspiración.", components: ["Controller Elau LMC400 + VPB40.3", "PLUTO B46, cilindros D12-H5, filtros AFR"], status: "Manual pág. 301-328" }
+          ],
+          systemAtlas: {
+            title: "Vista general + desglose por estaciones (GKF 2600)",
+            description: "Lectura guiada como NJP: 12 estaciones en 2 líneas. Toca un sistema para ver su figura, componentes, ajustes y diagnóstico. El despiece interactivo (MACHINE_PARTS) y las 81 calibraciones están en Despiece.",
+            machineMap: {
+              title: "GKF 2600 — 12 estaciones (2×9)",
+              description: "Mapa tocable: de alimentación (1-2) a limpieza (12).",
+              image: { src: "assets/gkf2600/vista-general.jpg", alt: "GKF 2600 vista general", page: 15 },
+              hotspots: [
+                { label: "1-2 Alimentación", target: "alimentacion", x: 20, y: 12, w: 4, h: 6 },
+                { label: "3 Exploración", target: "exploracion", x: 32, y: 28, w: 4, h: 6 },
+                { label: "5 Dosificación", target: "dosificacion", x: 45, y: 42, w: 4, h: 6 },
+                { label: "7 Rechazo", target: "rechazo", x: 56, y: 48, w: 4, h: 6 },
+                { label: "9 Cierre", target: "cierre", x: 64, y: 55, w: 4, h: 6 },
+                { label: "10-11 Expulsión", target: "expulsion", x: 72, y: 65, w: 4, h: 6 },
+                { label: "12 Limpieza", target: "limpieza", x: 78, y: 78, w: 4, h: 6 }
+              ]
+            },
+            systems: [
+              { id: "alimentacion", name: "Alimentación y separación (Est.1-2)", kicker: "S1-S2", station: "Est.1-2", page: 393, status: "Manual pág.393-396", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Alimentación GKF", title: "Clasificación y separación", page: 393, caption: "Doble línea, 9 taladros por hilera." }, summary: "Orienta cápsulas tapa arriba y las abre por vacío. La concentricidad de segmentos y el vacío (−0,1 a −0,4 bar) son críticos.", flow: ["Depósito → almacenes → clasificador", "Zapata vacío abre cápsula (cuerpo abajo)", "Pasadores separación elevan 1-2 mm"], components: ["KWSE20/TKSD riel", "Zapatas + resortes", "Pasadores 1-2 mm"], adjustments: ["Elevación pasadores 1-2 mm (cota A/B 26/19 mm)", "Vacío −0,1→−0,4 bar"], diagnostics: ["No abre → vacío/filtro o pasadores mal ajustados"] },
+              { id: "exploracion", name: "Exploración / control en proceso (Est.3-4)", kicker: "S3-S4", station: "Est.3", page: 340, status: "Manual pág.340", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Exploración", title: "Palpadores y sensores", page: 340, caption: "IQ08 / IFS 5036 por taladro." }, summary: "Palpa tapa/cuerpo en cada taladro; opcional IPK/balanza.", flow: ["Palpador detecta presencia", "Contador suma fallos por taladro", "Alarma 731-748 si obstrucción"], components: ["Palpadores + casquillos", "Sensores IQ08"], adjustments: ["Limpieza palpadores (cepillo)", "Calibración sensor"], diagnostics: ["Fallo suma → banda depósito obstruida p.340"] },
+              { id: "dosificacion", name: "Dosificación (Est.5 principal)", kicker: "S5", station: "Est.5", page: 417, status: "Manual pág.417", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Dosificación", title: "Disco + 5 compresiones", page: 417, caption: "Polvo/pellets/pastillas." }, summary: "Dosifica con disco y 5 puntos de compresión. La distancia disco-anillo y la presión 3 bar definen el peso.", flow: ["Polvo → sinfín → disco (0,127-0,902 ml)", "5 campanas ×18 pistones compactan", "Niveles anillo producto"], components: ["Disco ajustable/fijo", "Pistones 8-104-233-801", "ED02 proporcional"], adjustments: ["Altura disco 3-14 mm / 14-27 mm", "Presión 3 bar ±", "Resortes a/b/c/d/e decreciente"], diagnostics: ["Peso variable → presión o resortes"] },
+              { id: "rechazo", name: "Rechazo (Est.7)", kicker: "S7", station: "Est.7", page: 461, status: "Manual pág.461", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Rechazo", title: "Cápsulas no conformes", page: 461, caption: "Aspira mal colocadas/doble sombrerete." }, summary: "Expulsa cápsulas no separadas o mal colocadas por vacío.", flow: ["Sensor detecta no conforme", "Vacío aspira al descarte", "Ajuste corredera + estrella"], components: ["Boquilla aspiración", "Estribo expulsión"], adjustments: ["Corredera + estrella hasta aspirar solo no conformes"], diagnostics: ["Aspira buenas → ajustar boquilla"] },
+              { id: "cierre", name: "Cierre (Est.9)", kicker: "S9", station: "Est.9", page: 497, status: "Manual pág.497", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Cierre", title: "Inserción tapa-cuerpo", page: 497, caption: "Pasadores + contrasoporte." }, summary: "Encaja cuerpo en tapa con control de fuerza y contrasoporte.", flow: ["Pasador cierre inserta cuerpo", "Contrasoporte verifica altura", "Saliente 1,0-1,5 mm"], components: ["Pasadores cierre", "Contrasoporte + sensor"], adjustments: ["Saliente 1,0-1,5 mm, distancia mín 0,5 mm", "Pasador mayor Ø si comprimido duro"], diagnostics: ["Telescópica/ranurada → exceso llenado o Ø pequeño"] },
+              { id: "expulsion", name: "Expulsión (Est.10-11)", kicker: "S10-11", station: "Est.10", page: 550, status: "Manual pág.550", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Expulsión", title: "Canaleta 2 líneas", page: 550, caption: "10 = línea1, 11 = línea2." }, summary: "Expulsa conformes a la canaleta. Doble línea.", flow: ["Pasador expulsión empuja cápsula", "Canaleta recoge", "Sensor atasco vigila"], components: ["Pasadores expulsión", "Canaleta + sensor"], adjustments: ["Limpieza pasadores (polvo pegajoso)", "Sensor atasco"], diagnostics: ["No expulsa → cilindro/sensor/cable"] },
+              { id: "limpieza", name: "Limpieza (Est.12)", kicker: "S12", station: "Est.12", page: 550, status: "Manual pág.550", figure: { src: "assets/gkf2600/vista-general.jpg", alt: "Limpieza", title: "Aire aspirado + toberas", page: 550, caption: "Soplado y aspiración." }, summary: "Limpia segmentos con aire aspirado para siguiente ciclo.", flow: ["Toberas soplan", "Aspiradora Krahnen aspira", "Filtro 8-108-179-327"], components: ["Toberas", "Conductos aspirado", "Filtro HEPA"], adjustments: ["Vacío/asp. sin desmontar"], diagnostics: ["Polvo residual → filtro saturado"] }
+            ]
+          },
           spareParts: [
             { name: "Disco dosificador ajustable (pieza de formato)", system: "Estación dosificadora", type: "Repuesto", criticality: "Media", reference: "8-104-322-400 (t0) · 8-104-322-401 (t1) · 8-104-322-402 (t2) · 8-104-322-403 (t3)", function: "Define el volumen de dosificación; altura ajustable mecánica o eléctricamente" },
             { name: "Anillo en O del disco dosificador ajustable 355X4", system: "Estación dosificadora", type: "Repuesto", criticality: "Media", reference: "8-108-140-300", function: "Sella el disco dosificador (mismo para tamaños 0, 1, 2 y 3)" },
@@ -2968,7 +3003,36 @@ const initialMachines = [
               `
             }
           ],
-          systems: [],
+          systems: [
+            { name: "Desbobinado y precalentamiento", function: "Desenrollar y precalentar el PVC antes de formar.", components: ["Rodillo desbobinado M4M251", "Placas precalentamiento M4M301 (1800H)", "Termorreguladores"], status: "Manual p.145-180" },
+            { name: "Formado y taza vibratoria", function: "Formar alvéolos y alimentar comprimidos con taza vibratoria.", components: ["Matriz M4M351", "Taza M4G062 + correa", "Cepillos"], status: "Manual p.180-210" },
+            { name: "Corte y perforación", function: "Cortar y perforar blísteres con cizalla y perforador.", components: ["Cizalla M4M111", "Perforador M4A654", "Engranajes"], status: "Manual p.600H" },
+            { name: "Arrastre y transporte", function: "Arrastrar film con rodillos y correas sincronizadas.", components: ["Rodillos arrastre", "Correas 700RPP5", "Cadenas cicloides 1800H"], status: "Manual p.300-360" },
+            { name: "Refrigeración y neumática", function: "Refrigerar moldes y accionar neumática.", components: ["Flusostatos", "Filtros R329", "SMC SY212"], status: "Manual p.140-180" },
+            { name: "Visión y control (Harlequin)", function: "Inspección y descarte con SEA Vision.", components: ["Harlequin M0xx-M5xx", "Telecámara M4A523", "PLC interno"], status: "Manual SEA Vision" }
+          ],
+          systemAtlas: {
+            title: "Vista general Integra 320 + desglose",
+            description: "Blistera con despiece de 399 tablas (MACHINE_TABLES) y 81 calibraciones. Mapa guiado por secciones del manual 4A.",
+            machineMap: {
+              title: "Integra 320 — línea completa",
+              description: "Desbobinado → formado → alimentación → sellado → corte.",
+              image: { src: "assets/integra320/despiece/p023.jpg", alt: "Integra 320 - despiece p023", page: 23 },
+              hotspots: [
+                { label: "1 Desbobinado", target: "desbobinado", x: 18, y: 18, w: 4, h: 6 },
+                { label: "2 Formado", target: "formado", x: 35, y: 30, w: 4, h: 6 },
+                { label: "3 Alimentación", target: "alimentacion", x: 52, y: 42, w: 4, h: 6 },
+                { label: "4 Sellado/corte", target: "sellado", x: 68, y: 55, w: 4, h: 6 },
+                { label: "5 Visión", target: "vision", x: 84, y: 28, w: 4, h: 6 }
+              ]
+            },
+            systems: [
+              { id: "desbobinado", name: "Desbobinado y precalentamiento", kicker: "M4M251/M4M301", station: "Pre-formado", page: 145, status: "Manual p.145", figure: { src: "assets/integra320/despiece/p023.jpg", alt: "Desbobinado", title: "Rodillos y precalentamiento", page: 23, caption: "Desbobinado film PVC + placas calientes." }, summary: "Prepara el film. Lubricación tipo B cada 300H, control filtros.", flow: ["Bobina → rodillos", "Precalentamiento 140-180H", "Control aceite perforación"], components: ["M4M251 desbobinado", "M4M301 precalentamiento", "Flusostatos"], adjustments: ["Nivel aceite perforación H1800", "Fase volante"], diagnostics: ["Cristal sucio → lavar flusostato p.140"] },
+              { id: "formado", name: "Formado y taza vibratoria", kicker: "M4M351/M4G062", station: "Formado", page: 180, status: "Manual p.180", figure: { src: "assets/integra320/despiece/p024.jpg", alt: "Formado", title: "Matriz y taza", page: 24, caption: "Matriz M4M351 + taza vibratoria." }, summary: "Forma alvéolos y vibra producto. Correa taza cada 3600H.", flow: ["Matriz forma alvéolo", "Taza vibra → paletas", "Cepillos orientan"], components: ["Matriz M4M351", "Taza M4G062", "Cepillos"], adjustments: ["Paletas M4G121 p.300", "Correa taza H3600"], diagnostics: ["Paletas desgastadas → estrella p.300"] },
+              { id: "sellado", name: "Sellado y corte", kicker: "M4M351/M4A654", station: "Sellado", page: 210, status: "Manual p.210", figure: { src: "assets/integra320/despiece/p026.jpg", alt: "Sellado", title: "Cizalla y perforador", page: 26, caption: "Cizalla + rodillo arrastre." }, summary: "Sella y corta blísteres. Cizalla H600, rodillo H300.", flow: ["Sellado térmico", "Cizalla corta", "Rodillo arrastra"], components: ["Cizalla M4M111", "Rodillo arrastre", "Perforador"], adjustments: ["Filo cizalla H600", "Rodillo H300/M6"], diagnostics: ["Corte irregular → filo cizalla"] },
+              { id: "vision", name: "Visión Harlequin + neumática", kicker: "M4A523/SMC", station: "Visión", page: 240, status: "SEA Vision", figure: { src: "assets/integra320/despiece/p030.jpg", alt: "Visión", title: "Harlequin M0xx-M5xx", page: 30, caption: "Inspección M0xx-M5xx." }, summary: "Inspecciona con Harlequin; descarta vía PLC interno.", flow: ["Telecámara M4A523 → Harlequin", "M0xx defectos", "PLC descarta"], components: ["Harlequin", "Telecámara", "Fibras"], adjustments: ["Limpieza óptica H300", "Calibrar fibras M541"], diagnostics: ["M002 luz → cambiar lámpara"] }
+            ]
+          },
           spareParts: [],
           maintenanceTasks: [
             { name: "Control del mantenimiento preventivo de la instalación antes de un cambio de formato u optimización", system: "Toda la instalación", frequency: "Antes de cualquier modificac", type: "Preventivo", acceptance: "Véase el manual 'Mantenimiento Preventivo'" },
