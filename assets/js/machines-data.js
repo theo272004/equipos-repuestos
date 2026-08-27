@@ -1935,8 +1935,8 @@ const initialMachines = [
           completion: 92,
           image: "assets/ms235/hoja-B00.jpg",
           notes: "",
-          searchAliases: ["ms235","schmucker","marchesini","s4220003","ensobradora","bustinatrice","telerruptor","contactor","km44.4","km44","electrico","eléctrico","plano","esquema","beckhoff","lenze","resistencias","planchas","anomalia","calibrado","fasature","sincronizacion","cambio formato","recambios","piezas","materiales contacto","L1","causa"],
-          description: "Ensobradora (bustinatrice) Schmucker / Marchesini Group, esquema ES4220003. Control 24V DC con PLC Beckhoff EtherCAT y 5 variadores Lenze i550. Esta ficha incluye el PLANO ELÉCTRICO NAVEGABLE y el diagnóstico de la alarma “Anomalía telerruptor” (contactor KM44.4 de las resistencias de planchas).",
+          searchAliases: ["ms235","schmucker","marchesini","s4220003","ensobradora","bustinatrice","encelofanadora","telerruptor","contactor","km44.4","km44","electrico","eléctrico","plano","esquema","beckhoff","lenze","resistencias","planchas","anomalia","calibrado","fasature","sincronizacion","cambio formato","recambios","piezas","materiales contacto","L1","causa","sistemas","portabobinas","fotocelula","dosificacion","corte","soldadura","transporte","neumatica","cadena","cinta","mordazas","membrana"],
+          description: "Ensobradora automática Schmucker / Marchesini MS235 S4220003 — formado, dosificación, corte y soldadura de sobres. Ficha didáctica con mapa tocable de 6 sistemas, plan de mantenimiento preventivo (18 tareas p.58-149), 6 fallas diagnosticables y 30 repuestos unificados (Excel 7419xx + manual P/N + lista 2 años). Plano eléctrico ES4220003 navegable.",
           technicalData: {
             function: "Ensobradora automática (formado, llenado y sellado de sobres). Las planchas soldantes se calientan con resistencias que el PLC habilita a través del contactor general KM44.4.",
             voltage: "3×220 V + N + PE · 60 Hz (confirmado en placa)",
@@ -2111,20 +2111,92 @@ const initialMachines = [
               `
             }
           ],
-          systems: [],
-          spareParts: [
-            { name: "Contactor KM44.4 (resistencias de planchas)", system: "Eléctrico", type: "Contactor", criticality: "Alta", reference: "Siemens 3RT2326-1BB40 · 4P · bobina 24VDC", function: "Contactor general que habilita la trifásica de las resistencias de las planchas." },
-            { name: "Diodo antiparasitario de KM44.4", system: "Eléctrico", type: "Componente", criticality: "Media", reference: "Siemens 3RT2926-1ER00", function: "Rueda libre sobre la bobina; suprime el pico de apertura." },
-            { name: "Magnetotérmico resistencias (dcha / izq)", system: "Eléctrico", type: "Protección", criticality: "Media", reference: "Siemens 5SY6 2 10-6 (10A) — F19.1 / F19A.1", function: "Protege las resistencias de cada plancha." },
-            { name: "Monitor de corriente de resistencias", system: "Eléctrico", type: "Relé/monitor", criticality: "Media", reference: "Weidmüller ACT20P-CML-10-AO-RC-P — K19.x / K19A.x", function: "Controla la corriente de cada resistencia; feedback a A12.5.1." },
-            { name: "Relé estático de calentamiento (dcha / izq)", system: "Eléctrico", type: "Relé estático", criticality: "Media", reference: "Omron G3PJ-525B (25A) — A41.2 / A41.6", function: "Modula el calentamiento de cada plancha (mando A12.9 OUT6/OUT7)." },
-            { name: "Módulo PLC salidas (mando KM44.4)", system: "Eléctrico", type: "Módulo PLC", criticality: "Alta", reference: "Beckhoff EL2809 (16 OUT) — A12.9", function: "OUT11 (hilo 4407) comanda la bobina de KM44.4." },
-            { name: "Módulo PLC entradas (feedback KM44.4)", system: "Eléctrico", type: "Módulo PLC", criticality: "Alta", reference: "Beckhoff EL1809 (16 IN) — A12.4", function: "IN2 (hilo 4408) lee la realimentación de KM44.4." },
-            { name: "Fuente de mando 24 V DC", system: "Eléctrico", type: "Fuente", criticality: "Alta", reference: "Siemens SITOP 24V/20A — G04.1", function: "Alimenta todo el mando 24 V DC (incl. bobina de KM44.4)." },
-            { name: "Interruptor general", system: "Eléctrico", type: "Seccionador", criticality: "Alta", reference: "Siemens 3LD2504 · 3P · 63A — Q01.3", function: "Corte general de potencia (punto de LOTO)." },
-            { name: "Variador de motores", system: "Motriz", type: "Variador", criticality: "Alta", reference: "Lenze i550 0,37 kW (×5) — A29.1/A34.1/A34A.1/A37.1/A96A.1", function: "Acciona motores (svolgitura/trascinamento carta, vibrador, transporte)." }
+          systems: [
+            { name: "Alimentación de bobina y arrastre", function: "Desbobinar el film, guiarlo y arrastrarlo con tensión controlada. Incluye portabobinas neumático, freno y rodillos de reenvío.", components: ["Eje portabobinas S4A26100410 (Ø74, neumático)", "Freno y junta rotativa", "Rodillos de inversión S4A75100610", "Cinta de transporte S4A70200210", "Fotocélula lector de muesca S4M95100110"], status: "Manual p.114-126 consolidado" },
+            { name: "Formado y foto-centrado", function: "Centrar la impresión del film (fotocélula) y posicionar el paso de sobres.", components: ["Fotocélula p.29 / p.86", "Rodillos de arrastre S4M121/S4A191", "Lámina de corte vertical", "Regulación de fase S4A12100110"], status: "Manual p.29-32 consolidado" },
+            { name: "Dosificación volumétrica", function: "Alimentar el producto al sobre con dosificador volumétrico de doble cassette y estrella de alimentación. Optimizable por formato.", components: ["Cassette corto/largo S4G71500310/410 (4S00T)", "Estrella doble S4G72200210", "Placas de sellado S4M14100110", "Pettine rasatore 035170550/551 (AISI 316L)"], status: "Manual p.135-149 consolidado" },
+            { name: "Corte y soldadura", function: "Cortar la banda y soldar longitudinal/transversalmente con mordazas calientes. Requiere fasatura y control de temperatura.", components: ["Grupo cuchillas S4A19100720 (fija + móvil)", "Placas soldantes S4M141", "Mordazas, membrana L=149, guías 007210020", "Resistencias R41 + KM44.4 + K19.x"], status: "Manual p.31-32 / p.71-81 consolidado" },
+            { name: "Transporte y evacuación", function: "Evacuar los sobres formados y transportarlos hacia la salida / encajado.", components: ["Banda transportadora 6 sobres S4A191/S4M161", "Cadena S4M021/S4M161 (tensión/limpieza p.58-64)", "Rodamientos 6202/6001/6003/6300/608"], status: "Manual p.58-64 / p.108-123 consolidado" },
+            { name: "Control eléctrico y neumático", function: "Gestionar HMI, PLC Beckhoff, variadores Lenze, seguridad y neumática.", components: ["HMI Siemens IPC477E 15\" + Basler GigE", "PLC Beckhoff EK1100 + EL1809/EL2809/EL6910 + AX8206/AX8620", "5× Lenze i550 0,37kW + SM safety", "Sensores SICK/Wenglor/Datalogic + Euchner CTP (p.127-134)", "Neumática SMC SY7120/SY5120 + cilindro S4A08100610"], status: "Esquema ES4220003 + Manual p.127-134" }
           ],
-          maintenanceTasks: [],
+          systemAtlas: {
+            title: "Vista general + desglose por sistemas (MS235)",
+            description: "Lectura guiada: primero la máquina completa (plano B00), luego los 6 sistemas funcionales. Toca un sistema para ver su figura del manual, componentes clave, ajustes y diagnóstico. Las fases (fasature p.24-32) aplican a soldadura, fotocélula y cuchillas.",
+            machineMap: {
+              title: "Plano navegable MS235 — ES4220003 (hoja B00)",
+              description: "Ubicación física de armarios y grupos. Usa las pestañas de Plano eléctrico para trazar KM44.4 y lazos 44Lx.",
+              image: { src: "assets/ms235/hoja-B00.jpg", alt: "MS235 - plano general B00", page: 1 },
+              hotspots: [
+                { label: "1. Portabobinas + freno", target: "alimentacion-bobina", x: 15, y: 20, w: 4, h: 6 },
+                { label: "2. Arrastre y guías", target: "alimentacion-bobina", x: 22, y: 35, w: 4, h: 6 },
+                { label: "3. Fotocélula / centrado", target: "formado-fotocentrado", x: 45, y: 30, w: 4, h: 6 },
+                { label: "4. Dosificador + estrella", target: "dosificacion", x: 62, y: 42, w: 4, h: 6 },
+                { label: "5. Cuchillas + soldadura", target: "corte-soldadura", x: 68, y: 55, w: 4, h: 6 },
+                { label: "6. Transporte / salida", target: "transporte", x: 75, y: 70, w: 4, h: 6 },
+                { label: "7. Armario eléctrico", target: "control", x: 85, y: 18, w: 4, h: 6 }
+              ]
+            },
+            systems: [
+              { id: "alimentacion-bobina", name: "Alimentación de bobina y arrastre", kicker: "S4A261 / S4M161 / S4A702", station: "Sistema 1", page: 114, status: "Manual p.114-126", figure: { src: "assets/ms235/hoja-B00.jpg", alt: "Portabobinas y arrastre", title: "Portabobinas neumático D=74", page: 114, caption: "Desbobinado, freno y reenvío — manejo sin desgarre." }, summary: "Desbobina el film con tensión controlada y lo arrastra de forma sincronizada. La tensión de la cinta (p.120-121) y el desgaste de rodillos/rascadores determinan la calidad del arrastre.", flow: ["Bobina en eje S4A26100410 (Ø74, neumático, freno) → guías S4A75100610", "Cinta S4A70200210 tensa y centrada (p.120-121)", "Fotocélula lee muesca y corrige fase (p.86)", "Alimenta a formato/dosificación"], components: ["Eje portabobinas D74 + junta rotativa", "Rodillos reenvío S4A751", "Cinta + tensor/centrador p.121", "Fotocélula lector muesca S4M951"], adjustments: ["Tensión cinta p.120-121 (centrado)", "Frono portabobinas p.115", "Limpieza rodillos p.125", "Desgaste correa S4A26100920 p.117"], diagnostics: ["Si arrastra torcido → tensión/centrado p.121", "Si patina → rodillos S4A751 p.126 o correa", "Si lee mal muesca → limpiar objetivo fotocélula p.86"] },
+              { id: "formado-fotocentrado", name: "Formado y foto-centrado", kicker: "S4M951 / S4M121 / S4A121", station: "Sistema 2", page: 29, status: "Manual p.29 / 65-91", figure: { src: "assets/ms235/hoja-B00.jpg", alt: "Formado y fotocélula", title: "Centrado de impresión", page: 29, caption: "Regulación de fase de toma de sobres y centrado." }, summary: "Asegura que el film imprima centrado y que el paso coincida con corte/soldadura. Requiere fasatura.", flow: ["Lectura de muesca por fotocélula S4M951 p.29", "Arrastre S4M121/S4A191 posiciona el paso", "Regulación fase toma sobres S4A12100110 p.28", "Verificación tras cambio de formato"], components: ["Fotocélula centrado impresión p.29", "Rodillos arrastre carta p.69/96", "Cuchilla/rodillos lámina vertical p.70/97"], adjustments: ["Fase prelievo buste S4A121 p.28 (regulador numérico/pomello p.20)", "Verificación rulos de arrastre p.69", "Limpieza objetivo fotocélula p.86"], diagnostics: ["Descentrado → ajustar fase p.28 y limpiar fotocélula", "Paso irregular → revisar desgaste rulos p.69"] },
+              { id: "dosificacion", name: "Dosificación volumétrica", kicker: "S4G715 / S4G722", station: "Sistema 3", page: 135, status: "Manual p.135-149", figure: { src: "assets/ms235/hoja-B00.jpg", alt: "Dosificación MS235", title: "Dosificador volumétrico doble cassette", page: 135, caption: "Doble cassette corto/largo + estrella doble." }, summary: "Dosifica el producto en cada sobre. El catálogo 5-Piezas + materiales en contacto (AISI 316L/PMMA/silicone) detallan lo que toca producto.", flow: ["Tramoggia superior valvola stellare 007210020 (AISI 316L)", "Pettine rasatore 035170550/551 → nivelación", "Cassette S4G71500310/410 → transición bicchiere 035230034", "Estrella doble S4G722 → entrega al sobre"], components: ["Cassette corto/largo S4G715 + estrella S4G722", "Tramoggie 035230049/050/074 (316L) + guarnizione silicone 007040071", "Pettine, specola PMMA 035110100"], adjustments: ["Movimentazione dosatore S4G715 p.29/31 (cambio formato)", "Limpieza movimientos dosaggio p.136/142", "Limpieza asp. polvo p.140/146", "Verificación molle/rasatore p.138-139"], diagnostics: ["Variación peso → limpiar movimientos, verificar molle/rasatore p.138-139", "Polvo → limpiar aspiradores p.140/146", "Obstrucción → revisar valvola stellare y tubos sensor 035080150"] },
+              { id: "corte-soldadura", name: "Corte y soldadura", kicker: "S4A19100720 / S4M141", station: "Sistema 4", page: 31, status: "Manual p.31-32 / 71-81", figure: { src: "assets/ms235/hoja-B00.jpg", alt: "Corte y soldadura", title: "Grupo cuchillas + planchas soldantes", page: 31, caption: "Fasature de cuchilla horizontal y placas soldantes." }, summary: "Corta y suelda el film. Requiere fasatura precisa y membranas/mordazas en buen estado. Es donde actúa KM44.4 (planchas).", flow: ["Fasatura cuchilla horizontal S4A19100720 p.31-32", "Verificación posición p.31 / ripristino p.32", "Placas soldantes S4M141 + membrana larga L=149", "Resistencias R41 supervisadas por K19.x → KM44.4"], components: ["Cuchilla fija 235.15.222 + móvil 235.15.330 + rodillos A92R800005/006", "Placas 035180143 + BLOCK guida ganasce 007210121/125 + membrana", "Resistencias R41.1.x/R41.6.x + K19.x/K19A.x (Weidmüller) + KM44.4"], adjustments: ["Distancia cuchilla fija-móvil p.102", "Fasatura cuchilla horizontal p.31-32", "Ingrassaggio piastre p.71 + smontaggio ganasce p.72", "Controllo precarico tiranti p.79"], diagnostics: ["Corte irregular → verificar filo cuchilla p.98/100 y distancia p.102", "Sellado frío → verificar membrana/filtro aire p.73 y corriente K19.x / KM44.4", "Desajuste fase → refasare S4A19100720"] },
+              { id: "transporte", name: "Transporte y evacuación", kicker: "S4M021 / S4M161 / S4A702", station: "Sistema 5", page: 58, status: "Manual p.58-64 / 108-123", figure: { src: "assets/ms235/hoja-B00.jpg", alt: "Transporte MS235", title: "Cadena, cinta y nastro", page: 58, caption: "Cadena, banda 6 sobres y cinta transportadora." }, summary: "Mueve los sobres formados. La cadena y la cinta requieren tensión, limpieza y control de desgaste.", flow: ["Cadena S4M021 (tensión p.58, limpieza p.59, filtro/aceite p.60-64)", "Banda 6 sobres S4A191/S4M161 (p.83-84)", "Cinta S4A702 (tensión p.120, nastro p.119-123)"], components: ["Cadena + filtro DROPSA 3088055 + pompa 3099127", "Cinta/nastro + rulli S4A702/S4A711", "Rodamientos 6202/6001/6003 (stock Excel)"], adjustments: ["Tensión cadena p.58/84", "Tensión y centratura nastro p.121", "Pulizia vasca superiore p.64 / guide p.82", "Cambio olio p.61-62"], diagnostics: ["Ruido/cadena floja → verificar tensión p.58/84 y nivel aceite p.63", "Banda desalineada → centratura nastro p.121", "Atasco transporte → limpiar guide carta p.85/118"] },
+              { id: "control", name: "Control eléctrico y neumático", kicker: "S3E01052 / S4A961 / SMC", station: "Sistema 6", page: 127, status: "Esquema ES4220003 + p.127-134", figure: { src: "assets/ms235/hoja-B00.jpg", alt: "Armario MS235", title: "Armario QE1 + neumática", page: 127, caption: "PLC, variadores y electroválvulas." }, summary: "Cerebro 24V DC: HMI + Beckhoff + Lenze + seguridad. Todo trazable en el esquema ES4220003.", flow: ["230V→SITOP 20A (G04.1) → 24V a EL9410/EL2809/EL1809/EL6910", "EK1100 EtherCAT → 5× i550 (0,37kW) + AX8206/AX8620", "Entradas: SICK/Wenglor/Datalogic + Euchner CTP", "Salidas: K19.x, A41.2/A41.6 (G3PJ), KM44.4 + SMC SY7120/5120"], components: ["IPC477E 15\" + Basler GigE 4p PoE", "Beckhoff EL9410/EL1014/EL1809/EL2809/EL3162/EL6910/AX8206", "SITOP, 3LD2504, 5SY6, ELM-4F/10F (Weidmüller)", "SMC SY7120/SY5120 + cilindro CDM2E20-50A, giunti sferici S4A081"], adjustments: ["Sostituzione preventiva eléctrica p.134", "Verifica giunti sferici S4A081 p.89/124", "Pulizia filtro/vasca p.60-64"], diagnostics: ["Alarma telerruptor → OUT11 vs IN2 (KM44.4) p.44", "Fallo servo → Lenze i550 + AX8206", "Neumática → verificar electroválvulas SMC y cilindro p.90"] }
+            ]
+          },
+          spareParts: [
+            { name: "Contactor KM44.4 (resistencias de planchas)", system: "Eléctrico / Soldadura", type: "Contactor", criticality: "Alta", reference: "Siemens 3RT2326-1BB40 · 4P · bobina 24VDC", function: "Contactor general que habilita la trifásica de las resistencias de las planchas." },
+            { name: "Diodo antiparasitario de KM44.4", system: "Eléctrico / Soldadura", type: "Componente", criticality: "Media", reference: "Siemens 3RT2926-1ER00", function: "Rueda libre sobre la bobina; suprime el pico de apertura." },
+            { name: "Magnetotérmico resistencias (dcha / izq)", system: "Eléctrico / Soldadura", type: "Protección", criticality: "Media", reference: "Siemens 5SY6 2 10-6 (10A) — F19.1 / F19A.1", function: "Protege las resistencias de cada plancha." },
+            { name: "Monitor de corriente de resistencias", system: "Eléctrico / Soldadura", type: "Relé/monitor", criticality: "Media", reference: "Weidmüller ACT20P-CML-10-AO-RC-P — K19.x / K19A.x", function: "Controla la corriente de cada resistencia; feedback a A12.5.1." },
+            { name: "Relé estático de calentamiento (dcha / izq)", system: "Eléctrico / Soldadura", type: "Relé estático", criticality: "Media", reference: "Omron G3PJ-525B (25A) — A41.2 / A41.6", function: "Modula el calentamiento de cada plancha (mando A12.9 OUT6/OUT7)." },
+            { name: "Módulo PLC salidas (mando KM44.4)", system: "Eléctrico / Control", type: "Módulo PLC", criticality: "Alta", reference: "Beckhoff EL2809 (16 OUT) — A12.9", function: "OUT11 (hilo 4407) comanda la bobina de KM44.4." },
+            { name: "Módulo PLC entradas (feedback KM44.4)", system: "Eléctrico / Control", type: "Módulo PLC", criticality: "Alta", reference: "Beckhoff EL1809 (16 IN) — A12.4", function: "IN2 (hilo 4408) lee la realimentación de KM44.4." },
+            { name: "Fuente de mando 24 V DC", system: "Eléctrico / Control", type: "Fuente", criticality: "Alta", reference: "Siemens SITOP 24V/20A — G04.1", function: "Alimenta todo el mando 24 V DC (incl. bobina de KM44.4)." },
+            { name: "Interruptor general", system: "Eléctrico / Control", type: "Seccionador", criticality: "Alta", reference: "Siemens 3LD2504 · 3P · 63A — Q01.3", function: "Corte general de potencia (punto de LOTO)." },
+            { name: "Variador de motores", system: "Motriz / Control", type: "Variador", criticality: "Alta", reference: "Lenze i550 0,37 kW (×5) — A29.1/A34.1/A34A.1/A37.1/A96A.1", function: "Acciona motores (svolgitura/trascinamento carta, vibrador, transporte)." },
+            { name: "Rodamiento aguja HK2020 (sellado)", system: "Sellado", type: "Rodamiento", criticality: "Media", reference: "741907025 · HK2020 · q24", function: "Plan Excel MS235 — SELLADO MECANICA. Unifica código interno + referencia. Buscable por 741907025." },
+            { name: "Rodamiento lineal KH2540 (sellado)", system: "Sellado", type: "Buje lineal", criticality: "Media", reference: "741903029 · KH2540 · q12 e16", function: "Plan Excel — SELLADO. Ub. R04/E0104." },
+            { name: "Arandela calibrada 17×30×1 (sellado)", system: "Sellado", type: "Arandela", criticality: "Baja", reference: "742902038 · DIA INT17 EXT30 · q24", function: "Plan Excel — SELLADO." },
+            { name: "Rodamiento bola 6202 ZZ (banda)", system: "Banda transportadora", type: "Rodamiento", criticality: "Media", reference: "741901003 · 6202 ZZ · q2 e16", function: "Plan Excel — BANDA TRANSPORTADORA MECANICA. Ub. R01/Z0505." },
+            { name: "Rodamiento axial ZKLF2068-2RS (foil)", system: "Foil", type: "Rodamiento", criticality: "Alta", reference: "741903157 · ZKLF2068-2RS · q2 e8", function: "Plan Excel — FOIL. Pu 2757724." },
+            { name: "Seguidor leva KR30-PP (foil)", system: "Foil", type: "Seguidor leva", criticality: "Media", reference: "741909011 · KR30-PP · q8", function: "Plan Excel — FOIL." },
+            { name: "Retenedor 25×35×4 aceite (dosificación)", system: "Dosificación", type: "Retén", criticality: "Media", reference: "741902042 · 25×35×4 · q8", function: "Plan Excel — DOSIFICACION MECANICA." },
+            { name: "Rodamiento axial 51104 20×35×10 (sellado)", system: "Sellado", type: "Rodamiento", criticality: "Media", reference: "741903137 · NACHI 51104 · q4", function: "Plan Excel — SELLADO. 6M." },
+            { name: "Rodamiento bola 6001 ZZ (sellado)", system: "Sellado", type: "Rodamiento", criticality: "Media", reference: "741901027 · 6001 ZZ · q6 e3", function: "Plan Excel — SELLADO. Ub. R04/B0204." },
+            { name: "Rodamiento bola 6300 ZZ (dosificación)", system: "Dosificación", type: "Rodamiento", criticality: "Media", reference: "741901021 · 6300 ZZ · q2 e29", function: "Plan Excel — DOSIFICACION. Ub. R04/B0204–R02/M0203." },
+            { name: "Rodamiento bola 608 ZZ (dosificación)", system: "Dosificación", type: "Rodamiento", criticality: "Media", reference: "741901135 · 608 ZZ · q10 e20", function: "Plan Excel — DOSIFICACION. Ub. R01/Z0505." },
+            { name: "Rodamiento bola 6003 2RS (banda)", system: "Banda transportadora", type: "Rodamiento", criticality: "Media", reference: "741901079 · 6003 2RS · q3", function: "Plan Excel — BANDA 6M. Sin stock hoy." },
+            { name: "Bomba DROPSA 0,35L (cadena)", system: "Cadena / Lubricación", type: "Bomba", criticality: "Alta", reference: "3099127 · P02P010010 · q1 (lista 2a)", function: "Catálogo 5-Piezas S4M021 + Lista 2a. Lubricación cadena p.58-64." },
+            { name: "Filtro DROPSA (cadena)", system: "Cadena / Lubricación", type: "Filtro", criticality: "Media", reference: "3088055 · P02P011001 · q4 (lista 2a)", function: "Filtro lubricación cadena." },
+            { name: "Correa dentada 124 L075 Gomma Nera", system: "Transmisión", type: "Correa", criticality: "Media", reference: "C261124075 · q4", function: "Lista 2a S4M121 — transmisión rulos." },
+            { name: "Cuchilla vertical STGR.LAMA + cuchilla", system: "Corte", type: "Cuchilla", criticality: "Alta", reference: "32940130 + 235.15.222/235.15.330 · q1+5", function: "Grupo S4A19100720 — lámina corte vertical p.70/97." },
+            { name: "Membrana larga L=149 (mordazas)", system: "Soldadura", type: "Membrana", criticality: "Media", reference: "007210121/007210125 · L=149 · q1", function: "S4M141 — membrana mordazas soldantes, cambio con ingrassaggio p.72-74." },
+            { name: "Filtro aire descarga + junta", system: "Soldadura / Neumática", type: "Filtro", criticality: "Media", reference: "C93-GACO DEM32A+P + AA103 D17-30", function: "S4M141 p.73 — filtro descarga aire + guarnizione ATP." },
+            { name: "Correa dentada 700 RPP5 25 (válvula)", system: "Transmisión / Válvula", type: "Correa", criticality: "Media", reference: "C26Q050700 · 700-RPP5-25", function: "Lista 2a S4G722 — estrella alimentación." },
+            { name: "Rodamiento INOX 6903H-ZZ EZO (QE1)", system: "Eléctrico", type: "Rodamiento", criticality: "Baja", reference: "6903H-ZZ INOX · q4 (lista 2a)", function: "Lista 2a QE1 S3E01052 — rod específico inox." }
+          ],
+          maintenanceTasks: [
+            { name: "Verificación tensión cadena", system: "Cadena (S4M021)", frequency: "Semanal", type: "Inspección", acceptance: "Tensión según p.58 — sin flecha ni ruido. Pulizia p.59." },
+            { name: "Limpieza cadena + sustitución filtro y cambio aceite", system: "Cadena (S4M021)", frequency: "Mensual", type: "Limpieza/Reemplazo", acceptance: "Filtro DROPSA limpio/sustituido p.60, aceite cambiado p.61-62, nivel p.63, vasca p.64." },
+            { name: "Verificación desgaste rulos arrastre carta + lámina corte vertical", system: "Arrastre (S4M121/S4A191)", frequency: "Mensual", type: "Inspección", acceptance: "Rulos sin desgaste p.69/96, lámina eficiente p.70/97." },
+            { name: "Ingrassaggio piastre soldanti + mordazas (grasa interna)", system: "Soldadura (S4M141)", frequency: "Mensual", type: "Lubricación", acceptance: "Engrase p.71, smontaggio ganasce p.72, filtro aire p.73, membrana p.74." },
+            { name: "Control precarico tiranti molleggiati + snodi", system: "Soldadura (S4M141)", frequency: "Trimestral", type: "Inspección", acceptance: "Snodi ingrassati p.78, precarico p.79, camme p.81 sin juego." },
+            { name: "Limpieza guías placa ancoraggio / cadena / desviación carta", system: "Guías (S4M151/161/171)", frequency: "Semanal", type: "Limpieza", acceptance: "Guías limpias p.82-85, cadena lubricada p.83." },
+            { name: "Limpieza objetivo fotocélula lectura muesca", system: "Fotocélula (S4M951)", frequency: "Semanal", type: "Limpieza", acceptance: "Objetivo limpio p.86 — sin falsos centrado." },
+            { name: "Verificación juntas estrella + documentación PC", system: "Foil/Alimentación (S3A951)", frequency: "Mensual", type: "Inspección", acceptance: "Guarnizioni sin desgaste p.87, doc. PC al día p.88." },
+            { name: "Verificación giunti sferici + pulizia cilindro", system: "Neumática (S4A081)", frequency: "Mensual", type: "Inspección", acceptance: "Giunti sin juego p.89, cilindro limpio p.90." },
+            { name: "Control desgaste correa motorización", system: "Transmisión (S4A121)", frequency: "Mensual", type: "Inspección", acceptance: "Correa sin cricche p.91." },
+            { name: "Verificación cuchilla fija/móvil + distancia", system: "Corte (S4A19100720)", frequency: "Semanal", type: "Ajuste", acceptance: "Filo p.98/100, smontaggio p.99/101, distanza p.102 (0,05-0,1 mm)." },
+            { name: "Mantenimiento depósito aire + motore/riduttore", system: "Neumática (S4A19100720)", frequency: "Semestral", type: "Inspección", acceptance: "Depósito p.106, motore p.107 sin fugas/ruido." },
+            { name: "Control fijación cojinetes soporte bobina + ejes neumáticos", system: "Portabobinas (S4A261)", frequency: "Mensual", type: "Inspección", acceptance: "Cojinetes senza gioco p.113, ejes neumáticos p.114, freno p.115." },
+            { name: "Verificación cintas/nastro: desgaste, tensión, centratura, pulizia", system: "Transporte (S4A702/711/751)", frequency: "Semanal", type: "Ajuste", acceptance: "Desgaste p.119, tensión p.120, centratura p.121, correa p.122, limpieza p.123-126." },
+            { name: "Instalación eléctrica — sustitución preventiva", system: "Eléctrico (S4A961)", frequency: "Anual", type: "Reemplazo", acceptance: "Revisión completa p.127-134, preventiva p.134." },
+            { name: "Alimentación producto: movimientos dosificación + ejes + molle + rasatore", system: "Dosificación (S4G715)", frequency: "Semanal", type: "Limpieza/Inspección", acceptance: "Pulizia p.136/142, alberi p.137/143, molle p.138/144, rasatore p.139/145, aspiratori p.140/146." },
+            { name: "Estrella alimentación: desgaste correa/juntas + rimontaggio motore", system: "Dosificación (S4G722)", frequency: "Mensual", type: "Inspección", acceptance: "Correa p.147, guarnizioni p.148, rimontaggio p.149." },
+            { name: "Lubricantes recomendados (tabla p.37) + refrigerante", system: "General", frequency: "Según tabla", type: "Lubricación", acceptance: "Tabla p.37 — aplicar solo lubricantes aprobados. Ver ficha 4-Calibrado." }
+          ],
           failureModes: [
             {
               name: "Anomalía telerruptor (contactor KM44.4)", probableSystem: "Eléctrico / Resistencias", status: "Base manual consolidada",
@@ -2140,6 +2212,36 @@ const initialMachines = [
                 { title: "¿Contactor pegado/soldado?", where: "Contactos de potencia 1-2/3-4/5-6 de KM44.4.", how: "Con LOTO, comprueba que se mueva libre. Con potencia (solo si imprescindible): que con el contactor abierto NO haya trifásica en 44L1/44L2/44L3.", spec: "Abre y cierra limpio; sin tensión en salida al estar abierto", tool: "Multímetro (AC), inspección", ifFail: "Si queda potencia con el contactor 'abierto' o el feedback confirma con el mando apagado → contactor soldado: reemplazar KM44.4 (3RT2326-1BB40)." },
                 { title: "Protecciones y potencia aguas arriba", where: "General Q01.3 (63A, hoja 1) y magnetotérmicos F19.1/F19A.1 (10A, hojas 19/19A).", how: "Verifica que la trifásica llega a KM44.4 y que no haya protecciones disparadas.", spec: "Protecciones cerradas; fusibles íntegros", tool: "Inspección / multímetro", ifFail: "Si hay algo disparado, investiga la causa (sobrecarga/corto en resistencias) ANTES de rearmar." }
               ]
+            },
+            {
+              name: "Atasco / corte irregular del film", probableSystem: "Corte (S4A19100720)", status: "Manual p.98-102",
+              symptoms: ["Corte deshilachado", "Film no separa", "Paro por cuchilla"],
+              checks: ["Filo cuchilla fija/móvil p.98/100", "Distancia entre cuchillas p.102", "Limpieza cuchilla p.109"],
+              correction: "Verificar desgaste filo p.98/100, reapretar/rectificar y ajustar distancia p.102 (0,05–0,1 mm). Limpiar cuchilla p.109. Si persiste, fasatura cuchilla horizontal p.31-32 (S4A19100720-1.1)."
+            },
+            {
+              name: "Soldadura fría / fuga en sobre", probableSystem: "Soldadura (S4M141)", status: "Manual p.71-79",
+              symptoms: ["Sobre abierto", "Fuga producto", "Temperatura no alcanza"],
+              checks: ["Membrana L=149 p.74", "Filtro aire p.73", "Engrase piastre p.71", "Corriente K19.x / KM44.4"],
+              correction: "Ingrassaggio piastre p.71, verificar membrana y filtro p.73-74, controlar precarico tiranti p.79. Si eléctrico, diagnosticar KM44.4/K19.x (ver falla telerruptor)."
+            },
+            {
+              name: "Descentrado de impresión / paso irregular", probableSystem: "Foto-centrado (S4M951/S4A121)", status: "Manual p.29 / p.86",
+              symptoms: ["Impresión desplazada", "Muesca no leída", "Paso variable"],
+              checks: ["Limpieza fotocélula p.86", "Regulación fase prelievo p.28", "Desgaste rulos p.69/96"],
+              correction: "Limpiar objetivo fotocélula p.86, ajustar fase S4A12100110 p.28 (regulador numérico/pomello p.20), verificar rulos arrastre p.69/96."
+            },
+            {
+              name: "Dosificación variable / polvo en ambiente", probableSystem: "Dosificación (S4G715/S4G722)", status: "Manual p.135-149",
+              symptoms: ["Peso variable", "Polvo excesivo", "Atasco tramoggia"],
+              checks: ["Limpieza movimientos p.136/142", "Molle/rasatore p.138-139", "Aspiratori polvo p.140/146", "Guarnizioni estrella p.148"],
+              correction: "Pulizia movimenti dosaggio p.136/142, alberi p.137/143, verifica molle p.138/144 y rasatore p.139/145, pulizia aspiratori p.140/146. Verificar guarnizioni estrella p.148."
+            },
+            {
+              name: "Arrastre / transporte irregular (cinta/cadena)", probableSystem: "Transporte (S4A702/S4M021)", status: "Manual p.58-64 / p.119-126",
+              symptoms: ["Cinta patina / deriva", "Cadena ruidosa", "Paro transporte"],
+              checks: ["Tensión cadena p.58/84", "Nivel aceite p.63", "Tensión/centratura nastro p.120-121", "Desgaste rulos p.126"],
+              correction: "Control tensión cadena p.58/84, limpieza y cambio aceite p.61-64, procedimiento tensado/centratura nastro p.121, verificar rulos S4A711/S4A751 p.124-126."
             }
           ],
           documents: [
@@ -3617,7 +3719,7 @@ const initialMachines = [
             </div>
             
             ${renderMachineMap(atlas.machineMap)}
-
+            ${machine.id === "njp3500" ? `
             <div class="layout-info-card">
               <div class="layout-info-card__header">
                 <span class="figure-card__eyebrow">Manual · pág. 35</span>
@@ -3634,7 +3736,7 @@ const initialMachines = [
                 <li><strong>Aspiradora / Colector de polvo (Vacuum cleaner):</strong> aspiración y extracción de polvo excedente y limpieza de estaciones.</li>
                 <li><strong>Tanque de agua de recirculación de vacío (Vacuum Circulating Water Tank):</strong> sistema de agua para la bomba de vacío de anillo líquido SK.</li>
               </ul>
-            </div>
+            </div>` : ""}
 
             <section>
               ${(atlas.systems ?? []).map((system, index) => `
@@ -3686,7 +3788,7 @@ const initialMachines = [
           <div class="spares-panel-container">
             <div class="panel-header-clean">
               <h3>Repuestos y Consumibles Críticos</h3>
-              <p>Inventario de repuestos críticos y cíclicos extraídos del manual del fabricante y listado detallado de rodamientos de la NJP-3500.</p>
+              <p>Inventario unificado: código interno Farmacápsulas (7419xx) + referencia del fabricante + sistema + criticidad. Arriba verás el plan Excel con existencias/ubicación; aquí el detalle técnico por sistema (rodamientos/bujes categorizados, buscable por código interno o P/N).</p>
             </div>
             
             <div class="spares-search-bar">
@@ -3731,6 +3833,7 @@ const initialMachines = [
               </table>
             </div>
 
+            ${machine.id === "njp3500" ? `
             <div class="rodamientos-section">
               <div class="rodamientos-header">
                 <h4>Rodamientos y Bujes de Estación (Detalle de Reemplazo)</h4>
@@ -3770,7 +3873,50 @@ const initialMachines = [
                   </ul>
                 </div>
               </div>
-            </div>
+            </div>` : (machine.id === "ms235" ? `
+            <div class="rodamientos-section">
+              <div class="rodamientos-header">
+                <h4>Rodamientos y bujes — MS235 (corte transversal por sistema)</h4>
+                <p>Códigos internos 7419xx (plan Excel) cruzados con referencia del catálogo. Busca por <code>7419</code>, <code>HK2020</code>, <code>KH2540</code>, <code>6202</code> etc. Las existencias/ubicación se ven arriba en el plan.</p>
+              </div>
+              <div class="rodamientos-grid">
+                <div class="rod-card">
+                  <h5>Sellado (S4M141)</h5>
+                  <ul>
+                    <li><strong>HK2020 (aguja)</strong> 741907025 — 24 ud</li>
+                    <li><strong>KH2540 (lineal)</strong> 741903029 — 12 ud (e16)</li>
+                    <li><strong>51104 NACHI 20×35×10</strong> 741903137 — 4 ud</li>
+                    <li><strong>6001 ZZ</strong> 741901027 — 6 ud (e3)</li>
+                  </ul>
+                </div>
+                <div class="rod-card">
+                  <h5>Dosificación / Foil</h5>
+                  <ul>
+                    <li><strong>ZKLF2068-2RS (axial)</strong> 741903157 — 2 ud</li>
+                    <li><strong>KR30-PP (leva)</strong> 741909011 — 8 ud</li>
+                    <li><strong>Retén 25×35×4</strong> 741902042 — 8 ud</li>
+                    <li><strong>6300 ZZ</strong> 741901021 — 2 ud / <strong>608 ZZ</strong> 741901135 — 10 ud</li>
+                  </ul>
+                </div>
+                <div class="rod-card">
+                  <h5>Banda / Transmisión</h5>
+                  <ul>
+                    <li><strong>6202 ZZ</strong> 741901003 — 2 ud (e16) — R01/Z0505</li>
+                    <li><strong>6003 2RS</strong> 741901079 — 3 ud — banda 6M</li>
+                    <li><strong>Correa 124 L075</strong> C261124075 — 4 ud</li>
+                    <li><strong>Correa 700 RPP5-25</strong> C26Q050700 — estrella</li>
+                  </ul>
+                </div>
+                <div class="rod-card">
+                  <h5>Cadena / Lubricación</h5>
+                  <ul>
+                    <li><strong>Bomba DROPSA 3099127</strong> — S4M021 p.58-64</li>
+                    <li><strong>Filtro DROPSA 3088055</strong> — 4 ud (lista 2a)</li>
+                    <li><strong>6903H-ZZ EZO INOX</strong> — QE1 (4 ud)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>` : "")}
           </div>
         `;
       }
