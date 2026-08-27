@@ -28,7 +28,9 @@ function dt(machine, campo) {
         //   Repuestos  = los del plan (con código interno) + los del manual
         //   Fallas y alarmas = registro de fallas + alarmas del HMI
         //   Despiece   = despiece interactivo + tabla de despiece
-        const hayDespiece = (typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id])
+        const hayMec = machine.id === "ms235" && !!window.MS235_MEC;
+        const hayDespiece = hayMec
+          || (typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id])
           || (typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]);
         const tabs = [
           ["summary", "Resumen"],
@@ -128,6 +130,7 @@ function dt(machine, campo) {
           </section>
           ${machine.schematic ? `<section class="profile-panel" data-profile-panel="schematic">${renderSchematicExplorer(machine)}</section>` : ""}
           ${hayDespiece ? `<section class="profile-panel" data-profile-panel="partsmap">
+            ${hayMec ? renderMecExplorer(machine) : ""}
             ${(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? renderPartsExplorer(machine) : ""}
             ${(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id] && typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? '<div class="panel-split"></div>' : ""}
             ${(typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]) ? renderTablesExplorer(machine) : ""}
@@ -1685,3 +1688,170 @@ function dt(machine, campo) {
 
       modalBackdrop.addEventListener("click", (event) => { if (event.target === modalBackdrop) closeModal(); });
       document.addEventListener("keydown", (event) => { if (event.key === "Escape" && !modalBackdrop.hidden) closeModal(); });
+
+      // ── MS235: mapa de la maquina y despiece por grupos ─────────────────────
+      // El plano electrico no sirve para enseniar donde esta cada pieza. Estas
+      // vistas salen del catalogo de piezas de Schmucker: la misma maquina con
+      // las llamadas de cada grupo en su sitio real, sacadas de las lineas guia
+      // del PDF. Al tocar una llamada se abre el grupo: que es, como se le hace
+      // mantenimiento (paginas en espaniol del manual de Calibrado) y su
+      // despiece con todos los numeros de pieza.
+
+      const mecState = { mapa: 0, grupo: "", q: "", hoja: 0 };
+
+      function mecData() { return window.MS235_MEC || null; }
+
+      function mecGrupoDe(cod) { const M = mecData(); return M && M.grupos[cod] ? M.grupos[cod] : null; }
+
+      // Los grupos que no aparecen en ninguna vista se listan aparte para que no
+      // se pierdan: el mapa solo trae las llamadas que dibujo el fabricante.
+      function mecSueltos() {
+        const M = mecData();
+        if (!M) return [];
+        const enMapa = new Set(M.mapas.flatMap((m) => m.hs.map((h) => h.cod)));
+        return Object.keys(M.grupos).filter((c) => !enMapa.has(c)).sort();
+      }
+
+      function renderMecExplorer(machine) {
+        const M = mecData();
+        if (!M) return "";
+        const mapa = M.mapas[mecState.mapa] || M.mapas[0];
+        const nGrupos = Object.keys(M.grupos).length;
+        const nPiezas = new Set(Object.values(M.grupos).flatMap((g) => g.piezas)).size;
+        const sueltos = mecSueltos();
+        return `
+          <div class="panel-header-clean">
+            <h3>Despiece por grupos &mdash; d&oacute;nde est&aacute; cada pieza</h3>
+            <p>La misma m&aacute;quina que dibuj&oacute; Schmucker, con la llamada de cada grupo en su sitio.
+               Toca una llamada del plano y se abre el grupo: qu&eacute; es, sus procedimientos de mantenimiento
+               en espa&ntilde;ol y su despiece con todos los n&uacute;meros de pieza. Cat&aacute;logo ${planEsc(M.ref)} &middot;
+               ${nGrupos} grupos &middot; ${nPiezas} referencias.</p>
+          </div>
+          <div class="mec-search">
+            <input id="mecSearch" type="search" placeholder="Busca un n&uacute;mero de pieza (235.15.222, C261124075&hellip;) o un grupo" value="${planEsc(mecState.q)}" oninput="mecBuscar(this.value)">
+          </div>
+          <div id="mecHits">${mecHitsHtml()}</div>
+          <div class="mec-body">
+            <div class="mec-mapcol">
+              ${M.mapas.length > 1 ? `<div class="mec-tabs">
+                ${M.mapas.map((m, i) => `<button class="mec-tab ${i === mecState.mapa ? "is-active" : ""}" type="button" onclick="mecVerMapa(${i})">${planEsc(m.t)}</button>`).join("")}
+              </div>` : ""}
+              <div class="mec-map">
+                <img src="${planEsc(mapa.img)}" alt="${planEsc(mapa.t)}" loading="lazy">
+                ${mapa.hs.map((h) => {
+                  const g = mecGrupoDe(h.cod);
+                  return `<button class="mec-hs ${mecState.grupo === h.cod ? "is-active" : ""}" type="button"
+                    style="left:${h.x}%;top:${h.y}%"
+                    onclick="mecVerGrupo('${planEsc(h.cod)}')"
+                    title="${planEsc(h.cod)} &middot; ${planEsc(g ? g.n : "sin despiece cargado")}"><span></span></button>`;
+                }).join("")}
+              </div>
+              <p class="mec-legend">${mapa.hs.length} llamadas en esta vista &middot; toca un punto</p>
+              ${sueltos.length ? `<details class="mec-otros"><summary>Otros ${sueltos.length} grupos sin llamada en el plano</summary>
+                ${sueltos.map((c) => `<button class="mec-otro ${mecState.grupo === c ? "is-active" : ""}" type="button" onclick="mecVerGrupo('${planEsc(c)}')">${planEsc(M.grupos[c].n)}<span>${planEsc(c)}</span></button>`).join("")}
+              </details>` : ""}
+            </div>
+            <div class="mec-panel" id="mecPanel">${mecGrupoHtml()}</div>
+          </div>`;
+      }
+
+      function mecRefresh() {
+        const cont = document.querySelector('[data-profile-panel="partsmap"] .mec-body');
+        const machine = machines.find((m) => m.id === selectedId);
+        if (!machine) return;
+        const wrap = document.querySelector('[data-profile-panel="partsmap"]');
+        if (wrap) wrap.innerHTML = renderMecExplorer(machine);
+      }
+      function mecVerMapa(i) { mecState.mapa = i; mecRefresh(); }
+      function mecVerGrupo(cod) {
+        mecState.grupo = cod === mecState.grupo ? "" : cod;
+        mecState.hoja = 0;
+        mecRefresh();
+        document.getElementById("mecPanel")?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+      function mecVerHoja(i) { mecState.hoja = i; mecRefresh(); }
+      function mecBuscar(v) {
+        mecState.q = v;
+        mecRefresh();
+        const c = document.getElementById("mecSearch");
+        if (c) { c.focus(); c.setSelectionRange(c.value.length, c.value.length); }
+      }
+
+      // Buscar una referencia y que diga en que grupo va: es la pregunta real
+      // cuando alguien tiene la pieza en la mano y no sabe de donde salio.
+      function mecHitsHtml() {
+        const M = mecData();
+        const q = normalize(mecState.q).replace(/[.\-\s]/g, "");
+        if (!M || q.length < 3) return "";
+        const hits = [];
+        Object.entries(M.grupos).forEach(([cod, g]) => {
+          if (normalize(g.n).includes(normalize(mecState.q)) || normalize(cod).includes(q)) hits.push({ cod, g, ref: "", grupo: true });
+          g.piezas.forEach((p) => { if (normalize(p).replace(/[.\-\s]/g, "").includes(q)) hits.push({ cod, g, ref: p }); });
+        });
+        if (!hits.length) return `<p class="mec-nohit">Ninguna referencia ni grupo coincide con &laquo;${planEsc(mecState.q)}&raquo;.</p>`;
+        return `<div class="mec-hits"><p class="mec-hits__t">${hits.length} coincidencia${hits.length === 1 ? "" : "s"}</p>
+          ${hits.slice(0, 40).map((h) => `<button type="button" onclick="mecVerGrupo('${planEsc(h.cod)}')">
+            <span class="mec-hit__r">${h.ref ? planEsc(h.ref) : planEsc(h.cod)}</span>
+            <span class="mec-hit__g">${planEsc(h.g.n)}</span>
+          </button>`).join("")}
+          ${hits.length > 40 ? `<p class="pl-soft">y ${hits.length - 40} m&aacute;s&hellip;</p>` : ""}</div>`;
+      }
+
+      function mecGrupoHtml() {
+        const M = mecData();
+        if (!M) return "";
+        const cod = mecState.grupo;
+        if (!cod || !M.grupos[cod]) {
+          return `<div class="mec-empty">
+            <h4>Toca una llamada del plano</h4>
+            <p>Cada punto azul es un grupo de la m&aacute;quina. Al tocarlo ver&aacute;s qu&eacute; es, sus procedimientos
+               de mantenimiento con la figura del manual y su despiece completo, con el n&uacute;mero de pieza que va en el pedido.</p>
+          </div>`;
+        }
+        const g = M.grupos[cod];
+        const hoja = g.hojas[Math.min(mecState.hoja, g.hojas.length - 1)];
+        return `<div class="mec-grupo">
+          <div class="mec-grupo__head">
+            <p class="eyebrow">${planEsc(cod)}</p>
+            <h4>${planEsc(g.n)}</h4>
+            <p>${planEsc(g.d)}</p>
+            <span class="mec-fuente">Nombre seg&uacute;n: ${planEsc(g.fuente)}</span>
+          </div>
+
+          ${g.proc.length ? `<div class="mec-sec">
+            <h5>Mantenimiento de este grupo &middot; ${g.proc.length} procedimiento${g.proc.length === 1 ? "" : "s"}</h5>
+            <p class="pl-soft">Las p&aacute;ginas del manual de Calibrado, en italiano y espa&ntilde;ol, con su figura. Toca para ampliar.</p>
+            <div class="mec-procs">
+              ${g.proc.map((p) => `<figure class="mec-proc" onclick="openLightbox('${planEsc(p.img)}','${planEsc(p.t).replace(/'/g, "&#39;")} — manual de Calibrado, p. ${p.pg}')">
+                <img src="${planEsc(p.img)}" alt="${planEsc(p.t)}" loading="lazy">
+                <figcaption>${planEsc(p.t)}<span>p. ${p.pg}</span></figcaption>
+              </figure>`).join("")}
+            </div>
+          </div>` : ""}
+
+          ${g.hojas.length ? `<div class="mec-sec">
+            <h5>Despiece &middot; ${g.hojas.length} l&aacute;mina${g.hojas.length === 1 ? "" : "s"}</h5>
+            <div class="mec-hojas">
+              ${g.hojas.map((h, i) => `<button class="mec-hoja ${i === Math.min(mecState.hoja, g.hojas.length - 1) ? "is-active" : ""}" type="button" onclick="mecVerHoja(${i})">${planEsc(h.tav || "lám. " + (i + 1))}<span>${(h.p || []).length} pz.</span></button>`).join("")}
+            </div>
+            ${hoja ? `<figure class="mec-lamina" onclick="openLightbox('${planEsc(hoja.img)}','${planEsc(hoja.tav)} — catálogo de piezas, p. ${hoja.pg}')">
+              <img src="${planEsc(hoja.img)}" alt="Despiece ${planEsc(hoja.tav)}" loading="lazy">
+              <figcaption>🔍 ${planEsc(hoja.tav)} &middot; p&aacute;gina ${hoja.pg} del cat&aacute;logo &mdash; toca para ampliar</figcaption>
+            </figure>` : ""}
+          </div>` : ""}
+
+          ${g.piezas.length ? `<div class="mec-sec">
+            <h5>Referencias de este grupo &middot; ${g.piezas.length}</h5>
+            <p class="pl-soft">El c&oacute;digo interno se escribe tocando su celda; queda guardado en este navegador y se puede exportar.</p>
+            <div class="pl-tablewrap">
+              <table class="pl-table mec-table">
+                <thead><tr><th>Referencia Schmucker</th><th>C&oacute;d. interno</th><th>L&aacute;mina</th></tr></thead>
+                <tbody>${g.piezas.map((p) => {
+                  const h = g.hojas.find((x) => (x.p || []).includes(p));
+                  return `<tr><td class="sp-ref">${planEsc(p)}</td>${intCellHtml(p)}<td class="pl-soft">${h ? `<button class="mec-ir" type="button" onclick="mecVerHoja(${g.hojas.indexOf(h)})">${planEsc(h.tav)}</button>` : "&mdash;"}</td></tr>`;
+                }).join("")}</tbody>
+              </table>
+            </div>
+          </div>` : '<p class="pl-soft">Este grupo no tiene l&aacute;mina de despiece propia en el cat&aacute;logo; su mantenimiento s&iacute; est&aacute; en el manual de Calibrado.</p>'}
+        </div>`;
+      }
