@@ -2973,3 +2973,18 @@
       .sen-mod__n { grid-row: span 2; color: #1849a9; font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; }
       .sen-mod__t { color: var(--text); font-size: 0.83rem; line-height: 1.35; }
       .sen-mod__c { color: var(--muted); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.76rem; font-weight: 700; }
+
+      /* ── "Ver dónde va": del repuesto a su sitio en la máquina ─────────────── */
+      .sp-det__ir { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+      .sp-det__ir .button { display: inline-flex; align-items: center; gap: 6px; }
+      .sp-det__irtxt { color: var(--muted); font-size: 0.84rem; }
+      .sp-sys__go { border: 0; padding: 0; background: none; color: #1849a9; font: inherit; font-weight: 650; text-align: left; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+      .sp-sys__go:hover { color: #12386f; }
+
+      /* Al llegar desde "Ver dónde va", el destino parpadea una vez. */
+      @keyframes flashDestino {
+        0%   { box-shadow: 0 0 0 0 rgba(21, 112, 239, .55); }
+        35%  { box-shadow: 0 0 0 7px rgba(21, 112, 239, .16); }
+        100% { box-shadow: 0 0 0 0 rgba(21, 112, 239, 0); }
+      }
+      .is-flash { border-radius: 14px; animation: flashDestino 1.8s ease-out 1; }

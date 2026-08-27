@@ -2182,14 +2182,13 @@ const initialMachines = [
             { name: "Rodamiento bola 6003 2RS (banda)", system: "Banda transportadora", type: "Rodamiento", criticality: "Media", reference: "741901079 · 6003 2RS · q3", function: "Plan Excel — BANDA 6M. Sin stock hoy." },
             { name: "Bomba DROPSA 0,35L (cadena)", system: "Cadena / Lubricación", type: "Bomba", criticality: "Alta", reference: "3099127 · P02P010010 · q1 (lista 2a)", function: "Catálogo 5-Piezas S4M021 + Lista 2a. Lubricación cadena p.58-64." },
             { name: "Filtro DROPSA (cadena)", system: "Cadena / Lubricación", type: "Filtro", criticality: "Media", reference: "3088055 · P02P011001 · q4 (lista 2a)", function: "Filtro lubricación cadena." },
-            { name: "Correa dentada 124 L075 Gomma Nera", system: "Transmisión", type: "Correa", criticality: "Media", reference: "C261124075 · q4", function: "Lista 2a S4M121 — transmisión rulos." },
-            { name: "Cuchilla vertical STGR.LAMA + cuchilla", system: "Corte", type: "Cuchilla", criticality: "Alta", reference: "32940130 + 235.15.222/235.15.330 · q1+5", function: "Grupo S4A19100720 — lámina corte vertical p.70/97." },
-            { name: "Membrana larga L=149 (mordazas)", system: "Soldadura", type: "Membrana", criticality: "Media", reference: "007210121/007210125 · L=149 · q1", function: "S4M141 — membrana mordazas soldantes, cambio con ingrassaggio p.72-74." },
+            { name: "Correa dentada 124 L075 Gomma Nera", system: "Transmisión", type: "Correa", criticality: "Media", reference: "C261124075 · q4", qty: 1, function: "Lista 2a S4M121 — transmisión rulos." },
+            { name: "Cuchilla vertical STGR.LAMA + cuchilla", system: "Corte", type: "Cuchilla", criticality: "Alta", reference: "32940130 + 235.15.222/235.15.330 · q1+5", qty: 1, function: "Grupo S4A19100720 — lámina corte vertical p.70/97." },
+            { name: "Membrana larga L=149 (mordazas)", system: "Soldadura", type: "Membrana", criticality: "Media", reference: "007210121/007210125 · L=149 · q1", qty: 2, function: "S4M141 — membrana mordazas soldantes, cambio con ingrassaggio p.72-74." },
             { name: "Filtro aire descarga + junta", system: "Soldadura / Neumática", type: "Filtro", criticality: "Media", reference: "C93-GACO DEM32A+P + AA103 D17-30", function: "S4M141 p.73 — filtro descarga aire + guarnizione ATP." },
             { name: "Correa dentada 700 RPP5 25 (válvula)", system: "Transmisión / Válvula", type: "Correa", criticality: "Media", reference: "C26Q050700 · 700-RPP5-25", function: "Lista 2a S4G722 — estrella alimentación." },
             { name: "Rodamiento INOX 6903H-ZZ EZO (QE1)", system: "Eléctrico", type: "Rodamiento", criticality: "Baja", reference: "6903H-ZZ INOX · q4 (lista 2a)", function: "Lista 2a QE1 S3E01052 — rod específico inox." },
             { name: "Rodillo traccion", system: "Arrastre de papel", type: "Rodillo", criticality: "Media", reference: "A92R800006 · RULLO DI TRASC.ESTERNO", qty: 4, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M12100110. Cantidad sugerida para 2 años: 4." },
-            { name: "Correa dentada", system: "Arrastre de papel", type: "Correa", criticality: "Media", reference: "C261124075 · CINGHIA DENTATA 124 L 075 GOMMA NERA -1-", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M12100110. Cantidad sugerida para 2 años: 1." },
             { name: "Kit junta", system: "Arrastre de papel", type: "Junta / membrana", criticality: "Media", reference: "C85997005019 · KIT GIUNTO KG5.019 VARVEL", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M12100110. Cantidad sugerida para 2 años: 1." },
             { name: "Tornillo", system: "Soldadura", type: "Mecanizado", criticality: "Media", reference: "035210387 · VITE PER LEVA BIELLA", qty: 4, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M14100110. Cantidad sugerida para 2 años: 4." },
             { name: "Tornillo x sujeccion membrana", system: "Soldadura", type: "Junta / membrana", criticality: "Alta", reference: "17P10124 · VITE PER PORTA MENBRANA", qty: 2, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M14100110. Cantidad sugerida para 2 años: 2." },
@@ -2200,8 +2199,7 @@ const initialMachines = [
             { name: "Anillo de sellado", system: "Soldadura", type: "Junta / membrana", criticality: "Media", reference: "C482202804 · ANELLO DI TENUTA GR20 X 28 X 4 INA", qty: 6, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M14100110. Cantidad sugerida para 2 años: 6." },
             { name: "Anillo de sellado", system: "Soldadura", type: "Junta / membrana", criticality: "Media", reference: "C482253504 · ANELLO DI TENUTA GR25 X 35 X 4 INA", qty: 4, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M14100110. Cantidad sugerida para 2 años: 4." },
             { name: "Junta", system: "Soldadura", type: "Junta / membrana", criticality: "Media", reference: "P390243206 · GUARNIZIONE GACO DEM 32 A+P", qty: 2, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M14100110. Cantidad sugerida para 2 años: 2." },
-            { name: "Cuchilla", system: "Alimentación de bobina", type: "Cuchilla", criticality: "Alta", reference: "32940130 · COLTELLO", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4M16100110. Cantidad sugerida para 2 años: 1." },
-            { name: "05/05/23", system: "Transporte", type: "Cuchilla", criticality: "Media", reference: "00711R011 · STGR.LAMA x COLTELLO VERTICALE", qty: 0, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100110. Cantidad sugerida para 2 años: sin dato." },
+            { name: "Grupo de lámina para cuchilla vertical (STGR.LAMA)", system: "Corte", type: "Cuchilla", criticality: "Alta", reference: "00711R011 · STGR.LAMA x COLTELLO VERTICALE", qty: 0, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100110. Cantidad sugerida para 2 años: sin dato." },
             { name: "Eje roscado", system: "Transporte", type: "Mecanizado", criticality: "Media", reference: "235.20.352 · PERNO", qty: 5, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100110. Cantidad sugerida para 2 años: 5." },
             { name: "Limpia cuchillas", system: "Transporte", type: "Cuchilla", criticality: "Alta", reference: "235.20.354 · FELTRO PULIZIA LAMA", qty: 5, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100110. Cantidad sugerida para 2 años: 5." },
             { name: "Rodillo interno", system: "Transporte", type: "Rodillo", criticality: "Media", reference: "A92R800001 · RULLO DI TRASCINAMENTO INTER.", qty: 10, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100110. Cantidad sugerida para 2 años: 10." },
@@ -2211,7 +2209,6 @@ const initialMachines = [
             { name: "Cuchilla fija", system: "Corte", type: "Cuchilla", criticality: "Alta", reference: "235.15.222 · COLTELLO", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100720. Cantidad sugerida para 2 años: 1." },
             { name: "Cuchilla movil", system: "Corte", type: "Cuchilla", criticality: "Alta", reference: "235.15.330 · COLTELLO MOBILE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A19100720. Cantidad sugerida para 2 años: 1." },
             { name: "Membrana larga l=149", system: "Soldadura", type: "Junta / membrana", criticality: "Alta", reference: "007050268 · MEMBRANA LARGA L=149", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A21100230. Cantidad sugerida para 2 años: 1." },
-            { name: "Bloque de guía de mordaza", system: "Soldadura", type: "Maniobra / protección", criticality: "Media", reference: "007210121 · BLOCCHETTO GUIDA GANASCE", qty: 2, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A21100230. Cantidad sugerida para 2 años: 2." },
             { name: "Casquillo", system: "Soldadura", type: "Mecanizado", criticality: "Media", reference: "007210125 · BOCCOLA DI SCORRIMENTO", qty: 2, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A21100230. Cantidad sugerida para 2 años: 2." },
             { name: "Placa", system: "Soldadura", type: "Mecanizado", criticality: "Media", reference: "035180143 · PIASTRA ISOLANTE 131X416", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A21100230. Cantidad sugerida para 2 años: 1." },
             { name: "Espesor para placa", system: "Soldadura", type: "Mecanizado", criticality: "Media", reference: "16910005 · SPESSORE PER PIASTRA", qty: 2, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4A21100230. Cantidad sugerida para 2 años: 2." },
@@ -2221,49 +2218,48 @@ const initialMachines = [
             { name: "Junta aa103 d.17-30 atp", system: "Dosificación", type: "Junta / membrana", criticality: "Media", reference: "007040097 · GUARNIZIONE AA103 D.17-30 ATP", qty: 4, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4G72200210. Cantidad sugerida para 2 años: 4." },
             { name: "Stgr. junta valvula", system: "Dosificación", type: "Junta / membrana", criticality: "Media", reference: "00704R008 · STGR.GUARNIZIONI OR VALVOLA", qty: 2, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4G72200210. Cantidad sugerida para 2 años: 2." },
             { name: "Correa dentada", system: "Dosificación", type: "Correa", criticality: "Media", reference: "C26Q051270 · CINGHIA DENTATA 1270-RPP5-25", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S4G72200210. Cantidad sugerida para 2 años: 1." },
-            { name: "Zocalo pyf 08a omron", system: "Eléctrico / Armario QE1", type: "Conexionado", criticality: "Media", reference: "D972571081 · ZOCCOLO PYFZ-08 OMRON (EX. PYF 08A)", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Zocalo para rele'", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "D974571060 · ZOCCOLO X RELE' DI SICUREZZA (G7SA-4A2B) P7SA-14F OMRON", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Filtro", system: "Eléctrico / Armario QE1", type: "Filtro", criticality: "Media", reference: "E3042F006311 · FILTRO FIN1740ESM.0.36.MN 36AMP FINMOTOR", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Proteccion electronica", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E34695107040 · PROTEZIONE ELETTR.24 VDC 4 A CL.2 AMG ELM-4F CL2 WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Zocalo pyf 08a omron Omron PYFZ-08", system: "Eléctrico / Armario QE1", type: "Conexionado", criticality: "Baja", reference: "D972571081 · ZOCCOLO PYFZ-08 OMRON (EX. PYF 08A)", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Zocalo para rele' Omron (G7SA-4A2B)", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Baja", reference: "D974571060 · ZOCCOLO X RELE' DI SICUREZZA (G7SA-4A2B) P7SA-14F OMRON", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Filtro Finmotor FIN1740ESM.0.36.MN", system: "Eléctrico / Armario QE1", type: "Filtro", criticality: "Media", reference: "E3042F006311 · FILTRO FIN1740ESM.0.36.MN 36AMP FINMOTOR", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Proteccion electronica Weidmuller ELETTR.24", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E34695107040 · PROTEZIONE ELETTR.24 VDC 4 A CL.2 AMG ELM-4F CL2 WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
             { name: "Protecciion electronica", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E34695107100 · PROTEZIONE ELETTRONICA 24 VDC 10 A AMG ELM-10F WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Abrazadera", system: "Eléctrico / Armario QE1", type: "Conexionado", criticality: "Media", reference: "E34995000000 · MORSETTO DISTRIBUZ.PER PROT.ELETTR.AMG FIM-C WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Rele", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E72157322400 · RELE' MY2-ND2 24V DC OMRON", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Rele", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E72795052400 · RELE' ST.RSO30/DV 5-24V CC/SC 9443100000(EX.RSM01)WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Rele", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E72895515301 · RELE' CTRL CORR.ACT20P-CML-10-AO-RC-P 2489910000 WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Modulo", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Media", reference: "E72A57092300 · MODULO DI SICUREZZA 24VDC 4NA+2NC G7SA-4A2B OMRON", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Tarjeta accionamiento", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Media", reference: "E79205T59400 · AZIONAMENTO PER MOTORI C.C. MOD.PLN19-8+SUPP.GUIDA DIN", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Teclado", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79334F00001 · TASTIERINO PER INVERTER SERIE I550 I5MADK0000000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Inverter", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79334F40230 · SCHEDA INVERTER I550 230V 0,37KW I5DAE137B10V10000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Inverter", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79624F00002 · SCHEDA I/O INVERTER I55016064350 I5CA5002000VA0000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Tarjeta safety", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79724F00000 · SCHEDA SAFETY INVERTER I550 SM PU01 I5MASAV000000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
-            { name: "Conector", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20055105040 · CONN.FEMM. 90° 1681130 SACC-M12FR-4CON-PG7 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Conector", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20055105041 · CONN.FEMM.DIRITTO 1681114 SACC-M12FS-4CON-PG7 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Conector", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20661789040 · CONN.UL/CSA M12 10mt 4POLI 1681389 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Conector", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20A61010000 · CONNETTORE FEMMINA CUC-I-D1ZNI-S/R4GC8 1041760 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Cable", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20A6G509080 · CAVO RETE 0.5M S-FTP DOPPIA SCHERMAT.LSOH DK1644A005 DIGITUS", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Cable", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20A6G509084 · CAVO RETE 5MT S-FTP DOPPIA SCHERMAT.LSOH DK1644A050 DIGITUS", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Cable", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Media", reference: "E20A6G509085 · CAVO RETE 10MT S-FTP DOPPIA SCHERMAT.LSOH DK1644A100 DIGITUS", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Led fl amarillo 24v", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Media", reference: "E264240040 · DIODI LED TIPO FL GIALLO 24V OMEGA", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Interruptor de seguridad", system: "Eléctrico / Sensores y conexionado", type: "Maniobra / protección", criticality: "Media", reference: "E31072580001 · INTER.SICUR.EUCHNER CTP-I-AP-U-HA-ZZ-SA-136732 EUC-136732", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Tope", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Media", reference: "E31092500001 · FINECORSA RFID SENZA CONT.CES-I-AP-U-C04-SK 115324 EUCHNER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Actuador para micro", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Media", reference: "E31952500001 · ATT.RFID CES-A-BBN-C04 115271 SENZ.CONTAT.EUCHNER NR12+STER.", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "05/05/23", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Media", reference: "E32077F31200 · AMPLIFICATORE PER FIBRA OTT.F71RAN 24V DC (EX F1RAN) SEEKA", qty: 0, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: sin dato." },
-            { name: "Lector de muescas", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32081924244 · LETTORE TACCHE PNP TLMICRO115 DATALOGIC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Fotocelula", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32099824230 · FOTO.LASER YM22PA2 PNP WENGLOR", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Fotocelula", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32139824211 · FOT.LUCE ROSSA SOPPRESSIONE DI SFONDO P1KH002 150 mm WENGLOR", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Fotocelula", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32157C44210 · FOT.FORCELLA ULTRAS.UFN3-70B413 6049678 SICK", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Fotocelula fibra optica", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32987F00000 · FOTOCELLULA FIBRA OTTICA E/R FTL 716 BC SEEKA", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Detector de proximidad", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66075212310 · PROXIMITY B0281POV6 (ex B8/1 V2) SELET", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Detector de proximidad", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66075212523 · PROXIMITY B60122POC5 B12 PNP-UL SELET", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Sensor de proximidad", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66163212580 · PROXIMITY KAS 80-A12-AK PTFE COD.KA0142 RECHNER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Sensor de proximidad", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66163212960 · PROXIMITY KAS 80-26-A PTFE 1\" COD.813100 RECHNER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
-            { name: "Tarjeta de red", system: "Eléctrico / Mandos y neumática", type: "Módulo / electrónica", criticality: "Media", reference: "E79620W00000 · SCHEDA DI RETE A 4 PORTE GIGE POE BASLER AT ADVANCED", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
-            { name: "Transformador", system: "Eléctrico / Mandos y neumática", type: "Alimentación", criticality: "Alta", reference: "E89325N16300 · TRAFO D/YN 208-240/400V 6.4KVA ULCSA", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
-            { name: "Electrovalvula", system: "Eléctrico / Mandos y neumática", type: "Neumática", criticality: "Media", reference: "P258G05014 · ELETTROV.5/2 1/4\" SY7120-5YO-02F-Q 24V.CC SMC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
-            { name: "Microfiltro", system: "Eléctrico / Mandos y neumática", type: "Filtro", criticality: "Media", reference: "P332560038 · MICROFILTRO ARIA SC.AUT.AFM30-F03-D-A 3/8\" SMC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
-            { name: "Electrovalvula", system: "Eléctrico / Mandos y neumática", type: "Neumática", criticality: "Media", reference: "P258E05006 · ELETTROV.5/2 1/8\"T6 SY5120-5Y0-C6F-Q 24V CC SMC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
-            { name: "Sonda de temperatura PT100 de plancha", system: "Soldadura", type: "Sensor", criticality: "Alta", reference: "D7911B600650 · CREI PT100 MOD.500 D.6×50 LC=2000 2 hilos cód.00649", qty: 2, function: "Mide la temperatura de cada plancha soldante — B41.4 (derecha) y B41.8 (izquierda) del esquema ES4220003. Sin ella el PLC no habilita KM44.4." },
-            { name: "Fibra óptica de centrado automático", system: "Formado y foto-centrado", type: "Sensor", criticality: "Media", reference: "E32987F00000 · TAKEX FTL 716 BC", qty: 1, function: "Fibra del amplificador TAKEX F71RAN (B31.10) que hace el centrado automático de la bobina." }
+            { name: "Abrazadera Weidmuller", system: "Eléctrico / Armario QE1", type: "Conexionado", criticality: "Baja", reference: "E34995000000 · MORSETTO DISTRIBUZ.PER PROT.ELETTR.AMG FIM-C WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Relé auxiliar Omron MY2-ND2 24 V DC", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E72157322400 · RELE' MY2-ND2 24V DC OMRON", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Relé estático Weidmüller RSO30/DV 5-24 V", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E72795052400 · RELE' ST.RSO30/DV 5-24V CC/SC 9443100000(EX.RSM01)WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Monitor de corriente Weidmüller ACT20P-CML-10-AO-RC-P (resistencias)", system: "Eléctrico / Armario QE1", type: "Maniobra / protección", criticality: "Media", reference: "E72895515301 · RELE' CTRL CORR.ACT20P-CML-10-AO-RC-P 2489910000 WEIDMULLER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Módulo de seguridad Omron G7SA-4A2B (24 V DC, 4NA+2NC)", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Media", reference: "E72A57092300 · MODULO DI SICUREZZA 24VDC 4NA+2NC G7SA-4A2B OMRON", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Tarjeta accionamiento MOD.PLN19-8+SUPP.GUIDA", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Media", reference: "E79205T59400 · AZIONAMENTO PER MOTORI C.C. MOD.PLN19-8+SUPP.GUIDA DIN", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Teclado Lenze I5MADK0000000S", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79334F00001 · TASTIERINO PER INVERTER SERIE I550 I5MADK0000000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Tarjeta de variador Lenze i550 230 V 0,37 kW", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79334F40230 · SCHEDA INVERTER I550 230V 0,37KW I5DAE137B10V10000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Tarjeta I/O de variador Lenze i550", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79624F00002 · SCHEDA I/O INVERTER I55016064350 I5CA5002000VA0000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Tarjeta safety Lenze I5MASAV000000S", system: "Eléctrico / Armario QE1", type: "Módulo / electrónica", criticality: "Alta", reference: "E79724F00000 · SCHEDA SAFETY INVERTER I550 SM PU01 I5MASAV000000S LENZE", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052010. Cantidad sugerida para 2 años: 1." },
+            { name: "Conector Phoenix SACC-M12FR-4CON-PG7", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20055105040 · CONN.FEMM. 90° 1681130 SACC-M12FR-4CON-PG7 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Conector Phoenix SACC-M12FS-4CON-PG7", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20055105041 · CONN.FEMM.DIRITTO 1681114 SACC-M12FS-4CON-PG7 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Conector Phoenix M12 4 polos con cable 10 m (1681389)", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20661789040 · CONN.UL/CSA M12 10mt 4POLI 1681389 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Conector Phoenix CUC-I-D1ZNI-S/R4GC8", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20A61010000 · CONNETTORE FEMMINA CUC-I-D1ZNI-S/R4GC8 1041760 PHOENIX", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Cable de red apantallado 0,5 m (DK1644A005)", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20A6G509080 · CAVO RETE 0.5M S-FTP DOPPIA SCHERMAT.LSOH DK1644A005 DIGITUS", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Cable de red apantallado 5 m (DK1644A050)", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20A6G509084 · CAVO RETE 5MT S-FTP DOPPIA SCHERMAT.LSOH DK1644A050 DIGITUS", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Cable de red apantallado 10 m (DK1644A100)", system: "Eléctrico / Sensores y conexionado", type: "Conexionado", criticality: "Baja", reference: "E20A6G509085 · CAVO RETE 10MT S-FTP DOPPIA SCHERMAT.LSOH DK1644A100 DIGITUS", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Led fl amarillo 24v", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Baja", reference: "E264240040 · DIODI LED TIPO FL GIALLO 24V OMEGA", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Interruptor de seguridad Euchner CTP-I-AP-U-HA-ZZ-SA-136732", system: "Eléctrico / Sensores y conexionado", type: "Maniobra / protección", criticality: "Media", reference: "E31072580001 · INTER.SICUR.EUCHNER CTP-I-AP-U-HA-ZZ-SA-136732 EUC-136732", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Tope Euchner CONT.CES-I-AP-U-C04-SK", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Baja", reference: "E31092500001 · FINECORSA RFID SENZA CONT.CES-I-AP-U-C04-SK 115324 EUCHNER", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Actuador para micro Euchner CES-A-BBN-C04", system: "Eléctrico / Sensores y conexionado", type: "Repuesto", criticality: "Media", reference: "E31952500001 · ATT.RFID CES-A-BBN-C04 115271 SENZ.CONTAT.EUCHNER NR12+STER.", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Amplificador para fibra óptica Takex F71RAN 24 V DC (centrado automático)", system: "Formado y foto-centrado", type: "Sensor", criticality: "Media", reference: "E32077F31200 · AMPLIFICATORE PER FIBRA OTT.F71RAN 24V DC (EX F1RAN) SEEKA", qty: 1, function: "Va en 1 posición de la máquina — B31.10 (Portabobinas y centrado), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: sin dato." },
+            { name: "Lector de muescas Datalogic TLMICRO115", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32081924244 · LETTORE TACCHE PNP TLMICRO115 DATALOGIC", qty: 1, function: "Va en 1 posición de la máquina — B30.10 (Arrastre de papel), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Fotocélula láser Wenglor YM22PA2 (control expulsión)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Alta", reference: "E32099824230 · FOTO.LASER YM22PA2 PNP WENGLOR", qty: 3, function: "Va en 3 posiciones de la máquina — B52.1, B52.2, B52.3 (Expulsion / rechazo), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Fotocélula supresión de fondo Wenglor P1KH002 (control bobina)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32139824211 · FOT.LUCE ROSSA SOPPRESSIONE DI SFONDO P1KH002 150 mm WENGLOR", qty: 1, function: "Va en 1 posición de la máquina — B29.8 (Bobina y desbobinado), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Fotocélula de horquilla ultrasónica Sick UFN3-70B413 (empalme de bobina)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E32157C44210 · FOT.FORCELLA ULTRAS.UFN3-70B413 6049678 SICK", qty: 1, function: "Va en 1 posición de la máquina — B29.9 (Bobina y desbobinado), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Fibra óptica de centrado automático", system: "Formado y foto-centrado", type: "Sensor", criticality: "Media", reference: "E32987F00000 · TAKEX FTL 716 BC", qty: 1, function: "Fibra del amplificador TAKEX F71RAN (B31.10) que hace el centrado automático de la bobina." },
+            { name: "Detector inductivo Selet B0281POV6 (portabobinas)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66075212310 · PROXIMITY B0281POV6 (ex B8/1 V2) SELET", qty: 2, function: "Va en 2 posiciones de la máquina — B31.8, B31.9 (Portabobinas y centrado), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Detector inductivo Selet B60122POC5 (el más usado de la máquina)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Alta", reference: "E66075212523 · PROXIMITY B60122POC5 B12 PNP-UL SELET", qty: 13, function: "Va en 13 posiciones de la máquina — B18.2, B18.3, B25.8, B29.6, B29.7, B31.7, B32.8, B40.1, B40.2, B40.8, B42.2, B42.5, B42.6 (Bobina y desbobinado, Cierre de planchas, Corte de papel, Motor principal, Planchas soldantes, Portabobinas y centrado, Soldadura y dosis), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Sensor capacitivo de nivel Rechner KAS 80-A12-AK (carga máxima)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66163212580 · PROXIMITY KAS 80-A12-AK PTFE COD.KA0142 RECHNER", qty: 2, function: "Va en 2 posiciones de la máquina — B35.4, B35A.4 (Dosificacion, Dosificacion (2.o cassette)), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Sensor capacitivo de nivel Rechner KAS 80-26-A 1\" (carga mínima)", system: "Eléctrico / Sensores y conexionado", type: "Sensor", criticality: "Media", reference: "E66163212960 · PROXIMITY KAS 80-26-A PTFE 1\" COD.813100 RECHNER", qty: 2, function: "Va en 2 posiciones de la máquina — B35.1, B35A.1 (Dosificacion, Dosificacion (2.o cassette)), según el esquema ES4220003. Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052100. Cantidad sugerida para 2 años: 1." },
+            { name: "Tarjeta de red Basler", system: "Eléctrico / Mandos y neumática", type: "Módulo / electrónica", criticality: "Media", reference: "E79620W00000 · SCHEDA DI RETE A 4 PORTE GIGE POE BASLER AT ADVANCED", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
+            { name: "Transformador 208-240/400V", system: "Eléctrico / Mandos y neumática", type: "Alimentación", criticality: "Alta", reference: "E89325N16300 · TRAFO D/YN 208-240/400V 6.4KVA ULCSA", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
+            { name: "Electroválvula SMC SY7120 5/2 1/4\" 24 V DC", system: "Eléctrico / Mandos y neumática", type: "Neumática", criticality: "Media", reference: "P258G05014 · ELETTROV.5/2 1/4\" SY7120-5YO-02F-Q 24V.CC SMC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
+            { name: "Microfiltro Smc SC.AUT.AFM30-F03-D-A", system: "Eléctrico / Mandos y neumática", type: "Filtro", criticality: "Media", reference: "P332560038 · MICROFILTRO ARIA SC.AUT.AFM30-F03-D-A 3/8\" SMC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
+            { name: "Electroválvula SMC SY5120 5/2 1/8\" 24 V DC", system: "Eléctrico / Mandos y neumática", type: "Neumática", criticality: "Media", reference: "P258E05006 · ELETTROV.5/2 1/8\"T6 SY5120-5Y0-C6F-Q 24V CC SMC", qty: 1, function: "Lista de recambios recomendada 2 años (lista n.36, 05/05/2023) — grupo S3E01052210. Cantidad sugerida para 2 años: 1." },
+            { name: "Sonda de temperatura PT100 de plancha", system: "Soldadura", type: "Sensor", criticality: "Alta", reference: "D7911B600650 · CREI PT100 MOD.500 D.6×50 LC=2000 2 hilos cód.00649", qty: 2, function: "Va en 2 posiciones de la máquina — B41.4, B41.8 (Temperatura de planchas), según el esquema ES4220003. Mide la temperatura de cada plancha soldante — B41.4 (derecha) y B41.8 (izquierda) del esquema ES4220003. Sin ella el PLC no habilita KM44.4." }
           ],
           maintenanceTasks: [
             { name: "Verificación tensión cadena", system: "Cadena (S4M021)", frequency: "Semanal", type: "Inspección", acceptance: "Tensión según p.58 — sin flecha ni ruido. Pulizia p.59." },
@@ -2286,6 +2282,34 @@ const initialMachines = [
             { name: "Lubricantes recomendados (tabla p.37) + refrigerante", system: "General", frequency: "Según tabla", type: "Lubricación", acceptance: "Tabla p.37 — aplicar solo lubricantes aprobados. Ver ficha 4-Calibrado." }
           ],
           failureModes: [
+            {
+              name: "El carro de pinzas no baja o se queda atascado", probableSystem: "Toma de sobres (S4A12100110 / S4A08100610)", status: "Manual de Calibrado p.89-91 + Cambio de formato p.28",
+              symptoms: ["El carro no llega al punto de depósito o baja a tirones", "Sobres mal depositados o caídos en la cinta", "Ruido seco al invertir el movimiento"],
+              checks: ["Juego en las juntas esféricas del mando de pinzas (p.89)", "Suciedad o producto seco en el cilindro (p.90)", "Rayado o marcas en las guías verticales del carro", "Desgaste de la correa de motorización (p.91)", "Fase de toma de sobres desajustada (Cambio de formato p.28)"],
+              correction: "Empezar por las juntas esféricas y el cilindro; sólo después tocar la fase. Cambiar la fase con juego mecánico no arregla nada y desajusta el depósito.",
+              steps: [
+                { title: "Parar y descargar el aire", where: "Pulsador de STOP y válvula de descarga Y10.8 (hilo 1016).", how: "El carro se mueve con aire: sin descargar, al soltar una junta el brazo cae." },
+                { title: "Comprobar las juntas esféricas del mando de pinzas", where: "Grupo S4A08100610 — manual de Calibrado p.89 (y p.124 para las del grupo S4A71100310).", how: "Mover la articulación a mano y buscar juego. Con juego, el carro se atasca al invertir. Repuesto: juntas esféricas del grupo S4A081." },
+                { title: "Limpiar el cilindro", where: "S4A08100610 — Calibrado p.90.", how: "Producto seco en el vástago frena la bajada. Limpiar y comprobar que corre libre en todo el recorrido." },
+                { title: "Mirar las guías del carro", where: "Guías verticales por las que sube y baja el carro de pinzas.", how: "Rayas y marcas de arrastre indican falta de lubricación o desalineación. Si están marcadas, corregir la causa antes de volver a montar." },
+                { title: "Correa de motorización", where: "S4A12100110 — Calibrado p.91.", how: "Grietas, dientes desgastados o flojedad. Repuesto: correa dentada 124 L075 (C261124075)." },
+                { title: "Sólo al final, refasar", where: "Cambio de formato p.28 — regulación de fase de toma de sobres.", how: "Con el cuchillo horizontal en corte: carro al punto muerto alto y a 1 mm en fase de retorno; pinzas a 1 mm del sobre; tornillos (5) para el cierre y registro (6) para la fase de depósito. Refasar y verificar desde el display." }
+              ]
+            },
+            {
+              name: "Las planchas soldantes no cierran o el sellado sale frío", probableSystem: "Soldadura (S4M14100110 / S4A21100230)", status: "Manual de Calibrado p.71-81 + esquema hojas 40-44",
+              symptoms: ["Sobres mal sellados o abiertos", "El HMI no confirma cierre de planchas", "Una plancha cierra y la otra no"],
+              checks: ["Sensores de cierre B40.1 (izq.) y B40.2 (der.), y B40.8 de bloqueo", "Electroválvulas Y40.6 / Y40.7 de cierre", "Presión de soldadura B42.1 y descarga B18.2", "Precarga de los tirantes con muelle (p.79)", "Membrana y filtro de descarga de aire (p.73-74)", "Sondas PT100 B41.4 / B41.8 y contactor KM44.4"],
+              correction: "Separar el problema en tres: aire (válvulas y presión), mecánica (tirantes, levas, membrana) y calor (PT100, resistencias, KM44.4). El síntoma de sellado frío casi nunca es la plancha.",
+              steps: [
+                { title: "¿Es aire o es calor?", where: "HMI y esquema hojas 40 (cierre), 41 y 44 (recalentamiento), 42 (soldadura).", how: "Si las planchas cierran pero el sobre sale abierto, es temperatura. Si ni siquiera cierran, es aire o mecánica." },
+                { title: "Aire", where: "Y40.6 / Y40.7 (cierre izq./der.), B42.1 presostato, Y10.8 descarga.", how: "Comprobar que llega mando a las electroválvulas y que la presión de soldadura es la de trabajo." },
+                { title: "Mecánica: precarga de tirantes", where: "S4M14100110 — Calibrado p.79 (control de precarga) y p.78 (engrase de articulaciones).", how: "Es la causa más común de que una plancha no acompañe a la otra. Verificar que el agujero de trabajo del bloque queda como indica la figura." },
+                { title: "Membrana y filtro", where: "Calibrado p.73 (filtro de descarga de aire) y p.74 (sustitución de membrana).", how: "Membrana rota = sin fuerza de cierre. Repuestos: membrana larga L=149 (007050268), filtro C93-GACO DEM32A+P y junta AA103 D17-30." },
+                { title: "Calor", where: "Sondas PT100 B41.4 / B41.8 (D7911B600650), relés K19.x, relés estáticos A41.2 / A41.6 y contactor KM44.4.", how: "Si el PLC no lee temperatura no habilita KM44.4 y no calienta. Ver el modo de falla del telerruptor para el detalle de KM44.4." },
+                { title: "Limpieza de las placas", where: "Cambio de formato p.24 — sustitución de las placas de sellado.", how: "Con cepillo de bronce de cerdas finas, retirar residuos de las puntas y de las zonas de contacto; sale mejor en caliente, pero con la máquina parada y guantes." }
+              ]
+            },
             {
               name: "Anomalía telerruptor (contactor KM44.4)", probableSystem: "Eléctrico / Resistencias", status: "Base manual consolidada",
               symptoms: ["Alarma 'Anomalía telerruptor' en el HMI", "No calienta / no habilita resistencias"],
@@ -4190,6 +4214,124 @@ const initialMachines = [
         </div>`;
       }
 
+      // ── "¿Dónde va?" — de un repuesto a su sitio en la máquina ──────────────
+      // Tener el código no sirve de nada si nadie sabe dónde monta la pieza. Cada
+      // fila de repuestos lleva un botón que salta al mejor sitio que tengamos
+      // para esa pieza, en este orden:
+      //   1. la lámina de despiece donde sale su número (lo más exacto),
+      //   2. la tabla de sensores del esquema, si es un sensor con sigla,
+      //   3. el sistema de la máquina al que pertenece.
+
+      // Números de pieza que aparecen en el nombre o la referencia.
+      function spRefsDe(f) {
+        const txt = [f.ref, f.nombre].join(" ");
+        return (txt.match(/\b[A-Z0-9][A-Z0-9._]{5,}\b/g) || []).filter((t) => /\d/.test(t));
+      }
+
+      function spDondeVa(machine, f) {
+        // 1. La lámina de despiece donde sale ese número de pieza.
+        const M = (typeof mecData === "function" && machine.id === "ms235") ? mecData() : null;
+        if (M) {
+          const refs = spRefsDe(f);
+          for (const ref of refs) {
+            for (const [cod, g] of Object.entries(M.grupos)) {
+              if (g.piezas.includes(ref)) return { tipo: "despiece", cod, ref, txt: "Despiece · " + g.n };
+            }
+          }
+        }
+        // 2. Un sensor: la función trae la sigla con la que sale en el esquema.
+        const sig = /\b(B\d+[A-Z]?\.\d+)/.exec(f.fn || "");
+        if (sig && machine.schematic && typeof sensoresMS235 === "function" && sensoresMS235().length) {
+          return { tipo: "sensores", q: sig[1], txt: "Plano eléctrico · sensor " + sig[1] };
+        }
+        // 3. El sistema del que forma parte.
+        const sis = spSistemaDeAtlas(machine, f.sistema);
+        if (sis) return { tipo: "sistema", id: sis.id, txt: "Sistemas · " + sis.name };
+        return null;
+      }
+
+      // El sistema del atlas que corresponde a un nombre de sistema de la tabla.
+      // El Excel y los manuales no lo escriben igual ("DOSIFICACION" contra
+      // "Dosificación volumétrica", "Estación dosificadora"), así que se comparan
+      // las raíces de las palabras con peso: "dosifi" vale, "sistema" no.
+      const SP_RUIDO = new Set(["sistema", "sistem", "estaci", "grupo", "gruppo", "maquin", "genera", "comple", "princi", "contro"]);
+      function spRaices(texto) {
+        return new Set(planPlain(texto).replace(/[^a-z0-9]+/g, " ").split(" ")
+          .filter((w) => w.length >= 6).map((w) => w.slice(0, 6)).filter((w) => !SP_RUIDO.has(w)));
+      }
+      function spSistemaDeAtlas(machine, sistema) {
+        const lista = machine.systemAtlas?.systems ?? machine.systems ?? [];
+        if (!sistema || !lista.length) return null;
+        const a = planPlain(sistema);
+        if (a.length < 5) return null;
+        const exacto = lista.find((s) => {
+          const b = planPlain(s.name || "");
+          return b.includes(a) || a.includes(b);
+        });
+        if (exacto) return exacto;
+        const ra = spRaices(sistema);
+        if (!ra.size) return null;
+        return lista.find((s) => { for (const r of spRaices(s.name || "")) if (ra.has(r)) return true; return false; }) || null;
+      }
+
+      function spActivarPestana(id) {
+        const b = guideTabs.querySelector(`[data-profile-tab="${id}"]`);
+        if (b) b.click();
+        return !!b;
+      }
+
+      function spDestacar(el) {
+        if (!el) return;
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+        el.classList.add("is-flash");
+        setTimeout(() => el.classList.remove("is-flash"), 1800);
+      }
+
+      function spIrAUbicacion(clave) {
+        const machine = machines.find((m) => m.id === selectedId);
+        if (!machine) return;
+        const f = sparesUnified(machine).find((x) => x.clave === clave);
+        const u = f && spDondeVa(machine, f);
+        if (!u) return;
+
+        if (u.tipo === "despiece") {
+          const g = mecData().grupos[u.cod];
+          mecState.grupo = u.cod;
+          mecState.q = u.ref;
+          const i = g.hojas.findIndex((h) => (h.p || []).includes(u.ref));
+          mecState.hoja = i < 0 ? 0 : i;
+          spActivarPestana("partsmap");
+          mecRefresh();
+          setTimeout(() => spDestacar(document.querySelector('[data-profile-panel="partsmap"] .mec-lamina')), 60);
+          return;
+        }
+        if (u.tipo === "sensores") {
+          senVista.q = u.q;
+          senVista.zona = "";
+          spActivarPestana("schematic");
+          senRefresh();
+          setTimeout(() => spDestacar(document.getElementById("senPanel")), 60);
+          return;
+        }
+        spActivarPestana("systems");
+        setTimeout(() => {
+          const el = document.getElementById("system-" + u.id);
+          if (el) { el.open = true; spDestacar(el); }
+        }, 60);
+      }
+
+      // El nombre del sistema en la tabla también lleva a su sistema.
+      function spIrASistema(sistema) {
+        const machine = machines.find((m) => m.id === selectedId);
+        const sis = machine && spSistemaDeAtlas(machine, sistema);
+        if (!sis) return;
+        spActivarPestana("systems");
+        setTimeout(() => {
+          const el = document.getElementById("system-" + sis.id);
+          if (el) { el.open = true; spDestacar(el); }
+        }, 60);
+      }
+
       function spFilaHtml(f, tokens) {
         const abierto = spVista.abierto.has(f.clave);
         const pend = f.eq.sinPlan ? null : inspPendientesDe(f.eq.c).get(f.cod);
@@ -4200,7 +4342,13 @@ const initialMachines = [
             : f.hist.length === 1 ? '<span class="pl-soft">1 registro &mdash; falta otro</span>' : '<span class="pl-soft">sin registrar</span>';
         const src = SP_FUENTE[f.fuente] || SP_FUENTE.plan;
         const fila = `<tr class="sp-row ${f.hist.length ? "" : "is-nuevo"} ${pend ? "is-pendiente" : ""} ${abierto ? "is-open" : ""}">
-          <td class="sp-sys">${planMark(f.sistema, tokens) || "&mdash;"}<span class="sp-src sp-src--${f.fuente}" title="${planEsc(src.tip)}">${src.txt}</span></td>
+          <td class="sp-sys">${(() => {
+            const m = machines.find((x) => x.id === selectedId);
+            const txt = planMark(f.sistema, tokens) || "&mdash;";
+            return (m && spSistemaDeAtlas(m, f.sistema))
+              ? `<button class="sp-sys__go" type="button" onclick="spIrASistema('${planEsc(f.sistema).replace(/'/g, "&#39;")}')" title="Ver este sistema en la m&aacute;quina">${txt}</button>`
+              : txt;
+          })()}<span class="sp-src sp-src--${f.fuente}" title="${planEsc(src.tip)}">${src.txt}</span></td>
           <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(f.cod)}" placeholder="&mdash;" title="C&oacute;digo interno con el que se pide en almac&eacute;n. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'cod')"></td>
           <td class="pl-desc"><button class="sp-name" type="button" onclick="spToggle('${planEsc(f.clave)}')" title="Ver el detalle de esta pieza">${planMark(f.nombre, tokens) || "&mdash;"}</button>${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspecci&oacute;n del ${planEsc(pend.fecha)}</span>` : ""}</td>
           <td class="sp-ref">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
@@ -4225,6 +4373,17 @@ const initialMachines = [
         ].filter(Boolean);
         return fila + `<tr class="pl-histrow sp-detalle"><td colspan="11">
           <div class="sp-det">
+            ${(() => {
+              const m = machines.find((x) => x.id === selectedId);
+              const u = m && spDondeVa(m, f);
+              return u ? `<div class="sp-det__ir">
+                <button class="button button--dark" type="button" onclick="spIrAUbicacion('${planEsc(f.clave)}')">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s6-5.35 6-11a6 6 0 1 0-12 0c0 5.65 6 11 6 11Z"/><circle cx="12" cy="10" r="2"/></svg>
+                  Ver d&oacute;nde va
+                </button>
+                <span class="sp-det__irtxt">${planEsc(u.txt)}</span>
+              </div>` : '<p class="pl-soft">Todav&iacute;a no sabemos en qu&eacute; parte de la m&aacute;quina monta esta pieza.</p>';
+            })()}
             ${f.fn ? `<p class="sp-det__fn"><strong>Qu&eacute; hace:</strong> ${planEsc(f.fn)}</p>` : ""}
             ${detalle.length ? `<div class="sp-det__kv">${detalle.map(([k, v]) => `<div><span>${k}</span><strong>${v}</strong></div>`).join("")}</div>` : ""}
             ${f.hist.length ? `<div class="pl-hist">
