@@ -4043,7 +4043,7 @@ const initialMachines = [
         const out = new Set();
         planPlain(text).replace(/[^a-z0-9]+/g, " ").trim().split(" ").forEach((t) => {
           if (!t) return;
-          if (/^\d{9}$/.test(t)) return;                     // eso es el código interno, no la referencia
+          if (/^[1-9]\d{8}$/.test(t)) return;                 // eso es el código interno, no la referencia
           if (!/\d/.test(t)) return;                         // sin dígitos no es una designación
           if (/^[qe]\d+$/.test(t)) return;                   // cantidades y existencias del plan
           if (t.length >= 4) out.add(t);
@@ -4053,7 +4053,10 @@ const initialMachines = [
       function spComparte(a, b) { for (const t of a) if (b.has(t)) return true; return false; }
 
       // Código interno escrito dentro de la referencia del manual ("741907025 · HK2020").
-      function spCodEnTexto(text) { const m = /\b\d{9}\b/.exec(String(text ?? "")); return m ? m[0] : ""; }
+      // Los del fabricante también tienen nueve dígitos (007210121, 035180143),
+      // así que no vale con la longitud: ninguno de los 443 códigos internos del
+      // registro empieza por cero, y los del fabricante que chocan sí.
+      function spCodEnTexto(text) { const m = /\b[1-9]\d{8}\b/.exec(String(text ?? "")); return m ? m[0] : ""; }
 
       const SP_CRIT_ORDEN = { alta: 0, media: 1, baja: 2 };
 
