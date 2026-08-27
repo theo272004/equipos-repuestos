@@ -545,11 +545,163 @@ ${buildMachineContext(machine)}`;
       } else if (restoredState.activeView === "results" || currentQuery) {
         goResults({ keepSelection: true });
       } else {
-        // Sin estado previo: abrir directo el equipo actual en vez del buscador vacío
-        const current = machines.find((m) => m.current === "Equipo actual") || (machines.length === 1 ? machines[0] : null);
-        if (current) {
-          openDetail(current.id);
-        } else {
-          setView("home");
-        }
+        // Sin estado previo se abre la portada: el buscador con el panel de estado
+        // del registro debajo. Antes saltaba directo a un equipo y ese panel no se veía.
+        goHome();
+      }
+
+      renderHome();
+
+      // ── Panel de inicio ─────────────────────────────────────────────────────
+      // La portada sigue siendo el buscador, pero debajo enseña de un vistazo
+      // cómo va el registro: cuántos equipos hay, cuáles tienen ficha completa y
+      // cuáles solo la básica, qué falta por documentar y qué trabajo está
+      // abierto ahora mismo. Todo lleva a algún sitio: nada es decorativo.
+
+      function homeResumen() {
+        const total = machines.length;
+        const completas = machines.filter((m) => !m.fromRegistry);
+        const conManual = machines.filter((m) => (m.documents ?? []).some((d) => d.file));
+        const conPlan = PLAN_EQUIPOS.filter((e) => e.r.length);
+        const lineas = conPlan.reduce((n, e) => n + e.r.length, 0);
+        const retrasados = conPlan.reduce((n, e) => n + e.r.filter((r) => (r.xls || {}).st === "RETRASADO").length, 0);
+        const sinStock = conPlan.reduce((n, e) => n + e.r.filter((r) => {
+          const v = datosRep[datoClave(e, r)];
+          return Number(v && v.exist !== undefined ? v.exist : r.e) === 0;
+        }).length, 0);
+        const sinCodigo = conPlan.reduce((n, e) => n + e.r.filter((r) => !repCodigo(e, r)).length, 0);
+        const tareasAbiertas = tasks.filter((t) => (t.status || "pendiente") !== "hecha").length;
+        const inspAbiertas = inspecciones.filter((i) => (i.estado || "abierta") !== "cerrada").length;
+        const piezasMarcadas = inspecciones
+          .filter((i) => (i.estado || "abierta") !== "cerrada")
+          .reduce((n, i) => n + (i.piezas || []).length, 0);
+        const cambiosReg = cambiosEventos().length;
+        return { total, completas, conManual, conPlan, lineas, retrasados, sinStock, sinCodigo, tareasAbiertas, inspAbiertas, piezasMarcadas, cambiosReg };
+      }
+
+      // Qué tiene cada ficha completa, para que se vea de un golpe qué le falta.
+      function homeFichaTiene(m) {
+        return [
+          { k: "Manual", ok: (m.documents ?? []).some((d) => d.file) },
+          { k: "Sistemas", ok: !!(m.systemAtlas || (m.systems ?? []).length) },
+          { k: "Repuestos", ok: !!(m.spareParts ?? []).length || !!(equipoDeMachine(m)?.r.length) },
+          { k: "Mantenimiento", ok: !!(m.maintenanceTasks ?? []).length },
+          { k: "Fallas", ok: !!(m.failureModes ?? []).length || !!m.alarms },
+          { k: "Despiece", ok: !!(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[m.id]) || !!(typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[m.id]) },
+          { k: "Plano", ok: !!m.schematic }
+        ];
+      }
+
+      function homeKpi(n, label, hint, clase, accion) {
+        return `<button class="hd-kpi ${clase || ""}" type="button" onclick="${accion || "goResults()"}" title="${planEsc(hint)}">
+          <span class="hd-kpi__n">${n}</span>
+          <span class="hd-kpi__l">${label}</span>
+          <span class="hd-kpi__h">${planEsc(hint)}</span>
+        </button>`;
+      }
+
+      function renderHome() {
+        const root = document.getElementById("homeDash");
+        if (!root) return;
+        const s = homeResumen();
+        const basicas = s.total - s.completas.length;
+
+        // Equipos que ya tienen repuestos en el plan pero todavía no tienen ficha:
+        // son los que más se gana documentando, así que van primero.
+        const porDocumentar = s.conPlan
+          .filter((e) => !machines.some((m) => m.id === e.id && !m.fromRegistry))
+          .sort((a, b) => b.r.length - a.r.length)
+          .slice(0, 8);
+
+        const proximas = [...tasks]
+          .filter((t) => (t.status || "pendiente") !== "hecha")
+          .sort((a, b) => String(a.remindNextAt || "9999").localeCompare(String(b.remindNextAt || "9999")))
+          .slice(0, 4);
+
+        const ultimasInsp = [...inspecciones]
+          .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)))
+          .slice(0, 4);
+
+        root.innerHTML = `
+          <section class="hd">
+            <div class="hd-head">
+              <div>
+                <p class="eyebrow">Estado del registro</p>
+                <h2>Cómo va la documentación de la planta</h2>
+              </div>
+              <span class="counter">${s.total} equipos · ${s.lineas} repuestos en el plan</span>
+            </div>
+
+            <div class="hd-kpis">
+              ${homeKpi(s.total, "Equipos en el registro", "Sede 4 y Planta 2, según los listados oficiales DMM-179", "", "goResults()")}
+              ${homeKpi(s.completas.length, "Con ficha completa", "Tienen manual leído, sistemas, repuestos, mantenimiento y fallas", "hd-kpi--ok", "goResults()")}
+              ${homeKpi(basicas, "Solo ficha básica", "Están en el registro pero todavía sin manual ni guía cargada", "hd-kpi--warn", "goResults()")}
+              ${homeKpi(s.conManual.length, "Con manual descargable", "Tienen al menos un PDF cargado en la ficha", "", "goResults()")}
+              ${homeKpi(s.conPlan.length, "Con plan de repuestos", "Equipos con líneas en el Excel de mantenimiento por sistemas", "", "setView('plan'); renderPlan();")}
+              ${homeKpi(s.sinCodigo, "Repuestos sin código interno", "Líneas del plan a las que todavía les falta el código de almacén", "hd-kpi--warn", "setView('plan'); renderPlan();")}
+              ${homeKpi(s.sinStock, "Repuestos sin existencia", "Sin unidades en almacén según el plan o lo corregido a mano", "hd-kpi--stock", "planSetFilter('sinStock', true); setView('plan');")}
+              ${homeKpi(s.retrasados, "Retrasados en el plan", "El Excel los marca RETRASADO: la fecha prevista ya pasó", "hd-kpi--stock", "setView('plan'); renderPlan();")}
+            </div>
+
+            <div class="hd-cols">
+              <article class="hd-card">
+                <h3>Trabajo abierto</h3>
+                <div class="hd-mini">
+                  <button type="button" onclick="setView('tasks'); renderTasks();"><strong>${s.tareasAbiertas}</strong><span>tareas sin cerrar</span></button>
+                  <button type="button" onclick="setView('insp'); renderInspecciones();"><strong>${s.inspAbiertas}</strong><span>inspecciones abiertas</span></button>
+                  <button type="button" onclick="setView('insp'); renderInspecciones();"><strong>${s.piezasMarcadas}</strong><span>piezas marcadas para cambiar</span></button>
+                  <button type="button" onclick="setView('plan'); renderPlan();"><strong>${s.cambiosReg}</strong><span>cambios registrados</span></button>
+                </div>
+                ${proximas.length ? `<p class="hd-sub">Próximas tareas</p>
+                <ul class="hd-list">
+                  ${proximas.map((t) => `<li><button type="button" onclick="setView('tasks'); renderTasks();">
+                    <span class="hd-list__t">${planEsc(t.title)}</span>
+                    <span class="hd-list__s">${planEsc(taskMachineName(t.machine))}${t.remindNextAt ? " · aviso " + planEsc(String(t.remindNextAt).slice(0, 10)) : ""}</span>
+                  </button></li>`).join("")}
+                </ul>` : '<p class="pl-soft">No hay tareas pendientes anotadas.</p>'}
+                ${ultimasInsp.length ? `<p class="hd-sub">Últimas inspecciones</p>
+                <ul class="hd-list">
+                  ${ultimasInsp.map((i) => `<li><button type="button" onclick="setView('insp'); renderInspecciones();">
+                    <span class="hd-list__t">${planEsc(inspNombreEquipo(i.eq))}</span>
+                    <span class="hd-list__s">${planEsc(i.fecha)} · ${planEsc(INSP_TIPOS[i.tipo] || i.tipo || "Inspección")}${(i.piezas || []).length ? " · " + i.piezas.length + " pieza(s)" : ""}</span>
+                  </button></li>`).join("")}
+                </ul>` : ""}
+              </article>
+
+              <article class="hd-card">
+                <h3>Qué falta por documentar</h3>
+                <p class="hd-note">Equipos que ya piden repuestos en el plan pero todavía no tienen manual ni guía cargada. Son los que más se gana documentando.</p>
+                ${porDocumentar.length ? `<ul class="hd-list">
+                  ${porDocumentar.map((e) => `<li><button type="button" onclick="openDetail('${planEsc(e.id)}')">
+                    <span class="hd-list__t">${planEsc(e.n)}</span>
+                    <span class="hd-list__s">Código ${planEsc(e.c)} · ${e.r.length} repuesto${e.r.length === 1 ? "" : "s"} en el plan${e.u ? " · " + planEsc(e.u) : ""}</span>
+                  </button></li>`).join("")}
+                </ul>` : '<p class="pl-soft">Todos los equipos con plan ya tienen ficha.</p>'}
+              </article>
+            </div>
+
+            <div class="hd-head hd-head--tight">
+              <div>
+                <p class="eyebrow">Fichas completas</p>
+                <h3>Equipos con manual leído</h3>
+              </div>
+              <span class="counter">${s.completas.length} de ${s.total}</span>
+            </div>
+            <div class="hd-grid">
+              ${s.completas.map((m) => {
+                const tiene = homeFichaTiene(m);
+                const hechos = tiene.filter((t) => t.ok).length;
+                return `<button class="hd-eq" type="button" onclick="openDetail('${planEsc(m.id)}')">
+                  <span class="hd-eq__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ""}</span>
+                  <span class="hd-eq__body">
+                    <span class="hd-eq__n">${planEsc(m.model || m.name)}</span>
+                    <span class="hd-eq__s">${planEsc(m.name)}</span>
+                    <span class="hd-eq__s hd-eq__s--soft">${planEsc(m.area)}</span>
+                    <span class="hd-eq__tags">${tiene.map((t) => `<span class="hd-tag ${t.ok ? "is-ok" : ""}">${t.k}</span>`).join("")}</span>
+                    <span class="hd-eq__bar"><i style="width:${Math.round((hechos / tiene.length) * 100)}%"></i></span>
+                  </span>
+                </button>`;
+              }).join("")}
+            </div>
+          </section>`;
       }

@@ -3847,166 +3847,291 @@ const initialMachines = [
         `;
       }
 
-      function renderSparesPanel(machine) {
-        return `
-          <div class="spares-panel-container">
-            <div class="panel-header-clean">
-              <h3>Repuestos y Consumibles Críticos</h3>
-              <p>Inventario unificado: código interno Farmacápsulas (7419xx) + referencia del fabricante + sistema + criticidad. Arriba verás el plan Excel con existencias/ubicación; aquí el detalle técnico por sistema (rodamientos/bujes categorizados, buscable por código interno o P/N).</p>
-            </div>
-            
-            <div class="spares-search-bar">
-              <input type="text" id="spares-search-input" placeholder="Buscar repuesto, sistema o función..." onkeyup="filterSpares()" />
-              <div class="spares-filter-tags">
-                <button class="filter-tag-btn active" onclick="filterSparesCategory('All', this)">Todos</button>
-                ${(() => {
-                  const counts = {};
-                  (machine.spareParts ?? []).forEach(p => { if (p.system) counts[p.system] = (counts[p.system] || 0) + 1; });
-                  return Object.keys(counts)
-                    .sort((a, b) => counts[b] - counts[a] || a.localeCompare(b))
-                    .slice(0, 8)
-                    .map(sys => `<button class="filter-tag-btn" onclick="filterSparesCategory('${sys.replace(/'/g, "")}', this)">${sys}</button>`).join("");
-                })()}
-              </div>
-            </div>
+      // ── Repuestos: UNA sola tabla por equipo ────────────────────────────────
+      // Antes esto eran tres bloques distintos que no cuadraban entre sí: arriba el
+      // plan del Excel (con código interno, existencia y ubicación), debajo la
+      // tabla del manual (con referencia del fabricante, tipo y criticidad) y al
+      // final unas tarjetas sueltas de rodamientos y bujes. Ahora es una sola
+      // tabla con las mismas columnas para todos los equipos.
+      //
+      // La columna de código interno está siempre, aunque el equipo todavía no
+      // tenga plan importado: se deja vacía y editable para ir completándola.
 
-            <div class="table-container">
-              <table class="premium-table" id="spares-table">
-                <thead>
-                  <tr>
-                    <th>Nombre de Repuesto</th>
-                    <th>Referencia / Modelo</th>
-                    <th>Sistema</th>
-                    <th>Tipo</th>
-                    <th>Criticidad</th>
-                    <th>Función Técnica</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${(machine.spareParts ?? []).map((p) => `
-                    <tr class="spare-row" data-system="${p.system}" data-name="${p.name.toLowerCase()}" data-func="${p.function.toLowerCase()}" data-ref="${(p.reference ?? '').toLowerCase()}">
-                      <td><strong>${p.name}</strong></td>
-                      <td style="font-family:ui-monospace,Menlo,Consolas,monospace;font-size:0.82rem">${p.reference ?? "—"}</td>
-                      <td><span class="system-badge">${p.system}</span></td>
-                      <td><span class="type-badge">${p.type}</span></td>
-                      <td><span class="criticality-badge criticality-${p.criticality.toLowerCase().replace(' ', '-')}">${p.criticality}</span></td>
-                      <td>${p.function}</td>
-                    </tr>
-                  `).join("")}
-                </tbody>
-              </table>
-            </div>
-
-            ${machine.id === "njp3500" ? `
-            <div class="rodamientos-section">
-              <div class="rodamientos-header">
-                <h4>Rodamientos y Bujes de Estación (Detalle de Reemplazo)</h4>
-                <p>Referencias estandarizadas según catálogo oficial del fabricante para la compra de repuestos:</p>
-              </div>
-              <div class="rodamientos-grid">
-                <div class="rod-card">
-                  <h5>Estaciones de Trabajo</h5>
-                  <ul>
-                    <li><strong>Bujes lineales zxl 16 26 36:</strong> 96 unidades</li>
-                    <li><strong>Rodamientos de bolas 6302:</strong> 12 unidades (d15 D42 B13)</li>
-                    <li><strong>Seguidores de leva CF-6:</strong> 12 unidades (D6 d16 B11)</li>
-                  </ul>
-                </div>
-                <div class="rod-card">
-                  <h5>Alimentación de Cápsulas</h5>
-                  <ul>
-                    <li><strong>Bujes lineales zxl 16 26 36 / zxl 12 22 32:</strong> 8 / 8 unidades</li>
-                    <li><strong>Rodamientos 625 / 626:</strong> 2 / 2 unidades</li>
-                    <li><strong>Rodamientos 608 / 6004:</strong> 4 / 4 unidades</li>
-                  </ul>
-                </div>
-                <div class="rod-card">
-                  <h5>Dosificación y Llenado</h5>
-                  <ul>
-                    <li><strong>Bujes de columna zxl 50 80 100:</strong> 4 unidades</li>
-                  </ul>
-                </div>
-                <div class="rod-card">
-                  <h5>Mecanismo de Transmisión</h5>
-                  <ul>
-                    <li><strong>Bujes zxt 25 40 58 / zxt 12 22 32:</strong> 16 / 3 unidades</li>
-                    <li><strong>Rodamientos 1309 / 1507:</strong> 2 / cantidad variable</li>
-                    <li><strong>Seguidor de leva CF-18:</strong> 7 unidades</li>
-                    <li><strong>Rodamientos 62200-2RS:</strong> 8 unidades</li>
-                    <li><strong>Rodamientos de agujas NA4905 / NA4906:</strong> 10 / 2 unidades</li>
-                  </ul>
-                </div>
-              </div>
-            </div>` : (machine.id === "ms235" ? `
-            <div class="rodamientos-section">
-              <div class="rodamientos-header">
-                <h4>Rodamientos y bujes — MS235 (corte transversal por sistema)</h4>
-                <p>Códigos internos 7419xx (plan Excel) cruzados con referencia del catálogo. Busca por <code>7419</code>, <code>HK2020</code>, <code>KH2540</code>, <code>6202</code> etc. Las existencias/ubicación se ven arriba en el plan.</p>
-              </div>
-              <div class="rodamientos-grid">
-                <div class="rod-card">
-                  <h5>Sellado (S4M141)</h5>
-                  <ul>
-                    <li><strong>HK2020 (aguja)</strong> 741907025 — 24 ud</li>
-                    <li><strong>KH2540 (lineal)</strong> 741903029 — 12 ud (e16)</li>
-                    <li><strong>51104 NACHI 20×35×10</strong> 741903137 — 4 ud</li>
-                    <li><strong>6001 ZZ</strong> 741901027 — 6 ud (e3)</li>
-                  </ul>
-                </div>
-                <div class="rod-card">
-                  <h5>Dosificación / Foil</h5>
-                  <ul>
-                    <li><strong>ZKLF2068-2RS (axial)</strong> 741903157 — 2 ud</li>
-                    <li><strong>KR30-PP (leva)</strong> 741909011 — 8 ud</li>
-                    <li><strong>Retén 25×35×4</strong> 741902042 — 8 ud</li>
-                    <li><strong>6300 ZZ</strong> 741901021 — 2 ud / <strong>608 ZZ</strong> 741901135 — 10 ud</li>
-                  </ul>
-                </div>
-                <div class="rod-card">
-                  <h5>Banda / Transmisión</h5>
-                  <ul>
-                    <li><strong>6202 ZZ</strong> 741901003 — 2 ud (e16) — R01/Z0505</li>
-                    <li><strong>6003 2RS</strong> 741901079 — 3 ud — banda 6M</li>
-                    <li><strong>Correa 124 L075</strong> C261124075 — 4 ud</li>
-                    <li><strong>Correa 700 RPP5-25</strong> C26Q050700 — estrella</li>
-                  </ul>
-                </div>
-                <div class="rod-card">
-                  <h5>Cadena / Lubricación</h5>
-                  <ul>
-                    <li><strong>Bomba DROPSA 3099127</strong> — S4M021 p.58-64</li>
-                    <li><strong>Filtro DROPSA 3088055</strong> — 4 ud (lista 2a)</li>
-                    <li><strong>6903H-ZZ EZO INOX</strong> — QE1 (4 ud)</li>
-                  </ul>
-                </div>
-              </div>
-            </div>` : "")}
-          </div>
-        `;
+      // Equipo del registro, o uno equivalente cuando la máquina no está enlazada
+      // al Excel, para que el código y la existencia se puedan editar igual.
+      function spEq(machine) {
+        return equipoDeMachine(machine) || {
+          c: machine.equipoCod || ("m:" + machine.id),
+          id: machine.id, n: machine.name, u: machine.location, r: [], sinPlan: true
+        };
       }
 
-      function filterSpares() {
-        const query = normalize(document.getElementById('spares-search-input')?.value ?? "");
-        const activeBtn = document.querySelector('.filter-tag-btn.active');
-        const category = activeBtn ? activeBtn.textContent.trim() : 'Todos';
-        const rows = document.querySelectorAll('#spares-table tbody tr');
-        rows.forEach(row => {
-          const name = normalize(row.getAttribute('data-name') ?? "");
-          const func = normalize(row.getAttribute('data-func') ?? "");
-          const ref = normalize(row.getAttribute('data-ref') ?? "");
-          const system = row.getAttribute('data-system') ?? '';
-          const systemNorm = normalize(system);
-          const textMatch = !query || name.includes(query) || func.includes(query) || ref.includes(query) || systemNorm.includes(query);
-          // Los chips se generan desde los sistemas reales de la máquina: comparación directa
-          const catMatch = (category === 'Todos' || category === 'All') || system === category;
-          row.style.display = (textMatch && catMatch) ? '' : 'none';
+      // Designaciones de catálogo dentro de un texto: 6202, HK2020, KH2540,
+      // ZKLF2068, 51104… Es lo que permite reconocer que la línea del Excel y la
+      // del manual hablan de la misma pieza y no duplicarla.
+      function spDesign(text) {
+        const out = new Set();
+        planPlain(text).replace(/[^a-z0-9]+/g, " ").trim().split(" ").forEach((t) => {
+          if (!t) return;
+          if (/^\d{9}$/.test(t)) return;                     // eso es el código interno, no la referencia
+          if (!/\d/.test(t)) return;                         // sin dígitos no es una designación
+          if (/^[qe]\d+$/.test(t)) return;                   // cantidades y existencias del plan
+          if (t.length >= 4) out.add(t);
         });
+        return out;
+      }
+      function spComparte(a, b) { for (const t of a) if (b.has(t)) return true; return false; }
+
+      // Código interno escrito dentro de la referencia del manual ("741907025 · HK2020").
+      function spCodEnTexto(text) { const m = /\b\d{9}\b/.exec(String(text ?? "")); return m ? m[0] : ""; }
+
+      const SP_CRIT_ORDEN = { alta: 0, media: 1, baja: 2 };
+
+      // Une plan del Excel + repuestos del manual + piezas con cambios registrados.
+      function sparesUnified(machine) {
+        const eq = spEq(machine);
+        const manual = (machine.spareParts ?? []).map((p, i) => ({
+          p, i,
+          cod: p.cod || spCodEnTexto(p.reference),
+          des: spDesign((p.name || "") + " " + (p.reference || ""))
+        }));
+        const usado = new Set();
+        const filas = [];
+
+        // 1) Las líneas del plan, enriquecidas con lo que diga el manual de esa pieza.
+        (eq.r ?? []).forEach((r) => {
+          const cod = repCodigo(eq, r) || r.cod || "";
+          const des = spDesign(r.d);
+          let m = manual.find((x) => !usado.has(x.i) && x.cod && cod && x.cod === cod);
+          if (!m) m = manual.find((x) => !usado.has(x.i) && spComparte(x.des, des));
+          if (m) usado.add(m.i);
+          filas.push(spFila(eq, r, m && m.p, "plan"));
+        });
+
+        // 2) Lo que solo está en el manual (eléctrico, consumibles, piezas de formato…).
+        manual.forEach((x) => {
+          if (usado.has(x.i)) return;
+          const r = { s: x.p.system || "", a: "", cod: x.cod, d: x.p.name, q: x.p.qty || 0, e: 0, o: "", ub: "" };
+          filas.push(spFila(eq, r, x.p, "manual"));
+        });
+
+        // 3) Piezas que se han cambiado de verdad pero que el Excel no listaba.
+        if (!eq.sinPlan) {
+          planSueltosDe(eq).forEach(({ cod, lista }) => {
+            const ult = lista[lista.length - 1];
+            filas.push(spFila(eq, { s: "", a: "", cod, d: ult.d || "", q: ult.q || 0, e: 0, o: "", ub: "" }, null, "registro"));
+          });
+        }
+        return filas;
       }
 
-      function filterSparesCategory(category, btn) {
-        document.querySelectorAll('.filter-tag-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        filterSpares();
+      // Una fila de la tabla, con todo lo que sabemos de esa pieza venga de donde venga.
+      function spFila(eq, r, p, fuente) {
+        const cod = repCodigo(eq, r) || "";
+        const hist = cod ? planCambiosDe(eq.c, cod) : [];
+        const med = planMedicion(hist);
+        const xls = r.xls || {};
+        return {
+          eq, r, p, fuente, cod, hist, med,
+          clave: datoClave(eq, r),
+          sistema: r.s || (p && p.system) || "",
+          actividad: r.a || "",
+          nombre: r.d || (p && p.name) || "",
+          ref: (p && (p.reference || p.status)) || "",
+          tipo: (p && p.type) || "",
+          crit: (p && p.criticality) || "",
+          fn: (p && p.function) || "",
+          q: r.q || 0,
+          exist: repExistencia(eq, r),
+          ub: r.ub || "",
+          planFreq: xls.f || "",
+          planEj: xls.ej || "",
+          planPx: xls.px || "",
+          planSt: xls.st || "",
+          ultimo: hist.length ? hist[hist.length - 1].fecha : ""
+        };
+      }
+
+      const spVista = { q: "", sistema: "", orden: "", dir: 1, abierto: new Set() };
+
+      function spFiltradas(machine) {
+        const tokens = planTokens(spVista.q);
+        let filas = sparesUnified(machine).filter((f) => {
+          if (spVista.sistema && f.sistema !== spVista.sistema) return false;
+          if (!tokens.length) return true;
+          const hay = planPlain([f.cod, f.nombre, f.sistema, f.actividad, f.ref, f.tipo, f.crit, f.fn].join(" "));
+          return tokens.every((t) => hay.includes(t));
+        });
+        const col = spVista.orden;
+        if (col) {
+          const val = (f) => {
+            if (col === "q") return f.q;
+            if (col === "exist") return Number(f.exist) || 0;
+            if (col === "crit") return SP_CRIT_ORDEN[planPlain(f.crit)] ?? 9;
+            if (col === "freq") return f.med ? f.med.prom : 999999;
+            return planPlain(f[col] || "");
+          };
+          filas = [...filas].sort((a, b) => {
+            const va = val(a), vb = val(b);
+            if (typeof va === "number" && typeof vb === "number") return (va - vb) * spVista.dir;
+            return String(va).localeCompare(String(vb)) * spVista.dir;
+          });
+        }
+        return filas;
+      }
+
+      function spTh(col, etiqueta, clase) {
+        const activa = spVista.orden === col;
+        const flecha = activa ? (spVista.dir === 1 ? " ↑" : " ↓") : "";
+        return `<th class="${clase || ""} pl-th-sort ${activa ? "is-sorted" : ""}" onclick="spOrdenar('${col}')" title="Ordenar por ${etiqueta}">${etiqueta}${flecha}</th>`;
+      }
+      function spOrdenar(col) {
+        if (spVista.orden === col) spVista.dir = -spVista.dir; else { spVista.orden = col; spVista.dir = 1; }
+        renderFichaSiVisible();
+      }
+      function spBuscar(valor) {
+        spVista.q = valor;
+        renderFichaSiVisible();
+        const caja = document.getElementById("sparesSearch");
+        if (caja) { caja.focus(); caja.setSelectionRange(caja.value.length, caja.value.length); }
+      }
+      function spSistema(sistema) { spVista.sistema = sistema === spVista.sistema ? "" : sistema; renderFichaSiVisible(); }
+      function spToggle(clave) {
+        if (spVista.abierto.has(clave)) spVista.abierto.delete(clave); else spVista.abierto.add(clave);
+        renderFichaSiVisible();
+      }
+
+      // Registrar un cambio de cualquier fila, tenga o no línea en el Excel.
+      function spRegistrar(eqC, cod, desc, q) {
+        if (!cod) { alert("Escribe primero el código interno de la pieza para poder registrar el cambio."); return; }
+        planRegCtx = { eq: eqC, cod, d: desc || "", q: Number(q) || 1 };
+        const sheet = document.getElementById("plSheet");
+        const back = document.getElementById("plSheetBackdrop");
+        const what = document.getElementById("plSheetWhat");
+        const form = document.getElementById("plForm");
+        if (!sheet || !back || !form) return;
+        if (what) what.innerHTML = `<strong>${planEsc(cod)}</strong> &middot; ${planEsc(desc || "")}`;
+        form.reset();
+        form.fecha.value = new Date().toISOString().slice(0, 10);
+        form.q.value = Number(q) || 1;
+        back.hidden = false;
+        sheet.hidden = false;
+        setTimeout(() => form.fecha.focus(), 60);
+      }
+
+      const SP_FUENTE = {
+        plan: { txt: "Plan", tip: "Línea del plan de mantenimiento importado del Excel de la empresa." },
+        manual: { txt: "Manual", tip: "Repuesto leído del manual o del catálogo del fabricante. Todavía sin código interno en el plan." },
+        registro: { txt: "Registrado", tip: "Pieza que se ha cambiado de verdad pero que el Excel no tenía en el plan de este equipo." }
+      };
+
+      function renderSparesPanel(machine) {
+        const eq = spEq(machine);
+        const todas = sparesUnified(machine);
+        const filas = spFiltradas(machine);
+        const tokens = planTokens(spVista.q);
+        const conCod = todas.filter((f) => f.cod).length;
+        const sinCod = todas.length - conCod;
+        // Existencia efectiva: la que se haya escrito aqui, y si no la que traia el Excel.
+        const sinStock = todas.filter((f) => f.fuente === "plan" && Number(f.exist === "" ? f.r.e : f.exist) === 0).length;
+        const criticos = todas.filter((f) => planPlain(f.crit) === "alta").length;
+        const conHist = todas.filter((f) => f.hist.length).length;
+        const sistemas = {};
+        todas.forEach((f) => { if (f.sistema) sistemas[f.sistema] = (sistemas[f.sistema] || 0) + 1; });
+
+        return `<div class="pl-panel sp-panel">
+          <div class="panel-header-clean">
+            <h3>Repuestos del equipo &middot; c&oacute;digo ${planEsc(eq.c)}</h3>
+            <p>Una sola tabla con todos los repuestos de este equipo: los del <strong>plan del Excel</strong> (c&oacute;digo interno, cantidad, existencia y ubicaci&oacute;n) y los del <strong>manual del fabricante</strong> (referencia, tipo, criticidad y funci&oacute;n), ya unidos.
+               El c&oacute;digo interno y la existencia se escriben aqu&iacute; mismo y quedan para todo el taller. Pulsa el nombre de una pieza para ver su detalle.</p>
+          </div>
+          <div class="pl-kpis">
+            <div class="pl-kpi"><span class="pl-kpi__n">${todas.length}</span><span class="pl-kpi__l">Repuestos</span></div>
+            <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${conCod}</span><span class="pl-kpi__l">Con c&oacute;digo interno</span></div>
+            <div class="pl-kpi pl-kpi--warn"><span class="pl-kpi__n">${sinCod}</span><span class="pl-kpi__l">Falta el c&oacute;digo</span></div>
+            <div class="pl-kpi pl-kpi--stock"><span class="pl-kpi__n">${sinStock}</span><span class="pl-kpi__l">Sin existencia</span></div>
+            <div class="pl-kpi"><span class="pl-kpi__n">${criticos}</span><span class="pl-kpi__l">Criticidad alta</span></div>
+            <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${conHist}</span><span class="pl-kpi__l">Con historial</span></div>
+          </div>
+          <div class="pl-filters">
+            <input type="search" id="sparesSearch" placeholder="Buscar: c&oacute;digo interno, repuesto, referencia, sistema&hellip;" value="${planEsc(spVista.q)}" oninput="spBuscar(this.value)" aria-label="Buscar repuestos de este equipo">
+            <span class="counter">${filas.length} de ${todas.length}</span>
+          </div>
+          ${Object.keys(sistemas).length > 1 ? `<div class="spares-filter-tags">
+            <button class="filter-tag-btn ${spVista.sistema ? "" : "active"}" type="button" onclick="spSistema('')">Todos</button>
+            ${Object.keys(sistemas).sort((a, b) => sistemas[b] - sistemas[a] || a.localeCompare(b)).map((s) =>
+              `<button class="filter-tag-btn ${spVista.sistema === s ? "active" : ""}" type="button" onclick="spSistema('${planEsc(s).replace(/'/g, "&#39;")}')">${planEsc(s)} <span class="ftb-n">${sistemas[s]}</span></button>`).join("")}
+          </div>` : ""}
+          <div class="pl-tablewrap">
+            <table class="pl-table sp-table">
+              <thead><tr>
+                ${spTh("sistema", "Sistema")}${spTh("cod", "Cód. interno")}${spTh("nombre", "Repuesto")}${spTh("ref", "Referencia / P/N")}
+                ${spTh("tipo", "Tipo")}${spTh("crit", "Criticidad")}${spTh("q", "Cant.", "pl-num")}${spTh("exist", "Exist.", "pl-num")}
+                ${spTh("freq", "Frecuencia")}${spTh("ultimo", "Último cambio")}<th></th>
+              </tr></thead>
+              <tbody>${filas.length ? filas.map((f) => spFilaHtml(f, tokens)).join("")
+                : '<tr><td colspan="11" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'}</tbody>
+            </table>
+          </div>
+          <p class="pl-note sp-leyenda">
+            <span class="sp-src sp-src--plan">Plan</span> viene del Excel de mantenimiento &middot;
+            <span class="sp-src sp-src--manual">Manual</span> del manual del fabricante &middot;
+            <span class="sp-src sp-src--registro">Registrado</span> se cambi&oacute; en planta y el Excel no lo ten&iacute;a.
+            La <strong>frecuencia</strong> es la medida con los cambios registrados; debajo, la que dice el plan.
+          </p>
+        </div>`;
+      }
+
+      function spFilaHtml(f, tokens) {
+        const abierto = spVista.abierto.has(f.clave);
+        const pend = f.eq.sinPlan ? null : inspPendientesDe(f.eq.c).get(f.cod);
+        const freq = f.med
+          ? `<strong>cada ${planEsc(planFmtDias(f.med.prom))}</strong>${f.planFreq ? `<span class="pl-obs">plan: ${planEsc(f.planFreq)}</span>` : ""}`
+          : f.planFreq
+            ? `<span class="pl-soft">plan: ${planEsc(f.planFreq)}</span>${f.hist.length === 1 ? '<span class="pl-obs">1 registro &mdash; falta otro para medirla</span>' : ""}`
+            : f.hist.length === 1 ? '<span class="pl-soft">1 registro &mdash; falta otro</span>' : '<span class="pl-soft">sin registrar</span>';
+        const src = SP_FUENTE[f.fuente] || SP_FUENTE.plan;
+        const fila = `<tr class="sp-row ${f.hist.length ? "" : "is-nuevo"} ${pend ? "is-pendiente" : ""} ${abierto ? "is-open" : ""}">
+          <td class="sp-sys">${planMark(f.sistema, tokens) || "&mdash;"}<span class="sp-src sp-src--${f.fuente}" title="${planEsc(src.tip)}">${src.txt}</span></td>
+          <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(f.cod)}" placeholder="&mdash;" title="C&oacute;digo interno con el que se pide en almac&eacute;n. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'cod')"></td>
+          <td class="pl-desc"><button class="sp-name" type="button" onclick="spToggle('${planEsc(f.clave)}')" title="Ver el detalle de esta pieza">${planMark(f.nombre, tokens) || "&mdash;"}</button>${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspecci&oacute;n del ${planEsc(pend.fecha)}</span>` : ""}</td>
+          <td class="sp-ref">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
+          <td>${f.tipo ? `<span class="type-badge">${planEsc(f.tipo)}</span>` : "&mdash;"}</td>
+          <td>${f.crit ? `<span class="criticality-badge criticality-${planPlain(f.crit).replace(/ /g, "-")}">${planEsc(f.crit)}</span>` : "&mdash;"}</td>
+          <td class="pl-num">${f.q || "&mdash;"}</td>
+          <td class="pl-num"><input class="pl-edit pl-edit--num" value="${planEsc(f.exist)}" placeholder="&mdash;" title="${f.r.e ? "El Excel dec&iacute;a " + f.r.e + ". " : ""}Escribe la existencia real; se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'exist')"></td>
+          <td class="pl-freq">${freq}</td>
+          <td class="pl-loc">${f.ultimo ? planEsc(f.ultimo) : "&mdash;"}${f.hist.length ? `<button class="pl-hist-btn" type="button" onclick="spToggle('${planEsc(f.clave)}')">${f.hist.length} ${f.hist.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
+          <td class="pl-num"><button class="pl-reg" type="button" onclick="spRegistrar('${planEsc(f.eq.c)}','${planEsc(f.cod)}','${planEsc(f.nombre).replace(/'/g, "&#39;")}',${f.q || 1})" title="Registrar un cambio de esta pieza">Registrar</button></td>
+        </tr>`;
+        if (!abierto) return fila;
+        const detalle = [
+          f.actividad ? ["Actividad", planEsc(f.actividad)] : null,
+          f.ub ? ["Ubicaci&oacute;n en almac&eacute;n", planEsc(f.ub)] : null,
+          f.planFreq ? ["Frecuencia del plan", planEsc(f.planFreq)] : null,
+          f.planEj ? ["&Uacute;ltima ejecuci&oacute;n (plan)", planEsc(f.planEj)] : null,
+          f.planPx ? ["Pr&oacute;xima seg&uacute;n el plan", planEsc(f.planPx)] : null,
+          f.planSt ? ["Estado en el plan", `<span class="sp-estado sp-estado--${planPlain(f.planSt).replace(/ /g, "-")}">${planEsc(f.planSt)}</span>`] : null,
+          f.r.pu ? ["&Uacute;ltimo precio unitario", "$" + Number(f.r.pu).toLocaleString("es-CO")] : null,
+          f.med ? ["Pr&oacute;ximo cambio estimado", planEsc(f.med.proximo) + " (" + f.med.mediciones + " intervalo" + (f.med.mediciones === 1 ? "" : "s") + " medido" + (f.med.mediciones === 1 ? "" : "s") + ")"] : null
+        ].filter(Boolean);
+        return fila + `<tr class="pl-histrow sp-detalle"><td colspan="11">
+          <div class="sp-det">
+            ${f.fn ? `<p class="sp-det__fn"><strong>Qu&eacute; hace:</strong> ${planEsc(f.fn)}</p>` : ""}
+            ${detalle.length ? `<div class="sp-det__kv">${detalle.map(([k, v]) => `<div><span>${k}</span><strong>${v}</strong></div>`).join("")}</div>` : ""}
+            ${f.hist.length ? `<div class="pl-hist">
+              <span class="pl-hist__t">Cambios registrados de ${planEsc(f.cod)}</span>
+              ${f.hist.map((ev, i) => {
+                const prev = i > 0 ? planDiasEntre(f.hist[i - 1].fecha, ev.fecha) : null;
+                return `<div class="pl-ev">
+                  <span class="pl-ev__f">${planEsc(ev.fecha)}</span>
+                  <span class="pl-ev__d">${ev.q ? planEsc(ev.q) + " ud. " : ""}${planEsc(ev.quien) || ""}${ev.nota ? (ev.quien ? " &middot; " : "") + planEsc(ev.nota) : ""}</span>
+                  ${prev !== null && isFinite(prev) ? `<span class="pl-ev__i">+${planEsc(planFmtDias(prev))}</span>` : '<span class="pl-ev__i">1.&ordm;</span>'}
+                  <button class="pl-ev__x" type="button" onclick="planBorrarCambio('${planEsc(ev.id)}')" title="Borrar este registro">&times;</button>
+                </div>`;
+              }).join("")}
+            </div>` : '<p class="pl-soft">Todav&iacute;a no hay ning&uacute;n cambio registrado de esta pieza.</p>'}
+          </div></td></tr>`;
       }
 
       function renderMaintenancePanel(machine) {

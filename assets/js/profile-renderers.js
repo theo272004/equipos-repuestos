@@ -33,7 +33,7 @@ function dt(machine, campo) {
         const tabs = [
           ["summary", "Resumen"],
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
-          ...((eqPlan || (machine.spareParts ?? []).length) ? [["spares", "Repuestos"]] : []),
+          ["spares", "Repuestos"],
           ["maintenance", "Mantenimiento"],
           ["failures", "Fallas y alarmas"],
           ...(hayDespiece ? [["partsmap", "Despiece"]] : []),
@@ -100,11 +100,7 @@ function dt(machine, campo) {
             </div>
           </section>
           <section class="profile-panel" data-profile-panel="systems">${renderSystemsPanel(machine)}</section>
-          <section class="profile-panel" data-profile-panel="spares">
-            ${eqPlan ? renderPlanPanel(eqPlan) : ""}
-            ${(machine.spareParts ?? []).length && eqPlan ? '<div class="panel-split"></div>' : ""}
-            ${renderSparesPanel(machine)}
-          </section>
+          <section class="profile-panel" data-profile-panel="spares">${renderSparesPanel(machine)}</section>
 
           <section class="profile-panel" data-profile-panel="maintenance">
             ${renderInspMaquina(machine)}
@@ -1275,49 +1271,6 @@ function dt(machine, campo) {
           ${groups.length > shown.length ? `<button class="pl-more" type="button" onclick="planShowMore()">Ver ${groups.length - shown.length} equipos m&aacute;s</button>` : ""}`;
       }
 
-      // Buscador y orden por columna del plan de cada ficha, al estilo de una hoja
-      // de cálculo: se busca por código, repuesto, sistema o actividad, y se ordena
-      // pulsando la cabecera.
-      const fichaPlan = { q: "", orden: "", dir: 1 };
-
-      function fichaPlanFilas(eq) {
-        const tokens = planTokens(fichaPlan.q);
-        let filas = eq.r.filter((r) => planRowMatches(r, tokens));
-        const col = fichaPlan.orden;
-        if (col) {
-          const valor = (r) => {
-            if (col === "q" || col === "e") return r[col];
-            if (col === "ultimo") { const hh = planCambiosDe(eq.c, r.cod); return hh.length ? hh[hh.length - 1].fecha : ""; }
-            if (col === "freq") { const m = planMedicion(planCambiosDe(eq.c, r.cod)); return m ? m.prom : -1; }
-            return planPlain(r[col] || "");
-          };
-          filas = [...filas].sort((a, b) => {
-            const va = valor(a), vb = valor(b);
-            if (typeof va === "number" && typeof vb === "number") return (va - vb) * fichaPlan.dir;
-            return String(va).localeCompare(String(vb)) * fichaPlan.dir;
-          });
-        }
-        return filas;
-      }
-
-      function fichaPlanOrdenar(col) {
-        if (fichaPlan.orden === col) fichaPlan.dir = -fichaPlan.dir;
-        else { fichaPlan.orden = col; fichaPlan.dir = 1; }
-        renderFichaSiVisible();
-      }
-
-      function fichaPlanBuscar(valor) {
-        fichaPlan.q = valor;
-        renderFichaSiVisible();
-        const caja = document.getElementById("fichaPlanSearch");
-        if (caja) { caja.focus(); caja.setSelectionRange(caja.value.length, caja.value.length); }
-      }
-
-      function fichaPlanTh(col, etiqueta, clase) {
-        const activa = fichaPlan.orden === col;
-        const flecha = activa ? (fichaPlan.dir === 1 ? " \u2191" : " \u2193") : "";
-        return `<th class="${clase || ""} pl-th-sort ${activa ? "is-sorted" : ""}" onclick="fichaPlanOrdenar('${col}')" title="Ordenar por ${etiqueta}">${etiqueta}${flecha}</th>`;
-      }
 
       // Las inspecciones de este equipo, dentro de su ficha.
       function renderInspMaquina(machine) {
@@ -1337,47 +1290,6 @@ function dt(machine, campo) {
           ${lista.length ? lista.map((i) => inspTarjeta(i, false)).join("") : '<p class="pl-soft" style="padding:6px 2px 2px">Todavía no se ha anotado ninguna inspección de este equipo.</p>'}`;
       }
 
-      // Todo lo que hace falta para el mantenimiento de UN equipo, dentro de su ficha.
-      function renderPlanPanel(eq) {
-        const total = eq.r.length;
-        const sinStock = eq.r.filter((r) => r.e === 0).length;
-        const conHist = eq.r.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
-        const conMedida = eq.r.filter((r) => planMedicion(planCambiosDe(eq.c, r.cod))).length;
-        const filas = fichaPlanFilas(eq);
-        const tokens = planTokens(fichaPlan.q);
-        // Las piezas que el Excel no listaba pero sí se han cambiado ya no van
-        // en un apartado aparte: son parte de los repuestos del equipo.
-        const sueltas = planSueltosDe(eq).map(({ cod, lista }) => ({
-          s: "", a: "", cod, d: (lista[lista.length - 1].d || ""), q: lista[lista.length - 1].q || 0, e: 0, o: "", fuera: true
-        })).filter((r) => planRowMatches(r, tokens));
-        return `<div class="pl-panel">
-          <div class="panel-header-clean">
-            <h3>Plan de mantenimiento &middot; c&oacute;digo de equipo ${planEsc(eq.c)}</h3>
-            <p>Los repuestos de este equipo con el <strong>c&oacute;digo interno</strong> con el que se piden en almac&eacute;n.
-               La frecuencia no viene del Excel: se mide de los cambios que se van registrando aqu&iacute;.</p>
-          </div>
-          <div class="pl-kpis">
-            <div class="pl-kpi"><span class="pl-kpi__n">${total}</span><span class="pl-kpi__l">Repuestos</span></div>
-            <div class="pl-kpi pl-kpi--stock"><span class="pl-kpi__n">${sinStock}</span><span class="pl-kpi__l">Sin existencia</span></div>
-            <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${conHist}</span><span class="pl-kpi__l">Con cambios registrados</span></div>
-            <div class="pl-kpi pl-kpi--warn"><span class="pl-kpi__n">${conMedida}</span><span class="pl-kpi__l">Con frecuencia medida</span></div>
-          </div>
-          <div class="pl-filters">
-            <input type="search" id="fichaPlanSearch" placeholder="Buscar en este equipo: c&oacute;digo interno, repuesto, sistema&hellip;" value="${planEsc(fichaPlan.q)}" oninput="fichaPlanBuscar(this.value)" aria-label="Buscar en el plan de este equipo">
-            <span class="counter">${filas.length + sueltas.length} de ${eq.r.length + planSueltosDe(eq).length}</span>
-          </div>
-          <div class="pl-tablewrap">
-            <table class="pl-table">
-              <thead><tr>
-                ${fichaPlanTh("s", "Sistema")}${fichaPlanTh("a", "Actividad")}${fichaPlanTh("cod", "C\u00f3d. interno")}${fichaPlanTh("d", "Repuesto")}
-                ${fichaPlanTh("q", "Cant.", "pl-num")}${fichaPlanTh("e", "Exist.", "pl-num")}
-                ${fichaPlanTh("ultimo", "\u00daltimo cambio")}${fichaPlanTh("freq", "Frecuencia medida")}<th></th>
-              </tr></thead>
-              <tbody>${(filas.length + sueltas.length) ? [...filas, ...sueltas].map((r) => planRowHtml(eq, r, tokens)).join("") : '<tr><td colspan="9" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'}</tbody>
-            </table>
-          </div>
-          </div>`;
-      }
 
       // Repinta la ficha abierta cuando cambia el historial, para no perder el sitio.
       function renderFichaSiVisible() {
@@ -1385,50 +1297,11 @@ function dt(machine, campo) {
         if (!vista || !vista.classList.contains("is-active")) return;
         const machine = machines.find((m) => m.id === selectedId);
         if (!machine) return;
-        const panel = document.querySelector('[data-profile-panel="spares"] .pl-panel');
-        const eq = equipoDeMachine(machine);
-        if (panel && eq) panel.innerHTML = renderPlanPanel(eq);
+        const panel = document.querySelector('[data-profile-panel="spares"]');
+        if (panel) panel.innerHTML = renderSparesPanel(machine);
       }
 
-      function planSueltosHtml(eq) {
-        const sueltos = planSueltosDe(eq);
-        if (!sueltos.length) return "";
-        return `<div class="pl-sueltos">
-          <p class="pl-sueltos__t">Cambios registrados que el Excel no tiene en el plan de este equipo</p>
-          <p class="pl-sueltos__n">${sueltos.length} ${sueltos.length === 1 ? "pieza" : "piezas"} con cambios reales pero sin l&iacute;nea en el cat&aacute;logo importado. Su frecuencia se mide igual.</p>
-          ${sueltos.map(({ cod, lista }) => {
-            const med = planMedicion(lista);
-            const ultimo = lista[lista.length - 1];
-            return `<div class="pl-ev">
-              <span class="pl-code">${planEsc(cod)}</span>
-              <span class="pl-ev__d">${planEsc(ultimo.d || "")}</span>
-              <span class="pl-ev__f">${planEsc(ultimo.fecha)}</span>
-              <span class="pl-ev__i">${med ? "cada " + planEsc(planFmtDias(med.prom)) : lista.length + (lista.length === 1 ? " registro" : " registros")}</span>
-              <button class="pl-reg" type="button" onclick="planRegistrarSuelto('${planEsc(eq.c)}','${planEsc(cod)}')">Registrar</button>
-            </div>`;
-          }).join("")}
-        </div>`;
-      }
 
-      // Registrar otro cambio de una pieza que no esta en el catalogo del Excel.
-      function planRegistrarSuelto(equipo, cod) {
-        const eq = PLAN_EQUIPOS.find((e) => e.c === equipo);
-        const previo = cambiosEventos().filter((c) => c.eq === equipo && c.cod === cod).slice(-1)[0];
-        if (!eq || !previo) return;
-        planRegCtx = { eq: equipo, cod, d: previo.d || "", q: previo.q || 1 };
-        const sheet = document.getElementById("plSheet");
-        const back = document.getElementById("plSheetBackdrop");
-        const what = document.getElementById("plSheetWhat");
-        const form = document.getElementById("plForm");
-        if (!sheet || !back || !form) return;
-        if (what) what.innerHTML = `<strong>${planEsc(cod)}</strong> &middot; ${planEsc(previo.d || "")}<br><span class="pl-soft">${planEsc(eq.n)} &middot; sin l&iacute;nea en el Excel</span>`;
-        form.reset();
-        form.fecha.value = new Date().toISOString().slice(0, 10);
-        form.q.value = previo.q || 1;
-        back.hidden = false;
-        sheet.hidden = false;
-        setTimeout(() => form.fecha.focus(), 60);
-      }
 
       // Fila del indice: lo justo para decidir, y un botón que abre la ficha del equipo
       // en su pestaña de plan. El detalle vive en la máquina, no aquí.
@@ -1469,44 +1342,6 @@ function dt(machine, campo) {
         window.scrollTo({ top: 0, behavior: "auto" });
       }
 
-      function planRowHtml(eq, r, query) {
-        const historial = planCambiosDe(eq.c, r.cod);
-        const medicion = planMedicion(historial);
-        const ultimo = historial.length ? historial[historial.length - 1].fecha : "";
-        const clave = datoClave(eq, r);
-        const abierto = planHistOpen.has(clave);
-        const freq = medicion
-          ? `<strong>cada ${planEsc(planFmtDias(medicion.prom))}</strong><span class="pl-obs">${medicion.mediciones} ${medicion.mediciones === 1 ? "intervalo medido" : "intervalos medidos"} &middot; pr&oacute;ximo hacia ${planEsc(medicion.proximo)}</span>`
-          : historial.length === 1
-            ? '<span class="pl-soft">1 registro &mdash; falta otro para medirla</span>'
-            : '<span class="pl-soft">sin registrar</span>';
-        const pend = inspPendientesDe(eq.c).get(repCodigo(eq, r));
-        const fila = `<tr class="${historial.length ? "" : "is-nuevo"} ${r.fuera ? "is-fuera" : ""} ${pend ? "is-pendiente" : ""}">
-          <td>${planMark(r.s, query) || "&mdash;"}</td>
-          <td>${planEsc(r.a) || "&mdash;"}</td>
-          <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(repCodigo(eq, r))}" placeholder="—" title="Código interno con el que se pide en almacén. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(clave)}', 'cod')"></td>
-          <td class="pl-desc">${planMark(r.d, query) || "&mdash;"}${r.o ? `<span class="pl-obs">${planEsc(r.o)}</span>` : ""}${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspección del ${planEsc(pend.fecha)}</span>` : ""}</td>
-          <td class="pl-num">${r.q || "&mdash;"}</td>
-          <td class="pl-num"><input class="pl-edit pl-edit--num" value="${planEsc(repExistencia(eq, r))}" placeholder="—" title="${r.e ? "El Excel decía " + r.e + ". " : ""}Escribe la existencia real; se comparte con todo el taller." onchange="editarDato(this, '${planEsc(clave)}', 'exist')"></td>
-          <td class="pl-loc">${ultimo ? planEsc(ultimo) : "&mdash;"}${historial.length ? `<button class="pl-hist-btn" type="button" onclick="planHistToggle('${planEsc(clave)}')">${historial.length} ${historial.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
-          <td class="pl-freq">${freq}</td>
-          <td class="pl-num">${repCodigo(eq, r) ? `<button class="pl-reg" type="button" onclick="planRegistrar('${planEsc(eq.c)}','${planEsc(repCodigo(eq, r))}')" title="Registrar un cambio de esta pieza">Registrar</button>` : ""}</td>
-        </tr>`;
-        if (!abierto || !historial.length) return fila;
-        return fila + `<tr class="pl-histrow"><td colspan="9">
-          <div class="pl-hist">
-            <span class="pl-hist__t">Cambios registrados de ${planEsc(r.cod)}</span>
-            ${historial.map((ev, i) => {
-              const prev = i > 0 ? planDiasEntre(historial[i - 1].fecha, ev.fecha) : null;
-              return `<div class="pl-ev">
-                <span class="pl-ev__f">${planEsc(ev.fecha)}</span>
-                <span class="pl-ev__d">${ev.q ? planEsc(ev.q) + " ud. " : ""}${planEsc(ev.quien) || ""}${ev.nota ? (ev.quien ? " &middot; " : "") + planEsc(ev.nota) : ""}</span>
-                ${prev !== null && isFinite(prev) ? `<span class="pl-ev__i">+${planEsc(planFmtDias(prev))}</span>` : '<span class="pl-ev__i">1.&ordm;</span>'}
-                <button class="pl-ev__x" type="button" onclick="planBorrarCambio('${planEsc(ev.id)}')" title="Borrar este registro">&times;</button>
-              </div>`;
-            }).join("")}
-          </div></td></tr>`;
-      }
 
       function planSetFilter(key, value) {
         planFilter[key] = value;
@@ -1660,6 +1495,7 @@ function dt(machine, campo) {
 
       function goHome() {
         setView("home");
+        renderHome();
         homeSearch.focus();
         saveUiState({ activeView: "home" });
       }
