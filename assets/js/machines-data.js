@@ -4145,12 +4145,21 @@ const initialMachines = [
         };
       }
 
-      const spVista = { q: "", sistema: "", orden: "", dir: 1, abierto: new Set() };
+      const spVista = { mid: "", q: "", filtros: [], menu: false, orden: "", dir: 1, abierto: new Set() };
+
+      // Los filtros son de la ficha que se está mirando: al cambiar de equipo se
+      // limpian, porque un sistema de una máquina no existe en la otra.
+      function spResetSiCambia(machine) {
+        if (spVista.mid === machine.id) return;
+        spVista.mid = machine.id;
+        spVista.q = ""; spVista.filtros = []; spVista.menu = false;
+        spVista.orden = ""; spVista.dir = 1; spVista.abierto = new Set();
+      }
 
       function spFiltradas(machine) {
         const tokens = planTokens(spVista.q);
         let filas = sparesUnified(machine).filter((f) => {
-          if (spVista.sistema && f.sistema !== spVista.sistema) return false;
+          if (!spPasaFiltros(f, machine)) return false;
           if (!tokens.length) return true;
           const hay = planPlain([f.cod, f.nombre, f.sistema, f.actividad, f.ref, f.tipo, f.crit, f.fn].join(" "));
           return tokens.every((t) => hay.includes(t));
@@ -4173,6 +4182,133 @@ const initialMachines = [
         return filas;
       }
 
+      // ── Filtros de repuestos ────────────────────────────────────────────────
+      // Antes sólo se podía filtrar por sistema, con una fila de chips que en la
+      // MS235 salían veinte. Ahora hay un "Añadir filtro" con las secciones
+      // plegadas: sistema, criticidad, tipo, de dónde sale, estado en el plan,
+      // código interno, existencia, historial, ubicación y cantidad mínima.
+      //
+      // Los filtros se acumulan y se ven como chips. Dentro de una misma sección
+      // suman (Alta o Media), y entre secciones restan (Alta Y sin código): es
+      // como se buscan las cosas de verdad — "los críticos que no tienen código".
+
+      // Secciones que se construyen con los valores que realmente tiene el equipo.
+      const SP_CAMPOS = [
+        { campo: "sistema", grupo: "Sistema" },
+        { campo: "crit", grupo: "Criticidad" },
+        { campo: "tipo", grupo: "Tipo" },
+        { campo: "actividad", grupo: "Actividad" },
+        { campo: "planSt", grupo: "Estado en el plan" }
+      ];
+
+      // Secciones de sí/no, que no salen de un campo sino de una condición.
+      const SP_CONDICIONES = [
+        { id: "con-cod", grupo: "Código interno", etiqueta: "Con código interno", test: (f) => !!f.cod },
+        { id: "sin-cod", grupo: "Código interno", etiqueta: "Sin código interno", test: (f) => !f.cod },
+        { id: "sin-stock", grupo: "Existencia", etiqueta: "Sin existencia", test: (f) => Number(f.exist === "" ? f.r.e : f.exist) === 0 },
+        { id: "con-stock", grupo: "Existencia", etiqueta: "Con existencia", test: (f) => Number(f.exist === "" ? f.r.e : f.exist) > 0 },
+        { id: "con-hist", grupo: "Historial", etiqueta: "Con cambios registrados", test: (f) => f.hist.length > 0 },
+        { id: "sin-hist", grupo: "Historial", etiqueta: "Sin cambios registrados", test: (f) => f.hist.length === 0 },
+        { id: "con-freq", grupo: "Historial", etiqueta: "Con frecuencia medida", test: (f) => !!f.med },
+        { id: "ubicable", grupo: "Ubicación", etiqueta: "Se sabe dónde va", test: (f, m) => !!spDondeVa(m, f) },
+        { id: "sin-ubicar", grupo: "Ubicación", etiqueta: "Sin ubicar en la máquina", test: (f, m) => !spDondeVa(m, f) }
+      ];
+
+      function spCondicion(id) { return SP_CONDICIONES.find((c) => c.id === id); }
+
+      // ¿Pasa una fila todos los filtros? Dentro de cada sección basta con uno.
+      function spPasaFiltros(f, machine) {
+        const porGrupo = {};
+        spVista.filtros.forEach((x) => { (porGrupo[x.grupo] = porGrupo[x.grupo] || []).push(x); });
+        return Object.values(porGrupo).every((lista) => lista.some((x) => {
+          if (x.tipo === "campo") return String(f[x.campo] ?? "") === x.valor;
+          if (x.tipo === "cond") { const c = spCondicion(x.id); return c ? c.test(f, machine) : true; }
+          if (x.tipo === "cantidad") return Number(f.q) >= Number(x.valor);
+          return true;
+        }));
+      }
+
+      function spAddCampo(campo, grupo, valor) {
+        if (!spVista.filtros.some((x) => x.tipo === "campo" && x.campo === campo && x.valor === valor)) {
+          spVista.filtros.push({ tipo: "campo", campo, grupo, valor, etiqueta: grupo + ": " + valor });
+        }
+        renderFichaSiVisible();
+      }
+      function spAddCond(id) {
+        const c = spCondicion(id);
+        if (!c) return;
+        if (!spVista.filtros.some((x) => x.tipo === "cond" && x.id === id)) {
+          spVista.filtros.push({ tipo: "cond", id, grupo: c.grupo, etiqueta: c.etiqueta });
+        }
+        renderFichaSiVisible();
+      }
+      function spAddCantidad(valor) {
+        const n = Number(valor);
+        if (!isFinite(n) || n <= 0) return;
+        spVista.filtros = spVista.filtros.filter((x) => x.tipo !== "cantidad");
+        spVista.filtros.push({ tipo: "cantidad", grupo: "Cantidad", valor: n, etiqueta: "Cantidad ≥ " + n });
+        renderFichaSiVisible();
+      }
+      function spQuitarFiltro(i) { spVista.filtros.splice(i, 1); renderFichaSiVisible(); }
+      function spLimpiarFiltros() { spVista.filtros = []; spVista.q = ""; renderFichaSiVisible(); }
+      function spMenuToggle(abierto) { spVista.menu = abierto; }
+
+      // La barra: buscador, botón de añadir y los filtros puestos.
+      function spBarraFiltros(machine, todas, filas) {
+        const secciones = [];
+        SP_CAMPOS.forEach(({ campo, grupo }) => {
+          const cuenta = {};
+          todas.forEach((f) => { const v = f[campo]; if (v) cuenta[v] = (cuenta[v] || 0) + 1; });
+          const claves = Object.keys(cuenta).sort((a, b) => cuenta[b] - cuenta[a] || a.localeCompare(b));
+          if (claves.length > 1) {
+            secciones.push({ grupo, opciones: claves.map((v) => ({
+              n: cuenta[v], etiqueta: v,
+              accion: `spAddCampo('${planEsc(campo)}','${planEsc(grupo).replace(/'/g, "&#39;")}','${planEsc(v).replace(/'/g, "&#39;")}')`
+            })) });
+          }
+        });
+        const porCond = {};
+        SP_CONDICIONES.forEach((c) => {
+          const n = todas.filter((f) => c.test(f, machine)).length;
+          if (n && n < todas.length) (porCond[c.grupo] = porCond[c.grupo] || []).push({ n, etiqueta: c.etiqueta, accion: `spAddCond('${c.id}')` });
+        });
+        Object.entries(porCond).forEach(([grupo, opciones]) => secciones.push({ grupo, opciones }));
+
+        return `<div class="spf">
+          <div class="spf-bar">
+            <input type="search" id="sparesSearch" placeholder="Buscar: c&oacute;digo interno, repuesto, referencia, sistema&hellip;" value="${planEsc(spVista.q)}" oninput="spBuscar(this.value)" aria-label="Buscar repuestos de este equipo">
+            <details class="spf-menu" ${spVista.menu ? "open" : ""} ontoggle="spMenuToggle(this.open)">
+              <summary class="spf-add">
+                <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                A&ntilde;adir filtro
+              </summary>
+              <div class="spf-pop">
+                ${secciones.map((s) => `<details class="spf-sec">
+                  <summary>${planEsc(s.grupo)} <span>${s.opciones.length}</span></summary>
+                  <div class="spf-opts">
+                    ${s.opciones.map((o) => `<button type="button" onclick="${o.accion}">${planEsc(o.etiqueta)}<span>${o.n}</span></button>`).join("")}
+                  </div>
+                </details>`).join("")}
+                <details class="spf-sec">
+                  <summary>Cantidad <span>m&iacute;nima</span></summary>
+                  <div class="spf-num">
+                    <label>Cantidad del plan igual o mayor que
+                      <input type="number" min="1" step="1" id="spfCant" value="${planEsc(String((spVista.filtros.find((x) => x.tipo === "cantidad") || {}).valor || ""))}" placeholder="p. ej. 4">
+                    </label>
+                    <button class="button button--dark" type="button" onclick="spAddCantidad(document.getElementById('spfCant').value)">Aplicar</button>
+                  </div>
+                </details>
+              </div>
+            </details>
+            <span class="counter">${filas.length} de ${todas.length}</span>
+          </div>
+          ${spVista.filtros.length ? `<div class="spf-chips">
+            ${spVista.filtros.map((x, i) => `<button class="spf-chip" type="button" onclick="spQuitarFiltro(${i})" title="Quitar este filtro">${planEsc(x.etiqueta)}<span aria-hidden="true">&times;</span></button>`).join("")}
+            <button class="spf-clear" type="button" onclick="spLimpiarFiltros()">Quitar todos</button>
+          </div>` : ""}
+        </div>`;
+      }
+
       function spTh(col, etiqueta, clase) {
         const activa = spVista.orden === col;
         const flecha = activa ? (spVista.dir === 1 ? " ↑" : " ↓") : "";
@@ -4188,7 +4324,6 @@ const initialMachines = [
         const caja = document.getElementById("sparesSearch");
         if (caja) { caja.focus(); caja.setSelectionRange(caja.value.length, caja.value.length); }
       }
-      function spSistema(sistema) { spVista.sistema = sistema === spVista.sistema ? "" : sistema; renderFichaSiVisible(); }
       function spToggle(clave) {
         if (spVista.abierto.has(clave)) spVista.abierto.delete(clave); else spVista.abierto.add(clave);
         renderFichaSiVisible();
@@ -4219,6 +4354,7 @@ const initialMachines = [
       };
 
       function renderSparesPanel(machine) {
+        spResetSiCambia(machine);
         const eq = spEq(machine);
         const todas = sparesUnified(machine);
         const filas = spFiltradas(machine);
@@ -4229,9 +4365,6 @@ const initialMachines = [
         const sinStock = todas.filter((f) => f.fuente === "plan" && Number(f.exist === "" ? f.r.e : f.exist) === 0).length;
         const criticos = todas.filter((f) => planPlain(f.crit) === "alta").length;
         const conHist = todas.filter((f) => f.hist.length).length;
-        const sistemas = {};
-        todas.forEach((f) => { if (f.sistema) sistemas[f.sistema] = (sistemas[f.sistema] || 0) + 1; });
-
         return `<div class="pl-panel sp-panel">
           <div class="panel-header-clean">
             <h3>Repuestos del equipo &middot; c&oacute;digo ${planEsc(eq.c)}</h3>
@@ -4247,15 +4380,7 @@ const initialMachines = [
             <div class="pl-kpi"><span class="pl-kpi__n">${criticos}</span><span class="pl-kpi__l">Criticidad alta</span></div>
             <div class="pl-kpi pl-kpi--ok"><span class="pl-kpi__n">${conHist}</span><span class="pl-kpi__l">Con historial</span></div>
           </div>
-          <div class="pl-filters">
-            <input type="search" id="sparesSearch" placeholder="Buscar: c&oacute;digo interno, repuesto, referencia, sistema&hellip;" value="${planEsc(spVista.q)}" oninput="spBuscar(this.value)" aria-label="Buscar repuestos de este equipo">
-            <span class="counter">${filas.length} de ${todas.length}</span>
-          </div>
-          ${Object.keys(sistemas).length > 1 ? `<div class="spares-filter-tags">
-            <button class="filter-tag-btn ${spVista.sistema ? "" : "active"}" type="button" onclick="spSistema('')">Todos</button>
-            ${Object.keys(sistemas).sort((a, b) => sistemas[b] - sistemas[a] || a.localeCompare(b)).map((s) =>
-              `<button class="filter-tag-btn ${spVista.sistema === s ? "active" : ""}" type="button" onclick="spSistema('${planEsc(s).replace(/'/g, "&#39;")}')">${planEsc(s)} <span class="ftb-n">${sistemas[s]}</span></button>`).join("")}
-          </div>` : ""}
+          ${spBarraFiltros(machine, todas, filas)}
           <div class="pl-tablewrap">
             <table class="pl-table sp-table">
               <thead><tr>
