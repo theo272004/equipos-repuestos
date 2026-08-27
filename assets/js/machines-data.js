@@ -4290,7 +4290,7 @@ const initialMachines = [
 
       function spDondeVa(machine, f) {
         // 1. La lámina de despiece donde sale ese número de pieza.
-        const M = (typeof mecData === "function" && machine.id === "ms235") ? mecData() : null;
+        const M = (typeof mecDeMaquina === "function") ? mecDeMaquina(machine.id) : null;
         if (M) {
           const refs = spRefsDe(f);
           for (const ref of refs) {
@@ -4309,6 +4309,18 @@ const initialMachines = [
           if (p) {
             const g = G.groups.find((x) => x.p === p.g);
             return { tipo: "px", ref: p.r, txt: "Despiece · " + (g ? g.n : "grupo " + p.g) };
+          }
+        }
+
+        // 1c. La Integra tiene su despiece indexado por código de pieza.
+        const T = (typeof MACHINE_TABLES !== "undefined") ? MACHINE_TABLES[machine.id] : null;
+        if (T) {
+          for (const ref of spRefsDe(f)) {
+            const hit = T.idx[ref] || T.idx[ref.toUpperCase()];
+            if (hit && hit.length) {
+              const t = T.tablas[hit[0]];
+              return { tipo: "tb", i: hit[0], ref, txt: "Despiece · tabla " + (t ? t.id : "") };
+            }
           }
         }
 
@@ -4368,7 +4380,8 @@ const initialMachines = [
         if (!u) return;
 
         if (u.tipo === "despiece") {
-          const g = mecData().grupos[u.cod];
+          const g = mecDeMaquina(machine.id).grupos[u.cod];
+          mecState.mid = machine.id;
           mecState.grupo = u.cod;
           mecState.q = u.ref;
           const i = g.hojas.findIndex((h) => (h.p || []).includes(u.ref));
@@ -4384,6 +4397,16 @@ const initialMachines = [
             const caja = document.getElementById("pxSearch");
             if (caja) { caja.value = u.ref; pxSearch(machine.id); }
             spDestacar(document.getElementById("pxHits"));
+          }, 60);
+          return;
+        }
+        if (u.tipo === "tb") {
+          spActivarPestana("partsmap");
+          setTimeout(() => {
+            const caja = document.getElementById("tbSearch");
+            if (caja) { caja.value = u.ref; tbSearch(machine.id); }
+            tbSelect(machine.id, u.i);
+            spDestacar(document.getElementById("tbPanel"));
           }, 60);
           return;
         }

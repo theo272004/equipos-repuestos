@@ -28,7 +28,7 @@ function dt(machine, campo) {
         //   Repuestos  = los del plan (con código interno) + los del manual
         //   Fallas y alarmas = registro de fallas + alarmas del HMI
         //   Despiece   = despiece interactivo + tabla de despiece
-        const hayMec = machine.id === "ms235" && !!window.MS235_MEC;
+        const hayMec = mecTiene(machine);
         const hayDespiece = hayMec
           || (typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id])
           || (typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]);
@@ -107,6 +107,7 @@ function dt(machine, campo) {
           <section class="profile-panel" data-profile-panel="maintenance">
             ${renderInspMaquina(machine)}
             ${(machine.maintenanceTasks ?? []).length ? '<div class="panel-split"></div>' + renderMaintenancePanel(machine) : ""}
+            ${procDe(machine) ? '<div class="panel-split"></div>' + renderProcedimientosPanel(machine) : ""}
           </section>
           <section class="profile-panel" data-profile-panel="failures">
             ${machine.alarms ? renderAlarmsPanel(machine) + '<div class="panel-split"></div>' : ""}
@@ -1700,9 +1701,18 @@ function dt(machine, campo) {
       // mantenimiento (paginas en espaniol del manual de Calibrado) y su
       // despiece con todos los numeros de pieza.
 
-      const mecState = { mapa: 0, grupo: "", q: "", hoja: 0 };
+      const mecState = { mid: "", mapa: 0, grupo: "", q: "", hoja: 0 };
 
-      function mecData() { return window.MS235_MEC || null; }
+      // Los datos de despiece de cada maquina, si los tiene. La MS235 fue la
+      // primera; window.MS235_MEC se sigue leyendo para no romper nada.
+      function mecDatos() {
+        const reg = window.MEC_DATA || {};
+        if (window.MS235_MEC && !reg.ms235) reg.ms235 = window.MS235_MEC;
+        return reg;
+      }
+      function mecDeMaquina(mid) { return mecDatos()[mid] || null; }
+      function mecTiene(machine) { return !!(machine && mecDeMaquina(machine.id)); }
+      function mecData() { return mecDeMaquina(mecState.mid) || mecDeMaquina(selectedId); }
 
       function mecGrupoDe(cod) { const M = mecData(); return M && M.grupos[cod] ? M.grupos[cod] : null; }
 
@@ -1716,6 +1726,10 @@ function dt(machine, campo) {
       }
 
       function renderMecExplorer(machine) {
+        if (mecState.mid !== machine.id) {
+          mecState.mid = machine.id;
+          mecState.mapa = 0; mecState.grupo = ""; mecState.q = ""; mecState.hoja = 0;
+        }
         const M = mecData();
         if (!M) return "";
         const mapa = M.mapas[mecState.mapa] || M.mapas[0];
@@ -1725,9 +1739,9 @@ function dt(machine, campo) {
         return `
           <div class="panel-header-clean">
             <h3>Despiece por grupos &mdash; d&oacute;nde est&aacute; cada pieza</h3>
-            <p>La misma m&aacute;quina que dibuj&oacute; Schmucker, con la llamada de cada grupo en su sitio.
-               Toca una llamada del plano y se abre el grupo: qu&eacute; es, sus procedimientos de mantenimiento
-               en espa&ntilde;ol y su despiece con todos los n&uacute;meros de pieza. Cat&aacute;logo ${planEsc(M.ref)} &middot;
+            <p>${mapa.hs.length ? "La m&aacute;quina tal como la dibuj&oacute; el fabricante, con la llamada de cada grupo en su sitio. Toca una llamada del plano" : "Elige un grupo de la lista"}
+               y se abre el grupo: qu&eacute; es, sus procedimientos de mantenimiento en espa&ntilde;ol y su despiece
+               con todos los n&uacute;meros de pieza. Cat&aacute;logo ${planEsc(M.ref)} &middot;
                ${nGrupos} grupos &middot; ${nPiezas} referencias.</p>
           </div>
           <div class="mec-search">
@@ -1749,8 +1763,8 @@ function dt(machine, campo) {
                     title="${planEsc(h.cod)} &middot; ${planEsc(g ? g.n : "sin despiece cargado")}"><span></span></button>`;
                 }).join("")}
               </div>
-              <p class="mec-legend">${mapa.hs.length} llamadas en esta vista &middot; toca un punto</p>
-              ${sueltos.length ? `<details class="mec-otros"><summary>Otros ${sueltos.length} grupos sin llamada en el plano</summary>
+              <p class="mec-legend">${mapa.hs.length ? mapa.hs.length + " llamadas en esta vista &middot; toca un punto" : "Vista general del equipo"}</p>
+              ${sueltos.length ? `<details class="mec-otros" ${mapa.hs.length ? "" : "open"}><summary>${mapa.hs.length ? "Otros " + sueltos.length + " grupos sin llamada en el plano" : sueltos.length + " grupos del cat&aacute;logo"}</summary>
                 ${sueltos.map((c) => `<button class="mec-otro ${mecState.grupo === c ? "is-active" : ""}" type="button" onclick="mecVerGrupo('${planEsc(c)}')">${planEsc(M.grupos[c].n)}<span>${planEsc(c)}</span></button>`).join("")}
               </details>` : ""}
             </div>
@@ -1943,5 +1957,76 @@ function dt(machine, campo) {
               return `<p class="pl-soft">Un solo modelo cubre ${top[1].n} de las ${todos.length} posiciones (${planEsc(top[1].marca)} ${planEsc(top[1].tipo)}), as&iacute; que tener uno en almac&eacute;n resuelve buena parte de las fallas por sensor.</p>`;
             })()}
           </div>
+        </div>`;
+      }
+
+      // ── Procedimientos del manual, con su figura ────────────────────────────
+      // Las tareas de mantenimiento dicen QUÉ hay que hacer y cada cuánto. Esto
+      // dice CÓMO: son las páginas del manual del fabricante, con el dibujo de la
+      // operación y el texto en su idioma original y en español. Se agrupan por
+      // zona de la máquina para no dar una lista de cien páginas sueltas.
+
+      const procVista = { q: "", zona: "" };
+
+      function procDe(machine) { return (window.PROC_DATA || {})[machine.id] || null; }
+
+      function procBuscar(v) {
+        procVista.q = v;
+        procRefresh();
+        const c = document.getElementById("procSearch");
+        if (c) { c.focus(); c.setSelectionRange(c.value.length, c.value.length); }
+      }
+      function procZona(z) { procVista.zona = z === procVista.zona ? "" : z; procRefresh(); }
+      function procRefresh() {
+        const machine = machines.find((m) => m.id === selectedId);
+        const box = document.getElementById("procPanel");
+        if (box && machine) box.outerHTML = renderProcedimientosPanel(machine);
+      }
+
+      function renderProcedimientosPanel(machine) {
+        const P = procDe(machine);
+        if (!P) return "";
+        const tokens = planTokens(procVista.q);
+        const zonas = {};
+        P.grupos.forEach((g) => { zonas[g.zona] = (zonas[g.zona] || 0) + g.proc.length; });
+        const total = P.grupos.reduce((n, g) => n + g.proc.length, 0);
+
+        const grupos = P.grupos
+          .filter((g) => !procVista.zona || g.zona === procVista.zona)
+          .map((g) => ({
+            ...g,
+            proc: g.proc.filter((p) => {
+              if (!tokens.length) return true;
+              const hay = planPlain([p.t, g.zona, g.cod].join(" "));
+              return tokens.every((t) => hay.includes(t));
+            })
+          }))
+          .filter((g) => g.proc.length);
+        const vistos = grupos.reduce((n, g) => n + g.proc.length, 0);
+
+        return `<div id="procPanel" class="pl-panel">
+          <div class="panel-header-clean">
+            <h3>C&oacute;mo se hace &middot; ${total} procedimientos del manual</h3>
+            <p>Las p&aacute;ginas del manual del fabricante con la figura de cada operaci&oacute;n, agrupadas por zona de la
+               m&aacute;quina. Toca una para ampliarla. ${planEsc(P.ref)}</p>
+          </div>
+          <div class="pl-filters">
+            <input type="search" id="procSearch" placeholder="Buscar: limpieza, fase, cadena, rodillos, lubricaci&oacute;n&hellip;" value="${planEsc(procVista.q)}" oninput="procBuscar(this.value)" aria-label="Buscar procedimientos">
+            <span class="counter">${vistos} de ${total}</span>
+          </div>
+          <div class="spares-filter-tags">
+            <button class="filter-tag-btn ${procVista.zona ? "" : "active"}" type="button" onclick="procZona('')">Toda la m&aacute;quina</button>
+            ${Object.keys(zonas).sort((a, b) => zonas[b] - zonas[a] || a.localeCompare(b)).map((z) =>
+              `<button class="filter-tag-btn ${procVista.zona === z ? "active" : ""}" type="button" onclick="procZona('${planEsc(z).replace(/'/g, "&#39;")}')">${planEsc(z)} <span class="ftb-n">${zonas[z]}</span></button>`).join("")}
+          </div>
+          ${grupos.length ? grupos.map((g) => `<div class="proc-grupo">
+            <p class="proc-grupo__t">${planEsc(g.zona)} <span>${planEsc(g.cod)} &middot; ${g.proc.length} p&aacute;gina${g.proc.length === 1 ? "" : "s"}</span></p>
+            <div class="mec-procs">
+              ${g.proc.map((p) => `<figure class="mec-proc" onclick="openLightbox('${planEsc(p.img)}','${planEsc(p.t).replace(/'/g, "&#39;")} — ${planEsc(g.zona).replace(/'/g, "&#39;")}, manual de Calibrado p. ${p.pg}')">
+                <img src="${planEsc(p.img)}" alt="${planEsc(p.t)}" loading="lazy">
+                <figcaption>${planMark(p.t, tokens)}<span>p. ${p.pg}</span></figcaption>
+              </figure>`).join("")}
+            </div>
+          </div>`).join("") : '<p class="pl-soft" style="padding:14px 2px">Ning&uacute;n procedimiento coincide con esa b&uacute;squeda.</p>'}
         </div>`;
       }
