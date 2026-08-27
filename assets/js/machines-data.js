@@ -1820,6 +1820,52 @@ const initialMachines = [
               `
             }
           ],
+          systemAtlas: {
+            title: "Vista general + los cinco sistemas de la 114 RL",
+            description: "Lectura guiada de la puerta: primero el conjunto, luego cada sistema con su figura del manual, qué lleva, qué se le ajusta y cómo se diagnostica. Las páginas citadas son las del manual de usuario original.",
+            machineMap: {
+              title: "Puerta rápida autorreparable 114 RL — ficha del fabricante",
+              description: "Dibujo acotado y datos de norma EN 13241-1 del propio fabricante. Esta puerta no tiene un plano de grupos con llamadas como las Marchesini, así que aquí no hay puntos: usa la lista de sistemas de abajo.",
+              image: { src: "assets/controlsa/p038.jpg", alt: "Puerta rápida autorreparable 114 RL — ficha de producto", page: 38 }
+            },
+            systems: [
+              { id: "lona-guias", name: "Lona, guías y recuperadores", kicker: "Sistema autorreparable", station: "Sistema 1", page: 17, status: "Manual p.17-19",
+                figure: { src: "assets/controlsa/p048.jpg", alt: "Guías y recuperadores de la lona", title: "Guías y recuperador", page: 17, caption: "Manual p.17 — las piezas de plástico blancas de la parte superior de las guías son los recuperadores." },
+                summary: "Es lo que hace a esta puerta autorreparable: ante un impacto la lona se desprende de las guías en vez de romperse, y al subir vuelve a entrar sola por los recuperadores. Por eso el coste de reparación es bajo, pero exige que los botones laterales estén completos.",
+                flow: ["Impacto contra la lona → se desprende de las guías", "Se sube la puerta en modo manual", "La lona entra lateralmente por los recuperadores (plástico blanco, arriba de las guías)", "Se baja acompañándola y se comprueba que está dentro de guías a ambos lados"],
+                components: ["Lona de PVC", "Guías laterales", "Recuperadores de plástico blanco", "Botones laterales de la lona", "Tapa trasera del cajón"],
+                adjustments: ["Revisión trimestral de los botones laterales, bajando la lona en modo manual y mirándola de arriba abajo (p.15)", "Reinserción en los recuperadores con la lona por encima de ellos (p.18)"],
+                diagnostics: ["Lona fuera de guías → apartado 6.2, p.17-18; hay dos procedimientos según si salió sólo de las guías o también de los recuperadores", "La lona sube y baja constantemente → falta un botón lateral, apartado 6.4 p.19; el recambio se pide al SAT de Controlsa"] },
+              { id: "seguridad", name: "Seguridad: barrera y célula de tambor", kicker: "Barrera + célula de tambor", station: "Sistema 2", page: 16, status: "Manual p.16",
+                figure: { src: "assets/controlsa/p047.jpg", alt: "Comprobación de la barrera de seguridad y la célula de tambor", title: "Las dos protecciones y cómo probarlas", page: 16, caption: "Manual p.16 — la barrera protege el cierre y la puerta abierta; la célula de tambor protege todo el descenso." },
+                summary: "Son dos protecciones distintas y se prueban distinto. La barrera protege durante el cierre y mientras la puerta está abierta, hasta que la lona alcanza la posición del haz. La célula de tambor protege durante todo el movimiento descendente, y es la que actúa cuando algo impide que la lona se desenrolle bien.",
+                flow: ["Puerta abierta con la barrera obstaculizada → no debe poder bajar", "Durante el cierre, si se corta el haz → invierte el giro y vuelve a puerta abierta", "Durante la bajada, si la célula de tambor detecta el corte → invierte igualmente"],
+                components: ["Barrera de seguridad (emisores y receptores)", "Célula de tambor", "Célula de paro y cambio de velocidad (si la hay)", "Paro de emergencia", "Sistema anticaída"],
+                adjustments: ["Limpieza trimestral de todas las fotocélulas (p.15)", "Reapriete de los soportes de las fotocélulas (p.15)", "Revisión del aspecto general de emisores y receptores (p.15)"],
+                diagnostics: ["La puerta se queda abierta → obstáculo cerca, célula sucia o mal orientada, u orden de subir permanente del sensor de proximidad o radar (6.3, p.19)", "Prueba de la célula de tambor: sujetar la bolsa inferior durante la bajada. Si hace falta fuerza excesiva, soltar de inmediato (p.16)"] },
+              { id: "control-electrico", name: "Cuadro eléctrico de maniobra", kicker: "Placa electrónica Controlsa", station: "Sistema 3", page: 10, status: "Manual p.10-13",
+                figure: { src: "assets/controlsa/p041.jpg", alt: "Cuadro eléctrico de maniobra", title: "Elementos del cuadro y externos", page: 10, caption: "Manual p.10 — botoneras de hombre presente, paro de emergencia y elementos del armario." },
+                summary: "El cerebro de la puerta: una placa electrónica Controlsa y un magnetotérmico dentro del armario, con las botoneras y los paros de emergencia como elementos externos. Los estados se consultan desde el display con MENU → ESTADO.",
+                flow: ["Pantalla de inicio → MENU", "Menú de estado → INTRO", "Indicadores de estado y otros parámetros informativos (p.12-13)"],
+                components: ["Placa electrónica Controlsa", "Magnetotérmico del armario", "Botoneras de hombre presente", "Pulsador de paro de emergencia", "Semáforos", "SAI (opcional)"],
+                adjustments: ["Verificación trimestral del SAI, desconectándolo de la alimentación (p.15)", "Cambio de baterías del SAI cada dos años, recomendado por el fabricante (p.14)"],
+                diagnostics: ["La puerta no responde → 6.1 (p.17): mirar el paro de emergencia, apagar el magnetotérmico, esperar unos 10 s a que se apaguen los equipos internos y volver a conectarlo, y comprobar que se encienden los LED de las botoneras"] },
+              { id: "motorizacion", name: "Motorización y apertura sin corriente", kicker: "Motor + transmisión", station: "Sistema 4", page: 21, status: "Manual p.21",
+                figure: { src: "assets/controlsa/p029.jpg", alt: "Apertura de la puerta en caso de corte eléctrico", title: "Qué hacer sin suministro eléctrico", page: 21, caption: "Manual p.21 — con corte de suministro los motores quedan bloqueados." },
+                summary: "Mueve la lona por transmisión de correa y tambor de enrollado. Lo importante para planta: si se va la corriente los motores quedan bloqueados, y la apertura se hace por el procedimiento del apartado 7 del manual.",
+                flow: ["Orden de apertura → motor → correa → tambor de enrollado", "Corte de suministro → motores bloqueados → apertura según el apartado 7"],
+                components: ["Motor", "Correa de transmisión", "Tambor de enrollado", "Freno y palanca de desbloqueo", "SAI para elevación automática (opcional)"],
+                adjustments: ["Revisión mecánica y eléctrica anual, por persona acreditada por Controlsa (p.14)"],
+                diagnostics: ["Motor bloqueado → 6.5 (p.20). Ojo: en MODO MANUAL se anulan los detectores de final de movimiento y los sistemas de seguridad"] },
+              { id: "activacion", name: "Modos de funcionamiento y activación", kicker: "Automático / manual", station: "Sistema 5", page: 7, status: "Manual p.7-9",
+                figure: { src: "assets/controlsa/p020.jpg", alt: "Funcionamiento de la puerta: modos automático y manual", title: "Los dos modos de trabajo", page: 7, caption: "Manual p.7 — el modo manual es sólo para mantenimiento." },
+                summary: "La puerta trabaja en automático; el modo manual (hombre presente) es sólo para mantenimiento y anula los finales de carrera y las seguridades, así que se usa con la puerta acompañada y a pulsaciones cortas.",
+                flow: ["Automático: orden de apertura desde pulsador, sensor de proximidad, radar o interlock", "Manual: pulsaciones cortas de ABRIR/CERRAR, con movimientos suaves", "Salir de manual: pulsar y desenclavar la seta de emergencia como rearme"],
+                components: ["Pulsador de abrir", "Sensor de proximidad o radar", "Interlock con otras puertas", "SAS / cadena de rodillos"],
+                adjustments: ["Prueba trimestral del paro de emergencia: al pulsarlo el LED rojo se enciende unos segundos o el verde se apaga, y la puerta no responde a ninguna orden (p.15)"],
+                diagnostics: ["Si la puerta no responde, comprobar antes de nada que no se quedó en modo manual (6.3, p.19)"] }
+            ]
+          },
           systems: [
             { name: "Lona y guías", function: "Abrir/cerrar paso y permitir reinserción automática ante impacto.", components: ["Lona PVC", "Guías", "Recuperadores", "Botones laterales"], status: "Base manual consolidada" },
             { name: "Motorización", function: "Mover la lona mediante transmisión por correa y tambor de enrollado.", components: ["Motor", "Correa", "Tambor", "Freno / palanca de desbloqueo"], status: "Base manual consolidada" },
@@ -1828,19 +1874,19 @@ const initialMachines = [
             { name: "Activación e integración", function: "Recibir órdenes de apertura/cierre e integrarse con otras puertas o línea.", components: ["Pulsador abrir", "Sensor de proximidad", "Interlock", "SAS / cadena de rodillos"], status: "Base manual consolidada" }
           ],
           spareParts: [
-            { name: "Fotocélulas / ópticos", system: "Seguridad", type: "Eléctrico", criticality: "Alta", status: "Base manual consolidada", function: "Detección de obstáculos y corte de haz." },
-            { name: "Botones laterales de lona", system: "Lona y guías", type: "Desgaste", criticality: "Alta", status: "Base manual consolidada", function: "Mantener guiado correcto de la lona." },
-            { name: "Baterías SAI", system: "Control eléctrico", type: "Consumible cíclico", criticality: "Media", status: "Base manual consolidada", function: "Respaldar apertura automática ante corte eléctrico." },
-            { name: "Correa de transmisión", system: "Motorización", type: "Mecánico", criticality: "Alta", status: "Base manual consolidada", function: "Transmitir movimiento desde motor al tambor." },
-            { name: "Recuperadores", system: "Lona y guías", type: "Mecánico", criticality: "Alta", status: "Base manual consolidada", function: "Permitir reentrada de la lona a las guías." },
-            { name: "Sensor de proximidad", system: "Activación e integración", type: "Sensor", criticality: "Media", status: "Base manual consolidada", function: "Dar orden de apertura por presencia." }
+            { name: "Fotocélulas / ópticos", system: "Seguridad: barrera y célula de tambor", type: "Eléctrico", criticality: "Alta", status: "Base manual consolidada", function: "Detección de obstáculos y corte de haz." },
+            { name: "Botones laterales de lona", system: "Lona, guías y recuperadores", type: "Desgaste", criticality: "Alta", status: "Base manual consolidada", function: "Mantener guiado correcto de la lona." },
+            { name: "Baterías SAI", system: "Cuadro eléctrico de maniobra", type: "Consumible cíclico", criticality: "Media", status: "Base manual consolidada", function: "Respaldar apertura automática ante corte eléctrico." },
+            { name: "Correa de transmisión", system: "Motorización y apertura sin corriente", type: "Mecánico", criticality: "Alta", status: "Base manual consolidada", function: "Transmitir movimiento desde motor al tambor." },
+            { name: "Recuperadores", system: "Lona, guías y recuperadores", type: "Mecánico", criticality: "Alta", status: "Base manual consolidada", function: "Permitir reentrada de la lona a las guías." },
+            { name: "Sensor de proximidad", system: "Modos de funcionamiento y activación", type: "Sensor", criticality: "Media", status: "Base manual consolidada", function: "Dar orden de apertura por presencia." }
           ],
           maintenanceTasks: [
-            { name: "Prueba del paro de emergencia", system: "Seguridad", frequency: "Trimestral", type: "Preventivo", status: "Base manual consolidada", acceptance: "La puerta no responde a órdenes y el LED cambia según lo descrito." },
-            { name: "Limpieza de fotocélulas", system: "Seguridad", frequency: "Trimestral", type: "Preventivo", status: "Base manual consolidada", acceptance: "Ópticos limpios, alineados y sin falsos disparos." },
-            { name: "Revisión de botones laterales de lona", system: "Lona y guías", frequency: "Trimestral", type: "Preventivo", status: "Base manual consolidada", acceptance: "No faltan botones y la lona guía correctamente." },
-            { name: "Prueba de barrera de seguridad", system: "Seguridad", frequency: "Trimestral", type: "Funcional", status: "Base manual consolidada", acceptance: "La puerta no baja con barrera ocupada e invierte al cortar el haz durante el cierre." },
-            { name: "Prueba de célula de tambor", system: "Seguridad", frequency: "Trimestral", type: "Funcional", status: "Base manual consolidada", acceptance: "La puerta invierte la maniobra si se obstaculiza el desenrollado." },
+            { name: "Prueba del paro de emergencia", system: "Seguridad: barrera y célula de tambor", frequency: "Trimestral", type: "Preventivo", status: "Base manual consolidada", acceptance: "La puerta no responde a órdenes y el LED cambia según lo descrito." },
+            { name: "Limpieza de fotocélulas", system: "Seguridad: barrera y célula de tambor", frequency: "Trimestral", type: "Preventivo", status: "Base manual consolidada", acceptance: "Ópticos limpios, alineados y sin falsos disparos." },
+            { name: "Revisión de botones laterales de lona", system: "Lona, guías y recuperadores", frequency: "Trimestral", type: "Preventivo", status: "Base manual consolidada", acceptance: "No faltan botones y la lona guía correctamente." },
+            { name: "Prueba de barrera de seguridad", system: "Seguridad: barrera y célula de tambor", frequency: "Trimestral", type: "Funcional", status: "Base manual consolidada", acceptance: "La puerta no baja con barrera ocupada e invierte al cortar el haz durante el cierre." },
+            { name: "Prueba de célula de tambor", system: "Seguridad: barrera y célula de tambor", frequency: "Trimestral", type: "Funcional", status: "Base manual consolidada", acceptance: "La puerta invierte la maniobra si se obstaculiza el desenrollado." },
             { name: "Revisión mecánica y eléctrica integral", system: "Equipo completo", frequency: "Anual", type: "Preventivo", status: "Base manual consolidada", acceptance: "Funcionamiento correcto de maniobra, seguridad y componentes eléctricos/mecánicos." }
           ],
           failureModes: [
@@ -3564,6 +3610,18 @@ const initialMachines = [
       // Repuestos del registro que le tocan a una maquina (tenga ficha rica o basica).
       function equipoDeMachine(machine) { return machine ? EQ_POR_ID.get(machine.id) || null : null; }
 
+      // Hay fichas cuyo código de equipo no aparece en los listados oficiales
+      // DMM-179 (equipos nuevos, o un código mal copiado). Conviene que se vea:
+      // si el código no está en el registro, ese equipo no tiene plan de
+      // repuestos ni sale en los conteos de mantenimiento por sistemas.
+      const EQ_POR_COD = new Map(PLAN_EQUIPOS.map((e) => [String(e.c), e]));
+      function codigoEnRegistro(cod) { return !!cod && EQ_POR_COD.has(String(cod)); }
+      function avisoCodigo(machine) {
+        const cod = machine.equipoCod || "";
+        if (!cod || codigoEnRegistro(cod)) return "";
+        return `<span class="cod-aviso" title="Los listados oficiales son DMM-179B (Sede 4) y DMM-179 (Planta 2). Mientras el código no esté ahí, este equipo no tiene plan de repuestos importado.">Código ${planEsc(cod)} sin registrar en el listado oficial</span>`;
+      }
+
       // Sync and load machines from localStorage
       const storageMachinesKey = "equipos-machines-v4";
       let machines = [];
@@ -4174,6 +4232,7 @@ const initialMachines = [
         return `<div class="pl-panel sp-panel">
           <div class="panel-header-clean">
             <h3>Repuestos del equipo &middot; c&oacute;digo ${planEsc(eq.c)}</h3>
+            ${eq.sinPlan ? `<p class="pl-aviso">Este equipo no tiene plan importado del Excel${machine.equipoCod && !codigoEnRegistro(machine.equipoCod) ? `: su c&oacute;digo <strong>${planEsc(machine.equipoCod)}</strong> no aparece en los listados oficiales DMM-179` : ""}. Los repuestos de abajo salen del manual; el c&oacute;digo interno se puede ir escribiendo aqu&iacute;.</p>` : ""}
             <p>Una sola tabla con todos los repuestos de este equipo: los del <strong>plan del Excel</strong> (c&oacute;digo interno, cantidad, existencia y ubicaci&oacute;n) y los del <strong>manual del fabricante</strong> (referencia, tipo, criticidad y funci&oacute;n), ya unidos.
                El c&oacute;digo interno y la existencia se escriben aqu&iacute; mismo y quedan para todo el taller. Pulsa el nombre de una pieza para ver su detalle.</p>
           </div>
@@ -4225,7 +4284,8 @@ const initialMachines = [
       // Números de pieza que aparecen en el nombre o la referencia.
       function spRefsDe(f) {
         const txt = [f.ref, f.nombre].join(" ");
-        return (txt.match(/\b[A-Z0-9][A-Z0-9._]{5,}\b/g) || []).filter((t) => /\d/.test(t));
+        // Los P/N de fabricante llevan guiones (8-104-322-400), así que entran también.
+        return (txt.match(/\b[A-Z0-9][A-Z0-9._-]{4,}[A-Z0-9]\b/g) || []).filter((t) => /\d/.test(t));
       }
 
       function spDondeVa(machine, f) {
@@ -4239,6 +4299,19 @@ const initialMachines = [
             }
           }
         }
+        // 1b. La GKF tiene su propio despiece: si la referencia está en su catálogo,
+        //     se puede señalar el grupo y la lámina donde sale.
+        const G = (typeof MACHINE_PARTS !== "undefined") ? MACHINE_PARTS[machine.id] : null;
+        if (G) {
+          const norm = (v) => planPlain(v).replace(/[^a-z0-9]/g, "");
+          const refs = spRefsDe(f).map(norm);
+          const p = G.parts.find((x) => refs.includes(norm(x.r)));
+          if (p) {
+            const g = G.groups.find((x) => x.p === p.g);
+            return { tipo: "px", ref: p.r, txt: "Despiece · " + (g ? g.n : "grupo " + p.g) };
+          }
+        }
+
         // 2. Un sensor: la función trae la sigla con la que sale en el esquema.
         const sig = /\b(B\d+[A-Z]?\.\d+)/.exec(f.fn || "");
         if (sig && machine.schematic && typeof sensoresMS235 === "function" && sensoresMS235().length) {
@@ -4303,6 +4376,15 @@ const initialMachines = [
           spActivarPestana("partsmap");
           mecRefresh();
           setTimeout(() => spDestacar(document.querySelector('[data-profile-panel="partsmap"] .mec-lamina')), 60);
+          return;
+        }
+        if (u.tipo === "px") {
+          spActivarPestana("partsmap");
+          setTimeout(() => {
+            const caja = document.getElementById("pxSearch");
+            if (caja) { caja.value = u.ref; pxSearch(machine.id); }
+            spDestacar(document.getElementById("pxHits"));
+          }, 60);
           return;
         }
         if (u.tipo === "sensores") {

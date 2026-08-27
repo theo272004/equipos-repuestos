@@ -2988,3 +2988,7 @@
         100% { box-shadow: 0 0 0 0 rgba(21, 112, 239, 0); }
       }
       .is-flash { border-radius: 14px; animation: flashDestino 1.8s ease-out 1; }
+
+      /* Código de equipo que no está en el listado oficial DMM-179 */
+      .cod-aviso { display: block; margin-top: 3px; border-radius: 999px; padding: 1px 8px; width: fit-content; background: #fef0c7; color: #93370d; font-size: 0.7rem; font-weight: 700; }
+      .pl-aviso { margin: -4px 0 14px; border: 1px solid #fec84b; border-left: 3px solid #f79009; border-radius: 12px; padding: 10px 14px; background: #fffcf5; color: #93370d; font-size: 0.86rem; line-height: 1.5; }

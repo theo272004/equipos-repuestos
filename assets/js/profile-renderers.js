@@ -73,7 +73,7 @@ function dt(machine, campo) {
                 <div class="summary-section">
                   <h4>Identificación y estado</h4>
                   <div class="summary-kv">
-                    <div><span>Código de equipo</span><strong>${codigoEquipo}</strong></div>
+                    <div><span>Código de equipo</span><strong>${codigoEquipo}${avisoCodigo(machine)}</strong></div>
                     <div><span>Modelo</span><strong>${machine.model}</strong></div>
                     <div><span>Área</span><strong>${machine.area}</strong></div>
                     <div><span>Ubicación</span><strong>${machine.location}</strong></div>
