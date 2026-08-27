@@ -2963,3 +2963,13 @@
       .mec-table { min-width: 460px; }
       .mec-ir { border: 0; border-radius: 7px; padding: 2px 7px; background: var(--soft); color: #1849a9; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.74rem; font-weight: 700; cursor: pointer; }
       .mec-ir:hover { background: var(--blue-soft); }
+
+      /* ── MS235: tabla de sensores del esquema ──────────────────────────────── */
+      .sen-table { min-width: 900px; }
+      .sen-modelos { margin-top: 16px; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--soft); }
+      .sen-modelos__t { margin: 0 0 10px; color: var(--muted); font-size: 0.73rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; }
+      .sen-modelos__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 8px; margin-bottom: 10px; }
+      .sen-mod { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: baseline; border: 1px solid var(--line); border-radius: 11px; padding: 9px 11px; background: #ffffff; }
+      .sen-mod__n { grid-row: span 2; color: #1849a9; font-size: 1.25rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+      .sen-mod__t { color: var(--text); font-size: 0.83rem; line-height: 1.35; }
+      .sen-mod__c { color: var(--muted); font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.76rem; font-weight: 700; }

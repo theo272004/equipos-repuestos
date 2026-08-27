@@ -128,7 +128,10 @@ function dt(machine, campo) {
               }).join("")}
             </div>
           </section>
-          ${machine.schematic ? `<section class="profile-panel" data-profile-panel="schematic">${renderSchematicExplorer(machine)}</section>` : ""}
+          ${machine.schematic ? `<section class="profile-panel" data-profile-panel="schematic">
+            ${renderSchematicExplorer(machine)}
+            ${machine.id === "ms235" && sensoresMS235().length ? '<div class="panel-split"></div>' + renderSensoresPanel() : ""}
+          </section>` : ""}
           ${hayDespiece ? `<section class="profile-panel" data-profile-panel="partsmap">
             ${hayMec ? renderMecExplorer(machine) : ""}
             ${(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id]) ? renderPartsExplorer(machine) : ""}
@@ -1853,5 +1856,92 @@ function dt(machine, campo) {
               </table>
             </div>
           </div>` : '<p class="pl-soft">Este grupo no tiene l&aacute;mina de despiece propia en el cat&aacute;logo; su mantenimiento s&iacute; est&aacute; en el manual de Calibrado.</p>'}
+        </div>`;
+      }
+
+      // ── MS235: los 29 sensores del esquema ES4220003 ────────────────────────
+      // Cuando falta un sensor en la maquina, la pregunta es siempre la misma:
+      // cual iba ahi y que se pide. Esta tabla lo dice: la sigla del esquema, que
+      // hace, la marca y el tipo, y el codigo Schmucker con el que se compra.
+
+      const senVista = { q: "", zona: "" };
+
+      function sensoresMS235() { return window.MS235_SENSORES || []; }
+
+      function senBuscar(v) {
+        senVista.q = v;
+        senRefresh();
+        const c = document.getElementById("senSearch");
+        if (c) { c.focus(); c.setSelectionRange(c.value.length, c.value.length); }
+      }
+      function senZona(z) { senVista.zona = z === senVista.zona ? "" : z; senRefresh(); }
+      function senRefresh() {
+        const box = document.getElementById("senPanel");
+        if (box) box.outerHTML = renderSensoresPanel();
+      }
+
+      function renderSensoresPanel() {
+        const todos = sensoresMS235();
+        if (!todos.length) return "";
+        const tokens = planTokens(senVista.q);
+        const zonas = {};
+        todos.forEach((s) => { zonas[s.zona] = (zonas[s.zona] || 0) + 1; });
+        const filas = todos.filter((s) => {
+          if (senVista.zona && s.zona !== senVista.zona) return false;
+          if (!tokens.length) return true;
+          const hay = planPlain([s.sigla, s.f, s.marca, s.tipo, s.cod, s.hilo, s.zona].join(" "));
+          return tokens.every((t) => hay.includes(t));
+        });
+        // Cuantos hay de cada modelo: es lo que interesa para tener repuesto en almacen.
+        const modelos = {};
+        todos.forEach((s) => { if (s.cod) modelos[s.cod] = modelos[s.cod] || { n: 0, marca: s.marca, tipo: s.tipo }; if (s.cod) modelos[s.cod].n++; });
+
+        return `<div id="senPanel" class="pl-panel">
+          <div class="panel-header-clean">
+            <h3>Sensores de la m&aacute;quina &middot; esquema ES4220003</h3>
+            <p>Los ${todos.length} sensores que lleva la MS235, con la <strong>sigla</strong> con la que salen en el esquema,
+               qu&eacute; controla cada uno, la marca y el tipo, y el <strong>c&oacute;digo Schmucker</strong> con el que se pide.
+               Si falta uno en la m&aacute;quina, aqu&iacute; se ve cu&aacute;l era y qu&eacute; hay que comprar.</p>
+          </div>
+          <div class="pl-filters">
+            <input type="search" id="senSearch" placeholder="Buscar: sigla (B29.8), funci&oacute;n (bobina, planchas), marca o c&oacute;digo&hellip;" value="${planEsc(senVista.q)}" oninput="senBuscar(this.value)" aria-label="Buscar sensores">
+            <span class="counter">${filas.length} de ${todos.length}</span>
+          </div>
+          <div class="spares-filter-tags">
+            <button class="filter-tag-btn ${senVista.zona ? "" : "active"}" type="button" onclick="senZona('')">Todas las zonas</button>
+            ${Object.keys(zonas).sort((a, b) => zonas[b] - zonas[a] || a.localeCompare(b)).map((z) =>
+              `<button class="filter-tag-btn ${senVista.zona === z ? "active" : ""}" type="button" onclick="senZona('${planEsc(z).replace(/'/g, "&#39;")}')">${planEsc(z)} <span class="ftb-n">${zonas[z]}</span></button>`).join("")}
+          </div>
+          <div class="pl-tablewrap">
+            <table class="pl-table sen-table">
+              <thead><tr>
+                <th>Sigla</th><th>Zona</th><th>Qu&eacute; controla</th><th>Marca</th><th>Tipo</th><th>C&oacute;d. Schmucker</th><th>Hilo</th>
+              </tr></thead>
+              <tbody>${filas.length ? filas.map((s) => `<tr>
+                <td class="pl-code">${planMark(s.sigla, tokens)}</td>
+                <td>${planEsc(s.zona)}</td>
+                <td class="pl-desc">${planMark(s.f, tokens)}${s.nota ? `<span class="pl-obs">${planEsc(s.nota)}</span>` : ""}</td>
+                <td>${s.marca ? `<span class="type-badge">${planEsc(s.marca)}</span>` : "&mdash;"}</td>
+                <td class="sp-ref">${s.tipo ? planMark(s.tipo, tokens) : "&mdash;"}</td>
+                <td class="sp-ref">${s.cod ? planMark(s.cod, tokens) : '<span class="pl-soft">v&eacute;ase esquema neum&aacute;tico</span>'}</td>
+                <td class="pl-num">${planEsc(s.hilo) || "&mdash;"}</td>
+              </tr>`).join("") : '<tr><td colspan="7" class="pl-soft" style="padding:18px;text-align:center">Ning&uacute;n sensor coincide con esa b&uacute;squeda.</td></tr>'}</tbody>
+            </table>
+          </div>
+          <div class="sen-modelos">
+            <p class="sen-modelos__t">Modelos distintos y cu&aacute;ntos lleva la m&aacute;quina de cada uno</p>
+            <div class="sen-modelos__grid">
+              ${Object.entries(modelos).sort((a, b) => b[1].n - a[1].n).map(([cod, m]) => `<div class="sen-mod">
+                <span class="sen-mod__n">${m.n}&times;</span>
+                <span class="sen-mod__t"><strong>${planEsc(m.marca)}</strong> ${planEsc(m.tipo)}</span>
+                <span class="sen-mod__c">${planEsc(cod)}</span>
+              </div>`).join("")}
+            </div>
+            ${(() => {
+              const top = Object.entries(modelos).sort((a, b) => b[1].n - a[1].n)[0];
+              if (!top || top[1].n < 3) return "";
+              return `<p class="pl-soft">Un solo modelo cubre ${top[1].n} de las ${todos.length} posiciones (${planEsc(top[1].marca)} ${planEsc(top[1].tipo)}), as&iacute; que tener uno en almac&eacute;n resuelve buena parte de las fallas por sensor.</p>`;
+            })()}
+          </div>
         </div>`;
       }
