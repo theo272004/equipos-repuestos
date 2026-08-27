@@ -3035,3 +3035,12 @@
         .spf-bar .counter { order: 3; margin-left: 0; }
         .spf-pop { width: min(340px, 92vw); }
       }
+
+      /* Filtros rápidos: los de siempre, sin abrir el menú */
+      .spf-rapidos { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-top: 9px; }
+      .spf-rapidos__t { color: var(--muted); font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; margin-right: 2px; }
+      .spf-rapido { display: inline-flex; align-items: baseline; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; background: #ffffff; color: #475467; font-size: 0.8rem; font-weight: 650; cursor: pointer; }
+      .spf-rapido:hover { border-color: var(--line-strong); color: var(--text); }
+      .spf-rapido span { color: var(--muted); font-size: 0.73rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+      .spf-rapido.is-on { border-color: #1849a9; background: var(--blue-soft); color: #1849a9; }
+      .spf-rapido.is-on span { color: #1849a9; }

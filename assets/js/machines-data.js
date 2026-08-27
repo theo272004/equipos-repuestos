@@ -4250,6 +4250,20 @@ const initialMachines = [
         renderFichaSiVisible();
       }
       function spQuitarFiltro(i) { spVista.filtros.splice(i, 1); renderFichaSiVisible(); }
+
+      // Los filtros rápidos son interruptores: el mismo botón pone y quita.
+      function spCondPuesta(id) { return spVista.filtros.some((x) => x.tipo === "cond" && x.id === id); }
+      function spCampoPuesto(campo, valor) { return spVista.filtros.some((x) => x.tipo === "campo" && x.campo === campo && x.valor === valor); }
+      function spToggleCond(id) {
+        if (spCondPuesta(id)) spVista.filtros = spVista.filtros.filter((x) => !(x.tipo === "cond" && x.id === id));
+        else { spAddCond(id); return; }
+        renderFichaSiVisible();
+      }
+      function spToggleCampo(campo, grupo, valor) {
+        if (spCampoPuesto(campo, valor)) spVista.filtros = spVista.filtros.filter((x) => !(x.tipo === "campo" && x.campo === campo && x.valor === valor));
+        else { spAddCampo(campo, grupo, valor); return; }
+        renderFichaSiVisible();
+      }
       function spLimpiarFiltros() { spVista.filtros = []; spVista.q = ""; renderFichaSiVisible(); }
       function spMenuToggle(abierto) { spVista.menu = abierto; }
 
@@ -4283,7 +4297,7 @@ const initialMachines = [
                 A&ntilde;adir filtro
               </summary>
               <div class="spf-pop">
-                ${secciones.map((s) => `<details class="spf-sec">
+                ${secciones.map((s) => `<details class="spf-sec" ${s.opciones.length <= 4 ? "open" : ""}>
                   <summary>${planEsc(s.grupo)} <span>${s.opciones.length}</span></summary>
                   <div class="spf-opts">
                     ${s.opciones.map((o) => `<button type="button" onclick="${o.accion}">${planEsc(o.etiqueta)}<span>${o.n}</span></button>`).join("")}
@@ -4302,6 +4316,23 @@ const initialMachines = [
             </details>
             <span class="counter">${filas.length} de ${todas.length}</span>
           </div>
+          ${(() => {
+            // Sólo se ofrecen los que de verdad separan algo en ESTE equipo.
+            const util = (n) => n > 0 && n < todas.length;
+            const rapidos = [];
+            const conCod = todas.filter((f) => f.cod).length;
+            if (util(conCod)) rapidos.push({ n: conCod, etiqueta: "Con código interno", activo: spCondPuesta("con-cod"), accion: "spToggleCond('con-cod')" });
+            if (util(todas.length - conCod)) rapidos.push({ n: todas.length - conCod, etiqueta: "Sin código interno", activo: spCondPuesta("sin-cod"), accion: "spToggleCond('sin-cod')" });
+            const altas = todas.filter((f) => planPlain(f.crit) === "alta").length;
+            if (util(altas)) rapidos.push({ n: altas, etiqueta: "Criticidad alta", activo: spCampoPuesto("crit", "Alta"), accion: "spToggleCampo('crit','Criticidad','Alta')" });
+            const cero = todas.filter((f) => Number(f.exist === "" ? f.r.e : f.exist) === 0).length;
+            if (util(cero)) rapidos.push({ n: cero, etiqueta: "Sin existencia", activo: spCondPuesta("sin-stock"), accion: "spToggleCond('sin-stock')" });
+            if (!rapidos.length) return "";
+            return `<div class="spf-rapidos">
+              <span class="spf-rapidos__t">Filtros r&aacute;pidos</span>
+              ${rapidos.map((r) => `<button class="spf-rapido ${r.activo ? "is-on" : ""}" type="button" onclick="${r.accion}">${r.etiqueta}<span>${r.n}</span></button>`).join("")}
+            </div>`;
+          })()}
           ${spVista.filtros.length ? `<div class="spf-chips">
             ${spVista.filtros.map((x, i) => `<button class="spf-chip" type="button" onclick="spQuitarFiltro(${i})" title="Quitar este filtro">${planEsc(x.etiqueta)}<span aria-hidden="true">&times;</span></button>`).join("")}
             <button class="spf-clear" type="button" onclick="spLimpiarFiltros()">Quitar todos</button>
