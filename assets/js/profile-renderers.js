@@ -42,7 +42,8 @@ function dt(machine, campo) {
         ];
 
         detailTitle.textContent = machine.model;
-        detailSubtitle.textContent = `Código: ${codigoEquipo} · ${machine.name} · ${machine.area}`;
+        const causaTxt = machine.causaCod ? ` · Causa: ${machine.causaCod}${machine.causaDesc ? ` — ${machine.causaDesc}` : ""}` : "";
+        detailSubtitle.textContent = `Código: ${codigoEquipo} · ${machine.name} · ${machine.area}${causaTxt}`;
         guideTabs.innerHTML = tabs.map(([id, label], index) =>
           `<button class="profile-tab ${index === 0 ? "is-active" : ""}" type="button" data-profile-tab="${id}">${label}</button>`
         ).join("");

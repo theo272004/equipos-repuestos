@@ -185,7 +185,7 @@
         return bestScore >= 0.4 ? best : null;
       }
 
-      // Búsqueda offline (sin IA) en mantenimiento y repuestos
+      // Búsqueda offline (sin IA) en mantenimiento, repuestos y códigos de causa
       function offlineKnowledge(query, machine) {
         const words = assistWords(query);
         if (!words.length) return "";
@@ -204,6 +204,21 @@
         if (spares.length) {
           html += `<div class="diag-symptoms">📦 Repuestos relacionados:</div><ul>` +
             spares.map(({p}) => `<li><strong>${p.name}</strong>${p.reference && p.reference !== "—" ? ` — ${p.reference}` : ""} · ${p.system}</li>`).join("") + `</ul>`;
+        }
+        // Códigos de causa (global) — si la query parece un código o contiene palabras de causa
+        if (typeof window.searchCausa === "function") {
+          const causaHits = window.searchCausa(query).slice(0, 5);
+          if (causaHits.length) {
+            html += `<div class="diag-symptoms">🏷️ Códigos de causa cercanos:</div><ul>` +
+              causaHits.map(c => `<li><strong>${c.code}</strong> — ${c.desc}${c.categoria ? ` <span style="color:var(--muted)">(${c.categoria})</span>` : ""}</li>`).join("") + `</ul>`;
+          }
+          // Si el equipo tiene causaCod asignado, mostrarlo siempre que haya un hit o si la query menciona "causa"
+          const qn = normalize(query);
+          if (machine?.causaCod && (qn.includes("causa") || qn.includes(machine.causaCod.toLowerCase()) || causaHits.some(c => c.code === machine.causaCod))) {
+            const mc = window.getCausaByCode ? window.getCausaByCode(machine.causaCod) : null;
+            if (mc) html += `<div class="diag-symptoms">🔖 Código causa de este equipo:</div><ul><li><strong>${mc.code}</strong> — ${mc.desc} <span style="color:var(--muted)">(${mc.categoria})</span> — ver <code>manuales/_codigos-causa/</code></li></ul>`;
+            else html += `<div class="diag-symptoms">🔖 Código causa de este equipo:</div><ul><li><strong>${machine.causaCod}</strong> — ${machine.causaDesc || ""}</li></ul>`;
+          }
         }
         return html;
       }

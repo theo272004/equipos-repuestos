@@ -2,6 +2,8 @@ const initialMachines = [
         {
           id: "njp3500",
           equipoCod: "17333009",
+          causaCod: "K7",
+          causaDesc: "ENCAPSULADO SOLIDOS (130599) - NJP",
           name: "Encapsuladora automática NJP-3500",
           model: "NJP-3500",
           current: "Equipo actual",
@@ -14,7 +16,7 @@ const initialMachines = [
           completion: 92,
           image: "njp3500.png",
           notes: "",
-          searchAliases: ["encapsuladora", "llenadora", "capsulas", "capsula", "njp", "canaan", "kaixinlong", "polvo", "granulos", "pellets", "tamping", "dosificacion", "sólidos", "solidos"],
+          searchAliases: ["encapsuladora", "llenadora", "capsulas", "capsula", "njp", "canaan", "kaixinlong", "polvo", "granulos", "pellets", "tamping", "dosificacion", "sólidos", "solidos","K7","130599","causa K7"],
           description:
             "Máquina automática para llenado de cápsulas duras con polvo, gránulos o pellets. El manual confirma arquitectura mecánica + eléctrica + neumática, proceso por estaciones y parámetros críticos de ajuste, limpieza, vacío, cierre y dosificación.",
           technicalData: {
@@ -1928,12 +1930,12 @@ const initialMachines = [
           location: "Sede 4",
           status: "Operativo",
           criticality: "Alta",
-          manual: "Esquema eléctrico ES4220003 (97 hojas)",
+          manual: "5 manuales S4220003: eléctrico (97 h) + calibrado (152 p) + cambio formato (34 p) + piezas + recambios 2a + materiales",
           maintenance: "",
-          completion: 55,
+          completion: 92,
           image: "assets/ms235/hoja-B00.jpg",
           notes: "",
-          searchAliases: ["ms235","schmucker","marchesini","ensobradora","bustinatrice","telerruptor","contactor","km44.4","km44","electrico","eléctrico","plano","esquema","beckhoff","lenze","resistencias","planchas","anomalia"],
+          searchAliases: ["ms235","schmucker","marchesini","s4220003","ensobradora","bustinatrice","telerruptor","contactor","km44.4","km44","electrico","eléctrico","plano","esquema","beckhoff","lenze","resistencias","planchas","anomalia","calibrado","fasature","sincronizacion","cambio formato","recambios","piezas","materiales contacto","L1","causa"],
           description: "Ensobradora (bustinatrice) Schmucker / Marchesini Group, esquema ES4220003. Control 24V DC con PLC Beckhoff EtherCAT y 5 variadores Lenze i550. Esta ficha incluye el PLANO ELÉCTRICO NAVEGABLE y el diagnóstico de la alarma “Anomalía telerruptor” (contactor KM44.4 de las resistencias de planchas).",
           technicalData: {
             function: "Ensobradora automática (formado, llenado y sellado de sobres). Las planchas soldantes se calientan con resistencias que el PLC habilita a través del contactor general KM44.4.",
@@ -1958,7 +1960,109 @@ const initialMachines = [
             { label: "Esquema", value: "ES4220003 · 97 hojas" }
           ],
           schematic: true,
+          causaCod: "L1",
+          causaDesc: "Ensobrado (bustinatrice) - MS235 S4220003 - familia ENVASADO SOBRES",
           guideSections: [
+            {
+              id: "ms235-resumen",
+              title: "Resumen y datos de placa (MS235 - Schmucker S4220003)",
+              content: `
+                <div class="guide-media">
+                  <div class="guide-media__img"><img src="assets/ms235/hoja-B00.jpg" alt="MS235 Schmucker - plano general" loading="lazy"></div>
+                  <div class="guide-media__body">
+                    <p><strong>Equipo:</strong> Ensobradora automática (bustinatrice) Schmucker / Marchesini Group</p>
+                    <p><strong>Modelo:</strong> MS235 &middot; <strong>Matrícula:</strong> S4220003 &middot; <strong>Cliente:</strong> C.I. Farmacápsulas S.A.</p>
+                    <p><strong>Pedido:</strong> M2522000053 del 29/07/2022 &middot; <strong>Idioma doc.:</strong> SPA (traducción del original IT)</p>
+                    <p><strong>Tensión:</strong> 3x220 V + N + PE &middot; 60 Hz &middot; 33 A &middot; 11 kW &middot; Mando 24 V DC</p>
+                    <p><strong>PLC:</strong> Beckhoff EtherCAT (EK1100 + EL18xx/EL28xx + EL6910 safety) &middot; <strong>Variadores:</strong> 5x Lenze i550</p>
+                    <p><strong>Código interno Farmacápsulas:</strong> 17334017 &middot; <strong>Código causa:</strong> L1 (ENVASADO SOBRES 1 / ENCELOFANADO - familia 130799)</p>
+                    <p><strong>Documentación integrada:</strong> Esquema eléctrico ES4220003 (97 hojas) + Calibrado/Regulaciones (152 pág.) + Cambio de formato (34 pág.) + Piezas de recambio + Recambios 2 años + Materiales en contacto.</p>
+                  </div>
+                </div>
+                <p>Esta ficha consolida los <strong>5 manuales</strong> que entregaste. Abre cada pestaña para el detalle y usa los PDFs en <em>manuales/ms235/</em> para el texto original página a página.</p>
+                <div class="alert-box" style="background:#eef4ff;border-color:#cdddff">Tip: busca por <strong>código de causa</strong> (ej. L1, J2, K4) en el buscador global.</div>
+              `
+            },
+            {
+              id: "ms235-calibrado",
+              title: "Calibrado y sincronizaciones — Fasature (152 pág. ITA/SPA)",
+              content: `
+                <h4>Qué es este manual <span class="src-tag src-manual">S4220003 - 4-Calibrado</span></h4>
+                <p>Manual <strong>CALIBRAZIONE / CALIBRADO - REGULACIONES</strong> para la <strong>bustinatrice MS235 S4220003</strong>. 152 páginas bilingüe IT/ES. Cubre <strong>fasature (puestas en fase)</strong>, <strong>mantenimiento preventivo</strong> y <strong>regulaciones</strong> por grupo funcional (códigos S4M/S4A/S4G/S3).</p>
+                <h4>Índice destacado (toc del PDF)</h4>
+                <ul>
+                  <li><strong>Fasature sull'impianto / Sincronización</strong> (p.21): interpretación de tablas, secuencia de verificaciones, índice general (p.24-26).</li>
+                  <li><strong>S4M14100110-2.1 GRUPPO SALDATURA</strong> (p.28) &middot; <strong>S4M95100110-2.1 FOTOCÉLULA</strong> (p.29) &middot; <strong>S4A19100720-1.1 GRUPO CUCHILLAS</strong> (p.31-32).</li>
+                  <li><strong>Manutenzione preventiva</strong> (p.33-36): condiciones de seguridad, tablas, <strong>lubricantes recomendados</strong> (p.37).</li>
+                  <li><strong>Tabelle verifica manutenzione</strong> (p.42) y <strong>sostituzioni preventive</strong> (p.54).</li>
+                </ul>
+                <h4>Grupos cubiertos (p.58-149)</h4>
+                <table class="crit-table"><thead><tr><th>Grupo</th><th>Ficha</th><th>Pág.</th></tr></thead><tbody>
+                  <tr><td>S4M02100110</td><td>Cadena, filtro, cambio aceite, nivel y vaso</td><td>58-64</td></tr>
+                  <tr><td>S4M12100110</td><td>Desmontaje/montaje + rulos &amp; lámina corte</td><td>65-70</td></tr>
+                  <tr><td>S4M14100110</td><td>Engrase placas, mordazas, filtro aire, membrana</td><td>71-81</td></tr>
+                  <tr><td>S4M151/161/171</td><td>Guías placa anclaje, cadena, guías papel</td><td>82-85</td></tr>
+                  <tr><td>S4A081/121/191</td><td>Juntas esféricas, correas, rulos</td><td>89-97</td></tr>
+                  <tr><td>S4A19100720</td><td>Cuchillo fijo/giratorio, distancia, depósito aire</td><td>98-107</td></tr>
+                  <tr><td>S4A261 (x4)</td><td>Correas, cuchilla, cojinetes bobina, freno</td><td>108-117</td></tr>
+                  <tr><td>S4A702/711/751</td><td>Cinta, juntas, rulos reenvío</td><td>119-126</td></tr>
+                  <tr><td>S4A96100120</td><td>Instalación eléctrica</td><td>127-134</td></tr>
+                  <tr><td>S4G71500310 / S4G71500410</td><td>Dosificación, ejes, muelles, enrasador</td><td>135-146</td></tr>
+                  <tr><td>S4G72200210</td><td>Estrella alimentación</td><td>147-149</td></tr>
+                </tbody></table>
+                <p class="callout">PDF: <code>manuales/ms235/MS235-4-Calibrado-Regulaciones-S4220003-ITA-SPA.pdf</code> (152 pág.).</p>
+              `
+            },
+            {
+              id: "ms235-cambio-formato",
+              title: "Cambio de formato y optimización (34 pág.)",
+              content: `
+                <h4>Manual 4A <span class="src-tag src-manual">S4220003</span></h4>
+                <p><strong>CAMBIO FORMATO, OTTIMIZZAZIONE DISPOSITIVI / CAMBIO DE FORMATO, OPTIMIZACIÓN DISPOSITIVOS</strong> para MS235. 34 pág. IT/ES. Explica <strong>cómo cambiar de formato</strong> y <strong>optimizar cada dispositivo</strong> con fichas técnicas de planteamiento.</p>
+                <ul>
+                  <li><strong>Informazioni generali</strong> (p.5-9): versiones, placas, simbología.</li>
+                  <li><strong>Introduzione</strong> (p.11-17): seguridad operativa, accesorios y regulación (muescas/galgas/reguladores).</li>
+                  <li><strong>Cambio Formato</strong> (p.19-22): generalidades, procedimiento y fichas.</li>
+                  <li><strong>S4M14100110-1.1 SUSTITUCIÓN PLACAS SELLADO</strong> (p.24)</li>
+                  <li><strong>S4A12100110-1.1 REGULACIÓN FASE TOMA DE SOBRES</strong> (p.28)</li>
+                  <li><strong>S4G71500310-1.1 y S4G71500410-1.1 DOSIFICADOR VOLUMÉTRICO</strong> (p.29-32)</li>
+                </ul>
+                <p>PDF: <code>manuales/ms235/MS235-4a-Cambio-Formato-Optimizacion-S4220003-ITA-SPA.pdf</code></p>
+              `
+            },
+            {
+              id: "ms235-recambios",
+              title: "Piezas de recambio — catálogo + recomendados 2 años",
+              content: `
+                <h4>Catálogo general <span class="src-tag src-manual">S4220003 - 5-Piezas</span></h4>
+                <p>PDF <strong>5-Piezas de recambio</strong> (001_70_01M05) en <code>MS235-5-Piezas-de-Recambio-S4220003-ITA-SPA.pdf</code>. Despiece por grupo (S4M/S4A/S4G/S3E). Pide por <strong>código Schmucker P/N</strong>.</p>
+                <h4>Lista recomendada 2 años <span class="src-tag src-reco">lista n.36 - 05/05/23</span></h4>
+                <p>5 páginas con lo que Schmucker recomienda tener en stock. Extracto:</p>
+                <table class="crit-table"><thead><tr><th>Grupo</th><th>Cód.</th><th>Ejemplos</th></tr></thead><tbody>
+                  <tr><td>GR.MOT.PRINC / TRASCINAM / SALDATURA / PORTA BOBINA</td><td>S4M021..S4A191</td><td>Bomba DROPSA 3099127, filtro 3088055, rulos, correa 124 L075</td></tr>
+                  <tr><td>COLTELL / SALDATRICE / DOSADORES</td><td>S4A19100720..S4G722</td><td>Cuchillas, membrana L=149, guías mordaza, cintas</td></tr>
+                  <tr><td>Eléctrico QE1</td><td>S3E01052010</td><td>SITOP 20A, <strong>3RT2326-1BB40</strong> + 3RT2926-1ER00, Weidmüller, Siemens 5SY6, Beckhoff</td></tr>
+                  <tr><td>Eléctrico BM/PC + neumática</td><td>S3E01052100..S4M901</td><td>EK1100, EL6910, Lenze i550, SICK/Wenglor, SMC, Euchner CTP, IPC 477E</td></tr>
+                </tbody></table>
+                <p>PDF: <code>MS235-Recambios-Recomendados-2-Anos-S4220003-ITA-SPA.pdf</code></p>
+              `
+            },
+            {
+              id: "ms235-materiales-contacto",
+              title: "Materiales en contacto con producto",
+              content: `
+                <h4>List of materials in direct contact <span class="src-tag src-manual">001_90_01157</span></h4>
+                <p>Certificado 2 pág. ITA/ENG 29/07/2022. Materiales: <strong>AISI 316L</strong> (mayoría), <strong>304</strong>, <strong>PMMA</strong> y <strong>silicone</strong>.</p>
+                <table class="crit-table"><thead><tr><th>P/N</th><th>Pieza</th><th>Material</th></tr></thead><tbody>
+                  <tr><td>007210020/034</td><td>Tramoggia valvola stellare</td><td>AISI 316L</td></tr>
+                  <tr><td>035110100</td><td>Specola transparente</td><td>PMMA</td></tr>
+                  <tr><td>007040071/072</td><td>Guarnizione / gasket</td><td>Silicone</td></tr>
+                  <tr><td>035170550/551</td><td>Pettine rasatore</td><td>AISI 316L</td></tr>
+                  <tr><td>035230011/012</td><td>Casetto largo, bicchiere</td><td>AISI 316L</td></tr>
+                </tbody></table>
+                <p>PDF: <code>MS235-Materiales-en-Contacto-Producto-S4220003-ITA-ENG.pdf</code></p>
+              `
+            },
             {
               id: "telerruptor-km444",
               title: "Contactor KM44.4 a fondo (alarma “Anomalía telerruptor”)",
@@ -2039,13 +2143,20 @@ const initialMachines = [
             }
           ],
           documents: [
-            { name: "Esquema eléctrico ES4220003 (97 hojas)", status: "Disponible", file: "manuales/ms235/MS235-esquema-electrico-ES4220003.pdf" },
-            { name: "Manual de operación de la máquina", status: "Pendiente" }
+            { name: "Esquema eléctrico ES4220003 (97 hojas) — plano navegable", status: "Disponible", file: "manuales/ms235/MS235-esquema-electrico-ES4220003.pdf" },
+            { name: "4 - Calibrado y regulaciones S4220003 (152 pág. ITA/SPA)", status: "Disponible", file: "manuales/ms235/MS235-4-Calibrado-Regulaciones-S4220003-ITA-SPA.pdf" },
+            { name: "4A - Cambio de formato y optimización (34 pág. ITA/SPA)", status: "Disponible", file: "manuales/ms235/MS235-4a-Cambio-Formato-Optimizacion-S4220003-ITA-SPA.pdf" },
+            { name: "5 - Piezas de recambio - catálogo despiece", status: "Disponible", file: "manuales/ms235/MS235-5-Piezas-de-Recambio-S4220003-ITA-SPA.pdf" },
+            { name: "Lista recambios recomendada 2 años (lista n.36, 5 pág.)", status: "Disponible", file: "manuales/ms235/MS235-Recambios-Recomendados-2-Anos-S4220003-ITA-SPA.pdf" },
+            { name: "Materiales en contacto con producto (2 pág. ITA/ENG)", status: "Disponible", file: "manuales/ms235/MS235-Materiales-en-Contacto-Producto-S4220003-ITA-ENG.pdf" },
+            { name: "Códigos de causa y centros de costo (3 pág.)", status: "Disponible", file: "manuales/_codigos-causa/LISTADO-CODIGOS-CAUSA-CENTROS-COSTO.pdf" }
           ]
         },
         {
           id: "gkf2600",
           equipoCod: "17333005",
+          causaCod: "DU",
+          causaDesc: "ENCAPSULADO BOSCH (130599 - Encapsulado Sólidos)",
           name: "Encapsuladora BOSCH GKF 2600",
           model: "Encapsuladora BOSCH GKF 2600",
           current: "Código 17333005",
@@ -2058,7 +2169,7 @@ const initialMachines = [
           completion: 90,
           image: "assets/gkf2600/vista-general.jpg",
           notes: "",
-          searchAliases: ["17333005","gkf","gkf2600","gkf 2600","bosch","encapsuladora bosch","encapsuladora bosch gkf 2600","encapsuladora","capsulas","cápsulas","llenado","cierre","farmacapsulas","farmacápsulas","745632","pm kits","alarmas","hmi","dosificacion","dosificación","pellets","pastillas","segmentos","codigo interno","código interno","repuestos","inspeccion","inspección","724002341","724002342","724002343","724002338","724002339","724002340","7240022312","721703041","741203258","741203259","741203260","741203261","741203262"],
+          searchAliases: ["17333005","gkf","gkf2600","gkf 2600","bosch","encapsuladora bosch","encapsuladora bosch gkf 2600","encapsuladora","capsulas","cápsulas","llenado","cierre","farmacapsulas","farmacápsulas","745632","pm kits","alarmas","hmi","dosificacion","dosificación","pellets","pastillas","segmentos","codigo interno","código interno","repuestos","inspeccion","inspección","724002341","724002342","724002343","724002338","724002339","724002340","7240022312","721703041","741203258","741203259","741203260","741203261","741203262","DU","130599","causa DU"],
           description: "Máquina Bosch de llenado y cierre de cápsulas duras, modular, con 12 estaciones en 2 líneas (18 cápsulas por ciclo). Dosifica polvo, pellets, pastillas o líquido. Documentación completa: manual de 594 págs., catálogo de repuestos de 196 págs. y PM Kits del fabricante. Incluye las 211 alarmas del HMI con su causa y remedio.",
           technicalData: {
             function: "Llenado y cierre de cápsulas duras de gelatina con polvo, pellets, pastillas o líquido, en 12 estaciones y 2 líneas simultáneas.",
@@ -2647,6 +2758,8 @@ const initialMachines = [
         {
           id: "integra320",
           equipoCod: "17332004",
+          causaCod: "K8",
+          causaDesc: "BLISTEADO 1 ULHMAN UPS300 (130699 - Blisteado y empaque)",
           name: "Blistera Marchesini Integra 320",
           model: "Integra 320",
           current: "",
@@ -2659,7 +2772,7 @@ const initialMachines = [
           completion: 85,
           image: "assets/integra320/despiece/p023.jpg",
           notes: "",
-          searchAliases: ["integra","integra320","integra 320","blister","blistera","blisteadora","marchesini","mb432","m4160012","farmacapsulas","sea vision","harlequin","vision","formado","sellado","termoformado","pvc","aluminio","calibracion","fase","fasatura"],
+          searchAliases: ["integra","integra320","integra 320","blister","blistera","blisteadora","marchesini","mb432","m4160012","farmacapsulas","sea vision","harlequin","vision","formado","sellado","termoformado","pvc","aluminio","calibracion","fase","fasatura","K8","130699","causa K8"],
           description: "Máquina blisteradora Marchesini Integra 320 de C.I. Farmacápsulas: forma el alvéolo en film de PVC, lo llena, lo sella con aluminio, codifica y corta el blíster. Incluye los procedimientos de calibración y fase del manual, el cambio de formato, el despiece del catálogo con 81 calibraciones documentadas y las alarmas del sistema de visión SEA Vision.",
           technicalData: {
             function: "Formado, llenado, sellado, codificado y corte de blísteres (empaque primario).",
@@ -4041,8 +4154,10 @@ const initialMachines = [
             ids: ["controlsa-mantenimiento-guia","controlsa-entradas-diagnostico","controlsa-fallas-guia","controlsa-repuestos-guia"] }
         ],
         ms235: [
-          { title: "Plano y alarma eléctrica", hint: "Contactor KM44.4 a fondo y diagnóstico de la anomalía telerruptor",
-            ids: ["telerruptor-km444"] }
+          { title: "Plano y alarma eléctrica", hint: "Contactor KM44.4 y anomalía telerruptor — diagnóstico paso a paso",
+            ids: ["telerruptor-km444"] },
+          { title: "Calibrado, formato y repuestos", hint: "Sincronizaciones, cambio de formato, piezas y materiales en contacto (5 manuales S4220003)",
+            ids: ["ms235-resumen","ms235-calibrado","ms235-cambio-formato","ms235-recambios","ms235-materiales-contacto"] }
         ],
         gkf2600: [
           { title: "¿Cómo funciona?", hint: "Qué hace la máquina, cómo lo hace paso a paso y el flujo entradas–salidas",
