@@ -14037,8 +14037,8 @@ window.EQUIPOS_PLAN = {
     },
     {
       "c": "17332003",
-      "id": "eq-17332003",
-      "mid": "",
+      "id": "blister3",
+      "mid": "blister3",
       "n": "Blisteadora#3 B1240 Uhlmann",
       "nOriginal": "BLISTEADORA #3 B1240 UHLMANN",
       "u": "PLANTA 2",
@@ -14196,7 +14196,7 @@ window.EQUIPOS_PLAN = {
             0,
             0
           ],
-          "o": "",
+          "o": "PN Uhlmann 901172 (catalogo repuestos B1240/0591812). Se repite en 4 puntos de la maquina: accionamiento principal (pag. 33), estacion de sellado (pag. 391), estacion de perforacion (pag. 445) y estacion troqueladora (pag. 495).",
           "ub": "R02/J0607",
           "pu": 1988200,
           "xls": {
@@ -14219,7 +14219,7 @@ window.EQUIPOS_PLAN = {
             0,
             0
           ],
-          "o": "",
+          "o": "PN Uhlmann 913976 (catalogo repuestos B1240/0591812). Usada en avance despues del moldeo (pag. 149) y en avance por pinzas despues del sellado (pag. 463).",
           "ub": "R02/J0607",
           "pu": 92000,
           "xls": {
@@ -14227,6 +14227,75 @@ window.EQUIPOS_PLAN = {
             "ej": "2025-07-21",
             "px": "2026-07-16",
             "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "741203123",
+          "d": "CORREA DENTADA T20/1880 BLISTEADORA",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "PN Uhlmann 901173 (catalogo repuestos B1240/0591812). Usada en la estacion de moldeo/formado (pag. 107).",
+          "ub": "R02/J0607",
+          "pu": 1990000,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001254",
+          "d": "CORREA DENTADA 25 AT 10/700 PN: 906799 B1240",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "PN Uhlmann 906799 (catalogo repuestos B1240/0591812): corresponde a la correa 25T10/720 (la descripcion interna dice \"25 AT 10/700\" pero el PN referenciado es el de la 25T10/720, distinta de la 913976/cod. 724001253). Usada en avance despues del moldeo (pag. 150) y en avance por pinzas despues del sellado (pag. 463).",
+          "ub": "R02/J0607",
+          "pu": 93500,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001258",
+          "d": "CORREA DENTADA DOBLE 16T10/250 DL PN:923082 B1240",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "PN Uhlmann 923082 (catalogo repuestos B1240/0591812). Acciona la cinta de descarga bajo la troqueladora, entre la estacion troqueladora y la de transferencia (pag. 541). Confirmado en uso; no fue reemplazada por cadena.",
+          "ub": "R02/J0607",
+          "pu": 125000,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
           }
         },
         {

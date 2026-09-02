@@ -3600,6 +3600,602 @@ const initialMachines = [
             { name: "Manual de uso y mantenimiento de la máquina", status: "Pendiente" },
             { name: "Esquema eléctrico", status: "Pendiente" }
           ]
+        },
+        {
+          id: "blister3",
+          equipoCod: "17332003",
+          causaCod: "X8",
+          causaDesc: "BLISTEADO 3 ULHMAN B1240 (Mantenimiento Medicamentos)",
+          name: "Blisteadora #3 Uhlmann B 1240",
+          model: "Uhlmann B 1240 · máquina n.º 0591812",
+          current: "Código 17332003",
+          area: "Planta 2 · Empaque primario (blíster)",
+          location: "Planta 2",
+          status: "Operativo",
+          criticality: "Alta",
+          manual: "Instrucciones de manejo B 1240/0591812 Versión 01 ES (356 págs.)",
+          maintenance: "Plan Uhlmann por horas de servicio (10 · 40 · 50 · 100 · 200 · 500 · 1000 · 2000 h)",
+          completion: 78,
+          image: "",
+          notes: "",
+          searchAliases: ["17332003","blister","blister 3","blister3","blistera","blisteadora","blisteadora 3","b1240","b 1240","uhlmann","ulhman","0591812","termoformado","pvc","aluminio","alu","sellado","moldeo","perforacion","perforación","troquelado","punzonado","easyflex","hapa","microchrom","touchcontrol","pelicula","película","pelicula de moldeo","pelicula de cubierta","planta 2","X8","causa X8","724001008","741901090","741901004","724001053","724001225","741203124","724001253","741203123","724001254","724001258","741908010","741901003","724001037","MNP050023","MNP055074","724001058","MNP050040","724001249","741301356","724001207","724001067","MNP240058"],
+          description: "Blisteadora Uhlmann B 1240 (máquina n.º 0591812, año 2014, Farmacápsulas S.A.) de la Planta 2. Termoforma la película de moldeo de PVC, la llena con el producto por alimentación de cepillado, la sella con película de cubierta de aluminio duro impresa en el sistema easyFLEX, perfora, troquela y evacúa los blísteres hacia la cinta de transferencia. Ficha construida sobre las instrucciones de manejo V01 ES (356 págs.) y el esquema eléctrico escaneado (101 hojas): incluye el proceso completo, los 37 componentes de la máquina, el plan Uhlmann por horas de servicio, la lubricación autorizada y las tablas de fallos del capítulo 8.",
+          technicalData: {
+            function: "Empaque primario en blíster: desbobinado, calentamiento, moldeo (termoformado), llenado, sellado con película de cubierta, refrigeración, perforación, troquelado, evacuación y transferencia.",
+            capacity: "La potencia máxima depende del tamaño del blíster, el diseño de la cavidad, el tipo y la forma del producto, la alimentación y las películas procesadas (manual 3.6, no da un valor fijo).",
+            manufacturer: "Uhlmann Pac-Systeme GmbH & Co. KG · Uhlmannstraße 14-18, 88471 Laupheim (Alemania)",
+            brand: "Uhlmann",
+            serialNumber: "0591812 (tipo B 1240)",
+            year: "2014",
+            voltage: "Manual: 3/N/PE CA 400 V 50 Hz ±10 %, fusible 25 A, valor de conexión 8 kW · Instalada en planta según el esquema eléctrico: 220 V 3/N/PE ~60 Hz, 17 A, protección 50 A gG, conductor mín. 10 mm², mando 24 V DC / 230 V CA, con transformador trifásico 200 V → 400 V",
+            power: "8 kW (valor de conexión, manual 3.5.1)",
+            control: "Sistema de operación Uhlmann TouchControl (pantalla táctil, gestión de usuarios sobre Windows, gestión de formatos y Audit-Trail)",
+            weight: "aprox. 1900 kg según el modelo de máquina",
+            dimensions: "Largo 5147 mm × ancho 1077 mm × alto 2076 mm · nivel de vía de llenado 950 mm · vía de llenado 1600 mm · 500 mm libres a cada lado para evacuación",
+            dosingSystem: "Alimentación por cepillado: canal vibrador + caja de cepillado con agitadores de palas y dos cepillos de distribución, con aspiración de polvo",
+            capsuleSizes: "Gama de formatos: ancho de película de moldeo 100–168 mm, avance 40–130 mm, profundidad de moldeo 18,5 mm en película térmica"
+          },
+          summarySpecs: [
+            { label: "Tipo", value: "Blistera (empaque primario)" },
+            { label: "Fabricante", value: "Uhlmann Pac-Systeme" },
+            { label: "N.º de máquina", value: "0591812 · año 2014" },
+            { label: "Materiales", value: "Moldeo PVC + cubierta aluminio duro" },
+            { label: "Formatos", value: "Ancho 100–168 mm · avance 40–130 mm" },
+            { label: "Plan Uhlmann", value: "8 intervalos por horas de servicio" }
+          ],
+          alarms: false,
+          guideSections: [
+            {
+              id: "b3-ficha",
+              title: "Ficha técnica e identificación",
+              content: `
+<p>La <strong>Blisteadora #3</strong> es una <strong>Uhlmann B 1240</strong>, máquina n.º <strong>0591812</strong>, fabricada en <strong>2014</strong> para Farmacápsulas S.A. El manual de manejo es la <strong>Versión 01 ES</strong> (08.09.2014, 356 páginas). En el registro interno de mantenimiento es el equipo <strong>17332003</strong> y su código de causa es <strong>X8 — BLISTEADO 3 ULHMAN B1240</strong>.</p>
+<div class="alert-box" style="background:#eef4ff;border-color:#cdddff">La <strong>placa de características</strong> está en el <strong>lateral derecho</strong> de la máquina. Trae, grabados de forma indeleble: dirección del fabricante, tipo, número de máquina, año, peso, tensión y frecuencia nominales, corriente nominal y el prefusible prescrito que instala el cliente.</div>
+<table class="crit-table"><tbody>
+<tr><th>Dato</th><th>Valor</th><th>Origen</th></tr>
+<tr><td>Tipo / n.º de máquina</td><td>B 1240 / 0591812</td><td>Portada del manual</td></tr>
+<tr><td>Año de fabricación</td><td>2014</td><td>Portada del manual</td></tr>
+<tr><td>Peso</td><td>aprox. 1900 kg (según el modelo)</td><td>Manual 3.4</td></tr>
+<tr><td>Dimensiones</td><td>5147 × 1077 × 2076 mm</td><td>Manual 3.3.1</td></tr>
+<tr><td>Nivel / longitud de la vía de llenado</td><td>950 mm / 1600 mm</td><td>Manual 3.3.1</td></tr>
+<tr><td>Espacio de evacuación</td><td>mín. 500 mm a cada lado, con las puertas abiertas</td><td>Manual 3.3.2</td></tr>
+<tr><td>Condiciones de servicio</td><td>18–25 °C · humedad relativa 40–50 %</td><td>Manual 3.2</td></tr>
+<tr><td>Ruido</td><td>L<sub>pA</sub> 77,0 dB(A) según DIN EN ISO 11202</td><td>Manual 3.7</td></tr>
+<tr><td>Servicio técnico</td><td>Uhlmann CSS · +49 7392 702-8702 · css@uhlmann.de</td><td>Manual 8.1</td></tr>
+</tbody></table>
+              `
+            },
+            {
+              id: "b3-como-funciona",
+              title: "¿Cómo funciona? — el proceso de blisteado",
+              content: `
+<p style="font-size:1.02rem">La B 1240 procesa <strong>película de moldeo térmico (PVC)</strong> y <strong>película de cubierta de aluminio duro</strong>. Todo el recorrido es cíclico y lo mueve un <strong>accionamiento principal</strong> (un servomotor con transmisión por correa dentada) que sincroniza las estaciones de trabajo.</p>
+<div class="alert-box" style="background:#eef4ff;border-color:#cdddff">Recorrido: <strong>desbobinado → detección de juntas → calentamiento → moldeo → guiado y avance → vía de llenado → sellado → refrigeración → perforación → troquelado → evacuación → transferencia</strong>.</div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Desbobinado de la película de moldeo</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>El rollo va en el árbol tensor mecánico contra un tope ajustable. Un <strong>péndulo de compensación</strong> gobierna el motor de desbobinado; si el péndulo se sale de sus valores finales (rotura o fin de película), la máquina para con mensaje de error.</span></div>
+<div class="step-card__row"><span>Control</span><span>Un sensor detecta las <strong>juntas de pegado</strong> de la película: el mando bloquea el llenado de esa sección y expulsa esos blísteres.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Calentamiento</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>Las placas de calentamiento se cierran durante un ciclo de moldeo y se abren tras un punto de detención definido; la película avanza y el ciclo se repite. Cada placa tiene <strong>2 circuitos calentadores</strong> con temperatura independiente y vigilancia de sobretemperatura, subtemperatura y rotura del termosensor.</span></div>
+<div class="step-card__row"><span>Ojo</span><span>La máquina solo queda lista para arrancar cuando las placas alcanzan su valor nominal. En una parada, las placas <strong>se separan</strong> para no sobrecalentar la película.</span></div>
+<div class="step-card__row"><span>Aspiración</span><span>Los vapores de calentamiento se evacúan por aspiración (conexión ø 51 mm, aprox. 150 m³/h). Con película de <strong>PVDC</strong> la aspiración es obligatoria: se libera cloro gaseoso.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">3</span><span class="step-card__title">Moldeo con preestiramiento</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>Una <strong>leva con rodillo</strong>, movida por el accionamiento principal a través de una correa, sube la mesa elevadora en sincronía. Los <strong>paquetes de resorte de disco</strong> generan la fuerza de cierre; el aire comprimido sopla la película caliente dentro de las cavidades del molde inferior. Las planchas de soporte del molde llevan <strong>refrigeración por agua</strong>.</span></div>
+<div class="step-card__row"><span>Preestiramiento</span><span>A partir de cierta profundidad de moldeo, un <strong>cilindro neumático</strong> preestira la película para que el espesor de pared de la cavidad quede uniforme.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">4</span><span class="step-card__title">Avance y desviación hacia la vía de llenado</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>El <strong>avance posterior al moldeo</strong> (pinza móvil + servomotor + correa dentada, con pinza de sujeción fija) arrastra la película. La <strong>desviación con péndulo</strong> la sube del nivel inferior a la vía de llenado y compensa la diferencia entre el avance de moldeo y el de sellado.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">5</span><span class="step-card__title">Llenado</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>Tolva → <strong>canal vibrador</strong> → resbaladera → <strong>caja de cepillado</strong>. Los agitadores con palas reparten el producto y dos cepillos de distribución regulan el flujo hacia las cavidades. Un sensor vigila el nivel de la caja y la <strong>aspiración de polvo</strong> retira fragmentos y polvo.</span></div>
+<div class="step-card__row"><span>Después</span><span>El <strong>cepillo inclinado</strong> limpia la superficie de la película llena (inclinado respecto al avance para limpiar mejor); la <strong>tapa de seguridad</strong> detecta producto que sobresale y para la máquina; el control de llenado <strong>MicroChrom</strong> comprueba que las cavidades quedaron bien llenas.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">6</span><span class="step-card__title">Película de cubierta: impresión, junta y estiramiento</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>El <strong>easyFLEX</strong> de HAPA imprime la cubierta por flexografía UV rotativa sincronizada. Un <strong>sensor ultrasónico</strong> compara el grosor para detectar juntas de pegado. El <strong>control de imágenes de impresión con estiramiento</strong> lee las marcas y estira la cubierta hasta la medida nominal para que la impresión caiga exacta sobre el blíster.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">7</span><span class="step-card__title">Sellado y refrigeración</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>Otra leva con rodillo eleva la mesa con la herramienta de sellado inferior (refrigerada por agua); los <strong>paquetes de resorte de disco</strong> superiores dan la presión de sellado y los <strong>cartuchos calentadores</strong> del alojamiento superior dan la temperatura, con un <strong>protector térmico</strong> que corta la corriente si se sobrecalienta.</span></div>
+<div class="step-card__row"><span>Ojo</span><span>Si actúa el protector térmico hay que <strong>cambiarlo</strong> y además <strong>renovar el lubricante</strong> de los paquetes de resortes de disco.</span></div>
+<div class="step-card__row"><span>Refrigeración</span><span>La cinta pasa entre placas de refrigeración; la placa superior lleva una <strong>regleta de soplado</strong> que insufla aire al parar la máquina para que la cinta no se sobrecaliente.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">8</span><span class="step-card__title">Perforación, troquelado y salida</span></div>
+<div class="step-card__row"><span>Cómo lo hace</span><span>Se perfora la cinta para que el producto salga fácil del blíster. En la <strong>estación de corte</strong> (parte superior con placa de corte y pisador, parte inferior con portatroquel y troqueles) se cortan los blísteres; el <strong>mecanismo de hundimiento</strong> los retiene con aspiradores de vacío y los deposita en la cinta de evacuación. La <strong>rejilla residual</strong> sube a la bobinadora de residuos.</span></div>
+<div class="step-card__row"><span>Final de línea</span><span>La <strong>separación de blísteres</strong> los retiene y los suelta de uno en uno a la cinta de transferencia. Según el registro maestro de desplazamiento (MCR), la <strong>pala mecánica</strong> expulsa los defectuosos; el <strong>control de blísteres válidos</strong> verifica que ningún defectuoso llegue a la máquina posconectada, y la <strong>pala de blísteres válidos</strong> descarga la cinta si la máquina siguiente se para o se acumula.</span></div></div>
+              `
+            },
+            {
+              id: "b3-flujo",
+              title: "Entradas → Transformación → Salidas",
+              content: `
+<table class="crit-table"><tbody>
+<tr><th>Entra</th><th>Se transforma</th><th>Sale</th></tr>
+<tr><td>Película de moldeo <strong>PVC</strong> (rollo ø máx. 400 mm, núcleo 76 mm, ancho 100–168 mm)</td><td>Se calienta, se moldea con aire comprimido y se preestira si el formato lo pide</td><td>Blísteres válidos hacia la cinta de transferencia y la máquina posconectada</td></tr>
+<tr><td>Película de cubierta <strong>aluminio duro</strong> (rollo ø máx. 240 mm)</td><td>Se imprime en easyFLEX, se estira a medida y se sella por temperatura y presión</td><td>Blísteres defectuosos expulsados por la pala mecánica al colector de residuos</td></tr>
+<tr><td>Producto de llenado (tolva → canal vibrador → caja de cepillado)</td><td>Se reparte con agitadores y cepillos dentro de las cavidades</td><td><strong>Rejilla residual</strong> del troquelado, enrollada en la bobinadora de residuos</td></tr>
+<tr><td>Aire comprimido 7–8 bar, 9–15 m³/h normalizados (DIN ISO 8573-1: aceite cl.1, partículas cl.1, agua cl.4)</td><td>Moldeo, preestiramiento, sujeciones, hundimiento, palas y generación de vacío</td><td>Polvo de producto aspirado (Nilfisk CTS 22)</td></tr>
+<tr><td>Agua de refrigeración R ½", 0,2–0,5 m³/h, entrada 16–18 °C, retorno 20–25 °C, 2–4 bar</td><td>Refrigera moldes, alojamiento inferior de sellado y estación de refrigeración</td><td>Vapores de calentamiento aspirados (ø 51 mm, ~150 m³/h)</td></tr>
+<tr><td>Energía eléctrica (ver pestaña del esquema eléctrico)</td><td>Accionamiento principal, servos de avance, calentadores y mando</td><td>Registro Audit-Trail y datos de formato del TouchControl</td></tr>
+</tbody></table>
+              `
+            },
+            {
+              id: "b3-componentes",
+              title: "Los 37 componentes de la máquina (capítulo 5.3)",
+              content: `
+<p>El manual numera <strong>31 posiciones</strong> en el resumen de la máquina y las describe en 37 apartados. Este es el recorrido, en orden de la película.</p>
+<table class="crit-table"><tbody>
+<tr><th>#</th><th>Componente</th><th>Qué hace</th></tr>
+<tr><td>1</td><td>Alojamiento del rollo de película de moldeo (árbol tensor mecánico)</td><td>Tope ajustable + escala, tornillo tensor y regletas de sujeción; tornillo de ajuste fino al centro de la película; péndulo de compensación con sensores que gobierna el motor de desbobinado</td></tr>
+<tr><td>2</td><td>Detección de juntas de la película de moldeo</td><td>Sensor que detecta las juntas de pegado; el mando bloquea el llenado de esa sección y expulsa esos blísteres. Ajustable para distintos anchos</td></tr>
+<tr><td>3</td><td>Estación de calentamiento con aspiración de vapores</td><td>Placas con 2 circuitos calentadores cada una, vigilancia de temperatura y rotura de termosensor; revestimiento Rhenolease MK IV (pieza de desgaste)</td></tr>
+<tr><td>4</td><td>Estación de moldeo con preestiramiento</td><td>Leva con rodillo + mesa elevadora, paquetes de resorte de disco, aire de moldeo, cilindro de preestiramiento y planchas de soporte refrigeradas por agua</td></tr>
+<tr><td>5</td><td>Guiado de la película tras el moldeo</td><td>Placa guía dependiente de formato que guía y enfría la película formada (en aluminio no se enfría)</td></tr>
+<tr><td>6</td><td>Avance posterior al moldeo</td><td>Pinza de avance movida por servomotor y correa dentada + pinza de sujeción fija; interruptor de seguridad electromagnético en el resguardo móvil</td></tr>
+<tr><td>7</td><td>Desviación de la película con péndulo</td><td>Sube la película del nivel inferior a la vía de llenado; el péndulo controla la tensión</td></tr>
+<tr><td>8</td><td>Placa guía de la vía de llenado</td><td>Dependiente de formato; identificada como modelo/n.º de máquina + letra de formato + n.º de placa (ej. 059/xxxx A 01). Sobre su escala portadora se montan cepillo inclinado y tapa de seguridad</td></tr>
+<tr><td>9</td><td>Tolva de llenado</td><td>Contiene el producto; ventana de seguimiento del nivel y tapa que evita objetos extraños</td></tr>
+<tr><td>10</td><td>Canal vibrador</td><td>Lleva el producto de la tolva a la caja de cepillado por la resbaladera</td></tr>
+<tr><td>11</td><td>Alimentación por cepillado</td><td>Agitadores con palas + dos cepillos redondos de distribución; sensor de nivel en la caja; aspiración de polvo; posición de cierre vigilada por sensor de seguridad electrónico</td></tr>
+<tr><td>12</td><td>Aspiración de polvo</td><td>Distribuidor unido a los componentes; se conecta al aspirador Nilfisk CTS 22 (manguera 5 m, ø 50 mm, 2200 W)</td></tr>
+<tr><td>13</td><td>Cepillo inclinado</td><td>Limpia el polvo de producto de la superficie de la película llena, con aspiración directa</td></tr>
+<tr><td>14</td><td>Tapa de seguridad</td><td>Detecta producto que sobresale de las cavidades; al levantarse dispara un interruptor de contacto y para la máquina</td></tr>
+<tr><td>15</td><td>Control de llenado MicroChrom</td><td>Comprueba que las cavidades quedaron correctamente llenas</td></tr>
+<tr><td>16</td><td>Control de avance</td><td>Barrera de luz láser que explora el borde de cavidad de un ciclo y regula el avance posterior al sellado</td></tr>
+<tr><td>17</td><td>Alojamiento del rollo de película de cubierta</td><td>Igual construcción que el de moldeo; su péndulo es un amortiguador dinámico que garantiza el preestiramiento uniforme de la cubierta</td></tr>
+<tr><td>18</td><td>Sistema de impresión easyFLEX (HAPA)</td><td>Flexografía UV rotativa sincronizada: cambio rápido de formato, color y cliché, siempre listo para imprimir y con supervisión del proceso</td></tr>
+<tr><td>19</td><td>Detección de juntas de pegado de la cubierta</td><td>Sensor ultrasónico que compara el grosor con el valor ajustado; si hay errores en serie durante un número ajustable de ciclos, la máquina para</td></tr>
+<tr><td>20</td><td>Control de imágenes de impresión con estiramiento</td><td>Regletas de sujeción neumáticas + pinzas + eje de estirado accionado por cilindro; si en X ciclos no ocurre un estiramiento, la máquina para con error</td></tr>
+<tr><td>21</td><td>Estación de sellado</td><td>Leva + mesa elevadora, herramientas superior e inferior, paquetes de resorte de disco (presión), cartuchos calentadores con regulador y protector térmico, alojamiento inferior refrigerado por agua</td></tr>
+<tr><td>22</td><td>Estación de refrigeración</td><td>Placas de refrigeración superior e inferior; regleta de soplado que insufla aire al parar la máquina</td></tr>
+<tr><td>23</td><td>Avance posterior al sellado</td><td>Pinza de avance con servomotor y correa dentada, cilindros neumáticos de sujeción, y tecla luminosa para abrir/cerrar la sujeción al introducir la película</td></tr>
+<tr><td>24</td><td>Estación de perforación</td><td>Perfora la cinta para que el producto se separe con facilidad del blíster cortado</td></tr>
+<tr><td>25</td><td>Mecanismo de hundimiento/expulsión</td><td>Aspiradores de vacío que retienen los blísteres cortados y los bajan a la cinta de evacuación con un cilindro neumático; el número de aspiradores depende del formato</td></tr>
+<tr><td>26</td><td>Estación de corte (troquelado)</td><td>Parte superior con placa de corte y pisador, parte inferior con portatroquel y troqueles; posicionamiento longitudinal por husillo de ajuste con indicador de posición</td></tr>
+<tr><td>27</td><td>Bobinadora de residuos</td><td>Enrolla la rejilla residual del troquelado</td></tr>
+<tr><td>28</td><td>Cinta de evacuación</td><td>Transporta los blísteres cortados desde la estación de corte; la acciona el accionamiento principal por correa</td></tr>
+<tr><td>29</td><td>Separación de blísteres</td><td>Cilindros neumáticos retienen los blísteres válidos y los reenvían de uno en uno</td></tr>
+<tr><td>30</td><td>Cinta de transferencia</td><td>Accionada por correa dentada desde la blisteadora; sus guías dependen del formato</td></tr>
+<tr><td>31</td><td>Pala mecánica</td><td>Expulsa los blísteres defectuosos: la tapa de retención los detiene y el aire comprimido los tira al colector de residuos</td></tr>
+<tr><td>32</td><td>Control de blísteres válidos</td><td>Un sensor por vía de blíster; si detecta un defectuoso que no fue expulsado, la máquina para con error</td></tr>
+<tr><td>33</td><td>Pala mecánica de blísteres válidos</td><td>Al final de la cinta de transferencia: si la máquina posconectada se para o se acumula, desvía los blísteres buenos a un recipiente</td></tr>
+</tbody></table>
+              `
+            },
+            {
+              id: "b3-hmi",
+              title: "Tablero de mando, señales y modos de operación",
+              content: `
+<table class="crit-table"><tbody>
+<tr><th>Elemento</th><th>Qué hace</th></tr>
+<tr><td>Tecla de parada <strong>0</strong></td><td>Detiene la máquina; las estaciones vuelven a su posición de salida y la máquina queda en la posición inicial (0°)</td></tr>
+<tr><td>Tecla de inicio <strong>I</strong></td><td>Arranca en Producción y Marcha de prueba. Se enciende con la máquina en servicio. Solo arranca si no hay errores y la máquina está lista</td></tr>
+<tr><td>Tecla de confirmación <strong>C</strong></td><td>Se ilumina al conectar el interruptor principal, con sub/sobretensión y con errores. Borra avisos y errores (primero se elimina la causa)</td></tr>
+<tr><td>Interruptor de alimentación</td><td>0 = alimentación desconectada · 1 = alimentación en modo continuo · 2 = alimentación automática</td></tr>
+<tr><td>Pantalla táctil TouchControl</td><td>Gestión de usuarios (sobre Windows), cuadro sinóptico de estaciones, gestión de formatos (cargar, ver, guardar, importar, exportar, imprimir), indicador de variables modificadas frente al formato guardado, <strong>Audit-Trail</strong> y vista general de errores</td></tr>
+<tr><td>Pulsador de parada de emergencia</td><td>Detiene toda la máquina de inmediato. <strong>Nunca</strong> se usa para apagar en condiciones normales</td></tr>
+<tr><td>Tecla luminosa de sujeción de película (avance tras sellado)</td><td>Luz <strong>encendida</strong> = sujeción inactiva · luz <strong>apagada</strong> = sujeción activa</td></tr>
+</tbody></table>
+<p><strong>Columna luminosa</strong></p>
+<table class="crit-table"><tbody>
+<tr><th>Color</th><th>Continua</th><th>Intermitente</th></tr>
+<tr><td>Rojo</td><td>Máquina parada sin errores</td><td>Parada por error o parada de emergencia; el error se muestra en el sistema de operación</td></tr>
+<tr><td>Naranja</td><td>Control de reserva</td><td>No ocupado</td></tr>
+<tr><td>Verde</td><td>Máquina en funcionamiento</td><td>Rearranque automático / aviso de arranque</td></tr>
+<tr><td>Azul</td><td>No ocupado</td><td>No ocupado</td></tr>
+</tbody></table>
+<p><strong>Modos de operación</strong></p>
+<table class="crit-table"><tbody>
+<tr><th>Modo</th><th>Para qué</th></tr>
+<tr><td>Producción</td><td>Desarrollo automático y cíclico controlado por procesos. <strong>Solo arranca desde el punto cero</strong> de la máquina</td></tr>
+<tr><td>Marcha de prueba</td><td>El programa corre automático <strong>sin los dispositivos de control</strong> (por ejemplo los controles de película)</td></tr>
+<tr><td>Ajuste</td><td>El programa avanza paso a paso con la tecla I, a la <strong>velocidad mínima</strong></td></tr>
+<tr><td>Cambio de formato</td><td>Abre la estación de moldeo, extiende si hace falta el cilindro de preestiramiento y despresuriza el dispositivo de hundimiento</td></tr>
+</tbody></table>
+              `
+            },
+            {
+              id: "b3-arranque",
+              title: "Puesta en servicio, arranque y parada",
+              content: `
+<div class="alert-box">⚠ Antes de poner la máquina en disposición de servicio: <strong>cerrar todos los dispositivos de protección</strong>. Hay accionamientos por correa descubiertos, piezas en movimiento y partes eléctricas bajo tensión.</div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Poner en disposición de servicio</span></div>
+<div class="step-card__row"><span>Pasos</span><span>1) Conectar el <strong>interruptor principal</strong> (parte posterior de la máquina). 2) Pulsar la tecla de confirmación <strong>C</strong>.</span></div>
+<div class="step-card__row"><span>Qué pasa</span><span>Se borran los mensajes de error, la máquina hace una <strong>marcha de referencia</strong> y se detiene en punto cero. El aire comprimido se conecta automáticamente si no hay fallo de seguridad.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Antes de arrancar</span></div>
+<div class="step-card__row"><span>Comprobar</span><span>Los <strong>formatos</strong> (piezas y datos) y los <strong>medios auxiliares y de producción</strong>: película de moldeo, película de cubierta, producto, aire comprimido y agua de refrigeración.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">3</span><span class="step-card__title">Arranque normal</span></div>
+<div class="step-card__row"><span>Pasos</span><span>1) En la línea de estado de la pantalla táctil, seleccionar el modo <strong>Producción</strong>. 2) Pulsar la tecla de arranque <strong>I</strong>.</span></div>
+<div class="step-card__row"><span>Qué pasa</span><span>La tecla parpadea unos <strong>5 segundos</strong> y luego arranca la máquina.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">4</span><span class="step-card__title">Parada normal y rearranque</span></div>
+<div class="step-card__row"><span>Parar</span><span>Pulsar la tecla <strong>0</strong>: la máquina termina el último ciclo y se detiene en la <strong>posición 0°</strong>.</span></div>
+<div class="step-card__row"><span>Rearrancar</span><span>Con la máquina en 0°: pulsar <strong>C</strong> (se borran mensajes) y luego <strong>I</strong>.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">5</span><span class="step-card__title">Arranque tras parada automática (por fallo)</span></div>
+<div class="step-card__row"><span>Ojo</span><span>Una parada automática es una <strong>parada de software</strong>: la alimentación eléctrica del accionamiento principal <strong>no está interrumpida</strong>. Las estaciones de calentamiento y sellado siguen calientes — riesgo de quemaduras.</span></div>
+<div class="step-card__row"><span>Pasos</span><span>1) Leer el texto de solución del error en el sistema de operación. 2) Eliminar la causa. 3) Pulsar <strong>C</strong> hasta que desaparezcan todos los mensajes; debe aparecer «Máquina lista para arranque». 4) Pulsar <strong>I</strong>.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">6</span><span class="step-card__title">Parada de emergencia y rearranque</span></div>
+<div class="step-card__row"><span>Al accionar</span><span>Todos los componentes se detienen de inmediato, el <strong>aire comprimido se desconecta</strong> automáticamente y se corta la energía de todos los grupos peligrosos (accionamiento principal, cintas, motor de desbobinado, etc.).</span></div>
+<div class="step-card__row"><span>Rearranque</span><span>Eliminar la causa, <strong>desbloquear el pulsador tirando hacia fuera</strong>, pulsar <strong>C</strong> y después <strong>I</strong>.</span></div></div>
+              `
+            },
+            {
+              id: "b3-plan",
+              title: "Plan Uhlmann por horas de servicio",
+              content: `
+<p><span class="src-tag src-manual">MANUAL CAP. 9</span> Uhlmann reparte la conservación en cuatro planes (mantenimiento, engrase, limpieza y conservación) que comparten los mismos intervalos: <strong>cambio de producto, cambio de formato, según las necesidades, y 10 / 40 / 50 / 100 / 200 / 500 / 1000 / 2000 horas de servicio</strong>. Un punto se atiende <strong>en el primer intervalo que se cumpla</strong>.</p>
+<div class="alert-box">Antes de cualquier mantenimiento: parar la máquina según el manual, poner el sistema de operación en modo <strong>Ajuste</strong>, colocar el rótulo <strong>«TRABAJOS DE MANTENIMIENTO»</strong>, delimitar la zona, informar al personal de manejo y nombrar supervisores. Al principio y al final, limpiar restos de aceite, grasa o producto de limpieza.</div>
+<table class="crit-table"><tbody>
+<tr><th>Intervalo</th><th>Lo principal que toca</th></tr>
+<tr><td><strong>Cambio de producto</strong></td><td>Limpieza de tolva de llenado, cepillos y herramientas de sellado (acero y aluminio)</td></tr>
+<tr><td><strong>Cambio de formato</strong></td><td>Comprobar moldes, mangueras y conexiones neumáticas y de agua de refrigeración (moldeo, sellado, refrigeración, avance tras sellado); herramienta y guías de columna y resortes del pisador de la perforación; aspirador de vacío del hundimiento; herramienta de corte y sus conexiones; conexiones de la separación de blísteres. Limpieza del sensor de juntas, placas de calentamiento, moldes e interruptor de seguridad</td></tr>
+<tr><td><strong>Según las necesidades</strong></td><td>Lubricar los paquetes de resorte de disco de sellado (tipo 10). Cambiar correas dentadas (accionamiento principal, moldeo, avances, sellado), resortes de disco, cartucho calentador, protector térmico, cuchilla de perforación, cepillo redondo, correas de perforación, corte, evacuación y transferencia</td></tr>
+<tr><td><strong>10 h</strong></td><td>Comprobar herramienta de perforación, guías de columna y resortes del pisador. Limpiar cepillos de la alimentación, herramientas de sellado, herramienta de perforación y herramienta de corte</td></tr>
+<tr><td><strong>40 h</strong></td><td>Comprobar el <strong>revestimiento de las placas de calentamiento</strong> (Rhenolease MK IV: pieza de desgaste, cambiar ante cualquier daño superficial visible)</td></tr>
+<tr><td><strong>50 h</strong></td><td>Engrasar las <strong>jaulas de bolas</strong> de perforación y corte (4 puntos, tipo 2). Purgar el agua condensada de la unidad de mantenimiento neumática. Comprobar moldes y la cinta transportadora de transferencia. Limpiar sensor de juntas, moldes, interruptor de seguridad, reflector del control de avance, sensor de juntas de cubierta, sensor del control de impresión, sensor de la pala de válidos y las esteras de filtro del armario</td></tr>
+<tr><td><strong>100 h</strong></td><td>Limpieza de las placas de calentamiento</td></tr>
+<tr><td><strong>200 h</strong></td><td>Comprobación del aspirador de vacío del mecanismo de hundimiento</td></tr>
+<tr><td><strong>500 h</strong></td><td>Engrasar las <strong>guías de estación</strong> de sellado, perforación y corte (tipo 3). Comprobar mangueras y conexiones neumáticas y de agua en moldeo, sellado, refrigeración y avances; cilindro de membrana del avance tras moldeo; cilindros neumáticos del avance tras sellado y del hundimiento; herramienta de corte. Limpiar canal vibrador, anillo dosificador, colector de desechos y agitador</td></tr>
+<tr><td><strong>1000 h</strong></td><td>Engrase mayor (tipo 2): ruedas dentadas del árbol tensor, rodillo de levas y rodamiento de rodillos cilíndricos del moldeo, muelles de compresión, rodamientos, rodillo de levas y guía lineal del carro de sellado, perforación y corte, y ruedas dentadas de la bobinadora. Comprobar todas las correas dentadas y de accionamiento (principal, moldeo, avances, sellado, perforación, corte, evacuación, transferencia). Limpiar la regleta de soplado de la refrigeración</td></tr>
+<tr><td><strong>2000 h</strong></td><td>Sustituir los cartuchos de filtro de la unidad de mantenimiento y las <strong>placas de calentamiento</strong>. Comprobar los resortes de disco de moldeo y de sellado. Sustituir palas del agitador, cepillo de distribución y cepillo de enrase. Limpiar el tablero de mando del sistema de operación</td></tr>
+</tbody></table>
+<div class="alert-box" style="background:#fff7e6;border-color:#f0c987">Cambios que el manual <strong>deriva al Servicio Técnico de Uhlmann</strong>: la correa dentada del <strong>accionamiento principal</strong>, la correa de accionamiento de la <strong>estación de moldeo</strong>, el <strong>rodillo de levas</strong> defectuoso de sellado y la <strong>herramienta de corte</strong> desafilada. Antes de tocarlas: interruptor principal en 0 (parte posterior) y candado.</div>
+              `
+            },
+            {
+              id: "b3-lubricacion",
+              title: "Lubricación y lubricantes autorizados",
+              content: `
+<p>Solo se pueden usar los lubricantes autorizados por Uhlmann: otros pueden alterar las propiedades constructivas y afectar la seguridad del funcionamiento, y Uhlmann no responde por los daños. Se recomienda <strong>comprarlos localmente</strong> (son mercancía peligrosa y encarecen el envío).</p>
+<p><strong>H1</strong>: admisibles donde pueda haber contacto ocasional e inevitable entre producto y lubricante. <strong>H2</strong>: solo donde el contacto está totalmente descartado.</p>
+<table class="crit-table"><tbody>
+<tr><th>Tipo</th><th>Lubricante</th></tr>
+<tr><td>Tipo 1</td><td>Klüberpaste UH 1 84-201 · hasta 120 °C</td></tr>
+<tr><td>Tipo 2</td><td>Klübersynth UH 1 14-151 · hasta 120 °C</td></tr>
+<tr><td>Tipo 3</td><td>Klüberoil 4 UH 1-1500 · hasta 130 °C</td></tr>
+<tr><td>Tipo 4</td><td>Vaselina ALBA DAB 10</td></tr>
+<tr><td>Tipo 5</td><td>Klüberpaste UH 1 96-402 · hasta 1200 °C</td></tr>
+<tr><td>Tipo 6</td><td>Viscogen KL 130 (H2)</td></tr>
+<tr><td>Tipo 7</td><td>Klüberoil 4 UH 1-220N</td></tr>
+<tr><td>Tipo 8</td><td>Klüberfood NH1 K32 en spray</td></tr>
+<tr><td>Tipo 9</td><td>Klübersynth UH 1 64-1302</td></tr>
+<tr><td>Tipo 10</td><td>Elkalub GLS 595 / N2</td></tr>
+<tr><td>Tipo 11</td><td>Klüber Structovis BHD</td></tr>
+<tr><td>Tipo 12</td><td>WEKEM Spray PTFE WS-72</td></tr>
+</tbody></table>
+<p><span class="src-tag src-reco">VERIFICAR</span> La lista de lubricantes del manual se lee como «Modelo 1 … Modelo 12» frente a los doce productos en el mismo orden; confirmar la correspondencia contra el PDF original (9.4.1) antes de comprar.</p>
+<table class="crit-table"><tbody>
+<tr><th>Intervalo</th><th>Punto de engrase</th><th>Cant.</th><th>Tipo</th></tr>
+<tr><td>Según necesidad</td><td>Estación de sellado — paquetes de resorte de disco</td><td>4</td><td>Tipo 10</td></tr>
+<tr><td>50 h</td><td>Estación de perforación — jaula de bolas</td><td>4</td><td>Tipo 2</td></tr>
+<tr><td>50 h</td><td>Estación de corte — jaula de bolas</td><td>4</td><td>Tipo 2</td></tr>
+<tr><td>500 h</td><td>Guía de estación: sellado, perforación y corte</td><td>1 c/u</td><td>Tipo 3</td></tr>
+<tr><td>1000 h</td><td>Árbol tensor de película de moldeo — ruedas dentadas</td><td>2</td><td>Tipo 2</td></tr>
+<tr><td>1000 h</td><td>Moldeo — rodillo de levas (1) y rodamiento de rodillos cilíndricos (2)</td><td>1 / 2</td><td>Tipo 2</td></tr>
+<tr><td>1000 h</td><td>Sellado — muelle de compresión (1), rodamiento de rodillos cilíndricos (2), rodillo de levas (1)</td><td>1 / 2 / 1</td><td>Tipo 2</td></tr>
+<tr><td>1000 h</td><td>Avance posterior al sellado — guía lineal del carro guía</td><td>4</td><td>Tipo 2</td></tr>
+<tr><td>1000 h</td><td>Perforación — muelle de compresión, rodamiento de rodillos cilíndricos, rodillo de levas</td><td>1 c/u</td><td>Tipo 2</td></tr>
+<tr><td>1000 h</td><td>Corte — muelle de compresión, rodamiento de rodillos cilíndricos, rodillo de levas</td><td>1 c/u</td><td>Tipo 2</td></tr>
+<tr><td>1000 h</td><td>Bobinadora de residuos — ruedas dentadas</td><td>2</td><td>Tipo 2</td></tr>
+</tbody></table>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">A</span><span class="step-card__title">Lubricación de los resortes de disco (sellado)</span></div>
+<div class="step-card__row"><span>Pasos</span><span>1) Desmontar los paquetes como se describe en «Mantenimiento — cambiar resortes de disco». 2) Limpiarlos con los productos indicados en el POE del cliente. 3) Lubricar <strong>ligeramente</strong>. 4) Volver a montar.</span></div>
+<div class="step-card__row"><span>Recomendación</span><span><strong>Anotar la disposición de los juegos de resortes</strong> antes de desarmarlos.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">B</span><span class="step-card__title">Lubricación de las jaulas de bolas (perforación y corte)</span></div>
+<div class="step-card__row"><span>Requisito</span><span>La herramienta tiene que estar <strong>desmontada</strong>.</span></div>
+<div class="step-card__row"><span>Pasos</span><span>1) Desarmar la herramienta. 2) Limpiar la jaula de bolas con disolvente de grasas (nafta o acetona). 3) Aplicar lubricante en la superficie de las jaulas. 4) Eliminar el lubricante sobrante. 5) Ensamblar la herramienta.</span></div></div>
+              `
+            },
+            {
+              id: "b3-limpieza",
+              title: "Plan de limpieza",
+              content: `
+<div class="alert-box">Uhlmann <strong>no recomienda un producto de limpieza concreto</strong>: desconoce los principios activos de lo que se empaca y los residuos pueden reaccionar distinto según el medicamento. La regla es que <strong>no se usen productos agresivos</strong> y que se siga el POE del cliente.</div>
+<table class="crit-table"><tbody>
+<tr><th>Intervalo</th><th>Punto</th><th>Actividad</th></tr>
+<tr><td>Cambio de producto</td><td>Tolva de llenado · cepillos · herramientas de sellado</td><td>Limpiar la tolva, limpiar los cepillos, comprobar las herramientas de sellado y limpiarlas (procedimiento distinto para acero y para aluminio)</td></tr>
+<tr><td>Cambio de formato</td><td>Sensor de juntas de la película de moldeo · placas de calentamiento · moldes · interruptor de seguridad</td><td>Limpiar sensor, placas, moldes, y el interruptor de seguridad con su accionador</td></tr>
+<tr><td>Según necesidad</td><td>Tolva · cepillo redondo · herramientas de sellado · cinta transportadora</td><td>Limpieza corriente entre lotes</td></tr>
+<tr><td>10 h</td><td>Cepillos de la alimentación · herramientas de sellado · herramienta de perforación · herramienta de corte</td><td>Limpiar y comprobar</td></tr>
+<tr><td>50 h</td><td>Sensor de juntas · moldes · interruptor de seguridad · reflector del control de avance · sensor de juntas de cubierta · sensor del control de impresión · sensor de la pala de válidos · esteras de filtro de entrada y salida del armario</td><td>Limpiar sensores, reflector y esteras filtrantes</td></tr>
+<tr><td>100 h</td><td>Placas de calentamiento</td><td>Limpieza de las placas</td></tr>
+<tr><td>500 h</td><td>Canal vibrador · anillo dosificador · colector de desechos · agitador</td><td>Limpieza de la zona de alimentación</td></tr>
+<tr><td>1000 h</td><td>Regleta de soplado de la estación de refrigeración</td><td>Limpieza</td></tr>
+<tr><td>2000 h</td><td>Tablero de mando del sistema de operación</td><td>Limpieza</td></tr>
+</tbody></table>
+              `
+            },
+            {
+              id: "b3-parametros",
+              title: "Conexiones, formatos y películas",
+              content: `
+<table class="crit-table"><tbody>
+<tr><th>Conexión</th><th>Valor</th></tr>
+<tr><td>Eléctrica (manual)</td><td>3/N/PE CA 400 V 50 Hz, tolerancia ±10 %, con neutro con capacidad de carga y conductor protector separado · fusible <strong>25 A</strong> · valor de conexión <strong>8 kW</strong></td></tr>
+<tr><td>Transformador de corriente trifásica</td><td>Primario <strong>200 V</strong> → secundario <strong>400 V</strong></td></tr>
+<tr><td>Neumática</td><td>Conexión NW 19 · presión de entrada 7–8 bar (mín. 7 bar) · consumo 9–15 m³/h normalizados</td></tr>
+<tr><td>Calidad del aire (DIN ISO 8573-1)</td><td>Aceite clase 1 · partículas clase 1 · agua clase 4</td></tr>
+<tr><td>Agua de refrigeración</td><td>R ½" · 0,2–0,5 m³/h · entrada 16–18 °C · retorno 20–25 °C · presión 2–4 bar</td></tr>
+<tr><td>Calidad del agua</td><td>≤ 1 °dH (preferiblemente agua completamente ablandada) + <strong>inhibidores anticorrosivos</strong>: los iones de cobre, cinc y hierro corroen el aluminio de las herramientas</td></tr>
+<tr><td>Aspiración de polvo</td><td>Aspirador Nilfisk CTS 22 · manguera 5 m ø 50 mm · 2200 W</td></tr>
+<tr><td>Aspiración de vapores de calentamiento</td><td>Conexión ø 51 mm · capacidad aprox. 150 m³/h</td></tr>
+</tbody></table>
+<p><strong>Gama de formatos y películas</strong></p>
+<table class="crit-table"><tbody>
+<tr><th>Parámetro</th><th>Valor</th></tr>
+<tr><td>Ancho de la película de moldeo</td><td>mín. 100 mm · máx. 168 mm</td></tr>
+<tr><td>Avance</td><td>mín. 40 mm · máx. 130 mm</td></tr>
+<tr><td>Profundidad de moldeo</td><td>18,5 mm en película de moldeo térmico</td></tr>
+<tr><td>Película de moldeo</td><td><strong>PVC</strong> (otras clases por encargo)</td></tr>
+<tr><td>Película de cubierta</td><td><strong>Aluminio duro</strong> (otras clases por encargo)</td></tr>
+<tr><td>Rollo de película de moldeo</td><td>ø máx. 400 mm · núcleo ø 76 mm</td></tr>
+<tr><td>Rollo de película de cubierta</td><td>ø máx. 240 mm</td></tr>
+<tr><td>Revestimiento Rhenolease MK IV</td><td>Apto para PVC, PVDC y ACLAR</td></tr>
+</tbody></table>
+<div class="alert-box" style="background:#fff7e6;border-color:#f0c987">Con <strong>PVDC</strong>: el revestimiento Rhenolease MK IV puede desprenderse y esos desprendimientos pueden acabar sellados dentro del blíster. Por eso las placas de calentamiento se consideran <strong>piezas de desgaste</strong>: hay que revisarlas periódicamente y cambiarlas ante cualquier daño superficial visible, por mínimo que sea. Además, al calentar PVDC se libera <strong>cloro gaseoso</strong>: la máquina solo puede operar con la aspiración de vapores activa.</div>
+              `
+            },
+            {
+              id: "b3-electrico",
+              title: "Esquema eléctrico e instalación en planta",
+              content: `
+<p>El esquema eléctrico entregado (<strong>101 hojas escaneadas</strong>, Uhlmann, orden 0591812, cliente Farmacápsulas, plano <code>000_0000_02_01</code>) documenta la conexión <strong>como está instalada aquí</strong>, que no es la nominal del manual.</p>
+<table class="crit-table"><tbody>
+<tr><th>Dato</th><th>Manual (3.5.1)</th><th>Esquema eléctrico (hoja 2/14, «Conexión eléctrica a la red»)</th></tr>
+<tr><td>Red</td><td>3/N/PE CA 400 V 50 Hz ±10 %</td><td><strong>220 V ±10 % · 3/N/PE ~60 Hz</strong></td></tr>
+<tr><td>Consumo de corriente</td><td>—</td><td><strong>17 A</strong></td></tr>
+<tr><td>Protección por fusible</td><td>25 A</td><td><strong>50 A gG</strong> (máx.)</td></tr>
+<tr><td>Sección mínima del conductor</td><td>—</td><td><strong>10 mm²</strong></td></tr>
+<tr><td>Tensión de mando</td><td>—</td><td><strong>24 V DC / 230 V AC</strong></td></tr>
+<tr><td>Configuración de red</td><td>—</td><td><strong>TN-S</strong> o <strong>TN-C-S</strong></td></tr>
+</tbody></table>
+<p>El transformador trifásico <strong>200 V → 400 V</strong> del manual es lo que concilia ambas cifras: la planta alimenta a 220 V/60 Hz y la máquina interna trabaja a 400 V.</p>
+<div class="alert-box">Notas del propio plano: la conexión a la red la hace <strong>solo un electricista cualificado</strong> según EN/IEC; observar el <strong>campo giratorio a la derecha</strong>; por el equipo electrónico hay <strong>corrientes de fuga</strong>, lo que impide usar un interruptor diferencial en la mayoría de los casos — según EN 50178 debe conectarse un <strong>segundo conductor PE</strong> como unión equipotencial; si se usa diferencial, <strong>solo tipo B</strong>. Según EN 50178/60204 es necesario conectar un segundo conductor protector como conexión equipotencial. El consumo indicado corresponde a <strong>todas las máquinas de la línea de empaque</strong> si se alimenta por una sola línea.</div>
+<p class="callout">PDF: <code>manuales/blister3/B1240-esquema-electrico-0591812.pdf</code> — escaneado, sin capa de texto: hay que leerlo por hoja. <span class="src-tag src-reco">PENDIENTE</span> OCR y despiece por hojas.</p>
+              `
+            },
+            {
+              id: "b3-seguridad",
+              title: "Seguridad y consignación",
+              content: `
+<div class="alert-box">⚠ <strong>Estaciones de calentamiento y de sellado calientes.</strong> Peligro de quemaduras en manos y brazos: no tocarlas mientras se elimina un error. Y recuerda que una parada automática es una <strong>parada de software</strong> — el accionamiento principal sigue alimentado.</div>
+<table class="crit-table"><tbody>
+<tr><th>Dispositivo</th><th>Función</th></tr>
+<tr><td>Interruptor principal</td><td>En la <strong>parte posterior</strong> de la máquina. Se coloca en <strong>0 y se asegura con candado</strong> antes de cualquier trabajo en correas o partes móviles</td></tr>
+<tr><td>Pulsador de parada de emergencia</td><td>Detiene todo de inmediato, desconecta el aire comprimido y corta la energía de los grupos peligrosos. Solo para emergencias</td></tr>
+<tr><td>Dispositivos de protección móviles</td><td>El resguardo del avance posterior al moldeo lleva <strong>interruptor de seguridad electromagnético</strong> que lo mantiene cerrado y supervisado</td></tr>
+<tr><td>Alimentación por cepillado</td><td>Su posición de cierre se supervisa con un <strong>sensor de seguridad electrónico</strong></td></tr>
+<tr><td>Tapa de seguridad de la vía de llenado</td><td>Al levantarse dispara un interruptor de contacto y para la máquina</td></tr>
+<tr><td>Rótulos de advertencia</td><td>En accionamiento principal, estación de calentamiento, control de avance, sellado, perforación, corte y pala mecánica (manual 2.6)</td></tr>
+</tbody></table>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">1</span><span class="step-card__title">Antes de una avería o un mantenimiento</span></div>
+<div class="step-card__row"><span>Pasos</span><span>Delimitar la zona con un perímetro amplio · informar al personal de servicio y nombrar supervisores · desconectar la máquina según el manual, <strong>bloquearla contra reconexión</strong> y colgar el rótulo <strong>«NO CONECTAR»</strong> en el interruptor principal · comprobar ajustes e identificaciones de formato contra la hoja de ajuste.</span></div></div>
+<div class="step-card"><div class="step-card__head"><span class="step-card__num">2</span><span class="step-card__title">Modo Ajuste para mantener</span></div>
+<div class="step-card__row"><span>Pasos</span><span>Parar la máquina · seleccionar el modo <strong>Ajuste</strong> en el sistema de operación · colocar el rótulo <strong>«TRABAJOS DE MANTENIMIENTO»</strong> · delimitar la zona · informar al personal de manejo · nombrar supervisores · limpiar restos de suciedad y lubricante viejo, sobre todo en conexiones y atornilladuras.</span></div></div>
+<p><strong>PVDC:</strong> el procesamiento libera cloro gaseoso; la máquina solo se puede usar con la <strong>aspiración de vapores de calentamiento activa</strong>. La cantidad depende de la película: consultar la ficha de datos de seguridad al proveedor.</p>
+              `
+            },
+            {
+              id: "b3-pendientes",
+              title: "Datos por confirmar",
+              content: `
+<ul>
+<li><strong>Hoja de ajuste por producto</strong> — el manual remite constantemente a ella (temperaturas de placas, presión de moldeo, presión y temperatura de sellado, velocidad, avance, posición de sensores). Sin la hoja de ajuste de cada formato, esos valores no están en ninguna parte de esta ficha. <span class="src-tag src-reco">CARGAR EN PLANTA</span></li>
+<li><strong>Catálogo de repuestos B1240/0591812</strong> — varias observaciones de repuestos del registro ya citan sus páginas (correa 901172 pág. 33/391/445/495; 913976 pág. 149/463; 901173 pág. 107; 906799 pág. 150/463; 923082 pág. 541), pero el PDF del catálogo <strong>no está cargado</strong> en <code>manuales/blister3/</code>. <span class="src-tag src-reco">PENDIENTE</span></li>
+<li><strong>Manual de TouchControl</strong> y <strong>manual easyFLEX de HAPA</strong> — se suministran por separado y no están cargados. <span class="src-tag src-reco">PENDIENTE</span></li>
+<li><strong>Lista de formatos, planos de circuitos de fluidos</strong> — el manual los lista como parte de la documentación técnica; solo tenemos el eléctrico. <span class="src-tag src-reco">PENDIENTE</span></li>
+<li><strong>Potencia real</strong> — el manual no da cifra de producción: depende del tamaño del blíster, el diseño de la cavidad y el producto. Medir la real en planta. <span class="src-tag src-reco">MEDIR</span></li>
+<li><strong>OCR del esquema eléctrico</strong> — las 101 hojas están escaneadas sin capa de texto. <span class="src-tag src-reco">PENDIENTE</span></li>
+<li><strong>Capítulo 7 (instalación y reajuste, 74 págs.)</strong> — cambio de formato paso a paso: montaje de moldes térmico→térmico/mV, herramientas de sellado, perforación y corte, ajuste de agitador y cepillos. Está en el PDF pero aún no volcado a esta ficha. <span class="src-tag src-reco">PENDIENTE</span></li>
+</ul>
+              `
+            }
+          ],
+          systems: [
+            { name: "Accionamiento principal", function: "Mueve y sincroniza todas las estaciones de trabajo.", components: ["Servomotor", "Accionamiento por correa dentada"], status: "Manual 5.3.4" },
+            { name: "Sistema neumático", function: "Regula y distribuye el aire comprimido de toda la máquina.", components: ["Unidad de mantenimiento (parte posterior)", "Válvula de conexión de ventilación/purga", "Recipiente de agua condensada con cartuchos de filtro", "Interruptor de presión", "Válvula reguladora con manómetro", "Terminal de válvulas"], status: "Manual 5.3.2 · 7–8 bar" },
+            { name: "Vacío", function: "Genera y distribuye el vacío para el mecanismo de hundimiento.", components: ["Bomba de vacío accionada por aire comprimido", "Filtro", "Distribuidor"], status: "Manual 5.3.3" },
+            { name: "Desbobinado y control de película", function: "Desbobina moldeo y cubierta y vigila juntas de pegado y fin de película.", components: ["Árboles tensores mecánicos", "Péndulos de compensación con sensores", "Sensor de juntas de moldeo", "Sensor ultrasónico de juntas de cubierta"], status: "Manual 5.3.5 · 5.3.6 · 5.3.21 · 5.3.23" },
+            { name: "Calentamiento y moldeo", function: "Calienta la película y termoforma las cavidades.", components: ["Placas de calentamiento (2 circuitos c/u, Rhenolease MK IV)", "Aspiración de vapores ø51 mm", "Leva con rodillo y mesa elevadora", "Paquetes de resorte de disco", "Cilindro de preestiramiento", "Refrigeración por agua de las planchas"], status: "Manual 5.3.7 · 5.3.8" },
+            { name: "Avances y desviación", function: "Transporta la película en sincronía con el ciclo.", components: ["Pinza de avance + servomotor + correa dentada (moldeo)", "Pinza de sujeción fija", "Interruptor de seguridad electromagnético", "Desviación con péndulo", "Pinza de avance tras sellado con cilindros neumáticos"], status: "Manual 5.3.10 · 5.3.11 · 5.3.27" },
+            { name: "Vía de llenado y alimentación", function: "Deposita el producto en las cavidades y deja la película sin polvo.", components: ["Placa guía de formato", "Tolva con ventana y tapa", "Canal vibrador", "Caja de cepillado: agitadores de palas y 2 cepillos de distribución", "Aspiración de polvo Nilfisk CTS 22", "Cepillo inclinado", "Tapa de seguridad"], status: "Manual 5.3.12 a 5.3.18" },
+            { name: "Controles de proceso", function: "Verifican llenado, avance e impresión.", components: ["Control de llenado MicroChrom", "Control de avance con barrera láser", "Control de imágenes de impresión con eje de estirado", "Control de blísteres válidos (un sensor por vía)"], status: "Manual 5.3.19 · 5.3.20 · 5.3.24 · 5.3.36" },
+            { name: "Impresión easyFLEX (HAPA)", function: "Imprime la película de cubierta por flexografía UV rotativa sincronizada.", components: ["Grupo de impresión easyFLEX", "Cliché intercambiable"], status: "Manual 5.3.22 · manual HAPA aparte" },
+            { name: "Sellado y refrigeración", function: "Sella cubierta sobre moldeo y enfría la cinta.", components: ["Leva con rodillo y mesa elevadora", "Herramientas de sellado superior e inferior", "Paquetes de resorte de disco", "Cartuchos calentadores + regulador de temperatura", "Protector térmico con fusible", "Placas de refrigeración y regleta de soplado"], status: "Manual 5.3.25 · 5.3.26" },
+            { name: "Perforación, corte y hundimiento", function: "Perfora, troquela y baja los blísteres a la cinta.", components: ["Herramienta de perforación y cuchillas", "Guías de columna y resortes del pisador", "Placa de corte, pisador, portatroquel y troqueles", "Husillo de ajuste con indicador de posición", "Aspiradores de vacío del hundimiento"], status: "Manual 5.3.28 · 5.3.29 · 5.3.30" },
+            { name: "Salida y transferencia", function: "Evacúa la rejilla y clasifica los blísteres.", components: ["Bobinadora de residuos", "Cinta de evacuación", "Separación de blísteres con cilindros neumáticos", "Cinta de transferencia", "Pala mecánica de defectuosos + colector", "Pala mecánica de blísteres válidos"], status: "Manual 5.3.31 a 5.3.37" },
+            { name: "Sistema de operación TouchControl", function: "Manejo, formatos, trazabilidad y diagnóstico.", components: ["Pantalla táctil", "Gestión de usuarios sobre Windows", "Gestión de formatos", "Audit-Trail", "Resumen de errores"], status: "Manual 5.3.1 · manual TouchControl aparte" }
+          ],
+          spareParts: [],
+          maintenanceTasks: [
+            { name: "Limpieza de la tolva de llenado", system: "Tolva de llenado", frequency: "Cambio de producto", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-83" },
+            { name: "Limpieza de los cepillos de la alimentación", system: "Alimentación por cepillado", frequency: "Cambio de producto", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-87" },
+            { name: "Comprobación y limpieza de las herramientas de sellado (procedimiento distinto para acero y para aluminio)", system: "Estación de sellado", frequency: "Cambio de producto", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-85 / 9-86 / 9-88" },
+            { name: "Comprobación de los moldes", system: "Estación de moldeo con preestiramiento", frequency: "Cambio de formato", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-62" },
+            { name: "Comprobación de mangueras y conexiones neumáticas y de agua de refrigeración (moldeo, sellado, refrigeración y avances)", system: "Neumática y agua de refrigeración", frequency: "Cambio de formato", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-63 / 9-64" },
+            { name: "Comprobación del estado de la herramienta de perforación, las guías de columna y los resortes del pisador", system: "Estación de perforación", frequency: "Cambio de formato y cada 10 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-60 / 9-61" },
+            { name: "Comprobación del aspirador de vacío del mecanismo de hundimiento", system: "Mecanismo de hundimiento/expulsión", frequency: "Cambio de formato y cada 200 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-63" },
+            { name: "Comprobación de la herramienta de corte y de sus mangueras y conexiones de aire comprimido", system: "Estación de corte", frequency: "Cambio de formato y cada 500 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-65" },
+            { name: "Limpieza del sensor de detección de juntas de la película de moldeo", system: "Detección de juntas de la película de moldeo", frequency: "Cambio de formato y cada 50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-89" },
+            { name: "Limpieza de los moldes y del interruptor de seguridad con su accionador", system: "Moldeo y avance posterior al moldeo", frequency: "Cambio de formato y cada 50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-89" },
+            { name: "Lubricación de los paquetes de resorte de disco (4 puntos, lubricante tipo 10) — anotar la disposición de los juegos antes de desarmar", system: "Estación de sellado", frequency: "Según las necesidades", type: "Lubricación", acceptance: "Manual 9.4.4 pág. 9-16 · Elkalub GLS 595/N2" },
+            { name: "Sustitución de la correa dentada del accionamiento principal — contactar con el Servicio Técnico de Uhlmann; interruptor principal en 0 y con candado", system: "Accionamiento principal", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-33" },
+            { name: "Cambio de la correa de accionamiento de la estación de moldeo — contactar con el Servicio Técnico de Uhlmann", system: "Estación de moldeo con preestiramiento", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-34" },
+            { name: "Tensado y cambio de la correa dentada de la pinza de avance y del servomotor", system: "Avance posterior al moldeo", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-37 / 9-38" },
+            { name: "Tensado y sustitución de la correa dentada de la estación de sellado", system: "Estación de sellado", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-40 / 9-41" },
+            { name: "Cambio del cartucho calentador defectuoso", system: "Estación de sellado", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-42" },
+            { name: "Cambio del protector térmico y nueva lubricación de los juegos de resortes de disco", system: "Estación de sellado", frequency: "Según las necesidades (tras actuar el protector)", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-45 — obligatorio relubricar los paquetes de resorte" },
+            { name: "Cambio de una cuchilla de perforación desgastada", system: "Avance posterior al sellado / perforación", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-53" },
+            { name: "Cambio del cepillo redondo del cepillo inclinado", system: "Cepillo inclinado", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-39" },
+            { name: "Tensado y cambio de las correas de accionamiento de perforación, corte, cinta de evacuación y cinta de transferencia", system: "Salida y transferencia", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-54 a 9-60" },
+            { name: "Limpieza de la herramienta de perforación y de la herramienta de corte", system: "Perforación y corte", frequency: "10 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-88 / 9-89" },
+            { name: "Comprobación del revestimiento de las placas de calentamiento", system: "Estación de calentamiento", frequency: "40 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-61 — cambiar de inmediato ante cualquier daño superficial visible" },
+            { name: "Lubricación de las jaulas de bolas (4 puntos, tipo 2) con la herramienta desmontada", system: "Estación de perforación y estación de corte", frequency: "50 h", type: "Lubricación", acceptance: "Manual 9.4.4 pág. 9-17 / 9-18 · Klübersynth UH 1 14-151" },
+            { name: "Purga del agua condensada de la unidad de mantenimiento del filtro", system: "Sistema neumático", frequency: "50 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-62" },
+            { name: "Comprobación de la cinta transportadora de la cinta de transferencia", system: "Cinta de transferencia", frequency: "50 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-62" },
+            { name: "Limpieza del reflector del control de avance y de los sensores de juntas de cubierta, control de impresión y pala de válidos", system: "Controles de proceso", frequency: "50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-90" },
+            { name: "Limpieza de las esteras de filtro de entrada y de salida del armario de distribución", system: "Armario de distribución", frequency: "50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-91 / 9-92" },
+            { name: "Limpieza de las placas de calentamiento", system: "Estación de calentamiento", frequency: "100 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-93" },
+            { name: "Lubricación de las guías de estación (1 punto, tipo 3) de sellado, perforación y corte", system: "Sellado, perforación y corte", frequency: "500 h", type: "Lubricación", acceptance: "Manual 9.4.3 pág. 9-18 a 9-19 · Klüberoil 4 UH 1-1500" },
+            { name: "Comprobación del cilindro de membrana del avance posterior al moldeo y de los cilindros neumáticos del avance tras sellado y del hundimiento", system: "Avances y hundimiento", frequency: "500 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-64 / 9-65" },
+            { name: "Limpieza del canal vibrador, el anillo dosificador, el colector de desechos y el agitador", system: "Alimentación por cepillado", frequency: "500 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-93 / 9-94" },
+            { name: "Engrase mayor tipo 2: ruedas dentadas del árbol tensor, rodillos de levas, rodamientos de rodillos cilíndricos, muelles de compresión, guía lineal del carro guía y ruedas dentadas de la bobinadora", system: "Moldeo, sellado, avances, perforación, corte y bobinadora", frequency: "1000 h", type: "Lubricación", acceptance: "Manual 9.4.3 pág. 9-20 a 9-27 · Klübersynth UH 1 14-151" },
+            { name: "Comprobación de todas las correas dentadas y de accionamiento (principal, moldeo, avances, sellado, perforación, corte, evacuación y transferencia)", system: "Transmisiones", frequency: "1000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-66 a 9-74" },
+            { name: "Limpieza de la regleta de soplado de la estación de refrigeración", system: "Estación de refrigeración", frequency: "1000 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-94" },
+            { name: "Sustitución de los cartuchos de filtro de la unidad de mantenimiento", system: "Sistema neumático", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-75" },
+            { name: "Sustitución de las placas de calentamiento", system: "Estación de calentamiento", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-75" },
+            { name: "Comprobación de los resortes de disco de la estación de moldeo y de la estación de sellado", system: "Moldeo y sellado", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-76 / 9-79" },
+            { name: "Sustitución de las palas del agitador defectuosas, del cepillo de distribución y del cepillo de enrase", system: "Alimentación por cepillado", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-77 / 9-78" },
+            { name: "Limpieza del tablero de mando del sistema de operación", system: "Sistema de operación", frequency: "2000 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-95" }
+          ],
+          failureModes: [
+            {
+              name: "Moldeado incompleto de la película de moldeo · brillo plateado (blanqueo por sobreestirado)", probableSystem: "Estación de calentamiento", status: "Base manual cap. 8.3.2",
+              symptoms: ["Cavidades sin formar del todo", "Zonas blanquecinas y brillantes por sobreestirado"],
+              checks: ["Temperatura de la película de moldeo demasiado baja"],
+              correction: "Ajustar la temperatura de las placas de calentamiento según las indicaciones de la hoja de ajuste.",
+              steps: [{ title: "Causa y solución", where: "Estación de calentamiento · manual pág. 8-8", how: "Temperatura de la película de moldeo demasiado baja", spec: "Según hoja de ajuste del formato", tool: null, ifFail: "Ajustar la temperatura de las placas de calentamiento según la hoja de ajuste" }]
+            },
+            {
+              name: "Estrías (ondulaciones) o zonas delgadas en la película de moldeo", probableSystem: "Estación de moldeo", status: "Base manual cap. 8.3.2",
+              symptoms: ["Ondulaciones en la película", "Paredes de cavidad adelgazadas"],
+              checks: ["Aire comprimido de moldeo demasiado bajo"],
+              correction: "Ajustar el aire comprimido de moldeo según las indicaciones de la hoja de ajuste.",
+              steps: [{ title: "Causa y solución", where: "Estación de moldeo · manual pág. 8-8", how: "Aire comprimido de moldeo demasiado bajo", spec: "Presión de entrada de la máquina 7–8 bar; el valor de moldeo lo da la hoja de ajuste", tool: "Manómetro del terminal de válvulas", ifFail: "Ajustar el aire de moldeo según la hoja de ajuste" }]
+            },
+            {
+              name: "Orificios en los blísteres · fondo del blíster demasiado delgado", probableSystem: "Preestiramiento y refrigeración del molde", status: "Base manual cap. 8.3.2",
+              symptoms: ["Perforaciones en la cavidad", "Fondo del alvéolo muy fino"],
+              checks: ["El recorrido del sello de preestiramiento no está bien ajustado", "Refrigeración insuficiente del molde", "El paralelismo entre las placas de calentamiento no es correcto", "Temperatura de la película demasiado alta o demasiado baja", "Error en la propia película de moldeo"],
+              correction: "Ajustar el sello de preestiramiento según la hoja de ajuste; comprobar el paso y la temperatura del agua de refrigeración; comprobar y ajustar el paralelismo de las placas de calentamiento; corregir la temperatura o cambiar la película.",
+              steps: [
+                { title: "Preestiramiento", where: "Estación de moldeo · manual pág. 8-8", how: "El recorrido o la profundidad de penetración del sello de preestiramiento no está bien ajustado", spec: "Según hoja de ajuste", tool: null, ifFail: "Ajustar el sello de preestiramiento según la hoja de ajuste" },
+                { title: "Refrigeración del molde", where: "Circuito de agua de refrigeración", how: "Refrigeración insuficiente del molde", spec: "Entrada 16–18 °C · retorno 20–25 °C · 2–4 bar · 0,2–0,5 m³/h", tool: "Termómetro y manómetro del circuito", ifFail: "Comprobar el paso de agua de refrigeración y la temperatura del agua; revisar el grupo frigorífico" },
+                { title: "Paralelismo de placas", where: "Estación de calentamiento", how: "El paralelismo de las placas de calentamiento entre ellas no es correcto", spec: null, tool: null, ifFail: "Comprobar la estación y las placas de calentamiento y ajustarlas según el manual" }
+              ]
+            },
+            {
+              name: "La película de moldeo no está moldeada correctamente: cavidades irregulares o inexistentes", probableSystem: "Estación de moldeo con preestiramiento", status: "Base manual cap. 8.3.8",
+              symptoms: ["Cavidades irregulares", "No se forman cavidades"],
+              checks: ["Temperatura de la película demasiado baja", "Presión neumática de moldeo insuficiente", "Placa de calentamiento defectuosa", "Refrigeración insuficiente", "Orificios de ventilación del molde sucios"],
+              correction: "Ajustar temperatura y presión según la hoja de ajuste, comprobar las zonas de las placas de calentamiento y cambiarlas si es necesario, verificar la temperatura y presión de entrada del agua (aprox. 18 °C) y el grupo frigorífico, y limpiar el molde.",
+              steps: [
+                { title: "Temperatura y presión", where: "Calentamiento y moldeo · manual pág. 8-14", how: "Temperatura de la película demasiado baja o presión neumática de moldeo insuficiente", spec: "Según hoja de ajuste", tool: null, ifFail: "Ajustar planchas de calentamiento y presión neumática según la hoja de ajuste" },
+                { title: "Placas y refrigeración", where: "Estación de calentamiento y circuito de agua", how: "Placa de calentamiento defectuosa o refrigeración insuficiente", spec: "Agua de entrada aprox. 18 °C", tool: null, ifFail: "Comprobar las zonas de las placas y cambiarlas; comprobar temperatura y presión de entrada del agua y el grupo frigorífico" },
+                { title: "Ventilación del molde", where: "Molde inferior", how: "Orificios de ventilación del molde sucios", spec: null, tool: null, ifFail: "Limpiar el molde" }
+              ]
+            },
+            {
+              name: "El aire de moldeo sale por la herramienta cerrada", probableSystem: "Estación de moldeo", status: "Base manual cap. 8.3.8",
+              symptoms: ["Fuga de aire de moldeo con la herramienta cerrada"],
+              checks: ["Valores de ángulos para el aire de moldeo incorrectos", "La mesa elevadora no está en paralelo al travesaño", "Herramienta dañada o corroída"],
+              correction: "Comprobar los valores de ángulos en el sistema de operación y ajustarlos según la impresión de los datos de programa; comprobar el paralelismo (contactar con Uhlmann si es necesario); sustituir la herramienta dañada.",
+              steps: [{ title: "Causa y solución", where: "Estación de moldeo · manual pág. 8-14", how: "Ángulos mal ajustados, falta de paralelismo de la mesa elevadora o herramienta dañada", spec: "Valores de ángulo según la impresión de los datos de programa", tool: null, ifFail: "Ajustar ángulos; si es falta de paralelismo, contactar con el servicio de asistencia técnica de Uhlmann; si la herramienta está dañada o corroída, sustituirla" }]
+            },
+            {
+              name: "La película se desgarra en la zona del molde", probableSystem: "Calentamiento y moldeo", status: "Base manual cap. 8.3.8",
+              symptoms: ["Rotura de la película en el molde"],
+              checks: ["Temperatura de la película demasiado alta", "La película se pega en la estación de calentamiento o en el molde", "Espiga de elevación defectuosa", "Refrigeración insuficiente de la herramienta"],
+              correction: "Ajustar la temperatura de las planchas según la hoja de ajuste, comprobar y limpiar el revestimiento de las placas de calentamiento, revisar la espiga de elevación y la refrigeración de la herramienta.",
+              steps: [{ title: "Causa y solución", where: "Estación de calentamiento y molde · manual pág. 8-15", how: "Temperatura excesiva, película pegada, espiga de elevación defectuosa o refrigeración insuficiente", spec: "Según hoja de ajuste", tool: null, ifFail: "Reducir temperatura; comprobar y limpiar el revestimiento; revisar las superficies, la espiga de elevación y la refrigeración de la herramienta" }]
+            },
+            {
+              name: "La película no se calienta · la película se pega a las placas de calentamiento", probableSystem: "Estación de calentamiento", status: "Base manual cap. 8.3.7",
+              symptoms: ["La película llega fría al moldeo", "La película se adhiere a las placas"],
+              checks: ["Temperatura de las placas demasiado baja o demasiado alta", "Placas de calentamiento defectuosas o sucias", "La placa no está ajustada al tipo de película", "Cilindro neumático defectuoso"],
+              correction: "Ajustar la temperatura según la hoja de ajuste; comprobar las zonas de las placas y cambiarlas; dejar enfriar y limpiar las placas según el manual; cambiar las placas según la hoja de ajuste; comprobar y cambiar el cilindro neumático.",
+              steps: [{ title: "Causa y solución", where: "Estación de calentamiento · manual pág. 8-13", how: "Temperatura fuera de rango, placas defectuosas o sucias, placa inadecuada a la película, o cilindro neumático defectuoso", spec: "Según hoja de ajuste", tool: null, ifFail: "Ajustar temperatura, limpiar o cambiar placas, y comprobar el cilindro neumático del calefactor de contacto" }]
+            },
+            {
+              name: "La máquina se detiene con el mensaje de error Control de acumulación / Control de expulsión", probableSystem: "Cinta de transferencia y expulsión", status: "Base manual cap. 8.3.3",
+              symptoms: ["Paro con mensaje de control de acumulación", "Paro con mensaje de control de expulsión"],
+              checks: ["Acumulación en la cinta de transferencia", "Tecla de luz por reflexión sucia o defectuosa", "Presión neumática insuficiente", "El calefactor de contacto se abre demasiado tarde o cierra prematuramente"],
+              correction: "Retirar los últimos blísteres de la cinta; limpiar o cambiar la tecla de luz por reflexión; comprobar y ajustar la presión de aire según la hoja de ajuste; comprobar los valores de ángulos en el sistema de operación.",
+              steps: [{ title: "Causa y solución", where: "Cinta de transferencia y expulsión · manual pág. 8-11", how: "Acumulación, sensor de reflexión sucio o defectuoso, presión baja o ángulos del calefactor mal ajustados", spec: "Presión según hoja de ajuste", tool: null, ifFail: "Retirar blísteres, limpiar/cambiar la tecla de reflexión, ajustar presión y corregir los ángulos según la impresión de los datos de programa" }]
+            },
+            {
+              name: "La máquina no se pone en marcha · no se puede cerrar la cubierta · la película se rompe tras el arranque", probableSystem: "Seguridad, aire comprimido y sujeción de película", status: "Base manual cap. 8.3.3",
+              symptoms: ["No arranca", "La cubierta de protección no cierra", "La presión de aire baja durante la operación", "La película se rompe al arrancar"],
+              checks: ["Cubierta de protección abierta", "El control de la película de moldeo indica final de película", "Interruptor guardamotor accionado", "Aún no se ha alcanzado la temperatura de calentamiento", "Lengüetas de cierre dobladas", "Alimentación de aire insuficiente", "La sujeción de la película no se abre"],
+              correction: "Cerrar la cubierta; introducir una nueva película; buscar la causa del guardamotor y comprobar el mensaje de PLC; esperar a la temperatura de calentamiento; comprobar y cambiar las lengüetas de cierre; instalar el depósito de aire comprimido o aumentar el caudal; comprobar y cambiar el cilindro de sujeción.",
+              steps: [{ title: "Causa y solución", where: "Máquina · manual pág. 8-10", how: "Protección abierta, fin de película, guardamotor disparado, temperatura no alcanzada, lengüetas dobladas, aire insuficiente o sujeción que no abre", spec: "Presión mínima 7 bar", tool: null, ifFail: "Comprobar el mensaje de PLC y el regulador de temperatura en el sistema de operación; ajustar según la hoja de ajuste" }]
+            },
+            {
+              name: "La máquina se para con error de final de película (moldeo o cubierta) · la película se desplaza lateralmente", probableSystem: "Árbol tensor mecánico", status: "Base manual cap. 8.3.5 · 8.3.10",
+              symptoms: ["Paro por final de película", "La película se corre hacia un lado"],
+              checks: ["Final de película", "Árbol tensor no tensado", "El rollo no está bien centrado en el árbol tensor"],
+              correction: "Colocar un nuevo rollo; apretar el tornillo tensor; posicionar el rollo según las indicaciones de la hoja de ajuste.",
+              steps: [{ title: "Causa y solución", where: "Alojamiento del rollo · manual pág. 8-12 / 8-16", how: "Final de película, árbol sin tensar o rollo descentrado", spec: "Centrado según la escala del tope y el tornillo de ajuste fino", tool: null, ifFail: "Colocar rollo nuevo, apretar el tornillo tensor y centrar según la hoja de ajuste" }]
+            },
+            {
+              name: "No se detecta la junta de pegado (película de moldeo o de cubierta)", probableSystem: "Detección de juntas", status: "Base manual cap. 8.3.6 · 8.3.11",
+              symptoms: ["La junta pasa sin ser detectada y no se expulsan los blísteres afectados"],
+              checks: ["Sensor mal posicionado", "Contraste entre la película y la cinta adhesiva demasiado bajo", "Diferencia de grosor entre cubierta y junta demasiado pequeña", "Valores guardados de grosor de la cubierta erróneos", "La cubierta no está en el área de trabajo del sensor"],
+              correction: "Comprobar la posición del sensor y ajustarla según la hoja de ajuste; usar cinta adhesiva apropiada o más gruesa; automatizar de nuevo el sensor para la película de cubierta; introducir la cubierta por la ranura prevista.",
+              steps: [{ title: "Causa y solución", where: "Detección de juntas · manual pág. 8-13 / 8-16", how: "Sensor mal posicionado, contraste o diferencia de grosor insuficientes, valores de grosor mal guardados o película fuera del área del sensor", spec: null, tool: null, ifFail: "Reposicionar el sensor, cambiar la cinta adhesiva y volver a automatizar el sensor de la película de cubierta" }]
+            },
+            {
+              name: "Control de imágenes de impresión: la marca se desplaza, la cubierta no queda ubicada o no se detecta la marca", probableSystem: "Control de imágenes de impresión con estiramiento", status: "Base manual cap. 8.3.12",
+              symptoms: ["La marca de impresión se desplaza a derecha o izquierda", "La película de cubierta no queda bien ubicada", "No se detecta la marca de impresión"],
+              checks: ["Ajustes incorrectos", "Posición incorrecta de las marcas en la película de cubierta", "El sensor está fuera de la zona de la marca (transversal al avance)", "Sensor sucio o defectuoso", "Contraste entre cubierta y marca demasiado bajo"],
+              correction: "Detener la máquina y comprobar los ajustes y la distancia entre marcas; cambiar la película si la distancia es incorrecta; ajustar el sensor transversalmente al avance; limpiar o cambiar el sensor; automatizar de nuevo el sensor para la cubierta y la marca.",
+              steps: [{ title: "Causa y solución", where: "Control de impresión · manual pág. 8-16 / 8-17", how: "Ajustes o distancia entre marcas incorrectos, sensor descolocado, sucio o con poco contraste", spec: "Las marcas se imprimen a una distancia levemente inferior a la longitud de avance del formato", tool: null, ifFail: "Comprobar la distancia entre marcas y cambiar la película si es necesario; reubicar, limpiar o cambiar el sensor y automatizarlo de nuevo" }]
+            },
+            {
+              name: "La película de cubierta no se sella correctamente · sellado deficiente · pliegues en la cinta sellada", probableSystem: "Estación de sellado", status: "Base manual cap. 8.3.13",
+              symptoms: ["Blísteres no estancos", "Sellado irregular", "Pliegues en la cinta sellada"],
+              checks: ["Temperatura de sellado mal ajustada o demasiado baja", "Presión de sellado insuficiente", "Rodillo de levas defectuoso", "La película de cubierta tiene pliegues"],
+              correction: "Ajustar la temperatura de sellado según la hoja de ajuste; controlar y cambiar si es necesario los resortes de disco de la estación de sellado; sustituir el rodillo de levas contactando con Uhlmann; comprobar el centrado y las guías de la película de cubierta.",
+              steps: [
+                { title: "Temperatura y presión", where: "Estación de sellado · manual pág. 8-17", how: "Temperatura mal ajustada o presión de sellado insuficiente", spec: "Temperatura según hoja de ajuste; presión dada por los paquetes de resorte de disco", tool: null, ifFail: "Ajustar la temperatura y controlar los resortes de disco, cambiándolos si es necesario" },
+                { title: "Rodillo de levas", where: "Accionamiento de la mesa elevadora de sellado", how: "Rodillo de levas defectuoso", spec: null, tool: null, ifFail: "Sustituir el rodillo de levas; contactar con el servicio de asistencia técnica de Uhlmann" }
+              ]
+            },
+            {
+              name: "La película de cubierta está sellada incorrectamente (blísteres no estancos) o se perfora", probableSystem: "Estación de sellado y material", status: "Base manual cap. 8.3.2",
+              symptoms: ["Blísteres no estancos", "La cubierta queda perforada", "Sellado no uniforme"],
+              checks: ["Temperatura del calentamiento de sellado demasiado baja", "Presión de sellado excesiva o insuficiente", "Velocidad de la máquina demasiado elevada", "El barniz de sellado de la cubierta no es apropiado para la película de moldeo", "Estriado de la herramienta superior demasiado plano o desgastado para el grosor de la cubierta", "Impurezas en la herramienta de sellado"],
+              correction: "Ajustar temperatura, presión y velocidad según la hoja de ajuste; controlar los resortes de disco; comprobar y cambiar la película de cubierta; montar una herramienta selladora nueva; limpiar las herramientas de sellado.",
+              steps: [{ title: "Causa y solución", where: "Estación de sellado · manual pág. 8-9", how: "Temperatura, presión, velocidad, barniz de la cubierta, estriado desgastado o herramienta sucia", spec: "Según hoja de ajuste", tool: null, ifFail: "Corregir parámetros, limpiar herramientas, cambiar película o montar herramienta selladora nueva" }]
+            },
+            {
+              name: "Longitud de avance incorrecta", probableSystem: "Avance posterior al moldeo", status: "Base manual cap. 8.3.9",
+              symptoms: ["El avance no coincide con la medida de formato"],
+              checks: ["Valor de avance mal ajustado", "La película se pega en el molde o en la estación de calentamiento", "Cilindro de membrana dañado"],
+              correction: "Seleccionar el valor de avance indicado en la hoja de ajuste; controlar los revestimientos, la refrigeración de las herramientas y de la placa de refrigeración y la espiga de elevación; cambiar el cilindro de membrana.",
+              steps: [{ title: "Causa y solución", where: "Avance posterior al moldeo · manual pág. 8-15", how: "Valor mal ajustado, película pegada o cilindro de membrana dañado", spec: "Avance del formato según la hoja de ajuste (rango 40–130 mm)", tool: null, ifFail: "Controlar revestimientos, refrigeración y espiga de elevación; cambiar el cilindro de membrana" }]
+            },
+            {
+              name: "Estampado desplazado, débil o irregular · perforación incorrecta", probableSystem: "Estampado y perforación", status: "Base manual cap. 8.3.2",
+              symptoms: ["Estampado corrido transversal o longitudinalmente", "Profundidad de estampado débil", "Estampado irregular", "Perforación mal hecha"],
+              checks: ["Herramienta de estampado montada incorrectamente", "Posición de la estación de estampado mal ajustada", "Resorte de disco de la pieza de presión del soporte de tipos roto", "Tipos de estampado con distinto desgaste", "Cuchilla de perforación gastada", "Perforación demasiado débil o demasiado fuerte"],
+              correction: "Comprobar que la herramienta llegue hasta el tope y montarla correctamente; comprobar y ajustar la posición de la estación según la hoja de ajuste; cambiar el resorte de disco; colocar tipos de estampado nuevos; cambiar las cuchillas dañadas y corregir con arandelas espaciadoras.",
+              steps: [{ title: "Causa y solución", where: "Estampado y perforación · manual pág. 8-9", how: "Herramienta mal montada, posición desajustada, resorte roto, tipos desgastados o cuchilla gastada", spec: "Posición según hoja de ajuste", tool: "Arandelas espaciadoras para corregir la profundidad de perforación", ifFail: "Montar correctamente, ajustar la posición, cambiar resorte, tipos o cuchillas" }]
+            },
+            {
+              name: "No hay refrigeración · los blísteres no se cortan correctamente · el motor de la bobinadora no arranca", probableSystem: "Refrigeración, corte y bobinadora de residuos", status: "Base manual cap. 8.3.14 · 8.3.15 · 8.3.16",
+              symptoms: ["La cinta sale caliente de la refrigeración", "Corte defectuoso de los blísteres", "La bobinadora de residuos no gira"],
+              checks: ["Caudal de agua de refrigeración insuficiente", "Herramienta de corte desafilada", "Defecto del sensor del péndulo"],
+              correction: "Comprobar la conexión de agua de refrigeración; cambiar la herramienta de corte contactando con Uhlmann; comprobar y cambiar el sensor del péndulo.",
+              steps: [{ title: "Causa y solución", where: "Refrigeración, corte y bobinadora · manual pág. 8-17 / 8-18", how: "Caudal de agua insuficiente, herramienta de corte desafilada o sensor de péndulo defectuoso", spec: "Agua 0,2–0,5 m³/h a 2–4 bar", tool: null, ifFail: "Revisar la conexión de agua; contactar con el servicio técnico de Uhlmann para la herramienta de corte; cambiar el sensor" }]
+            },
+            {
+              name: "Los blísteres defectuosos no son expulsados", probableSystem: "Expulsión de blísteres defectuosos (pala mecánica)", status: "Base manual cap. 8.3.17",
+              symptoms: ["Blísteres defectuosos siguen hacia la máquina posconectada", "La máquina se para por el control de blísteres válidos"],
+              checks: ["Funcionamiento reducido de la regleta de soplado", "Presión del aire demasiado baja", "Válvula de soplado defectuosa"],
+              correction: "Controlar el sistema neumático de la expulsión; comprobar la presión de aire según la hoja de ajuste y ajustarla; comprobar y cambiar la válvula de soplado.",
+              steps: [{ title: "Causa y solución", where: "Pala mecánica de defectuosos · manual pág. 8-18", how: "Regleta de soplado con poco caudal, presión baja o válvula defectuosa", spec: "Presión según hoja de ajuste", tool: null, ifFail: "Revisar la neumática de la expulsión, ajustar presión y cambiar la válvula de soplado" }]
+            },
+            {
+              name: "La máquina se para con error de la película de cubierta (fin o fisura)", probableSystem: "Alojamiento del rollo de película de cubierta", status: "Base manual cap. 8.3.4",
+              symptoms: ["Paro con mensaje de error; el péndulo del alojamiento de cubierta se desvía de su valor final"],
+              checks: ["Final de la película de cubierta", "Fisura de la película de cubierta"],
+              correction: "Colocar un rollo nuevo y pegar la película nueva a la anterior. Si hay fisura: retirar la cubierta desde la fisura hasta el sellado, introducirla manualmente hasta la estación de sellado y pegarla si es preciso a la película de moldeo, pasar a Marcha de prueba, arrancar, parar tras algunos ciclos, retirar la solapadura sin sellar de la cinta y volver a Producción.",
+              steps: [{ title: "Recuperación tras fisura", where: "Alojamiento de cubierta y estación de sellado · manual pág. 8-12", how: "El péndulo se desvía del valor final ajustado por fin o rotura de la película", spec: null, tool: null, ifFail: "Seguir la secuencia completa: introducir película, Marcha de prueba, algunos ciclos, retirar la solapadura y volver a Producción" }]
+            }
+          ],
+          documents: [
+            { name: "Instrucciones de manejo B 1240/0591812 — Versión 01 ES (356 págs.)", status: "Disponible", file: "manuales/blister3/B1240-manual-de-manejo-ES-V01.pdf" },
+            { name: "Esquema eléctrico 0591812 (101 hojas, escaneado)", status: "Disponible", file: "manuales/blister3/B1240-esquema-electrico-0591812.pdf" },
+            { name: "Códigos de causa y centros de costo (3 págs.)", status: "Disponible", file: "manuales/_codigos-causa/LISTADO-CODIGOS-CAUSA-CENTROS-COSTO.pdf" },
+            { name: "Catálogo de repuestos B1240/0591812", status: "Pendiente" },
+            { name: "Manual del sistema de operación TouchControl", status: "Pendiente" },
+            { name: "Instrucciones easyFLEX (HAPA)", status: "Pendiente" },
+            { name: "Listas de formato y planos de circuitos de fluidos", status: "Pendiente" },
+            { name: "Hojas de ajuste por producto/formato", status: "Pendiente" }
+          ]
         }
       ];
 
