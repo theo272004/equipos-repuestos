@@ -4792,7 +4792,6 @@ const initialMachines = [
       const SP_CAMPOS = [
         { campo: "sistema", grupo: "Sistema" },
         { campo: "crit", grupo: "Criticidad" },
-        { campo: "tipo", grupo: "Tipo" },
         { campo: "actividad", grupo: "Actividad" },
         { campo: "planSt", grupo: "Estado en el plan" }
       ];
@@ -5012,11 +5011,11 @@ const initialMachines = [
             <table class="pl-table sp-table">
               <thead><tr>
                 ${spTh("sistema", "Sistema")}${spTh("cod", "Cód. interno")}${spTh("nombre", "Repuesto")}${spTh("ref", "Referencia / P/N")}
-                ${spTh("tipo", "Tipo")}${spTh("crit", "Criticidad")}${spTh("q", "Cant.", "pl-num")}${spTh("exist", "Exist.", "pl-num")}
-                ${spTh("freq", "Frecuencia")}${spTh("ultimo", "Último cambio")}<th></th>
+                ${spTh("crit", "Criticidad")}${spTh("q", "Cant.", "pl-num")}${spTh("exist", "Exist.", "pl-num")}
+                ${spTh("freq", "Frecuencia")}<th></th>
               </tr></thead>
               <tbody>${filas.length ? filas.map((f) => spFilaHtml(f, tokens)).join("")
-                : '<tr><td colspan="11" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'}</tbody>
+                : '<tr><td colspan="9" class="pl-soft" style="padding:18px;text-align:center">Nada coincide con esa b&uacute;squeda en este equipo.</td></tr>'}</tbody>
             </table>
           </div>
           <p class="pl-note sp-leyenda">
@@ -5212,17 +5211,17 @@ const initialMachines = [
           <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(f.cod)}" placeholder="&mdash;" title="C&oacute;digo interno con el que se pide en almac&eacute;n. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'cod')"></td>
           <td class="pl-desc"><button class="sp-name" type="button" onclick="spToggle('${planEsc(f.clave)}')" title="Ver el detalle de esta pieza">${planMark(f.nombre, tokens) || "&mdash;"}</button>${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspecci&oacute;n del ${planEsc(pend.fecha)}</span>` : ""}</td>
           <td class="sp-ref">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
-          <td>${f.tipo ? `<span class="type-badge">${planEsc(f.tipo)}</span>` : "&mdash;"}</td>
           <td>${f.crit ? `<span class="criticality-badge criticality-${planPlain(f.crit).replace(/ /g, "-")}">${planEsc(f.crit)}</span>` : "&mdash;"}</td>
           <td class="pl-num">${f.q || "&mdash;"}</td>
           <td class="pl-num"><input class="pl-edit pl-edit--num" value="${planEsc(f.exist)}" placeholder="&mdash;" title="${f.r.e ? "El Excel dec&iacute;a " + f.r.e + ". " : ""}Escribe la existencia real; se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'exist')"></td>
-          <td class="pl-freq">${freq}</td>
-          <td class="pl-loc">${f.ultimo ? planEsc(f.ultimo) : "&mdash;"}${f.hist.length ? `<button class="pl-hist-btn" type="button" onclick="spToggle('${planEsc(f.clave)}')">${f.hist.length} ${f.hist.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
+          <td class="pl-freq">${freq}${f.hist.length ? `<button class="pl-hist-btn" type="button" onclick="spToggle('${planEsc(f.clave)}')">${f.hist.length} ${f.hist.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
           <td class="pl-num"><button class="pl-reg" type="button" onclick="spRegistrar('${planEsc(f.eq.c)}','${planEsc(f.cod)}','${planEsc(f.nombre).replace(/'/g, "&#39;")}',${f.q || 1})" title="Registrar un cambio de esta pieza">Registrar</button></td>
         </tr>`;
         if (!abierto) return fila;
         const detalle = [
+          f.tipo ? ["Tipo de pieza", planEsc(f.tipo)] : null,
           f.actividad ? ["Actividad", planEsc(f.actividad)] : null,
+          f.ultimo ? ["&Uacute;ltimo cambio registrado", planEsc(f.ultimo)] : null,
           f.ub ? ["Ubicaci&oacute;n en almac&eacute;n", planEsc(f.ub)] : null,
           f.planFreq ? ["Frecuencia del plan", planEsc(f.planFreq)] : null,
           f.planEj ? ["&Uacute;ltima ejecuci&oacute;n (plan)", planEsc(f.planEj)] : null,
@@ -5231,7 +5230,7 @@ const initialMachines = [
           f.r.pu ? ["&Uacute;ltimo precio unitario", "$" + Number(f.r.pu).toLocaleString("es-CO")] : null,
           f.med ? ["Pr&oacute;ximo cambio estimado", planEsc(f.med.proximo) + " (" + f.med.mediciones + " intervalo" + (f.med.mediciones === 1 ? "" : "s") + " medido" + (f.med.mediciones === 1 ? "" : "s") + ")"] : null
         ].filter(Boolean);
-        return fila + `<tr class="pl-histrow sp-detalle"><td colspan="11">
+        return fila + `<tr class="pl-histrow sp-detalle"><td colspan="9">
           <div class="sp-det">
             ${(() => {
               const m = machines.find((x) => x.id === selectedId);
