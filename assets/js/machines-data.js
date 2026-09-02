@@ -3616,7 +3616,7 @@ const initialMachines = [
           manual: "Instrucciones de manejo B 1240/0591812 Versión 01 ES (356 págs.)",
           maintenance: "Plan Uhlmann por horas de servicio (10 · 40 · 50 · 100 · 200 · 500 · 1000 · 2000 h)",
           completion: 78,
-          image: "",
+          image: "assets/blister3/vista-general.jpg",
           notes: "",
           searchAliases: ["17332003","blister","blister 3","blister3","blistera","blisteadora","blisteadora 3","b1240","b 1240","uhlmann","ulhman","0591812","termoformado","pvc","aluminio","alu","sellado","moldeo","perforacion","perforación","troquelado","punzonado","easyflex","hapa","microchrom","touchcontrol","pelicula","película","pelicula de moldeo","pelicula de cubierta","planta 2","X8","causa X8","724001008","741901090","741901004","724001053","724001225","741203124","724001253","741203123","724001254","724001258","741908010","741901003","724001037","MNP050023","MNP055074","724001058","MNP050040","724001249","741301356","724001207","724001067","MNP240058"],
           description: "Blisteadora Uhlmann B 1240 (máquina n.º 0591812, año 2014, Farmacápsulas S.A.) de la Planta 2. Termoforma la película de moldeo de PVC, la llena con el producto por alimentación de cepillado, la sella con película de cubierta de aluminio duro impresa en el sistema easyFLEX, perfora, troquela y evacúa los blísteres hacia la cinta de transferencia. Ficha construida sobre las instrucciones de manejo V01 ES (356 págs.) y el esquema eléctrico escaneado (101 hojas): incluye el proceso completo, los 37 componentes de la máquina, el plan Uhlmann por horas de servicio, la lubricación autorizada y las tablas de fallos del capítulo 8.",
@@ -5632,6 +5632,20 @@ const initialMachines = [
             ids: ["gkf-cambio-formato","gkf-sistemas","gkf-seguridad"] },
           { title: "Datos por confirmar", hint: "Lo que la documentación no cubre y hay que validar en planta",
             ids: ["gkf-pendientes"] }
+        ],
+        blister3: [
+          { title: "¿Cómo funciona?", hint: "El proceso de blisteado paso a paso, el flujo entradas–salidas y los 37 componentes",
+            ids: ["b3-como-funciona","b3-flujo","b3-componentes"] },
+          { title: "Ficha técnica", hint: "Identificación por placa, conexiones y formatos, y la instalación eléctrica real",
+            ids: ["b3-ficha","b3-parametros","b3-electrico"] },
+          { title: "Operación", hint: "Tablero de mando, columna luminosa, modos de operación, arranque y parada",
+            ids: ["b3-hmi","b3-arranque"] },
+          { title: "Conservación Uhlmann", hint: "Plan por horas de servicio, lubricantes autorizados y plan de limpieza",
+            ids: ["b3-plan","b3-lubricacion","b3-limpieza"] },
+          { title: "Seguridad", hint: "Dispositivos de protección, consignación y advertencias del PVDC",
+            ids: ["b3-seguridad"] },
+          { title: "Datos por confirmar", hint: "Lo que la documentación no cubre y hay que cargar o medir en planta",
+            ids: ["b3-pendientes"] }
         ],
         integra320: [
           { title: "¿Cómo funciona?", hint: "El proceso de blisteado paso a paso y el flujo entradas–salidas",
