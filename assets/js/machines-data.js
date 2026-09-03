@@ -3943,7 +3943,8 @@ const initialMachines = [
 </tbody></table>
 <p>El transformador trifásico <strong>200 V → 400 V</strong> del manual es lo que concilia ambas cifras: la planta alimenta a 220 V/60 Hz y la máquina interna trabaja a 400 V.</p>
 <div class="alert-box">Notas del propio plano: la conexión a la red la hace <strong>solo un electricista cualificado</strong> según EN/IEC; observar el <strong>campo giratorio a la derecha</strong>; por el equipo electrónico hay <strong>corrientes de fuga</strong>, lo que impide usar un interruptor diferencial en la mayoría de los casos — según EN 50178 debe conectarse un <strong>segundo conductor PE</strong> como unión equipotencial; si se usa diferencial, <strong>solo tipo B</strong>. Según EN 50178/60204 es necesario conectar un segundo conductor protector como conexión equipotencial. El consumo indicado corresponde a <strong>todas las máquinas de la línea de empaque</strong> si se alimenta por una sola línea.</div>
-<p class="callout">PDF: <code>manuales/blister3/B1240-esquema-electrico-0591812.pdf</code> — escaneado, sin capa de texto: hay que leerlo por hoja. <span class="src-tag src-reco">PENDIENTE</span> OCR y despiece por hojas.</p>
+<p class="callout">PDF: <code>manuales/blister3/B1240-esquema-electrico-0591812.pdf</code>. Está escaneado y sin capa de texto, pero su propio índice ya está volcado: mira la pestaña <strong>«Plano eléctrico»</strong> para buscar entre las 87 hojas y abrir cada una en su página. Los <strong>códigos de error del PLUTO</strong> (hoja +994/2) están en <strong>«Fallas y alarmas»</strong>.</p>
+<p class="callout"><span class="src-tag src-reco">OJO</span> El índice del plano anuncia además las hojas <strong>+1000 «Lista de asignación»</strong>, que <strong>no vienen en el escaneo</strong>: el PDF termina en +998/4. Vale la pena pedirlas a Uhlmann o volver a escanearlas.</p>
               `
             },
             {
@@ -3977,7 +3978,8 @@ const initialMachines = [
 <li><strong>Manual de TouchControl</strong> y <strong>manual easyFLEX de HAPA</strong> — se suministran por separado y no están cargados. <span class="src-tag src-reco">PENDIENTE</span></li>
 <li><strong>Lista de formatos, planos de circuitos de fluidos</strong> — el manual los lista como parte de la documentación técnica; solo tenemos el eléctrico. <span class="src-tag src-reco">PENDIENTE</span></li>
 <li><strong>Potencia real</strong> — el manual no da cifra de producción: depende del tamaño del blíster, el diseño de la cavidad y el producto. Medir la real en planta. <span class="src-tag src-reco">MEDIR</span></li>
-<li><strong>OCR del esquema eléctrico</strong> — las 101 hojas están escaneadas sin capa de texto. <span class="src-tag src-reco">PENDIENTE</span></li>
+<li><strong>Hojas +1000 «Lista de asignación»</strong> — el índice del propio plano las lista, pero no están en el escaneo (termina en +998/4). <span class="src-tag src-reco">PEDIR</span></li>
+<li><strong>OCR del esquema eléctrico</strong> — el índice de las 87 hojas ya está cargado y los códigos PLUTO también; falta volcar componentes y bornes hoja por hoja, como está hecho en la MS235. <span class="src-tag src-reco">PENDIENTE</span></li>
 <li><strong>Capítulo 7 (instalación y reajuste, 74 págs.)</strong> — cambio de formato paso a paso: montaje de moldes térmico→térmico/mV, herramientas de sellado, perforación y corte, ajuste de agitador y cepillos. Está en el PDF pero aún no volcado a esta ficha. <span class="src-tag src-reco">PENDIENTE</span></li>
 </ul>
               `
@@ -4003,44 +4005,149 @@ const initialMachines = [
             { name: "Limpieza de la tolva de llenado", system: "Tolva de llenado", frequency: "Cambio de producto", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-83" },
             { name: "Limpieza de los cepillos de la alimentación", system: "Alimentación por cepillado", frequency: "Cambio de producto", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-87" },
             { name: "Comprobación y limpieza de las herramientas de sellado (procedimiento distinto para acero y para aluminio)", system: "Estación de sellado", frequency: "Cambio de producto", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-85 / 9-86 / 9-88" },
-            { name: "Comprobación de los moldes", system: "Estación de moldeo con preestiramiento", frequency: "Cambio de formato", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-62" },
-            { name: "Comprobación de mangueras y conexiones neumáticas y de agua de refrigeración (moldeo, sellado, refrigeración y avances)", system: "Neumática y agua de refrigeración", frequency: "Cambio de formato", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-63 / 9-64" },
-            { name: "Comprobación del estado de la herramienta de perforación, las guías de columna y los resortes del pisador", system: "Estación de perforación", frequency: "Cambio de formato y cada 10 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-60 / 9-61" },
-            { name: "Comprobación del aspirador de vacío del mecanismo de hundimiento", system: "Mecanismo de hundimiento/expulsión", frequency: "Cambio de formato y cada 200 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-63" },
-            { name: "Comprobación de la herramienta de corte y de sus mangueras y conexiones de aire comprimido", system: "Estación de corte", frequency: "Cambio de formato y cada 500 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-65" },
+            { name: "Comprobación de los moldes", system: "Estación de moldeo con preestiramiento", frequency: "Cambio de formato", type: "Inspección", acceptance: "Manual 9.5 pág. 9-62" },
+            { name: "Comprobación de mangueras y conexiones neumáticas y de agua de refrigeración (moldeo, sellado, refrigeración y avances)", system: "Neumática y agua de refrigeración", frequency: "Cambio de formato", type: "Inspección", acceptance: "Manual 9.5 pág. 9-63 / 9-64" },
+            { name: "Comprobación del estado de la herramienta de perforación, las guías de columna y los resortes del pisador", system: "Estación de perforación", frequency: "Cambio de formato y cada 10 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-60 / 9-61" },
+            { name: "Comprobación del aspirador de vacío del mecanismo de hundimiento", system: "Mecanismo de hundimiento/expulsión", frequency: "Cambio de formato y cada 200 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-63" },
+            { name: "Comprobación de la herramienta de corte y de sus mangueras y conexiones de aire comprimido", system: "Estación de corte", frequency: "Cambio de formato y cada 500 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-65" },
             { name: "Limpieza del sensor de detección de juntas de la película de moldeo", system: "Detección de juntas de la película de moldeo", frequency: "Cambio de formato y cada 50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-89" },
             { name: "Limpieza de los moldes y del interruptor de seguridad con su accionador", system: "Moldeo y avance posterior al moldeo", frequency: "Cambio de formato y cada 50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-89" },
             { name: "Lubricación de los paquetes de resorte de disco (4 puntos, lubricante tipo 10) — anotar la disposición de los juegos antes de desarmar", system: "Estación de sellado", frequency: "Según las necesidades", type: "Lubricación", acceptance: "Manual 9.4.4 pág. 9-16 · Elkalub GLS 595/N2" },
-            { name: "Sustitución de la correa dentada del accionamiento principal — contactar con el Servicio Técnico de Uhlmann; interruptor principal en 0 y con candado", system: "Accionamiento principal", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-33" },
-            { name: "Cambio de la correa de accionamiento de la estación de moldeo — contactar con el Servicio Técnico de Uhlmann", system: "Estación de moldeo con preestiramiento", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-34" },
-            { name: "Tensado y cambio de la correa dentada de la pinza de avance y del servomotor", system: "Avance posterior al moldeo", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-37 / 9-38" },
-            { name: "Tensado y sustitución de la correa dentada de la estación de sellado", system: "Estación de sellado", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-40 / 9-41" },
-            { name: "Cambio del cartucho calentador defectuoso", system: "Estación de sellado", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-42" },
-            { name: "Cambio del protector térmico y nueva lubricación de los juegos de resortes de disco", system: "Estación de sellado", frequency: "Según las necesidades (tras actuar el protector)", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-45 — obligatorio relubricar los paquetes de resorte" },
-            { name: "Cambio de una cuchilla de perforación desgastada", system: "Avance posterior al sellado / perforación", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-53" },
-            { name: "Cambio del cepillo redondo del cepillo inclinado", system: "Cepillo inclinado", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-39" },
-            { name: "Tensado y cambio de las correas de accionamiento de perforación, corte, cinta de evacuación y cinta de transferencia", system: "Salida y transferencia", frequency: "Según las necesidades", type: "Correctivo", acceptance: "Manual 9.5.2 pág. 9-54 a 9-60" },
+            { name: "Sustitución de la correa dentada del accionamiento principal — contactar con el Servicio Técnico de Uhlmann; interruptor principal en 0 y con candado", system: "Accionamiento principal", frequency: "Según las necesidades", type: "Reemplazo", acceptance: "Manual 9.5.2 pág. 9-33" },
+            { name: "Cambio de la correa de accionamiento de la estación de moldeo — contactar con el Servicio Técnico de Uhlmann", system: "Estación de moldeo con preestiramiento", frequency: "Según las necesidades", type: "Reemplazo", acceptance: "Manual 9.5.2 pág. 9-34" },
+            { name: "Tensado y cambio de la correa dentada de la pinza de avance y del servomotor", system: "Avance posterior al moldeo", frequency: "Según las necesidades", type: "Ajuste", acceptance: "Manual 9.5.2 pág. 9-37 / 9-38" },
+            { name: "Tensado y sustitución de la correa dentada de la estación de sellado", system: "Estación de sellado", frequency: "Según las necesidades", type: "Ajuste", acceptance: "Manual 9.5.2 pág. 9-40 / 9-41" },
+            { name: "Cambio del cartucho calentador defectuoso", system: "Estación de sellado", frequency: "Según las necesidades", type: "Reemplazo", acceptance: "Manual 9.5.2 pág. 9-42" },
+            { name: "Cambio del protector térmico y nueva lubricación de los juegos de resortes de disco", system: "Estación de sellado", frequency: "Según las necesidades (tras actuar el protector)", type: "Reemplazo", acceptance: "Manual 9.5.2 pág. 9-45 — obligatorio relubricar los paquetes de resorte" },
+            { name: "Cambio de una cuchilla de perforación desgastada", system: "Avance posterior al sellado / perforación", frequency: "Según las necesidades", type: "Reemplazo", acceptance: "Manual 9.5.2 pág. 9-53" },
+            { name: "Cambio del cepillo redondo del cepillo inclinado", system: "Cepillo inclinado", frequency: "Según las necesidades", type: "Reemplazo", acceptance: "Manual 9.5.2 pág. 9-39" },
+            { name: "Tensado y cambio de las correas de accionamiento de perforación, corte, cinta de evacuación y cinta de transferencia", system: "Salida y transferencia", frequency: "Según las necesidades", type: "Ajuste", acceptance: "Manual 9.5.2 pág. 9-54 a 9-60" },
             { name: "Limpieza de la herramienta de perforación y de la herramienta de corte", system: "Perforación y corte", frequency: "10 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-88 / 9-89" },
-            { name: "Comprobación del revestimiento de las placas de calentamiento", system: "Estación de calentamiento", frequency: "40 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-61 — cambiar de inmediato ante cualquier daño superficial visible" },
+            { name: "Comprobación del revestimiento de las placas de calentamiento", system: "Estación de calentamiento", frequency: "40 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-61 — cambiar de inmediato ante cualquier daño superficial visible" },
             { name: "Lubricación de las jaulas de bolas (4 puntos, tipo 2) con la herramienta desmontada", system: "Estación de perforación y estación de corte", frequency: "50 h", type: "Lubricación", acceptance: "Manual 9.4.4 pág. 9-17 / 9-18 · Klübersynth UH 1 14-151" },
-            { name: "Purga del agua condensada de la unidad de mantenimiento del filtro", system: "Sistema neumático", frequency: "50 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-62" },
-            { name: "Comprobación de la cinta transportadora de la cinta de transferencia", system: "Cinta de transferencia", frequency: "50 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-62" },
+            { name: "Purga del agua condensada de la unidad de mantenimiento del filtro", system: "Sistema neumático", frequency: "50 h", type: "Limpieza", acceptance: "Manual 9.5 pág. 9-62" },
+            { name: "Comprobación de la cinta transportadora de la cinta de transferencia", system: "Cinta de transferencia", frequency: "50 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-62" },
             { name: "Limpieza del reflector del control de avance y de los sensores de juntas de cubierta, control de impresión y pala de válidos", system: "Controles de proceso", frequency: "50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-90" },
             { name: "Limpieza de las esteras de filtro de entrada y de salida del armario de distribución", system: "Armario de distribución", frequency: "50 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-91 / 9-92" },
             { name: "Limpieza de las placas de calentamiento", system: "Estación de calentamiento", frequency: "100 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-93" },
             { name: "Lubricación de las guías de estación (1 punto, tipo 3) de sellado, perforación y corte", system: "Sellado, perforación y corte", frequency: "500 h", type: "Lubricación", acceptance: "Manual 9.4.3 pág. 9-18 a 9-19 · Klüberoil 4 UH 1-1500" },
-            { name: "Comprobación del cilindro de membrana del avance posterior al moldeo y de los cilindros neumáticos del avance tras sellado y del hundimiento", system: "Avances y hundimiento", frequency: "500 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-64 / 9-65" },
+            { name: "Comprobación del cilindro de membrana del avance posterior al moldeo y de los cilindros neumáticos del avance tras sellado y del hundimiento", system: "Avances y hundimiento", frequency: "500 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-64 / 9-65" },
             { name: "Limpieza del canal vibrador, el anillo dosificador, el colector de desechos y el agitador", system: "Alimentación por cepillado", frequency: "500 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-93 / 9-94" },
             { name: "Engrase mayor tipo 2: ruedas dentadas del árbol tensor, rodillos de levas, rodamientos de rodillos cilíndricos, muelles de compresión, guía lineal del carro guía y ruedas dentadas de la bobinadora", system: "Moldeo, sellado, avances, perforación, corte y bobinadora", frequency: "1000 h", type: "Lubricación", acceptance: "Manual 9.4.3 pág. 9-20 a 9-27 · Klübersynth UH 1 14-151" },
-            { name: "Comprobación de todas las correas dentadas y de accionamiento (principal, moldeo, avances, sellado, perforación, corte, evacuación y transferencia)", system: "Transmisiones", frequency: "1000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-66 a 9-74" },
+            { name: "Comprobación de todas las correas dentadas y de accionamiento (principal, moldeo, avances, sellado, perforación, corte, evacuación y transferencia)", system: "Transmisiones", frequency: "1000 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-66 a 9-74" },
             { name: "Limpieza de la regleta de soplado de la estación de refrigeración", system: "Estación de refrigeración", frequency: "1000 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-94" },
-            { name: "Sustitución de los cartuchos de filtro de la unidad de mantenimiento", system: "Sistema neumático", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-75" },
-            { name: "Sustitución de las placas de calentamiento", system: "Estación de calentamiento", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-75" },
-            { name: "Comprobación de los resortes de disco de la estación de moldeo y de la estación de sellado", system: "Moldeo y sellado", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-76 / 9-79" },
-            { name: "Sustitución de las palas del agitador defectuosas, del cepillo de distribución y del cepillo de enrase", system: "Alimentación por cepillado", frequency: "2000 h", type: "Preventivo", acceptance: "Manual 9.5 pág. 9-77 / 9-78" },
+            { name: "Sustitución de los cartuchos de filtro de la unidad de mantenimiento", system: "Sistema neumático", frequency: "2000 h", type: "Reemplazo", acceptance: "Manual 9.5 pág. 9-75" },
+            { name: "Sustitución de las placas de calentamiento", system: "Estación de calentamiento", frequency: "2000 h", type: "Reemplazo", acceptance: "Manual 9.5 pág. 9-75" },
+            { name: "Comprobación de los resortes de disco de la estación de moldeo y de la estación de sellado", system: "Moldeo y sellado", frequency: "2000 h", type: "Inspección", acceptance: "Manual 9.5 pág. 9-76 / 9-79" },
+            { name: "Sustitución de las palas del agitador defectuosas, del cepillo de distribución y del cepillo de enrase", system: "Alimentación por cepillado", frequency: "2000 h", type: "Reemplazo", acceptance: "Manual 9.5 pág. 9-77 / 9-78" },
             { name: "Limpieza del tablero de mando del sistema de operación", system: "Sistema de operación", frequency: "2000 h", type: "Limpieza", acceptance: "Manual 9.6 pág. 9-95" }
           ],
           failureModes: [
+            {
+              name: "UE01 — Circuito de retorno Parada de emergencia (feedback loop emergency stop)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["El PLC de seguridad no ve cerrado el circuito de retorno de la cadena de parada de emergencia."],
+              checks: ["Un pulsador de parada de emergencia sigue accionado o enclavado; contacto de retorno de un contactor de seguridad pegado o sin cerrar; cableado del lazo abierto."],
+              correction: "Desbloquear todos los pulsadores tirando hacia fuera, confirmar con la tecla C y verificar el lazo en las hojas +020/1 a +020/3 (págs. 34-36) y +019/1 (pág. 33).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Un pulsador de parada de emergencia sigue accionado o enclavado; contacto de retorno de un contactor de seguridad pegado o sin cerrar; cableado del lazo abierto.", spec: null, tool: null, ifFail: "Desbloquear todos los pulsadores tirando hacia fuera, confirmar con la tecla C y verificar el lazo en las hojas +020/1 a +020/3 (págs. 34-36) y +019/1 (pág. 33)." }]
+            },
+            {
+              name: "UE02 — Circuito de retorno Dispositivos de protección (feedback loop guards)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["El lazo de retorno de los resguardos no cierra."],
+              checks: ["Una guarda quedó abierta o mal cerrada; interruptor de seguridad electromagnético desalineado o averiado; contacto de retorno sin conmutar."],
+              correction: "Cerrar y verificar todas las guardas; comprobar el interruptor de seguridad y su accionador (limpieza según plan de 50 h) y revisar las hojas +021/1 y +021/2 (págs. 37-38).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Una guarda quedó abierta o mal cerrada; interruptor de seguridad electromagnético desalineado o averiado; contacto de retorno sin conmutar.", spec: null, tool: null, ifFail: "Cerrar y verificar todas las guardas; comprobar el interruptor de seguridad y su accionador (limpieza según plan de 50 h) y revisar las hojas +021/1 y +021/2 (págs. 37-38)." }]
+            },
+            {
+              name: "UE03 — Circuito de retorno Dispositivos de protección Alimentación / Vía de llenado", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["El lazo de retorno de los resguardos de la zona de alimentación y vía de llenado no cierra."],
+              checks: ["Alimentación por cepillado mal cerrada (su posición la vigila un sensor de seguridad electrónico); tapa de seguridad levantada; guarda de la vía de llenado abierta."],
+              correction: "Cerrar la caja de cepillado hasta su posición, comprobar la tapa de seguridad y revisar las hojas +021 (págs. 37-38) y +322/1 (pág. 72).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Alimentación por cepillado mal cerrada (su posición la vigila un sensor de seguridad electrónico); tapa de seguridad levantada; guarda de la vía de llenado abierta.", spec: null, tool: null, ifFail: "Cerrar la caja de cepillado hasta su posición, comprobar la tapa de seguridad y revisar las hojas +021 (págs. 37-38) y +322/1 (pág. 72)." }]
+            },
+            {
+              name: "UE04 — No ocupado (not assigned)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Código sin asignar en esta máquina."],
+              checks: ["No aplica."],
+              correction: "Si aparece, es un fallo del propio PLUTO o de su programa: consultar el manual Pluto y avisar al servicio técnico.",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "No aplica.", spec: null, tool: null, ifFail: "Si aparece, es un fallo del propio PLUTO o de su programa: consultar el manual Pluto y avisar al servicio técnico." }]
+            },
+            {
+              name: "UE05 — Circuito de retorno Parada de emergencia Botón (feedback loop emergency stop button)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["El lazo de retorno del pulsador de parada de emergencia no cierra."],
+              checks: ["Pulsador enclavado; contacto NC del pulsador dañado; cableado suelto."],
+              correction: "Desbloquear el pulsador tirando hacia fuera y comprobar sus contactos en la hoja +020/3 (pág. 36).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Pulsador enclavado; contacto NC del pulsador dañado; cableado suelto.", spec: null, tool: null, ifFail: "Desbloquear el pulsador tirando hacia fuera y comprobar sus contactos en la hoja +020/3 (pág. 36)." }]
+            },
+            {
+              name: "UE06 — Supervisión de los dos canales, Dispositivos de protección BM (dual-channel redundancy test guards)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Los dos canales redundantes de un resguardo de la máquina base no conmutaron a la vez."],
+              checks: ["Un canal del interruptor de seguridad falla o llega con retraso; contacto sucio o desalineado; cable de un canal interrumpido."],
+              correction: "Comprobar el interruptor de seguridad y su alineación con el accionador; medir ambos canales por separado. Hojas +021/1 y +021/2 (págs. 37-38).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Un canal del interruptor de seguridad falla o llega con retraso; contacto sucio o desalineado; cable de un canal interrumpido.", spec: null, tool: null, ifFail: "Comprobar el interruptor de seguridad y su alineación con el accionador; medir ambos canales por separado. Hojas +021/1 y +021/2 (págs. 37-38)." }]
+            },
+            {
+              name: "UE07 — Supervisión de los dos canales, Dispositivos de protección BM Alimentación / Vía de llenado", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Discrepancia entre los dos canales de un resguardo de la zona de alimentación y vía de llenado."],
+              checks: ["Sensor de seguridad de la alimentación por cepillado con un canal defectuoso o desalineado."],
+              correction: "Verificar el sensor de cierre de la caja de cepillado y su cableado de dos canales. Hojas +021 (págs. 37-38).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Sensor de seguridad de la alimentación por cepillado con un canal defectuoso o desalineado.", spec: null, tool: null, ifFail: "Verificar el sensor de cierre de la caja de cepillado y su cableado de dos canales. Hojas +021 (págs. 37-38)." }]
+            },
+            {
+              name: "UE08 — No ocupado (not assigned)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Código sin asignar en esta máquina."],
+              checks: ["No aplica."],
+              correction: "Consultar el manual Pluto si aparece.",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "No aplica.", spec: null, tool: null, ifFail: "Consultar el manual Pluto si aparece." }]
+            },
+            {
+              name: "UE09 — No ocupado (not assigned)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Código sin asignar en esta máquina."],
+              checks: ["No aplica."],
+              correction: "Consultar el manual Pluto si aparece.",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "No aplica.", spec: null, tool: null, ifFail: "Consultar el manual Pluto si aparece." }]
+            },
+            {
+              name: "UE10 — No ocupado (not assigned)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Código sin asignar en esta máquina."],
+              checks: ["No aplica."],
+              correction: "Consultar el manual Pluto si aparece.",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "No aplica.", spec: null, tool: null, ifFail: "Consultar el manual Pluto si aparece." }]
+            },
+            {
+              name: "UE11 — No ocupado (not assigned)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Código sin asignar en esta máquina."],
+              checks: ["No aplica."],
+              correction: "Consultar el manual Pluto si aparece.",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "No aplica.", spec: null, tool: null, ifFail: "Consultar el manual Pluto si aparece." }]
+            },
+            {
+              name: "UE30 — Parada de emergencia de línea (line emergency stop)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["Llega una parada de emergencia desde la línea, no desde esta máquina."],
+              checks: ["Se accionó la parada de emergencia de una máquina interconectada, o falló el enlace de seguridad con ella."],
+              correction: "Buscar el pulsador accionado en la máquina posconectada o precedente y revisar la interconexión de seguridad en la hoja +019/1 (pág. 33).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Se accionó la parada de emergencia de una máquina interconectada, o falló el enlace de seguridad con ella.", spec: null, tool: null, ifFail: "Buscar el pulsador accionado en la máquina posconectada o precedente y revisar la interconexión de seguridad en la hoja +019/1 (pág. 33)." }]
+            },
+            {
+              name: "Er10 — CAN-BUS Error (CAN-BUS fault)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["El PLUTO perdió la comunicación por el bus CAN."],
+              checks: ["Cable de bus interrumpido, conector suelto, resistencia de terminación ausente o un nodo del bus caído."],
+              correction: "Revisar el cableado y los conectores del bus, y la topología en la hoja +003/3 (pág. 22). Comprobar direcciones en la hoja +991/1 (pág. 95).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Cable de bus interrumpido, conector suelto, resistencia de terminación ausente o un nodo del bus caído.", spec: null, tool: null, ifFail: "Revisar el cableado y los conectores del bus, y la topología en la hoja +003/3 (pág. 22). Comprobar direcciones en la hoja +991/1 (pág. 95)." }]
+            },
+            {
+              name: "Er20 — Ningún programa seleccionado (no program saved)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["El PLUTO no tiene programa cargado."],
+              checks: ["Módulo sustituido sin cargar el programa, o memoria borrada."],
+              correction: "Cargar el programa de seguridad correspondiente. Es trabajo de personal autorizado: avisar al servicio técnico de Uhlmann.",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Módulo sustituido sin cargar el programa, o memoria borrada.", spec: null, tool: null, ifFail: "Cargar el programa de seguridad correspondiente. Es trabajo de personal autorizado: avisar al servicio técnico de Uhlmann." }]
+            },
+            {
+              name: "Er26 — Ajuste de la velocidad de transmisión en baudios defectuoso (setting of baud rate faulty)", probableSystem: "Sistema de seguridad · PLUTO =020-K1", status: "Plano eléctrico hoja +994/2",
+              symptoms: ["La velocidad del bus está mal ajustada."],
+              checks: ["Módulo nuevo o reemplazado con baudrate distinto al del resto del bus."],
+              correction: "Ajustar la velocidad de transmisión al valor del bus. Ver hojas +003/3 (pág. 22) y +991/1 (pág. 95).",
+              steps: [{ title: "Causa y solución", where: "PLC de seguridad ABB PLUTO (=020-K1) · plano hoja +994/2, pág. 97 del PDF", how: "Módulo nuevo o reemplazado con baudrate distinto al del resto del bus.", spec: null, tool: null, ifFail: "Ajustar la velocidad de transmisión al valor del bus. Ver hojas +003/3 (pág. 22) y +991/1 (pág. 95)." }]
+            },
             {
               name: "Moldeado incompleto de la película de moldeo · brillo plateado (blanqueo por sobreestirado)", probableSystem: "Estación de calentamiento", status: "Base manual cap. 8.3.2",
               symptoms: ["Cavidades sin formar del todo", "Zonas blanquecinas y brillantes por sobreestirado"],
@@ -4186,6 +4293,108 @@ const initialMachines = [
               steps: [{ title: "Recuperación tras fisura", where: "Alojamiento de cubierta y estación de sellado · manual pág. 8-12", how: "El péndulo se desvía del valor final ajustado por fin o rotura de la película", spec: null, tool: null, ifFail: "Seguir la secuencia completa: introducir película, Marcha de prueba, algunos ciclos, retirar la solapadura y volver a Producción" }]
             }
           ],
+          schematicIndex: {
+            ref: "0591812",
+            archivo: "manuales/blister3/B1240-esquema-electrico-0591812.pdf",
+            paginas: 101,
+            nota: "Índice levantado del propio «contents list / Índice» del plano (págs. 5 a 14). Las páginas de PDF están verificadas contra el cajetín de cada hoja: las 4 primeras son la portada y las explicaciones, las págs. 5-14 son el índice, y de la 15 a la 101 van las 87 hojas de dibujo en este orden. Ojo: el índice anuncia también las hojas +1000 «Lista de asignación», que NO están en el escaneo.",
+            hojas: [
+              { loc: "+001", h: "1/3", en: "electric power supply AC", es: "Suministro de tensión AC", pag: 15 },
+              { loc: "+001", h: "2/3", en: "fan", es: "Ventilador", pag: 16 },
+              { loc: "+001", h: "3/3", en: "sockets 230V AC", es: "Caja de enchufe 230V AC", pag: 17 },
+              { loc: "+002", h: "1/2", en: "electric power supply 24V DC", es: "Suministro de tensión 24V DC", pag: 18 },
+              { loc: "+002", h: "2/2", en: "electric power supply 24V DC", es: "Suministro de tensión 24V DC", pag: 19 },
+              { loc: "+003", h: "1/3", en: "control system concept", es: "Concepto de control", pag: 20 },
+              { loc: "+003", h: "2/3", en: "multi-axis controller C-400", es: "Regulador multieje C-400", pag: 21 },
+              { loc: "+003", h: "3/3", en: "CAN bus", es: "Bus CAN", pag: 22 },
+              { loc: "+004", h: "1/4", en: "field bus coupler, overview", es: "Acoplador de bus de campo, Vista sinóptica", pag: 23 },
+              { loc: "+004", h: "2/4", en: "field bus coupler, supply", es: "Acoplador de bus de campo, Abastecimiento", pag: 24 },
+              { loc: "+004", h: "3/4", en: "field bus coupler, setting", es: "Acoplador de bus de campo, Ajuste", pag: 25 },
+              { loc: "+004", h: "4/4", en: "field bus coupler, setting", es: "Acoplador de bus de campo, Ajuste", pag: 26 },
+              { loc: "+006", h: "1/3", en: "UPS, electric power supply", es: "USV, Suministro de tensión", pag: 27 },
+              { loc: "+006", h: "2/3", en: "touch screen & IPC, electric power supply", es: "Pantalla táctil & IPC, Suministro de tensión", pag: 28 },
+              { loc: "+006", h: "3/3", en: "interface connection diagram Touch Control", es: "Interfaz plano de conexión Touch Control", pag: 29 },
+              { loc: "+008", h: "1/1", en: "switch, electric power supply", es: "Conmutador, Suministro de tensión", pag: 30 },
+              { loc: "+011", h: "1/1", en: "MC4, electric power supply", es: "MC4, Suministro de tensión", pag: 31 },
+              { loc: "+012", h: "1/1", en: "C400 / MC4 inverter enable", es: "C400 / MC4 Inversor Habilitar", pag: 32 },
+              { loc: "+019", h: "1/1", en: "link-up safety system", es: "Interconexión Sistema de seguridad", pag: 33 },
+              { loc: "+020", h: "1/3", en: "emergency stop device", es: "Dispositivo de parada de emergencia", pag: 34 },
+              { loc: "+020", h: "2/3", en: "emergency stop device", es: "Dispositivo de parada de emergencia", pag: 35 },
+              { loc: "+020", h: "3/3", en: "emergency stop button", es: "Pulsador Parada de emergencia", pag: 36 },
+              { loc: "+021", h: "1/2", en: "guard", es: "Dispositivo de protección", pag: 37 },
+              { loc: "+021", h: "2/2", en: "guards", es: "Dispositivos de protección", pag: 38 },
+              { loc: "+022", h: "1/1", en: "operation basic machine", es: "Manejo Máquina base", pag: 39 },
+              { loc: "+023", h: "1/1", en: "main drive, servo drive", es: "Motor principal, Servo accionamiento", pag: 40 },
+              { loc: "+024", h: "1/1", en: "utility monitor", es: "Controlador de medio", pag: 41 },
+              { loc: "+025", h: "1/2", en: "general signalling device", es: "Dispositivo notificación general", pag: 42 },
+              { loc: "+025", h: "2/2", en: "general signalling device", es: "Dispositivo notificación general", pag: 43 },
+              { loc: "+030", h: "1/1", en: "electronic cam encoder", es: "Unidad de mando por levas electrónica", pag: 44 },
+              { loc: "+053", h: "1/2", en: "forming film unwind", es: "Desbobinadora de la película de moldeo", pag: 45 },
+              { loc: "+053", h: "2/2", en: "forming film splice", es: "Junta película de moldeo", pag: 46 },
+              { loc: "+062", h: "1/2", en: "forming film heating", es: "Calentamiento de la película de moldeado", pag: 47 },
+              { loc: "+062", h: "2/2", en: "forming film heating, Pt100", es: "Calentamiento de la película de moldeado, Pt100", pag: 48 },
+              { loc: "+065", h: "1/1", en: "opening heating station", es: "Estación de calentamiento abriéndose", pag: 49 },
+              { loc: "+070", h: "1/2", en: "forming station", es: "Estación de moldeo", pag: 50 },
+              { loc: "+070", h: "2/2", en: "forming station", es: "Estación de moldeo", pag: 51 },
+              { loc: "+071", h: "1/1", en: "ALU - forming station", es: "ALU - Estación de moldeo", pag: 52 },
+              { loc: "+080", h: "1/2", en: "index after forming, servo drive", es: "Avance después del moldeo, Servo accionamiento", pag: 53 },
+              { loc: "+080", h: "2/2", en: "index after forming, I/O", es: "Avance después del moldeo, I/O", pag: 54 },
+              { loc: "+082", h: "1/2", en: "index after sealing, servo drive", es: "Avance posterior al sellado, Servo accionamiento", pag: 55 },
+              { loc: "+082", h: "2/2", en: "index after sealing", es: "Avance posterior al sellado", pag: 56 },
+              { loc: "+090", h: "1/1", en: "lid foil unwind", es: "Desbobinado de película de cubierta", pag: 57 },
+              { loc: "+095", h: "1/1", en: "HAPA printer Easy-Flex", es: "HAPA Mecanismo de impresión Easy-Flex", pag: 58 },
+              { loc: "+100", h: "1/1", en: "sealing heating", es: "Dispositivo de calentamiento de sellado", pag: 59 },
+              { loc: "+110", h: "1/1", en: "cooling station", es: "Estación de refrigeración", pag: 60 },
+              { loc: "+119", h: "1/1", en: "compensation pendulum", es: "Péndulo de compensación", pag: 61 },
+              { loc: "+140", h: "1/1", en: "punching station", es: "Estación de corte", pag: 62 },
+              { loc: "+150", h: "1/2", en: "faulty blister reject", es: "Expulsión de blísters defectuosos", pag: 63 },
+              { loc: "+150", h: "2/2", en: "reject control", es: "Control de expulsión", pag: 64 },
+              { loc: "+160", h: "1/2", en: "good blister rejector", es: "Pala mecánica para blíster válido", pag: 65 },
+              { loc: "+160", h: "2/2", en: "link-up", es: "Interconexión", pag: 66 },
+              { loc: "+170", h: "1/1", en: "waste rewinder", es: "Bobinadora de residuos", pag: 67 },
+              { loc: "+302", h: "1/3", en: "fill control", es: "Control de llenado", pag: 68 },
+              { loc: "+302", h: "2/3", en: "fill control VisioChrom Mirco", es: "Control de llenado VisioChrom Mirco", pag: 69 },
+              { loc: "+302", h: "3/3", en: "bottom light", es: "Luz transmitida", pag: 70 },
+              { loc: "+321", h: "1/1", en: "pinhole detection forming film", es: "Detección de fisuras Película de moldeo", pag: 71 },
+              { loc: "+322", h: "1/1", en: "safety flap", es: "Tapa de seguridad", pag: 72 },
+              { loc: "+330", h: "1/1", en: "print registration", es: "Control de imágenes de impresión", pag: 73 },
+              { loc: "+334", h: "1/1", en: "print present control", es: "Control de presencia de impresión (Druckanwesenheitskontrolle)", pag: 74 },
+              { loc: "+500", h: "1/1", en: "feeder", es: "Alimentación", pag: 75 },
+              { loc: "+520", h: "1/1", en: "vibratory chute 1", es: "Canal vibrador 1", pag: 76 },
+              { loc: "+530", h: "1/2", en: "flood feeder", es: "Alimentación por cepillado", pag: 77 },
+              { loc: "+530", h: "2/2", en: "flood feeder", es: "Alimentación por cepillado", pag: 78 },
+              { loc: "+531", h: "1/1", en: "flood feeder", es: "Alimentación por cepillado", pag: 79 },
+              { loc: "+590", h: "1/1", en: "rotary brush", es: "Cepillo inclinado", pag: 80 },
+              { loc: "+800", h: "1/1", en: "dust exhauster", es: "Aspiración de polvo", pag: 81 },
+              { loc: "+810", h: "1/1", en: "connection chiller", es: "Conexión aparato de refrigeración", pag: 82 },
+              { loc: "+900", h: "1/11", en: "location socket-outlets fill section", es: "Ubicación de toma de corriente Vía de llenado", pag: 83 },
+              { loc: "+900", h: "2/11", en: "socket pin assignment & coding heating station", es: "Asignación de toma de corriente & Codificación Estación de calentamiento", pag: 84 },
+              { loc: "+900", h: "3/11", en: "socket pin assignment & coding sealing heating", es: "Asignación de toma de corriente & Codificación Dispositivo de calentamiento de sellado", pag: 85 },
+              { loc: "+900", h: "4/11", en: "socket pin assignment & coding link-up", es: "Asignación de toma de corriente & Codificación Interconexión", pag: 86 },
+              { loc: "+900", h: "5/11", en: "socket pin assignment & coding camera", es: "Asignación de toma de corriente & Codificación Cámara", pag: 87 },
+              { loc: "+900", h: "6/11", en: "socket pin assignment & coding pinhole detection", es: "Asignación de toma de corriente & Codificación Detección de fisuras", pag: 88 },
+              { loc: "+900", h: "7/11", en: "socket pin assignment & coding safety flap", es: "Asignación de toma de corriente & Codificación Tapa de seguridad", pag: 89 },
+              { loc: "+900", h: "8/11", en: "socket pin assignment & coding vibratory chute", es: "Asignación de toma de corriente & Codificación Canal vibrador", pag: 90 },
+              { loc: "+900", h: "9/11", en: "socket pin assignment & coding feeder", es: "Asignación de toma de corriente & Codificación Alimentación", pag: 91 },
+              { loc: "+900", h: "10/11", en: "socket pin assignment & coding rotary brush", es: "Asignación de toma de corriente & Codificación Cepillo inclinado", pag: 92 },
+              { loc: "+900", h: "11/11", en: "socket pin assignment & coding", es: "Asignación de toma de corriente & Codificación", pag: 93 },
+              { loc: "+990", h: "1/1", en: "location designations of terminals", es: "Locación para bornes", pag: 94 },
+              { loc: "+991", h: "1/1", en: "address setting", es: "Ajuste de dirección", pag: 95 },
+              { loc: "+994", h: "1/2", en: "diagnosis function safety switch", es: "Función de diagnóstico Interruptor de seguridad", pag: 96 },
+              { loc: "+994", h: "2/2", en: "fault code PLUTO", es: "Error Código PLUTO", pag: 97 },
+              { loc: "+998", h: "1/4", en: "construction Panel", es: "Estructura Panel", pag: 98 },
+              { loc: "+998", h: "2/4", en: "construction control cabinet", es: "Estructura Armario de distribución", pag: 99 },
+              { loc: "+998", h: "3/4", en: "construction control cabinet (continuación)", es: "Estructura Armario de distribución (continuación)", pag: 100 },
+              { loc: "+998", h: "4/4", en: "construction control cabinet (continuación)", es: "Estructura Armario de distribución (continuación)", pag: 101 }
+            ],
+            frente: [
+              { pag: 1, txt: "Portada / Hoja de corrección" },
+              { pag: 2, txt: "Conexión eléctrica a la red — es la hoja con los valores de la instalación real (220 V, 60 Hz, 17 A, 50 A gG, 10 mm², mando 24 V DC / 230 V CA)" },
+              { pag: 3, txt: "Código de color" },
+              { pag: 4, txt: "Explicación acerca del plano de circuitos eléctricos" },
+              { pag: 5, txt: "Índice del plano (págs. 5 a 14)" }
+            ]
+          },
           documents: [
             { name: "Instrucciones de manejo B 1240/0591812 — Versión 01 ES (356 págs.)", status: "Disponible", file: "manuales/blister3/B1240-manual-de-manejo-ES-V01.pdf" },
             { name: "Esquema eléctrico 0591812 (101 hojas, escaneado)", status: "Disponible", file: "manuales/blister3/B1240-esquema-electrico-0591812.pdf" },
@@ -5260,12 +5469,53 @@ const initialMachines = [
           </div></td></tr>`;
       }
 
+      // La lubricacion de cada maquina sale de SU manual. Antes esta pestana
+      // pintaba siempre la tabla del NJP-3500 (aceites N4B/ZL2SY chinos), asi que
+      // en la Uhlmann o en la Bosch se leian lubricantes que su fabricante no
+      // autoriza. Ahora se toma la seccion de lubricacion de la propia ficha; si
+      // esa maquina no la tiene cargada, se dice, en vez de ensenar la de otra.
+      const LUB_SECCION = {
+        njp3500: "lubricacion",
+        gkf2600: "gkf-lubricacion",
+        blister3: "b3-lubricacion"
+      };
+
+      function renderLubricacion(machine) {
+        const id = LUB_SECCION[machine.id];
+        const sec = id ? (machine.guideSections ?? []).find((x) => x.id === id) : null;
+        if (!sec) {
+          return `<div class="lubrication-section">
+            <div class="rodamientos-header">
+              <h4>Plan de lubricaci&oacute;n del fabricante</h4>
+              <p class="pl-soft">Todav&iacute;a no est&aacute; cargada la tabla de lubricaci&oacute;n de este equipo.
+              B&uacute;scala en su manual y c&aacute;rgala aqu&iacute;: <strong>no uses la de otra m&aacute;quina</strong>,
+              cada fabricante autoriza sus propios lubricantes.</p>
+            </div>
+          </div>`;
+        }
+        return `<div class="lubrication-section">
+          <div class="rodamientos-header">
+            <h4>${planEsc(sec.title)}</h4>
+            <p>Del manual de este equipo. Usa solo los productos que autoriza su fabricante.</p>
+          </div>
+          <div class="lubrication-table-container">${sec.content}</div>
+          <div class="lub-rules">
+            <h5>Reglas de seguridad y buenas pr&aacute;cticas</h5>
+            <ul>
+              <li><strong>Energ&iacute;a cero:</strong> no intervenir mec&aacute;nicamente ni lubricar con el equipo encendido o conectado.</li>
+              <li><strong>Presi&oacute;n de aire:</strong> liberar el aire residual de mangueras y acumuladores antes de tocar la neum&aacute;tica.</li>
+              <li><strong>Aspiraci&oacute;n:</strong> limpiar el interior con aspiradora t&eacute;cnica, no con aire soplado, para no meter polvo de producto en los rodamientos sellados.</li>
+            </ul>
+          </div>
+        </div>`;
+      }
+
       function renderMaintenancePanel(machine) {
         return `
           <div class="maintenance-panel-container">
             <div class="panel-header-clean">
-              <h3>Plan de Mantenimiento Preventivo y Lubricación</h3>
-              <p>Cronograma de tareas según el plan de mantenimiento del manual (pág. 50–53) y la tabla de lubricación (pág. 70). Las frecuencias por nivel son <strong>propuesta de planta</strong>, salvo las marcadas como del manual (batería del PLC cada 12 meses e inspección de seguridad anual).</p>
+              <h3>Plan de mantenimiento y lubricación</h3>
+              <p>${(machine.maintenanceTasks ?? []).length} tarea${(machine.maintenanceTasks ?? []).length === 1 ? "" : "s"} del manual de <strong>${planEsc(machine.name)}</strong>, con su frecuencia, el sistema al que pertenecen y el criterio de aceptación. Filtra por frecuencia con los botones de abajo.</p>
             </div>
 
             <div class="maintenance-filter-tabs" style="margin-bottom: 16px;">
@@ -5311,71 +5561,7 @@ const initialMachines = [
               </table>
             </div>
 
-            <div class="lubrication-section">
-              <div class="rodamientos-header">
-                <h4>Plan de Lubricación del Fabricante (pág. 70 · Tabla 4.1)</h4>
-                <p>Detalle de productos recomendados y puntos de aplicación para conservar la garantía y vida útil del equipo:</p>
-              </div>
-              <div class="lubrication-table-container">
-                <table class="lubrication-table">
-                  <thead>
-                    <tr>
-                      <th>Punto de Aplicación</th>
-                      <th>Producto Recomendado</th>
-                      <th>Tipo / Código Técnico</th>
-                      <th>Frecuencia / Nota</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Cadena de transmisión</strong></td>
-                      <td>Aceite N4B GB443-84</td>
-                      <td>Lubricación directa</td>
-                      <td>Propuesta de planta · revisar regularmente</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Rodamientos de rodillos / Guías lineales</strong></td>
-                      <td>Grasa N4B GB443-84</td>
-                      <td>Rodamiento lineal</td>
-                      <td>Propuesta de planta · inspección regular</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Levas principales</strong></td>
-                      <td>Grasa ZL2SY1412-75</td>
-                      <td>Grasa para levas</td>
-                      <td>Propuesta de planta · inspección regular</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Caja de engranajes / Reductor principal</strong></td>
-                      <td>Aceite ZLDSY1412-75</td>
-                      <td>Lubricación en baño</td>
-                      <td>Revisar nivel regularmente · cambio según fabricante</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Levas de estaciones y carros móviles</strong></td>
-                      <td>STABYL 300 AL2</td>
-                      <td>Grasa premium</td>
-                      <td>Aplicar durante el mantenimiento rutinario</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Guías y empujadores direccionales</strong></td>
-                      <td>Fuchs GERALYN</td>
-                      <td>Spray / Inyección</td>
-                      <td>1–2 disparos en mantenimiento preventivo</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              
-              <div class="lub-rules">
-                <h5>Reglas de Seguridad y Buenas Prácticas</h5>
-                <ul>
-                  <li><strong>Energía Cero:</strong> No intervenir mecánicamente ni aplicar lubricación con el equipo encendido o conectado.</li>
-                  <li><strong>Presión de aire:</strong> Liberar toda la presión de aire residual acumulada en mangueras antes de intervenir los sistemas neumáticos.</li>
-                  <li><strong>Aspiración:</strong> La limpieza interior de las estaciones y torreta debe realizarse <strong>únicamente con aspiradora técnica</strong>, no con aire soplado, para evitar que el polvo de producto se introduzca en los rodamientos sellados de la máquina.</li>
-                </ul>
-              </div>
-            </div>
+            ${renderLubricacion(machine)}
           </div>
         `;
       }
@@ -6423,6 +6609,60 @@ const initialMachines = [
         if (c) c.textContent = q ? `${list.length} coincidencia${list.length === 1 ? "" : "s"}` : `${all.length} alarmas`;
         const h = document.getElementById("alHint");
         if (h) h.textContent = list.length > 60 ? "Mostrando 60 de " + list.length + " — afina la búsqueda." : "";
+      }
+
+      // ── Índice de un plano escaneado ────────────────────────────────────────
+      // La MS235 tiene el plano volcado componente a componente. El de la
+      // Blister 3 son 101 hojas escaneadas sin capa de texto, asi que no hay
+      // componentes que buscar: lo que si se puede dar es el indice del propio
+      // plano, para saber que hoja abrir y en que pagina del PDF esta.
+      function renderSchematicIndex(machine) {
+        const x = machine.schematicIndex;
+        if (!x) return "";
+        const pdf = (n) => `${x.archivo}#page=${n}`;
+        const grupos = [];
+        x.hojas.forEach((h) => {
+          const ult = grupos[grupos.length - 1];
+          if (ult && ult.loc === h.loc) ult.filas.push(h);
+          else grupos.push({ loc: h.loc, filas: [h] });
+        });
+        return `
+          <div class="panel-header-clean">
+            <h3>Plano eléctrico — índice de hojas</h3>
+            <p>Esquema <strong>${planEsc(x.ref)}</strong> · ${x.hojas.length} hojas de dibujo en ${x.paginas} páginas de PDF.
+            Busca la hoja que necesitas y ábrela directo en su página. El PDF está escaneado, así que el buscador de aquí trabaja sobre este índice, no sobre el dibujo.</p>
+          </div>
+          <div class="alert-box" style="background:#eef4ff;border-color:#cdddff">${planEsc(x.nota)}</div>
+          <div class="sch-toolbar">
+            <input id="pxIdxQ" placeholder="Buscar: moldeo, sellado, parada de emergencia, PLUTO, +070…" oninput="pxIdxFiltrar()" />
+            <a class="button button--dark" href="${x.archivo}" target="_blank" rel="noopener">Abrir el PDF completo</a>
+          </div>
+          <div class="pl-tablewrap">
+            <table class="pl-table" id="pxIdxTabla">
+              <thead><tr><th>Hoja</th><th>Descripción</th><th>Description (EN)</th><th class="pl-num">Pág. PDF</th></tr></thead>
+              <tbody>
+                ${grupos.map((g) => g.filas.map((h, n) => `
+                  <tr data-buscar="${planEsc(planPlain([h.loc, h.h, h.es, h.en].join(" ")))}">
+                    <td class="pl-code"><strong>${planEsc(h.loc)}</strong> <span class="pl-soft">${planEsc(h.h)}</span></td>
+                    <td class="pl-desc">${planEsc(h.es)}</td>
+                    <td class="pl-soft">${planEsc(h.en)}</td>
+                    <td class="pl-num"><a class="pl-reg" href="${pdf(h.pag)}" target="_blank" rel="noopener">${h.pag}</a></td>
+                  </tr>`).join("")).join("")}
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-header-clean" style="margin-top:18px"><h4>Antes del índice</h4><p>Las primeras páginas del PDF no son hojas de circuito.</p></div>
+          <table class="crit-table"><tbody>
+            ${x.frente.map((f) => `<tr><td style="white-space:nowrap"><a href="${pdf(f.pag)}" target="_blank" rel="noopener">Pág. ${f.pag}</a></td><td>${planEsc(f.txt)}</td></tr>`).join("")}
+          </tbody></table>`;
+      }
+
+      function pxIdxFiltrar() {
+        const q = planPlain(document.getElementById("pxIdxQ").value.trim());
+        const filas = document.querySelectorAll("#pxIdxTabla tbody tr");
+        filas.forEach((tr) => {
+          tr.style.display = (!q || tr.dataset.buscar.includes(q)) ? "" : "none";
+        });
       }
 
       function renderSchematicExplorer(machine) {

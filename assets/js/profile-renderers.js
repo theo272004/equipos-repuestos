@@ -39,7 +39,7 @@ function dt(machine, campo) {
           ["maintenance", "Mantenimiento"],
           ["failures", "Fallas y alarmas"],
           ...(hayDespiece ? [["partsmap", "Despiece"]] : []),
-          ...(machine.schematic ? [["schematic", "Plano eléctrico"]] : []),
+          ...((machine.schematic || machine.schematicIndex) ? [["schematic", "Plano eléctrico"]] : []),
           ["documents", "Documentos"]
         ];
 
@@ -129,8 +129,8 @@ function dt(machine, campo) {
               }).join("")}
             </div>
           </section>
-          ${machine.schematic ? `<section class="profile-panel" data-profile-panel="schematic">
-            ${renderSchematicExplorer(machine)}
+          ${(machine.schematic || machine.schematicIndex) ? `<section class="profile-panel" data-profile-panel="schematic">
+            ${machine.schematic ? renderSchematicExplorer(machine) : renderSchematicIndex(machine)}
             ${machine.id === "ms235" && sensoresMS235().length ? '<div class="panel-split"></div>' + renderSensoresPanel() : ""}
           </section>` : ""}
           ${hayDespiece ? `<section class="profile-panel" data-profile-panel="partsmap">
