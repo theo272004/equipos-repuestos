@@ -4405,6 +4405,435 @@ const initialMachines = [
             { name: "Listas de formato y planos de circuitos de fluidos", status: "Pendiente" },
             { name: "Hojas de ajuste por producto/formato", status: "Pendiente" }
           ]
+        },
+        {
+          id: "mt1100",
+          equipoCod: "17334018",
+          name: "Encelofanadora Stick Pack MT-1100",
+          model: "MT-1100 Stickpacker",
+          current: "Equipo actual",
+          area: "Sede 4 · Encelofanado sólidos · Área blanca",
+          location: "Sede 4 · Encelofanado sólidos",
+          status: "Documentado por manual",
+          criticality: "Alta",
+          manual: "Calibrado, piezas de recambio e instalación eléctrica",
+          maintenance: "Plan del fabricante: 42 operaciones por horas + 4 por calendario",
+          completion: 72,
+          notes: "Matrícula S3240005. Esquema eléctrico ES3240005. El registro no tiene todavía ningún repuesto cargado para el equipo 17334018, y del despiece llegaron las láminas pero no la tabla de códigos con descripción.",
+          searchAliases: ["stickpack", "stick pack", "stickpacker", "mt1100", "mt-1100", "encelofanadora", "sobres stick", "marchesini", "schmucker", "S3240005", "ES3240005"],
+          description:
+            "Encelofanadora de sobres tipo stick de Marchesini Group (Schmucker). Forma el tubo de película sobre los tubos formadores, lo suelda en vertical, dosifica el producto, sella en horizontal y corta el stick. La documentación que llegó cubre el calibrado y el mantenimiento preventivo, el despiece y la instalación eléctrica completa.",
+          technicalData: {
+            function: "Formar, llenar, sellar y cortar sobres tipo stick a partir de bobina de película, con soldadura vertical y horizontal y corte por cuchilla.",
+            manufacturer: "Marchesini Group S.p.A. (Schmucker S.r.l.)",
+            brand: "Marchesini",
+            serialNumber: "S3240005",
+            year: "Documentación versión 1.0",
+            voltage: "3 × 220 V + N + PE",
+            power: "14 kW instalados · 35 A a plena carga",
+            weight: "No indicado en la documentación recibida",
+            dimensions: "No indicadas en la documentación recibida"
+          },
+          summarySpecs: [
+            { label: "Matrícula", value: "S3240005" },
+            { label: "Alimentación", value: "3 × 220 V + N + PE · 60 Hz" },
+            { label: "Corriente a plena carga", value: "35 A" },
+            { label: "Potencia instalada", value: "14 kW" },
+            { label: "Tensión de mandos", value: "24 V DC" },
+            { label: "Poder de interrupción", value: "6 kA" },
+            { label: "Esquema eléctrico", value: "ES3240005 (126 hojas)" },
+            { label: "Programa PLC", value: "S3240005" }
+          ],
+          guideSections: [
+            {
+              id: "mt1100-id-general",
+              title: "Identificación general",
+              content: `
+                <p>La <strong>MT-1100 Stickpacker</strong> es el equipo <strong>17334018</strong> del registro, «Encelofanadora Stick Pack MT-1100», en <strong>Encelofanado sólidos · Área blanca</strong>. La fabrica <strong>Marchesini Group S.p.A.</strong>, y los lubricantes y los códigos de pieza los referencia <strong>Schmucker S.r.l.</strong>, que es la misma casa de la MS235 y la Integra 320.</p>
+                <p>Su matrícula es <strong>S3240005</strong> y aparece en los tres documentos: el manual de calibrado es el <code>4-S3240005-001-1.0</code>, el despiece el <code>5-S3240005-001-1.0</code> y el esquema eléctrico el <code>ES3240005</code>. Cualquier pedido de repuesto o consulta al fabricante tiene que citar esa matrícula.</p>
+                <p class="callout">Los tres PDF están en <code>manuales/mt1100/</code>. El del despiece son láminas: los códigos van como llamadas sobre el dibujo, no en tabla, así que para pedir una pieza hay que localizarla primero en su lámina.</p>`
+            },
+            {
+              id: "mt1100-electrico",
+              title: "Datos eléctricos de la instalación",
+              content: `
+                <p>De la portada del esquema <strong>ES3240005</strong>, que es el dato de la máquina instalada y no el nominal de catálogo:</p>
+                <table class="spec-table">
+                  <tr><th>Tensión nominal</th><td>3 × 220 V + N + PE</td></tr>
+                  <tr><th>Frecuencia</th><td>60 Hz</td></tr>
+                  <tr><th>Corriente a plena carga</th><td>35 A</td></tr>
+                  <tr><th>Poder de interrupción</th><td>6 kA</td></tr>
+                  <tr><th>Tensión de mandos</th><td>24 V DC</td></tr>
+                  <tr><th>Potencia instalada</th><td>14 kW</td></tr>
+                  <tr><th>Programa PLC</th><td>S3240005</td></tr>
+                </table>
+                <p>El esquema tiene <strong>126 hojas</strong> e incluye la ficha del PLC, los ingresos y salidas del cuadro, la interfaz de operador, la alimentación de la pantalla, las señales luminosas y el circuito de seguridad.</p>`
+            },
+            {
+              id: "mt1100-loto",
+              title: "Bloqueo de energías antes de intervenir (LOTO)",
+              content: `
+                <p>El manual exige este bloqueo <strong>antes de cualquier operación de mantenimiento preventivo</strong>. Son dos energías, no una: eléctrica y neumática.</p>
+                <ol>
+                  <li>Pulsar el botón de <strong>STOP</strong>. La instalación concluye el ciclo y se detiene <strong>en fase</strong>.</li>
+                  <li>Colocar el interruptor general en posición <strong>«0»</strong>.</li>
+                  <li>Bloquearlo en posición de seguridad <strong>con candado</strong>.</li>
+                  <li>Cerrar la <strong>llave del grupo de aire</strong> de la instalación neumática.</li>
+                  <li>Bloquearla también <strong>con candado</strong>.</li>
+                  <li>Comprobar con <strong>multímetro</strong> que no hay tensión línea abajo del interruptor general.</li>
+                  <li>Comprobar con <strong>manómetro</strong> que no hay presión línea abajo de la llave del grupo neumático.</li>
+                </ol>
+                <p class="callout">Las dos comprobaciones finales no son opcionales en el texto del fabricante: el candado solo demuestra que nadie va a reactivar, no que la energía ya no esté presente aguas abajo.</p>`
+            },
+            {
+              id: "mt1100-fasaturas",
+              title: "Puestas a cero de los índices (fasaturas)",
+              content: `
+                <p>El capítulo 3 del manual trae <strong>tres puestas a cero</strong>, que son las que hay que rehacer cuando un índice de regulación deja de corresponder con la posición real del dispositivo:</p>
+                <ul>
+                  <li><strong>Regulación de la altura de rodillos</strong> — grupo <code>S3A14100320</code></li>
+                  <li><strong>Grupo aplastasobres</strong> — grupo <code>S3A92100310</code></li>
+                  <li><strong>Regulación de la altura de los sensores de presencia del stick</strong> — grupo <code>S3A92400910</code></li>
+                </ul>
+                <p>Las tres siguen el mismo método: llevar a tope mecánico en el sentido de la flecha, aflojar el perno (1), girar el collar (2) hasta ver <strong>«9990»</strong> en el dispositivo de lectura (3), seguir girando hasta <strong>«0000»</strong>, y al terminar apretar el perno (1) y restablecer el valor que corresponda al formato en producción. En el aplastasobres y en los sensores de stick hay además una manilla (A) que se afloja antes y se aprieta después.</p>
+                <p class="callout">El paso de «9990» a «0000» no es un rodeo: obliga a llegar al cero siempre desde el mismo lado y así elimina el juego del mecanismo, que es lo que haría que dos técnicos dejaran índices distintos.</p>`
+            },
+            {
+              id: "mt1100-lubricantes",
+              title: "Lubricantes autorizados",
+              content: `
+                <p>La tabla es la general de Schmucker para todas sus máquinas; la letra de la columna <strong>OIL</strong> de cada ficha dice cuál toca. En la MT-1100 la única letra que aparece en el plan es la <strong>U</strong>.</p>
+                <table class="spec-table">
+                  <tr><th>ID</th><th>Producto</th><th>Código</th><th>Dónde se usa</th></tr>
+                  <tr><td>A</td><td>FUCHS LUBRITECH Cassida GL 320 (NSF-H1)</td><td>C95OL00007</td><td>Componentes en baño de aceite</td></tr>
+                  <tr><td>B</td><td>MOSYL SYL53 · MOBIL Mobiltemp SHC 100</td><td>C95GR00004</td><td>Uso general y altas temperaturas</td></tr>
+                  <tr><td>C</td><td>Link Gruppo SILICONE SPRAY</td><td>—</td><td>Limpieza de superficies de deslizamiento</td></tr>
+                  <tr><td>D</td><td>MOLYGUARD I.SCO/10 2 · MOBIL Mobilith SHC 460</td><td>C95GR00013</td><td>Solo pares cónicos y guías lineales de ruedas</td></tr>
+                  <tr><td>E</td><td>FUCHS LUBRITECH Cassida Chain Oil 1500 (NSF-H1)</td><td>C95OL00006</td><td>Cadenas</td></tr>
+                  <tr><td>F</td><td>HD LUBE S1ES5 · FUCHS Cassida Grease HTS2 (NSF-H1)</td><td>C95GR00006 · C95GR00008</td><td>Altas temperaturas</td></tr>
+                  <tr><td>G</td><td>VANGUARD Gearing EP680 · MOBIL Mobilgear SHC 460</td><td>C95OL00008</td><td>Específico para transmisión BA100</td></tr>
+                </table>
+                <p class="callout"><strong>Dato por confirmar:</strong> el plan de la MT-1100 marca <strong>OIL «U»</strong> en nueve operaciones de lubricación de guías, pero la tabla de lubricantes del propio manual solo define de la <strong>A</strong> a la <strong>G</strong>. La letra U no está en la leyenda. Hay que pedir a Marchesini a qué producto corresponde antes de engrasar guías, no sustituirlo por criterio propio.</p>
+                <p><strong>NSF-H1</strong> marca los productos aptos para contacto accidental con alimentos. El fabricante advierte que los equivalentes no probados no garantizan las mismas prestaciones.</p>`
+            },
+            {
+              id: "mt1100-plan-lectura",
+              title: "Cómo se lee el plan de mantenimiento",
+              content: `
+                <p>El plan tiene <strong>dos ejes distintos</strong> y conviene no mezclarlos:</p>
+                <ul>
+                  <li><strong>Por horas de funcionamiento</strong> (tabla 4.5): 42 operaciones repartidas en 100, 300, 600, 900, 1200, 1800, 2100, 2400 y 3600 h.</li>
+                  <li><strong>Por calendario</strong> (tabla 4.6, sustituciones preventivas): 4 operaciones a 12, 18 y 24 meses. Estas van por tiempo aunque la máquina haya trabajado poco.</li>
+                </ul>
+                <p>En el eje de horas <strong>los múltiplos se acumulan</strong>: a las 600 h se hace lo de 600 y además lo de 300; a las 1200 h, lo de 1200 más lo de 600 y lo de 300. El manual lo dice expresamente.</p>
+                <p>El fabricante recomienda anotar en cada ejecución la <strong>fecha, la firma y las horas totales de la máquina</strong>. Sin las horas totales, el plan por horas no se puede reconstruir después.</p>`
+            }
+          ],
+          systems: [
+            { name: "Bancada y guías generales", function: "Guías de los movimientos generales de la instalación; punto de engrase periódico.", components: ["Guías lineales", "Engrasadores", "Sistema de lubricación automática (si está montado)"], status: "Grupo S3M01100320 · 2 fichas" },
+            { name: "Grupo de corte (lamas y juntas esféricas)", function: "Corte del stick; juntas esféricas, muelles y perfil de las hojas.", components: ["Juntas esféricas", "Muelles", "Hojas de corte", "Casquillos"], status: "Grupo S3M11100110 · 7 fichas" },
+            { name: "Husillo de recirculación de bolas", function: "Movimiento lineal de posicionamiento; limpieza, lubricación y apriete de juntas.", components: ["Husillo de bolas", "Juntas de acoplamiento"], status: "Grupo S3M12200610 · 2 fichas" },
+            { name: "Grupo de soldadura vertical", function: "Suelda longitudinalmente el tubo de película que forman los tubos formadores.", components: ["Placas soldantes", "Vástagos", "Tubos formadores", "Membrana", "Juntas esféricas"], status: "Grupo S3M14100320 · 6 fichas" },
+            { name: "Grupo de sellado horizontal", function: "Sella el stick por arriba y por abajo y define su largo.", components: ["Placas de sellado", "Correa", "Motor y reductor", "Muelles", "Vástagos"], status: "Grupo S3M14200320 · 8 fichas" },
+            { name: "Rodillos de arrastre de película", function: "Arrastre de la bobina de película hacia el grupo de formación.", components: ["Rodillos", "Guía lubricada"], status: "Grupo S3M16100120 · 2 fichas" },
+            { name: "Cuchilla y rodillo de corte", function: "Corte entre stick y stick; incluye la sustitución de las cuchillas giratorias.", components: ["Cuchillas giratorias", "Soporte de cuchillas", "Rodillo", "Manilla ajustable"], status: "Grupo S3A14100320 · 4 fichas" },
+            { name: "Orugas de arrastre y juntas tóricas", function: "Tracción de la película por orugas; las tóricas y las orugas tienen sustitución preventiva por calendario.", components: ["Orugas", "Juntas tóricas", "Ejes", "Soportes laterales"], status: "Grupo S3A19100330 · 5 fichas" },
+            { name: "Transmisión por correa del arrastre", function: "Transmisión de la tracción; control de correa.", components: ["Correa", "Poleas"], status: "Grupo S3A19101410 · 1 ficha" },
+            { name: "Rodillos y muelles de la estación de corte", function: "Rodillos y muelles asociados al corte.", components: ["Rodillos", "Muelles"], status: "Grupo S3A26100420 · 2 fichas" },
+            { name: "Cuchilla de corte de stick", function: "Segunda cuchilla de corte, con control a 600 h y sustitución a 12 meses.", components: ["Cuchilla", "Soporte"], status: "Grupo S3A26101910 · 2 fichas" },
+            { name: "Transmisión por correa de la cinta", function: "Correa de la cinta; desgaste y tensado.", components: ["Correa", "Tensor"], status: "Grupo S3A85101310 · 2 fichas" },
+            { name: "Tubos de enfriamiento de stick (línea 1)", function: "Enfrían el stick después del sellado. El manual les da un grupo y una ficha propios por línea.", components: ["Tubos de enfriamiento"], status: "Grupo S3A92300310 · 1 ficha" },
+            { name: "Tubos de enfriamiento de stick (línea 2)", function: "Segunda línea de enfriamiento, con su propio grupo y su propia ficha.", components: ["Tubos de enfriamiento"], status: "Grupo S3A92300810 · 1 ficha" },
+            { name: "Cabezales de silicona", function: "Cabezales que se sustituyen completos cada 2400 h.", components: ["Cabezales de silicona"], status: "Grupo S3A92301220 · 1 ficha" },
+            { name: "Cilindro neumático de sensores de presencia", function: "Acciona los sensores de presencia de stick; también lleva la puesta a cero de su altura.", components: ["Cilindro neumático", "Sensores de presencia de stick", "Índice de altura"], status: "Grupo S3A92400910 · 1 ficha + 1 puesta a cero" },
+            { name: "Grupo aplastasobres", function: "Aplasta el sobre antes del corte. Solo aparece en el capítulo de puestas a cero, no en el plan de mantenimiento.", components: ["Índices de regulación", "Manilla (A)"], status: "Grupo S3A92100310 · 1 puesta a cero" },
+            { name: "Juntas de estanqueidad y PC de control", function: "Juntas de estanqueidad de la máquina y el PC de control, cuya documentación se comprueba cada 12 meses.", components: ["Juntas", "PC de control"], status: "Grupo S3A95100310 · 2 fichas" },
+            { name: "Instalación eléctrica", function: "Revisión del sistema eléctrico cada 900 h y sustitución preventiva de componentes cada 12 meses.", components: ["Cuadro eléctrico", "PLC", "Cableado", "Componentes de sustitución preventiva"], status: "Grupo S3A96100320 · 2 fichas" }
+          ],
+          spareParts: [],
+          maintenanceTasks: [
+            { name: "Limpieza del grupo de soldadura vertical", system: "Grupo de soldadura vertical", frequency: "Cada 100 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 79 del PDF de calibrado" },
+            { name: "Limpieza del grupo de sellado horizontal", system: "Grupo de sellado horizontal", frequency: "Cada 100 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 82 del PDF de calibrado" },
+            { name: "Limpieza y lubrificación guías", system: "Bancada y guías generales", frequency: "Cada 300 h", type: "Lubricación", acceptance: "Ficha del manual en la pág. 64 del PDF de calibrado. Lubricante OIL U" },
+            { name: "Control juego juntas esfericas", system: "Grupo de corte (lamas y juntas esféricas)", frequency: "Cada 300 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 66 del PDF de calibrado" },
+            { name: "Lubricación guías", system: "Grupo de corte (lamas y juntas esféricas)", frequency: "Cada 300 h", type: "Lubricación", acceptance: "Ficha del manual en la pág. 67 del PDF de calibrado. Lubricante OIL U" },
+            { name: "Limpieza y lubricación del tornillo de recirculación de bolas", system: "Husillo de recirculación de bolas", frequency: "Cada 300 h", type: "Lubricación", acceptance: "Ficha del manual en la pág. 74 del PDF de calibrado. Lubricante OIL U" },
+            { name: "Control ajuste juntas", system: "Husillo de recirculación de bolas", frequency: "Cada 300 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 75 del PDF de calibrado" },
+            { name: "Limpieza de los vástagos del grupo de soldadura vertical", system: "Grupo de soldadura vertical", frequency: "Cada 300 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 76 del PDF de calibrado" },
+            { name: "Lubricación guías", system: "Grupo de soldadura vertical", frequency: "Cada 300 h", type: "Lubricación", acceptance: "Ficha del manual en la pág. 77 del PDF de calibrado. Lubricante OIL U" },
+            { name: "Lubricación guías", system: "Grupo de sellado horizontal", frequency: "Cada 300 h", type: "Lubricación", acceptance: "Ficha del manual en la pág. 89 del PDF de calibrado. Lubricante OIL U" },
+            { name: "Limpieza vástagos", system: "Grupo de sellado horizontal", frequency: "Cada 300 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 90 del PDF de calibrado" },
+            { name: "Control del corte y sustitución de la cuchilla", system: "Cuchilla y rodillo de corte", frequency: "Cada 300 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 93 del PDF de calibrado" },
+            { name: "Limpieza rodillos", system: "Orugas de arrastre y juntas tóricas", frequency: "Cada 300 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 98 del PDF de calibrado" },
+            { name: "Verification correa", system: "Transmisión por correa del arrastre", frequency: "Cada 300 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 102 del PDF de calibrado" },
+            { name: "Comprobación desgaste juntas", system: "Juntas de estanqueidad y PC de control", frequency: "Cada 300 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 113 del PDF de calibrado" },
+            { name: "Limpieza rodillos", system: "Rodillos de arrastre de película", frequency: "Cada 600 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 91 del PDF de calibrado" },
+            { name: "Limpieza y comprobación del rodillo", system: "Cuchilla y rodillo de corte", frequency: "Cada 600 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 95 del PDF de calibrado" },
+            { name: "Comprobación del desgaste de la junta tórica", system: "Orugas de arrastre y juntas tóricas", frequency: "Cada 600 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 97 del PDF de calibrado" },
+            { name: "Control del corte y sustitución de la cuchilla", system: "Cuchilla de corte de stick", frequency: "Cada 600 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 105 del PDF de calibrado" },
+            { name: "Limpieza - comprobación del desgaste de las orugas", system: "Orugas de arrastre y juntas tóricas", frequency: "Cada 900 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 99 del PDF de calibrado" },
+            { name: "Limpieza rodillos", system: "Rodillos y muelles de la estación de corte", frequency: "Cada 900 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 103 del PDF de calibrado" },
+            { name: "Limpieza de los tubos de enfriamiento stick", system: "Tubos de enfriamiento de stick (línea 1)", frequency: "Cada 900 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 109 del PDF de calibrado" },
+            { name: "Limpieza de los tubos de enfriamiento stick", system: "Tubos de enfriamiento de stick (línea 2)", frequency: "Cada 900 h", type: "Limpieza", acceptance: "Ficha del manual en la pág. 110 del PDF de calibrado" },
+            { name: "Sistema eléctrico", system: "Instalación eléctrica", frequency: "Cada 900 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 115 del PDF de calibrado" },
+            { name: "Limpieza y lubrificación guías", system: "Bancada y guías generales", frequency: "Cada 1200 h", type: "Lubricación", acceptance: "Ficha del manual en la pág. 64 del PDF de calibrado. Lubricante OIL U" },
+            { name: "Control juego juntas esféricas", system: "Grupo de soldadura vertical", frequency: "Cada 1800 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 78 del PDF de calibrado" },
+            { name: "Tubos formadores", system: "Grupo de soldadura vertical", frequency: "Cada 1800 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 80 del PDF de calibrado" },
+            { name: "Control funcionamiento muelles", system: "Grupo de corte (lamas y juntas esféricas)", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 68 del PDF de calibrado" },
+            { name: "Control del desgaste del perfil de las hojas", system: "Grupo de corte (lamas y juntas esféricas)", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 69 del PDF de calibrado" },
+            { name: "Control del desgaste de la correa", system: "Grupo de sellado horizontal", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 83 del PDF de calibrado" },
+            { name: "Comprobación del tensado de la correa", system: "Grupo de sellado horizontal", frequency: "Cada 2100 h", type: "Ajuste", acceptance: "Ficha del manual en la pág. 84 del PDF de calibrado" },
+            { name: "Control del motor y del reductor", system: "Grupo de sellado horizontal", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 85 del PDF de calibrado" },
+            { name: "Control juego juntas esfericas", system: "Grupo de sellado horizontal", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 86 del PDF de calibrado" },
+            { name: "Control funcionamiento muelles", system: "Grupo de sellado horizontal", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 87 del PDF de calibrado" },
+            { name: "Control funcionamiento muelles", system: "Rodillos y muelles de la estación de corte", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 104 del PDF de calibrado" },
+            { name: "Control del desgaste de la correa", system: "Transmisión por correa de la cinta", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 107 del PDF de calibrado" },
+            { name: "Comprobación del tensado de la correa", system: "Transmisión por correa de la cinta", frequency: "Cada 2100 h", type: "Ajuste", acceptance: "Ficha del manual en la pág. 108 del PDF de calibrado" },
+            { name: "Comprobación cilindro neumático", system: "Cilindro neumático de sensores de presencia", frequency: "Cada 2100 h", type: "Inspección", acceptance: "Ficha del manual en la pág. 112 del PDF de calibrado" },
+            { name: "Sustitución de los cabezales de silicona", system: "Cabezales de silicona", frequency: "Cada 2400 h", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 111 del PDF de calibrado" },
+            { name: "Sustitución", system: "Cuchilla y rodillo de corte", frequency: "Cada 3600 h", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 94 del PDF de calibrado" },
+            { name: "Sustitución", system: "Cuchilla de corte de stick", frequency: "Cada 12 meses", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 106 del PDF de calibrado" },
+            { name: "Comprobación documentación pc", system: "Juntas de estanqueidad y PC de control", frequency: "Cada 12 meses", type: "Inspección", acceptance: "Ficha del manual en la pág. 114 del PDF de calibrado" },
+            { name: "Sustitución preventiva", system: "Instalación eléctrica", frequency: "Cada 12 meses", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 122 del PDF de calibrado" },
+            { name: "Sustitución preventiva de la junta tórica", system: "Orugas de arrastre y juntas tóricas", frequency: "Cada 18 meses", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 100 del PDF de calibrado" },
+            { name: "Sustitución preventiva de las orugas", system: "Orugas de arrastre y juntas tóricas", frequency: "Cada 18 meses", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 101 del PDF de calibrado" },
+            { name: "Sustitución de la membrana", system: "Grupo de soldadura vertical", frequency: "Cada 24 meses", type: "Reemplazo", acceptance: "Ficha del manual en la pág. 81 del PDF de calibrado" }
+          ],
+          failureModes: [],
+          documents: [
+            { name: "4 - Calibrado, regulaciones y mantenimiento preventivo S3240005 (124 págs. ITA/SPA)", status: "Disponible", file: "manuales/mt1100/MT1100-4-Calibrado-Regulaciones-S3240005-ITA-SPA.pdf" },
+            { name: "5 - Piezas de recambio S3240005 — láminas de despiece (85 págs.)", status: "Disponible", file: "manuales/mt1100/MT1100-5-Piezas-de-Recambio-S3240005-ITA-SPA.pdf" },
+            { name: "Instalación eléctrica ES3240005 (126 hojas)", status: "Disponible", file: "manuales/mt1100/MT1100-Instalacion-Electrica-ES3240005-ITA-SPA.pdf" },
+            { name: "4A - Cambio de formato y optimización de dispositivos", status: "Pendiente" },
+            { name: "Tabla de códigos de repuesto con descripción (el despiece solo trae las láminas)", status: "Pendiente" },
+            { name: "Lista de recambios recomendados", status: "Pendiente" },
+            { name: "Correspondencia del lubricante «OIL U» que pide el plan", status: "Pendiente" },
+            { name: "Foto de la máquina instalada y de su placa", status: "Pendiente" }
+          ]
+        },
+        {
+          id: "fx30prostep",
+          equipoCod: "16336008",
+          name: "Impresora flexográfica FX30 PRO STEP",
+          model: "FX30 PRO STEP",
+          current: "Equipo actual",
+          area: "Sede 4 · Impresión de aluminio",
+          location: "Sede 4 · Ubicación por confirmar",
+          status: "Documentado por manual",
+          criticality: "Media",
+          manual: "Manual de uso y mantenimiento + planos eléctricos",
+          maintenance: "Plan del fabricante por calendario (diario a anual)",
+          completion: 80,
+          notes: "Pedido Tecnomaco 19021 a nombre de Farmacapsulas C.I. S.A. En el registro hay dos impresoras flexográficas, 16336008 y 16336009, con 27 y 26 repuestos. El manual recibido es de una sola; falta confirmar si la segunda es el mismo modelo PRO STEP o la variante PRO.",
+          searchAliases: ["flexografica", "flexográfica", "impresora", "fx30", "fx-30", "pro step", "prostep", "tecnomaco", "cirel", "anilox", "cliche", "cliché", "rascadora", "19021"],
+          description:
+            "Impresora flexográfica de banda estrecha de Tecnomaco Italia para imprimir papel de aluminio. Seis rodillos llevan la tinta del tintero al cliché y de ahí al aluminio, una cuchilla rascadora dosifica la tinta sobre el anilox y un termoventilador seca la impresión. En la variante PRO STEP el rodillo porta-cliché lo mueve un servomotor, lo que permite cambiar de paso de impresión sin cambiar engranajes.",
+          technicalData: {
+            function: "Imprimir por flexografía sobre papel de aluminio en bobina, con secado por termoventilador y rebobinado del material impreso.",
+            capacity: "Hasta 30 m/min",
+            manufacturer: "TECNOMACO ITALIA S.R.L. — Aprilia (LT), Italia",
+            brand: "Tecnomaco",
+            serialNumber: "Matrícula 19021 (pedido Farmacapsulas C.I. S.A.)",
+            year: "Conforme a las directivas 2006/42/CE, 2014/30/UE y 2014/35/UE",
+            voltage: "Ver planos eléctricos · circuito auxiliar 24 V DC",
+            power: "Termoventilador 2 kW · potencia total en planos eléctricos",
+            weight: "170 kg",
+            dimensions: "820 × 900 × 950 (alto) mm"
+          },
+          summarySpecs: [
+            { label: "Velocidad de trabajo", value: "Hasta 30 m/min" },
+            { label: "Tinta", value: "Flexográfica de secado rápido" },
+            { label: "Bobina", value: "Ancho máx. 280 mm · Ø máx. 250 mm · 30 kg" },
+            { label: "Diámetro de núcleo", value: "75 mm" },
+            { label: "Rodillos porta-cliché", value: "47 · 47,9 · 60 mm (PRO STEP)" },
+            { label: "Termoventilador", value: "2 kW" },
+            { label: "Circuito auxiliar", value: "24 V DC" },
+            { label: "Dimensiones y peso", value: "820 × 900 × 950 mm · 170 kg" }
+          ],
+          alarms: true,
+          guideSections: [
+            {
+              id: "fx30-id-general",
+              title: "Identificación general",
+              content: `
+                <p>Impresora flexográfica <strong>FX30 PRO STEP</strong> de <strong>Tecnomaco Italia S.R.L.</strong>, pedido <strong>19021</strong> a nombre de Farmacapsulas C.I. S.A. Cumple las directivas de máquinas (2006/42/CE), compatibilidad electromagnética (2014/30/UE) y baja tensión (2014/35/UE).</p>
+                <p>En el registro figuran <strong>dos</strong> impresoras flexográficas: <strong>16336008</strong> («Impresora Flexografica», 27 repuestos) y <strong>16336009</strong> («Impresora Flexografica 2», 26 repuestos). Los repuestos de las dos ya citan la referencia <code>R-FLEX/FX30-PROSTEP-0006</code> del juego de piñones, así que las dos son de esta familia.</p>
+                <p class="callout"><strong>Dato por confirmar:</strong> el manual recibido corresponde a una sola matrícula (19021). Falta saber a cuál de los dos equipos pertenece y si el otro es también <strong>PRO STEP</strong> o la variante <strong>PRO</strong>, que no lleva servomotor sino engranajes. La diferencia cambia el procedimiento de cambio de paso y una parte del despiece.</p>`
+            },
+            {
+              id: "fx30-rodillos",
+              title: "Los seis rodillos y por dónde va la tinta",
+              content: `
+                <p>El recorrido de la tinta es <strong>R1 → R2 → R3 → aluminio</strong>. Los demás rodillos son de contraste y reenvío:</p>
+                <table class="spec-table">
+                  <tr><th>R1</th><td><strong>Rodillo tintero.</strong> De goma. Transfiere una película delgada de tinta al anilox.</td></tr>
+                  <tr><th>R2</th><td><strong>Rodillo anilox</strong> (transportador de tinta). Cerámico. Transfiere la tinta al porta-cliché. Es el rodillo sobre el que trabaja la cuchilla rascadora.</td></tr>
+                  <tr><th>R3</th><td><strong>Rodillo porta-cliché.</strong> Es donde se pega el cliché. En la variante <strong>PRO STEP</strong> lo mueve un servomotor; en la <strong>PRO</strong>, engranajes.</td></tr>
+                  <tr><th>R4</th><td>Rodillo de contraste.</td></tr>
+                  <tr><th>R5</th><td>Rodillo neutro.</td></tr>
+                  <tr><th>R6</th><td>Rodillo de contraste. Su presión sobre R4 es ajustable.</td></tr>
+                </table>
+                <p>En la PRO STEP, cambiar de paso de impresión es <strong>cambiar el rodillo R3 por otro de diámetro distinto</strong> y teclear el nuevo valor en la página «Motor Cirel» del panel. El servomotor recalcula la velocidad de giro para que no haya deslizamiento contra el aluminio.</p>
+                <table class="spec-table">
+                  <tr><th>Diámetro del rodillo</th><th>Valor a configurar en «Motor Cirel»</th></tr>
+                  <tr><td>47 mm</td><td>50 mm</td></tr>
+                  <tr><td>47,9 mm</td><td>50,9 mm</td></tr>
+                  <tr><td>60 mm</td><td>63 mm</td></tr>
+                </table>
+                <p class="callout">El valor que se teclea <strong>no es el diámetro del rodillo</strong>: lleva 3 mm de más, que es el espesor del cliché pegado encima. Teclear el diámetro desnudo hace que el paso salga corto y la impresión se desplace.</p>`
+            },
+            {
+              id: "fx30-cuchilla",
+              title: "Cuchilla rascadora y termoventilador",
+              content: `
+                <p>La <strong>cuchilla rascadora</strong> quita el exceso de tinta del anilox R2 y con eso se ajusta con precisión cuánta tinta llega al cliché. Se acerca o se aleja de R2 con los <strong>tres tornillos de bronce</strong> de ajuste.</p>
+                <p>Es un consumible: el manual da una duración de <strong>unos 30 días de trabajo</strong> con buen manejo, y el plan pide revisarla <strong>cada mes o dos meses</strong> según las horas. En el registro ya existen como repuestos la «cuchilla rascadora» y la «contracuchilla rascadora» de las dos impresoras.</p>
+                <p>El <strong>termoventilador</strong> (2 kW) seca la tinta sobre el aluminio. La versión profesional, opcional, tiene dos perillas: una para el caudal de aire y otra para el calor.</p>
+                <p class="callout"><strong>Aviso del fabricante en mayúsculas:</strong> no superar el <strong>nivel de calor 4</strong> en el termoventilador profesional. Por encima existe riesgo de que la estructura de la máquina se deforme.</p>`
+            },
+            {
+              id: "fx30-mantenimiento",
+              title: "Plan de mantenimiento del fabricante",
+              content: `
+                <p>El plan de la FX30 va por <strong>calendario</strong>, no por horas, aunque los tramos largos el manual los matiza «en función de las horas de trabajo de la máquina».</p>
+                <table class="spec-table">
+                  <tr><th>Cada día</th><td>Limpiar la máquina cuidadosamente, eliminando los residuos de producción.</td></tr>
+                  <tr><th>Cada semana</th><td>Limpiar la máquina cuidadosamente por fuera y por dentro.</td></tr>
+                  <tr><th>Cada 1–2 meses</th><td>Verificar el estado de la <strong>cuchilla rascadora</strong> y sustituirla si hace falta.</td></tr>
+                  <tr><th rowspan="4">Cada 6–12 meses</th><td>Verificar la <strong>cinta de freno</strong> del eje de desarrollo de bobina.</td></tr>
+                  <tr><td>Verificar <strong>rodamientos herméticos y sellos</strong>.</td></tr>
+                  <tr><td>Verificar el estado de los <strong>engranajes</strong>.</td></tr>
+                  <tr><td>Comprobar y ajustar la <strong>tensión de la correa</strong> y su estado — <em>solo en el modelo PRO STEP</em>.</td></tr>
+                </table>
+                <p>Para los grupos comerciales montados en la máquina (motores, termoventilador) el fabricante remite a los manuales de cada uno, que venían dentro del embalaje.</p>
+                <p>Además, en toda intervención: mantener los dispositivos de seguridad en su estado original, comprobar su presencia y fijación antes de cada arranque y de cada ciclo de producción, y sustituir de inmediato cualquier protección o dispositivo de seguridad defectuoso.</p>
+                <p class="callout">El <strong>mantenimiento extraordinario</strong> lo reserva el fabricante a un técnico de Tecnomaco: hacerlo por cuenta propia hace perder la garantía.</p>`
+            }
+          ],
+          systems: [
+            { name: "Grupo de entintado", function: "Llevar la tinta del tintero al cliché con la dosificación justa.", components: ["R1 rodillo tintero (goma)", "R2 rodillo anilox (cerámico)", "Cuchilla rascadora", "Contracuchilla", "Tres tornillos de bronce de ajuste"], status: "Manual cap. 3.2 y 3.3" },
+            { name: "Grupo de impresión", function: "Transferir la imagen del cliché al aluminio con el paso correcto.", components: ["R3 rodillo porta-cliché", "Cliché", "Servomotor Cirel (PRO STEP)", "Juego de piñones R-FLEX/FX30-PROSTEP-0006 (PRO)", "R4 y R6 rodillos de contraste", "R5 rodillo neutro"], status: "Manual cap. 3.2 y 7.6.5" },
+            { name: "Secado", function: "Secar la tinta impresa sobre el papel de aluminio.", components: ["Termoventilador 2 kW", "Perilla de caudal de aire (versión profesional)", "Perilla de regulación de calor (versión profesional)"], status: "Manual cap. 3.4" },
+            { name: "Desarrollo y rebobinado de bobina", function: "Desenrollar el material a imprimir y rebobinar el impreso con tensión controlada.", components: ["Eje de desarrollo con cinta de freno", "Servomotor envolvedor", "Bobina hasta 280 mm × Ø 250 mm × 30 kg", "Núcleo de 75 mm"], status: "Manual cap. 9.2" },
+            { name: "Mando y control", function: "Operar la máquina, configurar el envolvedor y el paso de impresión y mostrar las alarmas.", components: ["Panel de mando", "Terminal con páginas Menú, Datos Envolvedor, Mandos, Alarmas y Motor Cirel", "Botones RESET y MARCHA"], status: "Manual cap. 7.5 a 7.8" },
+            { name: "Seguridad", function: "Detener la máquina ante peligro y ante apertura de protecciones.", components: ["Pulsador de parada de emergencia", "Protecciones de seguridad con enclavamiento", "Dispositivos eléctricos y mecánicos de seguridad", "Pictogramas"], status: "Manual cap. 5.9 y 8" }
+          ],
+          spareParts: [],
+          maintenanceTasks: [
+            { name: "Limpiar la máquina cuidadosamente, eliminando los residuos de producción", system: "Máquina completa", frequency: "Diario", type: "Limpieza", acceptance: "Manual cap. 10.2. Sin residuos de tinta ni de aluminio en la zona de rodillos" },
+            { name: "Limpiar la máquina cuidadosamente por fuera y por dentro", system: "Máquina completa", frequency: "Semanal", type: "Limpieza", acceptance: "Manual cap. 7.4.1 y 10.2" },
+            { name: "Verificar el estado de la cuchilla rascadora y sustituirla si es necesario", system: "Grupo de entintado", frequency: "Cada 1-2 meses", type: "Inspección", acceptance: "Manual cap. 10.2. Con buen manejo dura unos 30 días de trabajo; el intervalo depende de las horas" },
+            { name: "Verificar el estado de la cinta de freno del eje de desarrollo de bobina", system: "Desarrollo y rebobinado de bobina", frequency: "Cada 6-12 meses", type: "Inspección", acceptance: "Manual cap. 10.2. Sustituir si es necesario" },
+            { name: "Verificar el estado de los rodamientos herméticos y de los sellos", system: "Grupo de impresión", frequency: "Cada 6-12 meses", type: "Inspección", acceptance: "Manual cap. 10.2. Sustituir si es necesario" },
+            { name: "Verificar el estado de los engranajes", system: "Grupo de impresión", frequency: "Cada 6-12 meses", type: "Inspección", acceptance: "Manual cap. 10.2. Sustituir si es necesario" },
+            { name: "Comprobar y ajustar la tensión de la correa, y verificar su estado", system: "Grupo de impresión", frequency: "Cada 6-12 meses", type: "Ajuste", acceptance: "Manual cap. 10.2. Solo en el modelo PRO STEP" },
+            { name: "Comprobar presencia, integridad y fijación de todas las protecciones y dispositivos de seguridad", system: "Seguridad", frequency: "Antes de cada ciclo de producción", type: "Inspección", acceptance: "Manual cap. 10.2. Sustituir de inmediato cualquier protección defectuosa" }
+          ],
+          failureModes: [],
+          documents: [
+            { name: "Manual de uso y mantenimiento FX30 PRO STEP (116 págs., español)", status: "Disponible", file: "manuales/fx30prostep/FX30PROSTEP-manual-uso-y-mantenimiento-es.pdf" },
+            { name: "Planos eléctricos pedido 19021 (20 hojas A3, ITA/ENG)", status: "Disponible", file: "manuales/fx30prostep/FX30PROSTEP-planos-electricos-19021.pdf" },
+            { name: "Declaración de conformidad CE (el manual la cita como anexo separado)", status: "Pendiente" },
+            { name: "Manuales de los grupos comerciales: motores y termoventilador", status: "Pendiente" },
+            { name: "Catálogo de repuestos con códigos Tecnomaco", status: "Pendiente" },
+            { name: "Documentación de la segunda impresora (16336009)", status: "Pendiente" }
+          ]
+        },
+        {
+          id: "ma50n",
+          equipoCod: "17332010",
+          name: "Estuchadora MARCHESINI MA50-N",
+          model: "MA50-N",
+          current: "Equipo actual",
+          area: "Sede 4 · Empaque · Área gris",
+          location: "Sede 4 · Empaque",
+          status: "Documentación incompleta",
+          criticality: "Media",
+          manual: "Solo el cuaderno 4A de cambio de formato",
+          maintenance: "Sin plan: el manual de mantenimiento no ha llegado",
+          completion: 25,
+          notes: "Matrícula M1230014. De los cuadernos de Marchesini llegó únicamente el 4A, y además sin las fichas de datos personalizadas de la máquina: solo trae el capítulo que explica cómo se leen. Faltan el manual de uso, el 4 de calibrado, el 5 de despiece y el esquema eléctrico.",
+          searchAliases: ["estuchadora", "ma50", "ma50-n", "ma 50", "marchesini", "encartonadora", "cambio de formato", "M1230014"],
+          description:
+            "Estuchadora (máquina astucciatrice) de Marchesini Group, matrícula M1230014. Por ahora la ficha solo puede apoyarse en el cuaderno 4A de cambio de formato y optimización de dispositivos, que llegó incompleto: explica el método de las fichas de planteamiento pero no incluye las fichas con los datos de esta máquina.",
+          technicalData: {
+            function: "Introducir el producto en estuches de cartón, cerrarlos y entregarlos a la línea de empaque.",
+            manufacturer: "Marchesini Group S.p.A.",
+            brand: "Marchesini",
+            serialNumber: "M1230014",
+            year: "Documentación versión 1.0",
+            voltage: "Por confirmar — no llegó el esquema eléctrico",
+            power: "Por confirmar",
+            weight: "Por confirmar",
+            dimensions: "Por confirmar"
+          },
+          summarySpecs: [
+            { label: "Matrícula", value: "M1230014" },
+            { label: "Documento recibido", value: "4A-M1230014-001-1.0 (26 págs.)" },
+            { label: "Cuadernos que faltan", value: "Uso, 4 calibrado, 5 despiece, eléctrico" },
+            { label: "Plan de mantenimiento", value: "No disponible todavía" }
+          ],
+          guideSections: [
+            {
+              id: "ma50n-id-general",
+              title: "Identificación general y qué documentación falta",
+              content: `
+                <p>La <strong>MA50-N</strong> es el equipo <strong>17332010</strong> del registro, «Estuchadora MARCHESINI MA50-N», en <strong>Empaque · Área gris</strong>. Su matrícula es <strong>M1230014</strong>.</p>
+                <p>Marchesini entrega su documentación en cuadernos numerados. De esta máquina llegó <strong>solo el 4A</strong>, «Cambio de formato, optimización de dispositivos» (<code>4A-M1230014-001-1.0</code>, 26 páginas). Comparando con lo que sí tenemos de la MS235 y de la Integra 320, faltan:</p>
+                <ul>
+                  <li>El manual de <strong>uso y conducción</strong>.</li>
+                  <li>El cuaderno <strong>4 — Calibrado, regulaciones y mantenimiento preventivo</strong>, que es el que trae el plan por horas y las fichas de procedimiento.</li>
+                  <li>El cuaderno <strong>5 — Piezas de recambio</strong>, con el despiece.</li>
+                  <li>El <strong>esquema eléctrico</strong> (sería un <code>EM1230014</code> o similar).</li>
+                </ul>
+                <p class="callout">Mientras no llegue el cuaderno 4, esta máquina <strong>no tiene plan de mantenimiento preventivo</strong> y en el registro tampoco tiene repuestos cargados. Es el hueco documental más grande de las tres máquinas nuevas.</p>`
+            },
+            {
+              id: "ma50n-4a-incompleto",
+              title: "El cuaderno 4A llegó sin las fichas de datos",
+              content: `
+                <p>El cuaderno 4A tiene dos partes: el <strong>método</strong> (cómo se leen las fichas de planteamiento) y las <strong>fichas</strong> con los valores concretos de esta máquina, personalizadas por Marchesini para cada formato.</p>
+                <p>En el PDF recibido está solo la primera. La sección <strong>3.3 «Fichas técnicas de planteamiento»</strong> explica la estructura y ahí se acaba: las últimas páginas son la lámina de ejemplo, una página en blanco y el cierre. <strong>No hay ni una ficha de formato real.</strong></p>
+                <p>Lo que sí queda documentado es cómo leerlas cuando lleguen:</p>
+                <table class="spec-table">
+                  <tr><th>A</th><td>Identificación del producto o material (nombre o código)</td></tr>
+                  <tr><th>B</th><td>Velocidad de la máquina referida a ese producto</td></tr>
+                  <tr><th>C</th><td>Dimensiones del producto o material</td></tr>
+                  <tr><th>D</th><td>Identificación de la operación. Todos los dispositivos llevan número de identificación</td></tr>
+                  <tr><th>E</th><td>Breve descripción</td></tr>
+                  <tr><th>F</th><td>Columnas de datos personalizados</td></tr>
+                  <tr><th>G</th><td>Un dato compartido por varios formatos se escribe una sola vez</td></tr>
+                </table>
+                <p>El <strong>color del círculo</strong> de cada operación dice dónde se interviene: <strong>verde</strong> en los grupos de la máquina, <strong>amarillo</strong> en los grupos de alimentación, <strong>azul</strong> en los accesorios y <strong>rojo</strong> en las operaciones automáticas, que solo se hacen por ordenador.</p>
+                <p>Y en la columna de datos, un <strong>dato único</strong> es el valor que se programa en el dispositivo, mientras que un <strong>dato doble</strong> lleva arriba el código de la pieza que hay que sustituir y abajo el valor a programar.</p>`
+            },
+            {
+              id: "ma50n-precauciones",
+              title: "Condiciones para intervenir",
+              content: `
+                <p>El fabricante clasifica el cambio de formato dentro de las <strong>«condiciones de intervención especiales»</strong>: solo lo pueden ejecutar <strong>técnicos especializados</strong> que conozcan los símbolos de prevención de accidentes de la instalación.</p>
+                <p>La advertencia de fondo del cuaderno es que <strong>todas las regulaciones de la máquina están relacionadas entre sí</strong>, y una sola variación equivocada o superficial puede desembocar en el mal funcionamiento de toda la instalación. Antes de modificar nada, el manual pide controlar las condiciones asociadas:</p>
+                <ul>
+                  <li>Características del producto</li>
+                  <li>Condiciones de trabajo</li>
+                  <li>Desgaste o rotura de piezas</li>
+                </ul>
+                <p>Los tres métodos previos que el técnico debe dominar antes de tocar un dispositivo son el <strong>planteamiento de las condiciones de seguridad operativa</strong>, la <strong>utilización de los accesorios en dotación</strong> y el <strong>uso de los dispositivos de regulación</strong> (muescas de referencia, galgas y reguladores numéricos o de pomo).</p>`
+            }
+          ],
+          systems: [],
+          spareParts: [],
+          maintenanceTasks: [],
+          failureModes: [],
+          documents: [
+            { name: "4A - Cambio de formato y optimización de dispositivos M1230014 (26 págs. ITA/SPA)", status: "Disponible", file: "manuales/ma50n/MA50N-4a-Cambio-Formato-Optimizacion-M1230014-ITA-SPA.pdf" },
+            { name: "Fichas técnicas de planteamiento de formato (el 4A recibido no las incluye)", status: "Pendiente" },
+            { name: "Manual de uso y conducción", status: "Pendiente" },
+            { name: "4 - Calibrado, regulaciones y mantenimiento preventivo", status: "Pendiente" },
+            { name: "5 - Piezas de recambio (despiece)", status: "Pendiente" },
+            { name: "Esquema eléctrico", status: "Pendiente" },
+            { name: "Foto de la máquina instalada y de su placa", status: "Pendiente" }
+          ]
         }
       ];
 
@@ -5841,6 +6270,34 @@ const initialMachines = [
             ids: ["int-sistemas","int-vision","int-hmi"] },
           { title: "Seguridad", hint: "Advertencias y condiciones de seguridad operativa",
             ids: ["int-seguridad"] }
+        ],
+        mt1100: [
+          { title: "Ficha técnica", hint: "Identificación por matrícula S3240005 y los datos eléctricos reales de la instalación",
+            ids: ["mt1100-id-general","mt1100-electrico"] },
+          { title: "Seguridad", hint: "Bloqueo de las dos energías, eléctrica y neumática, antes de intervenir (LOTO)",
+            ids: ["mt1100-loto"] },
+          { title: "Puesta a punto", hint: "Las tres puestas a cero de los índices de regulación: rodillos, aplastasobres y sensores de stick",
+            ids: ["mt1100-fasaturas"] },
+          { title: "Conservación Marchesini", hint: "Cómo se lee el plan por horas y por meses, y los lubricantes autorizados",
+            ids: ["mt1100-plan-lectura","mt1100-lubricantes"] }
+        ],
+        fx30prostep: [
+          { title: "Ficha técnica", hint: "Identificación por matrícula 19021 y cuál de las dos flexográficas del registro es",
+            ids: ["fx30-id-general"] },
+          { title: "¿Cómo funciona?", hint: "El recorrido de la tinta por los seis rodillos y el cambio de paso de impresión",
+            ids: ["fx30-rodillos"] },
+          { title: "Operación", hint: "Cuchilla rascadora, ajuste de tinta sobre el anilox y secado por termoventilador",
+            ids: ["fx30-cuchilla"] },
+          { title: "Conservación Tecnomaco", hint: "Plan por calendario, de diario a anual, y qué reserva el fabricante a su técnico",
+            ids: ["fx30-mantenimiento"] }
+        ],
+        ma50n: [
+          { title: "Ficha técnica", hint: "Identificación por matrícula M1230014 y qué cuadernos de Marchesini faltan",
+            ids: ["ma50n-id-general"] },
+          { title: "Cambio de formato", hint: "Cómo se leen las fichas de planteamiento, que llegaron sin los datos de la máquina",
+            ids: ["ma50n-4a-incompleto"] },
+          { title: "Seguridad", hint: "Condiciones de intervención especiales y qué comprobar antes de mover una regulación",
+            ids: ["ma50n-precauciones"] }
         ]
       };
 

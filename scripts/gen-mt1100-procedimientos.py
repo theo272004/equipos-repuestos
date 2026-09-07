@@ -28,24 +28,24 @@ IMG = os.path.join(R, "assets", "mt1100", "mec")
 # manual no trae una lista de zonas, asi que el nombre sale de las operaciones
 # que cada grupo agrupa, leidas de sus propias fichas.
 ZONAS = {
-    "S3M01100320": "Bancada y guias generales",
-    "S3M11100110": "Grupo de corte (lamas y juntas esfericas)",
-    "S3M12200610": "Husillo de recirculacion de bolas",
+    "S3M01100320": "Bancada y guías generales",
+    "S3M11100110": "Grupo de corte (lamas y juntas esféricas)",
+    "S3M12200610": "Husillo de recirculación de bolas",
     "S3M14100320": "Grupo de soldadura vertical",
     "S3M14200320": "Grupo de sellado horizontal",
-    "S3M16100120": "Rodillos de arrastre de pelicula",
+    "S3M16100120": "Rodillos de arrastre de película",
     "S3A14100320": "Cuchilla y rodillo de corte",
-    "S3A19100330": "Orugas de arrastre y juntas toricas",
-    "S3A19101410": "Transmision por correa del arrastre",
-    "S3A26100420": "Rodillos y muelles de la estacion de corte",
+    "S3A19100330": "Orugas de arrastre y juntas tóricas",
+    "S3A19101410": "Transmisión por correa del arrastre",
+    "S3A26100420": "Rodillos y muelles de la estación de corte",
     "S3A26101910": "Cuchilla de corte de stick",
-    "S3A85101310": "Transmision por correa de la cinta",
-    "S3A92300310": "Tubos de enfriamiento de stick (linea 1)",
-    "S3A92300810": "Tubos de enfriamiento de stick (linea 2)",
+    "S3A85101310": "Transmisión por correa de la cinta",
+    "S3A92300310": "Tubos de enfriamiento de stick (línea 1)",
+    "S3A92300810": "Tubos de enfriamiento de stick (línea 2)",
     "S3A92301220": "Cabezales de silicona",
-    "S3A92400910": "Cilindro neumatico de sensores de presencia",
+    "S3A92400910": "Cilindro neumático de sensores de presencia",
     "S3A95100310": "Juntas de estanqueidad y PC de control",
-    "S3A96100320": "Instalacion electrica",
+    "S3A96100320": "Instalación eléctrica",
 }
 
 # El manual numera sus paginas del 1 al 118, pero el PDF trae 6 hojas mas al

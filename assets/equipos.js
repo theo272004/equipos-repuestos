@@ -6301,8 +6301,8 @@ window.EQUIPOS_PLAN = {
     },
     {
       "c": "17334018",
-      "id": "eq-17334018",
-      "mid": "",
+      "id": "mt1100",
+      "mid": "mt1100",
       "n": "Encelofanadora Stick Pack MT-1100",
       "nOriginal": "ENCELOFANADORA STICK PACK MT-1100",
       "u": "SEDE 4",
@@ -7678,8 +7678,8 @@ window.EQUIPOS_PLAN = {
     },
     {
       "c": "17332010",
-      "id": "eq-17332010",
-      "mid": "",
+      "id": "ma50n",
+      "mid": "ma50n",
       "n": "Estuchadora MARCHESINI MA50-N",
       "nOriginal": "ESTUCHADORA MARCHESINI MA50-N",
       "u": "SEDE 4",
@@ -7755,8 +7755,8 @@ window.EQUIPOS_PLAN = {
     },
     {
       "c": "16336008",
-      "id": "eq-16336008",
-      "mid": "",
+      "id": "fx30prostep",
+      "mid": "fx30prostep",
       "n": "Impresora Flexografica",
       "nOriginal": "IMPRESORA FLEXOGRAFICA 1",
       "u": "SEDE 4",
