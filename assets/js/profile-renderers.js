@@ -484,7 +484,7 @@ function dt(machine, campo) {
       }
 
       function inspSubscribe() {
-        if (!(cloud.enabled && cloud.db)) return;
+        if (!(cloud.enabled && cloud.db)) { inspSeedIfNeeded(); return; }
         cloud.db.collection("inspecciones").onSnapshot({ includeMetadataChanges: true }, (snap) => {
           const remoto = [];
           snap.forEach((d) => remoto.push(d.data()));
@@ -493,19 +493,84 @@ function dt(machine, campo) {
           inspNube.conectado = !snap.metadata.fromCache;
           inspNube.error = "";
           saveInspLocal();
+          inspSeedIfNeeded();
           renderInspIfVisible();
           renderFichaSiVisible();
-        }, (err) => { inspNube.conectado = false; inspNube.error = err && err.code ? err.code : "error"; console.error("[Inspecciones] onSnapshot:", err); });
+        }, (err) => {
+          inspNube.conectado = false;
+          inspNube.error = err && err.code ? err.code : "error";
+          console.error("[Inspecciones] onSnapshot:", err);
+          inspSeedIfNeeded();
+          renderInspIfVisible();
+        });
       }
 
+      // Los tres reportes de inspeccion de septiembre de 2026, pasados del parte
+      // de papel a la aplicacion. Se siembran una sola vez: queda una marca en la
+      // propia coleccion, igual que con los cambios de agosto, para que no vuelvan
+      // a sembrarse en otro dispositivo ni resuciten si alguien los borra.
+      const INSP_SEED_ID = "__seed_insp_sep2026";
+      const INSP_SEMILLA = [
+        {
+          id: "seed-sep2026-njp2",
+          eq: "17333007",
+          fecha: "2026-09-02",
+          tipo: "rutina",
+          quien: "",
+          revisado: "Torreta desmontada y rodamientos verificados. Tablero electrico y cableado de contactores. Transmision. Roscas de los rectificadores.",
+          hallazgos: "Rodamientos de la torreta en buen estado. La transmision presentaba acumulacion de producto, se limpio. La rosca original de los rectificadores estaba desgastada: se fabrico una rosca M6 para reemplazarla. Se hizo limpieza y engrase general de la torreta, limpieza del tablero electrico y ajuste del cableado en contactores.",
+          piezas: [],
+          estado: "cerrada",
+          createdAt: "2026-09-02T00:00:00.000Z"
+        },
+        {
+          id: "seed-sep2026-blister2",
+          eq: "17332002",
+          fecha: "2026-09-03",
+          tipo: "rutina",
+          quien: "",
+          revisado: "Inspeccion y mantenimiento general del equipo. Correas de sellado, accionamiento principal/reductor, moldeo/soplado y corte/troqueladora. Tablero electrico.",
+          hallazgos: "Se cambiaron 3 correas por desgaste: dos 741203124 (sellado y accionamiento principal/reductor) y una 741203123 (moldeo/soplado). Queda pendiente la correa de corte/troqueladora, referencia 741203124, marcada en rojo para la proxima intervencion. Se limpio el tablero electrico. Nota: la referencia 741203124 no figura en el plan de repuestos de este equipo, solo en las blisteadoras #3 y #5.",
+          piezas: [
+            { cod: "741203124", d: "Correa dentada T2O/1460 - corte / troqueladora", q: 1, urgencia: "alta" }
+          ],
+          estado: "abierta",
+          createdAt: "2026-09-03T00:00:00.000Z"
+        },
+        {
+          id: "seed-sep2026-ms235",
+          eq: "17334017",
+          fecha: "2026-09-04",
+          tipo: "rutina",
+          quien: "",
+          revisado: "Brazo del sistema dosificador: estado y funcionamiento del mecanismo y de sus componentes.",
+          hallazgos: "Se realizo mantenimiento al brazo del sistema dosificador, con limpieza y lubricacion general del brazo y sus componentes. Se verifico el estado y el funcionamiento del mecanismo.",
+          piezas: [],
+          estado: "cerrada",
+          createdAt: "2026-09-04T00:00:00.000Z"
+        }
+      ];
+
+      function inspSeedIfNeeded() {
+        if (inspecciones.some((i) => i && i.id === INSP_SEED_ID)) return;
+        const tengo = new Set(inspecciones.map((i) => i && i.id));
+        INSP_SEMILLA.forEach((ev) => { if (!tengo.has(ev.id)) inspecciones.push(JSON.parse(JSON.stringify(ev))); });
+        inspecciones.push({ id: INSP_SEED_ID, marca: true, createdAt: new Date().toISOString() });
+        saveInsp();
+      }
+
+      // La marca de siembra vive en la misma coleccion pero no es una inspeccion:
+      // no tiene equipo. Todo lo que recorre la lista pasa por aqui para no contarla.
+      function inspReales() { return inspecciones.filter((i) => i && i.eq && i.id !== INSP_SEED_ID); }
+
       function inspDeEquipo(eqCod) {
-        return inspecciones.filter((i) => i.eq === eqCod).sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
+        return inspReales().filter((i) => i.eq === eqCod).sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
       }
 
       // Piezas que alguna inspección abierta marcó para cambiar, por código.
       function inspPendientesDe(eqCod) {
         const m = new Map();
-        inspecciones.filter((i) => i.eq === eqCod && i.estado !== "cerrada").forEach((i) => {
+        inspReales().filter((i) => i.eq === eqCod && i.estado !== "cerrada").forEach((i) => {
           (i.piezas || []).forEach((p) => { if (p.cod) m.set(p.cod, { urgencia: p.urgencia, fecha: i.fecha }); });
         });
         return m;
@@ -524,7 +589,7 @@ function dt(machine, campo) {
 
       function inspFiltradas() {
         const tokens = planTokens(inspFiltro.q);
-        return inspecciones
+        return inspReales()
           .filter((i) => {
             if (inspFiltro.eq && i.eq !== inspFiltro.eq) return false;
             if (inspFiltro.tipo && i.tipo !== inspFiltro.tipo) return false;
@@ -543,7 +608,7 @@ function dt(machine, campo) {
         const lista = inspFiltradas();
         const abiertas = lista.filter((i) => (i.estado || "abierta") !== "cerrada").length;
         const piezas = lista.reduce((n, i) => n + (i.piezas || []).length, 0);
-        const equipos = [...new Set(inspecciones.map((i) => i.eq))].sort((a, b) => inspNombreEquipo(a).localeCompare(inspNombreEquipo(b)));
+        const equipos = [...new Set(inspReales().map((i) => i.eq))].sort((a, b) => inspNombreEquipo(a).localeCompare(inspNombreEquipo(b)));
 
         root.innerHTML = `
           <div class="section-bar">
