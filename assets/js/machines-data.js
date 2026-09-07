@@ -4601,6 +4601,7 @@ const initialMachines = [
           ],
           failureModes: [],
           documents: [
+            { name: "Programa anual de mantenimiento preventivo DMM-173B (Sede 4, 2026)", status: "Disponible", file: "manuales/_programa/DMM-173B-programa-anual-2026-Sede4-ed2.pdf" },
             { name: "4 - Calibrado, regulaciones y mantenimiento preventivo S3240005 (124 págs. ITA/SPA)", status: "Disponible", file: "manuales/mt1100/MT1100-4-Calibrado-Regulaciones-S3240005-ITA-SPA.pdf" },
             { name: "5 - Piezas de recambio S3240005 — láminas de despiece (85 págs.)", status: "Disponible", file: "manuales/mt1100/MT1100-5-Piezas-de-Recambio-S3240005-ITA-SPA.pdf" },
             { name: "Instalación eléctrica ES3240005 (126 hojas)", status: "Disponible", file: "manuales/mt1100/MT1100-Instalacion-Electrica-ES3240005-ITA-SPA.pdf" },
@@ -4731,6 +4732,7 @@ const initialMachines = [
           ],
           failureModes: [],
           documents: [
+            { name: "Programa anual de mantenimiento preventivo DMM-173B (Sede 4, 2026)", status: "Disponible", file: "manuales/_programa/DMM-173B-programa-anual-2026-Sede4-ed2.pdf" },
             { name: "Manual de uso y mantenimiento FX30 PRO STEP (116 págs., español)", status: "Disponible", file: "manuales/fx30prostep/FX30PROSTEP-manual-uso-y-mantenimiento-es.pdf" },
             { name: "Planos eléctricos pedido 19021 (20 hojas A3, ITA/ENG)", status: "Disponible", file: "manuales/fx30prostep/FX30PROSTEP-planos-electricos-19021.pdf" },
             { name: "Declaración de conformidad CE (el manual la cita como anexo separado)", status: "Pendiente" },
@@ -4826,6 +4828,7 @@ const initialMachines = [
           maintenanceTasks: [],
           failureModes: [],
           documents: [
+            { name: "Programa anual de mantenimiento preventivo DMM-173B (Sede 4, 2026)", status: "Disponible", file: "manuales/_programa/DMM-173B-programa-anual-2026-Sede4-ed2.pdf" },
             { name: "4A - Cambio de formato y optimización de dispositivos M1230014 (26 págs. ITA/SPA)", status: "Disponible", file: "manuales/ma50n/MA50N-4a-Cambio-Formato-Optimizacion-M1230014-ITA-SPA.pdf" },
             { name: "Fichas técnicas de planteamiento de formato (el 4A recibido no las incluye)", status: "Pendiente" },
             { name: "Manual de uso y conducción", status: "Pendiente" },
@@ -4969,6 +4972,7 @@ const initialMachines = [
         tasks: document.querySelector("#tasksView"),
         plan: document.querySelector("#planView"),
         insp: document.querySelector("#inspView"),
+        prog: document.querySelector("#progView"),
         turnos: document.querySelector("#turnosView")
       };
       const homeSearchForm = document.querySelector("#homeSearchForm");
@@ -4990,6 +4994,7 @@ const initialMachines = [
       const navTasks = document.querySelector("[data-nav-tasks]");
       const navPlan = document.querySelector("[data-nav-plan]");
       const navInsp = document.querySelector("[data-nav-insp]");
+      const navProg = document.querySelector("[data-nav-prog]");
       const navTurnos = document.querySelector("[data-nav-turnos]");
       const detailTitle = document.querySelector("#detailTitle");
       const detailSubtitle = document.querySelector("#detailSubtitle");

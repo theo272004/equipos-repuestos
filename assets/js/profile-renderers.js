@@ -105,6 +105,7 @@ function dt(machine, campo) {
           <section class="profile-panel" data-profile-panel="spares">${renderSparesPanel(machine)}</section>
 
           <section class="profile-panel" data-profile-panel="maintenance">
+            ${(() => { const p = renderProgramaMaquina(machine); return p ? p + '<div class="panel-split"></div>' : ""; })()}
             ${renderInspMaquina(machine)}
             ${(machine.maintenanceTasks ?? []).length ? '<div class="panel-split"></div>' + renderMaintenancePanel(machine) : ""}
             ${procDe(machine) ? '<div class="panel-split"></div>' + renderProcedimientosPanel(machine) : ""}
@@ -803,6 +804,7 @@ function dt(machine, campo) {
       });
 
       inspSubscribe();
+      progSubscribe();
 
       // ======================================================================
       //  TURNOS DEL PERSONAL
@@ -1554,6 +1556,7 @@ function dt(machine, campo) {
         if (navTasks) navTasks.classList.toggle("is-active", viewName === "tasks");
         if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
         if (navInsp) navInsp.classList.toggle("is-active", viewName === "insp");
+        if (navProg) navProg.classList.toggle("is-active", viewName === "prog");
         if (navTurnos) navTurnos.classList.toggle("is-active", viewName === "turnos");
       }
 
@@ -1734,6 +1737,7 @@ function dt(machine, campo) {
       navTasks.addEventListener("click", () => goTasks());
       if (navPlan) navPlan.addEventListener("click", () => goPlan());
       if (navInsp) navInsp.addEventListener("click", () => goInsp());
+      if (navProg) navProg.addEventListener("click", () => goPrograma());
       if (navTurnos) navTurnos.addEventListener("click", () => goTurnos());
 
       // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
