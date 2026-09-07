@@ -4842,7 +4842,19 @@ const initialMachines = [
 
       // ----- Registro de equipos (assets/equipos.js) -----
       const EQ_DATA = window.EQUIPOS_PLAN || null;
-      const PLAN_EQUIPOS = EQ_DATA ? EQ_DATA.equipos : [];
+
+      // Filas del Excel que no son un equipo aunque vengan en la misma columna.
+      // La 1 "INVIMA" (tipo URGENCIA, centro de costo "0") no es una maquina: son
+      // 26 lineas de consumibles de obra -pintura, brochas, thinner, Sika, disco
+      // de corte, un panel LED- con sistema EDIFICACION y actividad LOCATIVO.
+      // Contarla como equipo inflaba el registro a 346 y el plan a 852 repuestos,
+      // y la sacaba en la lista de "que falta por documentar" como si hubiera que
+      // buscarle un manual. No se borra: queda en PLAN_NO_EQUIPOS y se dice en el
+      // plan, por si alguien busca donde fue a parar alguna de esas lineas.
+      const NO_SON_EQUIPOS = new Set(["1"]);
+      const PLAN_TODAS = EQ_DATA ? EQ_DATA.equipos : [];
+      const PLAN_EQUIPOS = PLAN_TODAS.filter((e) => !NO_SON_EQUIPOS.has(String(e.c)));
+      const PLAN_NO_EQUIPOS = PLAN_TODAS.filter((e) => NO_SON_EQUIPOS.has(String(e.c)));
       const EQ_POR_ID = new Map(PLAN_EQUIPOS.map((eq) => [eq.id, eq]));
       // Repuestos del registro que le tocan a una maquina (tenga ficha rica o basica).
       function equipoDeMachine(machine) { return machine ? EQ_POR_ID.get(machine.id) || null : null; }
@@ -4853,10 +4865,49 @@ const initialMachines = [
       // repuestos ni sale en los conteos de mantenimiento por sistemas.
       const EQ_POR_COD = new Map(PLAN_EQUIPOS.map((e) => [String(e.c), e]));
       function codigoEnRegistro(cod) { return !!cod && EQ_POR_COD.has(String(cod)); }
+      // Ahora hay DOS listados oficiales contra los que contrastar: el registro
+      // de repuestos (DMM-179) y el programa anual de mantenimiento (DMM-173B).
+      // Un codigo que no esta en ninguno de los dos es casi seguro un error de
+      // copia, asi que el aviso busca por nombre que codigos SI existen y los
+      // propone, en vez de dejar al que lee adivinando cual es el bueno.
+      function codigoEnPrograma(cod) {
+        const P = window.PROGRAMA_ANUAL;
+        return !!cod && !!P && P.equipos.some((e) => String(e.c) === String(cod));
+      }
+      function codigosParecidos(machine) {
+        const P = window.PROGRAMA_ANUAL;
+        if (!P) return [];
+        // planPlain solo baja a minusculas y quita tildes: "NJP-3500" seguiria
+        // siendo una sola palabra y no encontraria "ENCAPSULADORA NJP 3500".
+        const clave = planPlain(String(machine.model || machine.name || ""))
+          .split(/[^a-z0-9]+/).filter((w) => w.length > 2);
+        if (!clave.length) return [];
+        // El modelo solo no basta: "NJP-3500" tambien casa con el desempolvador
+        // y el detector de metal de esa linea. La primera palabra del nombre de
+        // la ficha dice de que CLASE de equipo hablamos y quita ese ruido.
+        const clase = planPlain(String(machine.name || "")).split(/[^a-z0-9]+/)[0] || "";
+        return P.equipos
+          .filter((e) => {
+            const n = planPlain(e.n);
+            return clave.every((w) => n.includes(w)) && (!clase || n.includes(clase));
+          })
+          .slice(0, 4)
+          .map((e) => `${e.c} (${e.n})`);
+      }
       function avisoCodigo(machine) {
         const cod = machine.equipoCod || "";
-        if (!cod || codigoEnRegistro(cod)) return "";
-        return `<span class="cod-aviso" title="Los listados oficiales son DMM-179B (Sede 4) y DMM-179 (Planta 2). Mientras el código no esté ahí, este equipo no tiene plan de repuestos importado.">Código ${planEsc(cod)} sin registrar en el listado oficial</span>`;
+        if (!cod) return "";
+        const enReg = codigoEnRegistro(cod);
+        const enProg = codigoEnPrograma(cod);
+        if (enReg) return "";
+        if (enProg) {
+          return `<span class="cod-aviso" title="Está en el programa anual DMM-173B pero no en el registro de repuestos DMM-179, así que no tiene plan de repuestos importado.">Código ${planEsc(cod)} está en el programa anual pero no en el registro de repuestos</span>`;
+        }
+        const otros = codigosParecidos(machine);
+        const pista = otros.length
+          ? ` — en el programa anual sí figura${otros.length > 1 ? "n" : ""} ${otros.map(planEsc).join(" y ")}`
+          : "";
+        return `<span class="cod-aviso" title="Los listados oficiales son DMM-179B (Sede 4) y DMM-179 (Planta 2) para repuestos, y DMM-173B para el programa anual. Este código no aparece en ninguno.">Código ${planEsc(cod)} sin registrar en ningún listado oficial${pista}</span>`;
       }
 
       // Sync and load machines from localStorage

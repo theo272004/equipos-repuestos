@@ -284,7 +284,8 @@ function renderPrograma() {
       ${progVista.mes.charAt(0) + progVista.mes.slice(1).toLowerCase()} &middot; ${pendMes} por registrar</p>
 
     ${filas.length ? filas.map(progTarjeta).join("") :
-      '<div class="pl-empty"><h3>Nada que mostrar</h3><p>Prueba con otro mes o quita el filtro.</p></div>'}`;
+      '<div class="pl-empty"><h3>Nada que mostrar</h3><p>Prueba con otro mes o quita el filtro.</p></div>'}
+    ${renderDescuadres()}`;
 }
 
 function progTarjeta(r) {
@@ -503,4 +504,44 @@ function renderProgramaMaquina(machine) {
     }).join("")}</div>` : ""}
     ${hechos.length ? hechos.map(progResumenRegistro).join("") :
       '<p class="tk-empty">Todav&iacute;a no se ha registrado ning&uacute;n mantenimiento de este equipo.</p>'}`;
+}
+
+// ----- Descuadres entre el programa anual y el registro de repuestos -----
+// Son dos listados oficiales distintos -DMM-173B y DMM-179- que deberian
+// hablar de los mismos equipos y no lo hacen. Verlo cuesta poco y evita que un
+// equipo se quede sin mantenimiento programado o sin plan de repuestos porque
+// nadie cruzo las dos hojas.
+function progDescuadres() {
+  const D = progDatos();
+  if (!D || typeof PLAN_EQUIPOS === "undefined") return null;
+  const reg = new Set(PLAN_EQUIPOS.map((e) => String(e.c)));
+  const prog = new Set(D.equipos.map((e) => e.c));
+  return {
+    soloPrograma: D.equipos.filter((e) => !reg.has(e.c)),
+    soloRegistro: PLAN_EQUIPOS.filter((e) => !prog.has(String(e.c)) && e.r.length)
+      .sort((a, b) => b.r.length - a.r.length)
+  };
+}
+
+function renderDescuadres() {
+  const d = progDescuadres();
+  if (!d || (!d.soloPrograma.length && !d.soloRegistro.length)) return "";
+  return `
+    <div class="panel-split"></div>
+    <div class="panel-header-clean">
+      <h3>Descuadres con el registro de repuestos</h3>
+      <p>El programa anual (DMM-173B) y el registro de repuestos (DMM-179) no listan los mismos equipos.
+        Ninguno de los dos est&aacute; mal por s&iacute; solo, pero cada fila de aqu&iacute; es un equipo al que
+        le falta una de las dos cosas.</p>
+    </div>
+    ${d.soloPrograma.length ? `
+      <p class="pl-soft"><strong>${d.soloPrograma.length} en el programa anual que no est&aacute;n en el registro de repuestos.</strong>
+        Tienen mantenimiento programado pero ninguna pieza asociada, as&iacute; que si hace falta un repuesto no hay de d&oacute;nde pedirlo.</p>
+      <div class="pl-filters">${d.soloPrograma.map((e) =>
+        `<span class="pl-chk">${planEsc(e.n)} <span class="pl-tag pl-tag--n">${planEsc(e.c)}</span></span>`).join("")}</div>` : ""}
+    ${d.soloRegistro.length ? `
+      <p class="pl-soft"><strong>${d.soloRegistro.length} con repuestos en el plan pero sin mantenimiento programado</strong>
+        en todo el a&ntilde;o. Se les compran piezas pero no tienen fecha de revisi&oacute;n. Los diez con m&aacute;s peso:</p>
+      <div class="pl-filters">${d.soloRegistro.slice(0, 10).map((e) =>
+        `<span class="pl-chk">${planEsc(e.n)} <span class="pl-tag pl-tag--warn">${e.r.length} repuestos</span></span>`).join("")}</div>` : ""}`;
 }

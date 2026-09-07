@@ -1313,6 +1313,9 @@ function dt(machine, campo) {
             Los que todav&iacute;a no tienen manual ni despiece salen como <em>ficha b&aacute;sica</em> y se les va a&ntilde;adiendo.
             <strong>La frecuencia no viene del Excel: se mide.</strong> Cada cambio que se registra acerca la pieza a tener su frecuencia real.
           </p>
+          ${PLAN_NO_EQUIPOS.length ? `<p class="pl-note">Del Excel se dejan fuera ${PLAN_NO_EQUIPOS.length === 1 ? "una fila que no es" : PLAN_NO_EQUIPOS.length + " filas que no son"} un equipo:
+            ${PLAN_NO_EQUIPOS.map((e) => `<strong>${planEsc(e.n)}</strong> (c&oacute;digo ${planEsc(e.c)}, ${e.r.length} l&iacute;neas de ${planEsc([...new Set(e.r.map((r) => r.s).filter(Boolean))].join(", ") || "consumibles")})`).join(", ")}.
+            Son compras de obra, no repuestos de m&aacute;quina, y contarlas como equipo desviaba los totales.</p>` : ""}
 
           <div class="pl-kpis">
             <div class="pl-kpi"><span class="pl-kpi__n">${groups.length}</span><span class="pl-kpi__l">Equipos</span></div>
