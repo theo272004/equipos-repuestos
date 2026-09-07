@@ -1560,6 +1560,7 @@ function dt(machine, campo) {
         if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
         if (navInsp) navInsp.classList.toggle("is-active", viewName === "insp");
         if (navProg) navProg.classList.toggle("is-active", viewName === "prog");
+        if (navAlm) navAlm.classList.toggle("is-active", viewName === "alm");
         if (navTurnos) navTurnos.classList.toggle("is-active", viewName === "turnos");
       }
 
@@ -1741,6 +1742,7 @@ function dt(machine, campo) {
       if (navPlan) navPlan.addEventListener("click", () => goPlan());
       if (navInsp) navInsp.addEventListener("click", () => goInsp());
       if (navProg) navProg.addEventListener("click", () => goPrograma());
+      if (navAlm) navAlm.addEventListener("click", () => goAlmacen());
       if (navTurnos) navTurnos.addEventListener("click", () => goTurnos());
 
       // Menú hamburguesa (celular): abrir/cerrar el menú desplegable

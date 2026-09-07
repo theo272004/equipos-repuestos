@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de equipos</title>
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609072156" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609072156" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609072221" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609072221" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=202609072156" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=202609072221" />
   </head>
   <body>
     <!-- Botón hamburguesa (solo visible en celular) -->
@@ -47,6 +47,10 @@
       <button class="side-nav__button" type="button" data-nav-prog aria-label="Programa anual" title="Programa anual de mantenimiento preventivo">
         <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 15 1.8 1.8L15 13"/></svg>
         <span class="side-nav__label">Programa anual</span>
+      </button>
+      <button class="side-nav__button" type="button" data-nav-alm aria-label="Catálogo de almacén" title="Catálogo de almacén: buscar el código de una pieza">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4v10l-9 4-9-4V7Z"/><path d="M3 7l9 4 9-4M12 11v10"/></svg>
+        <span class="side-nav__label">Almac&eacute;n</span>
       </button>
       <button class="side-nav__button" type="button" data-nav-turnos aria-label="Turnos" title="Turnos (quién está en turno)">
         <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
@@ -268,6 +272,10 @@
           </div>
           <div class="tk-form" id="progFormRoot"></div>
         </aside>
+      </section>
+
+      <section class="alm-view view" id="almView" aria-label="Catálogo de almacén">
+        <div id="almRoot"></div>
       </section>
 
       <section class="turnos-view view" id="turnosView" aria-label="Turnos del personal">
@@ -586,17 +594,19 @@
       }
     </script>
 
-    <script src="assets/equipos.js?v=202609072156"></script>
-    <script src="assets/js/causa-codes.js?v=202609072156"></script>
-    <script src="assets/js/integra320-procedimientos.js?v=202609072156"></script>
-    <script src="assets/js/mt1100-procedimientos.js?v=202609072156"></script>
-    <script src="assets/js/ms235-sensores.js?v=202609072156"></script>
-    <script src="assets/js/ms235-mecanico.js?v=202609072156"></script>
-    <script src="assets/js/rich-data.js?v=202609072156"></script>
-    <script src="assets/js/machines-data.js?v=202609072156"></script>
-    <script src="assets/js/programa-anual.js?v=202609072156"></script>
-    <script src="assets/js/programa.js?v=202609072156"></script>
-    <script src="assets/js/profile-renderers.js?v=202609072156"></script>
-    <script src="assets/js/app.js?v=202609072156"></script>
+    <script src="assets/equipos.js?v=202609072221"></script>
+    <script src="assets/js/causa-codes.js?v=202609072221"></script>
+    <script src="assets/js/integra320-procedimientos.js?v=202609072221"></script>
+    <script src="assets/js/mt1100-procedimientos.js?v=202609072221"></script>
+    <script src="assets/js/ms235-sensores.js?v=202609072221"></script>
+    <script src="assets/js/ms235-mecanico.js?v=202609072221"></script>
+    <script src="assets/js/rich-data.js?v=202609072221"></script>
+    <script src="assets/js/machines-data.js?v=202609072221"></script>
+    <script defer src="assets/js/almacen.js?v=202609072221"></script>
+    <script src="assets/js/almacen-ui.js?v=202609072221"></script>
+    <script src="assets/js/programa-anual.js?v=202609072221"></script>
+    <script src="assets/js/programa.js?v=202609072221"></script>
+    <script src="assets/js/profile-renderers.js?v=202609072221"></script>
+    <script src="assets/js/app.js?v=202609072221"></script>
   </body>
 </html>

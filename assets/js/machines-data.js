@@ -5024,6 +5024,7 @@ const initialMachines = [
         plan: document.querySelector("#planView"),
         insp: document.querySelector("#inspView"),
         prog: document.querySelector("#progView"),
+        alm: document.querySelector("#almView"),
         turnos: document.querySelector("#turnosView")
       };
       const homeSearchForm = document.querySelector("#homeSearchForm");
@@ -5046,6 +5047,7 @@ const initialMachines = [
       const navPlan = document.querySelector("[data-nav-plan]");
       const navInsp = document.querySelector("[data-nav-insp]");
       const navProg = document.querySelector("[data-nav-prog]");
+      const navAlm = document.querySelector("[data-nav-alm]");
       const navTurnos = document.querySelector("[data-nav-turnos]");
       const detailTitle = document.querySelector("#detailTitle");
       const detailSubtitle = document.querySelector("#detailSubtitle");
