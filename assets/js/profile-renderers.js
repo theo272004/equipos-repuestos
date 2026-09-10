@@ -449,6 +449,7 @@ function dt(machine, campo) {
       //  cambian de verdad y se registra el cambio.
       // ======================================================================
       const inspKey = "equipos-inspecciones-v1";
+      const inspRegistroBorradasKey = "equipos-inspecciones-registro-borradas-v1";
       let inspecciones = loadInsp();
       let inspKnownIds = new Set();
       const inspNube = { conectado: false, error: "" };
@@ -462,7 +463,35 @@ function dt(machine, campo) {
       };
       const INSP_URGENCIA = { alta: "Cambiar ya", media: "Programar", baja: "Vigilar" };
 
-      function loadInsp() { try { return JSON.parse(localStorage.getItem(inspKey) || "[]"); } catch { return []; } }
+      // Reportes que vienen escritos en el repositorio (assets/js/inspecciones-registro.js).
+      // Son los que se pasaron a limpio desde el papel: se ven apenas abre la pagina,
+      // sin depender de lo que tenga guardado ese navegador ni de que haya nube. Se
+      // suman a las que anota la gente; si alguien borra una aqui, se apunta el id
+      // para que no reaparezca en ese navegador.
+      function inspRegistro() { return Array.isArray(window.INSPECCIONES_REGISTRO) ? window.INSPECCIONES_REGISTRO : []; }
+      function inspRegistroBorradas() {
+        try { return new Set(JSON.parse(localStorage.getItem(inspRegistroBorradasKey) || "[]")); } catch { return new Set(); }
+      }
+      function inspRegistroAnotarBorrada(id) {
+        if (!inspRegistro().some((i) => i.id === id)) return;
+        const fuera = inspRegistroBorradas();
+        fuera.add(id);
+        try { localStorage.setItem(inspRegistroBorradasKey, JSON.stringify([...fuera])); } catch (e) {}
+      }
+      function inspConRegistro(lista) {
+        const ya = new Set(lista.map((i) => i.id));
+        const fuera = inspRegistroBorradas();
+        const faltan = inspRegistro()
+          .filter((i) => i && i.id && !ya.has(i.id) && !fuera.has(i.id))
+          .map((i) => JSON.parse(JSON.stringify(i)));
+        return faltan.length ? faltan.concat(lista) : lista;
+      }
+
+      function loadInsp() {
+        let guardadas = [];
+        try { guardadas = JSON.parse(localStorage.getItem(inspKey) || "[]"); } catch { guardadas = []; }
+        return inspConRegistro(Array.isArray(guardadas) ? guardadas : []);
+      }
       function saveInspLocal() { try { localStorage.setItem(inspKey, JSON.stringify(inspecciones)); } catch (e) {} }
       function saveInsp() {
         saveInspLocal();
@@ -488,8 +517,8 @@ function dt(machine, campo) {
         cloud.db.collection("inspecciones").onSnapshot({ includeMetadataChanges: true }, (snap) => {
           const remoto = [];
           snap.forEach((d) => remoto.push(d.data()));
-          inspecciones = remoto;
           inspKnownIds = new Set(remoto.map((i) => i.id));
+          inspecciones = inspConRegistro(remoto);
           inspNube.conectado = !snap.metadata.fromCache;
           inspNube.error = "";
           saveInspLocal();
@@ -647,6 +676,7 @@ function dt(machine, campo) {
 
       function inspBorrar(id) {
         if (!window.confirm("¿Eliminar esta inspección?")) return;
+        inspRegistroAnotarBorrada(id);
         inspecciones = inspecciones.filter((x) => x.id !== id);
         saveInsp();
         renderInspecciones();
