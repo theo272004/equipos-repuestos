@@ -105,7 +105,7 @@ function dt(machine, campo) {
           <section class="profile-panel" data-profile-panel="spares">${renderSparesPanel(machine)}</section>
 
           <section class="profile-panel" data-profile-panel="maintenance">
-            ${renderInspMaquina(machine)}
+            <div id="inspMaquina">${renderInspMaquina(machine)}</div>
             ${(machine.maintenanceTasks ?? []).length ? '<div class="panel-split"></div>' + renderMaintenancePanel(machine) : ""}
             ${procDe(machine) ? '<div class="panel-split"></div>' + renderProcedimientosPanel(machine) : ""}
           </section>
@@ -644,6 +644,7 @@ function dt(machine, campo) {
             <div class="in-card__pie">
               <span class="in-quien">${i.quien ? "Revisó " + planEsc(i.quien) : "Sin firmar"}</span>
               <span class="in-acciones">
+                <button class="button button--light" type="button" onclick="inspEditar('${planEsc(i.id)}')">Editar</button>
                 <button class="button button--light" type="button" onclick="inspCambiarEstado('${planEsc(i.id)}')">${cerrada ? "Reabrir" : "Cerrar"}</button>
                 <button class="button button--light" type="button" onclick="inspBorrar('${planEsc(i.id)}')">Eliminar</button>
               </span>
@@ -682,20 +683,55 @@ function dt(machine, campo) {
         renderInspecciones();
       }
 
-      // ----- Formulario -----
+      // ----- Formulario (sirve para anotar una nueva y para editar una ya anotada) -----
       let inspPiezas = [];
       let inspEquipoFijo = "";
+      let inspEditandoId = "";
 
-      function inspAbrirForm(eqCod) {
-        inspPiezas = [];
-        inspEquipoFijo = eqCod || "";
+      // Abre la hoja en blanco para anotar. Con "eqCod" ya viene elegido el equipo.
+      function inspAbrirForm(eqCod) { inspAbrirHoja({ eqCod: eqCod || "" }); }
+
+      // Abre la misma hoja con una inspeccion ya escrita, para corregirla.
+      // Vale para cualquiera: las que anota la gente y las del registro del
+      // repositorio. Al guardar, la corregida se queda en este navegador (y en
+      // la nube, si esta configurada) por encima de la que trae el repositorio.
+      function inspEditar(id) {
+        const i = inspecciones.find((x) => x.id === id);
+        if (!i) return;
+        inspAbrirHoja({ registro: i });
+      }
+
+      function inspAbrirHoja({ eqCod = "", registro = null } = {}) {
         const form = document.getElementById("inspForm");
         const sel = document.getElementById("inspEqSel");
         if (!form || !sel) return;
-        sel.innerHTML = PLAN_EQUIPOS.map((e) => `<option value="${planEsc(e.c)}" ${e.c === inspEquipoFijo ? "selected" : ""}>${planEsc(e.n)}</option>`).join("");
+
+        inspEditandoId = registro ? registro.id : "";
+        inspEquipoFijo = registro ? registro.eq : eqCod;
+        inspPiezas = registro ? (registro.piezas || []).map((p) => ({ cod: p.cod || "", d: p.d || "", q: p.q || "", urgencia: p.urgencia || "media" })) : [];
+
+        sel.innerHTML = PLAN_EQUIPOS.map((e) => `<option value="${planEsc(e.c)}">${planEsc(e.n)}</option>`).join("");
         form.reset();
+        // Un equipo que ya no este en el listado oficial no debe perderse al editar.
+        if (inspEquipoFijo && !PLAN_EQUIPOS.some((e) => e.c === inspEquipoFijo)) {
+          sel.insertAdjacentHTML("afterbegin", `<option value="${planEsc(inspEquipoFijo)}">${planEsc(inspNombreEquipo(inspEquipoFijo))}</option>`);
+        }
         if (inspEquipoFijo) sel.value = inspEquipoFijo;
-        form.fecha.value = bogotaToday();
+
+        form.fecha.value = registro ? (registro.fecha || bogotaToday()) : bogotaToday();
+        form.tipo.value = registro && INSP_TIPOS[registro.tipo] ? registro.tipo : "rutina";
+        form.quien.value = registro ? (registro.quien || "") : "";
+        form.revisado.value = registro ? (registro.revisado || "") : "";
+        form.hallazgos.value = registro ? (registro.hallazgos || "") : "";
+        form.estado.value = registro ? ((registro.estado || "abierta") === "cerrada" ? "cerrada" : "abierta") : "abierta";
+
+        const titulo = document.getElementById("inspSheetTitulo");
+        const boton = document.getElementById("inspSubmitBtn");
+        const estadoWrap = document.getElementById("inspEstadoWrap");
+        if (titulo) titulo.textContent = registro ? "Editar inspección" : "Anotar inspección";
+        if (boton) boton.textContent = registro ? "Guardar cambios" : "Guardar inspección";
+        if (estadoWrap) estadoWrap.hidden = !registro; // una nueva nace abierta
+
         inspPintarPiezas();
         document.getElementById("inspSheetBackdrop").hidden = false;
         document.getElementById("inspSheet").hidden = false;
@@ -706,6 +742,7 @@ function dt(machine, campo) {
         const b = document.getElementById("inspSheetBackdrop");
         if (s) s.hidden = true;
         if (b) b.hidden = true;
+        inspEditandoId = "";
       }
 
       function inspAnadirPieza() {
@@ -739,18 +776,32 @@ function dt(machine, campo) {
         const fecha = String(f.fecha.value || "").slice(0, 10);
         if (!/^\d{4}-\d{2}-\d{2}$/.test(fecha)) { window.alert("Pon una fecha válida."); return; }
         if (!f.eq.value) { window.alert("Elige el equipo."); return; }
-        inspecciones.unshift({
-          id: "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+
+        const escrito = {
           eq: f.eq.value,
           fecha,
           tipo: f.tipo.value,
           quien: String(f.quien.value || "").trim(),
           revisado: String(f.revisado.value || "").trim(),
           hallazgos: String(f.hallazgos.value || "").trim(),
-          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim()),
-          estado: "abierta",
-          createdAt: new Date().toISOString()
-        });
+          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim())
+        };
+
+        const editada = inspEditandoId ? inspecciones.find((x) => x.id === inspEditandoId) : null;
+        if (inspEditandoId && !editada) { window.alert("Esa inspección ya no está; no se guardaron los cambios."); inspCerrarForm(); renderInspecciones(); return; }
+
+        if (editada) {
+          Object.assign(editada, escrito);
+          editada.estado = f.estado.value === "cerrada" ? "cerrada" : "abierta";
+          editada.editadoAt = new Date().toISOString();
+        } else {
+          inspecciones.unshift(Object.assign({
+            id: "i" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+            estado: "abierta",
+            createdAt: new Date().toISOString()
+          }, escrito));
+        }
+
         saveInsp();
         inspCerrarForm();
         renderInspecciones();
@@ -1336,6 +1387,10 @@ function dt(machine, campo) {
         if (!machine) return;
         const panel = document.querySelector('[data-profile-panel="spares"]');
         if (panel) panel.innerHTML = renderSparesPanel(machine);
+        // Las inspecciones de la ficha viven en la pestana de mantenimiento: si se
+        // anota, corrige, cierra o borra una, hay que repintarlas ahi tambien.
+        const insp = document.getElementById("inspMaquina");
+        if (insp) insp.innerHTML = renderInspMaquina(machine);
       }
 
 
