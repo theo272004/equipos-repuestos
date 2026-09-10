@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de equipos</title>
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609101620" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609101620" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609102205" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609102205" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=202609101620" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=202609102205" />
   </head>
   <body>
     <!-- Botón hamburguesa (solo visible en celular) -->
@@ -224,7 +224,7 @@
         <div class="tk-sheet-backdrop" id="inspSheetBackdrop" hidden onclick="inspCerrarForm()"></div>
         <aside class="tk-sheet tk-sheet--ancha" id="inspSheet" hidden aria-label="Anotar inspección">
           <div class="tk-sheet__head">
-            <h4>Anotar inspecci&oacute;n</h4>
+            <h4 id="inspSheetTitulo">Anotar inspecci&oacute;n</h4>
             <button class="tk-sheet__close" type="button" onclick="inspCerrarForm()" aria-label="Cerrar">&times;</button>
           </div>
           <form class="tk-form" id="inspForm" onsubmit="inspGuardar(event)">
@@ -248,7 +248,13 @@
               <div id="inspPiezas"></div>
               <button type="button" class="button button--light" onclick="inspAnadirPieza()">A&ntilde;adir pieza</button>
             </div>
-            <button class="button button--dark" type="submit">Guardar inspecci&oacute;n</button>
+            <label id="inspEstadoWrap" hidden>Estado
+              <select name="estado">
+                <option value="abierta">Abierta &mdash; queda trabajo pendiente</option>
+                <option value="cerrada">Cerrada &mdash; no queda nada por hacer</option>
+              </select>
+            </label>
+            <button class="button button--dark" type="submit" id="inspSubmitBtn">Guardar inspecci&oacute;n</button>
           </form>
         </aside>
       </section>
@@ -569,15 +575,15 @@
       }
     </script>
 
-    <script src="assets/equipos.js?v=202609101620"></script>
-    <script src="assets/js/causa-codes.js?v=202609101620"></script>
-    <script src="assets/js/integra320-procedimientos.js?v=202609101620"></script>
-    <script src="assets/js/ms235-sensores.js?v=202609101620"></script>
-    <script src="assets/js/ms235-mecanico.js?v=202609101620"></script>
-    <script src="assets/js/inspecciones-registro.js?v=202609101620"></script>
-    <script src="assets/js/rich-data.js?v=202609101620"></script>
-    <script src="assets/js/machines-data.js?v=202609101620"></script>
-    <script src="assets/js/profile-renderers.js?v=202609101620"></script>
-    <script src="assets/js/app.js?v=202609101620"></script>
+    <script src="assets/equipos.js?v=202609102205"></script>
+    <script src="assets/js/causa-codes.js?v=202609102205"></script>
+    <script src="assets/js/integra320-procedimientos.js?v=202609102205"></script>
+    <script src="assets/js/ms235-sensores.js?v=202609102205"></script>
+    <script src="assets/js/ms235-mecanico.js?v=202609102205"></script>
+    <script src="assets/js/inspecciones-registro.js?v=202609102205"></script>
+    <script src="assets/js/rich-data.js?v=202609102205"></script>
+    <script src="assets/js/machines-data.js?v=202609102205"></script>
+    <script src="assets/js/profile-renderers.js?v=202609102205"></script>
+    <script src="assets/js/app.js?v=202609102205"></script>
   </body>
 </html>
