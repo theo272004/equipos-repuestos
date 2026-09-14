@@ -2744,7 +2744,9 @@
       .in-eq:hover { border-color: var(--blue); }
       .in-estado { margin-left: auto; border-radius: 999px; padding: 2px 10px; background: var(--blue-soft); color: #1849a9; font-size: 0.74rem; font-weight: 800; }
       .in-estado--cerrada { background: var(--soft); color: var(--muted); }
-      .in-bloque { margin: 0 0 9px; color: #344054; font-size: 0.9rem; line-height: 1.5; }
+      /* pre-line: los reportes largos se escriben por puntos, un renglon cada uno.
+         Sin esto el navegador los junta todos en un parrafo y no hay quien lo lea. */
+      .in-bloque { margin: 0 0 9px; color: #344054; font-size: 0.9rem; line-height: 1.5; white-space: pre-line; }
       .in-lbl { display: block; margin-bottom: 3px; color: var(--muted); font-size: 0.71rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
       .in-piezas { display: grid; gap: 6px; margin: 12px 0 4px; }
       .in-pieza { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; border: 1px solid var(--line); border-radius: 10px; padding: 7px 11px; background: var(--soft); font-size: 0.85rem; }

@@ -72,5 +72,23 @@ window.INSPECCIONES_REGISTRO = [
     piezas: [],
     estado: "cerrada",
     createdAt: "2026-08-04T00:00:00.000Z"
+  },
+  {
+    id: "insp-20260802-141328042-consolidado-r200",
+    eq: "141328042",
+    fecha: "2026-08-02",
+    tipo: "parada",
+    quien: "",
+    revisado: "1. Bombo y puerta frontal: interior del bombo y juntas perimetrales de la puerta.\n2. Brazo OptiArm: caja motorizada, husillo, movimiento manual del brazo, transmisión por correa y sistema tensor.\n3. Tapa del sistema de transmisión del OptiArm: fijaciones y roscas.\n4. Eje del OptiArm: levantamiento de medidas.\n5. Pistolas de pulverización.\n6. Sonda Optris CT.\n7. Reductor Bonfiglioli del giro del bombo: nivel de aceite, fugas, retenes y juntas externas.\n8. Motor de giro del bombo: fijación y conexiones eléctricas.\n9. Sistema de filtros y captación de polvo: presión diferencial.\n10. Filtros de la CTA: G4, F9 y H13.\n11. Sistema de lavado WIP: prueba de ciclo completo.\n12. Calentador de agua del WIP.\n13. Reductor Bonfiglioli de la bomba peristáltica.\n14. Motor de la bomba peristáltica.\n15. Distancia anilla–tubo del brazo OptiArm (referencia 4–5 mm).",
+    hallazgos: "CONFORME\n· Interior del bombo en buen estado general, sin anomalías visibles relevantes.\n· Husillo del OptiArm correctamente lubricado, con buena presencia de grasa. Movimiento manual del brazo correcto.\n· Reductor Bonfiglioli del giro del bombo: nivel de aceite correcto en la mirilla, sin fugas, retenes y juntas externas sin pérdidas.\n· Motor de giro del bombo: fijaciones y conexiones eléctricas en buen estado.\n· Filtros de la CTA dentro de rango: G4 3 Pa, F9 25 Pa, H13 21 Pa.\n· Pistolas de pulverización y sonda Optris CT: sin falla que exija reemplazo, solo requieren limpieza.\n\nHALLAZGOS\n· Juntas perimetrales de la puerta frontal del bombo deterioradas, con pérdida de capacidad de sellado. Se determina su reemplazo.\n· Transmisión del OptiArm: correa desgastada y rodamiento del rodillo tensor desgastado. El tensor se reemplaza por un 6201 ZZ.\n· Tapa de la transmisión del OptiArm con fijación deficiente: faltaban 3 espárragos y 1 tornillo, una de las tapas estaba fijada con silicona y había tornillos sujetos con silicona en lugar de instalados en sus roscas. Compromete la fijación y la protección del conjunto.\n· Captación de polvo con presión diferencial elevada: ~515 Pa con el ventilador al 60 %, junto con las alarmas AL122 registradas previamente.\n· WIP: durante el ciclo de lavado se detectó presencia de agua en la zona inferior derecha.\n· Calentador de agua del WIP: marcas y escurrimiento de humedad en la zona inferior del conjunto. No se pudo establecer el punto exacto de origen durante la inspección.\n\nRESUELTO EN LA INTERVENCIÓN\n· Limpieza de los filtros del captador: los valores de presión se normalizaron y el sistema quedó dentro de lo esperado. No requiere cambio de filtros por ahora.\n· Se fabricaron los 3 espárragos y el tornillo que faltaban en la tapa del OptiArm.\n· Se levantaron las medidas del eje del OptiArm y se elaboró el plano, código 742002060.\n· Prueba del sistema WIP: el operario ejecutó el ciclo, el lavado funcionó correctamente y la máquina quedó bien lavada al finalizar.\n\nPENDIENTE\n· Montar correctamente la tapa del OptiArm, verificar el estado de las roscas y eliminar la silicona como método de fijación.\n· Fabricar el eje 742002060.\n· Definir dimensiones y fabricar la junta de la tapa del OptiArm, de unos 3 mm de espesor.\n· Localizar el origen de la fuga de agua del WIP: revisar conexiones, juntas, válvulas y drenajes del calentador.\n· Completar la inspección del reductor de la bomba peristáltica: nivel de aceite, fugas y especificación y cantidad de lubricante antes de intervenir.\n· Completar la identificación del motor de la bomba peristáltica: ubicación, fijaciones y conexiones eléctricas.\n· Medir la distancia anilla–tubo del OptiArm. No se localizó el punto exacto durante la inspección. Valor de referencia 4–5 mm.",
+    piezas: [
+      { cod: "", d: "Juntas perimetrales de la puerta del bombo — fabricar o solicitar según las dimensiones de las existentes", q: "1", urgencia: "alta" },
+      { cod: "741203247", d: "Correa dentada 285L paso 9,5 mm TIP 075 A=3/4\" — transmisión del OptiArm", q: "1", urgencia: "alta" },
+      { cod: "741901010", d: "Rodamiento de bola 6201 ZZ — rodillo tensor del OptiArm", q: "1", urgencia: "alta" },
+      { cod: "742002060", d: "Eje del OptiArm — plano elaborado, pendiente de fabricación", q: "1", urgencia: "media" },
+      { cod: "", d: "Junta de la tapa de transmisión del OptiArm — unos 3 mm de espesor, faltan dimensiones", q: "1", urgencia: "media" }
+    ],
+    estado: "abierta",
+    createdAt: "2026-08-02T00:00:00.000Z"
   }
 ];

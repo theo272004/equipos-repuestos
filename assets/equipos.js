@@ -10790,6 +10790,29 @@ window.EQUIPOS_PLAN = {
         {
           "s": "BRAZO DE SPRAYADO",
           "a": "MECANICA",
+          "cod": "741901010",
+          "d": "RODAMIENTO DE BOLA REF 6201 ZZ",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "RODILLO TENSOR OPTIARM - AGREGADO TRAS INSPECCION 02/08/2026",
+          "ub": "R01/Z0505",
+          "pu": 8292,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "BRAZO DE SPRAYADO",
+          "a": "MECANICA",
           "cod": "741203248",
           "d": "CORREA DENTADA ABIERTA L PASO 9,5mm TIP 075 A=3/4\"",
           "q": 5,
