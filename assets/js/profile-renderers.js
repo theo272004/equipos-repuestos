@@ -1042,6 +1042,27 @@ function dt(machine, campo) {
       function repCodigo(eq, r) { return datoDe(eq, r).cod || r.cod || ""; }
       function repExistencia(eq, r) { const v = datoDe(eq, r).exist; return v === undefined ? "" : v; }
 
+      // LA existencia de una pieza, con su procedencia. Antes cada sitio resolvia
+      // esto por su cuenta ("lo escrito a mano, y si no lo del Excel"), repetido en
+      // cuatro lugares y sin contar el portal. Ahora se decide aqui y una sola vez:
+      //   mano (lo contado en el estante) > portal (MiPortal) > Excel (foto vieja)
+      // Devuelve tambien de donde salio, para poder decirlo en pantalla: un numero
+      // de almacen sin fecha al lado no se puede usar para decidir si pedir o no.
+      function existenciaEfectiva(eq, r) {
+        const manual = datoDe(eq, r).exist;
+        if (manual !== undefined && String(manual).trim() !== "") {
+          const n = Number(manual);
+          return { v: Number.isFinite(n) ? n : 0, fuente: "mano" };
+        }
+        const cod = repCodigo(eq, r);
+        const inv = cod && window.INVENTARIO ? window.INVENTARIO.de(cod) : null;
+        if (inv && inv.exist !== null && inv.exist !== undefined) {
+          return { v: Number(inv.exist) || 0, fuente: "portal", actualizado: inv.actualizado, ub: inv.ub };
+        }
+        return { v: Number(r.e) || 0, fuente: "excel" };
+      }
+      function existenciaDe(eq, r) { return existenciaEfectiva(eq, r).v; }
+
       function editarDato(input, clave, campo) {
         guardarDato(clave, campo, input.value);
         renderFichaSiVisible();
@@ -1250,7 +1271,7 @@ function dt(machine, campo) {
           const eqHit = tokens.length > 0 && tokens.every((token) => eqHay.includes(token));
           const rows = eq.r.filter((row) => {
             if (planFilter.act && row.a !== planFilter.act) return false;
-            if (planFilter.sinStock && row.e > 0) return false;
+            if (planFilter.sinStock && existenciaDe(eq, row) > 0) return false;
             if (planFilter.hist) {
               const historial = planCambiosDe(eq.c, row.cod);
               if (planFilter.hist === "con" && !historial.length) return false;
@@ -1294,7 +1315,7 @@ function dt(machine, campo) {
 
         const groups = planFiltered();
         const rows = groups.flatMap((g) => g.rows);
-        const noStock = rows.filter((r) => r.e === 0).length;
+        const noStock = groups.reduce((n, g) => n + g.rows.filter((r) => existenciaDe(g.eq, r) === 0).length, 0);
         let conHistorial = 0;
         let conMedida = 0;
         groups.forEach(({ eq, rows: rr }) => rr.forEach((r) => {
@@ -1327,6 +1348,8 @@ function dt(machine, campo) {
             Los que todav&iacute;a no tienen manual ni despiece salen como <em>ficha b&aacute;sica</em> y se les va a&ntilde;adiendo.
             <strong>La frecuencia no viene del Excel: se mide.</strong> Cada cambio que se registra acerca la pieza a tener su frecuencia real.
           </p>
+
+          ${planAvisoInventario()}
 
           <div class="pl-kpis">
             <div class="pl-kpi"><span class="pl-kpi__n">${groups.length}</span><span class="pl-kpi__l">Equipos</span></div>
@@ -1397,10 +1420,28 @@ function dt(machine, campo) {
 
       // Fila del indice: lo justo para decidir, y un botón que abre la ficha del equipo
       // en su pestaña de plan. El detalle vive en la máquina, no aquí.
+      // Dice de cuando son las existencias que se estan mostrando. Sin esto, un
+      // inventario que lleva tres semanas sin actualizarse se ve identico a uno
+      // de esta manana, y alguien acaba pidiendo (o no pidiendo) una pieza por
+      // un numero caducado.
+      function planAvisoInventario() {
+        const inv = window.INVENTARIO;
+        if (!inv) return "";
+        const f = inv.frescura();
+        const n = inv.estado.articulos || 0;
+        if (f.estado === "sin-datos") {
+          return `<div class="pl-inv pl-inv--sin-datos" title="Las existencias que se ven salen del Excel del plan, que es una foto vieja. El puente de MiPortal todavia no ha subido nada.">Existencias del Excel &middot; sin datos de MiPortal</div>`;
+        }
+        const detalle = f.estado === "viejo"
+          ? "Hace dias que el puente de MiPortal no sube nada. Revisa que el PC de planta lo siga corriendo."
+          : "Existencias tal como las tiene MiPortal.";
+        return `<div class="pl-inv pl-inv--${f.estado}" title="${planEsc(detalle)}">${planEsc(f.texto)} &middot; ${n} art&iacute;culo${n === 1 ? "" : "s"} de almac&eacute;n</div>`;
+      }
+
       function planEquipoCard(group, query) {
         const eq = group.eq;
         const rows = group.rows;
-        const noStock = rows.filter((r) => r.e === 0).length;
+        const noStock = rows.filter((r) => existenciaDe(eq, r) === 0).length;
         const conHist = rows.filter((r) => planCambiosDe(eq.c, r.cod).length).length;
         const conMedida = rows.filter((r) => planMedicion(planCambiosDe(eq.c, r.cod))).length;
         const machine = machines.find((m) => m.id === eq.id);
@@ -1566,6 +1607,7 @@ function dt(machine, campo) {
 
       cambiosSubscribe(); // historial de cambios en tiempo real (o local si no hay nube)
       datosSubscribe();   // código interno y existencias escritos a mano, compartidos
+      window.INVENTARIO?.suscribir();  // existencias reales de almacén que sube el puente de MiPortal
 
       function setView(viewName) {
         Object.entries(views).forEach(([name, element]) => { element.classList.toggle("is-active", name === viewName); });

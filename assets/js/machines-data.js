@@ -4923,6 +4923,25 @@ const initialMachines = [
         return filas;
       }
 
+      // La casilla de existencia. La casilla editable es SIEMPRE la correccion a
+      // mano; cuando esta vacia, lo que se ve de fondo es lo que dice el portal
+      // (o, si no hay portal, la cifra vieja del Excel). Se marca de donde sale
+      // porque no es lo mismo un numero de almacen de esta manana que uno del
+      // Excel de hace meses, y quien decide si pide una pieza necesita saberlo.
+      function spExistCelda(f) {
+        const marcas = {
+          mano:   { t: "mano",   d: "Contado en planta y corregido a mano. Manda sobre el portal." },
+          portal: { t: "portal", d: "Existencia de MiPortal" + (f.existAl ? " del " + String(f.existAl).slice(0, 10) : "") + ". Si no cuadra con el estante, escribela aqui y tu numero manda." },
+          excel:  { t: "excel",  d: "Del Excel del plan, que es una foto vieja. Todavia sin dato del portal." },
+        };
+        const m = marcas[f.existFuente] || marcas.excel;
+        const fondo = f.existFuente === "mano" ? "" : String(f.existV);
+        return `<input class="pl-edit pl-edit--num" value="${planEsc(f.exist)}" placeholder="${planEsc(fondo || "\u2014")}"`
+          + ` title="${planEsc(m.d)} Escribe aqui la existencia real; se comparte con todo el taller."`
+          + ` onchange="editarDato(this, '${planEsc(f.clave)}', 'exist')">`
+          + `<span class="pl-exist-src pl-exist-src--${m.t}" title="${planEsc(m.d)}">${m.t}</span>`;
+      }
+
       // Una fila de la tabla, con todo lo que sabemos de esa pieza venga de donde venga.
       function spFila(eq, r, p, fuente) {
         const cod = repCodigo(eq, r) || "";
@@ -4940,8 +4959,11 @@ const initialMachines = [
           crit: (p && p.criticality) || "",
           fn: (p && p.function) || "",
           q: r.q || 0,
-          exist: repExistencia(eq, r),
-          ub: r.ub || "",
+          exist: repExistencia(eq, r),          // solo lo escrito a mano: es lo que va en la casilla editable
+          ...(() => { const e = existenciaEfectiva(eq, r); return { existV: e.v, existFuente: e.fuente, existAl: e.actualizado || "" }; })(),
+          // Del portal viene tambien la ubicacion real en almacen, que suele estar
+          // mas al dia que la del Excel: si la trae, manda ella.
+          ub: (window.INVENTARIO?.de(cod)?.ub) || r.ub || "",
           planFreq: xls.f || "",
           planEj: xls.ej || "",
           planPx: xls.px || "",
@@ -4973,7 +4995,7 @@ const initialMachines = [
         if (col) {
           const val = (f) => {
             if (col === "q") return f.q;
-            if (col === "exist") return Number(f.exist) || 0;
+            if (col === "exist") return f.existV;
             if (col === "crit") return SP_CRIT_ORDEN[planPlain(f.crit)] ?? 9;
             if (col === "freq") return f.med ? f.med.prom : 999999;
             return planPlain(f[col] || "");
@@ -5009,8 +5031,8 @@ const initialMachines = [
       const SP_CONDICIONES = [
         { id: "con-cod", grupo: "Código interno", etiqueta: "Con código interno", test: (f) => !!f.cod },
         { id: "sin-cod", grupo: "Código interno", etiqueta: "Sin código interno", test: (f) => !f.cod },
-        { id: "sin-stock", grupo: "Existencia", etiqueta: "Sin existencia", test: (f) => Number(f.exist === "" ? f.r.e : f.exist) === 0 },
-        { id: "con-stock", grupo: "Existencia", etiqueta: "Con existencia", test: (f) => Number(f.exist === "" ? f.r.e : f.exist) > 0 },
+        { id: "sin-stock", grupo: "Existencia", etiqueta: "Sin existencia", test: (f) => f.existV === 0 },
+        { id: "con-stock", grupo: "Existencia", etiqueta: "Con existencia", test: (f) => f.existV > 0 },
         { id: "con-hist", grupo: "Historial", etiqueta: "Con cambios registrados", test: (f) => f.hist.length > 0 },
         { id: "sin-hist", grupo: "Historial", etiqueta: "Sin cambios registrados", test: (f) => f.hist.length === 0 },
         { id: "con-freq", grupo: "Historial", etiqueta: "Con frecuencia medida", test: (f) => !!f.med },
@@ -5129,7 +5151,7 @@ const initialMachines = [
             if (util(todas.length - conCod)) rapidos.push({ n: todas.length - conCod, etiqueta: "Sin código interno", activo: spCondPuesta("sin-cod"), accion: "spToggleCond('sin-cod')" });
             const altas = todas.filter((f) => planPlain(f.crit) === "alta").length;
             if (util(altas)) rapidos.push({ n: altas, etiqueta: "Criticidad alta", activo: spCampoPuesto("crit", "Alta"), accion: "spToggleCampo('crit','Criticidad','Alta')" });
-            const cero = todas.filter((f) => Number(f.exist === "" ? f.r.e : f.exist) === 0).length;
+            const cero = todas.filter((f) => f.existV === 0).length;
             if (util(cero)) rapidos.push({ n: cero, etiqueta: "Sin existencia", activo: spCondPuesta("sin-stock"), accion: "spToggleCond('sin-stock')" });
             if (!rapidos.length) return "";
             return `<div class="spf-rapidos">
@@ -5197,7 +5219,7 @@ const initialMachines = [
         const conCod = todas.filter((f) => f.cod).length;
         const sinCod = todas.length - conCod;
         // Existencia efectiva: la que se haya escrito aqui, y si no la que traia el Excel.
-        const sinStock = todas.filter((f) => f.fuente === "plan" && Number(f.exist === "" ? f.r.e : f.exist) === 0).length;
+        const sinStock = todas.filter((f) => f.fuente === "plan" && f.existV === 0).length;
         const criticos = todas.filter((f) => planPlain(f.crit) === "alta").length;
         const conHist = todas.filter((f) => f.hist.length).length;
         return `<div class="pl-panel sp-panel">
@@ -5422,7 +5444,7 @@ const initialMachines = [
           <td class="sp-ref">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
           <td>${f.crit ? `<span class="criticality-badge criticality-${planPlain(f.crit).replace(/ /g, "-")}">${planEsc(f.crit)}</span>` : "&mdash;"}</td>
           <td class="pl-num">${f.q || "&mdash;"}</td>
-          <td class="pl-num"><input class="pl-edit pl-edit--num" value="${planEsc(f.exist)}" placeholder="&mdash;" title="${f.r.e ? "El Excel dec&iacute;a " + f.r.e + ". " : ""}Escribe la existencia real; se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'exist')"></td>
+          <td class="pl-num">${spExistCelda(f)}</td>
           <td class="pl-freq">${freq}${f.hist.length ? `<button class="pl-hist-btn" type="button" onclick="spToggle('${planEsc(f.clave)}')">${f.hist.length} ${f.hist.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
           <td class="pl-num"><button class="pl-reg" type="button" onclick="spRegistrar('${planEsc(f.eq.c)}','${planEsc(f.cod)}','${planEsc(f.nombre).replace(/'/g, "&#39;")}',${f.q || 1})" title="Registrar un cambio de esta pieza">Registrar</button></td>
         </tr>`;

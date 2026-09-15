@@ -1,0 +1,35 @@
+{
+  "_ayuda": "Copia este archivo a portal.config.json y ajustalo. Las credenciales NO van aqui: van en .env",
+
+  "portal": {
+    "loginUrl": "http://miportal:9010/MiPortal/Index2.faces",
+
+    "reporteUrl": "http://miportal:9010/MiPortal/PON_LA_PANTALLA_DEL_REPORTE.faces",
+
+    "_selectorExportar": "Selector CSS del boton que exporta a Excel. Si lo dejas vacio o lo quitas, se asume que reporteUrl ya devuelve el archivo directamente.",
+    "selectorExportar": "",
+
+    "_selectorLogueado": "Algo que SOLO aparece cuando ya entraste (el menu, tu nombre). Sirve para no confundir un login fallido con uno bueno. Opcional.",
+    "selectorLogueado": "",
+
+    "_selectores": "Opcional. Solo si el login no se deja adivinar; --explorar te deja ver la pagina para sacarlos.",
+    "selectores": { "usuario": "", "clave": "", "entrar": "" },
+
+    "_pasosPrevios": "Opcional: filtros que hay que dejar puestos antes de exportar. accion: escribir | elegir | clic",
+    "pasosPrevios": [],
+
+    "timeoutMs": 45000
+  },
+
+  "excel": {
+    "_ayuda": "Normalmente NO hace falta tocar nada: las columnas se detectan solas. Rellena solo si el puente se equivoca (miralo con: node bridge.mjs --columnas).",
+    "hoja": "",
+    "columnas": { "cod": "", "desc": "", "exist": "", "ub": "", "pu": "", "alm": "" }
+  },
+
+  "firebase": {
+    "projectId": "mantenimiento-f405b",
+    "_apiKey": "La API key web es publica (ya esta en index.html), no es un secreto.",
+    "apiKey": "AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ"
+  }
+}

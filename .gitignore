@@ -15,3 +15,11 @@
 # OS
 Thumbs.db
 .DS_Store
+
+# Puente MiPortal (scripts/portal-bridge)
+scripts/portal-bridge/node_modules/
+scripts/portal-bridge/.env
+scripts/portal-bridge/portal.config.json
+scripts/portal-bridge/salida/
+# El repo ignora *.md (texto crudo de OCR), pero la guia del puente si va
+!scripts/portal-bridge/README.md

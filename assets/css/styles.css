@@ -3044,3 +3044,36 @@
       .spf-rapido span { color: var(--muted); font-size: 0.73rem; font-weight: 800; font-variant-numeric: tabular-nums; }
       .spf-rapido.is-on { border-color: #1849a9; background: var(--blue-soft); color: #1849a9; }
       .spf-rapido.is-on span { color: #1849a9; }
+
+      /* ----------------------------------------------------------------
+         Procedencia de una existencia (ver assets/js/inventario.js).
+         Un numero de almacen sin saber de cuando es no sirve para decidir
+         si hay que pedir una pieza, asi que cada casilla dice de donde sale.
+         ---------------------------------------------------------------- */
+      .pl-exist-src {
+        display: block;
+        margin-top: 2px;
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1;
+        cursor: help;
+      }
+      .pl-exist-src--mano { color: #1849a9; }   /* contado en planta: manda */
+      .pl-exist-src--portal { color: #027a48; } /* fresco, viene de MiPortal */
+      .pl-exist-src--excel { color: #98a2b3; }  /* foto vieja del Excel */
+
+      /* Aviso de inventario viejo en la cabecera del plan. */
+      .pl-inv {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 4px 11px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+      .pl-inv--fresco { background: #ecfdf3; color: #027a48; }
+      .pl-inv--viejo { background: #fffaeb; color: #b54708; }
+      .pl-inv--sin-datos { background: var(--soft); color: #667085; }

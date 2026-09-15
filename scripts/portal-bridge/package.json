@@ -1,0 +1,19 @@
+{
+  "name": "portal-bridge",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Puente entre MiPortal (intranet) y la app de equipos y repuestos.",
+  "scripts": {
+    "sync": "node bridge.mjs",
+    "explorar": "node bridge.mjs --explorar",
+    "prueba": "node bridge.mjs --dry-run",
+    "columnas": "node bridge.mjs --columnas",
+    "test": "node test/detector.test.mjs"
+  },
+  "dependencies": {
+    "playwright": "^1.47.0",
+    "xlsx": "^0.18.5"
+  },
+  "engines": { "node": ">=18" }
+}
