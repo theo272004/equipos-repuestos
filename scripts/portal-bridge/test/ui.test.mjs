@@ -88,6 +88,18 @@ const manoGana = await pg.evaluate(() => {
 });
 console.log("MANO vs PORTAL:", JSON.stringify(manoGana));
 
+// 6) Una pieza que el portal NO lista. El reporte de repuestos no incluye los
+//    articulos en cero, asi que esto suele significar "agotada". Tiene que
+//    marcarse aparte, no confundirse con "todavia no hay portal".
+const sinRegistro = await pg.evaluate(() => {
+  const eq = window.EQUIPOS_PLAN.equipos.find((e) => e.c === "17332002");
+  // otra pieza del mismo equipo, que no metimos en el inventario simulado
+  const r = eq.r.find((x) => x.cod && x.cod !== "724001008" && x.e > 0);
+  return { cod: r.cod, excel: r.e, ...window.existenciaEfectiva(eq, r) };
+});
+console.log("PIEZA QUE EL PORTAL NO LISTA:", JSON.stringify(sinRegistro));
+
+
 await pg.screenshot({ path: new URL("../salida/ficha.png", import.meta.url).pathname });
 
 console.log("\nERRORES DE CONSOLA:", errores.length ? "\n - " + errores.join("\n - ") : "ninguno");
@@ -95,6 +107,8 @@ await nav.close();
 
 // --- veredicto ---
 const fallos = [];
+if (sinRegistro?.fuente !== "sin-registro") fallos.push(`una pieza ausente del portal deberia salir como sin-registro, salio ${sinRegistro?.fuente}`);
+if (sinRegistro?.v !== sinRegistro?.excel) fallos.push("sin registro deberia seguir enseñando la cifra del Excel");
 if (manoGana?.fuente !== "mano") fallos.push(`lo escrito a mano deberia mandar, mando ${manoGana?.fuente}`);
 if (manoGana?.v !== 2) fallos.push(`a mano se puso 2, salio ${manoGana?.v}`);
 if (!sinPortal.hayInventario) fallos.push("INVENTARIO no se cargo");

@@ -3077,3 +3077,5 @@
       .pl-inv--fresco { background: #ecfdf3; color: #027a48; }
       .pl-inv--viejo { background: #fffaeb; color: #b54708; }
       .pl-inv--sin-datos { background: var(--soft); color: #667085; }
+      /* El portal no lista la pieza: probablemente agotada, el numero es el viejo. */
+      .pl-exist-src--sinreg { color: #b54708; }

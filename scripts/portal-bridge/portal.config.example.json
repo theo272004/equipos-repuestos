@@ -2,11 +2,12 @@
   "_ayuda": "Copia este archivo a portal.config.json y ajustalo. Las credenciales NO van aqui: van en .env",
 
   "portal": {
-    "loginUrl": "http://miportal:9010/MiPortal/Index2.faces",
+    "loginUrl": "http://miportal:9010/MiPortal/Index3.faces",
 
-    "reporteUrl": "http://miportal:9010/MiPortal/PON_LA_PANTALLA_DEL_REPORTE.faces",
+    "_reporteUrl": "La pantalla del reporte RE356 (repuestos). Sacala con --explorar: es la que quede en la barra del navegador cuando lo tengas delante.",
+    "reporteUrl": "http://miportal:9010/MiPortal/PON_AQUI_LA_PANTALLA_DEL_RE356.faces",
 
-    "_selectorExportar": "Selector CSS del boton que exporta a Excel. Si lo dejas vacio o lo quitas, se asume que reporteUrl ya devuelve el archivo directamente.",
+    "_selectorExportar": "OJO: el reporte sale en PDF por defecto, hay que pulsar GENERAR EXCEL. Aqui va el selector CSS de ese boton. Sacalo con --explorar.",
     "selectorExportar": "",
 
     "_selectorLogueado": "Algo que SOLO aparece cuando ya entraste (el menu, tu nombre). Sirve para no confundir un login fallido con uno bueno. Opcional.",
@@ -22,9 +23,10 @@
   },
 
   "excel": {
-    "_ayuda": "Normalmente NO hace falta tocar nada: las columnas se detectan solas. Rellena solo si el puente se equivoca (miralo con: node bridge.mjs --columnas).",
+    "_ayuda": "Normalmente NO hace falta tocar nada. Probado contra el RE356 y el RE040EX reales: detecta las dos sin configurar nada. Rellena solo si se equivoca (miralo con: node bridge.mjs --columnas).",
+    "_hoja": "El RE356 trae su unica hoja llamada RE356. Vacio = se busca sola.",
     "hoja": "",
-    "columnas": { "cod": "", "desc": "", "exist": "", "ub": "", "pu": "", "alm": "" }
+    "columnas": { "cod": "", "desc": "", "exist": "", "ub": "", "pu": "", "alm": "", "min": "", "consumo": "" }
   },
 
   "firebase": {

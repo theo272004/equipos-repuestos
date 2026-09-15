@@ -77,6 +77,39 @@ const numerico = out.find((f) => f.cod === delPlan[3]);
 ok(numerico && numerico.cod === delPlan[3], `codigo guardado como numero se normalizo`);
 ok(!out.some((f) => f.desc === "TOTAL GENERAL"), "la fila de subtotal se colo");
 
+
+// --- forma del reporte RE356 real de MiPortal ---
+// Cabecera en la fila 1, valores rellenos de espacios a la derecha, el codigo en
+// una columna llamada "CODIGO" que compite con "CODIGO_MRP", y "STOCK_MINIMO"
+// al lado de "EXISTENCIA". El almacen y la ubicacion van por separado y hay que
+// juntarlos como "R02/M0202", que es el formato que ya usa el plan.
+const re356 = xlsx.utils.book_new();
+const filasRe = [["CODIGO", "DESCRIPCION", "U/M", "PRECIO UNIT", "CODIGO_MRP", "TAMANO_LOTE", "STOCK_MINIMO", "DIAS_APROV", "CONSUMO_MES", "EXISTENCIA", "ALMACEN", "UBICACION"]];
+delPlan.slice(0, 20).forEach((cod, i) => {
+  filasRe.push([cod + "   ", `PIEZA ${i}` + " ".repeat(20), "UN", 263339, "N", 1, 2, 90, 0.17, (i % 4) + 1, "R01", "M0302    "]);
+});
+// la misma pieza en un segundo almacen: existencias suman, ubicaciones se juntan
+filasRe.push([delPlan[0], "PIEZA 0", "UN", 263339, "N", 1, 2, 90, 0.17, 5, "R02", "L0102"]);
+xlsx.utils.book_append_sheet(re356, xlsx.utils.aoa_to_sheet(filasRe), "RE356");
+const rutaRe = join(SALIDA, "re356.xlsx");
+xlsx.writeFile(re356, rutaRe);
+
+const re = await leerInventario(rutaRe, codigos);
+const d2 = re.diagnostico;
+ok(d2.filaCabecera === 1, `RE356: cabecera en ${d2.filaCabecera}, esperaba 1`);
+ok(d2.columnas.cod === "CODIGO", `RE356: codigo -> ${d2.columnas.cod} (CODIGO_MRP no debe ganar)`);
+ok(d2.columnas.exist === "EXISTENCIA", `RE356: existencia -> ${d2.columnas.exist} (STOCK_MINIMO no debe robarsela)`);
+ok(d2.columnas.min === "STOCK_MINIMO", `RE356: minimo -> ${d2.columnas.min}`);
+ok(d2.columnas.consumo === "CONSUMO_MES", `RE356: consumo -> ${d2.columnas.consumo}`);
+ok(d2.columnas.pu === "PRECIO UNIT", `RE356: precio -> ${d2.columnas.pu}`);
+const p0 = re.filas.find((f) => f.cod === delPlan[0]);
+ok(p0.exist === 1 + 5, `RE356: sumo los dos almacenes: ${p0?.exist}, esperaba 6`);
+ok(p0.ub === "R01/M0302 \u00b7 R02/L0102", `RE356: ubicacion mal emparejada: "${p0?.ub}"`);
+ok(p0.min === 2 && p0.consumo === 0.17, `RE356: minimo/consumo -> ${p0?.min}/${p0?.consumo}`);
+const p1 = re.filas.find((f) => f.cod === delPlan[1]);
+ok(p1.ub === "R01/M0302", `RE356: ubicacion simple mal: "${p1?.ub}"`);
+ok(!/\s$/.test(p1.desc), `RE356: quedo relleno de espacios en la descripcion: "${p1?.desc}"`);
+
 // --- el reporte equivocado ---
 // Pasa de verdad: alguien exporta otra pantalla del portal y el puente se traga
 // un Excel que no es. Tiene que negarse y decir por que, no subir basura.
@@ -94,5 +127,5 @@ try { await leerInventario(rutaOtro, codigos); } catch (e) { rechazado = e.messa
 ok(rechazado, "acepto un reporte que no es de inventario");
 ok(/codigos internos del plan/.test(rechazado), `rechazo el reporte pero sin explicar por que: ${rechazado.slice(0, 80)}`);
 
-console.log(fallos.length ? "\nFALLOS:\n- " + fallos.join("\n- ") : "\nTodo correcto (reporte bueno y reporte equivocado).");
+console.log(fallos.length ? "\nFALLOS:\n- " + fallos.join("\n- ") : "\nTodo correcto (reporte generico, reporte RE356 real y reporte equivocado).");
 process.exit(fallos.length ? 1 : 0);

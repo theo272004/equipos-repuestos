@@ -85,7 +85,7 @@ window.INVENTARIO = (function () {
       snap.forEach((doc) => {
         const v = doc.data() || {};
         const k = norm(v.cod || doc.id);
-        if (k) nuevo[k] = { cod: k, desc: v.desc || "", exist: v.exist ?? null, ub: v.ub || "", pu: v.pu ?? null, alm: v.alm || "", actualizado: v.actualizado || "" };
+        if (k) nuevo[k] = { cod: k, desc: v.desc || "", exist: v.exist ?? null, ub: v.ub || "", pu: v.pu ?? null, alm: v.alm || "", min: v.min ?? null, consumo: v.consumo ?? null, actualizado: v.actualizado || "" };
       });
       porCodigo = nuevo;
       estado.articulos = Object.keys(nuevo).length;
@@ -112,5 +112,9 @@ window.INVENTARIO = (function () {
     }, (err) => console.error("[Inventario] meta:", err));
   }
 
-  return { de, norm, frescura, diasDesdeActualizacion, suscribir, get estado() { return estado; }, get todo() { return porCodigo; } };
+  // Si hay inventario del portal cargado. Sirve para distinguir "el portal no
+  // lista esta pieza" (probablemente agotada) de "todavia no hay portal".
+  function cargado() { return Object.keys(porCodigo).length > 0; }
+
+  return { de, norm, frescura, diasDesdeActualizacion, suscribir, get cargado() { return cargado(); }, get estado() { return estado; }, get todo() { return porCodigo; } };
 })();

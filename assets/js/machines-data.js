@@ -4929,13 +4929,16 @@ const initialMachines = [
       // porque no es lo mismo un numero de almacen de esta manana que uno del
       // Excel de hace meses, y quien decide si pide una pieza necesita saberlo.
       function spExistCelda(f) {
+        const inv = window.INVENTARIO?.de(f.cod);
+        const minTxt = inv && inv.min ? " Minimo de almacen: " + inv.min + "." : "";
         const marcas = {
-          mano:   { t: "mano",   d: "Contado en planta y corregido a mano. Manda sobre el portal." },
-          portal: { t: "portal", d: "Existencia de MiPortal" + (f.existAl ? " del " + String(f.existAl).slice(0, 10) : "") + ". Si no cuadra con el estante, escribela aqui y tu numero manda." },
+          mano:   { t: "mano",   d: "Contado en planta y corregido a mano. Manda sobre el portal." + minTxt },
+          portal: { t: "portal", d: "Existencia de MiPortal" + (f.existAl ? " del " + String(f.existAl).slice(0, 10) : "") + ". Si no cuadra con el estante, escribela aqui y tu numero manda." + minTxt },
           excel:  { t: "excel",  d: "Del Excel del plan, que es una foto vieja. Todavia sin dato del portal." },
+          "sin-registro": { t: "sin reg.", d: "MiPortal no lista esta pieza. El reporte de repuestos no incluye lo que esta en cero, asi que lo mas probable es que se haya agotado. El numero que se ve es el viejo del Excel: confirmalo en el estante antes de fiarte." },
         };
         const m = marcas[f.existFuente] || marcas.excel;
-        const fondo = f.existFuente === "mano" ? "" : String(f.existV);
+        const fondo = f.existFuente === "mano" ? "" : f.existFuente === "sin-registro" ? "?" : String(f.existV);
         return `<input class="pl-edit pl-edit--num" value="${planEsc(f.exist)}" placeholder="${planEsc(fondo || "\u2014")}"`
           + ` title="${planEsc(m.d)} Escribe aqui la existencia real; se comparte con todo el taller."`
           + ` onchange="editarDato(this, '${planEsc(f.clave)}', 'exist')">`

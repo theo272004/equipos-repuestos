@@ -1057,8 +1057,14 @@ function dt(machine, campo) {
         const cod = repCodigo(eq, r);
         const inv = cod && window.INVENTARIO ? window.INVENTARIO.de(cod) : null;
         if (inv && inv.exist !== null && inv.exist !== undefined) {
-          return { v: Number(inv.exist) || 0, fuente: "portal", actualizado: inv.actualizado, ub: inv.ub };
+          return { v: Number(inv.exist) || 0, fuente: "portal", actualizado: inv.actualizado, ub: inv.ub, min: inv.min, consumo: inv.consumo };
         }
+        // Hay inventario del portal, pero esta pieza no sale en el. No es lo mismo
+        // que no tener portal: el reporte de repuestos no lista los articulos en
+        // cero, asi que lo mas probable es que se haya agotado. Se sigue enseñando
+        // la cifra del Excel porque es lo unico que hay, pero marcada aparte: dar
+        // por buenas "28 paletas" de hace meses es peor que decir que no se sabe.
+        if (window.INVENTARIO?.cargado) return { v: Number(r.e) || 0, fuente: "sin-registro" };
         return { v: Number(r.e) || 0, fuente: "excel" };
       }
       function existenciaDe(eq, r) { return existenciaEfectiva(eq, r).v; }

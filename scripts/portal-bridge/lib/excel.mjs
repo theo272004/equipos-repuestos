@@ -30,6 +30,8 @@ const TITULOS = {
   ub:    ["UBICACION", "LOCALIZACION", "POSICION", "BIN", "ESTANTE", "LOCACION"],
   pu:    ["PRECIO", "PRECIO UNITARIO", "COSTO", "COSTO UNITARIO", "COSTO PROMEDIO", "VALOR UNITARIO", "VR UNITARIO"],
   alm:   ["ALMACEN", "BODEGA", "DEPOSITO", "CENTRO"],
+  min:   ["STOCK MINIMO", "MINIMO", "EXISTENCIA MINIMA", "CANTIDAD MINIMA", "PUNTO DE REORDEN"],
+  consumo: ["CONSUMO MES", "CONSUMO MENSUAL", "CONSUMO PROMEDIO", "CONSUMO"],
 };
 
 function puntajeTitulo(titulo, campo) {
@@ -106,22 +108,33 @@ function analizarHoja(matriz, codigosPlan, forzadas = {}) {
     }
     if (!colCod) continue;
 
+    // Una columna solo puede ser una cosa. Importa de verdad: el reporte de
+    // repuestos trae "EXISTENCIA" y "STOCK_MINIMO" a la vez, y sin esto el
+    // minimo podria quedarse con la columna de existencias (ambas empiezan por
+    // "STOCK" en otros reportes) y el puente subiria el minimo como si fuera lo
+    // que hay en el estante.
+    const tomadas = new Set([colCod.c]);
     const elegir = (campo, filtro) => {
       const cands = cols
-        .filter((x) => x.c !== colCod.c && x.llenos > 0 && (!filtro || filtro(x)))
+        .filter((x) => !tomadas.has(x.c) && x.llenos > 0 && (!filtro || filtro(x)))
         .map((x) => ({ x, p: puntajeTitulo(x.titulo, campo) }))
         .sort((a, b) => b.p - a.p);
-      return cands.length && cands[0].p >= 0.6 ? cands[0].x : null;
+      const elegida = cands.length && cands[0].p >= 0.6 ? cands[0].x : null;
+      if (elegida) tomadas.add(elegida.c);
+      return elegida;
     };
 
+    // El orden importa: gana el que se elige antes, asi que primero lo esencial.
     const colExist = elegir("exist", (x) => x.ratioNum >= 0.7);
     const sel = {
       cod: colCod,
-      desc: elegir("desc", (x) => x.largoMedio >= 4) || [...cols].filter((x) => x.c !== colCod.c).sort((a, b) => b.largoMedio - a.largoMedio)[0] || null,
       exist: colExist,
+      desc: elegir("desc", (x) => x.largoMedio >= 4) || [...cols].filter((x) => !tomadas.has(x.c)).sort((a, b) => b.largoMedio - a.largoMedio)[0] || null,
       ub: elegir("ub"),
-      pu: elegir("pu", (x) => x.ratioNum >= 0.7),
       alm: elegir("alm"),
+      pu: elegir("pu", (x) => x.ratioNum >= 0.7),
+      min: elegir("min", (x) => x.ratioNum >= 0.7),
+      consumo: elegir("consumo", (x) => x.ratioNum >= 0.7),
     };
 
     // Puntaje de la hoja+cabecera: lo que pesa es cuantos codigos del plan
@@ -180,15 +193,23 @@ export async function leerInventario(rutaXlsx, codigosPlan, opciones = {}) {
   for (const fila of mejor.cuerpo) {
     const cod = normCod(fila[sel.cod.c]);
     if (!cod) { sinCodigo++; continue; }
-    const exist = sel.exist ? numero(fila[sel.exist.c]) : NaN;
-    const pu = sel.pu ? numero(fila[sel.pu.c]) : NaN;
+    const num = (col) => { const n = col ? numero(fila[col.c]) : NaN; return Number.isFinite(n) ? n : null; };
+    const alm = String(fila[sel.alm?.c] ?? "").trim();
+    const sitio = String(fila[sel.ub?.c] ?? "").trim();
     const reg = {
       cod,
       desc: String(fila[sel.desc?.c] ?? "").trim(),
-      exist: Number.isFinite(exist) ? exist : null,
-      ub: String(fila[sel.ub?.c] ?? "").trim(),
-      pu: Number.isFinite(pu) ? pu : null,
-      alm: String(fila[sel.alm?.c] ?? "").trim(),
+      exist: num(sel.exist),
+      // El almacen y la ubicacion se juntan YA, fila a fila, en el mismo formato
+      // que usa el plan ("R02/M0202"). Si se guardaran por separado, al fundir un
+      // codigo que esta en varios sitios quedaria un solo almacen para todas las
+      // ubicaciones y diria donde no es: "R04/B0204 · R01/Z0505" es la verdad,
+      // "R04" + "B0204 · Z0505" es mentira a medias.
+      ub: alm && sitio ? `${alm}/${sitio}` : sitio || alm,
+      pu: num(sel.pu),
+      min: num(sel.min),
+      consumo: num(sel.consumo),
+      alm,
     };
     // Un mismo codigo puede venir repetido, una fila por almacen: las existencias
     // se suman, que es el total que de verdad hay en planta.
@@ -198,7 +219,9 @@ export async function leerInventario(rutaXlsx, codigosPlan, opciones = {}) {
       if (reg.exist !== null) previo.exist = (previo.exist ?? 0) + reg.exist;
       if (!previo.desc && reg.desc) previo.desc = reg.desc;
       if (reg.ub && !String(previo.ub).split(" · ").includes(reg.ub)) previo.ub = previo.ub ? `${previo.ub} · ${reg.ub}` : reg.ub;
-      if (previo.pu === null && reg.pu !== null) previo.pu = reg.pu;
+      // Precio, minimo y consumo son del articulo, no del almacen: no se suman,
+      // se toma el primero que venga con dato.
+      for (const k of ["pu", "min", "consumo"]) if (previo[k] === null && reg[k] !== null) previo[k] = reg[k];
     } else {
       vistos.set(cod, reg);
       filas.push(reg);

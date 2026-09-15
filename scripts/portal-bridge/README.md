@@ -55,7 +55,10 @@ más fácil.
 
 ### Paso 1 — comprobar que el Excel se entiende
 
-Baja el reporte de inventario a mano, como haces siempre, y pásaselo:
+Baja el reporte a mano, como haces siempre, y pásaselo. **Usa el RE356**
+(repuestos), no el RE040EX: ver más abajo por qué.
+
+**Ojo:** el reporte sale en PDF por defecto. Hay que pulsar **generar Excel**.
 
 ```bash
 node bridge.mjs --archivo ~/Descargas/inventario.xlsx --columnas
@@ -116,6 +119,42 @@ iniciar en la carpeta de `portal-bridge`.
 | `node bridge.mjs --dry-run` | Hace todo menos escribir en Firestore. |
 | `npm test` | Comprueba el lector de Excel sin tocar el portal. |
 
+## Qué reporte usar: RE356
+
+MiPortal saca dos reportes que sirven, y **el bueno es el RE356** (repuestos):
+
+| | RE040EX (inventarios) | **RE356 (repuestos)** |
+|---|---|---|
+| Artículos | 10.748 (incluye materia prima, producto terminado, estibas) | 5.113 |
+| Códigos del plan que cubre | 182 | **182 — los mismos** |
+| Precio unitario | no lo trae | **sí** |
+| Stock mínimo y consumo/mes | no | **sí** |
+| Tiempo de lectura | 14 s | **2 s** |
+
+Comprobado contra los dos archivos reales: **cubren exactamente los mismos 182
+códigos**, así que el RE040EX no aporta nada y cuesta siete veces más.
+
+### Dos cosas que conviene saber de estos datos
+
+**1. El plan tiene 444 códigos, pero solo 182 existen en bodega (41%).** No es un
+fallo del puente. De los 262 que faltan, **237 ya venían sin ubicación y sin
+existencia en el propio Excel del plan**: nunca tuvieron registro de almacén.
+Y no es que el reporte salga filtrado — los almacenes que el plan apunta para
+esos códigos (R01, R02, R04) sí están en el reporte.
+
+**2. El RE356 no lista nunca un cero.** De 5.113 artículos, ninguno con
+existencia 0. Es decir: si una pieza de bodega no aparece en el reporte, **es
+que se agotó**, no que falte el dato.
+
+Por eso la app marca esas piezas aparte, como `sin reg.`, en vez de enseñar la
+cifra vieja del Excel como si fuera buena. Dar por buenas "28 paletas" de hace
+meses es peor que decir que no se sabe.
+
+Si en almacén confirman que la lectura es correcta, el paso siguiente natural es
+mostrar directamente **0** en esas piezas. No se hizo por defecto porque es una
+conclusión que conviene confirmar con almacén antes de que alguien decida no
+pedir una pieza fiándose de ella.
+
 ## Cómo adivina las columnas
 
 No se fía de los títulos. Cada reporte los escribe a su manera (`EXISTENCIA`,
@@ -131,6 +170,12 @@ También entiende los números en formato colombiano (`1.234,50`), suma las
 existencias cuando un mismo código aparece repetido en varios almacenes, e
 ignora las filas de subtotal que no llevan código.
 
+Del RE356 saca ocho columnas sin configurar nada: código, descripción,
+existencia, almacén, ubicación, precio unitario, **stock mínimo** y
+**consumo/mes**. El almacén y la ubicación se juntan por fila como `R02/M0202`,
+que es el formato que ya usa el plan; cuando una pieza está en varios sitios
+queda `R04/B0204 · R01/Z0505`, igual que lo escribe el Excel de la empresa.
+
 Si aun así se equivoca, en `portal.config.json → excel.columnas` se fija a mano
 y lo escrito ahí manda.
 
@@ -141,6 +186,10 @@ En la app manda este orden:
 1. **Lo escrito a mano** en la tabla → colección `datos`. **Gana siempre.**
 2. **Lo que dice el portal** → colección `inventario`, que llena este puente.
 3. **Lo que traía el Excel** del plan → `assets/equipos.js`.
+
+Y un cuarto caso: si el portal está cargado pero **no lista** esa pieza, se
+marca `sin reg.` (probablemente agotada), que no es lo mismo que no tener
+portal todavía.
 
 El puente **nunca escribe en `datos`**. Si un técnico cuenta las piezas en el
 estante y corrige el número, esa corrección sobrevive a todas las pasadas
