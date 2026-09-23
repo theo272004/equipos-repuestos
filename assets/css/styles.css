@@ -3044,3 +3044,173 @@
       .spf-rapido span { color: var(--muted); font-size: 0.73rem; font-weight: 800; font-variant-numeric: tabular-nums; }
       .spf-rapido.is-on { border-color: #1849a9; background: var(--blue-soft); color: #1849a9; }
       .spf-rapido.is-on span { color: #1849a9; }
+
+      /* ----------------------------------------------------------------
+         Procedencia de una existencia (ver assets/js/inventario.js).
+         Un numero de almacen sin saber de cuando es no sirve para decidir
+         si hay que pedir una pieza, asi que cada casilla dice de donde sale.
+         ---------------------------------------------------------------- */
+      .pl-exist-src {
+        display: block;
+        margin-top: 2px;
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        line-height: 1;
+        cursor: help;
+      }
+      .pl-exist-src--mano { color: #1849a9; }   /* contado en planta: manda */
+      .pl-exist-src--portal { color: #027a48; } /* fresco, viene de MiPortal */
+      .pl-exist-src--excel { color: #98a2b3; }  /* foto vieja del Excel */
+
+      /* Aviso de inventario viejo en la cabecera del plan. */
+      .pl-inv {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        border-radius: 999px;
+        padding: 4px 11px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+      .pl-inv--fresco { background: #ecfdf3; color: #027a48; }
+      .pl-inv--viejo { background: #fffaeb; color: #b54708; }
+      .pl-inv--sin-datos { background: var(--soft); color: #667085; }
+      /* El portal no lista la pieza: probablemente agotada, el numero es el viejo. */
+      .pl-exist-src--sinreg { color: #b54708; }
+
+      /* ================================================================
+         ALMACEN: buscador sobre el RE356 + solicitud DAD-010A
+         ================================================================ */
+      .alm-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(340px, 400px); gap: 20px; align-items: start; }
+      .alm-main { min-width: 0; }
+      .alm-side { position: sticky; top: 16px; min-width: 0; }
+      .alm-fuente { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin-bottom: 12px; }
+      .alm-cargar { cursor: pointer; }
+      .alm-aviso { margin: 0 0 14px; border-radius: 12px; padding: 10px 14px; font-size: 0.86rem; line-height: 1.45; }
+      .alm-aviso--ok { background: #ecfdf3; color: #05603a; }
+      .alm-aviso--error { background: #fef3f2; color: #b42318; }
+      .alm-aviso--info { background: var(--blue-soft); color: #1849a9; }
+      .alm-chips { display: flex; flex-wrap: wrap; gap: 7px; margin: -6px 0 12px; }
+      .alm-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; background: #ffffff; color: #475467; font-size: 0.8rem; font-weight: 700; cursor: pointer; }
+      .alm-chip span { color: var(--muted); font-weight: 600; }
+      .alm-chip.is-on { border-color: var(--blue); background: var(--blue-soft); color: #1849a9; }
+      .alm-chip input { position: absolute; opacity: 0; pointer-events: none; }
+      .alm-cuenta { margin: 0 0 6px; }
+      .alm-table { min-width: 860px; }
+      .alm-donde { max-width: 220px; }
+      .alm-sitio { display: inline-block; margin: 0 4px 3px 0; border-radius: 6px; padding: 1px 6px; background: var(--soft); font-size: 0.78rem; font-weight: 600; white-space: nowrap; }
+      .alm-sitio b { color: #1849a9; }
+      .alm-uso { font-size: 0.78rem; color: #475467; max-width: 200px; }
+      .alm-table tr.is-bajo td { background: #fffcf5; }
+      .alm-table tr.is-fuera-alm td { color: #667085; }
+      .pl-reg.is-on { border-color: #027a48; background: #ecfdf3; color: #027a48; }
+      .alm-mas { display: block; margin: 12px auto 0; }
+
+      .alm-sol { border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: var(--surface); box-shadow: var(--shadow-card); display: grid; gap: 11px; }
+      .alm-sol__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .alm-sol__head h3 { margin: 0; font-size: 1.05rem; }
+      .alm-sol > .pl-soft { margin: -6px 0 0; }
+      .alm-tipo { display: flex; flex-wrap: wrap; gap: 6px; }
+      .alm-tipo .alm-chip { position: relative; }
+      .alm-form { border: 0; padding: 0; box-shadow: none; position: static; gap: 8px; }
+      .alm-form label { font-size: 0.72rem; }
+      .alm-form input { padding: 7px 9px; font-size: 0.86rem; }
+      .alm-sol-wrap { padding: 0; margin: 0 -4px; }
+      .alm-sol-table { min-width: 0; font-size: 0.8rem; }
+      .alm-sol-table td { padding: 6px 5px; vertical-align: middle; }
+      .alm-sol-table th { padding: 6px 5px; }
+      .alm-sol-desc { font-size: 0.76rem; line-height: 1.3; }
+      .alm-cant { width: 64px; min-width: 0; border-color: var(--line-strong); }
+      .alm-sitio-sel { max-width: 130px; border: 1px solid var(--line-strong); border-radius: 7px; padding: 3px 4px; font: inherit; font-size: 0.76rem; background: #ffffff; }
+      .alm-pasa { display: block; margin-top: 2px; color: #b42318; font-size: 0.7rem; font-weight: 700; }
+      .alm-x { width: 26px; height: 26px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); font-size: 1.1rem; line-height: 1; }
+      .alm-x:hover { background: #fef3f2; color: #b42318; }
+      .alm-sol-vacia { padding: 18px; font-size: 0.84rem; }
+      .alm-obs { display: grid; gap: 5px; font-size: 0.72rem; font-weight: 700; color: var(--muted); }
+      .alm-obs textarea { width: 100%; box-sizing: border-box; font: inherit; font-size: 0.86rem; padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: 10px; resize: vertical; }
+      .alm-obs .pl-soft { justify-self: end; font-weight: 600; }
+      .alm-acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+      .alm-acciones .button[disabled] { opacity: 0.45; cursor: not-allowed; }
+      .alm-hist-titulo { margin: 28px 0 10px; font-size: 1.05rem; }
+      .alm-hist { min-width: 620px; }
+
+      @media (max-width: 1100px) {
+        .alm-grid { grid-template-columns: minmax(0, 1fr); }
+        .alm-side { position: static; }
+      }
+
+      /* ================================================================
+         DIARIO: calendario de lo que se hizo cada dia
+         ================================================================ */
+      .dy-kpis { margin-bottom: 18px; }
+      .dy-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 380px); gap: 20px; align-items: start; }
+      .dy-cal { min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 14px; background: var(--surface); box-shadow: var(--shadow-card); }
+      .dy-cal__head { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+      .dy-cal__head h3 { margin: 0 auto 0 4px; font-size: 1.08rem; order: -1; }
+      .dy-semana, .dy-mes { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 5px; }
+      .dy-semana span { padding: 4px 6px; color: var(--muted); font-size: 0.7rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+      .dy-dia { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; min-height: 84px; border: 1px solid var(--line); border-radius: 10px; padding: 6px 7px; background: #ffffff; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+      .dy-dia:hover { border-color: var(--line-strong); background: var(--soft); }
+      .dy-dia.is-fuera { border: 0; background: transparent; cursor: default; }
+      .dy-dia.is-vacio .dy-num { color: var(--muted); }
+      .dy-dia.is-futuro { background: #fcfcfd; }
+      .dy-dia.is-hoy .dy-num { display: inline-grid; place-items: center; min-width: 22px; height: 22px; border-radius: 999px; background: var(--blue); color: #ffffff; }
+      .dy-dia.is-sel { border-color: var(--blue); box-shadow: 0 0 0 2px var(--blue-soft); }
+      .dy-num { font-size: 0.82rem; font-weight: 800; }
+      .dy-marcas { display: flex; flex-wrap: wrap; gap: 3px; }
+      .dy-k { display: inline-grid; place-items: center; min-width: 18px; height: 18px; border-radius: 999px; padding: 0 5px; font-size: 0.66rem; font-weight: 800; font-style: normal; color: #ffffff; }
+      .dy-k--cambio { background: #2563eb; }
+      .dy-k--tarea { background: #7a5af8; }
+      .dy-k--insp { background: #039855; }
+      .dy-k--sol { background: #dc6803; }
+      .dy-k--nota { background: #667085; }
+      .dy-kpi--cambio .pl-kpi__n { color: #2563eb; }
+      .dy-kpi--tarea .pl-kpi__n { color: #7a5af8; }
+      .dy-kpi--insp .pl-kpi__n { color: #039855; }
+      .dy-kpi--sol .pl-kpi__n { color: #b54708; }
+      .dy-leyenda { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; color: #475467; font-size: 0.76rem; font-weight: 600; }
+      .dy-leyenda span { display: inline-flex; align-items: center; gap: 5px; }
+      .dy-leyenda .dy-k { min-width: 10px; height: 10px; padding: 0; }
+
+      .dy-detalle { position: sticky; top: 16px; min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: var(--surface); box-shadow: var(--shadow-card); }
+      .dy-detalle__t { margin: 0 0 12px; font-size: 1.05rem; }
+      .dy-lista { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 10px; max-height: 52vh; overflow-y: auto; }
+      .dy-ev { display: grid; grid-template-columns: 10px minmax(0, 1fr); gap: 10px; }
+      .dy-ev > .dy-k { min-width: 10px; height: 10px; padding: 0; margin-top: 5px; }
+      .dy-ev p { margin: 0; }
+      .dy-ev__t { font-size: 0.88rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+      .dy-ev--nota .dy-ev__t { font-weight: 500; white-space: pre-wrap; }
+      .dy-ev__d { margin-top: 2px !important; color: #475467; font-size: 0.8rem; line-height: 1.4; overflow-wrap: anywhere; }
+      .dy-ev__m { margin-top: 3px !important; color: var(--muted); font-size: 0.72rem; }
+      .dy-borrar { border: 0; padding: 0; background: none; color: #b42318; font: inherit; text-decoration: underline; cursor: pointer; }
+      .dy-nada { padding: 6px 0; }
+      .dy-nota { border: 0; padding: 0; box-shadow: none; position: static; }
+      .dy-nota .tk-row2 { align-items: end; }
+
+      @media (max-width: 1000px) {
+        .dy-grid { grid-template-columns: minmax(0, 1fr); }
+        .dy-detalle { position: static; }
+      }
+      @media (max-width: 640px) {
+        .dy-cal { padding: 10px 8px; }
+        .dy-semana, .dy-mes { gap: 3px; }
+        .dy-semana span { padding: 2px; font-size: 0.6rem; text-align: center; }
+        .dy-dia { min-height: 54px; padding: 4px; align-items: center; }
+        .dy-marcas { justify-content: center; gap: 2px; }
+        /* En el celular los numeros no caben: cada clase queda como un punto. */
+        .dy-marcas .dy-k { min-width: 7px; width: 7px; height: 7px; padding: 0; font-size: 0; }
+      }
+      /* Los hijos de una rejilla no encogen por debajo de su contenido si no se
+         les dice: sin esto la tabla de la solicitud ensancha toda la pagina en
+         el celular en vez de desplazarse dentro de su caja. */
+      .alm-sol > *, .dy-detalle > *, .dy-cal > * { min-width: 0; }
+      /* Cada .view es una rejilla: su contenido tampoco puede ensancharla. */
+      #almRoot, #diarioRoot { min-width: 0; }
+      .alm-accion { width: 1%; white-space: nowrap; }
+      /* Trans. y Codigo causa van por articulo, en una sub-fila de cada renglon. */
+      .alm-sol-table tr:has(+ .alm-sol-sub) td { border-bottom: 0; padding-bottom: 2px; }
+      .alm-sol-sub td { padding-top: 0 !important; }
+      .alm-sol-sub label { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; color: var(--muted); font-size: 0.7rem; font-weight: 700; }
+      .alm-sol-sub input { width: 64px; min-width: 0; border-color: var(--line-strong); font-size: 0.8rem; }

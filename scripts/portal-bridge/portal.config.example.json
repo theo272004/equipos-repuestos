@@ -1,0 +1,39 @@
+{
+  "_ayuda": "Copia este archivo a portal.config.json y ajustalo. Las credenciales NO van aqui: van en .env",
+
+  "portal": {
+    "loginUrl": "http://miportal:9010/MiPortal/Index3.faces",
+
+    "_reporteUrl": "La pantalla del reporte RE356 (repuestos). Sacala con --explorar: es la que quede en la barra del navegador cuando lo tengas delante.",
+    "reporteUrl": "http://miportal:9010/MiPortal/PON_AQUI_LA_PANTALLA_DEL_RE356.faces",
+
+    "_selectorExportar": "OJO: el reporte sale en PDF por defecto, hay que pulsar GENERAR EXCEL. Aqui va el selector CSS de ese boton. Sacalo con --explorar.",
+    "selectorExportar": "",
+
+    "_selectorLogueado": "Algo que SOLO aparece cuando ya entraste (el menu, tu nombre). Sirve para no confundir un login fallido con uno bueno. Opcional.",
+    "selectorLogueado": "",
+
+    "_selectores": "Opcional. Solo si el login no se deja adivinar; --explorar te deja ver la pagina para sacarlos.",
+    "selectores": { "usuario": "", "clave": "", "entrar": "" },
+
+    "_pasosPrevios": "Opcional: filtros que hay que dejar puestos antes de exportar. accion: escribir | elegir | clic",
+    "pasosPrevios": [],
+
+    "timeoutMs": 45000
+  },
+
+  "excel": {
+    "_ayuda": "Normalmente NO hace falta tocar nada. Probado contra el RE356 y el RE040EX reales: detecta las dos sin configurar nada. Rellena solo si se equivoca (miralo con: node bridge.mjs --columnas).",
+    "_hoja": "El RE356 trae su unica hoja llamada RE356. Vacio = se busca sola.",
+    "hoja": "",
+    "columnas": { "cod": "", "desc": "", "exist": "", "ub": "", "pu": "", "alm": "", "min": "", "consumo": "" }
+  },
+
+  "firebase": {
+    "projectId": "mantenimiento-f405b",
+    "_apiKey": "La API key web es publica (ya esta en index.html), no es un secreto.",
+    "apiKey": "AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ",
+    "_subirPrecios": "false por defecto. Firestore tiene reglas abiertas: lo que se sube lo puede leer cualquiera que conozca el proyecto. La app no usa los precios.",
+    "subirPrecios": false
+  }
+}
