@@ -525,10 +525,13 @@ ${buildMachineContext(machine)}`;
       homeSearch.value = currentQuery;
       resultsSearch.value = currentQuery;
 
-      // Enlace directo a una pestaña: index.html?v=plan | tareas | turnos.
+      // Enlace directo a una pestaña: index.html?v=plan | ordenes | almacen | diario | indicadores | turnos.
       // Lo usan tareas.html y turnos.html, que ahora solo redirigen aquí.
       const vistaPedida = new URLSearchParams(window.location.search).get("v");
-      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos, inspecciones: goInsp, insp: goInsp };
+      const abrirVista = {
+        plan: goPlan, tareas: goTasks, tasks: goTasks, ordenes: goTasks, turnos: goTurnos, inspecciones: goInsp, insp: goInsp,
+        almacen: window.goAlmacen, diario: window.goDiario, indicadores: window.goIndicadores,
+      };
 
       if (vistaPedida && abrirVista[vistaPedida]) {
         abrirVista[vistaPedida]();
@@ -544,6 +547,8 @@ ${buildMachineContext(machine)}`;
         window.goAlmacen();
       } else if (restoredState.activeView === "diario" && window.goDiario) {
         window.goDiario();
+      } else if (restoredState.activeView === "indicadores" && window.goIndicadores) {
+        window.goIndicadores();
       } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
       } else if (restoredState.activeView === "results" || currentQuery) {
@@ -569,18 +574,18 @@ ${buildMachineContext(machine)}`;
         const conPlan = PLAN_EQUIPOS.filter((e) => e.r.length);
         const lineas = conPlan.reduce((n, e) => n + e.r.length, 0);
         const retrasados = conPlan.reduce((n, e) => n + e.r.filter((r) => (r.xls || {}).st === "RETRASADO").length, 0);
-        const sinStock = conPlan.reduce((n, e) => n + e.r.filter((r) => {
-          const v = datosRep[datoClave(e, r)];
-          return Number(v && v.exist !== undefined ? v.exist : r.e) === 0;
-        }).length, 0);
+        // Misma regla que el plan y la ficha (mano > MiPortal > Excel): antes este
+        // contador miraba solo lo escrito a mano y el Excel, y no el portal.
+        const sinStock = conPlan.reduce((n, e) => n + e.r.filter((r) => existenciaDe(e, r) === 0).length, 0);
         const sinCodigo = conPlan.reduce((n, e) => n + e.r.filter((r) => !repCodigo(e, r)).length, 0);
         const tareasAbiertas = tasks.filter((t) => (t.status || "pendiente") !== "hecha").length;
+        const detenidos = tasks.filter(otEquipoParado);
         const inspAbiertas = inspecciones.filter((i) => (i.estado || "abierta") !== "cerrada").length;
         const piezasMarcadas = inspecciones
           .filter((i) => (i.estado || "abierta") !== "cerrada")
           .reduce((n, i) => n + (i.piezas || []).length, 0);
         const cambiosReg = cambiosEventos().length;
-        return { total, completas, conManual, conPlan, lineas, retrasados, sinStock, sinCodigo, tareasAbiertas, inspAbiertas, piezasMarcadas, cambiosReg };
+        return { total, completas, conManual, conPlan, lineas, retrasados, sinStock, sinCodigo, tareasAbiertas, detenidos, inspAbiertas, piezasMarcadas, cambiosReg };
       }
 
       // Qué tiene cada ficha completa, para que se vea de un golpe qué le falta.
@@ -650,19 +655,20 @@ ${buildMachineContext(machine)}`;
             <div class="hd-cols">
               <article class="hd-card">
                 <h3>Trabajo abierto</h3>
+                ${s.detenidos.length ? `<button type="button" class="ot-paro-strip hd-detenidos" onclick="goTasks(); document.getElementById('filterTipo').value='parado'; renderTasks();"><strong>${s.detenidos.length} ${s.detenidos.length === 1 ? "equipo detenido" : "equipos detenidos"}:</strong> ${s.detenidos.map((t) => `${planEsc(taskMachineName(t.machine))} (${planEsc(otDuracion(otParadaMs(t)))})`).join(", ")}</button>` : ""}
                 <div class="hd-mini">
-                  <button type="button" onclick="setView('tasks'); renderTasks();"><strong>${s.tareasAbiertas}</strong><span>tareas sin cerrar</span></button>
+                  <button type="button" onclick="setView('tasks'); renderTasks();"><strong>${s.tareasAbiertas}</strong><span>&oacute;rdenes abiertas</span></button>
                   <button type="button" onclick="setView('insp'); renderInspecciones();"><strong>${s.inspAbiertas}</strong><span>inspecciones abiertas</span></button>
                   <button type="button" onclick="setView('insp'); renderInspecciones();"><strong>${s.piezasMarcadas}</strong><span>piezas marcadas para cambiar</span></button>
                   <button type="button" onclick="setView('plan'); renderPlan();"><strong>${s.cambiosReg}</strong><span>cambios registrados</span></button>
                 </div>
-                ${proximas.length ? `<p class="hd-sub">Próximas tareas</p>
+                ${proximas.length ? `<p class="hd-sub">Órdenes abiertas</p>
                 <ul class="hd-list">
                   ${proximas.map((t) => `<li><button type="button" onclick="setView('tasks'); renderTasks();">
                     <span class="hd-list__t">${planEsc(t.title)}</span>
                     <span class="hd-list__s">${planEsc(taskMachineName(t.machine))}${t.remindNextAt ? " · aviso " + planEsc(String(t.remindNextAt).slice(0, 10)) : ""}</span>
                   </button></li>`).join("")}
-                </ul>` : '<p class="pl-soft">No hay tareas pendientes anotadas.</p>'}
+                </ul>` : '<p class="pl-soft">No hay órdenes de trabajo abiertas.</p>'}
                 ${ultimasInsp.length ? `<p class="hd-sub">Últimas inspecciones</p>
                 <ul class="hd-list">
                   ${ultimasInsp.map((i) => `<li><button type="button" onclick="setView('insp'); renderInspecciones();">

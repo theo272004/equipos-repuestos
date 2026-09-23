@@ -3214,3 +3214,81 @@
       .alm-sol-sub td { padding-top: 0 !important; }
       .alm-sol-sub label { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; color: var(--muted); font-size: 0.7rem; font-weight: 700; }
       .alm-sol-sub input { width: 64px; min-width: 0; border-color: var(--line-strong); font-size: 0.8rem; }
+
+      /* ================================================================
+         ORDENES DE TRABAJO (assets/js/ordenes.js)
+         ================================================================ */
+      .ot-tipo { display: inline-flex; align-items: center; border-radius: 6px; padding: 2px 8px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; background: var(--soft); color: #475467; }
+      .ot-tipo--correctiva { background: #fef3f2; color: #b42318; }
+      .ot-tipo--preventiva { background: var(--blue-soft); color: #1849a9; }
+      .ot-tipo--mejora { background: #ecfdf3; color: #027a48; }
+      .ot-cod { font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace; font-size: 0.85em; color: #475467; }
+      /* Un equipo detenido es lo que mas cuesta: se ve antes que nada. */
+      .tk-card.is-parado { border-color: #fda29b; box-shadow: 0 0 0 1px #fda29b, var(--shadow-card); }
+      .ot-paro-strip { margin: 10px 0 2px; border-radius: 10px; padding: 8px 12px; background: #fef3f2; color: #912018; font-size: 0.86rem; }
+      .ot-paro-fin { margin: 10px 0 2px; color: #475467; font-size: 0.84rem; }
+      .tk-stat--parado { border-color: #fda29b; color: #912018; }
+      .tk-stat--parado b { color: #912018; }
+      .tk-stat--parado .dot { background: #d92d20; animation: otLatido 1.6s ease-in-out infinite; }
+      @keyframes otLatido { 50% { opacity: 0.35; } }
+      @media (prefers-reduced-motion: reduce) { .tk-stat--parado .dot { animation: none; } }
+      .ot-cierre { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 4px 14px; margin: 12px 0 4px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 0.86rem; }
+      .ot-cierre dt { color: var(--muted); font-weight: 700; font-size: 0.78rem; }
+      .ot-cierre dd { margin: 0; overflow-wrap: anywhere; }
+      .ot-sin-cierre { margin: 10px 0 2px; color: #b54708; font-size: 0.84rem; }
+      label.ot-paro { display: flex !important; align-items: center; gap: 8px; font-size: 0.86rem !important; color: var(--text) !important; font-weight: 600 !important; }
+      label.ot-paro input { width: auto !important; accent-color: #d92d20; }
+      .ot-dur { margin: 4px 0 0; font-size: 0.84rem; font-weight: 700; color: #475467; }
+      .ot-dur.is-mal { color: #b42318; }
+      .ot-rep { border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; margin: 0; display: grid; gap: 8px; min-width: 0; }
+      .ot-rep legend { padding: 0 4px; font-size: 0.76rem; font-weight: 700; color: var(--muted); }
+      .ot-rep__add { display: grid; grid-template-columns: minmax(0, 1fr) 72px auto; gap: 6px; }
+      .ot-rep__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 0.84rem; }
+      .ot-rep__lista li { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+      .ot-rep__lista .alm-x { margin-left: auto; }
+      #otCierre .pl-soft { font-weight: 500; }
+      @media (max-width: 640px) { .ot-cierre { grid-template-columns: 1fr; } .ot-cierre dt { margin-top: 4px; } }
+
+      /* ================================================================
+         INDICADORES (assets/js/indicadores.js)
+         ================================================================ */
+      #kpiRoot { min-width: 0; }
+      .kpi-ctrl { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+      .kpi-ctrl label { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 0.8rem; font-weight: 700; }
+      .kpi-ctrl select, .kpi-ctrl input { height: 36px; border: 1px solid var(--line); border-radius: 999px; padding: 0 12px; background: #ffffff; color: var(--text); font: inherit; font-size: 0.86rem; }
+      .kpi-ctrl input { width: 70px; }
+      .kpi-detenidos { margin: 0 0 16px; }
+      .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin-bottom: 26px; }
+      .kpi-tile { display: grid; align-content: start; gap: 4px; min-width: 0; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; background: var(--surface); }
+      .kpi-tile--hero { grid-column: span 2; box-shadow: var(--shadow-card); }
+      .kpi-tile__l { color: #475467; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+      .kpi-tile__n { color: var(--text); font-size: 1.9rem; font-weight: 800; line-height: 1.1; font-variant-numeric: tabular-nums; }
+      .kpi-tile--hero .kpi-tile__n { font-size: 3rem; }
+      .kpi-tile__s { color: var(--muted); font-size: 0.8rem; line-height: 1.35; }
+      .kpi-h { margin: 22px 0 10px; font-size: 1.05rem; }
+      .kpi-table { min-width: 820px; }
+      .kpi-table td, .kpi-rep td { font-variant-numeric: tabular-nums; }
+      .kpi-barcell { position: relative; min-width: 190px; }
+      .kpi-bar { display: inline-block; height: 12px; max-width: 100%; border-radius: 0 4px 4px 0; background: #2563eb; vertical-align: middle; }
+      .kpi-barcell .kpi-bar { max-width: calc(100% - 64px); }
+      .kpi-bar__v { margin-left: 8px; color: var(--text); font-size: 0.82rem; font-weight: 700; vertical-align: middle; }
+      .kpi-nota { margin: 8px 0 0; line-height: 1.5; }
+      .kpi-dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 8px 28px; }
+      .kpi-dos section { min-width: 0; }
+      .kpi-causas { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+      .kpi-causas li { display: grid; grid-template-columns: minmax(110px, 180px) minmax(0, 1fr) 28px; gap: 10px; align-items: center; font-size: 0.84rem; }
+      .kpi-causas__t { color: #344054; }
+      .kpi-causas__b { min-width: 0; }
+      .kpi-causas__n { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+      .kpi-rep { min-width: 0; }
+      .kpi-abiertas { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 0.88rem; }
+      .kpi-abiertas li { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+      @media (max-width: 640px) {
+        .kpi-tile--hero { grid-column: auto; }
+        .kpi-tile--hero .kpi-tile__n { font-size: 2.4rem; }
+        .kpi-causas li { grid-template-columns: minmax(90px, 130px) minmax(0, 1fr) 24px; }
+      }
+      /* Un select mide lo que su opcion mas larga: con nombres de maquina largos
+         ensanchaba la pagina en el celular. */
+      .pl-filters select { max-width: 100%; min-width: 0; text-overflow: ellipsis; }
+      .hd-detenidos { display: block; width: 100%; margin: 0 0 12px; border: 0; text-align: left; font: inherit; cursor: pointer; }

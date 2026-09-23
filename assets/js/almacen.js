@@ -46,6 +46,11 @@
     };
   }
   function guardarBorrador() { guardar(BORRADOR, borrador); }
+  function causaDesc(code) {
+    const c = String(code || "").trim().toUpperCase();
+    const hit = c && (window.CAUSA_CODES || []).find((x) => String(x.code).toUpperCase() === c);
+    return hit ? hit.desc : "";
+  }
 
   // ------------------------------------------------------------------------
   //  La lista en la que se busca
@@ -253,7 +258,7 @@
         <tr class="alm-sol-sub">
           <td colspan="5">
             <label>Trans.<input class="pl-edit" id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
-            <label>C&oacute;digo causa<input class="pl-edit" id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
+            <label>C&oacute;digo causa<input class="pl-edit" id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" list="almCausasLista" autocomplete="off" title="${esc(causaDesc(l.causa))}"></label>
           </td>
         </tr>`;
     }).join("");
@@ -264,6 +269,8 @@
           <span class="pl-tag pl-tag--n" title="El formato DAD-010A tiene ${RENGLONES} renglones">${b.lineas.length}/${RENGLONES}</span>
         </div>
         <p class="pl-soft">Formato oficial DAD-010A &middot; Edici&oacute;n 1. Se llena el mismo archivo, solo con los datos.</p>
+        ${b.ot ? `<p class="alm-aviso alm-aviso--info">Para la orden <strong>${esc(b.ot.numero || "de trabajo")}</strong>: queda enlazada a ella.</p>` : ""}
+        <datalist id="almCausasLista">${(window.CAUSA_CODES || []).map((x) => `<option value="${esc(x.code)}">${esc(x.desc)}</option>`).join("")}</datalist>
         <div class="alm-tipo" role="radiogroup" aria-label="Tipo de solicitud">
           ${Object.entries(TIPOS).map(([k, t]) => `<label class="alm-chip ${b.tipo === k ? "is-on" : ""}"><input type="radio" name="almTipo" value="${k}" ${b.tipo === k ? "checked" : ""} data-alm-campo="tipo">${t}</label>`).join("")}
         </div>
@@ -326,7 +333,9 @@
     const mejor = it && it.sitios.length ? it.sitios.slice().sort((a, b) => b.exist - a.exist)[0] : null;
     // Trans. y Codigo causa son de cada articulo: se dejan vacios para que no
     // se arrastre sin querer el de la pieza anterior a una que no le toca.
-    borrador.lineas.push({ cod, desc: it ? it.desc : "", um: it ? it.um : "", cant: 1, sitio: mejor ? `${mejor.alm}|${mejor.ub}` : "", trans: "", causa: "" });
+    // Si la solicitud sale de una orden de trabajo, el codigo de causa de la
+    // orden es el punto de partida de cada renglon (se puede cambiar).
+    borrador.lineas.push({ cod, desc: it ? it.desc : "", um: it ? it.um : "", cant: 1, sitio: mejor ? `${mejor.alm}|${mejor.ub}` : "", trans: "", causa: (borrador.ot && borrador.ot.causa) || "" });
     guardarBorrador();
     pintarSolicitud(); pintarResultados();
   }
@@ -534,6 +543,14 @@
   window.almRenderSiVisible = () => { if (!esVisible()) return; cache = { inv: null, lista: [] }; pintarFuente(); pintarResultados(); pintarSolicitud(); };
   window.almSolicitudes = () => historial;
   window.almTipos = TIPOS;
+  // Desde una orden de trabajo: solicitud nueva dirigida a su equipo y enlazada.
+  window.almNuevaParaOT = (ot) => {
+    if (borrador.lineas.length && !(borrador.ot && borrador.ot.id === ot.id)
+      && !window.confirm("La solicitud que estabas llenando se reemplaza por una para esta orden. \u00bfSeguir?")) return;
+    if (!(borrador.ot && borrador.ot.id === ot.id)) borrador = { ...nuevoBorrador(borrador), destino: ot.destino || "", tipo: "consumo", ot: { id: ot.id, numero: ot.numero, causa: ot.causa || "" } };
+    guardarBorrador();
+    goAlmacen();
+  };
 
   views.almacen = document.getElementById("almacenView");
   document.querySelector('[data-nav-view="almacen"]')?.addEventListener("click", goAlmacen);
