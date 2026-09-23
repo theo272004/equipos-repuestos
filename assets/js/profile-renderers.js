@@ -224,6 +224,7 @@ function dt(machine, campo) {
           tasks = remote;
           cloudKnownIds = new Set(remote.map((t) => t.id));
           saveLocal();
+          window.diarioRenderSiVisible?.();
           if (document.getElementById("tkList")) renderTasks(); else updateCloudChip();
         }, (err) => { console.error("[Tareas] onSnapshot:", err); cloud.connected = false; updateCloudChip(); });
       }
@@ -519,6 +520,7 @@ function dt(machine, campo) {
           snap.forEach((d) => remoto.push(d.data()));
           inspKnownIds = new Set(remoto.map((i) => i.id));
           inspecciones = inspConRegistro(remoto);
+          window.diarioRenderSiVisible?.();
           inspNube.conectado = !snap.metadata.fromCache;
           inspNube.error = "";
           saveInspLocal();
@@ -1114,6 +1116,7 @@ function dt(machine, campo) {
           snap.forEach((d) => remote.push(d.data()));
           cambios = remote;
           cambiosKnownIds = new Set(remote.map((c) => c.id));
+          window.diarioRenderSiVisible?.();
           cambiosNube.conectado = !snap.metadata.fromCache;
           cambiosNube.error = "";
           saveCambiosLocal();
@@ -1623,6 +1626,8 @@ function dt(machine, campo) {
         if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
         if (navInsp) navInsp.classList.toggle("is-active", viewName === "insp");
         if (navTurnos) navTurnos.classList.toggle("is-active", viewName === "turnos");
+        // Vistas nuevas (Almacen, Diario): se registran solas con data-nav-view.
+        document.querySelectorAll("[data-nav-view]").forEach((b) => b.classList.toggle("is-active", b.dataset.navView === viewName));
       }
 
       function goResults({ keepSelection = false } = {}) {

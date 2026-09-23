@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de equipos</title>
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609151400" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609151400" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609231636" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609231636" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=202609151400" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=202609231636" />
   </head>
   <body>
     <!-- Botón hamburguesa (solo visible en celular) -->
@@ -39,6 +39,14 @@
       <button class="side-nav__button" type="button" data-nav-plan aria-label="Plan de mantenimiento" title="Plan de mantenimiento por equipo">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1Z"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="m9 13 2 2 4-4"/></svg>
         <span class="side-nav__label">Plan de mantenimiento</span>
+      </button>
+      <button class="side-nav__button" type="button" data-nav-view="almacen" aria-label="Almac&eacute;n" title="Almac&eacute;n: buscar repuestos y llenar la solicitud de materiales">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 8.5 12 4l9 4.5v10.5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z"/><path d="M7 20v-7h10v7"/><path d="M7 16.5h10"/></svg>
+        <span class="side-nav__label">Almac&eacute;n</span>
+      </button>
+      <button class="side-nav__button" type="button" data-nav-view="diario" aria-label="Diario" title="Diario: lo que se hizo cada d&iacute;a">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m9 15.5 2 2 4-4"/></svg>
+        <span class="side-nav__label">Diario</span>
       </button>
       <button class="side-nav__button" type="button" data-nav-insp aria-label="Inspecciones" title="Inspecciones">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1Z"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><circle cx="11" cy="13" r="2.6"/><path d="m14 16 2 2"/></svg>
@@ -336,6 +344,14 @@
           </form>
         </aside>
       </section>
+
+      <section class="alm-view view" id="almacenView" aria-label="Almac&eacute;n: buscar repuestos y llenar la solicitud de materiales">
+        <div id="almRoot"></div>
+      </section>
+
+      <section class="dy-view view" id="diarioView" aria-label="Diario: seguimiento de lo que se hace cada d&iacute;a">
+        <div id="diarioRoot"></div>
+      </section>
     </main>
 
     <div class="modal-backdrop" id="modalBackdrop" hidden>
@@ -575,16 +591,18 @@
       }
     </script>
 
-    <script src="assets/equipos.js?v=202609151400"></script>
-    <script src="assets/js/causa-codes.js?v=202609151400"></script>
-    <script src="assets/js/integra320-procedimientos.js?v=202609151400"></script>
-    <script src="assets/js/ms235-sensores.js?v=202609151400"></script>
-    <script src="assets/js/ms235-mecanico.js?v=202609151400"></script>
-    <script src="assets/js/inventario.js?v=202609151400"></script>
-    <script src="assets/js/inspecciones-registro.js?v=202609151400"></script>
-    <script src="assets/js/rich-data.js?v=202609151400"></script>
-    <script src="assets/js/machines-data.js?v=202609151400"></script>
-    <script src="assets/js/profile-renderers.js?v=202609151400"></script>
-    <script src="assets/js/app.js?v=202609151400"></script>
+    <script src="assets/equipos.js?v=202609231636"></script>
+    <script src="assets/js/causa-codes.js?v=202609231636"></script>
+    <script src="assets/js/integra320-procedimientos.js?v=202609231636"></script>
+    <script src="assets/js/ms235-sensores.js?v=202609231636"></script>
+    <script src="assets/js/ms235-mecanico.js?v=202609231636"></script>
+    <script src="assets/js/inventario.js?v=202609231636"></script>
+    <script src="assets/js/inspecciones-registro.js?v=202609231636"></script>
+    <script src="assets/js/rich-data.js?v=202609231636"></script>
+    <script src="assets/js/machines-data.js?v=202609231636"></script>
+    <script src="assets/js/profile-renderers.js?v=202609231636"></script>
+    <script src="assets/js/almacen.js?v=202609231636"></script>
+    <script src="assets/js/diario.js?v=202609231636"></script>
+    <script src="assets/js/app.js?v=202609231636"></script>
   </body>
 </html>

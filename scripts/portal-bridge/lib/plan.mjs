@@ -7,6 +7,7 @@
 import { readFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { normCod } from "../../../assets/js/lector-inventario.mjs";
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 export const RUTA_PLAN = join(AQUI, "..", "..", "..", "assets", "equipos.js");
@@ -31,17 +32,5 @@ export async function cargarPlan(ruta = RUTA_PLAN) {
   return { plan, equipos, lineas, codigos };
 }
 
-// El codigo interno viaja de formas distintas segun de donde venga: el Excel del
-// portal puede darlo como numero (741903002 -> "741903002"), con .0 pegado si
-// alguien lo abrio y lo guardo, o con espacios. Se compara siempre normalizado.
-export function normCod(v) {
-  if (v === null || v === undefined) return "";
-  let s = String(v).trim().toUpperCase();
-  if (!s || s === "N/A" || s === "NA" || s === "-") return "";
-  s = s.replace(/\.0+$/, "");            // 741903002.0 -> 741903002
-  if (/^\d+E\+?\d+$/i.test(s)) {          // notacion cientifica de Excel
-    const n = Number(s);
-    if (Number.isFinite(n)) s = String(BigInt(Math.round(n)));
-  }
-  return s.replace(/\s+/g, "");
-}
+// normCod es la misma que usa la app: vive en el lector compartido.
+export { normCod } from "../../../assets/js/lector-inventario.mjs";

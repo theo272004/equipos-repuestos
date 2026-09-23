@@ -540,6 +540,10 @@ ${buildMachineContext(machine)}`;
         goInsp();
       } else if (restoredState.activeView === "turnos") {
         goTurnos();
+      } else if (restoredState.activeView === "almacen" && window.goAlmacen) {
+        window.goAlmacen();
+      } else if (restoredState.activeView === "diario" && window.goDiario) {
+        window.goDiario();
       } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
       } else if (restoredState.activeView === "results" || currentQuery) {

@@ -9,11 +9,17 @@
     "explorar": "node bridge.mjs --explorar",
     "prueba": "node bridge.mjs --dry-run",
     "columnas": "node bridge.mjs --columnas",
-    "test": "node test/detector.test.mjs"
+    "test": "node test/detector.test.mjs && node test/formato.test.mjs",
+    "test:navegador": "node test/ui.test.mjs && node test/almacen.test.mjs"
   },
   "dependencies": {
     "playwright": "^1.47.0",
     "xlsx": "^0.18.5"
   },
-  "engines": { "node": ">=18" }
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "jszip": "^3.10.1"
+  }
 }

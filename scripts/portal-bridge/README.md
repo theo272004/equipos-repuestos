@@ -117,7 +117,8 @@ iniciar en la carpeta de `portal-bridge`.
 | `node bridge.mjs --archivo x.xlsx` | Salta el portal y usa un Excel que ya tienes. |
 | `node bridge.mjs --columnas` | Dice qué columnas entendió y no sube nada. |
 | `node bridge.mjs --dry-run` | Hace todo menos escribir en Firestore. |
-| `npm test` | Comprueba el lector de Excel sin tocar el portal. |
+| `npm test` | Comprueba el lector de Excel y el relleno del DAD-010A, sin tocar el portal. |
+| `npm run test:navegador` | Prueba la app en Chromium (sirve antes el repo con `python3 -m http.server 8777`). |
 
 ## Qué reporte usar: RE356
 
@@ -212,6 +213,23 @@ existencias se movieron respecto a la pasada anterior.
 | `No encontré el campo de usuario` | El login cambió. Saca el selector con `--explorar` y ponlo en `portal.selectores`. |
 | `no la columna de existencias` | El reporte no trae existencias, o se llama de forma nueva. Mira `--columnas`. |
 | `ni uno solo coincide con los códigos` | Casi siempre es otro reporte del portal, no el de inventario. |
+
+## Sin puente: cargar el RE356 en la app
+
+La vista **Almacén** de la app deja cargar el RE356 bajado a mano (botón
+*Cargar reporte RE356*). Se lee con el mismo lector que usa el puente
+(`assets/js/lector-inventario.mjs`), así que entiende el reporte exactamente
+igual. La diferencia: lo cargado a mano **se queda en ese equipo** y no se sube
+a ningún sitio; lo que sube el puente lo ve todo el taller. Si hay de los dos,
+la app usa el más reciente.
+
+## Precios: no se suben
+
+El RE356 trae el precio unitario de más de 5.000 artículos. **El puente no lo
+sube** salvo que `portal.config.json → firebase.subirPrecios` sea `true`. El
+proyecto de Firebase tiene reglas abiertas y la clave está en la página
+pública: lo que se sube lo puede leer cualquiera que conozca el proyecto. La
+app no usa los precios, y son información de compras de la empresa.
 
 ## Lo que este puente NO hace
 

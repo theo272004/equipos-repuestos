@@ -184,10 +184,24 @@ async function main() {
   const cambios = [];
   let iguales = 0;
 
+  // Precios: NO se suben salvo que la config lo pida. Firestore de este proyecto
+  // tiene reglas abiertas y la API key esta en la pagina publica, asi que todo lo
+  // que se sube lo puede leer cualquiera que conozca el proyecto. Las existencias
+  // hacen falta para la app; el precio de 5.000 articulos de almacen no, y es
+  // informacion de compras de la empresa.
+  const subirPrecios = cfg.firebase.subirPrecios === true;
+  const CAMPOS = ["desc", "exist", "ub", "alm", "um", "min", "consumo", "sitios", ...(subirPrecios ? ["pu"] : [])];
+
   for (const f of filas) {
     const previo = actual.get(f.cod);
-    const nuevo = { cod: f.cod, desc: f.desc, exist: f.exist, ub: f.ub, pu: f.pu, alm: f.alm };
-    const cambio = !previo || ["desc", "exist", "ub", "pu", "alm"].some((k) => (previo[k] ?? null) !== (nuevo[k] ?? null));
+    const nuevo = {
+      cod: f.cod, desc: f.desc, exist: f.exist, ub: f.ub, alm: f.alm, um: f.um || "",
+      min: f.min, consumo: f.consumo,
+      // Firestore REST con campos planos: el desglose por sitio viaja como JSON.
+      sitios: JSON.stringify(f.sitios || []),
+      ...(subirPrecios ? { pu: f.pu } : {}),
+    };
+    const cambio = !previo || CAMPOS.some((k) => (previo[k] ?? null) !== (nuevo[k] ?? null));
     if (!cambio) { iguales++; continue; }
     if (previo && (previo.exist ?? null) !== (nuevo.exist ?? null) && codigos.has(f.cod)) {
       cambios.push({ cod: f.cod, desc: f.desc, antes: previo.exist, ahora: nuevo.exist });

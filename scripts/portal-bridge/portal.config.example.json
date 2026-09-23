@@ -32,6 +32,8 @@
   "firebase": {
     "projectId": "mantenimiento-f405b",
     "_apiKey": "La API key web es publica (ya esta en index.html), no es un secreto.",
-    "apiKey": "AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ"
+    "apiKey": "AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ",
+    "_subirPrecios": "false por defecto. Firestore tiene reglas abiertas: lo que se sube lo puede leer cualquiera que conozca el proyecto. La app no usa los precios.",
+    "subirPrecios": false
   }
 }
