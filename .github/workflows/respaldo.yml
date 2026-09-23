@@ -1,0 +1,38 @@
+name: Respaldo diario
+
+# Copia cifrada de toda la base de datos de la app, cada noche.
+# Hace falta el secret RESPALDO_CLAVE (Settings -> Secrets and variables -> Actions).
+# Sin el secret el trabajo termina sin hacer nada y deja un aviso.
+# Para restaurar: bajar el artefacto y ver scripts/respaldo.mjs.
+on:
+  schedule:
+    - cron: "0 7 * * *"   # 07:00 UTC = 2:00 a. m. en Colombia
+  workflow_dispatch: {}
+
+concurrency:
+  group: respaldo
+  cancel-in-progress: false
+
+jobs:
+  respaldo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Exportar y cifrar
+        run: node scripts/respaldo.mjs exportar "respaldo-$(date -u +%F).bin"
+        env:
+          RESPALDO_CLAVE: ${{ secrets.RESPALDO_CLAVE }}
+          FIREBASE_PROJECT_ID: mantenimiento-f405b
+          # La API key web es publica (ya esta en el sitio), no es un secreto.
+          FIREBASE_API_KEY: AIzaSyBQzRHnGBX9TtxrOBoh5KX5dm6agguoSaQ
+      - name: Guardar como artefacto (90 dias)
+        if: hashFiles('respaldo-*.bin') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: respaldo-${{ github.run_id }}
+          path: respaldo-*.bin
+          retention-days: 90
+          if-no-files-found: ignore

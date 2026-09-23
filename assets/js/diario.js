@@ -17,7 +17,7 @@
   const DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
   const CLASES = {
     cambio: { txt: "Cambios", uno: "cambio", orden: 1 },
-    tarea: { txt: "Tareas", uno: "tarea", orden: 2 },
+    tarea: { txt: "Órdenes", uno: "orden", orden: 2 },
     insp: { txt: "Inspecciones", uno: "inspección", orden: 3 },
     sol: { txt: "Solicitudes", uno: "solicitud", orden: 4 },
     nota: { txt: "Notas", uno: "nota", orden: 5 },
@@ -62,10 +62,19 @@
     if (typeof tasks !== "undefined") tasks.forEach((t) => {
       if (!t) return;
       const maquina = t.machineName && t.machineName !== "General / Otra" ? t.machineName : "";
+      // Las tareas son ordenes de trabajo: se dice de que tipo y si pararon el equipo.
+      const tipo = { correctiva: "OT correctiva", preventiva: "OT preventiva", mejora: "OT de mejora", otra: "OT" }[t.tipo] || "Tarea";
+      const num = t.numero ? ` ${t.numero}` : "";
       if (t.createdAt) ev.push({ clase: "tarea", dia: diaCO(t.createdAt), hora: horaCO(t.createdAt), quien: t.reporter,
-        titulo: `Nueva: ${t.title || "(sin título)"}`, detalle: [maquina, t.priority ? "prioridad " + t.priority.toLowerCase() : ""].filter(Boolean).join(" · ") });
-      if (t.doneAt) ev.push({ clase: "tarea", dia: diaCO(t.doneAt), hora: horaCO(t.doneAt), quien: "",
-        titulo: `Hecha: ${t.title || "(sin título)"}`, detalle: maquina, hecha: true });
+        titulo: `${tipo}${num} abierta: ${t.title || "(sin título)"}`,
+        detalle: [maquina, t.paro ? "equipo detenido" : "", t.priority ? "prioridad " + t.priority.toLowerCase() : ""].filter(Boolean).join(" · ") });
+      if (t.doneAt && t.status === "hecha") {
+        const c = t.cierre || {};
+        const parada = t.paro && typeof otParadaMs === "function" ? "parada de " + otDuracion(otParadaMs(t)) : "";
+        ev.push({ clase: "tarea", dia: diaCO(t.doneAt), hora: horaCO(t.doneAt), quien: c.tecnicos || "",
+          titulo: `${tipo}${num} cerrada: ${t.title || "(sin título)"}`,
+          detalle: [maquina, parada, c.trabajo, (c.repuestos || []).length ? `${c.repuestos.length} repuesto${c.repuestos.length === 1 ? "" : "s"}` : ""].filter(Boolean).join(" · "), hecha: true });
+      }
     });
     if (typeof inspecciones !== "undefined") inspecciones.forEach((i) => {
       if (!i || !i.fecha) return;
@@ -139,7 +148,7 @@
           <h2>Diario del taller</h2>
         </div>
       </div>
-      <p class="pl-note">Lo que se hizo cada d&iacute;a, sin apuntarlo dos veces: los <strong>cambios de piezas</strong>, las <strong>tareas</strong>, las <strong>inspecciones</strong> y las <strong>solicitudes de materiales</strong> salen solos de donde ya se registran. Para todo lo dem&aacute;s, deja una <strong>nota del d&iacute;a</strong>.</p>
+      <p class="pl-note">Lo que se hizo cada d&iacute;a, sin apuntarlo dos veces: los <strong>cambios de piezas</strong>, las <strong>&oacute;rdenes de trabajo</strong>, las <strong>inspecciones</strong> y las <strong>solicitudes de materiales</strong> salen solos de donde ya se registran. Para todo lo dem&aacute;s, deja una <strong>nota del d&iacute;a</strong>.</p>
       <div class="pl-kpis dy-kpis">${kpis}</div>
       <div class="dy-grid">
         <div class="dy-cal">

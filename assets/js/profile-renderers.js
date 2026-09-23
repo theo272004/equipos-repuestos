@@ -190,7 +190,33 @@ function dt(machine, campo) {
       const tasksKey = "equipos-tareas-v1";
       const cloud = window.CLOUD || { db: null, enabled: false, connected: false };
       cloud.connected = false; // se pone a true al recibir datos del servidor
-      let cloudKnownIds = new Set();
+      // Lo que hay en la nube de cada coleccion, tal como llego en el ultimo
+      // snapshot (id -> JSON). Sirve para escribir SOLO lo que cambio: antes cada
+      // guardado reescribia la coleccion entera con la copia de este navegador, y
+      // si dos tecnicos tocaban tareas distintas casi a la vez, el ultimo en
+      // guardar devolvia la del otro a como estaba.
+      function jsonEstable(v) {
+        if (Array.isArray(v)) return "[" + v.map(jsonEstable).join(",") + "]";
+        if (v && typeof v === "object") return "{" + Object.keys(v).filter((k) => v[k] !== undefined).sort().map((k) => JSON.stringify(k) + ":" + jsonEstable(v[k])).join(",") + "}";
+        return JSON.stringify(v === undefined ? null : v);
+      }
+      function mapaNube(lista) { return new Map(lista.map((x) => [x.id, jsonEstable(x)])); }
+      function nubeSync(nombre, items, enNube, docId = (id) => id) {
+        const col = cloud.db.collection(nombre);
+        const batch = cloud.db.batch();
+        const vivos = new Set();
+        let escritos = 0;
+        items.forEach((x) => {
+          if (!x || !x.id) return;
+          vivos.add(x.id);
+          const limpio = JSON.parse(JSON.stringify(x));
+          const j = jsonEstable(limpio);
+          if (enNube.get(x.id) !== j) { batch.set(col.doc(docId(x.id)), limpio); enNube.set(x.id, j); escritos++; }
+        });
+        [...enNube.keys()].forEach((id) => { if (!vivos.has(id)) { batch.delete(col.doc(docId(id))); enNube.delete(id); escritos++; } });
+        return escritos ? batch.commit() : Promise.resolve();
+      }
+      let tareasEnNube = new Map();
       function loadTasks() { try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
       let tasks = loadTasks();
       function saveLocal() { try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch (e) {} }
@@ -205,13 +231,7 @@ function dt(machine, campo) {
       // Sube el estado actual a Firestore (upsert de lo presente + borra lo que ya no esta)
       function cloudSync() {
         try {
-          const col = cloud.db.collection("tareas");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          tasks.forEach((t) => { ids.add(t.id); batch.set(col.doc(t.id), JSON.parse(JSON.stringify(t))); });
-          cloudKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
-          cloudKnownIds = ids;
-          batch.commit().catch((e) => console.error("[Tareas] guardar nube:", e));
+          nubeSync("tareas", tasks, tareasEnNube).catch((e) => console.error("[Tareas] guardar nube:", e));
         } catch (e) { console.error("[Tareas] cloudSync:", e); }
       }
 
@@ -222,9 +242,10 @@ function dt(machine, campo) {
           const remote = [];
           snap.forEach((d) => remote.push(d.data()));
           tasks = remote;
-          cloudKnownIds = new Set(remote.map((t) => t.id));
+          tareasEnNube = mapaNube(remote);
           saveLocal();
           window.diarioRenderSiVisible?.();
+          window.kpiRenderSiVisible?.();
           if (document.getElementById("tkList")) renderTasks(); else updateCloudChip();
         }, (err) => { console.error("[Tareas] onSnapshot:", err); cloud.connected = false; updateCloudChip(); });
       }
@@ -246,75 +267,32 @@ function dt(machine, campo) {
         if (!lista) return;
         const c = { pendiente: 0, "en-progreso": 0, hecha: 0 };
         tasks.forEach((t) => { c[t.status] = (c[t.status] || 0) + 1; });
+        const parados = tasks.filter(otEquipoParado).length;
         document.getElementById("counterRow").innerHTML =
+          (parados ? `<span class="tk-stat tk-stat--parado"><span class="dot"></span><b>${parados}</b> ${parados === 1 ? "equipo detenido" : "equipos detenidos"}</span>` : "") +
           `<span class="tk-stat tk-stat--pend"><span class="dot"></span><b>${c.pendiente}</b> pendientes</span>` +
-          `<span class="tk-stat tk-stat--prog"><span class="dot"></span><b>${c["en-progreso"]}</b> en progreso</span>` +
-          `<span class="tk-stat tk-stat--done"><span class="dot"></span><b>${c.hecha}</b> hechas</span>`;
+          `<span class="tk-stat tk-stat--prog"><span class="dot"></span><b>${c["en-progreso"]}</b> en curso</span>` +
+          `<span class="tk-stat tk-stat--done"><span class="dot"></span><b>${c.hecha}</b> cerradas</span>`;
         const order = { pendiente: 0, "en-progreso": 1, hecha: 2 };
         const fm = document.getElementById("filterMachine").value;
         const fs = document.getElementById("filterStatus").value;
+        const ft = document.getElementById("filterTipo")?.value || "";
         const list = tasks
-          .filter((t) => (!fm || t.machine === fm) && (!fs || t.status === fs))
-          .sort((a, b) => (order[a.status] - order[b.status]) || (b.createdAt || "").localeCompare(a.createdAt || ""));
+          .filter((t) => (!fm || t.machine === fm) && (!fs || t.status === fs)
+            && (!ft || (ft === "parado" ? otEquipoParado(t) : (t.tipo || "") === ft)))
+          // Primero lo que tiene un equipo detenido: es lo que esta costando produccion.
+          .sort((a, b) => (otEquipoParado(b) - otEquipoParado(a)) || (order[a.status] - order[b.status]) || (b.createdAt || "").localeCompare(a.createdAt || ""));
         lista.innerHTML = list.length
-          ? list.map(renderTaskCard).join("")
-          : '<p class="tk-empty">No hay tareas todavía. Toca el botón <strong>Nueva tarea</strong> para crear la primera.</p>';
+          ? list.map(otTarjeta).join("")
+          : '<p class="tk-empty">No hay &oacute;rdenes con ese filtro. Toca <strong>Nueva orden</strong> para abrir una.</p>';
         updateCloudChip();
       }
 
-      function renderTaskCard(t) {
-        const steps = t.steps || [];
-        const done = steps.filter((s) => s.done).length;
-        const prCls = { Alta: "tk-pr--alta", Media: "tk-pr--media", Baja: "tk-pr--baja" }[t.priority] || "tk-pr--media";
-        const stLabel = { pendiente: "Pendiente", "en-progreso": "En progreso", hecha: "Hecha" }[t.status] || t.status;
-        const body = t.followPrompt
-          ? `<div class="tk-follow">
-               <span class="tk-follow__lbl">Antes de cerrar, ¿hay una tarea siguiente?</span>
-               <input id="fu-${t.id}" placeholder="Ej. Reinstalar y calibrar (opcional)">
-               <button class="button button--dark" type="button" onclick="taskFinish('${t.id}', true)">Crear y cerrar</button>
-               <button class="button button--light" type="button" onclick="taskFinish('${t.id}', false)">Solo cerrar</button>
-             </div>`
-          : `<div class="tk-actions">
-               ${t.status !== "hecha" ? `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','${t.status === "pendiente" ? "en-progreso" : "pendiente"}')">${t.status === "pendiente" ? "Empezar" : "Pausar"}</button>` : ""}
-               ${t.status !== "hecha" ? `<button class="button button--dark" type="button" onclick="taskComplete('${t.id}')">Completar</button>` : `<button class="button button--light" type="button" onclick="taskSetStatus('${t.id}','pendiente')">Reabrir</button>`}
-               <button class="button button--light" type="button" onclick="taskAddStep('${t.id}')">+ paso</button>
-               <button class="button button--light" type="button" onclick="openRemind('${t.id}')">${t.remindFreq ? "Aviso programado" : "Programar aviso"}</button>
-               <button class="button button--light" type="button" onclick="taskDelete('${t.id}')">Eliminar</button>
-             </div>`;
-        return `<div class="tk-card tk-st--${t.status}">
-          <div class="tk-card__top">
-            <span class="tk-pr ${prCls}">${escapeHtml(t.priority)}</span>
-            <strong class="tk-title">${escapeHtml(t.title)}</strong>
-            <span class="system-badge">${escapeHtml(taskMachineName(t.machine))}</span>
-            <span class="tk-status">${stLabel}</span>
-          </div>
-          ${t.desc ? `<p class="tk-desc">${escapeHtml(t.desc)}</p>` : ""}
-          ${steps.length ? `<div class="tk-steps">${steps.map((s, i) => `<label class="tk-step ${s.done ? "is-done" : ""}"><input type="checkbox" ${s.done ? "checked" : ""} onchange="taskToggleStep('${t.id}', ${i})"> ${escapeHtml(s.text)}</label>`).join("")}<div class="tk-prog">${done}/${steps.length} pasos completados</div></div>` : ""}
-          ${t.remindFreq ? (t.status === "hecha"
-            ? `<div class="tk-remind tk-remind--off">Aviso en pausa &middot; la tarea está hecha. Si la reabres, vuelve a avisar.</div>`
-            : `<div class="tk-remind">${escapeHtml(remindLabel(t))}</div>`) : ""}
-          <div class="tk-meta">${t.reporter ? "por " + escapeHtml(t.reporter) + " · " : ""}${escapeHtml((t.createdAt || "").slice(0, 10))}${t.parent ? ` · seguimiento de: “${escapeHtml(t.parent)}”` : ""}</div>
-          ${body}
-        </div>`;
-      }
-
-      function taskSubmit(e) {
-        e.preventDefault();
-        const f = e.target;
-        const steps = (f.steps.value || "").split("\n").map((s) => s.trim()).filter(Boolean).map((text) => ({ text, done: false }));
-        tasks.unshift({ id: tuid(), machine: f.machine.value, machineName: taskMachineName(f.machine.value), title: f.title.value.trim(), desc: f.desc.value.trim(), priority: f.priority.value, reporter: f.reporter.value.trim(), status: "pendiente", steps, createdAt: new Date().toISOString() });
-        saveTasks(); f.reset(); taskFormToggle(false); renderTasks();
-      }
+      // La tarjeta, el alta y el cierre de cada orden de trabajo viven en
+      // assets/js/ordenes.js (otTarjeta, taskSubmit, taskComplete).
       function taskToggleStep(id, i) { const t = tasks.find((x) => x.id === id); if (t && t.steps[i]) { t.steps[i].done = !t.steps[i].done; if (t.status === "pendiente" && t.steps.some((s) => s.done)) t.status = "en-progreso"; saveTasks(); renderTasks(); } }
       function taskSetStatus(id, st) { const t = tasks.find((x) => x.id === id); if (t) { t.status = st; if (st === "hecha") t.doneAt = new Date().toISOString(); saveTasks(); renderTasks(); } }
       function taskAddStep(id) { const txt = window.prompt("Nuevo paso:"); if (txt && txt.trim()) { const t = tasks.find((x) => x.id === id); if (t) { (t.steps = t.steps || []).push({ text: txt.trim(), done: false }); saveTasks(); renderTasks(); } } }
-      function taskComplete(id) { const t = tasks.find((x) => x.id === id); if (t) { t.followPrompt = true; renderTasks(); document.getElementById("fu-" + id)?.focus(); } }
-      function taskFinish(id, createFollow) {
-        const t = tasks.find((x) => x.id === id); if (!t) return;
-        if (createFollow) { const fu = document.getElementById("fu-" + id); const title = fu && fu.value.trim(); if (title) tasks.unshift({ id: tuid(), machine: t.machine, title, desc: "", priority: t.priority, reporter: t.reporter, status: "pendiente", steps: [], createdAt: new Date().toISOString(), parent: t.title }); }
-        delete t.followPrompt; t.status = "hecha"; t.doneAt = new Date().toISOString();
-        saveTasks(); renderTasks();
-      }
       function taskDelete(id) { if (window.confirm("¿Eliminar esta tarea?")) { tasks = tasks.filter((x) => x.id !== id); saveTasks(); renderTasks(); } }
       function taskExport() { const data = JSON.stringify(tasks, null, 2); try { navigator.clipboard?.writeText(data); } catch (e) {} window.prompt("Copia este texto para respaldar o compartir las tareas:", data); }
       function taskImport() { const txt = window.prompt("Pega el texto de tareas exportado (se agregan las que no existan):"); if (!txt) return; try { const arr = JSON.parse(txt); if (Array.isArray(arr)) { const ids = new Set(tasks.map((t) => t.id)); arr.forEach((t) => { if (t && t.id && !ids.has(t.id)) tasks.push(t); }); saveTasks(); renderTasks(); } } catch (e) { window.alert("El texto no es válido."); } }
@@ -452,7 +430,7 @@ function dt(machine, campo) {
       const inspKey = "equipos-inspecciones-v1";
       const inspRegistroBorradasKey = "equipos-inspecciones-registro-borradas-v1";
       let inspecciones = loadInsp();
-      let inspKnownIds = new Set();
+      let inspEnNube = new Map();
       const inspNube = { conectado: false, error: "" };
       const inspFiltro = { q: "", eq: "", tipo: "", estado: "" };
 
@@ -503,13 +481,7 @@ function dt(machine, campo) {
 
       function inspSync() {
         try {
-          const col = cloud.db.collection("inspecciones");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          inspecciones.forEach((i) => { ids.add(i.id); batch.set(col.doc(i.id), JSON.parse(JSON.stringify(i))); });
-          inspKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
-          inspKnownIds = ids;
-          batch.commit().catch((e) => { inspNube.error = e && e.code ? e.code : "error"; console.error("[Inspecciones] guardar nube:", e); });
+          nubeSync("inspecciones", inspecciones, inspEnNube).catch((e) => { inspNube.error = e && e.code ? e.code : "error"; console.error("[Inspecciones] guardar nube:", e); });
         } catch (e) { console.error("[Inspecciones] inspSync:", e); }
       }
 
@@ -518,7 +490,7 @@ function dt(machine, campo) {
         cloud.db.collection("inspecciones").onSnapshot({ includeMetadataChanges: true }, (snap) => {
           const remoto = [];
           snap.forEach((d) => remoto.push(d.data()));
-          inspKnownIds = new Set(remoto.map((i) => i.id));
+          inspEnNube = mapaNube(remoto);
           inspecciones = inspConRegistro(remoto);
           window.diarioRenderSiVisible?.();
           inspNube.conectado = !snap.metadata.fromCache;
@@ -991,7 +963,7 @@ function dt(machine, campo) {
       // ----------------------------------------------------------------------
       const datosKey = "equipos-datos-repuesto-v1";
       let datosRep = loadDatosRep();
-      let datosKnownIds = new Set();
+      let datosEnNube = new Map();
       const datosNube = { conectado: false, error: "" };
 
       function loadDatosRep() { try { return JSON.parse(localStorage.getItem(datosKey) || "{}"); } catch { return {}; } }
@@ -1016,13 +988,7 @@ function dt(machine, campo) {
 
       function datosSync() {
         try {
-          const col = cloud.db.collection("datos");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          Object.values(datosRep).forEach((d) => { ids.add(d.id); batch.set(col.doc(encodeURIComponent(d.id)), JSON.parse(JSON.stringify(d))); });
-          datosKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(encodeURIComponent(id))); });
-          datosKnownIds = ids;
-          batch.commit().catch((e) => { datosNube.error = e && e.code ? e.code : "error"; console.error("[Datos] guardar nube:", e); });
+          nubeSync("datos", Object.values(datosRep), datosEnNube, encodeURIComponent).catch((e) => { datosNube.error = e && e.code ? e.code : "error"; console.error("[Datos] guardar nube:", e); });
         } catch (e) { console.error("[Datos] datosSync:", e); }
       }
 
@@ -1032,7 +998,7 @@ function dt(machine, campo) {
           const remoto = {};
           snap.forEach((d) => { const v = d.data(); if (v && v.id) remoto[v.id] = v; });
           datosRep = remoto;
-          datosKnownIds = new Set(Object.keys(remoto));
+          datosEnNube = mapaNube(Object.values(remoto));
           datosNube.conectado = !snap.metadata.fromCache;
           datosNube.error = "";
           saveDatosLocal();
@@ -1079,7 +1045,7 @@ function dt(machine, campo) {
       const cambiosKey = "equipos-cambios-v1";
       const CAMBIOS_SEED_ID = "__seed_ago2026";
       let cambios = loadCambios();
-      let cambiosKnownIds = new Set();
+      let cambiosEnNube = new Map();
       // Si el historial no llega a la nube hay que verlo en pantalla: si no, parece
       // compartido con el resto del taller y en realidad solo esta en este navegador.
       const cambiosNube = { conectado: false, error: "" };
@@ -1094,13 +1060,7 @@ function dt(machine, campo) {
 
       function cambiosSync() {
         try {
-          const col = cloud.db.collection("cambios");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          cambios.forEach((c) => { ids.add(c.id); batch.set(col.doc(c.id), JSON.parse(JSON.stringify(c))); });
-          cambiosKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
-          cambiosKnownIds = ids;
-          batch.commit().catch((e) => {
+          nubeSync("cambios", cambios, cambiosEnNube).catch((e) => {
             cambiosNube.conectado = false;
             cambiosNube.error = e && e.code ? e.code : "error";
             console.error("[Cambios] Error guardando en la nube:", e);
@@ -1115,7 +1075,7 @@ function dt(machine, campo) {
           const remote = [];
           snap.forEach((d) => remote.push(d.data()));
           cambios = remote;
-          cambiosKnownIds = new Set(remote.map((c) => c.id));
+          cambiosEnNube = mapaNube(remote);
           window.diarioRenderSiVisible?.();
           cambiosNube.conectado = !snap.metadata.fromCache;
           cambiosNube.error = "";
