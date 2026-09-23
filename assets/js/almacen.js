@@ -42,7 +42,7 @@
       tipo: b.tipo || "consumo", fecha: hoy(),
       area: b.area || "", departamento: b.departamento || "", destino: "",
       alistadoPor: "", solicitadoPor: b.solicitadoPor || "", autorizadoPor: "",
-      trans: b.trans || "", causa: b.causa || "", observaciones: "", lineas: [],
+      observaciones: "", lineas: [],
     };
   }
   function guardarBorrador() { guardar(BORRADOR, borrador); }
@@ -249,6 +249,12 @@
             ? `<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="sitio" aria-label="De qu&eacute; estante">${sitios.map((s) => `<option value="${esc(s.alm + "|" + s.ub)}" ${`${s.alm}|${s.ub}` === l.sitio ? "selected" : ""}>${esc(s.alm)}/${esc(s.ub)} &middot; ${fmt(s.exist)}</option>`).join("")}</select>`
             : esc(l.sitio ? l.sitio.replace("|", "/") : "—")}</td>
           <td><button class="alm-x" type="button" data-alm="quitar" data-cod="${esc(l.cod)}" aria-label="Quitar ${esc(l.cod)}">&times;</button></td>
+        </tr>
+        <tr class="alm-sol-sub">
+          <td colspan="5">
+            <label>Trans.<input class="pl-edit" id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
+            <label>C&oacute;digo causa<input class="pl-edit" id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
+          </td>
         </tr>`;
     }).join("");
     return `
@@ -265,7 +271,6 @@
           <div class="tk-row2">${campo("fecha", "Fecha", 'type="date"')}${campo("area", "&Aacute;rea", 'placeholder="Mantenimiento"')}</div>
           <div class="tk-row2">${campo("departamento", "Departamento")}${campo("destino", "Destino", 'placeholder="Equipo o lugar"')}</div>
           <div class="tk-row2">${campo("solicitadoPor", "Solicitado por")}${campo("alistadoPor", "Alistado por", 'placeholder="Lo llena almac&eacute;n"')}</div>
-          <div class="tk-row2">${campo("trans", "Trans.", 'placeholder="Para todas las l&iacute;neas"')}${campo("causa", "C&oacute;digo causa", 'placeholder="Para todas las l&iacute;neas"')}</div>
         </div>
         ${b.lineas.length ? `
           <div class="pl-tablewrap alm-sol-wrap">
@@ -319,7 +324,9 @@
     const it = universo().find((x) => x.cod === cod);
     // Por defecto se saca del estante que mas tiene.
     const mejor = it && it.sitios.length ? it.sitios.slice().sort((a, b) => b.exist - a.exist)[0] : null;
-    borrador.lineas.push({ cod, desc: it ? it.desc : "", um: it ? it.um : "", cant: 1, sitio: mejor ? `${mejor.alm}|${mejor.ub}` : "" });
+    // Trans. y Codigo causa son de cada articulo: se dejan vacios para que no
+    // se arrastre sin querer el de la pieza anterior a una que no le toca.
+    borrador.lineas.push({ cod, desc: it ? it.desc : "", um: it ? it.um : "", cant: 1, sitio: mejor ? `${mejor.alm}|${mejor.ub}` : "", trans: "", causa: "" });
     guardarBorrador();
     pintarSolicitud(); pintarResultados();
   }
@@ -379,7 +386,7 @@
       observaciones: s.observaciones,
       lineas: s.lineas.map((l) => {
         const [alm, ub] = String(l.sitio || "").split("|");
-        return { cod: l.cod, desc: l.desc, um: l.um, cant: l.cant, alm: alm || "", ub: ub || "", trans: s.trans, causa: s.causa };
+        return { cod: l.cod, desc: l.desc, um: l.um, cant: l.cant, alm: alm || "", ub: ub || "", trans: l.trans || "", causa: l.causa || "" };
       }),
     };
   }
@@ -477,7 +484,7 @@
         const s = historial.find((x) => x.id === b.dataset.id);
         if (!s) return;
         if (borrador.lineas.length && !window.confirm("La solicitud que estás llenando se reemplaza. ¿Seguir?")) return;
-        borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, trans: s.trans, causa: s.causa, lineas: JSON.parse(JSON.stringify(s.lineas || [])) };
+        borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, lineas: JSON.parse(JSON.stringify(s.lineas || [])) };
         guardarBorrador(); pintarSolicitud(); pintarResultados();
         document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
@@ -499,8 +506,8 @@
         borrador[t.dataset.almCampo] = t.value;
         guardarBorrador();
         if (t.dataset.almCampo === "observaciones") { const c = document.getElementById("almObsCuenta"); if (c) c.textContent = `${t.value.length}/${OBS_MAX}`; }
-      } else if (t.dataset.almLinea !== undefined && t.dataset.k === "cant") {
-        borrador.lineas[+t.dataset.almLinea].cant = t.value;
+      } else if (t.dataset.almLinea !== undefined && ["cant", "trans", "causa"].includes(t.dataset.k)) {
+        borrador.lineas[+t.dataset.almLinea][t.dataset.k] = t.value;
         guardarBorrador();
       }
     });

@@ -3209,3 +3209,8 @@
       /* Cada .view es una rejilla: su contenido tampoco puede ensancharla. */
       #almRoot, #diarioRoot { min-width: 0; }
       .alm-accion { width: 1%; white-space: nowrap; }
+      /* Trans. y Codigo causa van por articulo, en una sub-fila de cada renglon. */
+      .alm-sol-table tr:has(+ .alm-sol-sub) td { border-bottom: 0; padding-bottom: 2px; }
+      .alm-sol-sub td { padding-top: 0 !important; }
+      .alm-sol-sub label { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; color: var(--muted); font-size: 0.7rem; font-weight: 700; }
+      .alm-sol-sub input { width: 64px; min-width: 0; border-color: var(--line-strong); font-size: 0.8rem; }

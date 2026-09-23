@@ -84,6 +84,10 @@ await pg.locator('input[data-alm-linea="0"][data-k="cant"]').blur();
 ok(await pg.locator(".alm-pasa").count() === 1, "no aviso que se piden mas de las que hay");
 await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "2");
 await pg.locator('input[data-alm-linea="0"][data-k="cant"]').blur();
+// Trans. y Codigo causa van por articulo: cada renglon con los suyos.
+ok(await pg.locator('[data-alm-campo="trans"], [data-alm-campo="causa"]').count() === 0, "siguen los campos generales de Trans./Causa");
+await pg.fill("#alm-trans-0", "CO"); await pg.fill("#alm-causa-0", "07");
+await pg.fill("#alm-trans-1", "TR"); await pg.fill("#alm-causa-1", "12");
 await pg.fill('[data-alm-campo="destino"]', "BLISTEADORA #2");
 await pg.fill('[data-alm-campo="solicitadoPor"]', "PRUEBA");
 
@@ -98,6 +102,9 @@ ok(hoja.includes(`<c r="A13" s="23" t="inlineStr"><is><t xml:space="preserve">${
 ok(hoja.includes(`<c r="M13" s="8"><v>2</v></c>`), "la cantidad no quedo en M13");
 ok(hoja.includes('<c r="O13" s="18" t="inlineStr"><is><t xml:space="preserve">R04</t>'), "el almacen elegido no quedo en O13");
 ok((dibujo.match(/<a:t>X<\/a:t>/g) || []).length === 1, "la casilla de consumo no quedo marcada");
+const celda = (ref) => (new RegExp(`<c r="${ref}"[^>]*t="inlineStr"><is><t xml:space="preserve">([^<]*)<`).exec(hoja) || [])[1];
+ok(celda("G13") === "CO" && celda("H13") === "07", `renglon 1: Trans./Causa = ${celda("G13")}/${celda("H13")}, esperaba CO/07`);
+ok(celda("G14") === "TR" && celda("H14") === "12", `renglon 2: Trans./Causa = ${celda("G14")}/${celda("H14")}, esperaba TR/12`);
 ok(/^DAD-010A \d{4}-\d{2}-\d{2} BLISTEADORA 2\.xlsx$/.test(descarga.suggestedFilename()), `nombre de archivo raro: ${descarga.suggestedFilename()}`);
 await pg.waitForSelector(".alm-aviso--ok");
 ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");
