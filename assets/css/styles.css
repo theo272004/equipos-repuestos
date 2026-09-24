@@ -3166,10 +3166,14 @@
       .dy-k--insp { background: #039855; }
       .dy-k--sol { background: #dc6803; }
       .dy-k--nota { background: #667085; }
+      .dy-k--reporte { background: #c11574; }
       .dy-kpi--cambio .pl-kpi__n { color: #2563eb; }
       .dy-kpi--tarea .pl-kpi__n { color: #7a5af8; }
       .dy-kpi--insp .pl-kpi__n { color: #039855; }
       .dy-kpi--sol .pl-kpi__n { color: #b54708; }
+      .dy-kpi--reporte .pl-kpi__n { color: #c11574; }
+      .dy-ir-rep { border: 0; padding: 0; background: none; color: inherit; font: inherit; font-weight: 700; text-align: left; cursor: pointer; text-decoration: underline; text-decoration-color: #c1157466; text-underline-offset: 2px; }
+      .dy-ir-rep:hover { color: #c11574; }
       .dy-leyenda { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; color: #475467; font-size: 0.76rem; font-weight: 600; }
       .dy-leyenda span { display: inline-flex; align-items: center; gap: 5px; }
       .dy-leyenda .dy-k { min-width: 10px; height: 10px; padding: 0; }
@@ -3207,8 +3211,46 @@
          el celular en vez de desplazarse dentro de su caja. */
       .alm-sol > *, .dy-detalle > *, .dy-cal > * { min-width: 0; }
       /* Cada .view es una rejilla: su contenido tampoco puede ensancharla. */
-      #almRoot, #diarioRoot { min-width: 0; }
+      #almRoot, #diarioRoot, #reportesRoot { min-width: 0; }
       .alm-accion { width: 1%; white-space: nowrap; }
+
+      /* ================================================================
+         REPORTES DE TURNO: lista + detalle del reporte completo
+         ================================================================ */
+      .rp-filtros { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; align-items: end; }
+      .rp-filtro { display: grid; gap: 4px; font-size: 0.74rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+      .rp-filtro select, .rp-filtro input { min-width: 160px; border: 1px solid var(--line-strong); border-radius: 10px; padding: 8px 10px; font: inherit; font-size: 0.9rem; font-weight: 500; letter-spacing: 0; text-transform: none; background: #ffffff; color: var(--text); }
+      .rp-filtro--buscar { flex: 1 1 220px; }
+      .rp-filtro--buscar input { width: 100%; min-width: 0; }
+      .rp-grid { display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 18px; align-items: start; }
+      .rp-lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 70vh; overflow-y: auto; }
+      .rp-item { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; width: 100%; text-align: left; border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; box-shadow: var(--shadow-card); }
+      .rp-item:hover { border-color: var(--line-strong); background: var(--soft); }
+      .rp-item.is-sel { border-color: #c11574; box-shadow: 0 0 0 2px #c1157433; }
+      .rp-item__fecha { font-size: 0.78rem; font-weight: 800; color: #c11574; white-space: nowrap; padding-top: 2px; }
+      .rp-item__cuerpo { display: grid; gap: 4px; min-width: 0; }
+      .rp-item__tit { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 0.84rem; }
+      .rp-item__res { color: var(--muted); font-size: 0.76rem; line-height: 1.35; }
+      .rp-badge { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 0.66rem; font-weight: 800; letter-spacing: 0.03em; text-transform: uppercase; }
+      .rp-badge--sede { background: #eef4ff; color: #2563eb; }
+      .rp-badge--turno { background: #fdf6ec; color: #b54708; }
+      .rp-det { position: sticky; top: 16px; min-width: 0; border: 1px solid var(--line); border-radius: 16px; padding: 16px; background: var(--surface); box-shadow: var(--shadow-card); }
+      .rp-det__head { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
+      .rp-det__head h3 { margin: 2px 0 6px; font-size: 1.05rem; }
+      .rp-det__meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 0; color: var(--muted); font-size: 0.82rem; }
+      .rp-block { margin-top: 16px; }
+      .rp-block h4 { margin: 0 0 8px; font-size: 0.92rem; display: flex; align-items: center; gap: 8px; }
+      .rp-count { display: inline-grid; place-items: center; min-width: 22px; height: 20px; padding: 0 6px; border-radius: 999px; background: #fce7f3; color: #c11574; font-size: 0.7rem; font-weight: 800; }
+      .rp-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+      .rp-table th { text-align: left; padding: 6px 8px; border-bottom: 2px solid var(--line-strong); color: var(--muted); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.04em; }
+      .rp-table td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+      .rp-nov { margin: 0; padding-left: 18px; display: grid; gap: 8px; font-size: 0.86rem; line-height: 1.45; }
+      .rp-original { margin: 0; padding: 12px; border-radius: 10px; background: var(--soft); border: 1px solid var(--line); font-size: 0.78rem; line-height: 1.45; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 320px; overflow-y: auto; font-family: ui-monospace, Menlo, Consolas, monospace; }
+      @media (max-width: 1000px) {
+        .rp-grid { grid-template-columns: minmax(0, 1fr); }
+        .rp-det { position: static; }
+        .rp-lista { max-height: 40vh; }
+      }
       /* Trans. y Codigo causa van por articulo, en una sub-fila de cada renglon. */
       .alm-sol-table tr:has(+ .alm-sol-sub) td { border-bottom: 0; padding-bottom: 2px; }
       .alm-sol-sub td { padding-top: 0 !important; }

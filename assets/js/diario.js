@@ -16,6 +16,7 @@
   const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   const DIAS = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
   const CLASES = {
+    reporte: { txt: "Reportes", uno: "reporte", orden: 0 },
     cambio: { txt: "Cambios", uno: "cambio", orden: 1 },
     tarea: { txt: "Tareas", uno: "tarea", orden: 2 },
     insp: { txt: "Inspecciones", uno: "inspección", orden: 3 },
@@ -53,6 +54,11 @@
   // Todo lo que paso, como una lista plana de eventos con su dia.
   function eventos() {
     const ev = [];
+    // Resumen de los reportes de turno (lista completa en la sección Reportes)
+    (window.reportesEventos ? window.reportesEventos() : []).forEach((r) => {
+      if (!r || !r.dia) return;
+      ev.push({ ...r, clase: "reporte" });
+    });
     if (typeof cambios !== "undefined") cambios.forEach((c) => {
       if (!c || c.marca || !c.fecha) return;
       ev.push({ clase: "cambio", dia: c.fecha, hora: horaCO(c.createdAt), quien: c.quien,
@@ -139,7 +145,7 @@
           <h2>Diario del taller</h2>
         </div>
       </div>
-      <p class="pl-note">Lo que se hizo cada d&iacute;a, sin apuntarlo dos veces: los <strong>cambios de piezas</strong>, las <strong>tareas</strong>, las <strong>inspecciones</strong> y las <strong>solicitudes de materiales</strong> salen solos de donde ya se registran. Para todo lo dem&aacute;s, deja una <strong>nota del d&iacute;a</strong>.</p>
+      <p class="pl-note">Lo que se hizo cada d&iacute;a, sin apuntarlo dos veces: los <strong>reportes de turno</strong>, los <strong>cambios de piezas</strong>, las <strong>tareas</strong>, las <strong>inspecciones</strong> y las <strong>solicitudes de materiales</strong> salen solos de donde ya se registran. Para todo lo dem&aacute;s, deja una <strong>nota del d&iacute;a</strong>.</p>
       <div class="pl-kpis dy-kpis">${kpis}</div>
       <div class="dy-grid">
         <div class="dy-cal">
@@ -166,7 +172,7 @@
       <li class="dy-ev dy-ev--${e.clase}">
         <span class="dy-k dy-k--${e.clase}" aria-hidden="true"></span>
         <div>
-          <p class="dy-ev__t">${esc(e.titulo)}</p>
+          <p class="dy-ev__t">${e.clase === "reporte" ? `<button type="button" class="dy-ir-rep" data-dy="ir-reporte" data-id="${esc(e.id || "")}">${esc(e.titulo)}</button>` : esc(e.titulo)}</p>
           ${e.detalle ? `<p class="dy-ev__d">${esc(e.detalle)}</p>` : ""}
           <p class="dy-ev__m">${esc(CLASES[e.clase].uno)}${e.hora ? " · " + esc(e.hora) : ""}${e.quien ? " · " + esc(e.quien) : ""}
             ${e.clase === "nota" ? ` · <button type="button" class="dy-borrar" data-dy="borrar" data-id="${esc(e.id)}">borrar</button>` : ""}</p>
@@ -235,6 +241,7 @@
         vista.mes = f.toISOString().slice(0, 7);
         render();
       } else if (accion === "hoy") { vista.mes = bogotaToday().slice(0, 7); vista.dia = bogotaToday(); render(); }
+      else if (accion === "ir-reporte") { if (window.goReportes) window.goReportes(b.dataset.id); }
       else if (accion === "borrar") { if (window.confirm("¿Borrar esta nota?")) { borrarNota(b.dataset.id); render(); } }
     });
     raiz.addEventListener("submit", (e) => {
