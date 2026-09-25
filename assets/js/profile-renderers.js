@@ -839,7 +839,8 @@ function dt(machine, campo) {
         sede2: {
           label: "Sede 2 (Vía 40)",
           groups: [
-            { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo"] },
+            // Sergio rota con Alfonso desde el lunes 21 de septiembre de 2026 (antes, turno fijo en Sede 4).
+            { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-09-21" }] },
             { name: "Grupo Vía 40-2", phase: "noche", members: ["Samith Arick Sanjuán Otálora"] },
             { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia"] }
           ]
@@ -849,7 +850,7 @@ function dt(machine, campo) {
       // En el cuadro se le marca con "2" todos los días en vez de D/N/L.
       const TN_FIJOS = {
         sede4: [
-          { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", nota: "Pasará a rotar con su grupo; falta confirmar la fecha." }
+          { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", hasta: "2026-09-20", nota: "Desde el 21/09/2026 rota en Sede 2 (Grupo Vía 40-1)." }
         ],
         sede2: []
       };
@@ -882,6 +883,9 @@ function dt(machine, campo) {
         const n = ((days % TN_CICLO) + TN_CICLO) % TN_CICLO;
         return TN_PHASE_BLOCKS[phase][Math.floor(n / TN_BLOQUE)];
       }
+      // Un miembro puede ser "Nombre" o { n, desde, hasta } (fechas AAAA-MM-DD, ambas opcionales).
+      const tnNombre = (m) => (typeof m === "string" ? m : m.n);
+      const tnVigente = (m, fecha) => typeof m === "string" || ((!m.desde || fecha >= m.desde) && (!m.hasta || fecha <= m.hasta));
       function tnIniciales(nombre) { const p = String(nombre).trim().split(/\s+/); return ((p[0] || "")[0] || "") + ((p[1] || "")[0] || ""); }
 
       function renderTurnos() {
@@ -894,7 +898,10 @@ function dt(machine, campo) {
           ` &nbsp;·&nbsp; <span>${escapeHtml(TN_ROSTER[tnSede].label)}</span>`;
 
         const buckets = { dia: [], noche: [], descanso: [] };
-        TN_ROSTER[tnSede].groups.forEach((g) => { buckets[tnEstadoDe(g.phase, fecha)].push(g); });
+        TN_ROSTER[tnSede].groups.forEach((g) => {
+          const members = g.members.filter((m) => tnVigente(m, fecha)).map(tnNombre);
+          if (members.length) buckets[tnEstadoDe(g.phase, fecha)].push({ ...g, members });
+        });
 
         const grid = document.getElementById("tnShiftGrid");
         grid.innerHTML = ["dia", "noche", "descanso"].map((est) => {
@@ -903,7 +910,7 @@ function dt(machine, campo) {
           const groups = buckets[est];
           // Los de turno fijo van siempre en la tarjeta de día: trabajan de 8 a 20
           // todos los días laborables, no rotan con su grupo.
-          const fijos = est === "dia" ? (TN_FIJOS[tnSede] || []) : [];
+          const fijos = est === "dia" ? (TN_FIJOS[tnSede] || []).filter((f) => tnVigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha)) : [];
           const rotan = groups.length
             ? groups.map((g) => `<div class="tn-group">${escapeHtml(g.name)}</div><ul class="tn-people">${g.members.map((m) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(m).toUpperCase())}</span>${escapeHtml(m)}</li>`).join("")}</ul>`).join("")
             : "";
