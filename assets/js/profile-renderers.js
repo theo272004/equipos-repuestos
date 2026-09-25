@@ -831,7 +831,7 @@ function dt(machine, campo) {
         sede4: {
           label: "Sede 4",
           groups: [
-            { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "Jair Mesa Rincón", "José Luis Vargas Buitrago"] },
+            { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "José Luis Vargas Buitrago"] },
             { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak"] },
             { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
           ]
@@ -856,7 +856,6 @@ function dt(machine, campo) {
       };
 
       const TN_SUPPORT = [
-        { area: "Eléctrico", members: ["Jaime Villa Pérez"] },
         { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"] },
         { area: "Preventivo", members: ["Alexi Alexander Arroyo De Moya", "Leiner Andrés Montañez Rodríguez"] },
         { area: "Refrigeración", members: ["Juan Carlos Estupiñán De la Cruz"] }
