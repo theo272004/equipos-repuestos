@@ -28,6 +28,9 @@
   const esc = (v) => String(v ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
   const COB_MIN = 0.5;
+  const ic = window.MTTO_ICON || (() => "");
+  const UI = window.MTTO_UI || {};
+  const CATI = window.MTTO_CAT || {};
   const POR_PAGINA = 20;
   const COLOR_CAT = { "Máquina": "#d92d20", "Apoyo crítico": "#f79009", "Locativo": "#7a5af8", "Preventivo": "#12b76a", "Operacional": "#2e90fa" };
   const META_GLOBAL = { disp: 0.92, mtbf: 48, mttr: 1.5 };
@@ -39,7 +42,7 @@
     sem: { l: "Semana del", v: (x) => fechaCorta(x) }, tec: { l: "Técnico" }, pend: { l: "Estado", v: () => "Con pendiente" },
   };
   const qs = new URLSearchParams(window.location.search);
-  const vista = { periodo: "todo", desde: M.desde, hasta: S.hoy(), f: {}, pagina: 0, abierto: "", orden: "fecha" };
+  const vista = { periodo: "todo", desde: M.desde, hasta: S.hoy(), f: {}, pagina: 0, abierto: "", orden: "fecha", filtros: false };
   Object.keys(FILTROS).forEach((k) => { if (qs.get(k)) vista.f[k] = qs.get(k); });
 
   // ------------------------------------------------------------------------
@@ -278,22 +281,34 @@
   // ------------------------------------------------------------------------
   function chips() {
     const act = Object.entries(vista.f).filter(([, v]) => v);
-    if (!act.length) return `<p class="ki-chips ki-chips--vacio">Toca cualquier barra, fila, semana, categoría o máquina para filtrar todo el tablero.</p>`;
-    return `<div class="ki-chips">${act.map(([k, v]) => `<button type="button" class="ki-chip" data-ki="quitar" data-k="${k}" title="Quitar filtro"><span>${esc(FILTROS[k].l)}:</span> ${esc(FILTROS[k].v ? FILTROS[k].v(v) : v)} <b>×</b></button>`).join("")}
-      <button type="button" class="ki-chip ki-chip--limpiar" data-ki="limpiar">Quitar todos</button></div>`;
+    const periodo = { todo: `Desde ${fechaCorta(M.desde)}`, mes: "Este mes", mesant: "Mes anterior", "30": "Últimos 30 días", "7": "Últimos 7 días", custom: "Rango" }[vista.periodo];
+    return `<div class="mx-fbar" role="region" aria-label="Filtros activos">
+      <span class="mx-fbar__ic">${ic("chispa")}</span>
+      <span class="mx-fchip mx-fchip--fixed"><span>Periodo</span><code>es</code><b>${esc(periodo)}</b></span>
+      ${act.map(([k, v]) => `<span class="mx-fchip"><span>${esc(FILTROS[k].l)}</span><code>es</code><b>${esc(FILTROS[k].v ? FILTROS[k].v(v) : v)}</b><button type="button" data-ki="quitar" data-k="${k}" aria-label="Quitar filtro ${esc(FILTROS[k].l)}">${ic("x")}</button></span>`).join("")}
+      ${act.length ? `<button type="button" class="mx-fbar__clear" data-ki="limpiar">Quitar todos</button>` : `<span class="mx-fbar__hint">Toca cualquier barra, fila, semana, categoría o máquina para filtrar todo el tablero.</span>`}
+    </div>`;
   }
 
   function bloqueSede(x) {
     const m = META_GLOBAL;
-    return `<section class="ki-sede ${sel("sede", x.s)}">
-      <header class="ki-head ki-head--${x.s === "Sede 4" ? "s4" : "s2"} is-link" ${fil("sede", x.s)}>${esc(x.s === "Sede 2" ? "Sede 2 · Vía 40" : x.s)}${vista.f.sede === x.s ? " · filtrada" : ""}</header>
-      <div class="ki-sede__grid">
-        ${metrica("Tiempo programado", hh(x.tProg), "equipos de proceso")}
-        ${metrica("Horas de parada", hh(x.hPar), `${x.n} novedades`)}
-        ${metrica("Disponibilidad", pct(x.disp), x.disp == null ? "faltan horarios" : `Objetivo ${pct(m.disp, 0)}`, x.disp == null ? null : x.disp >= m.disp)}
-        ${metrica("MTBF", x.mtbf == null ? "—" : `${nf(x.mtbf)} h`, `Objetivo ≥ ${m.mtbf} h`, x.mtbf == null || !x.fallas ? null : x.mtbf >= m.mtbf)}
-        ${metrica("MTTR", x.mttr == null ? "—" : `${nf(x.mttr, 2)} h`, `Objetivo ≤ ${nf(m.mttr)} h`, x.mttr == null ? null : x.mttr <= m.mttr)}
-        ${metrica("Fallas de máquina", nf(x.fallas, 0), `${x.pend} con pendiente`, null, "", `data-ki="multi" data-set='${esc(JSON.stringify({ sede: x.s, cat: "Máquina", tp: "Correctivo" }))}' role="button" tabindex="0" title="Ver las fallas de ${esc(x.s)}"`)}
+    const ok = (v, meta, mayor = true) => (v == null || v === Infinity ? null : mayor ? v >= meta : v <= meta);
+    const cMtbf = x.fallas ? ok(x.mtbf, m.mtbf) : null, cMttr = ok(x.mttr, m.mttr, false), cDisp = ok(x.disp, m.disp);
+    const col = (c) => (c == null ? "#98A2B3" : c ? "#12B76A" : "#F04438");
+    const tile = (tono, tit, valor, sub, visual, attrs = "") => `<div class="mx-stile mx-stile--${tono} ${attrs ? "is-link" : ""}" ${attrs}><span class="mx-stile__l">${tit}</span><div class="mx-stile__b"><b>${valor}</b>${visual || ""}</div><small>${sub}</small></div>`;
+    return `<section class="mx-sede ${sel("sede", x.s)}">
+      <header class="mx-sede__head is-link" ${fil("sede", x.s)}>
+        <span class="mx-sede__ic mx-sede__ic--${x.s === "Sede 4" ? "s4" : "s2"}">${ic("edificio")}</span>
+        <div><h3>${esc(x.s === "Sede 2" ? "Sede 2 · Vía 40" : x.s)}</h3><p>${hh(x.tProg)} programadas · ${x.n} novedades</p></div>
+        <span class="mx-pill ${x.fallas && cMtbf === false ? "mx-pill--maq" : "mx-pill--ok"}"><i></i>${x.fallas ? (cMtbf ? "MTBF en meta" : "MTBF bajo meta") : "Sin fallas"}</span>
+      </header>
+      <div class="mx-sede__tiles">
+        ${tile(cDisp == null ? "gray" : cDisp ? "green" : "red", "Disponibilidad", pct(x.disp), x.disp == null ? `faltan horarios (${x.cob == null ? "—" : pct(x.cob, 0)})` : `objetivo ${pct(m.disp, 0)}`, UI.anillo ? UI.anillo(x.disp || 0, col(cDisp)) : "")}
+        ${tile(cMtbf == null ? "gray" : cMtbf ? "green" : "red", "MTBF", x.mtbf == null ? "—" : `${nf(x.mtbf)}<em>h</em>`, `objetivo ≥ ${m.mtbf} h`, UI.anillo ? UI.anillo(x.mtbf && x.mtbf !== Infinity ? Math.min(1, x.mtbf / (m.mtbf * 1.5)) : 0, col(cMtbf)) : "")}
+        ${tile(cMttr == null ? "gray" : cMttr ? "green" : "red", "MTTR", x.mttr == null ? "—" : `${nf(x.mttr, 2)}<em>h</em>`, `objetivo ≤ ${nf(m.mttr)} h`, UI.anillo ? UI.anillo(x.mttr ? Math.min(1, x.mttr / (m.mttr * 2)) : 0, col(cMttr)) : "")}
+        ${tile("amber", "Horas de parada", `${nf(x.hPar, x.hPar >= 100 ? 0 : 1)}<em>h</em>`, "registradas", "")}
+        ${tile("red", "Fallas de máquina", nf(x.fallas, 0), "correctivos · ver lista", "", `data-ki="multi" data-set='${esc(JSON.stringify({ sede: x.s, cat: "Máquina", tp: "Correctivo" }))}' role="button" tabindex="0"`)}
+        ${tile("violet", "Con pendiente", nf(x.pend, 0), "trabajo abierto · ver lista", "", `data-ki="multi" data-set='${esc(JSON.stringify({ sede: x.s, pend: "1" }))}' role="button" tabindex="0"`)}
       </div>
     </section>`;
   }
@@ -301,23 +316,21 @@
   function tarjetaArea(a) {
     const st = estadoArea(a);
     const m = a.meta;
-    const top = a.equipos.filter((e) => e.fallas > 0).sort((p, q) => q.fallas - p.fallas).slice(0, 6);
-    const big = a.disp != null
-      ? `<b class="ki-big ki-big--${a.disp >= m.disp ? "ok" : "bad"}">${pct(a.disp)}</b><small>Disponibilidad · objetivo ${pct(m.disp, 0)} (${a.disp - m.disp >= 0 ? "+" : ""}${nf((a.disp - m.disp) * 100)} pts)</small>`
-      : `<b class="ki-big ki-big--na">${a.fallas}</b><small>fallas · disponibilidad sin datos (${a.cob == null ? "sin fallas" : pct(a.cob, 0) + " con horario"})</small>`;
-    return `<article class="ki-area ki-area--${st} ${sel("area", a.ar)}">
-      <header class="ki-head ki-head--${st} is-link" ${fil("area", a.ar)}>${esc(a.ar)} <span class="ki-head__mas">ver detalle ›</span></header>
-      <div class="ki-area__body">
-        <div class="ki-area__kpi is-link" ${fil("area", a.ar)}>
-          ${big}
-          <div class="ki-area__mini">
-            ${metrica("MTBF", a.mtbf == null ? "—" : nf(a.mtbf), `≥ ${m.mtbf} h`, a.mtbf == null || a.fallas === 0 ? null : a.mtbf >= m.mtbf)}
-            ${metrica("MTTR", a.mttr == null ? "—" : nf(a.mttr, 2), `≤ ${nf(m.mttr)} h`, a.mttr == null ? null : a.mttr <= m.mttr)}
-          </div>
-          <small class="ki-area__h">${hh(a.tProg)} programadas · ${hh(a.hPar)} de parada</small>
-        </div>
-        <div class="ki-area__bars">${barrasH(top.map((e) => ({ l: e.eq + (vista.f.sede ? "" : e.s === "Sede 2" ? " (S2)" : ""), key: e.k, v: e.fallas })), { k: "eq", color: st === "bad" ? "var(--ki-bad-bar)" : "var(--ki-ok-bar)", vacio: "Sin fallas." })}</div>
-      </div>
+    const top = a.equipos.filter((e) => e.fallas > 0).sort((p, q) => q.fallas - p.fallas).slice(0, 4);
+    const pill = st === "ok" ? `<span class="mx-pill mx-pill--ok"><i></i>${a.fallas ? "Cumple la meta" : "Sin fallas"}</span>` : st === "bad" ? `<span class="mx-pill mx-pill--maq"><i></i>Bajo la meta</span>` : `<span class="mx-pill"><i></i>Sin datos</span>`;
+    const mtbfP = a.mtbf && a.mtbf !== Infinity ? Math.min(1, a.mtbf / m.mtbf) : a.fallas ? 0 : 1;
+    return `<article class="mx-acard mx-acard--${st} ${sel("area", a.ar)}">
+      <div class="mx-acard__top">${pill}<button type="button" class="mx-iconbtn mx-iconbtn--sm" ${fil("area", a.ar)} aria-label="Ver detalle de ${esc(a.ar)}">${ic("der")}</button></div>
+      <h4 class="is-link" ${fil("area", a.ar)}>${esc(a.ar)}</h4>
+      <p class="mx-acard__sub">${a.equipos.length} máquinas · ${hh(a.tProg)} programadas</p>
+      <div class="mx-acard__num"><b>${a.fallas}</b><span>fallas</span>${a.disp != null ? `<span class="mx-chip ${a.disp >= m.disp ? "mx-chip--ok" : "mx-chip--bad"}">${pct(a.disp)} disp.</span>` : ""}</div>
+      <div class="mx-acard__prog"><p><span>MTBF frente a la meta</span><b>${a.mtbf == null ? "—" : nf(a.mtbf)} / ${m.mtbf} h</b></p>${UI.segBar ? UI.segBar(Math.round(mtbfP * 20), 20, 20, st === "bad" ? "is-bad" : "is-ok") : ""}</div>
+      <dl class="mx-inset">
+        <div><dt>${ic("reloj")}MTTR</dt><dd class="${a.mttr != null && a.mttr > m.mttr ? "mx-falta" : ""}">${a.mttr == null ? "—" : nf(a.mttr, 2) + " h"} <small>meta ≤ ${nf(m.mttr)}</small></dd></div>
+        <div><dt>${ic("falla")}Horas de parada</dt><dd>${hh(a.hPar)}</dd></div>
+        <div><dt>${ic("check")}Con horario</dt><dd>${a.cob == null ? "—" : pct(a.cob, 0)}</dd></div>
+      </dl>
+      <div class="mx-acard__eqs">${top.map((e) => `<button type="button" class="mx-eqchip ${sel("eq", e.k)}" ${fil("eq", e.k)}>${esc(e.eq)}${vista.f.sede ? "" : e.s === "Sede 2" ? " · S2" : ""}<b>${e.fallas}</b></button>`).join("") || `<span class="mx-acard__nada">Sin fallas en el periodo</span>`}</div>
     </article>`;
   }
 
@@ -482,37 +495,50 @@
     if (!r) return "";
     const info = C.equipos.find((x) => x.s === r.s && x.eq === r.eq) || {};
     const reporte = r.rid && Array.isArray(window.REPORTES_TURNO) && window.REPORTES_TURNO.some((x) => x.id === r.rid);
-    const fila = (l, v) => (v || v === 0 ? `<div><dt>${l}</dt><dd>${v}</dd></div>` : "");
+    const [cc, icn] = CATI[r.cat] || ["maq", "maquina"];
+    const efc = r.ef === "Operativo" ? "ok" : r.ef === "Pendiente" ? "bad" : r.ef === "Operativo con pendiente" ? "warn" : "neutro";
     const origen = { chat: "Chat WhatsApp (histórico)", "chat-pegado": "Reporte pegado del chat", "chat-editado": "Chat, completado en el registro", registro: "Registro directo" }[r.src] || r.src;
-    return `<div class="tk-sheet-backdrop" data-ki="cerrar"></div>
-    <aside class="tk-sheet tk-sheet--ancha ki-ficha" aria-label="Detalle de la novedad">
-      <div class="tk-sheet__head"><h4>${esc(r.eq)} · ${fechaCorta(r.f)}</h4><button class="tk-sheet__close" type="button" data-ki="cerrar" aria-label="Cerrar">&times;</button></div>
-      <p class="ki-ficha__sub">${esc(fechaLarga(r.f))} · turno ${esc(r.t)} · ${esc(r.s)}${r.hi ? ` · ${esc(r.hi)}–${esc(r.hf || "")}` : r.hr ? ` · reportado ${esc(r.hr)}` : ""}</p>
-      <div class="ki-ficha__tags">
-        <button type="button" class="mt-tag" style="background:${COLOR_CAT[r.cat]}22;color:${COLOR_CAT[r.cat]}" data-ki="filtro-y-cerrar" data-k="cat" data-v="${esc(r.cat)}">${esc(r.cat)}</button>
-        <button type="button" class="mt-tag mt-tag--ope" data-ki="filtro-y-cerrar" data-k="tp" data-v="${esc(r.tp)}">${esc(r.tp)}</button>
-        ${r.fa ? `<button type="button" class="mt-tag mt-tag--maq" data-ki="filtro-y-cerrar" data-k="fa" data-v="${esc(r.fa)}">${esc(r.fa)}</button>` : ""}
-        <span class="mt-est mt-est--${r.ef === "Operativo" ? "ok" : r.ef === "Pendiente" ? "bad" : r.ef === "Operativo con pendiente" ? "warn" : "neutro"}">${esc(r.ef || "Sin cierre")}</span>
-      </div>
-      <h5>Qué pasó y qué se hizo</h5>
-      <p class="ki-ficha__de">${esc(r.de || "")}</p>
-      <dl class="ki-ficha__dl">
-        ${fila("Acción", esc(r.ac || ""))}
-        ${fila("Duración", r.min > 0 ? `${nf(r.min / 60, 2)} h (${Math.round(r.min)} min)` : "")}
-        ${fila("¿Detuvo la máquina?", esc(r.det || ""))}
-        ${fila("Repuesto usado", esc(r.rep || ""))}
-        ${fila("Faltó repuesto", r.frep ? "Sí" : "")}
-        ${fila("Técnico", r.tec ? `<span class="ki-sub-link" data-ki="filtro-y-cerrar" data-k="tec" data-v="${esc(r.tec)}">${esc(r.tec)}</span>` : "")}
-        ${fila("OT / Solicitud", esc(r.ot || ""))}
-        ${fila("Registrado por", esc(r.por || ""))}
-        ${fila("Origen", esc(origen))}
-        ${fila("Tipo de máquina", `<span class="ki-sub-link" data-ki="filtro-y-cerrar" data-k="area" data-v="${esc(r.ar)}">${esc(r.ar)}</span>`)}
-      </dl>
-      <div class="ki-ficha__acc">
-        <button type="button" class="button button--dark" data-ki="filtro-y-cerrar" data-k="eq" data-v="${esc(claveEq(r))}">Hoja de vida de ${esc(r.eq)}</button>
-        <button type="button" class="button button--light" data-ki="editar" data-id="${esc(r.id)}">${r.src === "chat" ? "Completar en el Registro" : "Editar en el Registro"}</button>
-        ${reporte ? `<button type="button" class="button button--light" data-ki="reporte" data-v="${esc(r.rid)}">Reporte original del chat</button>` : ""}
-        ${info.fi ? `<button type="button" class="button button--light" data-ki="ficha" data-v="${esc(info.fi)}">Ficha técnica del equipo</button>` : ""}
+    const snap = (icono, valor, label, attrs = "") => `<div class="mx-snap ${attrs ? "is-link" : ""}" ${attrs}>${ic(icono)}<b>${valor}</b><span>${label}</span></div>`;
+    const fila = (l, v) => (v ? `<div><dt>${l}</dt><dd>${v}</dd></div>` : "");
+    const mismas = S.registros().filter((x) => x.s === r.s && x.eq === r.eq && esFalla(x)).length;
+    return `<div class="mx-backdrop" data-ki="cerrar"></div>
+    <aside class="mx-sheet ki-ficha" role="dialog" aria-modal="true" aria-label="Detalle de la novedad">
+      <header class="mx-sheet__head"><div><p class="mx-eyebrow">Novedad · ${esc(origen)}</p><h3>${esc(r.eq)}</h3></div>
+        <button class="mx-iconbtn" type="button" data-ki="cerrar" aria-label="Cerrar">${ic("x")}</button></header>
+      <div class="mx-form__body">
+        <div class="mx-hero">
+          <span class="mx-hero__ic mx-hero__ic--${cc}">${ic(icn)}</span>
+          <p class="mx-hero__sub">${esc(r.s)} · <button type="button" class="mx-link" data-ki="filtro-y-cerrar" data-k="area" data-v="${esc(r.ar)}">${esc(r.ar)}</button></p>
+          <div class="mx-hero__tags">
+            <button type="button" class="mx-pill mx-pill--${cc}" data-ki="filtro-y-cerrar" data-k="cat" data-v="${esc(r.cat)}">${ic(icn)}${esc(r.cat)}</button>
+            <button type="button" class="mx-pill mx-pill--ope" data-ki="filtro-y-cerrar" data-k="tp" data-v="${esc(r.tp)}">${esc(r.tp)}</button>
+            ${r.fa ? `<button type="button" class="mx-pill mx-pill--apo" data-ki="filtro-y-cerrar" data-k="fa" data-v="${esc(r.fa)}">${esc(r.fa)}</button>` : ""}
+            <span class="mx-est mx-est--${efc}"><i></i>${esc(r.ef || "Sin cierre")}</span>
+          </div>
+          <div class="mx-hero__acc">
+            <button type="button" class="mx-btn mx-btn--primary mx-btn--sm" data-ki="filtro-y-cerrar" data-k="eq" data-v="${esc(claveEq(r))}">${ic("grafica")}Hoja de vida</button>
+            <button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="editar" data-id="${esc(r.id)}">${ic("editar")}${r.src === "chat" ? "Completar" : "Editar"}</button>
+            ${reporte ? `<button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="reporte" data-v="${esc(r.rid)}">${ic("chat")}Reporte original</button>` : ""}
+            ${info.fi ? `<button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="ficha" data-v="${esc(info.fi)}">${ic("ficha")}Ficha técnica</button>` : ""}
+          </div>
+        </div>
+        <h5 class="mx-h5">Resumen</h5>
+        <div class="mx-snaps">
+          ${snap("calendario", `${Number(r.f.slice(8))} ${MESES[Number(r.f.slice(5, 7)) - 1].slice(0, 3)}`, `turno ${esc(r.t)}${r.hr ? " · " + esc(r.hr) : ""}`)}
+          ${snap("reloj", r.min > 0 ? nf(r.min / 60, 2) + " h" : "—", r.hi ? `${esc(r.hi)} – ${esc(r.hf || "")}` : esFalla(r) ? "sin horario" : "duración")}
+          ${snap("usuario", r.tec ? esc(r.tec.split(" ")[0]) : "—", "técnico", r.tec ? `data-ki="filtro-y-cerrar" data-k="tec" data-v="${esc(r.tec)}" role="button" tabindex="0"` : "")}
+          ${snap("falla", mismas, "fallas de esta máquina", `data-ki="filtro-y-cerrar" data-k="eq" data-v="${esc(claveEq(r))}" role="button" tabindex="0"`)}
+        </div>
+        <h5 class="mx-h5">Qué pasó y qué se hizo</h5>
+        <p class="mx-quote">${esc(r.de || "")}</p>
+        <dl class="mx-inset mx-inset--2">
+          ${fila("Acción", esc(r.ac || ""))}
+          ${fila("¿Detuvo la máquina?", esc(r.det || "Sin dato"))}
+          ${fila("Repuesto usado", esc(r.rep || ""))}
+          ${fila("Faltó repuesto", r.frep ? "Sí" : "")}
+          ${fila("OT / Solicitud", esc(r.ot || ""))}
+          ${fila("Registrado por", esc(r.por || ""))}
+        </dl>
       </div>
     </aside>`;
   }
@@ -529,23 +555,36 @@
     const tecs = contar(res.sin("tec"), (r) => r.tec || "Sin técnico").slice(0, 10);
     const tipos = contar(res.sin("tp"), (r) => r.tp);
     const maqs = res.porEquipo.filter((e) => e.fallas).sort((a, b) => b.fallas - a.fallas).slice(0, 12);
-    raiz.innerHTML = `
-      <div class="section-bar">
-        <div><p class="eyebrow">Mantenimiento · FARMACAPSULAS</p><h2>Cuadro de mando integral</h2></div>
-        <div class="section-actions">
-          <button class="button button--light" type="button" data-ki="registro">Ir al registro diario</button>
+    const nFil = Object.values(vista.f).filter(Boolean).length + (vista.periodo !== "todo" ? 1 : 0);
+    raiz.innerHTML = `<div class="mx-canvas">
+      <header class="mx-head">
+        <div class="mx-head__txt">
+          <p class="mx-eyebrow">${ic("grafica")}Mantenimiento · FARMACAPSULAS</p>
+          <h2 class="mx-title">Cuadro de mando</h2>
+          <p class="mx-sub">Disponibilidad, confiabilidad y fallas de las dos sedes · ${fechaCorta(res.d)} – ${fechaCorta(res.h)} · <a href="#kiNovedades" class="mx-link">${t.n} novedades</a></p>
         </div>
-      </div>
-      <div class="ki-filtros">
-        <label class="rp-filtro">Periodo<select data-ki-campo="periodo">${periodos.map(([k, l]) => `<option value="${k}" ${vista.periodo === k ? "selected" : ""}>${l}</option>`).join("")}</select></label>
-        ${vista.periodo === "custom" ? `<label class="rp-filtro">Desde<input type="date" data-ki-campo="desde" value="${vista.desde}"></label><label class="rp-filtro">Hasta<input type="date" data-ki-campo="hasta" value="${vista.hasta}"></label>` : ""}
-        <div class="tn-seg">${["", ...C.sedes].map((s) => `<button type="button" data-ki="sede" data-v="${esc(s)}" class="${s === (vista.f.sede || "") ? "is-active" : ""}">${s || "Todas las sedes"}</button>`).join("")}</div>
-        <span class="ki-rango">${fechaCorta(res.d)} – ${fechaCorta(res.h)} · <a href="#kiNovedades" class="mt-link">${t.n} novedades</a></span>
-      </div>
+        <div class="mx-head__acc">
+          <div class="mx-seg" role="group" aria-label="Sede">${["", ...C.sedes].map((s) => `<button type="button" data-ki="sede" data-v="${esc(s)}" class="${s === (vista.f.sede || "") ? "is-on" : ""}">${s || "Todas"}</button>`).join("")}</div>
+          <div class="mx-pop">
+            <button type="button" class="mx-btn mx-btn--ghost ${vista.filtros ? "is-on" : ""}" data-ki="filtros" aria-expanded="${vista.filtros}">${ic("filtro")}<span>Filtros</span>${nFil ? `<span class="mx-count">${nFil}</span>` : ""}</button>
+            ${vista.filtros ? `<div class="mx-pop__panel" role="dialog" aria-label="Filtros">
+              <header><h4>Filtros</h4><button type="button" class="mx-iconbtn mx-iconbtn--sm" data-ki="filtros" aria-label="Cerrar">${ic("x")}</button></header>
+              <section><h5>Periodo</h5><div class="mx-chips">${periodos.map(([k, l]) => `<button type="button" class="mx-chipbtn ${vista.periodo === k ? "is-on" : ""}" data-ki="periodo" data-v="${k}">${l}</button>`).join("")}</div>
+                ${vista.periodo === "custom" ? `<div class="mx-grid2"><label class="mx-field"><span>Desde</span><input class="mx-input" type="date" data-ki-campo="desde" value="${vista.desde}"></label><label class="mx-field"><span>Hasta</span><input class="mx-input" type="date" data-ki-campo="hasta" value="${vista.hasta}"></label></div>` : ""}</section>
+              <section><h5>Categoría de parada</h5><div class="mx-chips">${C.categorias.map((c) => `<button type="button" class="mx-chipbtn ${vista.f.cat === c ? "is-on" : ""}" ${fil("cat", c)}>${esc(c)}</button>`).join("")}</div></section>
+              <section><h5>Tipo de máquina</h5><div class="mx-chips">${C.areasProceso.map((c) => `<button type="button" class="mx-chipbtn ${vista.f.area === c ? "is-on" : ""}" ${fil("area", c)}>${esc(c)}</button>`).join("")}</div></section>
+              <section><h5>Estado</h5><div class="mx-chips"><button type="button" class="mx-chipbtn ${vista.f.pend ? "is-on" : ""}" ${fil("pend", "1")}>Con pendiente</button><button type="button" class="mx-chipbtn ${vista.f.tp === "Correctivo" ? "is-on" : ""}" ${fil("tp", "Correctivo")}>Solo correctivos</button></div></section>
+              <footer><button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="limpiar">Quitar todos</button><button type="button" class="mx-btn mx-btn--primary mx-btn--sm" data-ki="filtros">Ver ${t.n} novedades</button></footer>
+            </div>` : ""}
+          </div>
+          <button class="mx-btn mx-btn--ghost" type="button" data-ki="exportar">${ic("descargar")}<span>Exportar</span></button>
+          <button class="mx-btn mx-btn--primary" type="button" data-ki="registro">${ic("editar")}<span>Registro diario</span></button>
+        </div>
+      </header>
       ${chips()}
-      ${t.cob != null && t.cob < COB_MIN ? `<p class="pl-note ki-cob"><strong>Solo el ${pct(t.cob, 0)} de las fallas de esta selección tiene hora de inicio y fin.</strong> Con eso se cuentan bien las fallas y el MTBF, pero la disponibilidad y el MTTR salen como “—” hasta que se registren los horarios. El histórico del chat casi nunca los trae; desde el Registro diario se piden siempre.</p>` : ""}
+      ${t.cob != null && t.cob < COB_MIN ? `<p class="mx-note mx-note--warn">${ic("reloj")}<span><b>Solo el ${pct(t.cob, 0)} de las fallas de esta selección tiene hora de inicio y fin.</b> Con eso se cuentan bien las fallas y el MTBF; la disponibilidad y el MTTR aparecen cuando se registren los horarios. El histórico del chat casi nunca los trae; el Registro diario los pide siempre.</span></p>` : ""}
 
-      <h3 class="ki-sec">Indicadores de desempeño por sede</h3>
+      <h3 class="ki-sec">Indicadores por sede</h3>
       <div class="ki-sedes">${res.sedes.map(bloqueSede).join("")}</div>
 
       ${detalleMaquina(res)}
@@ -557,7 +596,7 @@
           <h4 class="ki-h4-sep">Pendientes</h4>${barrasH([{ l: "Con trabajo pendiente", key: "1", v: res.sin("pend").filter(esPend).length }], { k: "pend", color: "var(--ki-warn)" })}</div>
       </div>
 
-      <h3 class="ki-sec">Indicadores de desempeño por tipo de máquina <small>toca un tipo o una máquina</small></h3>
+      <h3 class="ki-sec">Indicadores por tipo de máquina <small>toca un tipo o una máquina</small></h3>
       <div class="ki-areas">${res.porArea.map(tarjetaArea).join("")}</div>
       ${detalleArea(res)}
 
@@ -573,7 +612,9 @@
       ${tablaFiltro(res)}
 
       <p class="ki-pie">Tiempo programado: 12 h por turno en que el equipo estuvo en Producción, Montaje o Mantenimiento (Estado de equipos). Falla = novedad de categoría Máquina y tipo Correctivo. MTBF = tiempo programado ÷ fallas · MTTR = horas de las fallas con horario ÷ esas fallas · Disponibilidad = 1 − horas de parada por falla ÷ tiempo programado (solo con ≥ 50 % de fallas con horario). Histórico del chat del ${fechaCorta(M.desde)} al ${fechaCorta(M.hasta)}.</p>
+      </div>
       ${panelNovedad()}`;
+    document.body.classList.toggle("mx-lock", !!vista.abierto);
   }
 
   // ------------------------------------------------------------------------
@@ -629,9 +670,15 @@
       else if (a === "ficha") { vista.abierto = ""; if (typeof openDetail === "function") openDetail(b.dataset.v); }
       else if (a === "registro") window.goRegistro && window.goRegistro();
       else if (a === "exportar") exportarSeleccion();
+      else if (a === "filtros") { vista.filtros = !vista.filtros; render(); }
+      else if (a === "periodo") { vista.periodo = b.dataset.v; vista.pagina = 0; render(); }
     };
     raiz.addEventListener("click", accion);
-    raiz.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.closest("[data-ki][role=button]")) { e.preventDefault(); accion(e); } if (e.key === "Escape" && vista.abierto) { vista.abierto = ""; render(); } });
+    raiz.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.closest("[data-ki][role=button]")) { e.preventDefault(); accion(e); } if (e.key === "Escape" && (vista.abierto || vista.filtros)) { vista.abierto = ""; vista.filtros = false; render(); } });
+    document.addEventListener("click", (e) => {
+      if (!vista.filtros || !esVisible() || e.target.closest(".mx-pop")) return;
+      vista.filtros = false; render();
+    });
     raiz.addEventListener("change", (e) => {
       const k = e.target.dataset.kiCampo;
       if (!k) return;
@@ -645,6 +692,7 @@
 
   // op: filtros de entrada, p. ej. { eq: "Sede 4|NJP 2" } o { fa: "Sellado / mordazas" }
   function goIndicadores(op) {
+    document.body.classList.remove("mx-lock");
     if (op && typeof op === "object") { vista.f = {}; Object.entries(op).forEach(([k, v]) => { if (FILTROS[k] && v) vista.f[k] = v; }); vista.pagina = 0; }
     views.indicadores = views.indicadores || document.getElementById("indicadoresView");
     setView("indicadores");

@@ -210,6 +210,45 @@
   //  Vista
   // ------------------------------------------------------------------------
   const vista = { fecha: hoy(), sede: "", tab: "novedades", turnoEst: "Día", sedeEst: "Sede 4", editando: null, pegado: null };
+  const DOW = ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"];
+
+  // Iconos de trazo (24 px), del mismo estilo que el menú lateral.
+  const ICON = {
+    maquina: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/>',
+    rayo: '<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z"/>',
+    edificio: '<rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"/>',
+    escudo: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/>',
+    personas: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+    sol: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    luna: '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
+    reloj: '<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    usuario: '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+    falla: '<path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/>',
+    llave: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.8-3.8a6 6 0 0 1-7.9 7.9l-6.9 6.9a2.1 2.1 0 0 1-3-3l6.9-6.9a6 6 0 0 1 7.9-7.9l-3.8 3.8Z"/>',
+    mas: '<path d="M12 5v14M5 12h14"/>',
+    editar: '<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
+    borrar: '<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>',
+    pegar: '<rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>',
+    descargar: '<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
+    grafica: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/>',
+    chat: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+    check: '<path d="M20 6 9 17l-5-5"/>',
+    izq: '<path d="m15 18-6-6 6-6"/>',
+    der: '<path d="m9 18 6-6-6-6"/>',
+    x: '<path d="M18 6 6 18M6 6l12 12"/>',
+    calendario: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+    repuesto: '<path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/>',
+    filtro: '<path d="M22 3H2l8 9.5V19l4 2v-8.5L22 3z"/>',
+    chispa: '<path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M5.6 18.4l2.1-2.1M16.3 7.7l2.1-2.1"/>',
+    capas: '<path d="m12 2 10 5-10 5L2 7l10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/>',
+    ficha: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
+  };
+  const ic = (n, cls = "") => `<svg class="mx-ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICON[n] || ""}</svg>`;
+  window.MTTO_ICON = ic;
+  const CAT = { "Máquina": ["maq", "maquina"], "Apoyo crítico": ["apo", "rayo"], "Locativo": ["loc", "edificio"], "Preventivo": ["pre", "escudo"], "Operacional": ["ope", "personas"] };
+  window.MTTO_CAT = CAT;
+  const EF = { "Operativo": "ok", "Operativo con pendiente": "warn", "Pendiente": "bad" };
+  const EST_EQ = { "Producción": "ok", "Montaje / cuadre": "blue", "Mantenimiento": "bad", "Limpieza": "violet", "Stand by": "neutro", "Sin dato": "neutro" };
 
   function fechaLarga(iso) {
     const [a, m, d] = iso.split("-").map(Number);
@@ -219,87 +258,204 @@
   const hm = (min) => (min == null || min === "" ? "" : min >= 60 ? `${Math.floor(min / 60)} h ${String(Math.round(min % 60)).padStart(2, "0")} min` : `${Math.round(min)} min`);
   const esCorrectivo = (r) => r.tp === "Correctivo" && r.cat === "Máquina";
   const sinTiempo = (r) => esCorrectivo(r) && !(r.min > 0);
+  const esPend = (r) => r.ef === "Pendiente" || r.ef === "Operativo con pendiente";
 
   function delDia() {
     return registros()
       .filter((r) => r.f === vista.fecha && (!vista.sede || r.s === vista.sede))
-      .sort((a, b) => (a.t === b.t ? a.s.localeCompare(b.s) * -1 || (a.hi || a.hr || "").localeCompare(b.hi || b.hr || "") : a.t === "Día" ? -1 : 1));
+      .sort((a, b) => a.s.localeCompare(b.s) * -1 || (a.hi || a.hr || "").localeCompare(b.hi || b.hr || ""));
   }
 
-  function chip() {
+  // ---------------- piezas visuales reutilizables ----------------
+  const pend = () => Object.values(nubeReg).filter((r) => r._pend).length + Object.values(nubeEst).filter((d) => d._pend).length;
+  function syncPill() {
     const c = cloud();
-    const cls = !c ? "is-local" : conectado ? "is-online" : "is-offline";
-    const pend = Object.values(nubeReg).filter((r) => r._pend).length + Object.values(nubeEst).filter((d) => d._pend).length;
-    const txt = !c ? "Solo local" : conectado ? (pend ? `${pend} por subir` : "Conectado") : pend ? `Sin conexión · ${pend} por subir` : "Sin conexión";
-    return `<span class="cloud-chip ${cls}" title="Sincronización con la nube"><span class="cloud-dot"></span><span class="cloud-chip__txt">${txt}</span></span>`;
+    const p = pend();
+    const [cls, txt, tit] = !c ? ["local", "Solo en este navegador", "Sin conexión a la nube configurada"]
+      : conectado ? (p ? ["warn", `${p} por subir`, "Conectado; hay cambios esperando subir"] : ["ok", "Sincronizado", "Todo guardado en la nube"])
+      : ["bad", p ? `Sin nube · ${p} por subir` : "Sin conexión a la nube", "La nube no responde o no da permiso; se guarda en este navegador"];
+    return `<span class="mx-sync mx-sync--${cls}" title="${tit}"><i></i>${txt}</span>`;
+  }
+  // barra segmentada tipo "12/32"
+  function segBar(hechos, total, n = 20, cls = "") {
+    if (!total) return `<span class="mx-segbar ${cls}">${Array.from({ length: n }, () => "<i></i>").join("")}</span>`;
+    const on = Math.round((hechos / total) * n);
+    return `<span class="mx-segbar ${cls}" role="img" aria-label="${hechos} de ${total}">${Array.from({ length: n }, (_, i) => `<i class="${i < on ? "on" : ""}"></i>`).join("")}</span>`;
+  }
+  function anillo(p, color) {
+    const r = 17, c = 2 * Math.PI * r, v = Math.max(0, Math.min(1, p || 0));
+    return `<svg class="mx-ring" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="${r}" class="mx-ring__bg"/><circle cx="22" cy="22" r="${r}" style="stroke:${color}" stroke-dasharray="${(v * c).toFixed(1)} ${c.toFixed(1)}" transform="rotate(-90 22 22)"/></svg>`;
+  }
+  function miniBarras(vals, color) {
+    const mx = Math.max(...vals, 1);
+    return `<span class="mx-minibars" aria-hidden="true">${vals.map((v, i) => `<i style="height:${Math.max(8, (v / mx) * 100)}%;background:${color};opacity:${i === vals.length - 1 ? 1 : 0.45}"></i>`).join("")}</span>`;
+  }
+  window.MTTO_UI = { segBar, anillo, miniBarras, syncPill: () => syncPill() };
+
+  // ---------------- cabecera ----------------
+  function cabecera() {
+    return `<header class="mx-head">
+      <div class="mx-head__txt">
+        <p class="mx-eyebrow">${ic("capas")}Mantenimiento · FARMACAPSULAS</p>
+        <h2 class="mx-title">Registro diario</h2>
+        <p class="mx-sub">Lo que pasó en planta, turno por turno. De aquí salen los indicadores.</p>
+      </div>
+      <div class="mx-head__acc">
+        ${syncPill()}
+        <button class="mx-btn mx-btn--ghost" type="button" data-mt="ver-ind">${ic("grafica")}<span>Indicadores</span></button>
+        <button class="mx-btn mx-btn--ghost" type="button" data-mt="exportar">${ic("descargar")}<span>Exportar</span></button>
+        <button class="mx-btn mx-btn--soft" type="button" data-mt="pegar">${ic("pegar")}<span>Pegar reporte</span></button>
+        <button class="mx-btn mx-btn--primary" type="button" data-mt="nuevo">${ic("mas")}<span>Nueva novedad</span></button>
+      </div>
+    </header>`;
   }
 
+  // ---------------- selector de día (semana) ----------------
+  function tiraDias() {
+    const d0 = new Date(vista.fecha + "T12:00:00Z");
+    const lunes = sumaDias(vista.fecha, -((d0.getUTCDay() + 6) % 7));
+    const dias = Array.from({ length: 7 }, (_, i) => sumaDias(lunes, i));
+    const cuenta = {};
+    registros().forEach((r) => { if (r.f >= dias[0] && r.f <= dias[6] && (!vista.sede || r.s === vista.sede)) cuenta[r.f] = (cuenta[r.f] || 0) + 1; });
+    const [a, m] = vista.fecha.split("-").map(Number);
+    const h = hoy();
+    return `<section class="mx-card mx-dias" aria-label="Elegir día">
+      <div class="mx-dias__top">
+        <label class="mx-mes" title="Elegir otra fecha">${ic("calendario")}<span>${MESES[m - 1]} ${a}</span>${ic("der", "mx-ic--sm")}
+          <input type="date" value="${vista.fecha}" data-mt-campo="fecha" aria-label="Elegir fecha"></label>
+        <div class="mx-seg" role="group" aria-label="Sede">${["", ...C.sedes].map((s) => `<button type="button" data-mt="sede" data-v="${esc(s)}" class="${s === vista.sede ? "is-on" : ""}">${s || "Todas"}</button>`).join("")}</div>
+        <div class="mx-dias__nav">
+          <button class="mx-btn mx-btn--ghost mx-btn--sm" type="button" data-mt="hoy" ${vista.fecha === h ? "disabled" : ""}>Hoy</button>
+          <button class="mx-iconbtn" type="button" data-mt="dia" data-v="-7" aria-label="Semana anterior">${ic("izq")}</button>
+          <button class="mx-iconbtn" type="button" data-mt="dia" data-v="7" aria-label="Semana siguiente">${ic("der")}</button>
+        </div>
+      </div>
+      <div class="mx-dias__row">${dias.map((d) => {
+        const dd = new Date(d + "T12:00:00Z");
+        const n = cuenta[d] || 0;
+        return `<button type="button" class="mx-dia ${d === vista.fecha ? "is-on" : ""} ${d > h ? "is-fut" : ""} ${d === h ? "is-hoy" : ""}" data-mt="fecha" data-v="${d}" aria-pressed="${d === vista.fecha}">
+          <span>${DOW[dd.getUTCDay()]}</span><b>${String(dd.getUTCDate()).padStart(2, "0")}</b><i>${n ? n : "·"}</i></button>`;
+      }).join("")}</div>
+      <p class="mx-dias__txt">${esc(fechaLarga(vista.fecha))}${vista.fecha === h ? " · hoy" : ""}</p>
+    </section>`;
+  }
+
+  // ---------------- indicadores del día ----------------
   function kpis(lista) {
     const corr = lista.filter(esCorrectivo);
-    const hPar = lista.filter((r) => r.det !== "No" && r.min > 0).reduce((s, r) => s + r.min, 0);
-    const pend = lista.filter((r) => r.ef === "Pendiente" || r.ef === "Operativo con pendiente").length;
+    const hPar = lista.filter((r) => r.det !== "No" && r.min > 0).reduce((s, r) => s + r.min, 0) / 60;
+    const pnd = lista.filter(esPend).length;
     const st = lista.filter(sinTiempo).length;
-    const k = (v, l, cls = "") => `<div class="mt-kpi ${cls}"><b>${v}</b><span>${l}</span></div>`;
-    return `<div class="mt-kpis">
-      ${k(lista.length, "novedades")}
-      ${k(corr.length, "fallas de máquina")}
-      ${k(hPar ? (hPar / 60).toFixed(1) + " h" : "0 h", "horas de parada")}
-      ${k(pend, "con pendiente", pend ? "is-warn" : "")}
-      ${k(st, "fallas sin hora de inicio/fin", st ? "is-bad" : "is-ok")}
+    const porCat = C.categorias.map((c) => lista.filter((r) => r.cat === c).length);
+    const dia = lista.filter((r) => r.t === "Día").length;
+    const tile = (tono, icono, tit, valor, unidad, visual, pie = "") => `
+      <article class="mx-tile mx-tile--${tono}">
+        <header>${ic(icono)}<span>${tit}</span></header>
+        <div class="mx-tile__body"><div><b>${valor}</b><small>${unidad}</small></div>${visual}</div>
+        ${pie ? `<footer>${pie}</footer>` : ""}
+      </article>`;
+    return `<div class="mx-tiles">
+      ${tile("blue", "capas", "Novedades", lista.length, `Día ${dia} · Noche ${lista.length - dia}`, miniBarras(porCat, "#2E90FA"))}
+      ${tile("red", "falla", "Fallas de máquina", corr.length, "correctivos", anillo(lista.length ? corr.length / lista.length : 0, "#F04438"))}
+      ${tile("amber", "reloj", "Horas de parada", hPar ? hPar.toLocaleString("es-CO", { maximumFractionDigits: 1 }) : "0", "horas registradas", anillo(Math.min(1, hPar / 24), "#F79009"))}
+      ${tile("violet", "llave", "Con pendiente", pnd, pnd === 1 ? "novedad abierta" : "novedades abiertas", miniBarras([lista.filter((r) => r.ef === "Operativo").length, lista.filter((r) => r.ef === "Operativo con pendiente").length, lista.filter((r) => r.ef === "Pendiente").length], "#7A5AF8"))}
+      ${tile(st ? "red" : "green", "check", "Fallas con horario", `${corr.length - st}<em>/${corr.length}</em>`, st ? `faltan ${st}` : corr.length ? "todas completas" : "sin fallas", "", segBar(corr.length - st, corr.length, 16, st ? "is-bad" : "is-ok"))}
     </div>`;
   }
 
+  // ---------------- cierre del día (línea de tiempo) ----------------
   function cierre() {
-    const filas = C.sedes.map((sede) => {
+    let listos = 0, total = 0;
+    const sedes = C.sedes.map((sede) => {
       const regs = registros().filter((r) => r.f === vista.fecha && r.s === sede);
-      const paso = (ok, txt) => `<li class="${ok ? "is-ok" : ""}"><span class="mt-check">${ok ? "✓" : ""}</span>${txt}</li>`;
       const tDia = regs.some((r) => r.t === "Día") || !!nubeEst[`${vista.fecha}|Día|${sede}`];
       const tNoc = regs.some((r) => r.t === "Noche") || !!nubeEst[`${vista.fecha}|Noche|${sede}`];
       const est = C.turnos.every((t) => nubeEst[`${vista.fecha}|${t}|${sede}`]) || (vista.fecha <= M.hasta && regs.length > 0);
       const st = regs.filter(sinTiempo).length;
-      return `<div class="mt-cierre__sede"><h4>${esc(sede)}</h4><ul>
-        ${paso(tDia, "Reporte turno Día (8:00–20:00) cargado")}
-        ${paso(tNoc, "Reporte turno Noche (20:00–8:00) cargado")}
-        ${paso(est, "Estado de equipos de los dos turnos")}
-        ${paso(regs.length > 0 && st === 0, st ? `${st} falla${st > 1 ? "s" : ""} sin hora de inicio/fin` : "Todas las fallas con horario")}
-      </ul></div>`;
+      const pasos = [
+        ["Reporte turno Día", "8:00 – 20:00", tDia, `${regs.filter((r) => r.t === "Día").length} novedades`],
+        ["Reporte turno Noche", "20:00 – 8:00", tNoc, `${regs.filter((r) => r.t === "Noche").length} novedades`],
+        ["Estado de equipos", "los dos turnos", est, ""],
+        ["Horarios completos", st ? `${st} falla${st > 1 ? "s" : ""} sin inicio y fin` : "inicio y fin de cada falla", regs.length > 0 && st === 0, ""],
+      ];
+      let activo = false;
+      const items = pasos.map(([t, sub, ok, extra], i) => {
+        total++; if (ok) listos++;
+        const estado = ok ? "done" : !activo ? ((activo = true), "active") : "pending";
+        const pill = { done: "Listo", active: "Sigue", pending: "Pendiente" }[estado];
+        return `<li class="mx-step mx-step--${estado}"><span class="mx-step__dot">${estado === "done" ? ic("check") : i + 1}</span>
+          <div><p><b>${t}</b><span class="mx-mini mx-mini--${estado}">${estado === "active" ? "<i></i>" : ""}${pill}</span></p><small>${esc(sub)}</small></div>
+          <em>${extra}</em></li>`;
+      }).join("");
+      return `<div class="mx-cierre__sede"><h4>${esc(sede)}</h4><ol class="mx-steps">${items}</ol></div>`;
     }).join("");
-    return `<section class="mt-card mt-cierre"><div class="mt-card__head"><h3>Cierre del día</h3><span class="pl-soft">lo que debe quedar listo antes de irse</span></div><div class="mt-cierre__grid">${filas}</div></section>`;
+    const pct = total ? Math.round((listos / total) * 100) : 0;
+    const completo = listos === total;
+    return `<section class="mx-card mx-cierre">
+      <header class="mx-card__head"><div><h3>Cierre del día</h3><p>Lo que debe quedar listo antes de irse</p></div>
+        <span class="mx-pill ${completo ? "mx-pill--ok" : "mx-pill--apo"}"><i></i>${completo ? "Completo" : "En curso"}</span></header>
+      <div class="mx-cierre__grid">${sedes}</div>
+      <footer class="mx-cierre__foot">
+        <div class="mx-over"><div class="is-ok"><b>${listos}</b><span>Listos</span></div><div class="is-act"><b>${total - listos ? 1 : 0}</b><span>Siguiente</span></div><div><b>${Math.max(0, total - listos - 1)}</b><span>Pendientes</span></div></div>
+        <div class="mx-progress"><span style="width:${pct}%"></span></div>
+        <p class="mx-progress__txt"><span>${esc(fechaLarga(vista.fecha))}</span><span>${pct}% completo</span></p>
+      </footer>
+    </section>`;
   }
 
-  function badgeCat(r) {
-    const c = { "Máquina": "maq", "Apoyo crítico": "apo", "Locativo": "loc", "Preventivo": "pre", "Operacional": "ope" }[r.cat] || "maq";
-    return `<span class="mt-tag mt-tag--${c}">${esc(r.cat || "—")}</span>`;
-  }
-  function badgeEstado(ef) {
-    const c = ef === "Operativo" ? "ok" : ef === "Pendiente" ? "bad" : ef === "Operativo con pendiente" ? "warn" : "neutro";
-    return `<span class="mt-est mt-est--${c}">${esc(ef || "Sin cierre")}</span>`;
+  // ---------------- tarjeta de novedad ----------------
+  function tarjeta(r, conFecha = false) {
+    const [cc, icn] = CAT[r.cat] || CAT["Máquina"];
+    const horario = r.hi && r.hf ? `${esc(r.hi)} – ${esc(r.hf)}` : r.min > 0 ? hm(r.min) : sinTiempo(r) ? `<span class="mx-falta">Falta horario</span>` : "—";
+    return `<article class="mx-nov ${r.src === "chat" ? "is-hist" : ""}">
+      <div class="mx-nov__top">
+        <span class="mx-pill mx-pill--${cc}">${ic(icn)}${esc(r.cat || "—")}</span>
+        ${r.src === "chat" ? `<span class="mx-tag" title="Cargado del chat de WhatsApp">${ic("chat")}Chat</span>` : ""}
+        ${conFecha ? `<button type="button" class="mx-tag mx-tag--link" data-mt="ir" data-v="${r.f}">${ic("calendario")}${Number(r.f.slice(8))} ${MESES[Number(r.f.slice(5, 7)) - 1].slice(0, 3)}</button>` : ""}
+        <div class="mx-nov__acc">
+          <button type="button" class="mx-iconbtn mx-iconbtn--sm" data-mt="editar" data-id="${esc(r.id)}" title="${r.src === "chat" ? "Completar" : "Editar"}" aria-label="${r.src === "chat" ? "Completar" : "Editar"}">${ic("editar")}</button>
+          <button type="button" class="mx-iconbtn mx-iconbtn--sm" data-mt="borrar" data-id="${esc(r.id)}" title="Quitar" aria-label="Quitar">${ic("borrar")}</button>
+        </div>
+      </div>
+      <button type="button" class="mx-nov__eq" data-mt="ver-eq" data-v="${esc(r.s + "|" + r.eq)}" title="Ver hoja de vida de ${esc(r.eq)}">${esc(r.eq || "Sin equipo")}</button>
+      <p class="mx-nov__meta">${esc(r.s)} · ${esc(r.ar || "Sin tipo")} · turno ${esc(r.t)}</p>
+      <p class="mx-nov__de">${esc(r.de || "")}</p>
+      <dl class="mx-inset">
+        <div><dt>${ic("falla")}Modo de falla</dt><dd>${r.fa ? `<button type="button" class="mx-link" data-mt="ver-fa" data-v="${esc(r.fa)}">${esc(r.fa)}</button>` : "—"}</dd></div>
+        <div><dt>${ic("llave")}Mantenimiento</dt><dd>${esc(r.tp || "—")}</dd></div>
+        <div><dt>${ic("reloj")}Horario</dt><dd>${horario}</dd></div>
+        ${r.tec ? `<div><dt>${ic("usuario")}Técnico</dt><dd>${esc(r.tec)}</dd></div>` : ""}
+      </dl>
+      <footer class="mx-nov__foot">
+        <span class="mx-est mx-est--${EF[r.ef] || "neutro"}"><i></i>${esc(r.ef || "Sin cierre")}</span>
+        ${r.min > 0 ? `<span class="mx-chip">${ic("reloj")}${hm(r.min)}</span>` : ""}
+        ${r.frep ? `<span class="mx-chip mx-chip--bad">${ic("repuesto")}Faltó repuesto</span>` : ""}
+      </footer>
+    </article>`;
   }
 
-  function tablaNovedades(lista) {
+  function tablero(lista) {
     if (!lista.length) {
-      return `<div class="mt-vacio"><p><strong>No hay novedades registradas este día.</strong></p>
-        <p class="pl-soft">Pega el reporte del chat o agrega la primera novedad.</p>
-        <div class="mt-vacio__acc"><button class="button button--dark" type="button" data-mt="pegar">Pegar reporte del chat</button>
-        <button class="button button--light" type="button" data-mt="nuevo">Nueva novedad</button></div></div>`;
+      return `<div class="mx-empty">${ic("chispa", "mx-ic--lg")}<h4>No hay novedades registradas este día</h4>
+        <p>Pega el reporte del chat y se llena solo, o agrega la primera novedad a mano.</p>
+        <div><button class="mx-btn mx-btn--primary" type="button" data-mt="pegar">${ic("pegar")}Pegar reporte del chat</button>
+        <button class="mx-btn mx-btn--ghost" type="button" data-mt="nuevo">${ic("mas")}Nueva novedad</button></div></div>`;
     }
-    return `<div class="mt-tabla-wrap"><table class="mt-tabla">
-      <thead><tr><th>Turno</th><th>Equipo</th><th>Categoría</th><th>Qué pasó y qué se hizo</th><th>Horario</th><th>Estado</th><th></th></tr></thead>
-      <tbody>${lista.map((r) => {
-        const horario = r.hi && r.hf ? `${esc(r.hi)}–${esc(r.hf)}<small>${hm(r.min)}</small>` : r.min ? `<small>${hm(r.min)}</small>` : sinTiempo(r) ? `<span class="mt-falta">falta</span>` : `<span class="pl-soft">—</span>`;
-        const origen = r.src === "chat" ? `<span class="mt-src" title="Cargado del chat">chat</span>` : "";
-        return `<tr class="${r.src === "chat" ? "is-hist" : ""}">
-          <td><strong>${esc(r.t)}</strong><small>${esc(r.s)}</small></td>
-          <td><button type="button" class="mt-link mt-link--eq" data-mt="ver-eq" data-v="${esc(r.s + "|" + r.eq)}" title="Ver indicadores y hoja de vida de ${esc(r.eq)}">${esc(r.eq)}</button><small>${esc(r.ar || "")}</small></td>
-          <td>${badgeCat(r)}<small>${esc(r.tp || "")}${r.fa ? ` · <button type="button" class="mt-link mt-link--sub" data-mt="ver-fa" data-v="${esc(r.fa)}" title="Ver este modo de falla en los indicadores">${esc(r.fa)}</button>` : ""}</small></td>
-          <td class="mt-desc"><p>${esc(r.de || "")}</p>${r.ac ? `<small>Acción: ${esc(r.ac)}</small>` : ""}${r.rep ? `<small>Repuesto: ${esc(r.rep)}</small>` : ""}${r.frep ? `<small class="mt-falta">Faltó repuesto</small>` : ""}</td>
-          <td class="mt-hor">${horario}</td>
-          <td>${badgeEstado(r.ef)}${r.tec ? `<small>${esc(r.tec)}</small>` : ""}${origen}</td>
-          <td class="mt-acc"><button type="button" class="mt-ico" data-mt="editar" data-id="${esc(r.id)}" title="${r.src === "chat" ? "Completar" : "Editar"}">✎</button><button type="button" class="mt-ico" data-mt="borrar" data-id="${esc(r.id)}" title="Quitar">×</button></td>
-        </tr>`;
-      }).join("")}</tbody></table></div>`;
+    return `<div class="mx-board">${C.turnos.map((t) => {
+      const items = lista.filter((r) => r.t === t);
+      const st = items.filter(sinTiempo).length;
+      return `<section class="mx-col mx-col--${t === "Día" ? "dia" : "noche"}">
+        <header class="mx-col__head">
+          <span class="mx-col__ic">${ic(t === "Día" ? "sol" : "luna")}</span>
+          <div><h3>Turno ${t} <span class="mx-count">${items.length}</span></h3><small>${t === "Día" ? "8:00 – 20:00" : "20:00 – 8:00"}${st ? ` · <b class="mx-falta">${st} sin horario</b>` : ""}</small></div>
+          <button type="button" class="mx-iconbtn" data-mt="nuevo" data-t="${t}" aria-label="Nueva novedad en el turno ${t}" title="Nueva novedad en este turno">${ic("mas")}</button>
+        </header>
+        <div class="mx-col__list">${items.map((r) => tarjeta(r)).join("") || `<p class="mx-col__vacio">Sin novedades en este turno.</p>`}</div>
+      </section>`;
+    }).join("")}</div>`;
   }
 
+  // ---------------- estado de equipos ----------------
   function panelEstados() {
     const sede = vista.sedeEst;
     const turno = vista.turnoEst;
@@ -309,78 +465,60 @@
     eqs.forEach((e) => (grupos[e.ar] = grupos[e.ar] || []).push(e));
     const prog = new Set(C.programado);
     const nProg = eqs.filter((e) => prog.has((estados[e.eq] || {}).e)).length;
-    const seg = (campo, valores, actual) => `<div class="tn-seg">${valores.map((v) => `<button type="button" data-mt-est="${campo}" data-v="${esc(v)}" class="${v === actual ? "is-active" : ""}">${esc(v)}</button>`).join("")}</div>`;
     const opts = (sel) => C.estadosEquipo.map((v) => `<option ${v === sel ? "selected" : ""}>${esc(v)}</option>`).join("");
-    return `<div class="mt-est-bar">
-        ${seg("sedeEst", C.sedes, sede)} ${seg("turnoEst", C.turnos, turno)}
-        <span class="mt-est-info">${guardado ? `Guardado${doc.por ? " por " + esc(doc.por) : ""}` : `<span class="mt-falta">Sin guardar</span> · propuesto con el último estado conocido`} · <strong>${nProg}</strong> de ${eqs.length} equipos programados = <strong>${nProg * (M.horasTurno || 12)} h</strong></span>
-      </div>
-      <form class="mt-est-form" data-mt-form="estados">
-        <div class="mt-est-grid">${Object.entries(grupos).map(([ar, lista]) => `
-          <fieldset><legend>${esc(ar)}</legend>${lista.map((e) => {
-            const v = estados[e.eq] || { e: "Sin dato", p: "" };
-            return `<div class="mt-est-fila mt-est-fila--${prog.has(v.e) ? "prog" : "no"}">
-              <span>${esc(e.eq)}</span>
-              <select name="e::${esc(e.eq)}">${opts(v.e)}</select>
-              <input name="p::${esc(e.eq)}" value="${esc(v.p || "")}" placeholder="Producto" autocomplete="off">
-            </div>`;
-          }).join("")}</fieldset>`).join("")}
+    return `<div class="mx-card mx-est-top">
+        <div class="mx-seg" role="group" aria-label="Sede">${C.sedes.map((s) => `<button type="button" data-mt-est="sedeEst" data-v="${esc(s)}" class="${s === sede ? "is-on" : ""}">${esc(s)}</button>`).join("")}</div>
+        <div class="mx-seg" role="group" aria-label="Turno">${C.turnos.map((t) => `<button type="button" data-mt-est="turnoEst" data-v="${esc(t)}" class="${t === turno ? "is-on" : ""}">${ic(t === "Día" ? "sol" : "luna")}${esc(t)}</button>`).join("")}</div>
+        <div class="mx-est-sum">
+          <p><b>${nProg}</b> de ${eqs.length} equipos programados · <b>${nProg * (M.horasTurno || 12)} h</b></p>
+          ${segBar(nProg, eqs.length, 24, "is-ok")}
+          <small>${guardado ? `${ic("check", "mx-ic--sm")}Guardado${doc.por ? " por " + esc(doc.por) : ""}` : `<span class="mx-falta">Sin guardar</span> · propuesto con el último estado conocido`}</small>
         </div>
-        <div class="mt-est-save"><span class="pl-soft">Producción, Montaje y Mantenimiento cuentan ${M.horasTurno || 12} h de tiempo programado; Stand by y Limpieza no.</span>
-          <button class="button button--dark" type="submit">Guardar estados del turno ${esc(turno)} · ${esc(sede)}</button></div>
+      </div>
+      <form class="mx-estform" data-mt-form="estados">
+        <div class="mx-est__grid">${Object.entries(grupos).map(([ar, lista]) => `
+          <section class="mx-group"><header class="mx-group__head"><h4>${esc(ar)}</h4><span class="mx-count">${lista.filter((e) => prog.has((estados[e.eq] || {}).e)).length}/${lista.length}</span></header>
+            <div class="mx-group__list">${lista.map((e) => {
+              const v = estados[e.eq] || { e: "Sin dato", p: "" };
+              return `<div class="mx-eqrow mx-eqrow--${EST_EQ[v.e] || "neutro"}">
+                <span class="mx-eqrow__n">${esc(e.eq)}</span>
+                <label class="mx-selpill"><i></i><select name="e::${esc(e.eq)}" data-mt-estsel aria-label="Estado de ${esc(e.eq)}">${opts(v.e)}</select></label>
+                <input class="mx-input mx-input--sm" name="p::${esc(e.eq)}" value="${esc(v.p || "")}" placeholder="Producto" autocomplete="off" aria-label="Producto en ${esc(e.eq)}">
+              </div>`;
+            }).join("")}</div></section>`).join("")}
+        </div>
+        <div class="mx-savebar"><span>Producción, Montaje y Mantenimiento cuentan ${M.horasTurno || 12} h de tiempo programado; Stand by y Limpieza no.</span>
+          <button class="mx-btn mx-btn--primary" type="submit">${ic("check")}Guardar turno ${esc(turno)} · ${esc(sede)}</button></div>
       </form>`;
   }
 
   function pendientes() {
     const desde = sumaDias(hoy(), -45);
-    const lista = registros()
-      .filter((r) => (r.ef === "Pendiente" || r.ef === "Operativo con pendiente") && r.f >= desde && (!vista.sede || r.s === vista.sede))
-      .sort((a, b) => b.f.localeCompare(a.f));
-    if (!lista.length) return `<p class="pl-soft mt-vacio">Sin pendientes abiertos en los últimos 45 días.</p>`;
-    return `<p class="pl-note">Novedades de los últimos 45 días que quedaron con trabajo pendiente. Cuando se resuelva, ábrela y cambia el <strong>Estado final</strong> a Operativo.</p>
-      <div class="mt-tabla-wrap"><table class="mt-tabla"><thead><tr><th>Fecha</th><th>Equipo</th><th>Qué quedó pendiente</th><th>Estado</th><th></th></tr></thead><tbody>
-      ${lista.map((r) => `<tr><td><button type="button" class="mt-link" data-mt="ir" data-v="${r.f}">${r.f.slice(8)}/${r.f.slice(5, 7)}</button><small>${esc(r.t)} · ${esc(r.s)}</small></td>
-        <td><button type="button" class="mt-link mt-link--eq" data-mt="ver-eq" data-v="${esc(r.s + "|" + r.eq)}" title="Ver indicadores y hoja de vida de ${esc(r.eq)}">${esc(r.eq)}</button><small>${esc(r.ar || "")}</small></td><td class="mt-desc"><p>${esc(r.de)}</p></td><td>${badgeEstado(r.ef)}</td>
-        <td class="mt-acc"><button type="button" class="mt-ico" data-mt="editar" data-id="${esc(r.id)}" title="Actualizar">✎</button></td></tr>`).join("")}
-      </tbody></table></div>`;
+    const lista = registros().filter((r) => esPend(r) && r.f >= desde && (!vista.sede || r.s === vista.sede)).sort((a, b) => b.f.localeCompare(a.f));
+    if (!lista.length) return `<div class="mx-empty">${ic("check", "mx-ic--lg")}<h4>Sin pendientes abiertos</h4><p>No hay novedades con trabajo pendiente en los últimos 45 días.</p></div>`;
+    return `<p class="mx-note">${ic("llave")}Novedades de los últimos 45 días que quedaron con trabajo pendiente. Cuando se resuelva, ábrela y marca <b>Operativo</b>.</p>
+      <div class="mx-grid-cards">${lista.map((r) => tarjeta(r, true)).join("")}</div>`;
   }
 
   function render() {
     const raiz = document.getElementById("registroRoot");
     if (!raiz) return;
     const lista = delDia();
-    const segSede = `<div class="tn-seg">${["", ...C.sedes].map((s) => `<button type="button" data-mt="sede" data-v="${esc(s)}" class="${s === vista.sede ? "is-active" : ""}">${s || "Todas"}</button>`).join("")}</div>`;
-    const tabs = [["novedades", `Novedades <span class="rp-count">${lista.length}</span>`], ["estados", "Estado de equipos"], ["pendientes", "Pendientes abiertos"]];
-    raiz.innerHTML = `
-      <div class="section-bar">
-        <div><p class="eyebrow">Mantenimiento</p><h2>Registro diario</h2></div>
-        <div class="section-actions">
-          ${chip()}
-          <button class="button button--light" type="button" data-mt="ver-ind">Ver indicadores</button>
-          <button class="button button--light" type="button" data-mt="exportar">Exportar Excel</button>
-          <button class="button button--light" type="button" data-mt="pegar">Pegar reporte del chat</button>
-          <button class="button button--dark" type="button" data-mt="nuevo">+ Nueva novedad</button>
-        </div>
-      </div>
-      ${ultimoFallo ? `<p class="pl-note mt-aviso">${esc(ultimoFallo)}</p>` : ""}
-      <div class="mt-dia">
-        <div class="mt-dia__nav">
-          <button type="button" class="mt-ico" data-mt="dia" data-v="-1" aria-label="Día anterior">‹</button>
-          <input type="date" value="${vista.fecha}" data-mt-campo="fecha" aria-label="Fecha">
-          <button type="button" class="mt-ico" data-mt="dia" data-v="1" aria-label="Día siguiente">›</button>
-          <button type="button" class="button button--light" data-mt="hoy">Hoy</button>
-          <strong class="mt-dia__txt">${esc(fechaLarga(vista.fecha))}</strong>
-        </div>
-        ${segSede}
-      </div>
+    const tabs = [["novedades", "Novedades", lista.length], ["estados", "Estado de equipos", ""], ["pendientes", "Pendientes abiertos", registros().filter((r) => esPend(r) && r.f >= sumaDias(hoy(), -45)).length]];
+    raiz.innerHTML = `<div class="mx-canvas">
+      ${cabecera()}
+      ${ultimoFallo ? `<p class="mx-note mx-note--bad">${ic("falla")}${esc(ultimoFallo)}</p>` : ""}
+      ${tiraDias()}
       ${kpis(lista)}
       ${cierre()}
-      <div class="mt-tabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-mt="tab" data-v="${k}" class="${vista.tab === k ? "is-active" : ""}">${l}</button>`).join("")}</div>
-      <div class="mt-tabpanel">${vista.tab === "estados" ? panelEstados() : vista.tab === "pendientes" ? pendientes() : tablaNovedades(lista)}</div>
-      <div class="tk-sheet-backdrop" id="mtSheetBackdrop" ${vista.editando ? "" : "hidden"} data-mt="cerrar"></div>
-      <aside class="tk-sheet tk-sheet--ancha mt-sheet" ${vista.editando ? "" : "hidden"} aria-label="Novedad">${vista.editando ? formulario(vista.editando) : ""}</aside>
-      <div class="tk-sheet-backdrop" ${vista.pegado ? "" : "hidden"} data-mt="cerrar-pegar"></div>
-      <aside class="tk-sheet mt-sheet mt-sheet--pegar" ${vista.pegado ? "" : "hidden"} aria-label="Pegar reporte">${vista.pegado ? panelPegar() : ""}</aside>`;
+      <nav class="mx-tabs" role="tablist" aria-label="Secciones del registro">${tabs.map(([k, l, n]) => `<button type="button" role="tab" aria-selected="${vista.tab === k}" data-mt="tab" data-v="${k}" class="${vista.tab === k ? "is-on" : ""}">${l}${n !== "" ? `<span class="mx-count">${n}</span>` : ""}</button>`).join("")}</nav>
+      <div class="mx-tabpanel">${vista.tab === "estados" ? panelEstados() : vista.tab === "pendientes" ? pendientes() : tablero(lista)}</div>
+    </div>
+    <div class="mx-backdrop" ${vista.editando ? "" : "hidden"} data-mt="cerrar"></div>
+    <aside class="mx-sheet" ${vista.editando ? "" : "hidden"} aria-label="Novedad" role="dialog" aria-modal="true">${vista.editando ? formulario(vista.editando) : ""}</aside>
+    <div class="mx-backdrop" ${vista.pegado ? "" : "hidden"} data-mt="cerrar-pegar"></div>
+    <aside class="mx-sheet mx-sheet--ancha" ${vista.pegado ? "" : "hidden"} aria-label="Pegar reporte" role="dialog" aria-modal="true">${vista.pegado ? panelPegar() : ""}</aside>`;
+    document.body.classList.toggle("mx-lock", !!(vista.editando || vista.pegado));
   }
 
   // ------------------------------------------------------------------------
@@ -395,47 +533,83 @@
       Object.entries(grupos).map(([ar, l]) => `<optgroup label="${esc(ar)}">${l.map((eq) => `<option ${eq === sel ? "selected" : ""}>${esc(eq)}</option>`).join("")}</optgroup>`).join("") +
       (sel && !hay ? `<option selected>${esc(sel)}</option>` : "");
   }
+  const radio = (name, val, sel, contenido, extra = "") => `<label class="mx-opt ${extra}"><input type="radio" name="${name}" value="${esc(val)}" ${val === sel ? "checked" : ""}${name === "cat" ? " data-mt-cat" : ""}${name === "s" ? " data-mt-sede" : ""}><span class="mx-opt__box">${contenido}</span></label>`;
+  const durTxt = (min) => (min > 0 ? `${ic("reloj")}Duración: <b>${hm(min)}</b>` : `${ic("reloj")}Con hora de inicio y fin la duración se calcula sola, también si pasa de medianoche.`);
 
   function formulario(r) {
     const nuevo = !r.id;
     const quien = localStorage.getItem(K_QUIEN) || "";
-    return `<div class="tk-sheet__head"><h4>${nuevo ? "Nueva novedad" : r.src === "chat" ? "Completar novedad del chat" : "Editar novedad"}</h4>
-        <button class="tk-sheet__close" type="button" data-mt="cerrar" aria-label="Cerrar">&times;</button></div>
-      <form class="tk-form mt-form" data-mt-form="novedad">
-        <div class="mt-row3">
-          <label>Fecha<input type="date" name="f" value="${esc(r.f || vista.fecha)}" required></label>
-          <label>Turno<select name="t">${opt(C.turnos, r.t || turnoActual())}</select></label>
-          <label>Sede<select name="s" data-mt-sede>${opt(C.sedes, r.s || vista.sede || "Sede 4")}</select></label>
+    const s = r.s || vista.sede || "Sede 4";
+    const t = r.t || turnoActual();
+    const cat = r.cat || "Máquina";
+    const tp = r.tp || "Correctivo";
+    const ef = r.ef || "Operativo";
+    const det = r.det || (r.src === "chat" ? "" : "Sí");
+    const efs = [...C.estadosFinal, ...(ef === "Sin cierre" ? ["Sin cierre"] : [])];
+    const enNube = cloud() && conectado;
+    return `<header class="mx-sheet__head">
+        <div><p class="mx-eyebrow">${nuevo ? "Nueva novedad" : r.src === "chat" ? "Completar novedad del chat" : "Editar novedad"}</p>
+          <h3>${nuevo ? "¿Qué pasó en planta?" : esc(r.eq || "Novedad")}</h3></div>
+        <button class="mx-iconbtn" type="button" data-mt="cerrar" aria-label="Cerrar">${ic("x")}</button>
+      </header>
+      <form class="mx-form" data-mt-form="novedad">
+        <div class="mx-form__body">
+          <fieldset class="mx-fs"><legend>Cuándo y dónde</legend>
+            <div class="mx-grid2">
+              <label class="mx-field"><span>Fecha</span><input class="mx-input" type="date" name="f" value="${esc(r.f || vista.fecha)}" required></label>
+              <div class="mx-field"><span>Sede</span><div class="mx-seg mx-seg--full">${C.sedes.map((x) => radio("s", x, s, esc(x), "mx-opt--seg")).join("")}</div></div>
+            </div>
+            <div class="mx-turnos">${C.turnos.map((x) => radio("t", x, t, `${ic(x === "Día" ? "sol" : "luna")}<b>Turno ${x}</b><small>${x === "Día" ? "8:00 – 20:00" : "20:00 – 8:00"}</small>`, "mx-opt--card")).join("")}</div>
+            <label class="mx-field"><span>Equipo *</span><select class="mx-input" name="eq" required data-mt-eq>${optsEquipo(s, r.eq)}</select></label>
+          </fieldset>
+
+          <fieldset class="mx-fs"><legend>Qué tipo de parada fue</legend>
+            <div class="mx-cats">${C.categorias.map((c) => { const [cc, icn] = CAT[c]; return radio("cat", c, cat, `${ic(icn)}<b>${c}</b>`, `mx-opt--cat mx-opt--${cc}`); }).join("")}</div>
+            <p class="mx-help" data-mt-ayuda>${esc(C.categoriasAyuda[cat] || "")}</p>
+            <div class="mx-field"><span>Tipo de mantenimiento</span><div class="mx-chips">${C.tipos.map((x) => radio("tp", x, tp, esc(x), "mx-opt--chip")).join("")}</div></div>
+            <label class="mx-field"><span>Sistema / modo de falla</span><select class="mx-input" name="fa">${opt(C.fallas, r.fa, "Elegir…")}</select></label>
+          </fieldset>
+
+          <fieldset class="mx-fs"><legend>Qué pasó y qué se hizo</legend>
+            <label class="mx-field"><span>Qué pasó *</span><textarea class="mx-input" name="de" rows="3" required placeholder="Ej. Mordaza de sellado no calienta, el blíster sale abierto">${esc(r.de || "")}</textarea></label>
+            <label class="mx-field"><span>Qué se hizo</span><input class="mx-input" name="ac" value="${esc(r.ac || "")}" placeholder="Ej. Se cambia resistencia y se ajusta temperatura"></label>
+          </fieldset>
+
+          <fieldset class="mx-fs"><legend>Tiempo de la parada</legend>
+            <div class="mx-grid3">
+              <label class="mx-field"><span>Hora inicio</span><input class="mx-input" type="time" name="hi" value="${esc(r.hi || "")}" data-mt-hora></label>
+              <label class="mx-field"><span>Hora fin</span><input class="mx-input" type="time" name="hf" value="${esc(r.hf || "")}" data-mt-hora></label>
+              <label class="mx-field"><span>Minutos</span><input class="mx-input" type="number" name="min" min="0" max="1440" step="1" value="${r.min != null ? Math.round(r.min) : ""}" data-mt-min></label>
+            </div>
+            <p class="mx-help mx-dur" data-mt-dur>${durTxt(r.min)}</p>
+            <div class="mx-field"><span>¿Detuvo la máquina?</span><div class="mx-seg mx-seg--full">${[["Sí", "Sí, estuvo parada"], ["No", "No, siguió operando"], ["", "Sin dato"]].map(([v, l]) => radio("det", v, det, l, "mx-opt--seg")).join("")}</div></div>
+          </fieldset>
+
+          <fieldset class="mx-fs"><legend>Cómo quedó</legend>
+            <div class="mx-chips">${efs.map((x) => radio("ef", x, ef, `<i class="mx-dot mx-dot--${EF[x] || "neutro"}"></i>${esc(x)}`, "mx-opt--chip")).join("")}</div>
+            <div class="mx-grid2">
+              <label class="mx-field"><span>Repuesto usado</span><input class="mx-input" name="rep" value="${esc(r.rep || "")}" placeholder="Código o descripción"></label>
+              <label class="mx-switch"><input type="checkbox" name="frep" ${r.frep ? "checked" : ""}><span class="mx-switch__ui" aria-hidden="true"></span><span><b>Faltó repuesto</b><small>No había en almacén o hubo que improvisar</small></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="mx-fs"><legend>Quién</legend>
+            <div class="mx-grid3">
+              <label class="mx-field"><span>Técnico</span><input class="mx-input" name="tec" value="${esc(r.tec || "")}" placeholder="Quién atendió"></label>
+              <label class="mx-field"><span>OT / Solicitud</span><input class="mx-input" name="ot" value="${esc(r.ot || "")}" placeholder="Opcional"></label>
+              <label class="mx-field"><span>Registrado por</span><input class="mx-input" name="por" value="${esc(r.por || quien)}" placeholder="Tu nombre"></label>
+            </div>
+          </fieldset>
+          <input type="hidden" name="id" value="${esc(r.id || "")}">
         </div>
-        <label>Equipo *<select name="eq" required data-mt-eq>${optsEquipo(r.s || vista.sede || "Sede 4", r.eq)}</select></label>
-        <div class="mt-row3">
-          <label>Categoría de parada<select name="cat" data-mt-cat>${opt(C.categorias, r.cat || "Máquina")}</select></label>
-          <label>Tipo de mantenimiento<select name="tp">${opt(C.tipos, r.tp || "Correctivo")}</select></label>
-          <label>Sistema / modo de falla<select name="fa">${opt(C.fallas, r.fa, "—")}</select></label>
-        </div>
-        <p class="mt-ayuda" data-mt-ayuda>${esc(C.categoriasAyuda[r.cat || "Máquina"] || "")}</p>
-        <label>Qué pasó (falla o trabajo) *<textarea name="de" rows="3" required placeholder="Ej. Mordaza de sellado no calienta, el blíster sale abierto">${esc(r.de || "")}</textarea></label>
-        <label>Qué se hizo (acción)<input name="ac" value="${esc(r.ac || "")}" placeholder="Ej. Se cambia resistencia y se ajusta temperatura"></label>
-        <div class="mt-row4">
-          <label>Hora inicio<input type="time" name="hi" value="${esc(r.hi || "")}" data-mt-hora></label>
-          <label>Hora fin<input type="time" name="hf" value="${esc(r.hf || "")}" data-mt-hora></label>
-          <label>Minutos<input type="number" name="min" min="0" max="1440" step="1" value="${r.min != null ? Math.round(r.min) : ""}" data-mt-min></label>
-          <label>¿Detuvo la máquina?<select name="det">${opt(["Sí", "No"], r.det || (r.src === "chat" ? "" : "Sí"), "Sin dato")}</select></label>
-        </div>
-        <p class="mt-ayuda">Con hora de inicio y fin los minutos se calculan solos (también si pasa de medianoche). Sin horario no hay disponibilidad ni MTTR.</p>
-        <div class="mt-row3">
-          <label>Estado final<select name="ef">${opt(C.estadosFinal, r.ef === "Sin cierre" ? "" : r.ef || "Operativo", r.ef === "Sin cierre" ? "Sin cierre" : undefined)}</select></label>
-          <label>Repuesto usado<input name="rep" value="${esc(r.rep || "")}" placeholder="Código o descripción"></label>
-          <label class="mt-check-l"><input type="checkbox" name="frep" ${r.frep ? "checked" : ""}> Faltó repuesto</label>
-        </div>
-        <div class="mt-row3">
-          <label>Técnico<input name="tec" value="${esc(r.tec || "")}" placeholder="Quién atendió"></label>
-          <label>OT / Solicitud<input name="ot" value="${esc(r.ot || "")}" placeholder="Opcional"></label>
-          <label>Registrado por<input name="por" value="${esc(r.por || quien)}" placeholder="Tu nombre"></label>
-        </div>
-        <input type="hidden" name="id" value="${esc(r.id || "")}">
-        <button class="button button--dark" type="submit">${nuevo ? "Guardar novedad" : "Guardar cambios"}</button>
-        ${nuevo ? `<button class="button button--light" type="submit" name="otra" value="1">Guardar y agregar otra</button>` : ""}
+        <footer class="mx-form__foot">
+          <span class="mx-savenote"><i class="${enNube ? "is-ok" : "is-warn"}"></i>${enNube ? "Se guarda en la nube" : "Se guarda en este navegador"}</span>
+          <div>
+            <button class="mx-btn mx-btn--ghost" type="button" data-mt="cerrar">Cancelar</button>
+            ${nuevo ? `<button class="mx-btn mx-btn--soft" type="submit" name="otra" value="1">Guardar y otra</button>` : ""}
+            <button class="mx-btn mx-btn--primary" type="submit">${ic("check")}${nuevo ? "Guardar" : "Guardar cambios"}</button>
+          </div>
+        </footer>
       </form>`;
   }
 
@@ -475,47 +649,58 @@
   // ------------------------------------------------------------------------
   function panelPegar() {
     const p = vista.pegado;
+    const cab = (eyebrow, titulo) => `<header class="mx-sheet__head"><div><p class="mx-eyebrow">${eyebrow}</p><h3>${titulo}</h3></div>
+      <button class="mx-iconbtn" type="button" data-mt="cerrar-pegar" aria-label="Cerrar">${ic("x")}</button></header>`;
     if (!p.resultado) {
-      return `<div class="tk-sheet__head"><h4>Pegar reporte del chat</h4><button class="tk-sheet__close" type="button" data-mt="cerrar-pegar" aria-label="Cerrar">&times;</button></div>
-        <form class="tk-form" data-mt-form="leer">
-          <p class="mt-ayuda">Copia el reporte de turno completo en WhatsApp (mantener presionado → Copiar) y pégalo aquí. Se separan solos el estado de los equipos y cada novedad; después revisas y completas lo que falte.</p>
-          <div class="mt-row3">
-            <label>Fecha del turno<input type="date" name="f" value="${esc(p.f || vista.fecha)}"></label>
-            <label>Turno<select name="t">${opt(C.turnos, p.t || turnoActual())}</select></label>
-            <label>Técnico que reporta<input name="tec" value="${esc(p.tec || "")}" placeholder="Opcional"></label>
+      return `${cab("Pegar reporte del chat", "Copia el reporte y pégalo aquí")}
+        <form class="mx-form" data-mt-form="leer">
+          <div class="mx-form__body">
+            <ol class="mx-howto"><li><b>1</b>En WhatsApp, mantén presionado el reporte y toca <i>Copiar</i>.</li><li><b>2</b>Pégalo abajo y toca <i>Leer reporte</i>.</li><li><b>3</b>Revisa equipo, categoría y horario de cada novedad.</li></ol>
+            <div class="mx-grid3">
+              <label class="mx-field"><span>Fecha del turno</span><input class="mx-input" type="date" name="f" value="${esc(p.f || vista.fecha)}"></label>
+              <div class="mx-field"><span>Turno</span><div class="mx-seg mx-seg--full">${C.turnos.map((x) => radio("t", x, p.t || turnoActual(), `${ic(x === "Día" ? "sol" : "luna")}${x}`, "mx-opt--seg")).join("")}</div></div>
+              <label class="mx-field"><span>Técnico que reporta</span><input class="mx-input" name="tec" value="${esc(p.tec || "")}" placeholder="Opcional"></label>
+            </div>
+            <label class="mx-field"><span>Reporte</span><textarea class="mx-input mx-input--mono" name="txt" rows="12" required placeholder="*REPORTE DE TURNO GRUPO 1 SEDE 4*&#10;BIN: Acetaminofén&#10;BOSCH: Disponible&#10;…&#10;*NOVEDADES*&#10;NJP2: equipo atascado…">${esc(p.txt || "")}</textarea></label>
           </div>
-          <label>Reporte<textarea name="txt" rows="12" required placeholder="*REPORTE DE TURNO GRUPO 1 SEDE 4*&#10;BIN: Acetaminofén&#10;BOSCH: Disponible&#10;…&#10;*NOVEDADES*&#10;NJP2: equipo atascado…">${esc(p.txt || "")}</textarea></label>
-          <button class="button button--dark" type="submit">Leer reporte</button>
+          <footer class="mx-form__foot"><span class="mx-savenote"><i class="is-ok"></i>Nada se guarda hasta que lo revises</span>
+            <div><button class="mx-btn mx-btn--ghost" type="button" data-mt="cerrar-pegar">Cancelar</button><button class="mx-btn mx-btn--primary" type="submit">${ic("chispa")}Leer reporte</button></div></footer>
         </form>`;
     }
     const r = p.resultado;
-    const filas = r.novedades.map((n, i) => `
-      <div class="mt-pg-nov ${n.omitir ? "is-off" : ""}">
-        <label class="mt-pg-sel"><input type="checkbox" data-pg="${i}" data-pgk="usar" ${n.omitir ? "" : "checked"}> Guardar</label>
-        <div class="mt-pg-campos">
-          <select data-pg="${i}" data-pgk="eq">${optsEquipo(r.sede, n.eq)}</select>
-          <select data-pg="${i}" data-pgk="cat">${opt(C.categorias, n.cat)}</select>
-          <select data-pg="${i}" data-pgk="tp">${opt(C.tipos, n.tp)}</select>
-          <select data-pg="${i}" data-pgk="fa">${opt(C.fallas, n.fa, "Modo de falla…")}</select>
-          <input type="time" data-pg="${i}" data-pgk="hi" value="${esc(n.hi || "")}" title="Hora inicio">
-          <input type="time" data-pg="${i}" data-pgk="hf" value="${esc(n.hf || "")}" title="Hora fin">
-          <input type="number" data-pg="${i}" data-pgk="min" value="${n.min ?? ""}" placeholder="min" title="Minutos">
-          <select data-pg="${i}" data-pgk="ef">${opt(C.estadosFinal, n.ef)}</select>
-        </div>
-        <p class="mt-pg-txt">${esc(n.de)}</p>
-      </div>`).join("");
     const nUsar = r.novedades.filter((n) => !n.omitir).length;
-    return `<div class="tk-sheet__head"><h4>Revisar lo que se leyó</h4><button class="tk-sheet__close" type="button" data-mt="cerrar-pegar" aria-label="Cerrar">&times;</button></div>
-      <div class="mt-pg-res">
-        <p><strong>${esc(r.sede)}</strong> · turno <strong>${esc(p.t)}</strong> · ${esc(fechaLarga(p.f))}
-          <select data-pg-sede>${opt(C.sedes, r.sede)}</select></p>
-        <p>${r.estados.length} equipos con estado · ${r.novedades.length} novedades. Revisa el equipo, la categoría y, si el técnico lo dijo, la hora de inicio y fin.</p>
-        ${r.estados.length ? `<label class="mt-check-l"><input type="checkbox" data-pg-est checked> Guardar también el estado de los ${r.estados.length} equipos para el turno ${esc(p.t)}</label>` : ""}
-      </div>
-      <div class="mt-pg-lista">${filas || `<p class="pl-soft">No se encontraron novedades en el texto.</p>`}</div>
-      <div class="mt-pg-acc">
-        <button class="button button--light" type="button" data-mt="pegar-volver">Volver al texto</button>
-        <button class="button button--dark" type="button" data-mt="pegar-guardar">Guardar ${nUsar} novedad${nUsar === 1 ? "" : "es"}</button>
+    const filas = r.novedades.map((n, i) => {
+      const [cc, icn] = CAT[n.cat] || CAT["Máquina"];
+      return `<article class="mx-pg ${n.omitir ? "is-off" : ""}">
+        <header><label class="mx-switch mx-switch--sm"><input type="checkbox" data-pg="${i}" data-pgk="usar" ${n.omitir ? "" : "checked"}><span class="mx-switch__ui" aria-hidden="true"></span><span><b>${n.omitir ? "No se guarda" : "Guardar"}</b></span></label>
+          <span class="mx-pill mx-pill--${cc}">${ic(icn)}${esc(n.cat)}</span>${n.min ? `<span class="mx-chip">${ic("reloj")}${hm(n.min)}</span>` : ""}</header>
+        <p class="mx-pg__txt">${esc(n.de)}</p>
+        <div class="mx-pg__campos">
+          <label class="mx-field"><span>Equipo</span><select class="mx-input mx-input--sm" data-pg="${i}" data-pgk="eq">${optsEquipo(r.sede, n.eq)}</select></label>
+          <label class="mx-field"><span>Categoría</span><select class="mx-input mx-input--sm" data-pg="${i}" data-pgk="cat">${opt(C.categorias, n.cat)}</select></label>
+          <label class="mx-field"><span>Mantenimiento</span><select class="mx-input mx-input--sm" data-pg="${i}" data-pgk="tp">${opt(C.tipos, n.tp)}</select></label>
+          <label class="mx-field"><span>Modo de falla</span><select class="mx-input mx-input--sm" data-pg="${i}" data-pgk="fa">${opt(C.fallas, n.fa, "Elegir…")}</select></label>
+          <label class="mx-field"><span>Inicio</span><input class="mx-input mx-input--sm" type="time" data-pg="${i}" data-pgk="hi" value="${esc(n.hi || "")}"></label>
+          <label class="mx-field"><span>Fin</span><input class="mx-input mx-input--sm" type="time" data-pg="${i}" data-pgk="hf" value="${esc(n.hf || "")}"></label>
+          <label class="mx-field"><span>Min</span><input class="mx-input mx-input--sm" type="number" data-pg="${i}" data-pgk="min" value="${n.min ?? ""}"></label>
+          <label class="mx-field"><span>Estado final</span><select class="mx-input mx-input--sm" data-pg="${i}" data-pgk="ef">${opt(C.estadosFinal, n.ef)}</select></label>
+        </div>
+      </article>`;
+    }).join("");
+    return `${cab("Revisar lo que se leyó", `${r.novedades.length} novedades · ${r.estados.length} equipos con estado`)}
+      <div class="mx-form">
+        <div class="mx-form__body">
+          <div class="mx-pg-res">
+            <span class="mx-chip">${ic("calendario")}${esc(fechaLarga(p.f))}</span>
+            <span class="mx-chip">${ic(p.t === "Día" ? "sol" : "luna")}Turno ${esc(p.t)}</span>
+            <label class="mx-selpill mx-selpill--sede"><select data-pg-sede aria-label="Sede">${opt(C.sedes, r.sede)}</select></label>
+          </div>
+          ${r.estados.length ? `<label class="mx-switch"><input type="checkbox" data-pg-est ${p.guardarEstados === false ? "" : "checked"}><span class="mx-switch__ui" aria-hidden="true"></span><span><b>Guardar también el estado de los ${r.estados.length} equipos</b><small>Para el turno ${esc(p.t)} de ${esc(r.sede)}; así se calcula el tiempo programado.</small></span></label>` : ""}
+          <div class="mx-pg-lista">${filas || `<div class="mx-empty"><h4>No se encontraron novedades en el texto</h4><p>Revisa que el reporte tenga la parte de NOVEDADES.</p></div>`}</div>
+        </div>
+        <footer class="mx-form__foot"><span class="mx-savenote"><i class="is-ok"></i>${nUsar} de ${r.novedades.length} seleccionadas</span>
+          <div><button class="mx-btn mx-btn--ghost" type="button" data-mt="pegar-volver">${ic("izq")}Volver al texto</button>
+          <button class="mx-btn mx-btn--primary" type="button" data-mt="pegar-guardar">${ic("check")}Guardar ${nUsar} novedad${nUsar === 1 ? "" : "es"}</button></div></footer>
       </div>`;
   }
 
@@ -614,11 +799,12 @@
       }
       const a = b.dataset.mt;
       if (a === "dia") { vista.fecha = sumaDias(vista.fecha, Number(b.dataset.v)); render(); }
+      else if (a === "fecha") { vista.fecha = b.dataset.v; render(); }
       else if (a === "hoy") { vista.fecha = hoy(); render(); }
       else if (a === "ir") { vista.fecha = b.dataset.v; vista.tab = "novedades"; render(); window.scrollTo({ top: 0 }); }
       else if (a === "sede") { vista.sede = b.dataset.v; if (b.dataset.v) vista.sedeEst = b.dataset.v; render(); }
       else if (a === "tab") { vista.tab = b.dataset.v; render(); }
-      else if (a === "nuevo") { vista.editando = { s: vista.sede || "Sede 4" }; render(); }
+      else if (a === "nuevo") { vista.editando = { s: vista.sede || "Sede 4", ...(b.dataset.t ? { t: b.dataset.t } : {}) }; render(); raiz.querySelector(".mx-sheet [data-mt-eq]")?.focus(); }
       else if (a === "editar") { vista.editando = { ...(registros().find((r) => r.id === b.dataset.id) || {}) }; render(); }
       else if (a === "borrar") {
         const r = registros().find((x) => x.id === b.dataset.id);
@@ -634,12 +820,24 @@
       else if (a === "ver-fa") window.goIndicadores && window.goIndicadores({ fa: b.dataset.v });
       else if (a === "ver-ind") window.goIndicadores && window.goIndicadores();
     });
+    document.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !esVisible() || !(vista.editando || vista.pegado)) return;
+      vista.editando = null; vista.pegado = null; render();
+    });
     raiz.addEventListener("change", (e) => {
       const t = e.target;
       if (t.dataset.mtCampo === "fecha" && t.value) { vista.fecha = t.value; render(); return; }
       if (t.matches("[data-mt-sede]")) { const f = t.form; f.elements.eq.innerHTML = optsEquipo(t.value, ""); return; }
       if (t.matches("[data-mt-cat]")) { const p = t.form.querySelector("[data-mt-ayuda]"); if (p) p.textContent = C.categoriasAyuda[t.value] || ""; return; }
-      if (t.matches("[data-mt-hora]")) { const f = t.form; const m = minutosEntre(f.elements.hi.value, f.elements.hf.value); if (m != null) f.elements.min.value = m; return; }
+      if (t.matches("[data-mt-hora], [data-mt-min]")) {
+        const f = t.form;
+        const m = t.matches("[data-mt-min]") ? Number(t.value) || null : minutosEntre(f.elements.hi.value, f.elements.hf.value);
+        if (m != null && !t.matches("[data-mt-min]")) f.elements.min.value = m;
+        const d = f.querySelector("[data-mt-dur]");
+        if (d) d.innerHTML = durTxt(m);
+        return;
+      }
+      if (t.matches("[data-mt-estsel]")) { const fila = t.closest(".mx-eqrow"); if (fila) fila.className = `mx-eqrow mx-eqrow--${EST_EQ[t.value] || "neutro"}`; return; }
       if (t.matches("[data-pg-sede]")) { vista.pegado.resultado.sede = t.value; render(); return; }
       if (t.matches("[data-pg-est]")) { vista.pegado.guardarEstados = t.checked; return; }
       if (t.dataset.pg != null) {
@@ -663,7 +861,7 @@
         const otra = e.submitter && e.submitter.name === "otra";
         vista.editando = otra ? { f: r.f, t: r.t, s: r.s, por: r.por } : null;
         render();
-        if (otra) raiz.querySelector(".mt-sheet [data-mt-eq]")?.focus();
+        if (otra) raiz.querySelector(".mx-sheet [data-mt-eq]")?.focus();
       } else if (tipo === "leer") {
         const txt = f.elements.txt.value;
         const res = window.MTTO_LECTOR.leer(txt);
@@ -690,6 +888,7 @@
   function renderSiVisible() { if (esVisible()) render(); }
 
   function goRegistro(op) {
+    document.body.classList.remove("mx-lock");
     if (op && op.fecha) { vista.fecha = op.fecha; vista.tab = "novedades"; }
     if (op && op.abrir) {
       const r = registros().find((x) => x.id === op.abrir);

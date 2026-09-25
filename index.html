@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Registro de equipos</title>
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609250059" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609250059" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609250158" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609250158" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=202609250059" />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=202609250158" />
+    <link rel="stylesheet" href="assets/css/mtto.css?v=202609250158" />
   </head>
   <body>
     <!-- Botón hamburguesa (solo visible en celular) -->
@@ -585,6 +586,15 @@
       </div>
     </aside>
 
+    <!-- Barra inferior en el celular: accesos directos y "Más" abre el menú completo -->
+    <nav class="mx-mbar" id="mxMbar" aria-label="Accesos rápidos">
+      <button type="button" data-mb="home" aria-label="Inicio"><svg class="mx-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V21h-6v-6H9v6H3V10.5Z"/></svg><span>Inicio</span></button>
+      <button type="button" data-mb="registro" aria-label="Registro diario"><svg class="mx-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6a1 1 0 0 1 1 1v1H8V4a1 1 0 0 1 1-1Z"/><path d="M16 5h2a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2"/><path d="M8 11h8M8 15h5"/></svg><span>Registro</span></button>
+      <button type="button" data-mb="indicadores" aria-label="Indicadores"><svg class="mx-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><span>Indicadores</span></button>
+      <button type="button" data-mb="reportes" aria-label="Reportes de turno"><svg class="mx-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5M8 13h8M8 17h6"/></svg><span>Reportes</span></button>
+      <button type="button" class="mx-mbar__mas" data-mb="mas" aria-label="Más secciones"><svg class="mx-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="19" r="1.4"/></svg></button>
+    </nav>
+
     <!-- ===== Firebase: sincroniza los recordatorios en la nube para TODOS los dispositivos ===== -->
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
@@ -615,24 +625,25 @@
       }
     </script>
 
-    <script src="assets/equipos.js?v=202609250059"></script>
-    <script src="assets/js/causa-codes.js?v=202609250059"></script>
-    <script src="assets/js/integra320-procedimientos.js?v=202609250059"></script>
-    <script src="assets/js/ms235-sensores.js?v=202609250059"></script>
-    <script src="assets/js/ms235-mecanico.js?v=202609250059"></script>
-    <script src="assets/js/inventario.js?v=202609250059"></script>
-    <script src="assets/js/inspecciones-registro.js?v=202609250059"></script>
-    <script src="assets/js/rich-data.js?v=202609250059"></script>
-    <script src="assets/js/machines-data.js?v=202609250059"></script>
-    <script src="assets/js/profile-renderers.js?v=202609250059"></script>
-    <script src="assets/js/almacen.js?v=202609250059"></script>
-    <script src="assets/js/reportes-data.js?v=202609250059"></script>
-    <script src="assets/js/reportes.js?v=202609250059"></script>
-    <script src="assets/js/mtto-data.js?v=202609250059"></script>
-    <script src="assets/js/mtto-lector.js?v=202609250059"></script>
-    <script src="assets/js/mtto-registro.js?v=202609250059"></script>
-    <script src="assets/js/mtto-indicadores.js?v=202609250059"></script>
-    <script src="assets/js/diario.js?v=202609250059"></script>
-    <script src="assets/js/app.js?v=202609250059"></script>
+    <script src="assets/equipos.js?v=202609250158"></script>
+    <script src="assets/js/causa-codes.js?v=202609250158"></script>
+    <script src="assets/js/integra320-procedimientos.js?v=202609250158"></script>
+    <script src="assets/js/ms235-sensores.js?v=202609250158"></script>
+    <script src="assets/js/ms235-mecanico.js?v=202609250158"></script>
+    <script src="assets/js/inventario.js?v=202609250158"></script>
+    <script src="assets/js/inspecciones-registro.js?v=202609250158"></script>
+    <script src="assets/js/rich-data.js?v=202609250158"></script>
+    <script src="assets/js/machines-data.js?v=202609250158"></script>
+    <script src="assets/js/profile-renderers.js?v=202609250158"></script>
+    <script src="assets/js/almacen.js?v=202609250158"></script>
+    <script src="assets/js/reportes-data.js?v=202609250158"></script>
+    <script src="assets/js/reportes.js?v=202609250158"></script>
+    <script src="assets/js/mtto-data.js?v=202609250158"></script>
+    <script src="assets/js/mtto-lector.js?v=202609250158"></script>
+    <script src="assets/js/mtto-registro.js?v=202609250158"></script>
+    <script src="assets/js/mtto-indicadores.js?v=202609250158"></script>
+    <script src="assets/js/diario.js?v=202609250158"></script>
+    <script src="assets/js/app.js?v=202609250158"></script>
+    <script src="assets/js/barra-movil.js?v=202609250158"></script>
   </body>
 </html>
