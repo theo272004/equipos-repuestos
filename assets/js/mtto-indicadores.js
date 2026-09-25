@@ -526,7 +526,7 @@
         <div class="mx-snaps">
           ${snap("calendario", `${Number(r.f.slice(8))} ${MESES[Number(r.f.slice(5, 7)) - 1].slice(0, 3)}`, `turno ${esc(r.t)}${r.hr ? " · " + esc(r.hr) : ""}`)}
           ${snap("reloj", r.min > 0 ? nf(r.min / 60, 2) + " h" : "—", r.hi ? `${esc(r.hi)} – ${esc(r.hf || "")}` : esFalla(r) ? "sin horario" : "duración")}
-          ${snap("usuario", r.tec ? esc(r.tec.split(" ")[0]) : "—", "técnico", r.tec ? `data-ki="filtro-y-cerrar" data-k="tec" data-v="${esc(r.tec)}" role="button" tabindex="0"` : "")}
+          ${snap("usuario", r.tec ? esc(r.tec.split(" ")[0]) : "—", /^chat(-pegado)?$/.test(r.src) ? "reportó en el chat" : "técnico")}
           ${snap("falla", mismas, "fallas de esta máquina", `data-ki="filtro-y-cerrar" data-k="eq" data-v="${esc(claveEq(r))}" role="button" tabindex="0"`)}
         </div>
         <h5 class="mx-h5">Qué pasó y qué se hizo</h5>
@@ -552,7 +552,6 @@
     const res = calcular();
     const t = res.total;
     const periodos = [["todo", `Desde ${fechaCorta(M.desde)}`], ["mes", "Este mes"], ["mesant", "Mes anterior"], ["30", "Últimos 30 días"], ["7", "Últimos 7 días"], ["custom", "Rango…"]];
-    const tecs = contar(res.sin("tec"), (r) => r.tec || "Sin técnico").slice(0, 10);
     const tipos = contar(res.sin("tp"), (r) => r.tp);
     const maqs = res.porEquipo.filter((e) => e.fallas).sort((a, b) => b.fallas - a.fallas).slice(0, 12);
     const nFil = Object.values(vista.f).filter(Boolean).length + (vista.periodo !== "todo" ? 1 : 0);
@@ -600,11 +599,10 @@
       <div class="ki-areas">${res.porArea.map(tarjetaArea).join("")}</div>
       ${detalleArea(res)}
 
-      <div class="ki-trio">
+      <div class="ki-duo">
         <div class="ki-panel"><h4>Top 10 de fallas</h4>${topFallas(res.sin("fa"))}</div>
         <div class="ki-panel"><h4>Máquinas con más fallas</h4>${barrasH(maqs.map((e) => ({ l: `${e.eq}${vista.f.sede ? "" : " · " + e.s.replace("Sede ", "S")}`, key: e.k, v: e.fallas, e })), { k: "eq", color: (x) => (x.e.mtbf < M.metas[x.e.ar].mtbf ? "var(--ki-bad-bar)" : "var(--ki-ok-bar)") })}
           <p class="ki-leyenda"><span class="ki-sw" style="background:var(--ki-bad-bar)"></span>MTBF bajo la meta <span class="ki-sw" style="background:var(--ki-ok-bar)"></span>Cumple</p></div>
-        <div class="ki-panel"><h4>Técnicos que más atendieron</h4>${barrasH(tecs, { k: "tec", color: "#7a5af8" })}</div>
       </div>
 
       <div class="ki-panel ki-panel--calor"><h4>Mapa de calor · fallas por máquina y semana</h4>${mapaCalor(res)}</div>

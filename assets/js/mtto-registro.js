@@ -424,7 +424,7 @@
         <div><dt>${ic("falla")}Modo de falla</dt><dd>${r.fa ? `<button type="button" class="mx-link" data-mt="ver-fa" data-v="${esc(r.fa)}">${esc(r.fa)}</button>` : "—"}</dd></div>
         <div><dt>${ic("llave")}Mantenimiento</dt><dd>${esc(r.tp || "—")}</dd></div>
         <div><dt>${ic("reloj")}Horario</dt><dd>${horario}</dd></div>
-        ${r.tec ? `<div><dt>${ic("usuario")}Técnico</dt><dd>${esc(r.tec)}</dd></div>` : ""}
+        ${r.tec ? `<div><dt>${ic("usuario")}${/^chat(-pegado)?$/.test(r.src) ? "Reportó" : "Técnico"}</dt><dd>${esc(r.tec)}</dd></div>` : ""}
       </dl>
       <footer class="mx-nov__foot">
         <span class="mx-est mx-est--${EF[r.ef] || "neutro"}"><i></i>${esc(r.ef || "Sin cierre")}</span>
