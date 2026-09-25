@@ -528,7 +528,7 @@ ${buildMachineContext(machine)}`;
       // Enlace directo a una pestaña: index.html?v=plan | tareas | turnos.
       // Lo usan tareas.html y turnos.html, que ahora solo redirigen aquí.
       const vistaPedida = new URLSearchParams(window.location.search).get("v");
-      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos, inspecciones: goInsp, insp: goInsp, reportes: () => (window.goReportes ? window.goReportes() : null) };
+      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos, inspecciones: goInsp, insp: goInsp, reportes: () => (window.goReportes ? window.goReportes() : null), registro: () => (window.goRegistro ? window.goRegistro({ fecha: new URLSearchParams(window.location.search).get("fecha") || "" }) : null), indicadores: () => (window.goIndicadores ? window.goIndicadores() : null) };
 
       if (vistaPedida && abrirVista[vistaPedida]) {
         abrirVista[vistaPedida]();
@@ -546,6 +546,10 @@ ${buildMachineContext(machine)}`;
         window.goDiario();
       } else if (restoredState.activeView === "reportes" && window.goReportes) {
         window.goReportes();
+      } else if (restoredState.activeView === "registro" && window.goRegistro) {
+        window.goRegistro();
+      } else if (restoredState.activeView === "indicadores" && window.goIndicadores) {
+        window.goIndicadores();
       } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
       } else if (restoredState.activeView === "results" || currentQuery) {
