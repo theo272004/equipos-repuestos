@@ -290,8 +290,8 @@
         const origen = r.src === "chat" ? `<span class="mt-src" title="Cargado del chat">chat</span>` : "";
         return `<tr class="${r.src === "chat" ? "is-hist" : ""}">
           <td><strong>${esc(r.t)}</strong><small>${esc(r.s)}</small></td>
-          <td><strong>${esc(r.eq)}</strong><small>${esc(r.ar || "")}</small></td>
-          <td>${badgeCat(r)}<small>${esc(r.tp || "")}${r.fa ? " · " + esc(r.fa) : ""}</small></td>
+          <td><button type="button" class="mt-link mt-link--eq" data-mt="ver-eq" data-v="${esc(r.s + "|" + r.eq)}" title="Ver indicadores y hoja de vida de ${esc(r.eq)}">${esc(r.eq)}</button><small>${esc(r.ar || "")}</small></td>
+          <td>${badgeCat(r)}<small>${esc(r.tp || "")}${r.fa ? ` · <button type="button" class="mt-link mt-link--sub" data-mt="ver-fa" data-v="${esc(r.fa)}" title="Ver este modo de falla en los indicadores">${esc(r.fa)}</button>` : ""}</small></td>
           <td class="mt-desc"><p>${esc(r.de || "")}</p>${r.ac ? `<small>Acción: ${esc(r.ac)}</small>` : ""}${r.rep ? `<small>Repuesto: ${esc(r.rep)}</small>` : ""}${r.frep ? `<small class="mt-falta">Faltó repuesto</small>` : ""}</td>
           <td class="mt-hor">${horario}</td>
           <td>${badgeEstado(r.ef)}${r.tec ? `<small>${esc(r.tec)}</small>` : ""}${origen}</td>
@@ -340,7 +340,7 @@
     return `<p class="pl-note">Novedades de los últimos 45 días que quedaron con trabajo pendiente. Cuando se resuelva, ábrela y cambia el <strong>Estado final</strong> a Operativo.</p>
       <div class="mt-tabla-wrap"><table class="mt-tabla"><thead><tr><th>Fecha</th><th>Equipo</th><th>Qué quedó pendiente</th><th>Estado</th><th></th></tr></thead><tbody>
       ${lista.map((r) => `<tr><td><button type="button" class="mt-link" data-mt="ir" data-v="${r.f}">${r.f.slice(8)}/${r.f.slice(5, 7)}</button><small>${esc(r.t)} · ${esc(r.s)}</small></td>
-        <td><strong>${esc(r.eq)}</strong><small>${esc(r.ar || "")}</small></td><td class="mt-desc"><p>${esc(r.de)}</p></td><td>${badgeEstado(r.ef)}</td>
+        <td><button type="button" class="mt-link mt-link--eq" data-mt="ver-eq" data-v="${esc(r.s + "|" + r.eq)}" title="Ver indicadores y hoja de vida de ${esc(r.eq)}">${esc(r.eq)}</button><small>${esc(r.ar || "")}</small></td><td class="mt-desc"><p>${esc(r.de)}</p></td><td>${badgeEstado(r.ef)}</td>
         <td class="mt-acc"><button type="button" class="mt-ico" data-mt="editar" data-id="${esc(r.id)}" title="Actualizar">✎</button></td></tr>`).join("")}
       </tbody></table></div>`;
   }
@@ -356,6 +356,7 @@
         <div><p class="eyebrow">Mantenimiento</p><h2>Registro diario</h2></div>
         <div class="section-actions">
           ${chip()}
+          <button class="button button--light" type="button" data-mt="ver-ind">Ver indicadores</button>
           <button class="button button--light" type="button" data-mt="exportar">Exportar Excel</button>
           <button class="button button--light" type="button" data-mt="pegar">Pegar reporte del chat</button>
           <button class="button button--dark" type="button" data-mt="nuevo">+ Nueva novedad</button>
@@ -571,14 +572,26 @@
         "¿Faltó repuesto?": r.frep ? "Sí" : "No", "Técnico": r.tec || "", "OT / Solicitud": r.ot || "",
         "Registrado por": r.por || "", Fuente: r.src === "chat" ? "Chat WhatsApp (histórico)" : r.src === "chat-pegado" ? "Chat WhatsApp" : r.src === "chat-editado" ? "Chat WhatsApp (completado)" : "Registro directo",
       }));
+      // Estado de equipos: los turnos registrados tal cual y, para el resto de
+      // días (histórico y turnos sin registrar), las horas programadas por día.
       const est = [];
-      Object.values(nubeEst).sort((a, b) => (a.fecha + a.turno).localeCompare(b.fecha + b.turno)).forEach((d) =>
-        Object.entries(d.estados || {}).forEach(([eq, v]) => est.push({ Fecha: d.fecha, Turno: d.turno, Sede: d.sede, Equipo: eq, Estado: v.e, Producto: v.p || "", "Horas programadas": C.programado.includes(v.e) ? M.horasTurno : 0, "Registrado por": d.por || "" })));
+      const conDoc = new Set();
+      Object.values(nubeEst).sort((a, b) => (a.fecha + a.turno).localeCompare(b.fecha + b.turno)).forEach((d) => {
+        conDoc.add(`${d.fecha}|${d.sede}`);
+        Object.entries(d.estados || {}).forEach(([eq, v]) => est.push({ Fecha: d.fecha, Turno: d.turno, Sede: d.sede, Equipo: eq, Estado: v.e, Producto: v.p || "", "Horas programadas": C.programado.includes(v.e) ? M.horasTurno : 0, "Tipo de máquina": areaDe(d.sede, eq), Fuente: "Registro diario" }));
+      });
+      Object.entries(horas()).forEach(([k, dias]) => {
+        const [sede, eq] = k.split("|");
+        Object.entries(dias).forEach(([f, h]) => { if (!conDoc.has(`${f}|${sede}`)) est.push({ Fecha: f, Turno: "Día y noche", Sede: sede, Equipo: eq, Estado: "Producción", Producto: "", "Horas programadas": h, "Tipo de máquina": areaDe(sede, eq), Fuente: f <= M.hasta ? "Chat (histórico)" : "Estimado (último estado conocido)" }); });
+      });
+      est.sort((a, b) => a.Fecha.localeCompare(b.Fecha) || a.Sede.localeCompare(b.Sede) || a.Equipo.localeCompare(b.Equipo));
       const wb = X.utils.book_new();
       const ws = X.utils.json_to_sheet(filas);
       ws["!cols"] = [15, 11, 8, 9, 22, 22, 15, 18, 26, 60, 26, 10, 10, 11, 11, 11, 17, 22, 10, 18, 12, 15, 24].map((w) => ({ wch: w }));
       X.utils.book_append_sheet(wb, ws, "REGISTRO");
-      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(est.length ? est : [{ Fecha: "", Turno: "", Sede: "", Equipo: "", Estado: "", Producto: "", "Horas programadas": "" }]), "ESTADO_EQUIPOS");
+      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(est), "ESTADO_EQUIPOS");
+      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(C.equipos.map((e) => ({ Sede: e.s, Equipo: e.eq, Clave: `${e.s}|${e.eq}`, "Tipo de máquina": e.ar, "De proceso": e.proc ? "Sí" : "No", Criticidad: "", "Horas por turno": M.horasTurno }))), "EQUIPOS");
+      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(Object.entries(M.metas).map(([ar, m]) => ({ "Tipo de máquina": ar, "Meta disponibilidad": m.disp, "Meta MTBF (h)": m.mtbf, "Meta MTTR (h)": m.mttr }))), "METAS");
       X.writeFile(wb, `Registro_Mantenimiento_${hoy()}.xlsx`);
     } catch (e) {
       alert(e.message || String(e));
@@ -617,6 +630,9 @@
       else if (a === "pegar-volver") { vista.pegado.resultado = null; render(); }
       else if (a === "pegar-guardar") guardarPegado();
       else if (a === "exportar") exportar();
+      else if (a === "ver-eq") window.goIndicadores && window.goIndicadores({ eq: b.dataset.v });
+      else if (a === "ver-fa") window.goIndicadores && window.goIndicadores({ fa: b.dataset.v });
+      else if (a === "ver-ind") window.goIndicadores && window.goIndicadores();
     });
     raiz.addEventListener("change", (e) => {
       const t = e.target;
@@ -675,6 +691,10 @@
 
   function goRegistro(op) {
     if (op && op.fecha) { vista.fecha = op.fecha; vista.tab = "novedades"; }
+    if (op && op.abrir) {
+      const r = registros().find((x) => x.id === op.abrir);
+      if (r) { vista.fecha = r.f; vista.tab = "novedades"; vista.editando = { ...r }; }
+    }
     views.registro = views.registro || document.getElementById("registroView");
     setView("registro");
     render();
