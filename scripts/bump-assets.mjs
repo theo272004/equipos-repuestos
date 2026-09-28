@@ -16,23 +16,23 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
-const archivo = join(raiz, "index.html");
+const archivos = ["index.html", "reporte.html"].map((f) => join(raiz, f));
 
 const ahora = new Date();
 const p = (n, d = 2) => String(n).padStart(d, "0");
 const version = `${ahora.getUTCFullYear()}${p(ahora.getUTCMonth() + 1)}${p(ahora.getUTCDate())}${p(ahora.getUTCHours())}${p(ahora.getUTCMinutes())}`;
 
-let html = readFileSync(archivo, "utf8");
 let tocados = 0;
-
-// Solo los archivos propios: lo de fuera (Firebase) no se toca.
-html = html.replace(
-  /((?:src|href)=")(assets\/[^"?]+)(?:\?v=\d+)?(")/g,
-  (_, antes, ruta, despues) => {
-    tocados++;
-    return `${antes}${ruta}?v=${version}${despues}`;
-  }
-);
-
-writeFileSync(archivo, html);
-console.log(`Versión ${version} aplicada a ${tocados} archivos de assets/`);
+for (const archivo of archivos) {
+  let html = readFileSync(archivo, "utf8");
+  // Solo los archivos propios: lo de fuera (Firebase) no se toca.
+  html = html.replace(
+    /((?:src|href)=")(assets\/[^"?]+)(?:\?v=\d+)?(")/g,
+    (_, antes, ruta, despues) => {
+      tocados++;
+      return `${antes}${ruta}?v=${version}${despues}`;
+    }
+  );
+  writeFileSync(archivo, html);
+}
+console.log(`Versión ${version} aplicada a ${tocados} archivos de assets/ en index.html y reporte.html`);

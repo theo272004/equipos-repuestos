@@ -1,0 +1,50 @@
+rules_version = '2';
+
+// ============================================================================
+//  Reglas de Firestore · proyecto mantenimiento-f405b
+// ============================================================================
+//  Cómo publicarlas (una sola vez, desde el computador):
+//    1. Abre https://console.firebase.google.com/project/mantenimiento-f405b/firestore/rules
+//    2. Borra lo que haya, pega TODO este archivo y pulsa "Publicar".
+//  Después, en la app: Conexión y ajustes → "Probar de nuevo". Todo debe
+//  salir en verde.
+//
+//  Qué hacen: dejan leer y escribir SOLO las colecciones que usa la app (y el
+//  bot de Telegram y el puente de MiPortal), con documentos de tamaño
+//  razonable. Cualquier otra colección queda cerrada.
+//
+//  Ojo: igual que las reglas que había, no piden iniciar sesión, porque la app
+//  la abre cualquier técnico desde el celular. Quien conozca el proyecto
+//  puede leer los datos. Para cerrar eso está docs/firestore-con-clave.rules
+//  (una "clave del taller"): ver docs/FIREBASE.md.
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Un documento es un mapa y no pasa de ~200 campos
+    function docValido() {
+      return request.resource.data is map && request.resource.data.size() < 200;
+    }
+
+    // Colecciones que la app, el bot o el puente escriben y borran
+    function coleccionConBorrado(c) {
+      return c in ['tareas', 'inspecciones', 'cambios', 'datos', 'mtto_registros', 'bitacora', 'inventario'];
+    }
+
+    // Colecciones que solo se crean y actualizan (borrar es marcarlas "borrado")
+    function coleccionSinBorrado(c) {
+      return c in [
+        'inventario_meta', 'mtto_estados', 'solicitudes',
+        'seguimiento', 'presupuesto', 'movimientos', 'inventario_cargas',
+        'reportes_turno', 'bot'
+      ];
+    }
+
+    match /{coleccion}/{id} {
+      allow read: if coleccionConBorrado(coleccion) || coleccionSinBorrado(coleccion);
+      allow create, update: if (coleccionConBorrado(coleccion) || coleccionSinBorrado(coleccion)) && docValido();
+      allow delete: if coleccionConBorrado(coleccion);
+    }
+  }
+}

@@ -827,47 +827,14 @@ function dt(machine, campo) {
       //  Tambien estaba suelto en turnos.html. Calcula la rotacion del ciclo de
       //  6 dias (2 dia, 2 noche, 2 descanso) a partir del cuadro de julio de 2026.
       // ======================================================================
-      const TN_ROSTER = {
-        sede4: {
-          label: "Sede 4",
-          groups: [
-            { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "José Luis Vargas Buitrago"] },
-            { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak"] },
-            { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
-          ]
-        },
-        sede2: {
-          label: "Sede 2 (Vía 40)",
-          groups: [
-            // Sergio rota con Alfonso desde el lunes 21 de septiembre de 2026 (antes, turno fijo en Sede 4).
-            { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-09-21" }] },
-            { name: "Grupo Vía 40-2", phase: "noche", members: ["Samith Arick Sanjuán Otálora"] },
-            { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia"] }
-          ]
-        }
-      };
-      // Hay quien figura dentro de un grupo pero no rota con él: hace turno fijo.
-      // En el cuadro se le marca con "2" todos los días en vez de D/N/L.
-      const TN_FIJOS = {
-        sede4: [
-          { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", hasta: "2026-09-20", nota: "Desde el 21/09/2026 rota en Sede 2 (Grupo Vía 40-1)." }
-        ],
-        sede2: []
-      };
-
-      const TN_SUPPORT = [
-        { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"] },
-        { area: "Preventivo", members: ["Alexi Alexander Arroyo De Moya", "Leiner Andrés Montañez Rodríguez"] },
-        { area: "Refrigeración", members: ["Juan Carlos Estupiñán De la Cruz"] }
-      ];
-      const TN_ANCHOR = Date.UTC(2026, 6, 1); // ancla del ciclo: 1 de julio de 2026
-      const TN_CICLO = 6;
-      const TN_BLOQUE = 2;
-      const TN_PHASE_BLOCKS = {
-        dia: ["dia", "noche", "descanso"],
-        noche: ["noche", "descanso", "dia"],
-        descanso: ["descanso", "dia", "noche"]
-      };
+      // Los datos de los turnos viven en assets/js/turnos-data.js (window.TURNOS).
+      const TN_ROSTER = window.TURNOS.roster;
+      const TN_FIJOS = window.TURNOS.fijos;
+      const TN_SUPPORT = window.TURNOS.soporte;
+      const TN_ANCHOR = window.TURNOS.ancla;
+      const TN_CICLO = window.TURNOS.ciclo;
+      const TN_BLOQUE = window.TURNOS.bloque;
+      const TN_PHASE_BLOCKS = window.TURNOS.fases;
       const TN_INFO = {
         dia: { icon: "", label: "Día", cls: "tn--dia" },
         noche: { icon: "", label: "Noche", cls: "tn--noche" },
@@ -1625,15 +1592,10 @@ function dt(machine, campo) {
       window.INVENTARIO?.suscribir();  // existencias reales de almacén que sube el puente de MiPortal
 
       function setView(viewName) {
-        Object.entries(views).forEach(([name, element]) => { element.classList.toggle("is-active", name === viewName); });
-        navHome.classList.toggle("is-active", viewName === "home");
-        navSearch.classList.toggle("is-active", viewName === "results" || viewName === "detail");
-        if (navTasks) navTasks.classList.toggle("is-active", viewName === "tasks");
-        if (navPlan) navPlan.classList.toggle("is-active", viewName === "plan");
-        if (navInsp) navInsp.classList.toggle("is-active", viewName === "insp");
-        if (navTurnos) navTurnos.classList.toggle("is-active", viewName === "turnos");
-        // Vistas nuevas (Almacen, Diario): se registran solas con data-nav-view.
-        document.querySelectorAll("[data-nav-view]").forEach((b) => b.classList.toggle("is-active", b.dataset.navView === viewName));
+        Object.entries(views).forEach(([name, element]) => { if (element) element.classList.toggle("is-active", name === viewName); });
+        // El menú lateral, la miga de pan, el historial del navegador y la
+        // animación de entrada los lleva shell.js: aquí solo se cambia de vista.
+        if (window.SHELL) window.SHELL.alCambiarVista(viewName);
       }
 
       function goResults({ keepSelection = false } = {}) {
@@ -1647,8 +1609,10 @@ function dt(machine, campo) {
       function goHome() {
         setView("home");
         renderHome();
-        homeSearch.focus();
+        // En el celular no se enfoca: abriría el teclado encima de la portada.
+        if (window.matchMedia("(pointer: fine)").matches) homeSearch.focus({ preventScroll: true });
         saveUiState({ activeView: "home" });
+        window.scrollTo({ top: 0, behavior: "auto" });
       }
 
       function openDetail(machineId) {
@@ -1808,28 +1772,8 @@ function dt(machine, campo) {
 
       backToHome.addEventListener("click", goHome);
       backToResults.addEventListener("click", () => goResults({ keepSelection: true }));
-      navHome.addEventListener("click", goHome);
-      navSearch.addEventListener("click", () => goResults({ keepSelection: true }));
-      navTasks.addEventListener("click", () => goTasks());
-      if (navPlan) navPlan.addEventListener("click", () => goPlan());
-      if (navInsp) navInsp.addEventListener("click", () => goInsp());
-      if (navTurnos) navTurnos.addEventListener("click", () => goTurnos());
+      // Los botones del menú lateral los enlaza shell.js (data-go).
 
-      // Menú hamburguesa (celular): abrir/cerrar el menú desplegable
-      const navBurger = document.getElementById("navBurger");
-      const navBackdrop = document.getElementById("navBackdrop");
-      const sideNav = document.getElementById("sideNav");
-      function setMenu(open){
-        if (!sideNav || !navBurger || !navBackdrop) return;
-        sideNav.classList.toggle("is-open", open);
-        navBurger.classList.toggle("is-open", open);
-        navBurger.setAttribute("aria-expanded", open ? "true" : "false");
-        navBackdrop.hidden = !open;
-      }
-      navBurger && navBurger.addEventListener("click", () => setMenu(!sideNav.classList.contains("is-open")));
-      navBackdrop && navBackdrop.addEventListener("click", () => setMenu(false));
-      sideNav && sideNav.querySelectorAll(".side-nav__button").forEach(b => b.addEventListener("click", () => setMenu(false)));
-      document.addEventListener("keydown", e => { if (e.key === "Escape") setMenu(false); });
       modalOpeners.forEach((button) => button.addEventListener("click", openModal));
       modalClosers.forEach((button) => button.addEventListener("click", closeModal));
       equipmentForm.addEventListener("submit", handleSubmit);

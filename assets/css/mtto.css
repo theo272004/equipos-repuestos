@@ -662,7 +662,6 @@ textarea.mx-input { resize: vertical; line-height: 1.5; }
 /* ==========================================================================
    Barra inferior en el celular
    ========================================================================== */
-.mx-mbar { display: none; }
 
 /* ---------------- animaciones ---------------- */
 @keyframes mxFade { from { opacity: 0; } to { opacity: 1; } }
@@ -771,29 +770,10 @@ textarea.mx-input { resize: vertical; line-height: 1.5; }
   .ki-tabla--nov td { padding: 0; border: 0; }
   .ki-tabla--nov td.ki-nov__de { grid-column: 1 / -1; min-width: 0; }
 
-  /* barra inferior tipo píldora */
-  .nav-burger { display: none !important; }
-  .app-shell { padding-top: 16px !important; padding-bottom: 104px !important; }
-  .mx-mbar {
-    position: fixed; z-index: 50; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom));
-    display: flex; align-items: center; gap: 4px; height: 66px; padding: 6px;
-    border: 1px solid rgba(16, 24, 40, 0.08); border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(16px) saturate(1.4);
-    box-shadow: 0 16px 40px -12px rgba(16, 24, 40, 0.3);
-  }
-  .mx-mbar button {
-    flex: 1; display: grid; justify-items: center; align-content: center; gap: 3px; height: 100%;
-    border: 0; border-radius: 999px; background: transparent; color: var(--mx-mute);
-    font: inherit; font-size: 10.5px; font-weight: 600; cursor: pointer; transition: background 0.25s, color 0.25s;
-  }
-  .mx-mbar button .mx-ic { width: 20px; height: 20px; }
-  .mx-mbar button.is-on { background: var(--mx-ink); color: #fff; box-shadow: 0 6px 16px -6px rgba(11, 18, 32, 0.6); }
-  .mx-mbar__mas { flex: 0 0 54px !important; }
-  #sideNav { top: auto !important; bottom: 92px !important; left: 12px !important; right: 12px !important; transform-origin: bottom center !important; max-height: 70vh; overflow-y: auto; }
+  /* La barra inferior del celular y el menú ahora los lleva app.css (.mb y .sb) */
 }
 
 @media (max-width: 380px) {
   .mx-dia span { font-size: 0.64rem; }
   .mx-dia i { display: none; }
-  .mx-mbar button { font-size: 9.5px; }
 }

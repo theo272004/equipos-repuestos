@@ -894,6 +894,13 @@
       const r = registros().find((x) => x.id === op.abrir);
       if (r) { vista.fecha = r.f; vista.tab = "novedades"; vista.editando = { ...r }; }
     }
+    // Desde el botón "Nuevo", Pendientes o la ficha de un equipo: abre el
+    // formulario de novedad ya con lo que se sepa (sede, equipo, descripción).
+    if (op && op.nueva) {
+      vista.fecha = op.fecha || vista.fecha || hoy();
+      vista.tab = "novedades";
+      vista.editando = { s: op.s || vista.sede || "Sede 4", ...(op.eq ? { eq: op.eq } : {}), ...(op.de ? { de: op.de } : {}), ...(op.t ? { t: op.t } : {}) };
+    }
     views.registro = views.registro || document.getElementById("registroView");
     setView("registro");
     render();

@@ -1,129 +1,169 @@
-// Envía recordatorios de mantenimiento a un grupo de Telegram.
-// Lo ejecuta GitHub Actions cada ~15 min (ver .github/workflows/recordatorios.yml).
-// Lee las tareas de Firestore (reglas abiertas + API key pública), mira cuáles
-// "ya tocan" (remindNextAt <= ahora) y manda el aviso; luego reprograma el siguiente.
+// Lo que el bot manda solo al grupo de Telegram. Lo ejecuta GitHub Actions
+// cada ~5 min (ver .github/workflows/recordatorios.yml):
 //
-// Secrets necesarios en GitHub (Settings -> Secrets and variables -> Actions):
-//   TELEGRAM_BOT_TOKEN  -> token del bot (@BotFather)
-//   TELEGRAM_CHAT_ID    -> id del grupo (número negativo, ej. -1001234567890)
+//   1. Recordatorios de tareas que "ya tocan" (remindNextAt <= ahora), con
+//      botones para darlas por hechas o posponerlas.
+//   2. Parte de la mañana (8:40) y de la noche (20:40): el turno que termina,
+//      equipos parados, pendientes, almacén, presupuesto y quién entra.
+//   3. Aviso si todavía falta el reporte del turno que terminó (9:30 y 21:30).
+//   4. Resumen de la semana, los lunes a las 7:30.
+//   5. Anuncio de cada reporte llenado en el formulario de turno.
+//
+// Lo ya enviado se anota en Firestore (colección "bot", documento "estado")
+// para no repetirlo. Si esas reglas aún no están publicadas, se manda solo
+// en la primera pasada tras la hora (ventana de 5 minutos).
+//
+// Secrets en GitHub (Settings → Secrets and variables → Actions):
+//   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+//   FIREBASE_EMAIL, FIREBASE_PASSWORD  (solo si se activa la "clave del taller")
 
-const TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT = process.env.TELEGRAM_CHAT_ID;
-const PROJECT = process.env.FIREBASE_PROJECT_ID || "mantenimiento-f405b";
-const APIKEY = process.env.FIREBASE_API_KEY || "";
-const BASE = `https://firestore.googleapis.com/v1/projects/${PROJECT}/databases/(default)/documents`;
+import { crearCliente } from "./lib/firestore-rest.mjs";
+import { tg, enviar, configurado } from "./lib/telegram.mjs";
+import { cargarDatosApp, leerNube, panorama, hoyCO, horaCO, enTurno, esc } from "./lib/datos-app.mjs";
+import { msgParte, msgFaltaReporte, msgSemana, msgNuevoReporte, botonesApp } from "./lib/mensajes.mjs";
 
-// ---- helpers de tipos Firestore REST ----
-const str = (v) => (v ? (v.stringValue ?? v.timestampValue ?? "") : "");
-const num = (v) => (v ? Number(v.integerValue ?? v.doubleValue ?? 0) : 0);
-const esc = (s) => String(s == null ? "" : s).replace(/[&<>]/g, (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[m]));
+const PROYECTO = process.env.FIREBASE_PROJECT_ID || "mantenimiento-f405b";
+const db = crearCliente({ proyecto: PROYECTO, apiKey: process.env.FIREBASE_API_KEY || "", email: process.env.FIREBASE_EMAIL, password: process.env.FIREBASE_PASSWORD });
 
-function advance(freq, from, everyN) {
-  const d = new Date(from);
-  const step = () => {
+// Horarios (hora de Colombia). Cada uno se manda una vez, entre "desde" y "hasta".
+// El turno de noche termina a las 8:00 y su reporte llega hacia las 8:30; el
+// de día termina a las 20:00. El parte sale cuando ya debería estar el reporte.
+const AGENDA = [
+  { clave: "parte-am", desde: "08:40", hasta: "11:00", que: "parte", cual: "am" },
+  { clave: "reporte-noche", desde: "09:30", hasta: "12:00", que: "falta-reporte" },
+  { clave: "parte-pm", desde: "20:40", hasta: "23:00", que: "parte", cual: "pm" },
+  { clave: "reporte-dia", desde: "21:30", hasta: "23:59", que: "falta-reporte" },
+  { clave: "semana", desde: "07:30", hasta: "11:00", que: "semana", diaSemana: 1 },
+];
+// Sin memoria en la nube: solo en la primera pasada después de la hora
+const VENTANA_SIN_MEMORIA_MIN = 5;
+
+const str = (v) => (v == null ? "" : String(v));
+const APP = process.env.APP_URL || "https://theo272004.github.io/equipos-repuestos/";
+const esc2 = (s) => esc(s);
+
+// ------------------------------------------------ 1. recordatorios de tareas
+function avanzar(freq, desde, cadaN) {
+  const d = new Date(desde);
+  const paso = () => {
     if (freq === "daily") d.setDate(d.getDate() + 1);
     else if (freq === "weekly") d.setDate(d.getDate() + 7);
     else if (freq === "monthly") d.setMonth(d.getMonth() + 1);
-    else if (freq === "everyN") d.setMonth(d.getMonth() + (everyN || 1));
+    else if (freq === "everyN") d.setMonth(d.getMonth() + (cadaN || 1));
     else return false;
     return true;
   };
-  if (!step()) return null; // "once" u otro: no hay siguiente
-  const now = new Date();
-  let guard = 0;
-  while (d <= now && guard++ < 1000) step();
+  if (!paso()) return null;
+  const ahora = new Date();
+  let g = 0;
+  while (d <= ahora && g++ < 1000) paso();
   return d;
 }
 
-function buildMsg(f) {
-  const prIcon = { Alta: "🔴", Media: "🟡", Baja: "⚪" }[str(f.priority)] || "🟡";
-  const lines = [];
-  lines.push("🔔 <b>Recordatorio de mantenimiento</b>");
-  lines.push("");
-  lines.push(`${prIcon} <b>${esc(str(f.title) || "(sin título)")}</b>`);
-  const machine = str(f.machineName);
-  if (machine && machine !== "General / Otra") lines.push(`🛠 Máquina: ${esc(machine)}`);
-  if (str(f.priority)) lines.push(`Prioridad: ${esc(str(f.priority))}`);
+function msgTarea(f) {
+  const ico = { Alta: "🔴", Media: "🟡", Baja: "⚪" }[str(f.priority)] || "🟡";
+  const l = ["🔔 <b>Recordatorio de mantenimiento</b>", "", `${ico} <b>${esc2(str(f.title) || "(sin título)")}</b>`];
+  const maq = str(f.machineName);
+  if (maq && maq !== "General / Otra") l.push(`🛠 Máquina: ${esc2(maq)}`);
+  if (str(f.priority)) l.push(`Prioridad: ${esc2(str(f.priority))}`);
   const st = { pendiente: "Pendiente", "en-progreso": "En progreso", hecha: "Hecha" }[str(f.status)] || str(f.status);
-  if (st) lines.push(`Estado: ${esc(st)}`);
-  if (str(f.remindTime)) lines.push(`🕐 Programado: ${esc(str(f.remindTime))} (Colombia)`);
-  if (str(f.desc)) lines.push("", esc(str(f.desc)));
-  return lines.join("\n");
+  if (st) l.push(`Estado: ${esc2(st)}`);
+  if (str(f.remindTime)) l.push(`🕐 Programado: ${esc2(str(f.remindTime))} (Colombia)`);
+  if (str(f.desc)) l.push("", esc2(str(f.desc)));
+  return l.join("\n");
 }
+const tecladoTarea = (id) => ({
+  inline_keyboard: [
+    [{ text: "✅ Hecho", callback_data: `d:${id}` }],
+    [{ text: "Posponer 1 día", callback_data: `p1:${id}` }, { text: "Posponer 1 semana", callback_data: `p7:${id}` }],
+    [{ text: "Quitar aviso", callback_data: `m:${id}` }],
+  ],
+});
 
-// Botones del aviso. Los atiende scripts/bot-updates.mjs en la siguiente pasada
-// del cron. "data" viaja de vuelta tal cual, así que lleva la acción y el id.
-function teclado(id) {
-  return {
-    inline_keyboard: [
-      [{ text: "Hecho", callback_data: `d:${id}` }],
-      [{ text: "Posponer 1 día", callback_data: `p1:${id}` }, { text: "Posponer 1 semana", callback_data: `p7:${id}` }],
-      [{ text: "Quitar aviso", callback_data: `m:${id}` }],
-    ],
-  };
-}
-
-async function sendTelegram(text, id) {
-  const r = await fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: CHAT, text, parse_mode: "HTML", disable_web_page_preview: true, reply_markup: id ? teclado(id) : undefined }),
-  });
-  const j = await r.json();
-  if (!j.ok) console.error("Telegram error:", JSON.stringify(j));
-  return j.ok;
-}
-
-async function patchTask(id, freq, nextDate) {
-  // "once" ya disparó -> se apaga (freq vacío). Recurrente -> nuevo remindNextAt.
-  const fields = {};
-  const mask = [];
-  if (nextDate) {
-    fields.remindNextAt = { stringValue: nextDate.toISOString() };
-    mask.push("remindNextAt");
-  } else {
-    fields.remindFreq = { stringValue: "" };
-    fields.remindNextAt = { stringValue: "" };
-    mask.push("remindFreq", "remindNextAt");
+async function recordatorios(tareas) {
+  const ahora = new Date();
+  let enviados = 0;
+  for (const f of tareas) {
+    const freq = str(f.remindFreq);
+    const prox = str(f.remindNextAt);
+    if (!freq || !prox || str(f.status) === "hecha") continue;
+    const cuando = new Date(prox);
+    if (isNaN(cuando) || cuando > ahora) continue;
+    const id = f._doc || f.id;
+    const r = await tg("sendMessage", { chat_id: process.env.TELEGRAM_CHAT_ID, text: msgTarea(f), parse_mode: "HTML", disable_web_page_preview: true, reply_markup: tecladoTarea(id) });
+    if (!r.ok) continue;
+    enviados++;
+    const sig = avanzar(freq, cuando, Number(f.remindEveryN) || 1);
+    await db.actualizar("tareas", id, sig ? { remindNextAt: sig.toISOString() } : { remindFreq: "", remindNextAt: "" });
   }
-  const qs = mask.map((m) => `updateMask.fieldPaths=${m}`).join("&");
-  const r = await fetch(`${BASE}/tareas/${id}?key=${APIKEY}&${qs}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ fields }),
-  });
-  if (!r.ok) console.error("Firestore PATCH error:", r.status, await r.text());
+  return enviados;
+}
+
+// ------------------------------------------------------- 2–4. la agenda
+function tocaAhora(a, memoria, hoy, hm) {
+  const dow = new Date(hoy + "T12:00:00Z").getUTCDay();
+  if (a.diaSemana !== undefined && dow !== a.diaSemana) return false;
+  if (hm < a.desde || hm > a.hasta) return false;
+  const clave = `${a.clave}-${hoy}`;
+  if (memoria) return !memoria[clave];
+  // Sin memoria: solo en los primeros minutos de la ventana
+  const [h, m] = a.desde.split(":").map(Number);
+  const [h2, m2] = hm.split(":").map(Number);
+  return (h2 * 60 + m2) - (h * 60 + m) < VENTANA_SIN_MEMORIA_MIN;
 }
 
 async function main() {
-  if (!TOKEN || !CHAT) {
-    console.log("Aún no hay TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID configurados. Nada que enviar.");
-    return; // salir sin error para no ensuciar el historial de Actions
+  if (!configurado()) { console.log("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID: nada que enviar."); return; }
+  // Cada pasada lee lo mínimo (corre 288 veces al día y cada documento leído
+  // cuenta en la cuota de Firebase): las tareas y el estado del bot. Todo lo
+  // demás solo cuando toca un parte o un aviso.
+  const tareas = await db.listar("tareas");
+  const tareasEnviadas = await recordatorios(tareas);
+
+  const hoy = hoyCO();
+  const hm = horaCO();
+  const est = await db.obtener("bot", "estado");
+  const memoria = est === undefined ? null : ((est && est.enviados) || {});
+  const nuevos = {};
+  const pendientesAgenda = AGENDA.filter((a) => tocaAhora(a, memoria, hoy, hm));
+  let pan = null;
+  let W = null;
+  if (pendientesAgenda.length) {
+    W = cargarDatosApp();
+    const nube = await leerNube(db);
+    pan = panorama(W, nube);
   }
-  const res = await fetch(`${BASE}/tareas?pageSize=300&key=${APIKEY}`);
-  if (!res.ok) { console.error("Firestore GET error:", res.status, await res.text()); process.exit(1); }
-  const data = await res.json();
-  const docs = data.documents || [];
-  const now = new Date();
-  let sent = 0;
 
-  for (const doc of docs) {
-    const f = doc.fields || {};
-    const freq = str(f.remindFreq);
-    const nextAtStr = str(f.remindNextAt);
-    if (!freq || !nextAtStr) continue;
-    const nextAt = new Date(nextAtStr);
-    if (isNaN(nextAt) || nextAt > now) continue; // aún no toca
-    if (str(f.status) === "hecha") continue; // no molestar con tareas ya hechas
-
-    const id = doc.name.split("/").pop();
-    const ok = await sendTelegram(buildMsg(f), id);
-    if (ok) {
-      sent++;
-      await patchTask(id, freq, advance(freq, nextAt, num(f.remindEveryN)));
+  for (const a of pendientesAgenda) {
+    let ok = false;
+    if (a.que === "parte") ok = await enviar(msgParte(pan, a.cual), botonesApp());
+    else if (a.que === "semana") ok = await enviar(msgSemana(pan), botonesApp());
+    else if (a.que === "falta-reporte") {
+      ok = true;
+      for (const [sede, r] of Object.entries(pan.reportes)) {
+        if (r.ok) continue;
+        const gente = ((enTurno(W, pan.ant.fecha, pan.ant.clave)[sede === "Sede 4" ? "sede4" : "sede2"]) || {}).gente || [];
+        await enviar(msgFaltaReporte(sede, pan.ant, gente), { inline_keyboard: [[{ text: "📝 Llenar el reporte ahora", url: `${APP}reporte.html?sede=${encodeURIComponent(sede)}&fecha=${pan.ant.fecha}&turno=${encodeURIComponent(pan.ant.turno)}` }]] });
+      }
     }
+    if (ok) nuevos[`${a.clave}-${hoy}`] = new Date().toISOString();
   }
-  console.log(`Listo. Recordatorios revisados: ${docs.length}. Enviados: ${sent}.`);
+
+  // Reportes nuevos del formulario: solo los que aún no se anunciaron
+  let anunciados = 0;
+  for (const r of await db.consultar("reportes_turno", "anunciado", false, 20)) {
+    if (r.borrado || Date.now() - Date.parse(r.createdAt || 0) > 2 * 864e5) { await db.actualizar("reportes_turno", r._doc, { anunciado: true }); continue; }
+    const ok = await enviar(msgNuevoReporte(r), { inline_keyboard: [[{ text: "Ver en el Registro diario", url: `${APP}?v=registro&fecha=${r.fecha}` }]] });
+    if (ok) { anunciados++; await db.actualizar("reportes_turno", r._doc, { anunciado: true }); }
+  }
+
+  if (memoria && Object.keys(nuevos).length) {
+    const todo = { ...memoria, ...nuevos };
+    const claves = Object.keys(todo).sort().slice(-80);
+    await db.guardar("bot", "estado", { id: "estado", enviados: Object.fromEntries(claves.map((k) => [k, todo[k]])), actualizado: new Date().toISOString() });
+  }
+  console.log(`Listo ${hoy} ${hm}. Tareas avisadas: ${tareasEnviadas}. Agenda: ${Object.keys(nuevos).join(", ") || "nada"}. Reportes anunciados: ${anunciados}. Memoria: ${memoria ? "nube" : "ventana"}.`);
+  console.log("Colecciones:", JSON.stringify(db.estado));
 }
 
 main().catch((e) => { console.error(e); process.exit(1); });
