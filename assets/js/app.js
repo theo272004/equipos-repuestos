@@ -494,7 +494,7 @@ ${buildMachineContext(machine)}`;
 
       // El botón del menú abre y cierra. Antes solo abría, así que volver a
       // pulsarlo no escondía el panel.
-      document.getElementById("navAssistant").addEventListener("click", () => {
+      document.getElementById("navAssistant")?.addEventListener("click", () => {
         if (assistantPanel.classList.contains("is-open")) closeAssistant();
         else openAssistant();
       });
@@ -525,38 +525,25 @@ ${buildMachineContext(machine)}`;
       homeSearch.value = currentQuery;
       resultsSearch.value = currentQuery;
 
-      // Enlace directo a una pestaña: index.html?v=plan | tareas | turnos.
-      // Lo usan tareas.html y turnos.html, que ahora solo redirigen aquí.
-      const vistaPedida = new URLSearchParams(window.location.search).get("v");
-      const abrirVista = { plan: goPlan, tareas: goTasks, tasks: goTasks, turnos: goTurnos, inspecciones: goInsp, insp: goInsp, reportes: () => (window.goReportes ? window.goReportes() : null), registro: () => (window.goRegistro ? window.goRegistro({ fecha: new URLSearchParams(window.location.search).get("fecha") || "" }) : null), indicadores: () => (window.goIndicadores ? window.goIndicadores() : null) };
+      // Enlace directo a una vista: index.html?v=hoy | pendientes | registro | plan…
+      // Lo usan tareas.html, turnos.html, el formulario de turno y los enlaces
+      // que manda el bot de Telegram. shell.js sabe abrir cada vista por su nombre.
+      const pedido = new URLSearchParams(window.location.search);
+      const vistaPedida = pedido.get("v");
+      const ultima = restoredState.activeView;
 
-      if (vistaPedida && abrirVista[vistaPedida]) {
-        abrirVista[vistaPedida]();
-      } else if (restoredState.activeView === "plan") {
-        goPlan();
-      } else if (restoredState.activeView === "tasks") {
-        goTasks();
-      } else if (restoredState.activeView === "insp") {
-        goInsp();
-      } else if (restoredState.activeView === "turnos") {
-        goTurnos();
-      } else if (restoredState.activeView === "almacen" && window.goAlmacen) {
-        window.goAlmacen();
-      } else if (restoredState.activeView === "diario" && window.goDiario) {
-        window.goDiario();
-      } else if (restoredState.activeView === "reportes" && window.goReportes) {
-        window.goReportes();
-      } else if (restoredState.activeView === "registro" && window.goRegistro) {
-        window.goRegistro();
-      } else if (restoredState.activeView === "indicadores" && window.goIndicadores) {
-        window.goIndicadores();
-      } else if (restoredState.activeView === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
+      if (vistaPedida && window.SHELL && window.SHELL.puedeAbrir(vistaPedida, pedido)) {
+        window.SHELL.abrirDesdeUrl(pedido);
+      } else if (ultima === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);
-      } else if (restoredState.activeView === "results" || currentQuery) {
+      } else if (ultima === "results" && currentQuery) {
         goResults({ keepSelection: true });
+      } else if (ultima && window.SHELL && window.SHELL.puedeAbrir(ultima)) {
+        window.SHELL.ir(ultima, { reemplazar: true });
+      } else if (window.SHELL) {
+        // Sin estado previo se abre el Inicio: así va el día en planta.
+        window.SHELL.ir("hoy", { reemplazar: true });
       } else {
-        // Sin estado previo se abre la portada: el buscador con el panel de estado
-        // del registro debajo. Antes saltaba directo a un equipo y ese panel no se veía.
         goHome();
       }
 
@@ -602,116 +589,86 @@ ${buildMachineContext(machine)}`;
         ];
       }
 
-      function homeKpi(n, label, hint, clase, accion) {
-        return `<button class="hd-kpi ${clase || ""}" type="button" onclick="${accion || "goResults()"}" title="${planEsc(hint)}">
-          <span class="hd-kpi__n">${n}</span>
-          <span class="hd-kpi__l">${label}</span>
-          <span class="hd-kpi__h">${planEsc(hint)}</span>
+      function homeKpi(n, label, hint, clase, accion, ico) {
+        return `<button class="ux-kpi ${clase || ""}" type="button" onclick="${accion || "goResults()"}" title="${planEsc(hint)}">
+          <span class="ux-kpi__top"><span class="ux-kpi__label"><span class="ux-kpi__ico">${window.IC ? IC(ico || "equipos") : ""}</span>${label}</span><span class="ux-kpi__go">${window.IC ? IC("flecha", "ic--sm") : ""}</span></span>
+          <span class="ux-kpi__n" data-n="${n}">${Number(n).toLocaleString("es-CO")}</span>
+          <span class="ux-kpi__foot">${planEsc(hint)}</span>
         </button>`;
       }
 
+      // Portada de Fichas de equipos: cuánto está documentado, qué equipos ya
+      // tienen ficha completa y cuáles conviene documentar primero. El trabajo
+      // abierto del día (tareas, inspecciones) vive ahora en el Inicio.
       function renderHome() {
         const root = document.getElementById("homeDash");
         if (!root) return;
         const s = homeResumen();
         const basicas = s.total - s.completas.length;
+        const ic = (n, c) => (window.IC ? IC(n, c) : "");
 
-        // Equipos que ya tienen repuestos en el plan pero todavía no tienen ficha:
-        // son los que más se gana documentando, así que van primero.
         const porDocumentar = s.conPlan
           .filter((e) => !machines.some((m) => m.id === e.id && !m.fromRegistry))
           .sort((a, b) => b.r.length - a.r.length)
           .slice(0, 8);
+        const maxRep = Math.max(1, ...porDocumentar.map((e) => e.r.length));
 
-        const proximas = [...tasks]
-          .filter((t) => (t.status || "pendiente") !== "hecha")
-          .sort((a, b) => String(a.remindNextAt || "9999").localeCompare(String(b.remindNextAt || "9999")))
-          .slice(0, 4);
-
-        const ultimasInsp = [...inspecciones]
-          .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)))
-          .slice(0, 4);
+        const mini = (n, label, accion, tono) => `<button class="eq-stat" type="button" onclick="${accion}"><b class="${tono || ""}">${Number(n).toLocaleString("es-CO")}</b><span>${label}</span></button>`;
 
         root.innerHTML = `
-          <section class="hd">
-            <div class="hd-head">
-              <div>
-                <p class="eyebrow">Estado del registro</p>
-                <h2>Cómo va la documentación de la planta</h2>
-              </div>
-              <span class="counter">${s.total} equipos · ${s.lineas} repuestos en el plan</span>
+          <div class="ux-page ux-seq">
+            <div class="ux-grid ux-grid--4 ux-grid--kpi">
+              ${homeKpi(s.total, "Equipos en el registro", "Sede 4 y Planta 2 según los listados oficiales", "", "goResults()", "equipos")}
+              ${homeKpi(s.completas.length, "Con ficha completa", "Manual leído, sistemas, repuestos, mantenimiento y fallas", "ux-kpi--ok", "goResults()", "check")}
+              ${homeKpi(s.conPlan.length, "Con plan de repuestos", `${s.lineas.toLocaleString("es-CO")} líneas en el Excel de mantenimiento`, "ux-kpi--acc", "goPlan()", "plan")}
+              ${homeKpi(s.sinStock, "Repuestos sin existencia", "Sin unidades en almacén según el plan o lo corregido a mano", "ux-kpi--bad", "planSetFilter('sinStock', true); goPlan();", "repuesto")}
             </div>
 
-            <div class="hd-kpis">
-              ${homeKpi(s.total, "Equipos en el registro", "Sede 4 y Planta 2, según los listados oficiales DMM-179", "", "goResults()")}
-              ${homeKpi(s.completas.length, "Con ficha completa", "Tienen manual leído, sistemas, repuestos, mantenimiento y fallas", "hd-kpi--ok", "goResults()")}
-              ${homeKpi(basicas, "Solo ficha básica", "Están en el registro pero todavía sin manual ni guía cargada", "hd-kpi--warn", "goResults()")}
-              ${homeKpi(s.conManual.length, "Con manual descargable", "Tienen al menos un PDF cargado en la ficha", "", "goResults()")}
-              ${homeKpi(s.conPlan.length, "Con plan de repuestos", "Equipos con líneas en el Excel de mantenimiento por sistemas", "", "setView('plan'); renderPlan();")}
-              ${homeKpi(s.sinCodigo, "Repuestos sin código interno", "Líneas del plan a las que todavía les falta el código de almacén", "hd-kpi--warn", "setView('plan'); renderPlan();")}
-              ${homeKpi(s.sinStock, "Repuestos sin existencia", "Sin unidades en almacén según el plan o lo corregido a mano", "hd-kpi--stock", "planSetFilter('sinStock', true); setView('plan');")}
-              ${homeKpi(s.retrasados, "Retrasados en el plan", "El Excel los marca RETRASADO: la fecha prevista ya pasó", "hd-kpi--stock", "setView('plan'); renderPlan();")}
+            <div class="eq-stats">
+              ${mini(basicas, "solo con ficha básica", "goResults()", "")}
+              ${mini(s.conManual.length, "con manual descargable", "goResults()", "")}
+              ${mini(s.sinCodigo, "repuestos sin código interno", "goPlan()", "is-warn")}
+              ${mini(s.retrasados, "retrasados según el Excel", "goPlan()", "is-bad")}
+              ${mini(s.cambiosReg, "cambios de repuesto registrados", "goPlan()", "")}
             </div>
 
-            <div class="hd-cols">
-              <article class="hd-card">
-                <h3>Trabajo abierto</h3>
-                <div class="hd-mini">
-                  <button type="button" onclick="setView('tasks'); renderTasks();"><strong>${s.tareasAbiertas}</strong><span>tareas sin cerrar</span></button>
-                  <button type="button" onclick="setView('insp'); renderInspecciones();"><strong>${s.inspAbiertas}</strong><span>inspecciones abiertas</span></button>
-                  <button type="button" onclick="setView('insp'); renderInspecciones();"><strong>${s.piezasMarcadas}</strong><span>piezas marcadas para cambiar</span></button>
-                  <button type="button" onclick="setView('plan'); renderPlan();"><strong>${s.cambiosReg}</strong><span>cambios registrados</span></button>
+            <div class="ux-grid ux-grid--main">
+              <section class="ux-card">
+                <div class="ux-card__head">
+                  <div><h2 class="ux-card__title">Equipos con ficha completa <small>${s.completas.length} de ${s.total}</small></h2>
+                  <p class="ux-card__sub">Tienen el manual leído y la guía cargada: sistemas, repuestos, fallas y mantenimiento.</p></div>
                 </div>
-                ${proximas.length ? `<p class="hd-sub">Próximas tareas</p>
-                <ul class="hd-list">
-                  ${proximas.map((t) => `<li><button type="button" onclick="setView('tasks'); renderTasks();">
-                    <span class="hd-list__t">${planEsc(t.title)}</span>
-                    <span class="hd-list__s">${planEsc(taskMachineName(t.machine))}${t.remindNextAt ? " · aviso " + planEsc(String(t.remindNextAt).slice(0, 10)) : ""}</span>
-                  </button></li>`).join("")}
-                </ul>` : '<p class="pl-soft">No hay tareas pendientes anotadas.</p>'}
-                ${ultimasInsp.length ? `<p class="hd-sub">Últimas inspecciones</p>
-                <ul class="hd-list">
-                  ${ultimasInsp.map((i) => `<li><button type="button" onclick="setView('insp'); renderInspecciones();">
-                    <span class="hd-list__t">${planEsc(inspNombreEquipo(i.eq))}</span>
-                    <span class="hd-list__s">${planEsc(i.fecha)} · ${planEsc(INSP_TIPOS[i.tipo] || i.tipo || "Inspección")}${(i.piezas || []).length ? " · " + i.piezas.length + " pieza(s)" : ""}</span>
-                  </button></li>`).join("")}
-                </ul>` : ""}
-              </article>
+                <div class="eq-grid">
+                  ${s.completas.map((m) => {
+                    const tiene = homeFichaTiene(m);
+                    const hechos = tiene.filter((t) => t.ok).length;
+                    return `<button class="eq-card" type="button" onclick="openDetail('${planEsc(m.id)}')">
+                      <span class="eq-card__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ic("equipos", "ic--lg")}</span>
+                      <span class="eq-card__body">
+                        <span class="eq-card__n">${planEsc(m.model || m.name)}</span>
+                        <span class="eq-card__s">${planEsc(m.name)}</span>
+                        <span class="eq-card__tags">${tiene.map((t) => `<i class="${t.ok ? "is-ok" : ""}" title="${t.k}${t.ok ? "" : ": falta"}">${t.k}</i>`).join("")}</span>
+                        <span class="ux-progress"><i style="width:${Math.round((hechos / tiene.length) * 100)}%"></i></span>
+                      </span>
+                    </button>`;
+                  }).join("")}
+                </div>
+              </section>
 
-              <article class="hd-card">
-                <h3>Qué falta por documentar</h3>
-                <p class="hd-note">Equipos que ya piden repuestos en el plan pero todavía no tienen manual ni guía cargada. Son los que más se gana documentando.</p>
-                ${porDocumentar.length ? `<ul class="hd-list">
-                  ${porDocumentar.map((e) => `<li><button type="button" onclick="openDetail('${planEsc(e.id)}')">
-                    <span class="hd-list__t">${planEsc(e.n)}</span>
-                    <span class="hd-list__s">Código ${planEsc(e.c)} · ${e.r.length} repuesto${e.r.length === 1 ? "" : "s"} en el plan${e.u ? " · " + planEsc(e.u) : ""}</span>
-                  </button></li>`).join("")}
-                </ul>` : '<p class="pl-soft">Todos los equipos con plan ya tienen ficha.</p>'}
-              </article>
+              <section class="ux-card">
+                <div class="ux-card__head">
+                  <div><h2 class="ux-card__title">Qué documentar primero</h2>
+                  <p class="ux-card__sub">Ya piden repuestos en el plan pero no tienen manual ni guía. Ordenados por cuántos repuestos mueven.</p></div>
+                </div>
+                ${porDocumentar.length ? `<div class="ux-hbars">
+                  ${porDocumentar.map((e) => `<button class="ux-hbar" type="button" onclick="openDetail('${planEsc(e.id)}')" title="Código ${planEsc(e.c)}${e.u ? " · " + planEsc(e.u) : ""}">
+                    <span class="ux-hbar__t">${planEsc(e.n)}</span>
+                    <span class="ux-hbar__v">${e.r.length} <small>repuestos</small></span>
+                    <span class="ux-progress"><i style="width:${Math.max(4, Math.round((e.r.length / maxRep) * 100))}%"></i></span>
+                  </button>`).join("")}
+                </div>` : '<div class="ux-empty"><h4>Todo documentado</h4><p>Todos los equipos con plan ya tienen ficha.</p></div>'}
+              </section>
             </div>
-
-            <div class="hd-head hd-head--tight">
-              <div>
-                <p class="eyebrow">Fichas completas</p>
-                <h3>Equipos con manual leído</h3>
-              </div>
-              <span class="counter">${s.completas.length} de ${s.total}</span>
-            </div>
-            <div class="hd-grid">
-              ${s.completas.map((m) => {
-                const tiene = homeFichaTiene(m);
-                const hechos = tiene.filter((t) => t.ok).length;
-                return `<button class="hd-eq" type="button" onclick="openDetail('${planEsc(m.id)}')">
-                  <span class="hd-eq__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ""}</span>
-                  <span class="hd-eq__body">
-                    <span class="hd-eq__n">${planEsc(m.model || m.name)}</span>
-                    <span class="hd-eq__s">${planEsc(m.name)}</span>
-                    <span class="hd-eq__s hd-eq__s--soft">${planEsc(m.area)}</span>
-                    <span class="hd-eq__tags">${tiene.map((t) => `<span class="hd-tag ${t.ok ? "is-ok" : ""}">${t.k}</span>`).join("")}</span>
-                    <span class="hd-eq__bar"><i style="width:${Math.round((hechos / tiene.length) * 100)}%"></i></span>
-                  </span>
-                </button>`;
-              }).join("")}
-            </div>
-          </section>`;
+          </div>`;
+        if (window.SHELL) SHELL.animarNumeros(root);
       }

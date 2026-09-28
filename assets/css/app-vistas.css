@@ -1,0 +1,393 @@
+/* ==========================================================================
+   VISTAS ANTIGUAS CON LA BASE NUEVA
+   --------------------------------------------------------------------------
+   Tareas, Plan, Inspecciones, Turnos, Almacén, Diario, Reportes, Fichas de
+   equipos y el Registro diario / Cuadro de mando se escribieron con sus
+   propias clases. Aquí se les pone el mismo lenguaje que las vistas nuevas
+   (app.css) sin tocar su lógica: tipografía, tarjetas, botones, tablas,
+   campos, hojas laterales y colores de estado.
+   Todo va con body.app delante para ganar a styles.css sin !important.
+   ========================================================================== */
+
+/* ------------------------------------------------ cabeceras de sección -- */
+body.app .section-bar { align-items: flex-end; gap: 16px 24px; flex-wrap: wrap; margin-bottom: 20px; }
+body.app .eyebrow { margin: 0 0 6px; color: var(--mute); font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .section-bar h2, body.app .rp-view h2, body.app .alm-view h2, body.app .dy-view h2 { margin: 0; font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem); font-weight: 650; line-height: 1.15; letter-spacing: -0.025em; }
+body.app .section-actions { flex-wrap: wrap; gap: 8px; }
+body.app h3 { letter-spacing: -0.01em; }
+body.app .counter { min-height: 32px; padding: 0 12px; border-color: var(--line); background: var(--panel); color: var(--ink-2); font-size: 12.5px; font-weight: 600; }
+
+/* ------------------------------------------------------------- botones -- */
+body.app .button {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--sh-1);
+  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s, transform 0.18s var(--ease);
+}
+body.app .button:hover { transform: none; }
+body.app .button:active { transform: translateY(1px); }
+body.app .button--dark, body.app .button--blue { border-color: var(--ink); background: var(--ink); color: #fff; box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 1px 2px rgba(14, 17, 23, 0.3); }
+body.app .button--dark:hover, body.app .button--blue:hover { border-color: #262b35; background: #262b35; }
+body.app .button--light { background: var(--panel); color: var(--ink); }
+body.app .button--light:hover { border-color: var(--line-2); background: var(--panel-2); }
+body.app .button[disabled] { opacity: 0.45; cursor: not-allowed; }
+body.app .pl-reg { min-height: 30px; padding: 0 11px; border: 1px solid var(--line); border-radius: 9px; background: var(--panel); color: var(--ink-2); font-size: 12.5px; font-weight: 600; }
+body.app .pl-reg:hover { border-color: var(--line-2); background: var(--panel-2); color: var(--ink); }
+body.app .pl-reg.is-on { border-color: var(--ok-l); background: var(--ok-t); color: var(--ok-d); }
+body.app .icon-button { border-radius: 10px; }
+
+/* --------------------------------------------------------------- KPI -- */
+body.app .pl-kpis { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+body.app .pl-kpi {
+  display: grid;
+  align-content: space-between;
+  gap: 10px;
+  min-height: 96px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  box-shadow: var(--sh-1);
+}
+body.app .pl-kpi__n { order: 2; font-size: 28px; font-weight: 550; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+body.app .pl-kpi__l { order: 1; margin: 0; color: var(--ink-2); font-size: 13px; font-weight: 550; letter-spacing: 0; text-transform: none; }
+body.app .pl-kpi--warn .pl-kpi__n { color: var(--warn-d); }
+body.app .pl-kpi--ok .pl-kpi__n, body.app .pl-kpi--stock .pl-kpi__n { color: var(--ink); }
+body.app .pl-kpi--stock { box-shadow: inset 0 3px 0 var(--bad), var(--sh-1); }
+body.app .pl-kpi--warn { box-shadow: inset 0 3px 0 var(--warn), var(--sh-1); }
+body.app .pl-kpi--ok { box-shadow: inset 0 3px 0 var(--ok), var(--sh-1); }
+
+/* ------------------------------------------------ filtros y buscadores -- */
+body.app .pl-filters { gap: 8px; margin-bottom: 16px; }
+body.app .pl-filters input[type="search"], body.app .pl-filters select, body.app .rp-filtro select, body.app .rp-filtro input, body.app .tk-filters select {
+  height: 42px;
+  border: 1px solid var(--line-2);
+  border-radius: 11px;
+  background-color: var(--panel);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+body.app .pl-filters input[type="search"] { padding: 0 14px 0 40px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236a7282' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m21 21-4.3-4.3'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 14px center; }
+body.app .pl-filters input:focus, body.app .pl-filters select:focus, body.app .rp-filtro select:focus, body.app .rp-filtro input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(44, 91, 255, 0.12); }
+body.app .pl-chk { height: 42px; border-color: var(--line-2); border-radius: 11px; color: var(--ink-2); font-weight: 550; }
+body.app .rp-filtro { color: var(--ink-2); font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+
+/* ------------------------------------------------------------- avisos -- */
+body.app .pl-note { margin: 0 0 16px; padding: 12px 14px; border: 1px solid var(--line); border-left: 1px solid var(--line); border-radius: var(--r); background: var(--panel); color: var(--ink-2); font-size: 13.5px; }
+body.app .pl-soft { color: var(--mute); font-size: 12.5px; }
+body.app .pl-empty { padding: 32px 20px; border: 1px dashed var(--line-2); border-radius: var(--r-lg); background: var(--panel); color: var(--mute); }
+body.app .pl-empty h3 { margin: 0 0 6px; color: var(--ink); font-size: 15px; }
+body.app .pl-empty p { margin: 0; font-size: 13.5px; }
+body.app .tk-empty { border: 1px dashed var(--line-2); border-radius: var(--r-lg); background: var(--panel); }
+body.app .alm-aviso { border-radius: var(--r); font-size: 13.5px; }
+body.app .alm-aviso--ok { border: 1px solid var(--ok-l); background: var(--ok-t); color: #0b4d26; }
+body.app .alm-aviso--error { border: 1px solid var(--bad-l); background: var(--bad-t); color: #7a1a12; }
+body.app .alm-aviso--info { border: 1px solid var(--accent-t2); background: var(--accent-t); color: #1a2f80; }
+body.app .tn-note { border-color: var(--warn-l); border-radius: var(--r); background: var(--warn-t); color: #6b4000; font-size: 13px; }
+
+/* ------------------------------------------------------ etiquetas -- */
+body.app .pl-tag { padding: 2px 9px; font-size: 12px; font-weight: 600; letter-spacing: 0; line-height: 1.55; }
+body.app .pl-tag--late { background: var(--bad-t); color: var(--bad-d); }
+body.app .pl-tag--warn { background: var(--warn-t); color: var(--warn-d); }
+body.app .pl-tag--ok { background: var(--ok-t); color: var(--ok-d); }
+body.app .pl-tag--n { background: var(--well); color: var(--ink-2); }
+body.app .pl-tag--link { background: var(--accent-t); color: var(--accent-2); }
+body.app .pl-code { color: var(--accent-2); font-family: var(--mono); font-size: 12.5px; font-weight: 600; }
+body.app .pl-zero { color: var(--bad-d); }
+
+/* ------------------------------------------------------------ tablas -- */
+body.app .pl-tablewrap { padding: 0; border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); }
+body.app .pl-eq .pl-tablewrap { margin: 8px 12px 12px; }
+body.app .pl-table { font-size: 13.5px; border-collapse: separate; border-spacing: 0; }
+body.app .pl-table th { padding: 10px 12px; border-bottom: 1px solid var(--line); background: var(--panel-2); color: var(--mute); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .pl-table td { padding: 11px 12px; border-bottom: 1px solid var(--line); }
+body.app .pl-table tbody tr:last-child td { border-bottom: 0; }
+body.app .pl-table tbody tr:hover { background: #fafbfc; }
+body.app .rp-table th { border-bottom: 1px solid var(--line); color: var(--mute); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+
+/* ------------------------------------------------ hojas y formularios -- */
+body.app .tk-sheet-backdrop { z-index: 90; background: rgba(14, 17, 23, 0.36); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); animation: uxFade 0.22s both; }
+body.app .tk-sheet {
+  top: 12px;
+  right: 12px;
+  bottom: 12px;
+  left: auto;
+  z-index: 95;
+  width: min(520px, calc(100vw - 24px));
+  max-height: none;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: var(--sh-3);
+  transform: none;
+  animation: uxSheetIn 0.34s var(--ease-out) both;
+}
+body.app .tk-sheet--ancha { width: min(720px, calc(100vw - 24px)); }
+body.app .tk-sheet__head { position: sticky; top: 0; z-index: 2; margin: 0; padding: 18px 20px; border-bottom: 1px solid var(--line); background: rgba(255, 255, 255, 0.94); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); border-radius: 20px 20px 0 0; }
+body.app .tk-sheet__head h4 { font-size: 18px; font-weight: 650; letter-spacing: -0.02em; }
+body.app .tk-sheet__close { width: 34px; height: 34px; border: 1px solid var(--line); border-radius: 10px; background: var(--panel); font-size: 22px; }
+body.app .tk-sheet > .tk-form, body.app .tk-sheet > form, body.app .tk-sheet > p { margin: 0; padding: 18px 20px 22px; }
+body.app .tk-sheet .pl-sheet__what { margin: 16px 20px 0; padding: 10px 12px; border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; background: var(--panel-2); }
+body.app .tk-form { gap: 14px; padding: 18px; border-color: var(--line); border-radius: var(--r-lg); }
+body.app .tk-form label, body.app .alm-obs, body.app .alm-form label { gap: 6px; color: var(--ink-2); font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .tk-form input, body.app .tk-form select, body.app .tk-form textarea, body.app .alm-obs textarea, body.app .equipment-form input, body.app .equipment-form select, body.app .equipment-form textarea {
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 11px;
+  background-color: var(--panel);
+  color: var(--ink);
+  font-size: 14.5px;
+}
+body.app .tk-form textarea, body.app .alm-obs textarea { min-height: 76px; }
+body.app .tk-form input:focus, body.app .tk-form select:focus, body.app .tk-form textarea:focus, body.app .alm-obs textarea:focus, body.app .equipment-form input:focus, body.app .equipment-form textarea:focus, body.app .equipment-form select:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(44, 91, 255, 0.12); outline: none; }
+body.app .tk-form .button { min-height: 44px; margin-top: 4px; }
+body.app .tk-row2 { gap: 12px; }
+body.app .remind-preview { padding: 10px 12px; border-radius: 10px; background: var(--accent-t); color: #1a2f80; font-size: 13px; }
+body.app .remind-remove { border: 0; background: none; color: var(--bad-d); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+/* Modales de equipo (registrar y editar) */
+body.app .modal-backdrop { z-index: 90; background: rgba(14, 17, 23, 0.36); -webkit-backdrop-filter: blur(2px); backdrop-filter: blur(2px); }
+body.app .modal { border: 1px solid var(--line); border-radius: 20px; box-shadow: var(--sh-3); animation: uxPop 0.24s var(--ease-out) both; }
+body.app .modal h2 { font-size: 20px; font-weight: 650; letter-spacing: -0.02em; }
+body.app .equipment-form label { color: var(--ink-2); font-size: 13px; font-weight: 600; }
+
+/* ------------------------------------------------------------ Tareas -- */
+body.app .tk-stats { gap: 8px; margin-bottom: 16px; }
+body.app .tk-stat { min-height: 34px; padding: 0 13px; border-color: var(--line); box-shadow: none; color: var(--mute); font-size: 13px; font-weight: 550; }
+body.app .tk-stat b { font-weight: 650; }
+body.app .tk-stat--pend .dot { background: var(--mute-2); }
+body.app .tk-stat--prog .dot { background: var(--accent); }
+body.app .tk-stat--done .dot { background: var(--ok); }
+body.app .tk-list { max-width: 980px; gap: 12px; }
+body.app .tk-card { padding: 18px 18px 16px 22px; border-radius: var(--r-lg); box-shadow: var(--sh-1); transition: box-shadow 0.2s, border-color 0.2s; }
+body.app .tk-card:hover { border-color: var(--line-2); box-shadow: var(--sh-2); }
+body.app .tk-card::before { width: 3px; top: 16px; bottom: 16px; border-radius: 0 3px 3px 0; }
+body.app .tk-st--pendiente::before { background: var(--mute-2); }
+body.app .tk-st--en-progreso::before { background: var(--accent); }
+body.app .tk-st--hecha::before { background: var(--ok); }
+body.app .tk-title { font-size: 15.5px; font-weight: 600; }
+body.app .tk-pr { padding: 2px 9px; color: inherit; font-size: 11.5px; font-weight: 650; letter-spacing: 0.02em; }
+body.app .tk-pr--alta { background: var(--bad-t); color: var(--bad-d); }
+body.app .tk-pr--media { background: var(--warn-t); color: var(--warn-d); }
+body.app .tk-pr--baja { background: var(--well); color: var(--mute); }
+body.app .tk-status { border-color: var(--line); color: var(--ink-2); font-size: 12px; font-weight: 600; }
+body.app .system-badge { border-radius: 999px; font-weight: 600; }
+body.app .tk-desc { color: var(--ink-2); font-size: 14px; line-height: 1.5; }
+body.app .tk-meta { font-size: 12.5px; }
+body.app .tk-actions .button { min-height: 32px; padding: 0 11px; border-radius: 9px; font-size: 13px; }
+body.app .tk-fab { right: 28px; bottom: 28px; height: 52px; border-radius: 16px; background: var(--ink); box-shadow: 0 16px 36px -10px rgba(14, 17, 23, 0.55); }
+body.app .cloud-chip { min-height: 32px; border-color: var(--line); background: var(--panel); font-size: 12.5px; font-weight: 600; }
+body.app .cloud-chip.is-online { border-color: var(--ok-l); background: var(--ok-t); color: var(--ok-d); }
+body.app .cloud-chip.is-online .cloud-dot { background: var(--ok); }
+
+/* -------------------------------------------------------------- Plan -- */
+body.app .pl-eq { margin-bottom: 10px; border-radius: var(--r-lg); box-shadow: var(--sh-1); transition: border-color 0.2s, box-shadow 0.2s; }
+body.app .pl-eq:hover { border-color: var(--line-2); }
+body.app .pl-eq.is-open { box-shadow: var(--sh-2); }
+body.app .pl-eq__head { padding: 16px 18px; }
+body.app .pl-eq__head:hover { background: var(--panel-2); }
+body.app .pl-eq__name { font-size: 15px; font-weight: 600; }
+body.app .pl-eq__sub { font-size: 12.5px; }
+body.app .pl-more { border-color: var(--line-2); border-radius: var(--r); color: var(--ink-2); font-weight: 600; }
+body.app .pl-more:hover { background: var(--panel-2); }
+body.app .pl-inv, body.app .pl-nube { min-height: 32px; border-radius: 999px; font-size: 12.5px; font-weight: 600; }
+body.app .pl-bridge { border: 1px solid var(--accent-t2); border-radius: var(--r); background: var(--accent-t); }
+body.app .pl-ev { border-radius: 10px; }
+body.app .pl-edit:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(44, 91, 255, 0.12); }
+
+/* ------------------------------------------------------ Inspecciones -- */
+body.app .in-card { padding: 18px; border-left: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: inset 3px 0 0 var(--accent), var(--sh-1); }
+body.app .in-card.is-cerrada { box-shadow: inset 3px 0 0 var(--line-2), var(--sh-1); opacity: 0.8; }
+body.app .in-fecha { font-weight: 650; }
+body.app .in-tipo { border: 0; background: var(--well); color: var(--ink-2); font-size: 12px; font-weight: 600; }
+body.app .in-eq { border: 0; background: var(--accent-t); color: var(--accent-2); font-size: 12px; font-weight: 600; cursor: pointer; }
+body.app .in-estado { background: var(--accent-t); color: var(--accent-2); font-size: 12px; font-weight: 650; }
+body.app .in-estado--cerrada { background: var(--well); color: var(--mute); }
+body.app .in-lbl { color: var(--mute); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .in-bloque { color: var(--ink-2); font-size: 14px; }
+body.app .in-pieza { border-radius: 10px; background: var(--panel-2); }
+body.app .in-urg--alta { background: var(--bad-t); color: var(--bad-d); }
+body.app .in-urg--media { background: var(--warn-t); color: var(--warn-d); }
+body.app .in-fila input, body.app .in-fila select { min-height: 40px; border-color: var(--line-2); border-radius: 10px; }
+
+/* ------------------------------------------------------------ Turnos -- */
+body.app .tn-controls { gap: 12px 20px; margin-bottom: 4px; }
+body.app .tn-ctrl > span { color: var(--ink-2); font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .tn-seg { padding: 3px; border-radius: 12px; background: var(--well); }
+body.app .tn-seg button { min-height: 34px; padding: 0 14px; border-radius: 9px; font-size: 13.5px; font-weight: 600; }
+body.app .tn-seg button.is-active { box-shadow: var(--sh-1), 0 0 0 1px rgba(15, 23, 42, 0.04); }
+body.app .tn-datebar { margin: 18px 0; font-size: 17px; font-weight: 650; letter-spacing: -0.01em; }
+body.app .tn-grid { gap: 14px; }
+body.app .tn-card { border-radius: var(--r-lg); box-shadow: var(--sh-1); }
+body.app .tn-head { padding: 14px 18px; border-bottom: 1px solid var(--line); background: var(--panel) !important; color: var(--ink) !important; font-size: 15px; font-weight: 650; box-shadow: none !important; }
+body.app .tn-head::before { content: ""; width: 10px; height: 10px; border-radius: 50%; background: var(--c, var(--mute-2)); box-shadow: 0 0 0 4px var(--ct, var(--well)); }
+body.app .tn--dia { --c: var(--warn); --ct: var(--warn-t); }
+body.app .tn--noche { --c: var(--accent); --ct: var(--accent-t); }
+body.app .tn--descanso { --c: var(--mute-2); --ct: var(--well); }
+body.app .tn-body { padding: 14px 18px 18px; }
+body.app .tn-group { color: var(--mute); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .tn-people li { font-size: 14px; font-weight: 550; }
+body.app .tn-people li .tn-ini { width: 32px; height: 32px; font-size: 11.5px; font-weight: 650; }
+body.app .tn--dia .tn-ini { background: var(--warn-t); color: var(--warn-d); }
+body.app .tn--noche .tn-ini { background: var(--accent-t); color: var(--accent-2); }
+body.app .tn--descanso .tn-ini { background: var(--well); color: var(--mute); }
+body.app .tn-support, body.app .tn-legend { border-radius: var(--r-lg); box-shadow: var(--sh-1); }
+body.app .tn-support-item { border-radius: var(--r); }
+body.app .tn-support-item b { color: var(--mute); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .tn-legend__t { color: var(--mute); font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app #tnFecha { height: 40px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 11px; background: var(--panel); font: inherit; font-size: 14px; }
+
+/* ----------------------------------------------------------- Almacén -- */
+body.app .alm-grid { gap: 20px; grid-template-columns: minmax(0, 1fr) minmax(380px, 460px); }
+body.app .alm-side { top: calc(var(--tb-h) + 16px); }
+body.app .alm-chip { min-height: 32px; padding: 0 12px; border-color: var(--line); color: var(--ink-2); font-size: 13px; font-weight: 550; }
+body.app .alm-chip.is-on { border-color: var(--ink); background: var(--ink); color: #fff; }
+body.app .alm-chip.is-on span { color: rgba(255, 255, 255, 0.7); }
+body.app .alm-sol { gap: 12px; padding: 18px; border-radius: var(--r-lg); box-shadow: var(--sh-2); }
+body.app .alm-sol__head h3 { font-size: 16px; font-weight: 650; }
+body.app .alm-hist-titulo { margin: 32px 0 12px; font-size: 17px; font-weight: 650; }
+body.app .alm-sitio { border-radius: 6px; background: var(--well); font-family: var(--mono); font-size: 12px; font-weight: 500; }
+body.app .alm-sitio b { color: var(--accent-2); }
+body.app .alm-table tr.is-bajo td { background: #fffbf2; }
+body.app .alm-cant, body.app .alm-sitio-sel, body.app .alm-sol-sub input { border-radius: 8px; }
+
+/* ------------------------------------------------------------ Diario -- */
+body.app .dy-cal, body.app .dy-detalle { padding: 16px; border-radius: var(--r-lg); box-shadow: var(--sh-1); }
+body.app .dy-detalle { top: calc(var(--tb-h) + 16px); }
+body.app .dy-cal__head h3 { font-size: 17px; font-weight: 650; text-transform: capitalize; }
+body.app .dy-semana span { color: var(--mute); font-size: 11.5px; font-weight: 600; letter-spacing: 0.02em; }
+body.app .dy-dia { min-height: 86px; border-color: var(--line); border-radius: 12px; transition: background 0.15s, border-color 0.15s, box-shadow 0.15s; }
+body.app .dy-dia:hover { border-color: var(--line-2); background: var(--panel-2); }
+body.app .dy-dia.is-hoy .dy-num { background: var(--ink); }
+body.app .dy-dia.is-sel { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(44, 91, 255, 0.14); }
+body.app .dy-num { font-size: 13px; font-weight: 650; }
+body.app .dy-k { font-size: 10.5px; font-weight: 650; }
+body.app .dy-k--cambio { background: var(--accent); }
+body.app .dy-k--tarea { background: var(--vio); }
+body.app .dy-k--insp { background: var(--ok); }
+body.app .dy-k--sol { background: var(--warn); }
+body.app .dy-k--nota { background: var(--mute); }
+body.app .dy-k--reporte { background: #db2777; }
+body.app .dy-kpi--cambio .pl-kpi__n, body.app .dy-kpi--tarea .pl-kpi__n, body.app .dy-kpi--insp .pl-kpi__n, body.app .dy-kpi--sol .pl-kpi__n, body.app .dy-kpi--reporte .pl-kpi__n { color: var(--ink); }
+body.app .dy-kpi--cambio { box-shadow: inset 0 3px 0 var(--accent), var(--sh-1); }
+body.app .dy-kpi--tarea { box-shadow: inset 0 3px 0 var(--vio), var(--sh-1); }
+body.app .dy-kpi--insp { box-shadow: inset 0 3px 0 var(--ok), var(--sh-1); }
+body.app .dy-kpi--sol { box-shadow: inset 0 3px 0 var(--warn), var(--sh-1); }
+body.app .dy-kpi--reporte { box-shadow: inset 0 3px 0 #db2777, var(--sh-1); }
+body.app .dy-kpi--nota { box-shadow: inset 0 3px 0 var(--mute-2), var(--sh-1); }
+body.app .dy-detalle__t { font-size: 16px; font-weight: 650; }
+body.app .dy-ev__t { font-size: 14px; font-weight: 600; }
+
+/* ---------------------------------------------------------- Reportes -- */
+body.app .rp-grid { grid-template-columns: minmax(280px, 360px) minmax(0, 1fr); gap: 20px; }
+body.app .rp-lista { gap: 8px; max-height: calc(100vh - 260px); padding: 2px; }
+body.app .rp-item { padding: 12px 14px; border-radius: var(--r); box-shadow: var(--sh-1); transition: border-color 0.15s, box-shadow 0.15s, background 0.15s; }
+body.app .rp-item:hover { border-color: var(--line-2); background: var(--panel); box-shadow: var(--sh-2); }
+body.app .rp-item.is-sel { border-color: var(--ink); box-shadow: 0 0 0 1px var(--ink); }
+body.app .rp-item__fecha { color: var(--ink); font-size: 12.5px; font-weight: 650; font-variant-numeric: tabular-nums; }
+body.app .rp-item__tit { font-size: 13.5px; font-weight: 600; }
+body.app .rp-item__res { font-size: 12.5px; }
+body.app .rp-badge { padding: 1px 8px; font-size: 11px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .rp-badge--sede { background: var(--accent-t); color: var(--accent-2); }
+body.app .rp-badge--turno { background: var(--warn-t); color: var(--warn-d); }
+body.app .rp-det { top: calc(var(--tb-h) + 16px); padding: 20px; border-radius: var(--r-lg); box-shadow: var(--sh-1); }
+body.app .rp-det__head h3 { font-size: 18px; font-weight: 650; }
+body.app .rp-count { background: var(--well); color: var(--ink-2); font-weight: 650; }
+body.app .rp-nov li { color: var(--ink-2); }
+body.app .rp-original { border-radius: var(--r); background: var(--panel-2); font-family: var(--mono); font-size: 12px; }
+
+/* ------------------------------------------ Fichas de equipos (portada) -- */
+body.app .search-hero { justify-items: stretch; padding-top: 0; }
+body.app .hero-content { width: 100%; justify-items: stretch; padding: 0; text-align: left; animation: none; }
+body.app .search-box { width: 100%; margin: 0; }
+body.app .search-box input { height: 52px; padding-left: 50px; border: 1px solid var(--line-2); border-radius: 14px; font-size: 15px; box-shadow: var(--sh-1); }
+body.app .search-box input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(44, 91, 255, 0.12); }
+body.app .search-box svg { left: 18px; width: 20px; height: 20px; }
+body.app .results-search { margin-bottom: 20px; }
+body.app .search-box--compact input { height: 48px; padding-left: 46px; font-size: 14.5px; }
+body.app .search-box--compact svg { left: 16px; width: 18px; height: 18px; }
+body.app .results-layout { gap: 20px; }
+body.app .result-item { border-radius: var(--r-lg); box-shadow: var(--sh-1); transition: border-color 0.18s, box-shadow 0.18s; }
+body.app .result-item:hover, body.app .result-item.is-selected { border-color: var(--line-2); box-shadow: var(--sh-2); }
+body.app .result-item.is-selected { border-color: var(--ink); }
+body.app .preview-panel { top: calc(var(--tb-h) + 16px); border-radius: var(--r-xl); box-shadow: var(--sh-2); }
+
+/* Ficha del equipo */
+body.app .detail-header { gap: 16px; margin-bottom: 18px; }
+body.app .detail-header h2 { font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem); font-weight: 650; letter-spacing: -0.025em; }
+body.app .detail-header p { color: var(--mute); }
+body.app .profile-tabs { gap: 4px; padding: 0; border-bottom: 1px solid var(--line); background: transparent; border-radius: 0; box-shadow: none; }
+body.app .profile-tab { position: relative; min-height: 42px; padding: 0 12px; border: 0 !important; border-radius: 0 !important; background: none !important; color: var(--mute) !important; font-size: 14px; font-weight: 600; box-shadow: none !important; }
+body.app .profile-tab:hover { color: var(--ink) !important; }
+body.app .profile-tab.is-active { color: var(--ink) !important; }
+body.app .profile-tab.is-active::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: -1px; height: 2px; border-radius: 2px; background: var(--ink); }
+
+/* ------------------------- Registro diario y Cuadro de mando (mx-*) -- */
+/* El lienzo gris ya es la página entera: el contenedor interno se aligera */
+body.app .mx-canvas { padding: 0; border-radius: 0; background: transparent; gap: 20px; }
+body.app .mx-head { padding: 0; }
+body.app .mx-eyebrow { font-family: var(--font); font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+body.app .mx-title { font-size: clamp(1.5rem, 1.25rem + 0.9vw, 2rem); font-weight: 650; letter-spacing: -0.025em; }
+body.app .mx-btn { border-radius: 11px; font-size: 14px; }
+
+/* ---------------------------------------------------------- responsive -- */
+@media (max-width: 1100px) {
+  body.app .alm-grid, body.app .rp-grid { grid-template-columns: minmax(0, 1fr); }
+  body.app .alm-side, body.app .rp-det, body.app .dy-detalle { position: static; }
+}
+@media (max-width: 760px) {
+  body.app .section-bar { margin-bottom: 16px; }
+  body.app .tk-sheet, body.app .tk-sheet--ancha { top: auto; left: 0; right: 0; bottom: 0; width: 100%; max-height: 92vh; border-radius: 22px 22px 0 0; animation-name: uxSheetUp; }
+  body.app .tk-fab { right: 16px; bottom: 90px; width: 56px; height: 56px; border-radius: 16px; }
+  body.app .pl-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.app .pl-kpi { min-height: 84px; padding: 14px; }
+  body.app .pl-kpi__n { font-size: 24px; }
+  body.app .rp-lista { max-height: 44vh; }
+}
+
+/* ------------------------------------------- portada de fichas (eq-*) -- */
+.eq-stats { display: flex; flex-wrap: wrap; gap: 8px; }
+.eq-stat { display: inline-flex; align-items: baseline; gap: 7px; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); color: var(--mute); font: inherit; font-size: 13px; cursor: pointer; transition: border-color 0.18s, background 0.18s; }
+.eq-stat:hover { border-color: var(--line-2); background: var(--panel-2); }
+.eq-stat b { color: var(--ink); font-size: 14px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.eq-stat b.is-warn { color: var(--warn-d); }
+.eq-stat b.is-bad { color: var(--bad-d); }
+.eq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 12px; }
+.eq-card { display: grid; grid-template-rows: 132px auto; overflow: hidden; padding: 0; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); color: inherit; font: inherit; text-align: left; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s var(--ease); }
+.eq-card:hover { border-color: var(--line-2); box-shadow: var(--sh-2); transform: translateY(-2px); }
+.eq-card__img { display: grid; place-items: center; overflow: hidden; background: var(--panel-2); color: var(--mute-2); border-bottom: 1px solid var(--line); }
+.eq-card__img img { width: 100%; height: 100%; object-fit: contain; padding: 10px; mix-blend-mode: multiply; transition: transform 0.4s var(--ease-out); }
+.eq-card:hover .eq-card__img img { transform: scale(1.04); }
+.eq-card__body { display: grid; gap: 4px; padding: 12px 14px 14px; min-width: 0; }
+.eq-card__n { overflow: hidden; font-size: 14.5px; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.eq-card__s { overflow: hidden; color: var(--mute); font-size: 12.5px; text-overflow: ellipsis; white-space: nowrap; }
+.eq-card__tags { display: flex; flex-wrap: wrap; gap: 4px; margin: 6px 0 8px; }
+.eq-card__tags i { padding: 1px 7px; border-radius: 999px; background: var(--well); color: var(--mute-2); font-size: 10.5px; font-style: normal; font-weight: 600; }
+.eq-card__tags i.is-ok { background: var(--ok-t); color: var(--ok-d); }
+.eq-card .ux-progress { height: 5px; }
+.eq-card .ux-progress > i { background: var(--ok); }
+body.app #homeDash { margin: 0; width: 100%; }
+
+/* ------------------------------------------ almacén con presupuesto -- */
+body.app .alm-cc-nota { margin: -4px 0 0; padding: 8px 10px; border-radius: 10px; background: var(--ok-t); color: #0b4d26; font-size: 12.5px; line-height: 1.45; }
+body.app .alm-cc-nota.is-warn { background: var(--warn-t); color: #6b4000; }
+body.app .alm-cc-nota.is-bad { background: var(--bad-t); color: #7a1a12; }
+body.app .alm-form select { min-height: 42px; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 11px; background: var(--panel); font: inherit; font-size: 14px; }
+body.app .alm-valor { white-space: nowrap; font-weight: 600; }
+body.app .alm-sol-table tfoot td { padding: 10px 5px; border-top: 1px solid var(--line); background: var(--panel-2); }
+body.app .alm-hist-acc { white-space: nowrap; }
+body.app .alm-hist-acc .pl-reg + .pl-reg { margin-left: 4px; }
+body.app .alm-hist tr.is-resaltada td { background: var(--accent-t); }
+body.app .alm-pedidos { display: grid; gap: 8px; margin: 0 0 18px; padding: 14px; border: 1px solid var(--warn-l); border-radius: var(--r-lg); background: var(--warn-t); }
+body.app .alm-pedidos__head { display: flex; align-items: center; gap: 8px; font-size: 14.5px; }
+body.app .alm-pedido { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+body.app .alm-pedido > div:first-child { display: grid; gap: 2px; min-width: 0; }
+body.app .alm-pedido__acc { display: flex; gap: 6px; }
+body.app .alm-pedido__acc .button { min-height: 34px; font-size: 13px; }
+body.app .alm-form, body.app .dy-nota { padding: 0; border: 0; box-shadow: none; background: transparent; }

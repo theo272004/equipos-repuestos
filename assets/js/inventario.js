@@ -112,10 +112,72 @@ window.INVENTARIO = (function () {
     return { articulos: local.estado.articulos, guardado: cupo };
   }
 
+  // Sube a la nube un RE356 cargado en este equipo, para que lo vea todo el
+  // taller (lo mismo que hace el puente de MiPortal). Solo escribe los códigos
+  // que cambiaron y marca en 0 los que el reporte ya no lista (agotados).
+  async function subirNube(filas) {
+    if (!(cloud.enabled && cloud.db)) return { ok: false, motivo: "no hay nube configurada" };
+    const ahora = new Date().toISOString();
+    const quien = window.NUCLEO ? window.NUCLEO.usuario.get() : "";
+    const cambios = [];
+    const vistos = new Set();
+    filas.forEach((f) => {
+      const k = norm(f.cod);
+      if (!k || vistos.has(k)) return;
+      vistos.add(k);
+      const prev = nube.porCodigo[k];
+      const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app" };
+      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min) cambios.push(reg);
+    });
+    Object.values(nube.porCodigo).forEach((a) => {
+      if (!vistos.has(a.cod) && Number(a.exist) > 0) cambios.push({ cod: a.cod, exist: 0, actualizado: ahora, fuente: "app", agotado: true });
+    });
+    try {
+      for (let i = 0; i < cambios.length; i += 400) {
+        const b = cloud.db.batch();
+        cambios.slice(i, i + 400).forEach((c) => b.set(cloud.db.collection("inventario").doc(c.cod), c, { merge: true }));
+        await b.commit();
+      }
+      await cloud.db.collection("inventario_meta").doc("estado").set({ actualizado: ahora, articulos: vistos.size, origen: "app", por: quien }, { merge: true });
+      return { ok: true, cambios: cambios.length };
+    } catch (e) {
+      console.error("[Inventario] subir:", e);
+      return { ok: false, motivo: e && e.code === "permission-denied" ? "la nube no deja escribir el inventario (revisa las reglas en Conexión y ajustes)" : (e && e.message) || "error" };
+    }
+  }
+
   function olvidarLocal() {
     local = vacio();
     try { localStorage.removeItem(CLAVE_LOCAL); } catch (e) {}
     repintar();
+  }
+
+  // El inventario tiene más de 5.000 artículos. Antes se escuchaba la colección
+  // entera en cada visita: 5.000 lecturas por persona y por recarga, y el plan
+  // gratuito de Firebase da 50.000 al día. Ahora se escucha solo el sello de
+  // la última carga (1 lectura) y la colección se baja completa únicamente
+  // cuando ese sello cambia; mientras tanto se usa la copia de este navegador.
+  let bajando = false;
+  function bajarColeccion(sello) {
+    if (bajando) return;
+    bajando = true;
+    cloud.db.collection("inventario").get().then((snap) => {
+      const porCodigo = {};
+      snap.forEach((doc) => { const v = doc.data() || {}; const k = norm(v.cod || doc.id); if (k) porCodigo[k] = registro(v, k); });
+      nube.porCodigo = porCodigo;
+      nube.estado.articulos = Object.keys(porCodigo).length;
+      nube.estado.origen = "miportal";
+      nube.estado.actualizado = sello || nube.estado.actualizado;
+      nube.estado.sello = sello || "";
+      conexion = { conectado: true, error: "" };
+      guardar(CLAVE_NUBE, nube);
+      window.NUCLEO?.marcar("inventario", "ok");
+      repintar();
+    }).catch((err) => {
+      conexion = { conectado: false, error: err && err.code ? err.code : "error" };
+      console.error("[Inventario] leer:", err);
+      repintar();
+    }).finally(() => { bajando = false; });
   }
 
   function suscribir() {
@@ -123,30 +185,25 @@ window.INVENTARIO = (function () {
       console.log("[Inventario] Sin nube: se usa lo ultimo que quedo en este navegador.");
       return;
     }
-    cloud.db.collection("inventario").onSnapshot({ includeMetadataChanges: true }, (snap) => {
-      const porCodigo = {};
-      snap.forEach((doc) => { const v = doc.data() || {}; const k = norm(v.cod || doc.id); if (k) porCodigo[k] = registro(v, k); });
-      nube.porCodigo = porCodigo;
-      nube.estado.articulos = Object.keys(porCodigo).length;
-      nube.estado.origen = "miportal";
-      conexion = { conectado: !snap.metadata.fromCache, error: "" };
-      guardar(CLAVE_NUBE, nube);
-      repintar();
-    }, (err) => {
-      conexion = { conectado: false, error: err && err.code ? err.code : "error" };
-      console.error("[Inventario] onSnapshot:", err);
-      repintar();
-    });
-
-    // Sello de la ultima pasada del puente: cuando corrio.
+    // Sello de la última carga (puente de MiPortal o archivo compartido desde la app)
     cloud.db.collection("inventario_meta").doc("estado").onSnapshot((doc) => {
       const v = doc.exists ? doc.data() : null;
-      if (v) { nube.estado.actualizado = v.actualizado || ""; guardar(CLAVE_NUBE, nube); repintar(); }
-    }, (err) => console.error("[Inventario] meta:", err));
+      const sello = (v && v.actualizado) || "";
+      const hayCopia = Object.keys(nube.porCodigo).length > 0;
+      conexion = { conectado: true, error: "" };
+      if (!hayCopia || (sello && sello !== nube.estado.sello)) bajarColeccion(sello);
+      else repintar();
+    }, (err) => {
+      conexion = { conectado: false, error: err && err.code ? err.code : "error" };
+      console.error("[Inventario] meta:", err);
+      // Sin sello no se sabe si cambió: solo se baja si este navegador no tiene copia
+      if (!Object.keys(nube.porCodigo).length && err && err.code !== "resource-exhausted") bajarColeccion("");
+      repintar();
+    });
   }
 
   return {
-    de, norm, frescura, diasDesdeActualizacion, suscribir, cargarLocal, olvidarLocal,
+    de, norm, frescura, diasDesdeActualizacion, suscribir, cargarLocal, olvidarLocal, subirNube,
     // Hay inventario cargado: distingue "el portal no lista esta pieza"
     // (probablemente agotada) de "todavia no hay portal".
     get cargado() { return Object.keys(activo().porCodigo).length > 0; },

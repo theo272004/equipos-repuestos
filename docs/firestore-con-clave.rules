@@ -1,0 +1,46 @@
+rules_version = '2';
+
+// ============================================================================
+//  Reglas de Firestore CON "clave del taller" (modo protegido)
+// ============================================================================
+//  Solo lee y escribe quien haya iniciado sesión con la cuenta del taller.
+//  Antes de publicarlas, sigue docs/FIREBASE.md → "Modo protegido":
+//    1. Activa Autenticación → Correo y contraseña en Firebase.
+//    2. Crea el usuario del taller (ej. taller@farmacapsulas.app).
+//    3. En cada celular o PC: la app → Conexión y ajustes → Clave del taller.
+//    4. En GitHub (bot de Telegram) y en el PC del puente de MiPortal:
+//       FIREBASE_EMAIL y FIREBASE_PASSWORD.
+//  Si publicas esto sin los pasos 3 y 4, la app queda "Nube parcial" y el bot
+//  no puede leer: vuelve a firestore.rules y listo.
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function delTaller() {
+      return request.auth != null;
+    }
+
+    function docValido() {
+      return request.resource.data is map && request.resource.data.size() < 200;
+    }
+
+    function coleccionConBorrado(c) {
+      return c in ['tareas', 'inspecciones', 'cambios', 'datos', 'mtto_registros', 'bitacora', 'inventario'];
+    }
+
+    function coleccionSinBorrado(c) {
+      return c in [
+        'inventario_meta', 'mtto_estados', 'solicitudes',
+        'seguimiento', 'presupuesto', 'movimientos', 'inventario_cargas',
+        'reportes_turno', 'bot'
+      ];
+    }
+
+    match /{coleccion}/{id} {
+      allow read: if delTaller() && (coleccionConBorrado(coleccion) || coleccionSinBorrado(coleccion));
+      allow create, update: if delTaller() && (coleccionConBorrado(coleccion) || coleccionSinBorrado(coleccion)) && docValido();
+      allow delete: if delTaller() && coleccionConBorrado(coleccion);
+    }
+  }
+}

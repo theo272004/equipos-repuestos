@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Reporte de turno · Mantenimiento</title>
+    <meta name="description" content="Formulario del reporte de turno de mantenimiento: estado de los equipos y novedades. Queda en el Registro diario y se anuncia en Telegram." />
+    <meta name="theme-color" content="#f2f3f5" />
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609281926" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/app.css?v=202609281926" />
+    <link rel="stylesheet" href="assets/css/reporte.css?v=202609281926" />
+  </head>
+  <body class="app rf">
+    <header class="rf-top">
+      <a class="rf-marca" href="./" title="Abrir la app de mantenimiento">
+        <span class="sb__logo" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <span><b>Reporte de turno</b><small>Mantenimiento · Farmacápsulas</small></span>
+      </a>
+      <a class="ux-btn ux-btn--sm" href="./">Abrir la app</a>
+    </header>
+    <main class="rf-main" id="rfRoot" aria-live="polite">
+      <p class="ux-mute" style="padding:40px 0;text-align:center">Cargando el formulario…</p>
+    </main>
+    <div class="ux-toasts" id="uxToasts" aria-live="polite"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="assets/js/nube.js?v=202609281926"></script>
+    <script src="assets/js/nucleo.js?v=202609281926"></script>
+    <script src="assets/js/turnos-data.js?v=202609281926"></script>
+    <script src="assets/js/mtto-data.js?v=202609281926"></script>
+    <script src="assets/js/mtto-lector.js?v=202609281926"></script>
+    <script src="assets/js/reporte-form.js?v=202609281926"></script>
+  </body>
+</html>

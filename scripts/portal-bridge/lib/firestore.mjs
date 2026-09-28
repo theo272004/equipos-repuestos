@@ -11,11 +11,30 @@ export class Firestore {
     this.projectId = projectId;
     this.apiKey = apiKey || "";
     this.base = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents`;
+    // "Clave del taller" (docs/FIREBASE.md → modo protegido): si está en el
+    // .env se inicia sesión antes de leer o escribir.
+    this.email = process.env.FIREBASE_EMAIL || "";
+    this.password = process.env.FIREBASE_PASSWORD || "";
+    this.token = null;
   }
 
   get qs() { return this.apiKey ? `key=${encodeURIComponent(this.apiKey)}` : ""; }
 
-  async #pedir(url, opciones) {
+  async #autenticar() {
+    if (this.token || !this.email || !this.password) return;
+    const r = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${encodeURIComponent(this.apiKey)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: this.email, password: this.password, returnSecureToken: true }),
+    });
+    const j = await r.json();
+    if (!j.idToken) throw new Error(`No se pudo iniciar sesión en Firebase con FIREBASE_EMAIL: ${j.error && j.error.message}`);
+    this.token = j.idToken;
+  }
+
+  async #pedir(url, opciones = {}) {
+    await this.#autenticar();
+    if (this.token) opciones = { ...opciones, headers: { ...(opciones.headers || {}), Authorization: `Bearer ${this.token}` } };
     const r = await fetch(url, opciones);
     if (!r.ok) {
       const cuerpo = await r.text().catch(() => "");

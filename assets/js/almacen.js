@@ -27,7 +27,7 @@
 
   const esc = (v) => planEsc(v);
   const hoy = () => bogotaToday();
-  const vista = { q: "", filtro: "", limite: 60, aviso: null, trabajando: "", todo: false };
+  const vista = { q: "", filtro: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "" };
   let borrador = cargar(BORRADOR, null) || nuevoBorrador();
   let historial = cargar(HISTORIAL, []);
   let cache = { inv: null, lista: [] };
@@ -41,7 +41,10 @@
     return {
       tipo: b.tipo || "consumo", fecha: hoy(),
       area: b.area || "", departamento: b.departamento || "", destino: "",
-      alistadoPor: "", solicitadoPor: b.solicitadoPor || "", autorizadoPor: "",
+      alistadoPor: "", solicitadoPor: b.solicitadoPor || (window.NUCLEO ? window.NUCLEO.usuario.get() : ""), autorizadoPor: "",
+      // Centro de costo al que se carga la salida (presupuesto). Se sugiere
+      // según el equipo de destino y se puede cambiar por renglón.
+      cc: "",
       observaciones: "", lineas: [],
     };
   }
@@ -124,14 +127,21 @@
   function render() {
     const raiz = document.getElementById("almRoot");
     if (!raiz) return;
+    const pendientesEntrega = historial.filter((s) => (s.estado || "emitida") === "emitida").length;
     raiz.innerHTML = `
       <div class="section-bar">
         <div>
-          <p class="eyebrow">Almac&eacute;n</p>
+          <p class="eyebrow">Almacén y costos</p>
           <h2>Buscar repuestos y pedirlos</h2>
+          <p class="ux-sub" style="margin-top:6px">Busca por código, pieza, estante o equipo; arma la solicitud DAD-010A y queda cargada al centro de costo del presupuesto.</p>
+        </div>
+        <div class="section-actions">
+          ${pendientesEntrega ? `<button class="button button--light" type="button" data-alm="ver-hist">${pendientesEntrega} sin entregar</button>` : ""}
+          <button class="button button--light" type="button" data-alm="ir-presupuesto">Presupuesto</button>
         </div>
       </div>
       <div id="almFuente">${htmlFuente()}</div>
+      <div id="almPedidos">${htmlPedidos()}</div>
       <div class="alm-grid">
         <div class="alm-main">
           <div class="pl-filters">
@@ -230,53 +240,93 @@
       </div>${mas}`;
   }
 
+  // Precio y centro de costo: lo que conecta la solicitud con el presupuesto
+  const P = () => window.PRESUPUESTO;
+  const precio = (cod) => (P() ? P().precioDe(cod) : null);
+  const peso = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dinero(n) : "$ " + Math.round(n).toLocaleString("es-CO"));
+  const pesoCorto = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dineroCorto(n) : peso(n));
+  function totalSolicitud(s) {
+    let total = 0, sinPrecio = 0;
+    (s.lineas || []).forEach((l) => {
+      const pu = Number(l.pu) > 0 ? Number(l.pu) : precio(l.cod);
+      if (pu) total += pu * (Number(l.cant) || 0); else sinPrecio++;
+    });
+    return { total, sinPrecio };
+  }
+  // Cuánto queda del centro de costo en el presupuesto del año
+  function saldoCC(cc) {
+    if (!cc || !P()) return null;
+    const anio = Number(String(borrador.fecha || hoy()).slice(0, 4));
+    const cfg = P().config(anio);
+    const r = cfg && (cfg.reparto || []).find((x) => x.cc === cc);
+    if (!r) return { fuera: true };
+    const a = P().agregados(anio);
+    const f = a.filasCC.find((x) => x.cc === cc) || { valor: 0 };
+    return { asignado: Number(r.valor) || 0, gastado: f.valor, queda: (Number(r.valor) || 0) - f.valor };
+  }
+
   function htmlSolicitud() {
     const b = borrador;
     const campo = (k, etiqueta, extra = "") => `<label>${etiqueta}<input data-alm-campo="${k}" value="${esc(b[k])}" ${extra}></label>`;
+    const { total, sinPrecio } = totalSolicitud(b);
     const lineas = b.lineas.map((l, i) => {
       const it = universo().find((x) => x.cod === l.cod);
       const sitios = it ? it.sitios : [];
       const elegido = sitios.find((s) => `${s.alm}|${s.ub}` === l.sitio);
       const disp = elegido ? elegido.exist : it ? it.exist : null;
       const pasa = b.tipo !== "devolucion" && disp !== null && disp !== undefined && Number(l.cant) > disp;
+      const pu = precio(l.cod);
       return `
         <tr>
           <td class="pl-code">${esc(l.cod)}</td>
-          <td class="alm-sol-desc">${esc(l.desc) || "&mdash;"}${it && !it.enBodega ? '<br><span class="pl-tag pl-tag--warn">no est&aacute; en almac&eacute;n</span>' : ""}</td>
+          <td class="alm-sol-desc">${esc(l.desc) || "&mdash;"}${it && !it.enBodega ? '<br><span class="pl-tag pl-tag--warn">no está en almacén</span>' : ""}</td>
           <td><input class="pl-edit pl-edit--num alm-cant" type="number" min="0" step="any" inputmode="decimal" value="${esc(l.cant)}" data-alm-linea="${i}" data-k="cant" aria-label="Cantidad"> ${esc(l.um)}
             ${pasa ? `<span class="alm-pasa" title="Hay ${fmt(disp)} en ese sitio">hay ${fmt(disp)}</span>` : ""}</td>
           <td>${sitios.length > 1
-            ? `<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="sitio" aria-label="De qu&eacute; estante">${sitios.map((s) => `<option value="${esc(s.alm + "|" + s.ub)}" ${`${s.alm}|${s.ub}` === l.sitio ? "selected" : ""}>${esc(s.alm)}/${esc(s.ub)} &middot; ${fmt(s.exist)}</option>`).join("")}</select>`
+            ? `<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="sitio" aria-label="De qué estante">${sitios.map((s) => `<option value="${esc(s.alm + "|" + s.ub)}" ${`${s.alm}|${s.ub}` === l.sitio ? "selected" : ""}>${esc(s.alm)}/${esc(s.ub)} &middot; ${fmt(s.exist)}</option>`).join("")}</select>`
             : esc(l.sitio ? l.sitio.replace("|", "/") : "—")}</td>
+          <td class="pl-num alm-valor" title="${pu ? "Precio unitario del RE356: " + esc(peso(pu)) : "El inventario no trae precio para este código"}">${pu ? esc(pesoCorto(pu * (Number(l.cant) || 0))) : '<span class="pl-soft">sin precio</span>'}</td>
           <td><button class="alm-x" type="button" data-alm="quitar" data-cod="${esc(l.cod)}" aria-label="Quitar ${esc(l.cod)}">&times;</button></td>
         </tr>
         <tr class="alm-sol-sub">
-          <td colspan="5">
+          <td colspan="6">
             <label>Trans.<input class="pl-edit" id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
-            <label>C&oacute;digo causa<input class="pl-edit" id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
+            <label>Código causa<input class="pl-edit" id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
+            ${P() ? `<label title="Si este renglón se carga a otro centro de costo">Centro<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="cc"><option value="">igual que la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>` : ""}
           </td>
         </tr>`;
     }).join("");
+    const saldo = saldoCC(b.cc);
+    const avisoCC = !P() ? "" : !b.cc
+      ? `<p class="alm-cc-nota is-warn">Sin centro de costo: esta salida no se descontará de ningún presupuesto.</p>`
+      : saldo && saldo.fuera
+        ? `<p class="alm-cc-nota is-warn">${esc(b.cc)} no está en el reparto del presupuesto de este año.</p>`
+        : saldo
+          ? `<p class="alm-cc-nota ${saldo.queda - total < 0 ? "is-bad" : ""}">De <b>${esc(b.cc)} · ${esc(P().nombreCC(b.cc))}</b> quedan <b>${esc(pesoCorto(saldo.queda))}</b>${total ? `; con esta solicitud quedarían <b>${esc(pesoCorto(saldo.queda - total))}</b>` : ""}.</p>`
+          : "";
     return `
       <div class="alm-sol">
         <div class="alm-sol__head">
           <h3>Solicitud de materiales</h3>
           <span class="pl-tag pl-tag--n" title="El formato DAD-010A tiene ${RENGLONES} renglones">${b.lineas.length}/${RENGLONES}</span>
         </div>
-        <p class="pl-soft">Formato oficial DAD-010A &middot; Edici&oacute;n 1. Se llena el mismo archivo, solo con los datos.</p>
+        <p class="pl-soft">Formato oficial DAD-010A · Edición 1. Se llena el mismo archivo, solo con los datos, y queda en el historial y en el presupuesto.</p>
         <div class="alm-tipo" role="radiogroup" aria-label="Tipo de solicitud">
           ${Object.entries(TIPOS).map(([k, t]) => `<label class="alm-chip ${b.tipo === k ? "is-on" : ""}"><input type="radio" name="almTipo" value="${k}" ${b.tipo === k ? "checked" : ""} data-alm-campo="tipo">${t}</label>`).join("")}
         </div>
         <div class="tk-form alm-form">
-          <div class="tk-row2">${campo("fecha", "Fecha", 'type="date"')}${campo("area", "&Aacute;rea", 'placeholder="Mantenimiento"')}</div>
-          <div class="tk-row2">${campo("departamento", "Departamento")}${campo("destino", "Destino", 'placeholder="Equipo o lugar"')}</div>
-          <div class="tk-row2">${campo("solicitadoPor", "Solicitado por")}${campo("alistadoPor", "Alistado por", 'placeholder="Lo llena almac&eacute;n"')}</div>
+          <div class="tk-row2">${campo("fecha", "Fecha", 'type="date"')}${campo("area", "Área", 'placeholder="Mantenimiento"')}</div>
+          <div class="tk-row2">${campo("departamento", "Departamento")}${campo("destino", "Destino (equipo)", 'placeholder="Equipo o lugar" list="almDestinos"')}</div>
+          <datalist id="almDestinos">${[...new Set(((window.MTTO && window.MTTO.catalogo.equipos) || []).map((x) => x.eq))].map((x) => `<option value="${esc(x)}">`).join("")}</datalist>
+          ${P() ? `<label>Centro de costo<select data-alm-campo="cc">${P().opcionesCC(b.cc || "")}</select></label>${avisoCC}` : ""}
+          <div class="tk-row2">${campo("solicitadoPor", "Solicitado por")}${campo("alistadoPor", "Alistado por", 'placeholder="Lo llena almacén"')}</div>
         </div>
         ${b.lineas.length ? `
           <div class="pl-tablewrap alm-sol-wrap">
             <table class="pl-table alm-sol-table">
-              <thead><tr><th>C&oacute;digo</th><th>Descripci&oacute;n</th><th>Cant.</th><th>Sacar de</th><th></th></tr></thead>
+              <thead><tr><th>Código</th><th>Descripción</th><th>Cant.</th><th>Sacar de</th><th class="pl-num">Valor</th><th></th></tr></thead>
               <tbody>${lineas}</tbody>
+              <tfoot><tr><td colspan="4" class="pl-soft">${sinPrecio ? `${sinPrecio} ${sinPrecio === 1 ? "renglón" : "renglones"} sin precio en el RE356` : "Valorizado con el precio del RE356"}</td><td class="pl-num"><strong>${esc(pesoCorto(total))}</strong></td><td></td></tr></tfoot>
             </table>
           </div>` : `<p class="pl-empty alm-sol-vacia">Busca a la izquierda y pulsa <strong>Pedir</strong> en cada pieza.</p>`}
         <label class="alm-obs">Observaciones
@@ -290,24 +340,52 @@
       </div>`;
   }
 
+  const ESTADOS_SOL = { emitida: "Pedida", entregada: "Entregada", anulada: "Anulada", pedido: "Pedido por Telegram", atendido: "Atendido" };
   function htmlHistorial() {
-    if (!historial.length) return "";
-    const filas = historial.slice(0, 15).map((s) => `
-      <tr>
-        <td>${esc(s.fecha)}</td>
+    const lista = historial.filter((s) => s.estado !== "pedido" && s.estado !== "atendido");
+    if (!lista.length) return "";
+    const filas = lista.slice(0, vista.histTodo ? 200 : 15).map((s) => {
+      const { total } = totalSolicitud(s);
+      const est = s.estado || "emitida";
+      return `
+      <tr class="${vista.resaltar === s.id ? "is-resaltada" : ""}" id="sol-${esc(s.id)}">
+        <td class="ux-nowrap">${esc(s.fecha)}</td>
         <td>${esc(TIPOS[s.tipo] || s.tipo || "")}</td>
         <td>${esc(s.destino) || "&mdash;"}</td>
+        <td>${s.cc ? `<span class="pp-cc__cod" title="${esc(P() ? P().nombreCC(s.cc) : "")}">${esc(s.cc)}</span>` : `<button class="pl-reg" type="button" data-alm="asignar-cc" data-id="${esc(s.id)}">asignar</button>`}</td>
         <td class="pl-num">${(s.lineas || []).length}</td>
+        <td class="pl-num"><strong>${total ? esc(pesoCorto(total)) : "—"}</strong></td>
         <td>${esc(s.solicitadoPor) || "&mdash;"}</td>
-        <td class="pl-num"><button class="pl-reg" type="button" data-alm="redescargar" data-id="${esc(s.id)}">Descargar</button>
-          <button class="pl-reg" type="button" data-alm="copiar" data-id="${esc(s.id)}" title="Empezar una solicitud nueva con estas mismas piezas">Repetir</button></td>
-      </tr>`).join("");
+        <td><span class="pl-tag ${est === "entregada" ? "pl-tag--ok" : est === "anulada" ? "pl-tag--n" : "pl-tag--warn"}">${esc(ESTADOS_SOL[est] || est)}</span></td>
+        <td class="pl-num alm-hist-acc">
+          ${est === "emitida" ? `<button class="pl-reg" type="button" data-alm="entregada" data-id="${esc(s.id)}" title="Almacén ya entregó las piezas">Entregada</button>` : ""}
+          <button class="pl-reg" type="button" data-alm="redescargar" data-id="${esc(s.id)}">Descargar</button>
+          <button class="pl-reg" type="button" data-alm="copiar" data-id="${esc(s.id)}" title="Empezar una solicitud nueva con estas mismas piezas">Repetir</button>
+          ${est !== "anulada" && est !== "entregada" ? `<button class="pl-reg" type="button" data-alm="anular" data-id="${esc(s.id)}" title="No se usó: deja de contar en el presupuesto">Anular</button>` : ""}
+        </td>
+      </tr>`;
+    }).join("");
     return `
-      <h3 class="alm-hist-titulo">Solicitudes hechas</h3>
+      <h3 class="alm-hist-titulo">Solicitudes hechas <span class="pl-tag pl-tag--n">${lista.length}</span></h3>
       <div class="pl-tablewrap"><table class="pl-table alm-hist">
-        <thead><tr><th>Fecha</th><th>Tipo</th><th>Destino</th><th class="pl-num">Art&iacute;culos</th><th>Solicit&oacute;</th><th></th></tr></thead>
+        <thead><tr><th>Fecha</th><th>Tipo</th><th>Destino</th><th>Centro</th><th class="pl-num">Art.</th><th class="pl-num">Valor</th><th>Solicitó</th><th>Estado</th><th></th></tr></thead>
         <tbody>${filas}</tbody>
-      </table></div>`;
+      </table></div>
+      ${lista.length > 15 && !vista.histTodo ? `<button class="pl-more" type="button" data-alm="hist-todo">Ver las ${lista.length} solicitudes</button>` : ""}`;
+  }
+
+  // Pedidos que llegan por Telegram (/pedir): se pasan a una solicitud con un toque
+  function htmlPedidos() {
+    const pedidos = historial.filter((s) => s.estado === "pedido");
+    if (!pedidos.length) return "";
+    return `<div class="alm-pedidos">
+      <div class="alm-pedidos__head"><b>Pedidos que llegaron por Telegram</b><span class="pl-tag pl-tag--warn">${pedidos.length}</span></div>
+      ${pedidos.map((s) => `<div class="alm-pedido">
+        <div><strong>${(s.lineas || []).map((l) => `${esc(l.cant)} × ${esc(l.desc || l.cod)}`).join(", ")}</strong>
+          <span class="pl-soft">${s.destino ? "Para " + esc(s.destino) + " · " : ""}${esc(s.solicitadoPor || "Alguien")} · ${esc(s.fecha)}${s.nota ? " · " + esc(s.nota) : ""}</span></div>
+        <div class="alm-pedido__acc"><button class="button button--dark" type="button" data-alm="pedido-usar" data-id="${esc(s.id)}">Pasar a la solicitud</button><button class="pl-reg" type="button" data-alm="pedido-descartar" data-id="${esc(s.id)}">Descartar</button></div>
+      </div>`).join("")}
+    </div>`;
   }
 
   // ------------------------------------------------------------------------
@@ -367,16 +445,55 @@
       planEquipos().forEach((eq) => (eq.r || []).forEach((r) => { const c = lector.normCod(r.cod); if (c) codigos.add(c); }));
       const { filas, diagnostico: d } = lector.analizarLibro(libro, XLSX.utils, codigos, { nombre: archivo.name });
       if (!d.columnas.exist) throw new Error(`Encontré los códigos pero no la columna de existencias. Columnas: ${d.titulosDisponibles.join(", ")}`);
+      // Antes de reemplazar el inventario: qué bajó desde la carga anterior.
+      // Así queda el historial de lo que cada persona sube y de lo que salió.
+      const previo = { ...(window.INVENTARIO.todo || {}) };
+      const carga = resumenCarga(filas, previo, codigos, lector.normCod);
       const r = window.INVENTARIO.cargarLocal(filas, { archivo: archivo.name });
+      window.PRESUPUESTO?.registrarCarga({ ...carga, archivo: archivo.name, origen: "archivo", hoja: d.hoja });
+      vista.ultimaCarga = filas;
       cache = { inv: null, lista: [] };
       vista.trabajando = "";
-      avisar("ok", `Le&iacute; <strong>${r.articulos.toLocaleString("es-CO")}</strong> art&iacute;culos de <strong>${esc(archivo.name)}</strong> (hoja ${esc(d.hoja)}); ${d.coincidenPlan} son piezas del plan. Queda solo en este equipo.`
-        + (r.guardado ? "" : " <strong>Ojo:</strong> no cupo en la memoria del navegador; al recargar la p&aacute;gina habr&aacute; que cargarlo otra vez."));
+      const peso2 = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dineroCorto(n) : n);
+      avisar("ok", `Leí <strong>${r.articulos.toLocaleString("es-CO")}</strong> artículos de <strong>${esc(archivo.name)}</strong> (hoja ${esc(d.hoja)}); ${d.coincidenPlan} son piezas del plan. Inventario valorizado en <strong>${esc(peso2(carga.valorInventario))}</strong>.`
+        + (carga.primera ? "" : ` Desde la carga anterior bajaron <strong>${carga.salidas}</strong> códigos por <strong>${esc(peso2(carga.valorSalidas))}</strong> (queda en Presupuesto → Cargas del inventario).`)
+        + (window.CLOUD && window.CLOUD.enabled ? ` <button class="pl-reg" type="button" data-alm="subir-nube">Compartir estas existencias con todo el taller</button>` : "")
+        + (r.guardado ? "" : " <strong>Ojo:</strong> no cupo en la memoria del navegador; al recargar la página habrá que cargarlo otra vez."));
       pintarResultados(); pintarSolicitud();
     } catch (e) {
       vista.trabajando = "";
       avisar("error", "No pude leer el reporte: " + esc(e.message || e));
     }
+  }
+
+  // Compara el RE356 nuevo con el que había: valor del inventario y lo que
+  // salió (bajó la existencia o desapareció del reporte, que no lista ceros).
+  function resumenCarga(filas, previo, codigosPlan, normCod) {
+    let valorInventario = 0, valorPlan = 0, entradas = 0;
+    const det = [];
+    const nuevo = new Map();
+    filas.forEach((f) => { const k = normCod(f.cod); if (k) nuevo.set(k, f); });
+    nuevo.forEach((f, k) => {
+      const pu = Number(f.pu) || 0;
+      const v = (Number(f.exist) || 0) * pu;
+      valorInventario += v;
+      if (codigosPlan.has(k)) valorPlan += v;
+      const a = previo[k];
+      if (!a) return;
+      const dif = (Number(a.exist) || 0) - (Number(f.exist) || 0);
+      if (dif > 0) det.push({ cod: k, desc: f.desc || a.desc || "", antes: Number(a.exist) || 0, ahora: Number(f.exist) || 0, dif, pu: pu || Number(a.pu) || 0, valor: dif * (pu || Number(a.pu) || 0), plan: codigosPlan.has(k) });
+      else if (dif < 0) entradas++;
+    });
+    Object.entries(previo).forEach(([k, a]) => {
+      if (nuevo.has(k) || !(Number(a.exist) > 0)) return;
+      det.push({ cod: k, desc: a.desc || "", antes: Number(a.exist), ahora: 0, dif: Number(a.exist), pu: Number(a.pu) || 0, valor: Number(a.exist) * (Number(a.pu) || 0), plan: codigosPlan.has(k), agotado: true });
+    });
+    det.sort((x, y) => y.valor - x.valor);
+    return {
+      articulos: nuevo.size, valorInventario, valorPlan, entradas, salidas: det.length,
+      valorSalidas: det.reduce((s, d) => s + d.valor, 0), detalle: det.slice(0, 300),
+      primera: !Object.keys(previo).length,
+    };
   }
 
   function datosFormato(s) {
@@ -420,12 +537,16 @@
     vista.aviso = null; vista.trabajando = "Llenando el formato…"; pintarFuente();
     try {
       const nombre = await descargarFormato(b);
-      const registro = JSON.parse(JSON.stringify({ ...b, id: "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), createdAt: new Date().toISOString() }));
+      // El precio y el centro de costo quedan fijos en la solicitud: si mañana
+      // cambia el precio en el RE356, lo que ya se pidió no se revaloriza.
+      const lineas = b.lineas.map((l) => ({ ...l, pu: l.pu || precio(l.cod) || null, cc: l.cc || b.cc || "" }));
+      const valor = totalSolicitud({ lineas }).total;
+      const registro = JSON.parse(JSON.stringify({ ...b, lineas, valor, estado: "emitida", por: window.NUCLEO ? window.NUCLEO.usuario.get() : "", id: "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), createdAt: new Date().toISOString() }));
       registrar(registro);
       borrador = nuevoBorrador(b);
       guardarBorrador();
       vista.trabajando = "";
-      avisar("ok", `Listo: <strong>${esc(nombre)}</strong>. &Aacute;brelo en Excel e impr&iacute;melo. La solicitud queda en la lista de abajo y en el Diario.`);
+      avisar("ok", `Listo: <strong>${esc(nombre)}</strong>. Ábrelo en Excel e imprímelo. La solicitud queda en la lista de abajo, en el Diario${registro.cc ? ` y descontada de <strong>${esc(registro.cc)}</strong> en el presupuesto (${esc(pesoCorto(valor))})` : ""}. Cuando almacén entregue, márcala como <strong>Entregada</strong>.`);
       pintarSolicitud(); pintarResultados(); pintarHistorial();
     } catch (e) {
       vista.trabajando = "";
@@ -439,7 +560,7 @@
     guardar(HISTORIAL, historial);
     const cloud = window.CLOUD;
     if (cloud && cloud.enabled && cloud.db) {
-      cloud.db.collection("solicitudes").doc(s.id).set(s).catch((e) => console.error("[Solicitudes] guardar nube:", e));
+      cloud.db.collection("solicitudes").doc(s.id).set(JSON.parse(JSON.stringify(s))).catch((e) => { console.error("[Solicitudes] guardar nube:", e); window.NUCLEO?.marcar("solicitudes", e && e.code === "permission-denied" ? "denegado" : "error"); });
     }
     window.diarioRenderSiVisible?.();
   }
@@ -450,11 +571,28 @@
     cloud.db.collection("solicitudes").onSnapshot((snap) => {
       const remoto = [];
       snap.forEach((d) => remoto.push(d.data()));
-      historial = remoto.sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+      // Lo guardado aquí que la nube aún no tiene (reglas nuevas, sin conexión)
+      // no se pierde: se conserva y se vuelve a subir.
+      const ids = new Set(remoto.map((s) => s.id));
+      const soloAqui = historial.filter((s) => s && s.id && !ids.has(s.id));
+      soloAqui.forEach((s) => cloud.db.collection("solicitudes").doc(s.id).set(JSON.parse(JSON.stringify(s))).catch(() => {}));
+      historial = [...remoto, ...soloAqui].sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
       guardar(HISTORIAL, historial);
-      if (esVisible()) pintarHistorial();
+      if (esVisible()) { pintarHistorial(); pintarPedidos(); }
       window.diarioRenderSiVisible?.();
-    }, (err) => console.error("[Solicitudes] onSnapshot:", err));
+    }, (err) => { console.error("[Solicitudes] onSnapshot:", err); window.NUCLEO?.marcar("solicitudes", err && err.code === "permission-denied" ? "denegado" : "error"); });
+  }
+
+  function pintarPedidos() { const p = document.getElementById("almPedidos"); if (p) p.innerHTML = htmlPedidos(); }
+
+  // Cambia el estado de una solicitud (entregada, anulada…) y lo comparte
+  function ponerEstado(id, estado, extra = {}) {
+    const s = historial.find((x) => x.id === id);
+    if (!s) return;
+    const n = { ...s, ...extra, estado, updatedAt: new Date().toISOString() };
+    if (estado === "entregada") n.entregadaEn = n.updatedAt;
+    registrar(n);
+    if (esVisible()) { pintarHistorial(); pintarPedidos(); }
   }
 
   // ------------------------------------------------------------------------
@@ -484,9 +622,45 @@
         const s = historial.find((x) => x.id === b.dataset.id);
         if (!s) return;
         if (borrador.lineas.length && !window.confirm("La solicitud que estás llenando se reemplaza. ¿Seguir?")) return;
-        borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, lineas: JSON.parse(JSON.stringify(s.lineas || [])) };
+        borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, cc: s.cc || "", lineas: JSON.parse(JSON.stringify(s.lineas || [])).map((l) => ({ ...l, pu: null })) };
         guardarBorrador(); pintarSolicitud(); pintarResultados();
         document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      else if (accion === "entregada") { ponerEstado(b.dataset.id, "entregada"); window.SHELL?.toast("Solicitud marcada como entregada"); }
+      else if (accion === "anular") { if (window.confirm("¿Anular la solicitud? Deja de contar en el presupuesto.")) { ponerEstado(b.dataset.id, "anulada"); } }
+      else if (accion === "hist-todo") { vista.histTodo = true; pintarHistorial(); }
+      else if (accion === "ver-hist") { vista.histTodo = true; pintarHistorial(); document.getElementById("almHistorial")?.scrollIntoView({ behavior: "smooth", block: "start" }); }
+      else if (accion === "ir-presupuesto") window.goPresupuesto?.();
+      else if (accion === "asignar-cc") {
+        const s = historial.find((x) => x.id === b.dataset.id);
+        if (!s) return;
+        const sug = window.PRESUPUESTO ? window.PRESUPUESTO.ccSugerido(s.destino) : "";
+        const cc = window.prompt(`Centro de costo para la solicitud del ${s.fecha}${s.destino ? " (" + s.destino + ")" : ""}.\nEscribe el código (ej. S1, L0, SD):`, sug || "");
+        if (cc && cc.trim()) { ponerEstado(s.id, s.estado || "emitida", { cc: cc.trim().toUpperCase(), lineas: (s.lineas || []).map((l) => ({ ...l, cc: l.cc || cc.trim().toUpperCase() })) }); window.SHELL?.toast(`Cargada a ${esc(cc.trim().toUpperCase())}`); }
+      }
+      else if (accion === "pedido-usar") {
+        const s = historial.find((x) => x.id === b.dataset.id);
+        if (!s) return;
+        (s.lineas || []).forEach((l) => {
+          if (borrador.lineas.some((x) => x.cod === l.cod) || borrador.lineas.length >= RENGLONES) return;
+          const it = universo().find((x) => x.cod === l.cod);
+          const mejor = it && it.sitios.length ? it.sitios.slice().sort((x, y) => y.exist - x.exist)[0] : null;
+          borrador.lineas.push({ cod: l.cod || "", desc: l.desc || (it ? it.desc : ""), um: it ? it.um : "", cant: l.cant || 1, sitio: mejor ? `${mejor.alm}|${mejor.ub}` : "", trans: "", causa: "" });
+        });
+        if (!borrador.destino && s.destino) borrador.destino = s.destino;
+        if (!borrador.cc && s.destino && window.PRESUPUESTO) borrador.cc = window.PRESUPUESTO.ccSugerido(s.destino);
+        if (!borrador.observaciones && s.nota) borrador.observaciones = String(s.nota).slice(0, OBS_MAX);
+        guardarBorrador();
+        ponerEstado(s.id, "atendido");
+        pintarSolicitud(); pintarResultados();
+        window.SHELL?.toast("Pedido pasado a la solicitud: revisa cantidades y descarga el formato");
+        document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      else if (accion === "pedido-descartar") { if (window.confirm("¿Descartar este pedido?")) ponerEstado(b.dataset.id, "anulada"); }
+      else if (accion === "subir-nube") {
+        if (!vista.ultimaCarga || !window.INVENTARIO.subirNube) return;
+        b.disabled = true; b.textContent = "Subiendo…";
+        window.INVENTARIO.subirNube(vista.ultimaCarga).then((r) => avisar(r.ok ? "ok" : "error", r.ok ? `Listo: <strong>${r.cambios}</strong> existencias actualizadas en la nube. Todo el taller ve el inventario nuevo.` : "No se pudo subir: " + esc(r.motivo || "error")));
       }
     });
 
@@ -494,8 +668,9 @@
       const t = e.target;
       if (t.dataset.alm === "archivo") { leerArchivo(t.files && t.files[0]); t.value = ""; return; }
       if (t.dataset.almCampo === "tipo") { borrador.tipo = t.value; guardarBorrador(); pintarSolicitud(); return; }
-      if (t.dataset.almLinea !== undefined && t.dataset.k === "sitio") {
-        borrador.lineas[+t.dataset.almLinea].sitio = t.value; guardarBorrador(); pintarSolicitud();
+      if (t.dataset.almCampo === "cc") { borrador.cc = t.value; guardarBorrador(); pintarSolicitud(); return; }
+      if (t.dataset.almLinea !== undefined && (t.dataset.k === "sitio" || t.dataset.k === "cc")) {
+        borrador.lineas[+t.dataset.almLinea][t.dataset.k] = t.value; guardarBorrador(); pintarSolicitud();
       }
     });
 
@@ -512,7 +687,14 @@
       }
     });
     // Al salir de la cantidad si se repinta: para avisar si pide mas de lo que hay.
-    raiz.addEventListener("focusout", (e) => { if (e.target.dataset && e.target.dataset.k === "cant") pintarSolicitud(); });
+    raiz.addEventListener("focusout", (e) => {
+      if (e.target.dataset && e.target.dataset.k === "cant") pintarSolicitud();
+      // Al escribir el destino se propone el centro de costo de ese equipo
+      if (e.target.dataset && e.target.dataset.almCampo === "destino" && !borrador.cc && window.PRESUPUESTO) {
+        const cc = window.PRESUPUESTO.ccSugerido(borrador.destino);
+        if (cc) { borrador.cc = cc; guardarBorrador(); pintarSolicitud(); }
+      }
+    });
   }
 
   function esVisible() { return document.getElementById("almacenView")?.classList.contains("is-active"); }
@@ -520,17 +702,30 @@
   // ------------------------------------------------------------------------
   //  Entrada
   // ------------------------------------------------------------------------
-  function goAlmacen() {
+  // op: { q, filtro, destino, nota, solicitud } — así llegan Pendientes, la
+  // búsqueda global, el Inicio y el presupuesto con lo que ya se sabe.
+  function goAlmacen(op) {
     views.almacen = views.almacen || document.getElementById("almacenView");
+    window.PRESUPUESTO?.asegurarDatos();
+    if (op && typeof op === "object") {
+      if (op.q !== undefined) { vista.q = String(op.q); vista.todo = false; vista.limite = 60; }
+      if (op.filtro !== undefined) vista.filtro = op.filtro;
+      if (op.destino && !borrador.destino) { borrador.destino = op.destino; if (!borrador.cc && window.PRESUPUESTO) borrador.cc = window.PRESUPUESTO.ccSugerido(op.destino); }
+      if (op.nota && !borrador.observaciones) borrador.observaciones = String(op.nota).slice(0, OBS_MAX);
+      if (op.solicitud) { vista.resaltar = op.solicitud; vista.histTodo = true; }
+      guardarBorrador();
+    }
     setView("almacen");
     render();
     enlazar();
     saveUiState({ activeView: "almacen" });
     window.scrollTo({ top: 0, behavior: "auto" });
-    setTimeout(() => document.getElementById("almQ")?.focus(), 30);
+    if (op && op.solicitud) setTimeout(() => document.getElementById("sol-" + op.solicitud)?.scrollIntoView({ behavior: "smooth", block: "center" }), 80);
+    else if (window.matchMedia("(pointer: fine)").matches) setTimeout(() => document.getElementById("almQ")?.focus({ preventScroll: true }), 30);
   }
 
   window.goAlmacen = goAlmacen;
+  window.almMarcarEntregada = (id) => ponerEstado(id, "entregada");
   window.almRenderSiVisible = () => { if (!esVisible()) return; cache = { inv: null, lista: [] }; pintarFuente(); pintarResultados(); pintarSolicitud(); };
   window.almSolicitudes = () => historial;
   window.almTipos = TIPOS;
