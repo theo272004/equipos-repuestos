@@ -126,6 +126,8 @@ await pg.fill("#alm-trans-0", "CO"); await pg.fill("#alm-causa-0", "07");
 await pg.fill("#alm-trans-1", "TR"); await pg.fill("#alm-causa-1", "12");
 await pg.fill('[data-alm-campo="destino"]', "BLISTEADORA #2");
 await pg.fill('[data-alm-campo="solicitadoPor"]', "PRUEBA");
+// las dos piezas salen de almacenes distintos (R04 y R02): dos hojas
+ok(/Sale en 2 hojas/.test(await pg.textContent("#almSolicitud")), "no aviso que la solicitud sale en una hoja por almacen");
 
 // 4. descargar el formato y mirar dentro
 const [descarga] = await Promise.all([pg.waitForEvent("download"), pg.click('[data-alm="emitir"]')]);
@@ -133,14 +135,21 @@ const rutaXlsx = join(SALIDA, "almacen-test.xlsx");
 await descarga.saveAs(rutaXlsx);
 const zip = await JSZip.loadAsync(await readFile(rutaXlsx));
 const hoja = await zip.file("xl/worksheets/sheet1.xml").async("string");
+const hoja2 = await zip.file("xl/worksheets/sheet2.xml")?.async("string") || "";
 const dibujo = await zip.file("xl/drawings/drawing1.xml").async("string");
+const dibujo2 = await zip.file("xl/drawings/drawing2.xml")?.async("string") || "";
+const libroDad = await zip.file("xl/workbook.xml").async("string");
+ok(/<sheet name="DAD-010A R04"[^>]*\/><sheet name="DAD-010A R02"/.test(libroDad), "no salio una hoja por almacen (R04 y luego R02)");
 ok(hoja.includes(`<c r="A13" s="23" t="inlineStr"><is><t xml:space="preserve">${codsB2[0]}</t>`), "el primer codigo no quedo en A13 con su estilo");
 ok(hoja.includes(`<c r="M13" s="8"><v>2</v></c>`), "la cantidad no quedo en M13");
 ok(hoja.includes('<c r="O13" s="18" t="inlineStr"><is><t xml:space="preserve">R04</t>'), "el almacen elegido no quedo en O13");
-ok((dibujo.match(/<a:t>X<\/a:t>/g) || []).length === 1, "la casilla de consumo no quedo marcada");
-const celda = (ref) => (new RegExp(`<c r="${ref}"[^>]*t="inlineStr"><is><t xml:space="preserve">([^<]*)<`).exec(hoja) || [])[1];
-ok(celda("G13") === "CO" && celda("H13") === "07", `renglon 1: Trans./Causa = ${celda("G13")}/${celda("H13")}, esperaba CO/07`);
-ok(celda("G14") === "TR" && celda("H14") === "12", `renglon 2: Trans./Causa = ${celda("G14")}/${celda("H14")}, esperaba TR/12`);
+ok(!/<c r="A14"[^>]*t="inlineStr"/.test(hoja), "la hoja de R04 trae un renglon de otro almacen");
+ok((dibujo.match(/<a:t>X<\/a:t>/g) || []).length === 1 && (dibujo2.match(/<a:t>X<\/a:t>/g) || []).length === 1, "la casilla de consumo no quedo marcada en las dos hojas");
+const celda = (h, ref) => (new RegExp(`<c r="${ref}"[^>]*t="inlineStr"><is><t xml:space="preserve">([^<]*)<`).exec(h) || [])[1];
+ok(celda(hoja, "G13") === "CO" && celda(hoja, "H13") === "07", `hoja R04: Trans./Causa = ${celda(hoja, "G13")}/${celda(hoja, "H13")}, esperaba CO/07`);
+ok(celda(hoja2, "A13") === codsB2[1] && celda(hoja2, "O13") === "R02", `hoja R02: renglon 1 = ${celda(hoja2, "A13")}/${celda(hoja2, "O13")}`);
+ok(celda(hoja2, "G13") === "TR" && celda(hoja2, "H13") === "12", `hoja R02: Trans./Causa = ${celda(hoja2, "G13")}/${celda(hoja2, "H13")}, esperaba TR/12`);
+ok(celda(hoja2, "C8") === "BLISTEADORA #2", "la cabecera no se repitio en la segunda hoja");
 ok(/^DAD-010A \d{4}-\d{2}-\d{2} BLISTEADORA 2\.xlsx$/.test(descarga.suggestedFilename()), `nombre de archivo raro: ${descarga.suggestedFilename()}`);
 await pg.waitForSelector(".alm-aviso--ok");
 ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");

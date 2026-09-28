@@ -20,6 +20,12 @@
 //  rellenar (comprueba las etiquetas antes de escribir) en vez de poner los
 //  datos en la casilla equivocada de un formato oficial.
 //
+//  UNA HOJA POR ALMACEN. Almacen no recibe en una misma hoja articulos de
+//  almacenes distintos. Si la solicitud trae R01 y R04, sale un solo archivo
+//  con dos hojas, cada una el formato completo (logos, casillas, impresion) con
+//  los mismos datos de cabecera y solo los renglones de su almacen. Con un solo
+//  almacen el archivo es exactamente el de siempre, con su hoja "DAD-010A".
+//
 //  Lo usan la app (vista Almacen) y la prueba de scripts/portal-bridge/test.
 // ============================================================================
 
@@ -140,6 +146,120 @@ function marcarCasilla(dibujo, tipo) {
   return dibujo.slice(0, objetivo.inicio) + nuevo + dibujo.slice(objetivo.inicio + objetivo.a.length);
 }
 
+// ---------------------------------------------------------------------------
+//  Una hoja por almacen
+// ---------------------------------------------------------------------------
+// Se agrupan en el orden en que aparecen en la solicitud. Lo que no tiene
+// almacen (piezas que no estan en el inventario) va en su propia hoja al final:
+// si se juntara con otra, almacen podria escribirle un almacen distinto y la
+// hoja quedaria mezclada.
+export function hojasPorAlmacen(lineas) {
+  const grupos = new Map();
+  (lineas || []).forEach((l) => {
+    const alm = String(l.alm ?? "").trim().toUpperCase();
+    if (!grupos.has(alm)) grupos.set(alm, []);
+    grupos.get(alm).push(l);
+  });
+  const orden = [...grupos.keys()].filter(Boolean);
+  if (grupos.has("")) orden.push("");
+  return orden.map((alm) => ({ alm, lineas: grupos.get(alm) }));
+}
+
+const HOJA = "DAD-010A";
+
+// Nombre de pestaña valido en Excel: sin : \ / ? * [ ] ni comillas, y hasta 31 letras.
+function nombresDeHojas(hojas) {
+  const usados = new Set();
+  return hojas.map((h) => {
+    const base = (h.alm ? `${HOJA} ${h.alm}` : `${HOJA} sin ALM`).replace(/[:\\/?*[\]'"]/g, "-").slice(0, 31);
+    let n = base, i = 2;
+    while (usados.has(n)) n = `${base.slice(0, 28)} ${i++}`;
+    usados.add(n);
+    return n;
+  });
+}
+
+// Copia la hoja del formato (con su dibujo y su configuracion de impresion)
+// una vez por cada almacen de mas. La primera hoja es la original.
+async function agregarHojas(zip, { ruta, rd, hojas, llenar, dibujo }) {
+  const nombres = nombresDeHojas(hojas);
+  let wb = await zip.file("xl/workbook.xml").async("string");
+  let wbRels = await zip.file("xl/_rels/workbook.xml.rels").async("string");
+  let tipos = await zip.file("[Content_Types].xml").async("string");
+  const relsHojaRuta = ruta.replace(/worksheets\//, "worksheets/_rels/") + ".rels";
+  const relsHoja = zip.file(relsHojaRuta) ? await zip.file(relsHojaRuta).async("string") : "";
+  const relsDibujoRuta = rd ? rd.replace(/drawings\//, "drawings/_rels/") + ".rels" : "";
+  const relsDibujo = relsDibujoRuta && zip.file(relsDibujoRuta) ? await zip.file(relsDibujoRuta).async("string") : "";
+
+  // La hoja original pasa a llamarse con su almacen, y su area de impresion con ella.
+  const antes = wb;
+  wb = wb.replace(new RegExp(`(<sheet [^>]*name=")${HOJA}(")`), `$1${escXml(nombres[0])}$2`);
+  if (wb === antes) throw new Error(`El formato no tiene la hoja "${HOJA}".`);
+  wb = wb.split(`'${HOJA}'!`).join(`'${nombres[0]}'!`);
+  const area = /<definedName name="_xlnm\.Print_Area" localSheetId="0">'[^']*'!([^<]+)<\/definedName>/.exec(wb);
+
+  const libre = (prefijo, ext) => { let n = 1; while (zip.file(`${prefijo}${n}${ext}`)) n++; return n; };
+  let sheetId = Math.max(0, ...[...wb.matchAll(/<sheet [^>]*sheetId="(\d+)"/g)].map((m) => +m[1]));
+  let rId = Math.max(0, ...[...wbRels.matchAll(/Id="rId(\d+)"/g)].map((m) => +m[1]));
+  let sheets = "", areas = "", rels = "", overrides = "";
+
+  for (let k = 1; k < hojas.length; k++) {
+    const nH = libre("xl/worksheets/sheet", ".xml");
+    const rutaH = `xl/worksheets/sheet${nH}.xml`;
+    // Solo una pestaña seleccionada (si no, Excel abre las hojas agrupadas y lo
+    // que se escriba en una se escribe en todas) y un identificador propio.
+    zip.file(rutaH, llenar(hojas[k].lineas)
+      .replace(/\s+tabSelected="1"/, "")
+      .replace(/xr:uid="\{([0-9A-Fa-f-]+)\}"/, (m, g) => `xr:uid="{${g.slice(0, -2)}${k.toString(16).toUpperCase().padStart(2, "0")}}"`));
+    overrides += `<Override PartName="/${rutaH}" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`;
+
+    let r = relsHoja;
+    if (rd) {
+      const nD = libre("xl/drawings/drawing", ".xml");
+      zip.file(`xl/drawings/drawing${nD}.xml`, dibujo);
+      if (relsDibujo) zip.file(`xl/drawings/_rels/drawing${nD}.xml.rels`, relsDibujo);
+      r = r.replace(/Target="([^"]*drawings\/)[^"]+"/, `Target="$1drawing${nD}.xml"`);
+      overrides += `<Override PartName="/xl/drawings/drawing${nD}.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/>`;
+    }
+    const ps = /Target="([^"]*printerSettings\/)([^"]+)"/.exec(r);
+    if (ps) {
+      const nP = libre("xl/printerSettings/printerSettings", ".bin");
+      zip.file(`xl/printerSettings/printerSettings${nP}.bin`, await zip.file("xl/printerSettings/" + ps[2]).async("uint8array"));
+      r = r.replace(ps[0], `Target="${ps[1]}printerSettings${nP}.bin"`);
+    }
+    if (r) zip.file(`xl/worksheets/_rels/sheet${nH}.xml.rels`, r);
+
+    rId++; sheetId++;
+    sheets += `<sheet name="${escXml(nombres[k])}" sheetId="${sheetId}" r:id="rId${rId}"/>`;
+    rels += `<Relationship Id="rId${rId}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${nH}.xml"/>`;
+    if (area) areas += `<definedName name="_xlnm.Print_Area" localSheetId="${k}">'${escXml(nombres[k])}'!${area[1]}</definedName>`;
+  }
+
+  wb = wb.replace("</sheets>", sheets + "</sheets>");
+  if (area) wb = wb.replace(area[0], area[0] + areas);
+  zip.file("xl/workbook.xml", wb);
+  zip.file("xl/_rels/workbook.xml.rels", wbRels.replace("</Relationships>", rels + "</Relationships>"));
+  zip.file("[Content_Types].xml", tipos.replace("</Types>", overrides + "</Types>"));
+  await propiedades(zip, nombres, !!area);
+}
+
+// docProps/app.xml lista las hojas y las areas de impresion. Si no tiene la
+// forma conocida se deja como estaba: Excel no depende de ella para abrir.
+async function propiedades(zip, nombres, conAreas) {
+  const f = zip.file("docProps/app.xml");
+  if (!f) return;
+  const x = await f.async("string");
+  const hojasRe = /(<vt:lpstr>Hojas de c[^<]*<\/vt:lpstr><\/vt:variant><vt:variant><vt:i4>)\d+(<\/vt:i4>)/;
+  const rangosRe = /(<vt:lpstr>Rangos con nombre<\/vt:lpstr><\/vt:variant><vt:variant><vt:i4>)\d+(<\/vt:i4>)/;
+  const titulosRe = /<TitlesOfParts>[\s\S]*?<\/TitlesOfParts>/;
+  if (!hojasRe.test(x) || !titulosRe.test(x) || (conAreas && !rangosRe.test(x))) return;
+  const areas = conAreas ? nombres.map((n) => `'${n}'!Área_de_impresión`) : [];
+  const items = [...nombres, ...areas].map((t) => `<vt:lpstr>${escXml(t)}</vt:lpstr>`);
+  let y = x.replace(hojasRe, `$1${nombres.length}$2`).replace(titulosRe, `<TitlesOfParts><vt:vector size="${items.length}" baseType="lpstr">${items.join("")}</vt:vector></TitlesOfParts>`);
+  if (conAreas) y = y.replace(rangosRe, `$1${nombres.length}$2`);
+  zip.file("docProps/app.xml", y);
+}
+
 async function rutaHoja(zip, nombreHoja) {
   const wb = await zip.file("xl/workbook.xml").async("string");
   const rels = await zip.file("xl/_rels/workbook.xml.rels").async("string");
@@ -182,42 +302,54 @@ export async function verificarFormato(JSZip, plantilla) {
 // salida: "uint8array" (Node) o "blob" (navegador).
 export async function rellenarDAD010A(JSZip, plantilla, datos, salida = "blob") {
   const lineas = (datos.lineas || []).filter((l) => l && (l.cod || l.desc));
-  if (lineas.length > RENGLONES) {
-    throw new Error(`El formato tiene ${RENGLONES} renglones y la solicitud trae ${lineas.length}. Parte la solicitud en dos.`);
+  const hojas = hojasPorAlmacen(lineas);
+  if (!hojas.length) hojas.push({ alm: "", lineas: [] });
+  const llena = hojas.find((h) => h.lineas.length > RENGLONES);
+  if (llena) {
+    throw new Error(`El formato tiene ${RENGLONES} renglones y ${hojas.length > 1 ? `el almacén ${llena.alm || "sin almacén"}` : "la solicitud"} trae ${llena.lineas.length}. Parte la solicitud en dos.`);
   }
 
   const { zip, ruta } = await verificarFormato(JSZip, plantilla);
-  let hoja = await zip.file(ruta).async("string");
+  const base = await zip.file(ruta).async("string");
 
-  const fecha = serialExcel(datos.fecha);
-  hoja = escribir(hoja, CELDAS.fecha, fecha ?? datos.fecha);
-  hoja = escribir(hoja, CELDAS.area, datos.area);
-  hoja = escribir(hoja, CELDAS.departamento, datos.departamento);
-  hoja = escribir(hoja, CELDAS.destino, datos.destino);
-  hoja = escribir(hoja, CELDAS.alistadoPor, datos.alistadoPor);
-  hoja = escribir(hoja, CELDAS.solicitadoPor, datos.solicitadoPor);
-  hoja = escribir(hoja, CELDAS.autorizadoPor, datos.autorizadoPor);
-  const [obs1, obs2] = partirObservaciones(datos.observaciones);
-  hoja = escribir(hoja, CELDAS.observaciones1, obs1);
-  hoja = escribir(hoja, CELDAS.observaciones2, obs2);
+  // La cabecera es la misma en todas las hojas; cambian los renglones.
+  const llenar = (lineasHoja) => {
+    let hoja = base;
+    const fecha = serialExcel(datos.fecha);
+    hoja = escribir(hoja, CELDAS.fecha, fecha ?? datos.fecha);
+    hoja = escribir(hoja, CELDAS.area, datos.area);
+    hoja = escribir(hoja, CELDAS.departamento, datos.departamento);
+    hoja = escribir(hoja, CELDAS.destino, datos.destino);
+    hoja = escribir(hoja, CELDAS.alistadoPor, datos.alistadoPor);
+    hoja = escribir(hoja, CELDAS.solicitadoPor, datos.solicitadoPor);
+    hoja = escribir(hoja, CELDAS.autorizadoPor, datos.autorizadoPor);
+    const [obs1, obs2] = partirObservaciones(datos.observaciones);
+    hoja = escribir(hoja, CELDAS.observaciones1, obs1);
+    hoja = escribir(hoja, CELDAS.observaciones2, obs2);
 
-  lineas.forEach((l, i) => {
-    const fila = PRIMERA_FILA + i;
-    for (const [campo, col] of Object.entries(COLUMNAS)) {
-      let v = l[campo];
-      if (campo === "cant") { const n = Number(v); v = v === "" || v === null || v === undefined ? "" : Number.isFinite(n) ? n : String(v); }
-      else v = v === null || v === undefined ? "" : String(v).trim();
-      hoja = escribir(hoja, col + fila, v);
-    }
-  });
+    lineasHoja.forEach((l, i) => {
+      const fila = PRIMERA_FILA + i;
+      for (const [campo, col] of Object.entries(COLUMNAS)) {
+        let v = l[campo];
+        if (campo === "cant") { const n = Number(v); v = v === "" || v === null || v === undefined ? "" : Number.isFinite(n) ? n : String(v); }
+        else v = v === null || v === undefined ? "" : String(v).trim();
+        hoja = escribir(hoja, col + fila, v);
+      }
+    });
+    return hoja;
+  };
 
-  zip.file(ruta, hoja);
+  zip.file(ruta, llenar(hojas[0].lineas));
 
+  const rd = await rutaDibujo(zip, ruta);
+  if (datos.tipo && !rd) throw new Error("El formato no tiene las casillas dibujadas de Traslado / Consumo / Devolucion.");
+  let dibujo = rd ? await zip.file(rd).async("string") : "";
   if (datos.tipo) {
-    const rd = await rutaDibujo(zip, ruta);
-    if (!rd) throw new Error("El formato no tiene las casillas dibujadas de Traslado / Consumo / Devolucion.");
-    zip.file(rd, marcarCasilla(await zip.file(rd).async("string"), datos.tipo));
+    dibujo = marcarCasilla(dibujo, datos.tipo);
+    zip.file(rd, dibujo);
   }
+
+  if (hojas.length > 1) await agregarHojas(zip, { ruta, rd, hojas, llenar, dibujo });
 
   return zip.generateAsync({
     type: salida,

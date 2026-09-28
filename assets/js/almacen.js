@@ -304,6 +304,19 @@
   const precio = (cod) => (P() ? P().precioDe(cod) : null);
   const peso = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dinero(n) : "$ " + Math.round(n).toLocaleString("es-CO"));
   const pesoCorto = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dineroCorto(n) : peso(n));
+  // Almacén no recibe en una misma hoja artículos de almacenes distintos: el
+  // formato sale con una hoja por almacén (formato-dad010a.mjs, hojasPorAlmacen).
+  // Mismo reparto aquí para avisarlo antes de descargar: en el orden de la
+  // solicitud, y lo que no tiene almacén en su propia hoja al final.
+  function hojasDe(lineas) {
+    const n = new Map();
+    (lineas || []).forEach((l) => { const a = String(l.sitio || "").split("|")[0].trim().toUpperCase(); n.set(a, (n.get(a) || 0) + 1); });
+    const orden = [...n.keys()].filter(Boolean);
+    if (n.has("")) orden.push("");
+    return orden.map((alm) => ({ alm, n: n.get(alm) }));
+  }
+  const listaHojas = (hs) => hs.map((h) => `${esc(h.alm || "sin almacén")} (${h.n})`).join(" · ");
+
   function totalSolicitud(s) {
     let total = 0, sinPrecio = 0;
     (s.lineas || []).forEach((l) => {
@@ -392,6 +405,7 @@
           <textarea rows="2" maxlength="${OBS_MAX}" data-alm-campo="observaciones">${esc(b.observaciones)}</textarea>
           <span class="pl-soft" id="almObsCuenta">${(b.observaciones || "").length}/${OBS_MAX}</span>
         </label>
+        ${(() => { const hs = hojasDe(b.lineas); return hs.length > 1 ? `<p class="alm-cc-nota alm-hojas">Sale en <b>${hs.length} hojas</b>, una por almacén: ${listaHojas(hs)}. Almacén no recibe almacenes distintos en la misma hoja.</p>` : ""; })()}
         <div class="alm-acciones">
           <button class="button button--dark" type="button" data-alm="emitir" ${b.lineas.length ? "" : "disabled"}>Descargar el formato lleno</button>
           ${b.lineas.length ? `<button class="pl-reg" type="button" data-alm="vaciar">Vaciar</button>` : ""}
@@ -623,7 +637,8 @@
       borrador = nuevoBorrador(b);
       guardarBorrador();
       vista.trabajando = "";
-      avisar("ok", `Listo: <strong>${esc(nombre)}</strong>. Ábrelo en Excel e imprímelo. La solicitud queda en la lista de abajo, en el Diario${registro.cc ? ` y descontada de <strong>${esc(registro.cc)}</strong> en el presupuesto (${esc(pesoCorto(valor))})` : ""}. Cuando almacén entregue, márcala como <strong>Entregada</strong>.`);
+      const hs = hojasDe(b.lineas);
+      avisar("ok", `Listo: <strong>${esc(nombre)}</strong>. Ábrelo en Excel e imprímelo${hs.length > 1 ? `: trae <strong>${hs.length} hojas</strong>, una por almacén (${listaHojas(hs)}), imprime todas` : ""}. La solicitud queda en la lista de abajo, en el Diario${registro.cc ? ` y descontada de <strong>${esc(registro.cc)}</strong> en el presupuesto (${esc(pesoCorto(valor))})` : ""}. Cuando almacén entregue, márcala como <strong>Entregada</strong>.`);
       pintarSolicitud(); pintarResultados(); pintarHistorial();
     } catch (e) {
       vista.trabajando = "";
