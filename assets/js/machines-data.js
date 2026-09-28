@@ -5490,12 +5490,12 @@ const initialMachines = [
           })()}<span class="sp-src sp-src--${f.fuente}" title="${planEsc(src.tip)}">${src.txt}</span></td>
           <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(f.cod)}" placeholder="&mdash;" title="C&oacute;digo interno con el que se pide en almac&eacute;n. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'cod')">${spMaestroCelda(f)}</td>
           <td class="pl-desc"><button class="sp-name" type="button" onclick="spToggle('${planEsc(f.clave)}')" title="Ver el detalle de esta pieza">${planMark(f.nombre, tokens) || "&mdash;"}</button>${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspecci&oacute;n del ${planEsc(pend.fecha)}</span>` : ""}</td>
-          <td class="sp-ref">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
-          <td>${f.crit ? `<span class="criticality-badge criticality-${planPlain(f.crit).replace(/ /g, "-")}">${planEsc(f.crit)}</span>` : "&mdash;"}</td>
-          <td class="pl-num">${f.q || "&mdash;"}</td>
-          <td class="pl-num">${spExistCelda(f)}</td>
-          <td class="pl-freq">${freq}${f.hist.length ? `<button class="pl-hist-btn" type="button" onclick="spToggle('${planEsc(f.clave)}')">${f.hist.length} ${f.hist.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
-          <td class="pl-num"><button class="pl-reg" type="button" onclick="spRegistrar('${planEsc(f.eq.c)}','${planEsc(f.cod)}','${planEsc(f.nombre).replace(/'/g, "&#39;")}',${f.q || 1})" title="Registrar un cambio de esta pieza">Registrar</button></td>
+          <td class="sp-ref ${f.ref ? "" : "is-vacio"}">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
+          <td class="sp-crit ${f.crit ? "" : "is-vacio"}">${f.crit ? `<span class="criticality-badge criticality-${planPlain(f.crit).replace(/ /g, "-")}">${planEsc(f.crit)}</span>` : "&mdash;"}</td>
+          <td class="pl-num sp-q" data-l="Cant.">${f.q || "&mdash;"}</td>
+          <td class="pl-num sp-exist" data-l="Exist.">${spExistCelda(f)}</td>
+          <td class="pl-freq" data-l="Frecuencia">${freq}${f.hist.length ? `<button class="pl-hist-btn" type="button" onclick="spToggle('${planEsc(f.clave)}')">${f.hist.length} ${f.hist.length === 1 ? "registro" : "registros"}</button>` : ""}</td>
+          <td class="pl-num sp-acc"><button class="pl-reg" type="button" onclick="spRegistrar('${planEsc(f.eq.c)}','${planEsc(f.cod)}','${planEsc(f.nombre).replace(/'/g, "&#39;")}',${f.q || 1})" title="Registrar un cambio de esta pieza">Registrar</button></td>
         </tr>`;
         if (!abierto) return fila;
         const detalle = [

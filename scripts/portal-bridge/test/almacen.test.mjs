@@ -153,7 +153,7 @@ ok(celda(hoja2, "C8") === "BLISTEADORA #2", "la cabecera no se repitio en la seg
 ok(/^DAD-010A \d{4}-\d{2}-\d{2} BLISTEADORA 2\.xlsx$/.test(descarga.suggestedFilename()), `nombre de archivo raro: ${descarga.suggestedFilename()}`);
 await pg.waitForSelector(".alm-aviso--ok");
 ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");
-ok(await pg.$$eval("#almSolicitud tbody tr", (t) => t.length) === 0, "la solicitud no se vacio despues de descargarla");
+ok(await pg.locator("#almSolicitud .alm-linea").count() === 0, "la solicitud no se vacio despues de descargarla");
 
 // 4b. se saca todo de un almacen si se puede: solo lo que no hay ahi va aparte
 // codsB2[0] esta en R01 (1) y R04 (7); codsB2[3] solo en R01. Sola, la primera
@@ -161,9 +161,17 @@ ok(await pg.$$eval("#almSolicitud tbody tr", (t) => t.length) === 0, "la solicit
 await pg.fill("#almQ", codsB2[0]);
 await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
 ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R04|B0204", "sola, la pieza con dos estantes deberia salir del que mas tiene");
-await pg.fill("#almQ", codsB2[3]);
-await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
+// la segunda, con "Agregar por codigo" dentro de la solicitud
+await pg.fill(".alm-agregar input", codsB2[3]);
+await pg.press(".alm-agregar input", "Enter");
+ok(await pg.locator("#almSolicitud .alm-linea").count() === 2, "agregar por codigo no sumo la pieza a la solicitud");
 ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R01|M0100", "no junto las dos piezas en R01, el almacen que tiene las dos");
+// cantidad con los botones - y +
+await pg.click('[data-alm="cant-mas"][data-i="1"]');
+await pg.click('[data-alm="cant-mas"][data-i="1"]');
+ok(await pg.$eval('input[data-alm-linea="1"][data-k="cant"]', (x) => x.value) === "3", "el boton + no subio la cantidad");
+await pg.click('[data-alm="cant-menos"][data-i="1"]');
+ok(await pg.$eval('input[data-alm-linea="1"][data-k="cant"]', (x) => x.value) === "2", "el boton - no bajo la cantidad");
 ok(await pg.locator(".alm-hojas").count() === 0, "con todo en R01 no deberia avisar de mas hojas");
 // cambiarlo a mano manda, y la que queda en otro almacen se marca
 await pg.selectOption('select[data-alm-linea="0"]', "R04|B0204");
@@ -180,7 +188,7 @@ await pg.click('[data-alm="vaciar"]');
 // 4c. una solicitud ya hecha se corrige y se vuelve a descargar: la misma, no otra
 await pg.click('.alm-hist button[data-alm="editar"]');
 ok(/Corregir solicitud/.test(await pg.textContent("#almSolicitud")), "no abrio la solicitud para corregirla");
-ok(await pg.$$eval("#almSolicitud tbody tr:not(.alm-sol-sub)", (t) => t.length) === 2, "la solicitud a corregir no trajo sus dos piezas");
+ok(await pg.locator("#almSolicitud .alm-linea").count() === 2, "la solicitud a corregir no trajo sus dos piezas");
 await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "5");
 await pg.locator('input[data-alm-linea="0"][data-k="cant"]').blur();
 await pg.click(`#almSolicitud button[data-alm="quitar"][data-cod="${codsB2[1]}"]`);

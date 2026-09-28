@@ -180,9 +180,27 @@
         </div>
         <aside class="alm-side" id="almSolicitud">${htmlSolicitud()}</aside>
       </div>
-      <div id="almHistorial">${htmlHistorial()}</div>`;
+      <div id="almHistorial">${htmlHistorial()}</div>
+      <button class="alm-ir-sol" id="almIrSol" type="button" data-alm="ir-sol" hidden></button>`;
     const q = document.getElementById("almQ");
     q.addEventListener("input", () => { vista.q = q.value; vista.limite = 60; vista.todo = false; pintarResultados(); });
+    // En el celular la solicitud queda debajo de los resultados: un botón
+    // flotante lleva a ella, y se esconde cuando ya se está viendo.
+    vista.solVisible = false;
+    if (window.IntersectionObserver) {
+      if (vista.obsSol) vista.obsSol.disconnect();
+      vista.obsSol = new IntersectionObserver((es) => { vista.solVisible = es.some((e) => e.isIntersecting); pintarIrSol(); });
+      vista.obsSol.observe(document.getElementById("almSolicitud"));
+    }
+    pintarIrSol();
+  }
+
+  function pintarIrSol() {
+    const b = document.getElementById("almIrSol");
+    if (!b) return;
+    const n = borrador.lineas.length;
+    b.hidden = !n || vista.solVisible;
+    b.innerHTML = `${borrador.editando ? "Corrección" : "Solicitud"} &middot; <b>${n}</b> ${n === 1 ? "pieza" : "piezas"} <span aria-hidden="true">&darr;</span>`;
   }
 
   function pintarResultados() {
@@ -191,7 +209,7 @@
     const c = document.getElementById("almChips");
     if (c) c.innerHTML = htmlChips();
   }
-  function pintarSolicitud() { const s = document.getElementById("almSolicitud"); if (s) s.innerHTML = htmlSolicitud(); }
+  function pintarSolicitud() { const s = document.getElementById("almSolicitud"); if (s) s.innerHTML = htmlSolicitud(); pintarIrSol(); }
   function pintarHistorial() { const h = document.getElementById("almHistorial"); if (h) h.innerHTML = htmlHistorial(); }
   function pintarFuente() { const f = document.getElementById("almFuente"); if (f) f.innerHTML = htmlFuente(); }
 
@@ -281,12 +299,12 @@
           ? `<button class="pl-reg is-on" type="button" data-alm="quitar" data-cod="${esc(it.cod)}" title="Quitar de la solicitud">Pedida &#10003;</button>`
           : `<button class="pl-reg" type="button" data-alm="agregar" data-cod="${esc(it.cod)}">Pedir</button>`}</td>
         <td class="pl-code">${planMark(it.cod, tokens)}</td>
-        <td>${planMark(it.desc, tokens) || "&mdash;"}${it.bajoMin ? ` <span class="pl-tag pl-tag--warn" title="M&iacute;nimo de almac&eacute;n: ${fmt(it.min)}">bajo el m&iacute;nimo</span>` : ""}${it.noMaestro ? ` <span class="pl-tag pl-tag--warn" title="El plan usa este c&oacute;digo pero no aparece en el maestro de art&iacute;culos de almac&eacute;n: puede estar mal copiado o no estar creado. Rev&iacute;salo con almac&eacute;n.">no est&aacute; en el maestro</span>` : ""}${it.m ? `<small class="alm-fam-txt">${esc(it.m.famNombre)}</small>` : ""}</td>
-        <td>${esc(it.um) || "&mdash;"}</td>
-        <td class="pl-num"><strong>${fmt(it.exist)}</strong></td>
+        <td class="alm-desc">${planMark(it.desc, tokens) || "&mdash;"}${it.bajoMin ? ` <span class="pl-tag pl-tag--warn" title="M&iacute;nimo de almac&eacute;n: ${fmt(it.min)}">bajo el m&iacute;nimo</span>` : ""}${it.noMaestro ? ` <span class="pl-tag pl-tag--warn" title="El plan usa este c&oacute;digo pero no aparece en el maestro de art&iacute;culos de almac&eacute;n: puede estar mal copiado o no estar creado. Rev&iacute;salo con almac&eacute;n.">no est&aacute; en el maestro</span>` : ""}${it.m ? `<small class="alm-fam-txt">${esc(it.m.famNombre)}</small>` : ""}</td>
+        <td class="alm-um" data-l="U/M">${esc(it.um) || "&mdash;"}</td>
+        <td class="pl-num alm-exist" data-l="Exist."><strong>${fmt(it.exist)}</strong></td>
         <td class="alm-donde">${donde(it)}</td>
-        <td class="pl-num">${it.min ? fmt(it.min) : "&mdash;"}</td>
-        <td class="alm-uso">${usadoEn(it)}</td>
+        <td class="pl-num alm-min ${it.min ? "" : "is-vacio"}" data-l="Mín.">${it.min ? fmt(it.min) : "&mdash;"}</td>
+        <td class="alm-uso ${it.equipos.length ? "" : "is-vacio"}" data-l="Usado en">${usadoEn(it)}</td>
       </tr>`).join("");
     const mas = res.length > vista.limite ? `<button class="pl-reg alm-mas" type="button" data-alm="mas">Ver ${Math.min(60, res.length - vista.limite)} m&aacute;s (quedan ${res.length - vista.limite})</button>` : "";
     return `${deEquipo}
@@ -410,6 +428,9 @@
     const campo = (k, etiqueta, extra = "") => `<label>${etiqueta}<input data-alm-campo="${k}" value="${esc(b[k])}" ${extra}></label>`;
     const { total, sinPrecio } = totalSolicitud(b);
     const hs = hojasDe(b.lineas, principalDe(b));
+    // Cada material es una tarjeta numerada, en el orden de los renglones del
+    // formato: qué es, cuánto (con − y +), de dónde sale, cuánto vale y los
+    // datos que pide el DAD-010A por renglón (Trans., código causa, centro).
     const lineas = b.lineas.map((l, i) => {
       const it = itemDe(l.cod);
       const aparte = hs.length > 1 && almDe(l) && almDe(l) !== hs[0].alm;
@@ -418,25 +439,35 @@
       const disp = elegido ? elegido.exist : it ? it.exist : null;
       const pasa = b.tipo !== "devolucion" && disp !== null && disp !== undefined && Number(l.cant) > disp;
       const pu = precio(l.cod);
+      const de = sitios.length > 1
+        ? `<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="sitio" aria-label="De qué estante sale ${esc(l.cod)}">${sitios.map((s) => `<option value="${esc(s.alm + "|" + s.ub)}" ${`${s.alm}|${s.ub}` === l.sitio ? "selected" : ""}>${esc(s.alm)} / ${esc(s.ub)} &middot; hay ${fmt(s.exist)}</option>`).join("")}</select>`
+        : `<span class="alm-linea__sitio">${l.sitio ? esc(l.sitio.replace("|", " / ")) : "&mdash;"}${disp !== null && disp !== undefined && elegido ? ` &middot; hay ${fmt(disp)}` : ""}</span>`;
       return `
-        <tr>
-          <td class="pl-code">${esc(l.cod)}</td>
-          <td class="alm-sol-desc">${esc(l.desc) || "&mdash;"}${it && !it.enBodega ? '<br><span class="pl-tag pl-tag--warn">no está en almacén</span>' : ""}${aparte ? `<br><span class="pl-tag pl-tag--n" title="No hay en ${esc(hs[0].alm)}: sale de ${esc(almDe(l))}, que va en otra hoja del formato">otra hoja &middot; ${esc(almDe(l))}</span>` : ""}</td>
-          <td><input class="pl-edit pl-edit--num alm-cant" type="number" min="0" step="any" inputmode="decimal" value="${esc(l.cant)}" data-alm-linea="${i}" data-k="cant" aria-label="Cantidad"> ${esc(l.um)}
-            ${pasa ? `<span class="alm-pasa" title="Hay ${fmt(disp)} en ese sitio">hay ${fmt(disp)}</span>` : ""}</td>
-          <td>${sitios.length > 1
-            ? `<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="sitio" aria-label="De qué estante">${sitios.map((s) => `<option value="${esc(s.alm + "|" + s.ub)}" ${`${s.alm}|${s.ub}` === l.sitio ? "selected" : ""}>${esc(s.alm)}/${esc(s.ub)} &middot; ${fmt(s.exist)}</option>`).join("")}</select>`
-            : esc(l.sitio ? l.sitio.replace("|", "/") : "—")}</td>
-          <td class="pl-num alm-valor" title="${pu ? "Precio unitario del RE356: " + esc(peso(pu)) : "El inventario no trae precio para este código"}">${pu ? esc(pesoCorto(pu * (Number(l.cant) || 0))) : '<span class="pl-soft">sin precio</span>'}</td>
-          <td><button class="alm-x" type="button" data-alm="quitar" data-cod="${esc(l.cod)}" aria-label="Quitar ${esc(l.cod)}">&times;</button></td>
-        </tr>
-        <tr class="alm-sol-sub">
-          <td colspan="6">
-            <label>Trans.<input class="pl-edit" id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
-            <label>Código causa<input class="pl-edit" id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
-            ${P() ? `<label title="Si este renglón se carga a otro centro de costo">Centro<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="cc"><option value="">igual que la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>` : ""}
-          </td>
-        </tr>`;
+        <li class="alm-linea ${aparte ? "is-aparte" : ""} ${pasa ? "is-pasa" : ""}">
+          <div class="alm-linea__top">
+            <span class="alm-linea__n" title="Renglón ${i + 1} del formato">${i + 1}</span>
+            <div class="alm-linea__txt">
+              <b>${esc(l.desc) || "Sin descripción"}</b>
+              <span class="alm-linea__meta"><code>${esc(l.cod) || "sin código"}</code>${l.um ? ` &middot; ${esc(l.um)}` : ""}${it && !it.enBodega ? ' <span class="pl-tag pl-tag--warn">no está en almacén</span>' : ""}${aparte ? ` <span class="pl-tag pl-tag--n" title="No hay en ${esc(hs[0].alm)}: sale de ${esc(almDe(l))}, que va en otra hoja del formato">otra hoja &middot; ${esc(almDe(l))}</span>` : ""}</span>
+            </div>
+            <button class="alm-x" type="button" data-alm="quitar" data-cod="${esc(l.cod)}" aria-label="Quitar ${esc(l.desc || l.cod)}" title="Quitar de la solicitud">&times;</button>
+          </div>
+          <div class="alm-linea__mid">
+            <div class="alm-stepper" role="group" aria-label="Cantidad de ${esc(l.cod)}">
+              <button type="button" data-alm="cant-menos" data-i="${i}" aria-label="Uno menos" ${Number(l.cant) <= 1 ? "disabled" : ""}>&minus;</button>
+              <input class="alm-cant" type="number" min="0" step="any" inputmode="decimal" value="${esc(l.cant)}" data-alm-linea="${i}" data-k="cant" aria-label="Cantidad">
+              <button type="button" data-alm="cant-mas" data-i="${i}" aria-label="Uno más">+</button>
+            </div>
+            <label class="alm-linea__de"><span>Sacar de</span>${de}</label>
+            <span class="alm-linea__valor" title="${pu ? "Precio unitario del RE356: " + esc(peso(pu)) : "El inventario no trae precio para este código"}">${pu ? esc(pesoCorto(pu * (Number(l.cant) || 0))) : '<span class="pl-soft">sin precio</span>'}</span>
+          </div>
+          ${pasa ? `<p class="alm-pasa">Pides ${fmt(l.cant)} y ${elegido ? `en ${esc(elegido.alm)} / ${esc(elegido.ub)}` : "en almacén"} hay ${fmt(disp)}.</p>` : ""}
+          <div class="alm-linea__extra">
+            <label>Trans.<input id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
+            <label>Código causa<input id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
+            ${P() ? `<label title="Si este renglón se carga a otro centro de costo">Centro<select data-alm-linea="${i}" data-k="cc"><option value="">el de la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>` : ""}
+          </div>
+        </li>`;
     }).join("");
     const saldo = saldoCC(b.cc);
     const avisoCC = !P() ? "" : !b.cc
@@ -457,6 +488,20 @@
         <div class="alm-tipo" role="radiogroup" aria-label="Tipo de solicitud">
           ${Object.entries(TIPOS).map(([k, t]) => `<label class="alm-chip ${b.tipo === k ? "is-on" : ""}"><input type="radio" name="almTipo" value="${k}" ${b.tipo === k ? "checked" : ""} data-alm-campo="tipo">${t}</label>`).join("")}
         </div>
+
+        <section class="alm-mat" aria-label="Materiales">
+          <div class="alm-mat__head"><h4>Materiales</h4>${b.lineas.length ? `<span class="pl-soft">${b.lineas.length} de ${RENGLONES} renglones</span>` : ""}</div>
+          <form class="alm-agregar" data-alm-form="agregar" autocomplete="off">
+            <input type="search" name="q" enterkeyhint="done" placeholder="Código o nombre de la pieza" aria-label="Agregar material por código o nombre">
+            <button class="button button--light" type="submit">Agregar</button>
+          </form>
+          ${b.lineas.length ? `${htmlPrincipal(b)}
+            <ol class="alm-lineas">${lineas}</ol>
+            <div class="alm-mat__total"><span class="pl-soft">${sinPrecio ? `${sinPrecio} ${sinPrecio === 1 ? "renglón" : "renglones"} sin precio en el RE356` : "Valorizado con el precio del RE356"}</span><span>Total <strong>${esc(pesoCorto(total))}</strong></span></div>`
+          : `<p class="alm-sol-vacia">Todavía no hay materiales. Búscalos y pulsa <strong>Pedir</strong>, o escribe el código aquí arriba.</p>`}
+        </section>
+
+        <h4 class="alm-datos-t">Datos de la solicitud</h4>
         <div class="tk-form alm-form">
           <div class="tk-row2">${campo("fecha", "Fecha", 'type="date"')}${campo("area", "Área", 'placeholder="Mantenimiento"')}</div>
           <div class="tk-row2">${campo("departamento", "Departamento")}${campo("destino", "Destino (equipo)", 'placeholder="Equipo o lugar" list="almDestinos"')}</div>
@@ -464,14 +509,6 @@
           ${P() ? `<label>Centro de costo<select data-alm-campo="cc">${P().opcionesCC(b.cc || "")}</select></label>${avisoCC}` : ""}
           <div class="tk-row2">${campo("solicitadoPor", "Solicitado por")}${campo("alistadoPor", "Alistado por", 'placeholder="Lo llena almacén"')}</div>
         </div>
-        ${b.lineas.length ? `${htmlPrincipal(b)}
-          <div class="pl-tablewrap alm-sol-wrap">
-            <table class="pl-table alm-sol-table">
-              <thead><tr><th>Código</th><th>Descripción</th><th>Cant.</th><th>Sacar de</th><th class="pl-num">Valor</th><th></th></tr></thead>
-              <tbody>${lineas}</tbody>
-              <tfoot><tr><td colspan="4" class="pl-soft">${sinPrecio ? `${sinPrecio} ${sinPrecio === 1 ? "renglón" : "renglones"} sin precio en el RE356` : "Valorizado con el precio del RE356"}</td><td class="pl-num"><strong>${esc(pesoCorto(total))}</strong></td><td></td></tr></tfoot>
-            </table>
-          </div>` : `<p class="pl-empty alm-sol-vacia">Busca a la izquierda y pulsa <strong>Pedir</strong> en cada pieza.</p>`}
         <label class="alm-obs">Observaciones
           <textarea rows="2" maxlength="${OBS_MAX}" data-alm-campo="observaciones">${esc(b.observaciones)}</textarea>
           <span class="pl-soft" id="almObsCuenta">${(b.observaciones || "").length}/${OBS_MAX}</span>
@@ -552,6 +589,30 @@
     elegirSitios();
     guardarBorrador();
     pintarSolicitud(); pintarResultados();
+    // Un solo aviso a la vez: si se piden varias seguidas no se apilan tapando la lista.
+    document.querySelectorAll("#uxToasts [data-alm-aviso]").forEach((t) => t.remove());
+    window.SHELL?.toast(`Renglón ${borrador.lineas.length}: <b>${esc(it ? it.desc || cod : cod)}</b>`, { accion: { txt: "Ver solicitud", fn: () => document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" }) } });
+    const ultimo = document.getElementById("uxToasts")?.lastElementChild;
+    if (ultimo) ultimo.dataset.almAviso = "1";
+  }
+
+  // "Agregar por código o nombre" dentro de la solicitud: un código exacto (o
+  // una búsqueda con un solo resultado) entra directo; si hay varios, se
+  // muestran en los resultados para elegir.
+  function agregarPorTexto(txt) {
+    const t = String(txt || "").trim();
+    if (!t) return false;
+    const norm = window.INVENTARIO ? window.INVENTARIO.norm : (v) => String(v || "").trim().toUpperCase();
+    if (itemDe(norm(t))) { agregar(norm(t)); return true; }
+    vista.q = t; vista.limite = 60; vista.todo = true;
+    const caja = document.getElementById("almQ");
+    if (caja) caja.value = t;
+    const { lista } = buscar();
+    if (lista.length === 1) { agregar(lista[0].cod); pintarResultados(); return true; }
+    pintarResultados();
+    document.getElementById("almResultados")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.SHELL?.toast(lista.length ? `Hay ${lista.length} que coinciden con «${esc(t)}»: pulsa <b>Pedir</b> en la que es.` : `Nada coincide con «${esc(t)}».`, { tipo: lista.length ? "ok" : "warn" });
+    return false;
   }
 
   function quitar(cod) {
@@ -788,6 +849,14 @@
       else if (accion === "emitir") emitir();
       else if (accion === "vaciar") { if (window.confirm(borrador.editando ? "¿Descartar la corrección? La solicitud queda como estaba." : "¿Vaciar la solicitud?")) { borrador = nuevoBorrador(borrador); guardarBorrador(); pintarSolicitud(); pintarResultados(); } }
       else if (accion === "maestro") { window.MAESTRO?.cargar({ reintentar: true }); pintarFuente(); }
+      else if (accion === "ir-sol") document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      else if (accion === "cant-menos" || accion === "cant-mas") {
+        const l = borrador.lineas[+b.dataset.i];
+        if (!l) return;
+        const n = Number(l.cant) || 0;
+        l.cant = accion === "cant-mas" ? n + 1 : Math.max(1, n - 1);
+        guardarBorrador(); pintarSolicitud();
+      }
       else if (accion === "olvidar") { window.INVENTARIO.olvidarLocal(); cache = { inv: null, m: null, lista: [] }; vista.aviso = null; render(); }
       else if (accion === "redescargar") {
         const s = historial.find((x) => x.id === b.dataset.id);
@@ -889,6 +958,16 @@
       }
     });
     // Al salir de la cantidad si se repinta: para avisar si pide mas de lo que hay.
+    raiz.addEventListener("submit", (e) => {
+      const f = e.target.closest("[data-alm-form]");
+      if (!f) return;
+      e.preventDefault();
+      if (f.dataset.almForm === "agregar" && agregarPorTexto(f.q.value)) {
+        // Para seguir agregando por código sin volver a tocar la casilla
+        setTimeout(() => document.querySelector(".alm-agregar input")?.focus({ preventScroll: true }), 0);
+      }
+    });
+
     raiz.addEventListener("focusout", (e) => {
       if (e.target.dataset && e.target.dataset.k === "cant") pintarSolicitud();
       // Al escribir el destino se propone el centro de costo de ese equipo
