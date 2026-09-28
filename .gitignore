@@ -23,3 +23,7 @@ scripts/portal-bridge/portal.config.json
 scripts/portal-bridge/salida/
 # El repo ignora *.md (texto crudo de OCR), pero la guia del puente si va
 !scripts/portal-bridge/README.md
+
+# Reportes de MiPortal bajados a mano (RE356R, RE356...): traen precios y el
+# repositorio es publico. scripts/gen-maestro-almacen.py los lee de aqui.
+manuales/_almacen/

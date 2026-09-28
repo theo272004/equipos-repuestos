@@ -4,6 +4,9 @@
 //  El buscador junta en una sola lista:
 //    - Lo que hay en almacen (reporte RE356 de MiPortal, via assets/js/inventario.js)
 //    - Las piezas del plan de mantenimiento, aunque almacen no las tenga
+//    - Todos los demas codigos de la empresa (maestro RE356R, via
+//      assets/js/maestro-almacen.js), sin existencias: para encontrar el codigo
+//      de una pieza aunque nadie la haya pedido nunca
 //  y busca por codigo, descripcion, ubicacion y por el EQUIPO que las usa: escribir
 //  "blisteadora 2" trae todas sus piezas con su existencia y su estante.
 //
@@ -27,10 +30,11 @@
 
   const esc = (v) => planEsc(v);
   const hoy = () => bogotaToday();
-  const vista = { q: "", filtro: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "" };
+  const fechaCorta = (iso) => { const [a, m, d] = String(iso || "").split("-"); return d ? `${Number(d)}/${m}/${a}` : String(iso || ""); };
+  const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "" };
   let borrador = cargar(BORRADOR, null) || nuevoBorrador();
   let historial = cargar(HISTORIAL, []);
-  let cache = { inv: null, lista: [] };
+  let cache = { inv: null, m: null, lista: [] };
 
   function cargar(k, def) { try { const v = JSON.parse(localStorage.getItem(k) || "null"); return v ?? def; } catch (e) { return def; } }
   function guardar(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -57,7 +61,8 @@
 
   function universo() {
     const inv = window.INVENTARIO ? window.INVENTARIO.todo : {};
-    if (cache.inv === inv && cache.lista.length) return cache.lista;
+    const M = window.MAESTRO && window.MAESTRO.listo ? window.MAESTRO : null;
+    if (cache.inv === inv && cache.m === M && cache.lista.length) return cache.lista;
     const norm = window.INVENTARIO ? window.INVENTARIO.norm : (v) => String(v || "").trim().toUpperCase();
 
     // Que equipos usan cada codigo, segun el plan (con el codigo corregido a mano si lo hay).
@@ -72,21 +77,39 @@
       if (!descPlan.has(cod) && r.d) descPlan.set(cod, r.d);
     }));
 
+    // Del maestro sale la descripcion oficial, la familia y el plazo de compra
+    // de cualquier codigo, este o no en el estante.
+    const de = (cod) => (M ? M.de(cod) : null);
     const items = [];
-    Object.values(inv).forEach((a) => items.push({
-      cod: a.cod, desc: a.desc || descPlan.get(a.cod) || "", um: a.um || "", exist: a.exist,
-      min: a.min, sitios: (a.sitios || []).filter((s) => s.alm || s.ub), ub: a.ub || "",
-      enBodega: true, equipos: uso.get(a.cod) || [],
-    }));
+    Object.values(inv).forEach((a) => {
+      const m = de(a.cod);
+      items.push({
+        cod: a.cod, desc: a.desc || (m && m.desc) || descPlan.get(a.cod) || "", um: a.um || (m && m.um) || "", exist: a.exist,
+        min: a.min ?? (m && m.min) ?? null, sitios: (a.sitios || []).filter((s) => s.alm || s.ub), ub: a.ub || "",
+        enBodega: true, equipos: uso.get(a.cod) || [], m,
+      });
+    });
     uso.forEach((equipos, cod) => {
       if (inv[cod]) return;
-      items.push({ cod, desc: descPlan.get(cod) || "", um: "", exist: null, min: null, sitios: [], ub: "", enBodega: false, equipos });
+      const m = de(cod);
+      items.push({ cod, desc: (m && m.desc) || descPlan.get(cod) || "", um: (m && m.um) || "", exist: null, min: (m && m.min) || null, sitios: [], ub: "", enBodega: false, equipos, m });
     });
+    if (M) M.todos.forEach((m) => {
+      if (inv[m.cod] || uso.has(m.cod)) return;
+      items.push({ cod: m.cod, desc: m.desc, um: m.um, exist: null, min: m.min || null, sitios: [], ub: "", enBodega: false, equipos: [], m });
+    });
+    const porFam = new Map();
     items.forEach((it) => {
-      it.hay = planPlain([it.cod, it.desc, it.ub, it.sitios.map((s) => `${s.alm}/${s.ub} ${s.alm} ${s.ub}`).join(" "), it.equipos.map((e) => `${e.n} ${e.c}`).join(" ")].join(" "));
+      const dp = descPlan.get(it.cod);
+      it.hay = planPlain([it.cod, it.desc, dp && dp !== it.desc ? dp : "", it.ub, it.sitios.map((s) => `${s.alm}/${s.ub} ${s.alm} ${s.ub}`).join(" "), it.equipos.map((e) => `${e.n} ${e.c}`).join(" ")].join(" "));
       it.bajoMin = it.enBodega && it.min > 0 && (it.exist ?? 0) < it.min;
+      it.fam = it.m ? it.m.fam : -1;
+      it.otraArea = !!(it.m && it.m.grupo === "otro");
+      // Un codigo del plan que el maestro no conoce: mal copiado o sin crear en almacen.
+      it.noMaestro = !!(M && !it.m && it.equipos.length);
+      porFam.set(it.fam, (porFam.get(it.fam) || 0) + 1);
     });
-    cache = { inv, lista: items };
+    cache = { inv, m: M, lista: items, porFam };
     return items;
   }
 
@@ -108,6 +131,8 @@
     const tokens = planTokens(vista.q);
     const q = normalize(vista.q).replace(/\s+/g, "");
     let lista = universo();
+    if (vista.fam === "mtto") lista = lista.filter((it) => !it.otraArea);
+    else if (vista.fam !== "") lista = lista.filter((it) => it.fam === Number(vista.fam));
     if (vista.filtro === "stock") lista = lista.filter((it) => it.exist > 0);
     if (vista.filtro === "plan") lista = lista.filter((it) => it.equipos.length);
     if (vista.filtro === "min") lista = lista.filter((it) => it.bajoMin);
@@ -116,8 +141,11 @@
       const cods = new Set(eqs.map((e) => e.c));
       lista = lista.filter((it) => it.equipos.some((e) => cods.has(e.c)));
     } else if (tokens.length) lista = lista.filter((it) => tokens.every((t) => it.hay.includes(t)));
-    else if (!vista.filtro) return { lista: [], eqs };
-    const peso = (it) => (planPlain(it.cod) === q ? 0 : planPlain(it.cod).startsWith(q) ? 1 : 2) * 10 + (it.exist > 0 ? 0 : it.enBodega ? 1 : 2);
+    else if (!vista.filtro && (vista.fam === "" || vista.fam === "mtto")) return { lista: [], eqs };
+    // Primero lo que hay, luego lo de almacen en cero, las piezas del plan, el
+    // resto del maestro y al final lo de otras areas (laboratorio, oficina...).
+    const lugar = (it) => (it.exist > 0 ? 0 : it.enBodega ? 1 : it.equipos.length ? 2 : it.otraArea ? 4 : 3);
+    const peso = (it) => (planPlain(it.cod) === q ? 0 : planPlain(it.cod).startsWith(q) ? 1 : 2) * 10 + lugar(it);
     return { lista: lista.slice().sort((a, b) => peso(a) - peso(b) || String(a.desc).localeCompare(String(b.desc))), eqs };
   }
 
@@ -173,6 +201,11 @@
     const f = inv ? inv.frescura() : { estado: "sin-datos", texto: "" };
     const archivo = inv && inv.fuente === "archivo";
     const aviso = vista.aviso ? `<p class="alm-aviso alm-aviso--${vista.aviso.tipo}" role="status">${vista.aviso.html}</p>` : "";
+    const M = window.MAESTRO;
+    const maestro = !M ? ""
+      : M.listo ? `<span class="pl-inv pl-inv--maestro" title="Todos los códigos de la empresa (reporte RE356R de MiPortal), tengan existencia o no. No trae existencias, estantes ni precios.">Maestro: ${M.total.toLocaleString("es-CO")} c&oacute;digos &middot; ${esc(fechaCorta(M.fecha))}</span>`
+      : M.error ? `<button class="pl-reg" type="button" data-alm="maestro" title="${esc(M.error)}">No baj&oacute; el maestro de art&iacute;culos &middot; reintentar</button>`
+      : `<span class="pl-soft">Cargando el maestro de art&iacute;culos&hellip;</span>`;
     const trabajando = vista.trabajando ? `<p class="alm-aviso alm-aviso--info" role="status">${esc(vista.trabajando)}</p>` : "";
     return `
       <div class="alm-fuente">
@@ -181,8 +214,9 @@
           Cargar reporte RE356&hellip;<input type="file" accept=".xls,.xlsx" data-alm="archivo" hidden>
         </label>
         ${archivo ? `<button class="pl-reg" type="button" data-alm="olvidar" title="Volver a lo que suba el puente de MiPortal">Quitar el archivo</button>` : ""}
+        ${maestro}
       </div>
-      ${hay ? "" : `<p class="pl-note">En MiPortal abre el reporte <strong>RE356</strong>, pulsa <strong>Generar Excel</strong> (si no, sale en PDF) y c&aacute;rgalo aqu&iacute;. Mientras tanto se busca solo en las piezas del plan, sin existencias.</p>`}
+      ${hay ? "" : `<p class="pl-note">En MiPortal abre el reporte <strong>RE356</strong>, pulsa <strong>Generar Excel</strong> (si no, sale en PDF) y c&aacute;rgalo aqu&iacute;. Mientras tanto se busca en las piezas del plan y en el maestro de art&iacute;culos (todos los c&oacute;digos de la empresa), sin existencias ni estantes.</p>`}
       ${trabajando}${aviso}`;
   }
 
@@ -190,12 +224,37 @@
     const lista = universo();
     const n = { stock: lista.filter((i) => i.exist > 0).length, plan: lista.filter((i) => i.equipos.length).length, min: lista.filter((i) => i.bajoMin).length };
     const chip = (id, txt, cant) => `<button type="button" class="alm-chip ${vista.filtro === id ? "is-on" : ""}" data-alm="filtro" data-v="${id}">${txt} <span>${cant}</span></button>`;
-    return chip("stock", "Con existencia", n.stock) + chip("plan", "Piezas del plan", n.plan) + (n.min ? chip("min", "Bajo el m&iacute;nimo", n.min) : "");
+    return chip("stock", "Con existencia", n.stock) + chip("plan", "Piezas del plan", n.plan) + (n.min ? chip("min", "Bajo el m&iacute;nimo", n.min) : "") + htmlFamilias();
+  }
+
+  // Familias del maestro (salen de los digitos del codigo: 7419 rodamientos,
+  // 7412 correas...). Para recorrer "todas las correas" sin saber como se
+  // llaman, o para dejar fuera lo de laboratorio y oficina.
+  function htmlFamilias() {
+    const M = window.MAESTRO;
+    if (!(M && M.listo)) return "";
+    const cuenta = (i) => (cache.porFam && cache.porFam.get(i)) || 0;
+    const fams = M.familias.filter((f) => cuenta(f.i)).sort((a, b) => a.nombre.localeCompare(b.nombre, "es"));
+    const mtto = universo().filter((it) => !it.otraArea).length;
+    const opt = (f) => `<option value="${f.i}" ${vista.fam === String(f.i) ? "selected" : ""}>${esc(f.nombre)} (${cuenta(f.i).toLocaleString("es-CO")})</option>`;
+    return `<label class="alm-fam">
+      <select data-alm="fam" aria-label="Familia de art&iacute;culos">
+        <option value="" ${vista.fam === "" ? "selected" : ""}>Todas las familias</option>
+        <option value="mtto" ${vista.fam === "mtto" ? "selected" : ""}>Solo mantenimiento (${mtto.toLocaleString("es-CO")})</option>
+        <optgroup label="Mantenimiento">${fams.filter((f) => f.grupo !== "otro").map(opt).join("")}</optgroup>
+        <optgroup label="Otras &aacute;reas">${fams.filter((f) => f.grupo === "otro").map(opt).join("")}</optgroup>
+      </select></label>`;
   }
 
   function donde(it) {
-    if (!it.sitios.length) return it.enBodega ? esc(it.ub || "—") : '<span class="pl-soft">no est&aacute; en almac&eacute;n</span>';
-    return it.sitios.map((s) => `<span class="alm-sitio">${esc(s.alm)}/${esc(s.ub)}${it.sitios.length > 1 ? ` <b>${fmt(s.exist)}</b>` : ""}</span>`).join(" ");
+    // Si no hay y toca comprarla, cuanto tarda (dias de aprovisionamiento del maestro).
+    const plazo = !(it.exist > 0) && it.m && it.m.dias ? ` <span class="pl-soft alm-plazo" title="D&iacute;as de aprovisionamiento seg&uacute;n el maestro de art&iacute;culos">compra: ${fmt(it.m.dias)} d&iacute;as</span>` : "";
+    if (!it.sitios.length) {
+      if (it.enBodega) return esc(it.ub || "—") + plazo;
+      const sabe = window.INVENTARIO && window.INVENTARIO.cargado;
+      return `<span class="pl-soft">${sabe ? "no est&aacute; en almac&eacute;n" : "sin inventario cargado"}</span>${plazo}`;
+    }
+    return it.sitios.map((s) => `<span class="alm-sitio">${esc(s.alm)}/${esc(s.ub)}${it.sitios.length > 1 ? ` <b>${fmt(s.exist)}</b>` : ""}</span>`).join(" ") + plazo;
   }
   function usadoEn(it) {
     if (!it.equipos.length) return '<span class="pl-soft">&mdash;</span>';
@@ -206,8 +265,8 @@
 
   function htmlResultados() {
     const tokens = planTokens(vista.q);
-    if (!tokens.length && !vista.filtro) {
-      return `<div class="pl-empty"><h3>Escribe lo que buscas</h3><p>Por c&oacute;digo, por nombre de la pieza, por estante (R01/Z0505) o por el equipo que la usa.</p></div>`;
+    if (!tokens.length && !vista.filtro && (vista.fam === "" || vista.fam === "mtto")) {
+      return `<div class="pl-empty"><h3>Escribe lo que buscas</h3><p>Por c&oacute;digo, por nombre de la pieza, por estante (R01/Z0505) o por el equipo que la usa. O elige una familia para recorrerla entera.</p></div>`;
     }
     const { lista: res, eqs } = buscar();
     const deEquipo = eqs.length
@@ -222,7 +281,7 @@
           ? `<button class="pl-reg is-on" type="button" data-alm="quitar" data-cod="${esc(it.cod)}" title="Quitar de la solicitud">Pedida &#10003;</button>`
           : `<button class="pl-reg" type="button" data-alm="agregar" data-cod="${esc(it.cod)}">Pedir</button>`}</td>
         <td class="pl-code">${planMark(it.cod, tokens)}</td>
-        <td>${planMark(it.desc, tokens) || "&mdash;"}${it.bajoMin ? ` <span class="pl-tag pl-tag--warn" title="M&iacute;nimo de almac&eacute;n: ${fmt(it.min)}">bajo el m&iacute;nimo</span>` : ""}</td>
+        <td>${planMark(it.desc, tokens) || "&mdash;"}${it.bajoMin ? ` <span class="pl-tag pl-tag--warn" title="M&iacute;nimo de almac&eacute;n: ${fmt(it.min)}">bajo el m&iacute;nimo</span>` : ""}${it.noMaestro ? ` <span class="pl-tag pl-tag--warn" title="El plan usa este c&oacute;digo pero no aparece en el maestro de art&iacute;culos de almac&eacute;n: puede estar mal copiado o no estar creado. Rev&iacute;salo con almac&eacute;n.">no est&aacute; en el maestro</span>` : ""}${it.m ? `<small class="alm-fam-txt">${esc(it.m.famNombre)}</small>` : ""}</td>
         <td>${esc(it.um) || "&mdash;"}</td>
         <td class="pl-num"><strong>${fmt(it.exist)}</strong></td>
         <td class="alm-donde">${donde(it)}</td>
@@ -445,6 +504,23 @@
       planEquipos().forEach((eq) => (eq.r || []).forEach((r) => { const c = lector.normCod(r.cod); if (c) codigos.add(c); }));
       const { filas, diagnostico: d } = lector.analizarLibro(libro, XLSX.utils, codigos, { nombre: archivo.name });
       if (!d.columnas.exist) throw new Error(`Encontré los códigos pero no la columna de existencias. Columnas: ${d.titulosDisponibles.join(", ")}`);
+      // El RE356R (maestro de artículos) trae todos los códigos con su
+      // existencia, pero no el estante. Cargado encima de un RE356, se conserva
+      // dónde estaba cada cosa en vez de dejar "Dónde" en blanco. Si estaba en
+      // varios estantes, el reparto entre ellos ya no se sabe: queda sin número.
+      const sinEstantes = !d.columnas.ub && !d.columnas.alm;
+      let conservados = 0;
+      if (sinEstantes) {
+        const antes = window.INVENTARIO.todo || {};
+        filas.forEach((f) => {
+          const a = antes[lector.normCod(f.cod)];
+          const sitios = a ? (a.sitios || []).filter((x) => x.alm || x.ub) : [];
+          if (!sitios.length) return;
+          f.ub = a.ub || "";
+          f.sitios = sitios.length === 1 ? [{ alm: sitios[0].alm, ub: sitios[0].ub, exist: f.exist ?? 0 }] : sitios.map((x) => ({ alm: x.alm, ub: x.ub, exist: null }));
+          conservados++;
+        });
+      }
       // Antes de reemplazar el inventario: qué bajó desde la carga anterior.
       // Así queda el historial de lo que cada persona sube y de lo que salió.
       const previo = { ...(window.INVENTARIO.todo || {}) };
@@ -452,10 +528,11 @@
       const r = window.INVENTARIO.cargarLocal(filas, { archivo: archivo.name });
       window.PRESUPUESTO?.registrarCarga({ ...carga, archivo: archivo.name, origen: "archivo", hoja: d.hoja });
       vista.ultimaCarga = filas;
-      cache = { inv: null, lista: [] };
+      cache = { inv: null, m: null, lista: [] };
       vista.trabajando = "";
       const peso2 = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dineroCorto(n) : n);
       avisar("ok", `Leí <strong>${r.articulos.toLocaleString("es-CO")}</strong> artículos de <strong>${esc(archivo.name)}</strong> (hoja ${esc(d.hoja)}); ${d.coincidenPlan} son piezas del plan. Inventario valorizado en <strong>${esc(peso2(carga.valorInventario))}</strong>.`
+        + (sinEstantes ? (conservados ? ` Este reporte no trae estantes: conservé los de <strong>${conservados.toLocaleString("es-CO")}</strong> códigos del inventario anterior.` : " Este reporte no trae estantes, así que la columna «Dónde» queda vacía hasta que se cargue un RE356.") : "")
         + (carga.primera ? "" : ` Desde la carga anterior bajaron <strong>${carga.salidas}</strong> códigos por <strong>${esc(peso2(carga.valorSalidas))}</strong> (queda en Presupuesto → Cargas del inventario).`)
         + (window.CLOUD && window.CLOUD.enabled ? ` <button class="pl-reg" type="button" data-alm="subir-nube">Compartir estas existencias con todo el taller</button>` : "")
         + (r.guardado ? "" : " <strong>Ojo:</strong> no cupo en la memoria del navegador; al recargar la página habrá que cargarlo otra vez."));
@@ -614,7 +691,8 @@
       else if (accion === "filtro") { vista.filtro = vista.filtro === b.dataset.v ? "" : b.dataset.v; vista.limite = 60; pintarResultados(); }
       else if (accion === "emitir") emitir();
       else if (accion === "vaciar") { if (window.confirm("¿Vaciar la solicitud?")) { borrador = nuevoBorrador(borrador); guardarBorrador(); pintarSolicitud(); pintarResultados(); } }
-      else if (accion === "olvidar") { window.INVENTARIO.olvidarLocal(); cache = { inv: null, lista: [] }; vista.aviso = null; render(); }
+      else if (accion === "maestro") { window.MAESTRO?.cargar({ reintentar: true }); pintarFuente(); }
+      else if (accion === "olvidar") { window.INVENTARIO.olvidarLocal(); cache = { inv: null, m: null, lista: [] }; vista.aviso = null; render(); }
       else if (accion === "redescargar") {
         const s = historial.find((x) => x.id === b.dataset.id);
         if (s) descargarFormato(s).catch((err) => avisar("error", "No se pudo llenar el formato: " + esc(err.message || err)));
@@ -667,6 +745,7 @@
     raiz.addEventListener("change", (e) => {
       const t = e.target;
       if (t.dataset.alm === "archivo") { leerArchivo(t.files && t.files[0]); t.value = ""; return; }
+      if (t.dataset.alm === "fam") { vista.fam = t.value; vista.limite = 60; pintarResultados(); return; }
       if (t.dataset.almCampo === "tipo") { borrador.tipo = t.value; guardarBorrador(); pintarSolicitud(); return; }
       if (t.dataset.almCampo === "cc") { borrador.cc = t.value; guardarBorrador(); pintarSolicitud(); return; }
       if (t.dataset.almLinea !== undefined && (t.dataset.k === "sitio" || t.dataset.k === "cc")) {
@@ -706,6 +785,7 @@
   // búsqueda global, el Inicio y el presupuesto con lo que ya se sabe.
   function goAlmacen(op) {
     views.almacen = views.almacen || document.getElementById("almacenView");
+    window.MAESTRO?.cargar({ reintentar: true });
     window.PRESUPUESTO?.asegurarDatos();
     if (op && typeof op === "object") {
       if (op.q !== undefined) { vista.q = String(op.q); vista.todo = false; vista.limite = 60; }
@@ -726,7 +806,7 @@
 
   window.goAlmacen = goAlmacen;
   window.almMarcarEntregada = (id) => ponerEstado(id, "entregada");
-  window.almRenderSiVisible = () => { if (!esVisible()) return; cache = { inv: null, lista: [] }; pintarFuente(); pintarResultados(); pintarSolicitud(); };
+  window.almRenderSiVisible = () => { if (!esVisible()) return; cache = { inv: null, m: null, lista: [] }; pintarFuente(); pintarResultados(); pintarSolicitud(); };
   window.almSolicitudes = () => historial;
   window.almTipos = TIPOS;
 

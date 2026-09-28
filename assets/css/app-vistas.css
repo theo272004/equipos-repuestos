@@ -256,6 +256,16 @@ body.app .alm-sitio { border-radius: 6px; background: var(--well); font-family: 
 body.app .alm-sitio b { color: var(--accent-2); }
 body.app .alm-table tr.is-bajo td { background: #fffbf2; }
 body.app .alm-cant, body.app .alm-sitio-sel, body.app .alm-sol-sub input { border-radius: 8px; }
+/* Maestro de artículos (RE356R): familia, plazo de compra y el aviso de código que no existe */
+body.app .pl-inv--maestro { background: var(--accent-t); color: var(--accent-2); padding: 4px 11px; display: inline-flex; align-items: center; }
+body.app .alm-fam { display: inline-flex; min-width: 0; max-width: 100%; }
+body.app .alm-fam select { min-height: 32px; max-width: 100%; padding: 0 30px 0 12px; border: 1px solid var(--line); border-radius: 999px; background-color: var(--panel); color: var(--ink-2); font: inherit; font-size: 13px; font-weight: 550; text-overflow: ellipsis; }
+body.app .alm-fam-txt { display: block; margin-top: 2px; color: var(--mute); font-size: 11.5px; font-weight: 500; }
+body.app .alm-plazo { display: block; margin-top: 2px; font-size: 11.5px; }
+body.app .sp-maestro-no { display: block; width: fit-content; margin-top: 3px; border-radius: 999px; padding: 1px 7px; background: var(--warn-t); color: var(--warn-d); font-size: 10.5px; font-weight: 700; cursor: help; white-space: nowrap; }
+body.app .sp-sug { display: block; margin-top: 3px; border: 1px dashed var(--accent); border-radius: 999px; padding: 1px 8px; background: var(--accent-t); color: var(--accent-2); font-family: var(--mono); font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+body.app .sp-sug:hover { border-style: solid; }
+body.app .sp-maestro-modelo { margin-top: 8px; }
 
 /* ------------------------------------------------------------ Diario -- */
 body.app .dy-cal, body.app .dy-detalle { padding: 16px; border-radius: var(--r-lg); box-shadow: var(--sh-1); }

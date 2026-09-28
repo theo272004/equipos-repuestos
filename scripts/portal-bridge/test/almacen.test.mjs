@@ -1,6 +1,9 @@
 // Recorre en un navegador de verdad lo que hace un tecnico en Almacen y Diario:
 //   cargar un RE356 -> buscar por equipo -> pedir -> descargar el DAD-010A
 //   -> ver la solicitud en el Diario -> dejar una nota -> que todo quepa en un celular.
+// Y el maestro de articulos (RE356R): buscar un codigo que no esta ni en el
+// plan ni en el estante, recorrer una familia, cargar un RE356R sin estantes
+// sin perder los que ya se sabian, y las sugerencias de codigo en la ficha.
 // Fabrica su propio RE356 (con codigos reales del plan) para no depender de datos
 // de la empresa en el repositorio.
 //
@@ -39,6 +42,23 @@ xlsx.utils.book_append_sheet(libro, xlsx.utils.aoa_to_sheet(filas), "RE356");
 const rutaRe = join(SALIDA, "re356-prueba.xls");
 xlsx.writeFile(libro, rutaRe, { bookType: "biff8" });
 
+// --- el maestro que usa la app, para saber que esperar ---
+const maestro = JSON.parse(await readFile(join(AQUI, "..", "..", "..", "assets", "data", "maestro-almacen.json"), "utf8"));
+const enPlan = new Set(equipos.flatMap((e) => e.r.map((r) => String(r.cod).trim().toUpperCase())));
+const enRe = new Set(filas.slice(1).map((f) => f[0]));
+// Un codigo de mantenimiento que solo esta en el maestro y tiene plazo de compra
+const soloMaestro = maestro.items.find(([c, , , f, dias]) => !enPlan.has(c) && !enRe.has(c) && dias > 0 && maestro.familias[f][1] === "mtto" && /^\d{9}$/.test(c));
+const famRod = maestro.familias.findIndex((f) => /^Rodamientos/.test(f[0]));
+const nRod = maestro.items.filter((x) => x[3] === famRod).length;
+
+// --- un RE356R: todos los codigos, sin ALMACEN ni UBICACION ---
+const filasR = [["CODIGO", "DESCRIPCION", "U/M", "PRECIO_UNITARI", "CODIGO_MRP", "TAMAÑO_LOTE", "STOCK_MINIMO", "DIAS_APROV", "CONSUMO_MES", "EXISTENCIAS"]];
+[...codsB2, ...otros].forEach((c, i) => filasR.push([c, `PIEZA ${c}`, "UN", 1000, "N", 1, 1, 30, 0.2, i === 1 ? 11 : 3]));
+const libroR = xlsx.utils.book_new();
+xlsx.utils.book_append_sheet(libroR, xlsx.utils.aoa_to_sheet(filasR), "RE356R");
+const rutaReR = join(SALIDA, "re356r-prueba.xls");
+xlsx.writeFile(libroR, rutaReR, { bookType: "biff8" });
+
 // --- navegador ---
 const nav = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH, args: ["--no-sandbox"] } : {});
 const ctx = await nav.newContext({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true });
@@ -53,8 +73,12 @@ pg.on("console", (m) => { if (m.type() === "error" && !/Failed to load resource|
 await pg.goto(URL_APP, { waitUntil: "load" });
 await pg.evaluate(() => localStorage.clear());
 await pg.reload({ waitUntil: "load" });
-await pg.click('[data-nav-view="almacen"]');
+await pg.click('.sb [data-go="almacen"]');
 await pg.waitForSelector("#almQ");
+
+// 0. el maestro de articulos llega solo al abrir Almacen
+await pg.waitForFunction(() => window.MAESTRO && window.MAESTRO.listo, null, { timeout: 20000 });
+ok(new RegExp(`Maestro: ${maestro.total.toLocaleString("es-CO")} c`).test(await pg.textContent("#almFuente")), "no dice cuantos codigos trae el maestro");
 
 // 1. cargar el reporte
 await pg.setInputFiles('input[data-alm="archivo"]', rutaRe);
@@ -71,6 +95,18 @@ ok(await pg.locator("text=Piezas de").count() > 0, "no dijo de que equipo son la
 await pg.click('button[data-alm="todo"]');
 const enTodo = await pg.$$eval(".alm-table tbody tr", (t) => t.length);
 ok(enTodo !== codsVistos.length, "el boton de buscar en todo el almacen no cambio la busqueda");
+
+// 2b. un codigo que solo sale en el maestro se encuentra, con su plazo de compra
+await pg.fill("#almQ", soloMaestro[0]);
+const filaM = (await pg.textContent(".alm-table tbody tr")).replace(/\s+/g, " ");
+ok(filaM.includes(soloMaestro[1].split(" ")[0]), `no encontro ${soloMaestro[0]} del maestro: ${filaM}`);
+ok(filaM.includes(`compra: ${soloMaestro[4].toLocaleString("es-CO")} d`), `no dijo el plazo de compra de ${soloMaestro[0]}: ${filaM}`);
+ok(/no est.{1,2} en almac/.test(filaM), "con inventario cargado, lo que solo esta en el maestro deberia decir que no esta en almacen");
+// una familia entera, sin escribir nada
+await pg.fill("#almQ", "");
+await pg.selectOption('select[data-alm="fam"]', String(famRod));
+ok((await pg.textContent(".alm-cuenta")).includes(nRod.toLocaleString("es-CO")), `la familia de rodamientos no trajo sus ${nRod} codigos`);
+await pg.selectOption('select[data-alm="fam"]', "");
 
 // 3. pedir: la pieza con dos estantes sale por defecto del que mas tiene
 await pg.fill("#almQ", codsB2[0]);
@@ -116,8 +152,17 @@ await pg.waitForSelector("#almQ");
 ok(/archivo cargado/.test(await pg.textContent(".pl-inv")), "al recargar se perdio el inventario cargado");
 ok(await pg.$eval('[data-alm-campo="solicitadoPor"]', (i) => i.value) === "PRUEBA", "no recordo quien solicita");
 
+// 5b. un RE356R (sin estantes) cargado encima no borra donde estaba cada cosa
+await pg.setInputFiles('input[data-alm="archivo"]', rutaReR);
+await pg.waitForSelector(".alm-aviso--ok, .alm-aviso--error", { timeout: 60000 });
+const cargaR = (await pg.textContent(".alm-aviso")).replace(/\s+/g, " ");
+ok(/conserv.{1,2} los de/.test(cargaR), `no aviso que conservo los estantes: ${cargaR}`);
+await pg.fill("#almQ", codsB2[1]);
+const filaR = (await pg.textContent(".alm-table tbody tr")).replace(/\s+/g, " ");
+ok(/R0\d\/M0\d+/.test(filaR) && filaR.includes("11"), `el RE356R borro el estante o no puso la existencia nueva: ${filaR}`);
+
 // 6. Diario: la solicitud aparece sola y se puede dejar una nota
-await pg.click('[data-nav-view="diario"]');
+await pg.click('.sb [data-go="diario"]');
 await pg.waitForSelector(".dy-mes");
 ok(await pg.locator(".dy-ev--sol").count() === 1, "la solicitud no aparece en el Diario de hoy");
 await pg.fill('.dy-nota textarea[name="texto"]', "Nota de prueba");
@@ -132,6 +177,15 @@ await pg.evaluate(() => window.goAlmacen());
 await pg.fill("#almQ", "blisteadora 2");
 await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
 ok(await pg.evaluate(() => document.documentElement.scrollWidth) <= 390, "Almacen se sale de la pantalla del celular");
+
+// 8. ficha: el maestro propone codigos por la referencia del fabricante
+await pg.setViewportSize({ width: 1440, height: 1000 });
+await pg.evaluate(() => openDetail("gkf2600"));
+await pg.click('[data-profile-tab="spares"]');
+await pg.waitForSelector(".sp-sug", { timeout: 10000 });
+const sug = await pg.$$eval(".sp-sug", (b) => b.map((x) => x.textContent));
+ok(sug.includes("¿741203259?"), `no propuso la correa 8-108-148-303 (741203259): ${sug.join(", ")}`);
+ok(/GKF2600/.test(await pg.textContent(".sp-maestro-modelo")), "no enlaza los codigos del maestro que mencionan la GKF2600");
 
 ok(!errores.length, "errores en la consola: " + errores.join(" | "));
 await nav.close();

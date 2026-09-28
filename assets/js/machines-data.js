@@ -5034,6 +5034,8 @@ const initialMachines = [
       const SP_CONDICIONES = [
         { id: "con-cod", grupo: "Código interno", etiqueta: "Con código interno", test: (f) => !!f.cod },
         { id: "sin-cod", grupo: "Código interno", etiqueta: "Sin código interno", test: (f) => !f.cod },
+        { id: "no-maestro", grupo: "Código interno", etiqueta: "Código que no está en el maestro", test: (f) => spNoMaestro(f) },
+        { id: "con-sug", grupo: "Código interno", etiqueta: "Con código sugerido por el maestro", test: (f) => spSugerencias(f).length > 0 },
         { id: "sin-stock", grupo: "Existencia", etiqueta: "Sin existencia", test: (f) => f.existV === 0 },
         { id: "con-stock", grupo: "Existencia", etiqueta: "Con existencia", test: (f) => f.existV > 0 },
         { id: "con-hist", grupo: "Historial", etiqueta: "Con cambios registrados", test: (f) => f.hist.length > 0 },
@@ -5152,6 +5154,10 @@ const initialMachines = [
             const conCod = todas.filter((f) => f.cod).length;
             if (util(conCod)) rapidos.push({ n: conCod, etiqueta: "Con código interno", activo: spCondPuesta("con-cod"), accion: "spToggleCond('con-cod')" });
             if (util(todas.length - conCod)) rapidos.push({ n: todas.length - conCod, etiqueta: "Sin código interno", activo: spCondPuesta("sin-cod"), accion: "spToggleCond('sin-cod')" });
+            const conSug = todas.filter((f) => spSugerencias(f).length).length;
+            if (conSug) rapidos.push({ n: conSug, etiqueta: "Código sugerido", activo: spCondPuesta("con-sug"), accion: "spToggleCond('con-sug')" });
+            const noMaestro = todas.filter(spNoMaestro).length;
+            if (noMaestro) rapidos.push({ n: noMaestro, etiqueta: "No está en el maestro", activo: spCondPuesta("no-maestro"), accion: "spToggleCond('no-maestro')" });
             const altas = todas.filter((f) => planPlain(f.crit) === "alta").length;
             if (util(altas)) rapidos.push({ n: altas, etiqueta: "Criticidad alta", activo: spCampoPuesto("crit", "Alta"), accion: "spToggleCampo('crit','Criticidad','Alta')" });
             const cero = todas.filter((f) => f.existV === 0).length;
@@ -5213,7 +5219,46 @@ const initialMachines = [
         registro: { txt: "Registrado", tip: "Pieza que se ha cambiado de verdad pero que el Excel no tenía en el plan de este equipo." }
       };
 
+      // ── Maestro de artículos de almacén (RE356R) ────────────────────────────
+      // Todos los códigos de la empresa, no solo los que hay en el estante.
+      // Sirve aquí para dos cosas: avisar de un código del plan que no existe
+      // (mal copiado, o sin crear en almacén) y proponer el código de una pieza que
+      // no lo tiene, cruzando su referencia de fabricante con el maestro.
+      // La propuesta nunca se aplica sola: hay que pulsarla y confirmarla.
+      function spMaestro() { const M = window.MAESTRO; return M && M.listo ? M : null; }
+      function spNoMaestro(f) { const M = spMaestro(); return !!(M && M.norm(f.cod) && !M.de(f.cod)); }
+      function spSugerencias(f) {
+        const M = spMaestro();
+        if (!M || (f.cod && M.de(f.cod))) return [];
+        return M.sugerir(`${f.ref} ${f.nombre}`, f.cod);
+      }
+      function spMaestroCelda(f) {
+        const M = spMaestro();
+        if (!M) return "";
+        const clave = planEsc(f.clave).replace(/'/g, "&#39;");
+        const no = spNoMaestro(f)
+          ? `<span class="sp-maestro-no" title="El código ${planEsc(f.cod)} no aparece en el maestro de artículos de almacén (RE356R del ${planEsc(M.fecha)}), que trae todos los códigos de la empresa. Puede estar mal copiado o no estar creado en almacén: búscalo en Almacén por la descripción o pregúntalo en almacén.">no está en el maestro</span>`
+          : "";
+        const sug = spSugerencias(f).slice(0, 2).map((x) =>
+          `<button class="sp-sug" type="button" onclick="spUsarCodigo('${clave}','${planEsc(x.cod)}')" title="${planEsc(x.desc)} · coincide la referencia ${planEsc(x.por.join(", "))}. Pulsa para usar este código.">¿${planEsc(x.cod)}?</button>`).join("");
+        return no + sug;
+      }
+      function spUsarCodigo(clave, cod) {
+        const a = window.MAESTRO?.de(cod);
+        if (!window.confirm(`¿Poner ${cod}${a ? " · " + a.desc : ""} como código interno de esta pieza?\n\nSe comparte con todo el taller y se puede corregir en la misma casilla.`)) return;
+        guardarDato(clave, "cod", cod);
+        renderFichaSiVisible();
+      }
+      function spMaestroModelo(machine) {
+        const M = spMaestro();
+        const hit = M ? M.modeloDe(machine.model, machine.name) : null;
+        if (!hit) return "";
+        return `<p class="pl-note sp-maestro-modelo">El maestro de almac&eacute;n tiene <strong>${hit.n}</strong> ${hit.n === 1 ? "c&oacute;digo que menciona" : "c&oacute;digos que mencionan"} <strong>${planEsc(hit.modelo)}</strong>, est&eacute;n o no en este plan.
+          <button class="pl-reg" type="button" data-go="almacen" data-go-q="${planEsc(hit.modelo)}">Verlos en Almac&eacute;n</button></p>`;
+      }
+
       function renderSparesPanel(machine) {
+        window.MAESTRO?.cargar();
         spResetSiCambia(machine);
         const eq = spEq(machine);
         const todas = sparesUnified(machine);
@@ -5231,6 +5276,7 @@ const initialMachines = [
             ${eq.sinPlan ? `<p class="pl-aviso">Este equipo no tiene plan importado del Excel${machine.equipoCod && !codigoEnRegistro(machine.equipoCod) ? `: su c&oacute;digo <strong>${planEsc(machine.equipoCod)}</strong> no aparece en los listados oficiales DMM-179` : ""}. Los repuestos de abajo salen del manual; el c&oacute;digo interno se puede ir escribiendo aqu&iacute;.</p>` : ""}
             <p>Una sola tabla con todos los repuestos de este equipo: los del <strong>plan del Excel</strong> (c&oacute;digo interno, cantidad, existencia y ubicaci&oacute;n) y los del <strong>manual del fabricante</strong> (referencia, tipo, criticidad y funci&oacute;n), ya unidos.
                El c&oacute;digo interno y la existencia se escriben aqu&iacute; mismo y quedan para todo el taller. Pulsa el nombre de una pieza para ver su detalle.</p>
+            ${spMaestroModelo(machine)}
           </div>
           <div class="pl-kpis">
             <div class="pl-kpi"><span class="pl-kpi__n">${todas.length}</span><span class="pl-kpi__l">Repuestos</span></div>
@@ -5442,7 +5488,7 @@ const initialMachines = [
               ? `<button class="sp-sys__go" type="button" onclick="spIrASistema('${planEsc(f.sistema).replace(/'/g, "&#39;")}')" title="Ver este sistema en la m&aacute;quina">${txt}</button>`
               : txt;
           })()}<span class="sp-src sp-src--${f.fuente}" title="${planEsc(src.tip)}">${src.txt}</span></td>
-          <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(f.cod)}" placeholder="&mdash;" title="C&oacute;digo interno con el que se pide en almac&eacute;n. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'cod')"></td>
+          <td class="pl-code"><input class="pl-edit pl-edit--cod" value="${planEsc(f.cod)}" placeholder="&mdash;" title="C&oacute;digo interno con el que se pide en almac&eacute;n. Se comparte con todo el taller." onchange="editarDato(this, '${planEsc(f.clave)}', 'cod')">${spMaestroCelda(f)}</td>
           <td class="pl-desc"><button class="sp-name" type="button" onclick="spToggle('${planEsc(f.clave)}')" title="Ver el detalle de esta pieza">${planMark(f.nombre, tokens) || "&mdash;"}</button>${pend ? `<span class="in-marca in-urg--${planEsc(pend.urgencia || "media")}">${planEsc(INSP_URGENCIA[pend.urgencia] || "Programar")} &middot; inspecci&oacute;n del ${planEsc(pend.fecha)}</span>` : ""}</td>
           <td class="sp-ref">${f.ref ? planMark(f.ref, tokens) : "&mdash;"}</td>
           <td>${f.crit ? `<span class="criticality-badge criticality-${planPlain(f.crit).replace(/ /g, "-")}">${planEsc(f.crit)}</span>` : "&mdash;"}</td>
@@ -5461,6 +5507,15 @@ const initialMachines = [
           f.planEj ? ["&Uacute;ltima ejecuci&oacute;n (plan)", planEsc(f.planEj)] : null,
           f.planPx ? ["Pr&oacute;xima seg&uacute;n el plan", planEsc(f.planPx)] : null,
           f.planSt ? ["Estado en el plan", `<span class="sp-estado sp-estado--${planPlain(f.planSt).replace(/ /g, "-")}">${planEsc(f.planSt)}</span>`] : null,
+          ...(() => {
+            const a = spMaestro()?.de(f.cod);
+            if (!a) return [];
+            const plazo = [a.dias ? `${a.dias} d&iacute;as si hay que comprarla` : "", a.min ? `m&iacute;nimo de almac&eacute;n ${a.min}` : "", a.mrp ? "planificado por MRP" : ""].filter(Boolean).join(" &middot; ");
+            return [
+              ["En el maestro de almac&eacute;n", `${planEsc(a.desc)}<span class="pl-obs">${planEsc(a.famNombre)}${a.um ? " &middot; " + planEsc(a.um) : ""}</span>`],
+              plazo ? ["Reposici&oacute;n", plazo] : null,
+            ];
+          })(),
           f.r.pu ? ["&Uacute;ltimo precio unitario", "$" + Number(f.r.pu).toLocaleString("es-CO")] : null,
           f.med ? ["Pr&oacute;ximo cambio estimado", planEsc(f.med.proximo) + " (" + f.med.mediciones + " intervalo" + (f.med.mediciones === 1 ? "" : "s") + " medido" + (f.med.mediciones === 1 ? "" : "s") + ")"] : null
         ].filter(Boolean);

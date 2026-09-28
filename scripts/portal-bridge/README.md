@@ -214,6 +214,41 @@ existencias se movieron respecto a la pasada anterior.
 | `no la columna de existencias` | El reporte no trae existencias, o se llama de forma nueva. Mira `--columnas`. |
 | `ni uno solo coincide con los códigos` | Casi siempre es otro reporte del portal, no el de inventario. |
 
+## El RE356R: el maestro de artículos
+
+Hay un tercer reporte, el **RE356R**, que no sirve para existencias del día pero
+sí para algo que los otros no dan: **todos los códigos que existen en la
+empresa**, tengan existencia o no.
+
+| | RE356 (repuestos) | **RE356R (maestro)** |
+|---|---|---|
+| Códigos | 5.113 (solo lo que hay) | **13.651** (todo, incluido lo que está en 0) |
+| Almacén y estante | sí | no |
+| Días de aprovisionamiento, MRP | sí | sí |
+| Códigos del plan que cubre | 182 | **352 de 445** |
+
+Cruzado con el plan (septiembre de 2026): **92 códigos del plan no existen en
+el maestro**. Algunos están claramente mal copiados (`7240030314` tiene diez
+cifras; `17332002` es el código del propio equipo, no de una pieza) y del resto
+no se sabe si están mal copiados o si almacén nunca los creó: hay que revisarlos
+con almacén. La ficha de cada equipo los marca como *no está en el maestro*.
+
+La app lo trae ya convertido en `assets/data/maestro-almacen.json` y lo usa
+para buscar cualquier código en Almacén (con familia y plazo de compra), para
+proponer el código interno de los repuestos del manual que no lo tienen
+(cruzando su referencia de fabricante: `8-108-136-292` → `741203262`) y en el
+bot (`/stock`, `/pedir`). **Sin precios ni existencias**: el repositorio es
+público. Para actualizarlo con un RE356R nuevo:
+
+```bash
+python3 scripts/gen-maestro-almacen.py ~/Descargas/Datos.xls --fecha AAAA-MM-DD
+node scripts/bump-assets.mjs
+```
+
+El `.xls` no se sube (trae precios); `manuales/_almacen/` está en `.gitignore`.
+Si se carga el RE356R en Almacén como si fuera un RE356, la app conserva los
+estantes del inventario anterior, porque este reporte no los trae.
+
 ## Sin puente: cargar el RE356 en la app
 
 La vista **Almacén** de la app deja cargar el RE356 bajado a mano (botón
