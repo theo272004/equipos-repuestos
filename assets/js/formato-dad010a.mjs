@@ -20,11 +20,13 @@
 //  rellenar (comprueba las etiquetas antes de escribir) en vez de poner los
 //  datos en la casilla equivocada de un formato oficial.
 //
-//  UNA HOJA POR ALMACEN. Almacen no recibe en una misma hoja articulos de
-//  almacenes distintos. Si la solicitud trae R01 y R04, sale un solo archivo
-//  con dos hojas, cada una el formato completo (logos, casillas, impresion) con
-//  los mismos datos de cabecera y solo los renglones de su almacen. Con un solo
-//  almacen el archivo es exactamente el de siempre, con su hoja "DAD-010A".
+//  ALMACENES DISTINTOS, HOJAS DISTINTAS. Almacen no recibe en una misma hoja
+//  articulos de almacenes distintos. La solicitud sale de un almacen principal
+//  (el elegido, o el que surte mas renglones); lo que solo hay en otro almacen
+//  va en otra hoja del mismo archivo, que es el formato completo (logos,
+//  casillas, impresion) con la misma cabecera. Lo que no tiene almacen se
+//  queda en la hoja principal. Con un solo almacen el archivo es exactamente
+//  el de siempre, con su hoja "DAD-010A".
 //
 //  Lo usan la app (vista Almacen) y la prueba de scripts/portal-bridge/test.
 // ============================================================================
@@ -147,22 +149,27 @@ function marcarCasilla(dibujo, tipo) {
 }
 
 // ---------------------------------------------------------------------------
-//  Una hoja por almacen
+//  Hoja principal y hojas aparte
 // ---------------------------------------------------------------------------
-// Se agrupan en el orden en que aparecen en la solicitud. Lo que no tiene
-// almacen (piezas que no estan en el inventario) va en su propia hoja al final:
-// si se juntara con otra, almacen podria escribirle un almacen distinto y la
-// hoja quedaria mezclada.
-export function hojasPorAlmacen(lineas) {
-  const grupos = new Map();
-  (lineas || []).forEach((l) => {
-    const alm = String(l.alm ?? "").trim().toUpperCase();
-    if (!grupos.has(alm)) grupos.set(alm, []);
-    grupos.get(alm).push(l);
-  });
-  const orden = [...grupos.keys()].filter(Boolean);
-  if (grupos.has("")) orden.push("");
-  return orden.map((alm) => ({ alm, lineas: grupos.get(alm) }));
+// La primera hoja es la del almacen principal: el que se pide (principal) o,
+// si no, el que mas renglones tiene (a igualdad, el que sale primero). Ahi van
+// tambien los renglones sin almacen (piezas que no estan en el inventario: el
+// almacen lo pone quien despacha). Cada otro almacen va en su hoja, en el
+// orden en que aparece en la solicitud. Dentro de cada hoja se respeta el
+// orden de la solicitud.
+export function hojasPorAlmacen(lineas, principal) {
+  const lista = lineas || [];
+  const clave = (l) => String(l.alm ?? "").trim().toUpperCase();
+  const cuenta = new Map();
+  lista.forEach((l) => { const a = clave(l); if (a) cuenta.set(a, (cuenta.get(a) || 0) + 1); });
+  if (!cuenta.size) return [{ alm: "", lineas: lista }];
+  const pedido = String(principal ?? "").trim().toUpperCase();
+  const orden = [...cuenta.keys()];
+  const primero = cuenta.has(pedido) ? pedido : orden.reduce((m, a) => (cuenta.get(a) > cuenta.get(m) ? a : m), orden[0]);
+  return [primero, ...orden.filter((a) => a !== primero)].map((alm) => ({
+    alm,
+    lineas: lista.filter((l) => clave(l) === alm || (alm === primero && !clave(l))),
+  }));
 }
 
 const HOJA = "DAD-010A";
@@ -298,12 +305,12 @@ export async function verificarFormato(JSZip, plantilla) {
 
 // datos: { tipo: "traslado"|"consumo"|"devolucion"|"", fecha: "aaaa-mm-dd",
 //   area, departamento, destino, alistadoPor, solicitadoPor, autorizadoPor,
-//   observaciones, lineas: [{ cod, desc, trans, causa, lote, um, cant, alm, ub }] }
+//   observaciones, almacen (el principal, opcional),
+//   lineas: [{ cod, desc, trans, causa, lote, um, cant, alm, ub }] }
 // salida: "uint8array" (Node) o "blob" (navegador).
 export async function rellenarDAD010A(JSZip, plantilla, datos, salida = "blob") {
   const lineas = (datos.lineas || []).filter((l) => l && (l.cod || l.desc));
-  const hojas = hojasPorAlmacen(lineas);
-  if (!hojas.length) hojas.push({ alm: "", lineas: [] });
+  const hojas = hojasPorAlmacen(lineas, datos.almacen);
   const llena = hojas.find((h) => h.lineas.length > RENGLONES);
   if (llena) {
     throw new Error(`El formato tiene ${RENGLONES} renglones y ${hojas.length > 1 ? `el almacén ${llena.alm || "sin almacén"}` : "la solicitud"} trae ${llena.lineas.length}. Parte la solicitud en dos.`);

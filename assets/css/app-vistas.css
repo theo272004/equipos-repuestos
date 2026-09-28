@@ -266,6 +266,11 @@ body.app .sp-maestro-no { display: block; width: fit-content; margin-top: 3px; b
 body.app .sp-sug { display: block; margin-top: 3px; border: 1px dashed var(--accent); border-radius: 999px; padding: 1px 8px; background: var(--accent-t); color: var(--accent-2); font-family: var(--mono); font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
 body.app .sp-sug:hover { border-style: solid; }
 body.app .sp-maestro-modelo { margin-top: 8px; }
+/* Solicitud: almacén principal y lo que va en otra hoja */
+body.app .alm-principal { display: grid; gap: 4px; }
+body.app .alm-principal label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+body.app .alm-principal select { flex: 1; min-width: 0; min-height: 34px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background-color: var(--panel); font: inherit; font-size: 13px; }
+body.app .alm-principal .pl-soft { font-size: 12px; }
 
 /* ------------------------------------------------------------ Diario -- */
 body.app .dy-cal, body.app .dy-detalle { padding: 16px; border-radius: var(--r-lg); box-shadow: var(--sh-1); }

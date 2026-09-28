@@ -155,6 +155,44 @@ await pg.waitForSelector(".alm-aviso--ok");
 ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");
 ok(await pg.$$eval("#almSolicitud tbody tr", (t) => t.length) === 0, "la solicitud no se vacio despues de descargarla");
 
+// 4b. se saca todo de un almacen si se puede: solo lo que no hay ahi va aparte
+// codsB2[0] esta en R01 (1) y R04 (7); codsB2[3] solo en R01. Sola, la primera
+// sale de R04 (tiene mas), pero con la segunda las dos caben en R01: una hoja.
+await pg.fill("#almQ", codsB2[0]);
+await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
+ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R04|B0204", "sola, la pieza con dos estantes deberia salir del que mas tiene");
+await pg.fill("#almQ", codsB2[3]);
+await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
+ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R01|M0100", "no junto las dos piezas en R01, el almacen que tiene las dos");
+ok(await pg.locator(".alm-hojas").count() === 0, "con todo en R01 no deberia avisar de mas hojas");
+// cambiarlo a mano manda, y la que queda en otro almacen se marca
+await pg.selectOption('select[data-alm-linea="0"]', "R04|B0204");
+ok(/Sale en 2 hojas/.test(await pg.textContent(".alm-hojas").catch(() => "")), "sacar una pieza de otro almacen a mano no aviso de la segunda hoja");
+ok(await pg.locator("#almSolicitud .pl-tag", { hasText: "otra hoja" }).count() === 1, "no marco la pieza que va en otra hoja");
+// el almacen principal se puede fijar: R04 primero, lo que no hay ahi aparte
+await pg.selectOption('select[data-alm-campo="almacen"]', "R04");
+ok(/R04 \(1\) · R01 \(1\)/.test(await pg.textContent(".alm-hojas").catch(() => "")), `con R04 de principal: ${await pg.textContent(".alm-hojas").catch(() => "(sin aviso)")}`);
+await pg.selectOption('select[data-alm-campo="almacen"]', "");
+ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R01|M0100" && await pg.locator(".alm-hojas").count() === 0, "al volver a automatico no junto todo en R01");
+pg.once("dialog", (d) => d.accept());
+await pg.click('[data-alm="vaciar"]');
+
+// 4c. una solicitud ya hecha se corrige y se vuelve a descargar: la misma, no otra
+await pg.click('.alm-hist button[data-alm="editar"]');
+ok(/Corregir solicitud/.test(await pg.textContent("#almSolicitud")), "no abrio la solicitud para corregirla");
+ok(await pg.$$eval("#almSolicitud tbody tr:not(.alm-sol-sub)", (t) => t.length) === 2, "la solicitud a corregir no trajo sus dos piezas");
+await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "5");
+await pg.locator('input[data-alm-linea="0"][data-k="cant"]').blur();
+await pg.click(`#almSolicitud button[data-alm="quitar"][data-cod="${codsB2[1]}"]`);
+const [corregida] = await Promise.all([pg.waitForEvent("download"), pg.click('[data-alm="emitir"]')]);
+const zipC = await JSZip.loadAsync(await readFile(await corregida.path()));
+const hojaC = await zipC.file("xl/worksheets/sheet1.xml").async("string");
+ok(hojaC.includes(`<c r="M13" s="8"><v>5</v></c>`) && !zipC.file("xl/worksheets/sheet2.xml"), "el formato corregido no trae la cantidad nueva o sigue con la hoja de la pieza quitada");
+await pg.waitForSelector(".alm-aviso--ok");
+ok(/corregida/i.test(await pg.textContent(".alm-aviso--ok")), "no dijo que la solicitud quedo corregida");
+ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "corregir creo otra solicitud en vez de reemplazar la misma");
+ok((await pg.textContent(".alm-hist tbody tr td:nth-child(5)")).trim() === "1", "el historial no refleja la pieza quitada");
+
 // 5. todo sobrevive a recargar
 await pg.reload({ waitUntil: "load" });
 await pg.waitForSelector("#almQ");

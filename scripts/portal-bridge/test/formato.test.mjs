@@ -5,7 +5,8 @@
 //      estilo original.
 //   3. En el dibujo solo cambia la casilla marcada.
 //   4. Un formato de otra edicion (etiquetas movidas) se rechaza.
-//   5. Varios almacenes: una hoja por almacen, cada una el formato completo
+//   5. Varios almacenes: la hoja del almacen principal (con lo que no tiene
+//      almacen) y otra por cada almacen de mas, cada una el formato completo
 //      con solo sus renglones (almacen no recibe almacenes mezclados).
 //   6. Si hay LibreOffice, se imprime a PDF/PNG en salida/ para mirarlo.
 import JSZip from "jszip";
@@ -123,12 +124,17 @@ const mezcla = {
   ],
 };
 const hojas = hojasPorAlmacen(mezcla.lineas);
-ok(hojas.map((h) => h.alm).join(",") === "R01,R02,F02,R04,", `reparto por almacen raro: ${hojas.map((h) => h.alm || "(sin)").join(",")}`);
+ok(hojas.map((h) => h.alm).join(",") === "R01,R02,F02,R04", `reparto por almacen raro: ${hojas.map((h) => h.alm || "(sin)").join(",")}`);
+ok(hojas[0].lineas.map((l) => l.cod || l.desc).join(",") === "741901001,741901076,JUNTA DE LA PUERTA DEL BOMBO (sin codigo)", "lo que no tiene almacen no quedo en la hoja principal, en su orden");
+ok(hojasPorAlmacen(mezcla.lineas, "r04")[0].alm === "R04", "no respeto el almacen principal pedido");
+ok(hojasPorAlmacen(mezcla.lineas, "R09")[0].alm === "R01", "con un principal que no esta, deberia mandar el que mas renglones tiene");
+ok(hojasPorAlmacen([{ cod: "A" }, { cod: "B" }]).length === 1, "sin ningun almacen deberia salir una sola hoja");
+ok(hojasPorAlmacen([{ cod: "A", alm: "R01" }, { cod: "B" }]).length === 1, "un almacen y piezas sin almacen deberian ir en la misma hoja");
 const salidaM = await rellenarDAD010A(JSZip, plantilla, mezcla, "uint8array");
 const rutaMezcla = join(SALIDA, "DAD-010A-varios-almacenes.xlsx");
 await writeFile(rutaMezcla, salidaM);
 const M = await JSZip.loadAsync(salidaM);
-const nombresEsperados = ["DAD-010A R01", "DAD-010A R02", "DAD-010A F02", "DAD-010A R04", "DAD-010A sin ALM"];
+const nombresEsperados = ["DAD-010A R01", "DAD-010A R02", "DAD-010A F02", "DAD-010A R04"];
 const libroM = xlsx.read(salidaM, { type: "buffer" });
 ok(JSON.stringify(libroM.SheetNames) === JSON.stringify(nombresEsperados), `hojas: ${libroM.SheetNames.join(" | ")}`);
 const wbM = await M.file("xl/workbook.xml").async("string");
