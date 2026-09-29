@@ -60,7 +60,7 @@
   --sb-w: 256px;
   --sb-w-min: 72px;
   --tb-h: 64px;
-  --page-max: 1360px;
+  --page-max: 1680px;
 
   /* Puente con los tokens de styles.css: las vistas antiguas heredan la base nueva */
   --bg: var(--canvas);
@@ -115,6 +115,8 @@ body.app {
   transition: padding-left 0.28s var(--ease);
 }
 body.app.sb-min { padding-left: var(--sb-w-min); }
+/* Con el menú contraído la página usa todo el ancho de la pantalla */
+body.app.sb-min { --page-max: 100vw; }
 body.app button, body.app input, body.app select, body.app textarea { font-family: inherit; }
 body.app ::selection { background: var(--accent-t2); }
 body.app :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -133,7 +135,7 @@ body.app *::-webkit-scrollbar-thumb:hover { background: #b6bcc7; border: 3px sol
 
 /* El contenido de cada vista */
 body.app .app-shell {
-  width: min(var(--page-max), calc(100% - 64px));
+  width: min(var(--page-max), calc(100% - 48px));
   min-height: calc(100vh - var(--tb-h));
   margin: 0 auto;
   padding: 24px 0 72px;

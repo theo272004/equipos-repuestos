@@ -270,17 +270,22 @@ body.app .alm-sol-tab { display: none; }
   body.app .alm-sol-ocultar:hover { background: var(--well); }
   body.app .alm-grid.is-sol-oculta { grid-template-columns: minmax(0, 1fr); }
   body.app .alm-grid.is-sol-oculta .alm-side { display: none; }
+  /* Oculta: una pestaña vertical angosta en el borde, con sitio reservado
+     para que no tape la última columna de la tabla */
+  body.app .alm-grid.is-sol-oculta { padding-right: 24px; }
   body.app .alm-grid.is-sol-oculta ~ .alm-sol-tab {
     display: inline-flex; align-items: center; gap: 8px; position: fixed; right: 0; top: 50%; z-index: 30;
-    padding: 12px 14px 12px 12px; border: 1px solid var(--line-2); border-right: 0; border-radius: 12px 0 0 12px;
-    background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--sh-2); cursor: pointer; transform: translateY(-50%);
+    padding: 14px 9px; border: 0; border-radius: 12px 0 0 12px; writing-mode: vertical-rl;
+    background: var(--ink); color: #fff; font: inherit; font-size: 13.5px; font-weight: 600; box-shadow: var(--sh-2); cursor: pointer; transform: translateY(-50%);
   }
-  body.app .alm-sol-tab b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 12.5px; }
+  body.app .alm-sol-tab span { writing-mode: horizontal-tb; }
+  body.app .alm-sol-tab b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 12.5px; writing-mode: horizontal-tb; }
   body.app .alm-main { container-type: inline-size; }
 }
 /* Con la solicitud abierta la tabla de resultados queda más angosta: se
-   quitan U/M y Mín. (siguen en la ficha) para que no haya que desplazarla */
-@container (max-width: 760px) {
+   quitan U/M y Mín. (siguen en la ficha) para que se vea entera, sin
+   desplazarla (la tabla completa pide unos 860 px) */
+@container (max-width: 900px) {
   body.app .alm-table { min-width: 0; }
   body.app .alm-table th:nth-child(4), body.app .alm-table td.alm-um,
   body.app .alm-table th:nth-child(7), body.app .alm-table td.alm-min { display: none; }
