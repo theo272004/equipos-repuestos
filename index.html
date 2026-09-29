@@ -7,17 +7,17 @@
     <meta name="description" content="Mantenimiento de Farmacápsulas: el día en planta, pendientes, registro de turnos, fichas de equipos, almacén, presupuesto e indicadores." />
     <meta name="theme-color" content="#f2f3f5" />
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609291728" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609291728" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609292135" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609292135" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=202609291728" />
-    <link rel="stylesheet" href="assets/css/mtto.css?v=202609291728" />
-    <link rel="stylesheet" href="assets/css/app.css?v=202609291728" />
-    <link rel="stylesheet" href="assets/css/app-vistas.css?v=202609291728" />
-    <link rel="stylesheet" href="assets/css/app-modulos.css?v=202609291728" />
-    <link rel="stylesheet" href="assets/css/celular.css?v=202609291728" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=202609292135" />
+    <link rel="stylesheet" href="assets/css/mtto.css?v=202609292135" />
+    <link rel="stylesheet" href="assets/css/app.css?v=202609292135" />
+    <link rel="stylesheet" href="assets/css/app-vistas.css?v=202609292135" />
+    <link rel="stylesheet" href="assets/css/app-modulos.css?v=202609292135" />
+    <link rel="stylesheet" href="assets/css/celular.css?v=202609292135" />
     <script>
       // Antes de pintar: el menú contraído o abierto como lo dejó esta persona,
       // para que no salte al cargar.
@@ -428,25 +428,28 @@
       <section class="plan-view view" id="planView" aria-label="Plan de mantenimiento por equipo">
         <div id="planRoot"></div>
 
-        <!-- Panel flotante para registrar el cambio de una pieza -->
-        <div class="tk-sheet-backdrop" id="plSheetBackdrop" hidden onclick="planSheetClose()"></div>
-        <aside class="tk-sheet" id="plSheet" hidden aria-label="Registrar cambio de repuesto">
-          <div class="tk-sheet__head">
-            <h4>Registrar cambio</h4>
-            <button class="tk-sheet__close" type="button" onclick="planSheetClose()" aria-label="Cerrar">&times;</button>
-          </div>
-          <p class="pl-sheet__what" id="plSheetWhat"></p>
-          <form class="tk-form" id="plForm" onsubmit="planSheetSubmit(event)">
-            <label>Fecha del cambio<input type="date" name="fecha" required></label>
-            <div class="tk-row2">
-              <label>Cantidad<input type="number" name="q" min="0" step="1"></label>
-              <label>Qui&eacute;n lo hizo<input name="quien" placeholder="Tu nombre"></label>
-            </div>
-            <label>Nota<textarea name="nota" rows="2" placeholder="Qu&eacute; se vio, por qu&eacute; se cambi&oacute;&hellip;"></textarea></label>
-            <button class="button button--dark" type="submit">Guardar el cambio</button>
-          </form>
-        </aside>
       </section>
+
+      <!-- Panel flotante para registrar el cambio de una pieza. Va fuera de las
+           vistas porque se abre desde el plan, desde la ficha (Repuestos) y desde
+           los bloques de Mantenimiento; dentro del plan quedaba oculto en la ficha. -->
+      <div class="tk-sheet-backdrop" id="plSheetBackdrop" hidden onclick="planSheetClose()"></div>
+      <aside class="tk-sheet" id="plSheet" hidden aria-label="Registrar cambio de repuesto">
+        <div class="tk-sheet__head">
+          <h4>Registrar cambio</h4>
+          <button class="tk-sheet__close" type="button" onclick="planSheetClose()" aria-label="Cerrar">&times;</button>
+        </div>
+        <p class="pl-sheet__what" id="plSheetWhat"></p>
+        <form class="tk-form" id="plForm" onsubmit="planSheetSubmit(event)">
+          <label>Fecha del cambio<input type="date" name="fecha" required></label>
+          <div class="tk-row2">
+            <label>Cantidad<input type="number" name="q" min="0" step="1"></label>
+            <label>Qui&eacute;n lo hizo<input name="quien" placeholder="Tu nombre"></label>
+          </div>
+          <label>Nota<textarea name="nota" rows="2" placeholder="Qu&eacute; se vio, por qu&eacute; se cambi&oacute;&hellip;"></textarea></label>
+          <button class="button button--dark" type="submit">Guardar el cambio</button>
+        </form>
+      </aside>
 
       <section class="alm-view view" id="almacenView" aria-label="Almac&eacute;n: buscar repuestos y llenar la solicitud de materiales">
         <div id="almRoot"></div>
@@ -691,37 +694,38 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
     <!-- Inicio de sesión: solo se usa si se activa la "clave del taller" (docs/FIREBASE.md) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-    <script src="assets/js/nube.js?v=202609291728"></script>
+    <script src="assets/js/nube.js?v=202609292135"></script>
 
-    <script src="assets/equipos.js?v=202609291728"></script>
-    <script src="assets/js/causa-codes.js?v=202609291728"></script>
-    <script src="assets/js/integra320-procedimientos.js?v=202609291728"></script>
-    <script src="assets/js/ms235-sensores.js?v=202609291728"></script>
-    <script src="assets/js/ms235-mecanico.js?v=202609291728"></script>
-    <script src="assets/js/inventario.js?v=202609291728"></script>
-    <script src="assets/js/maestro-almacen.js?v=202609291728"></script>
-    <script src="assets/js/inspecciones-registro.js?v=202609291728"></script>
-    <script src="assets/js/rich-data.js?v=202609291728"></script>
-    <script src="assets/js/machines-data.js?v=202609291728"></script>
-    <script src="assets/js/turnos-data.js?v=202609291728"></script>
-    <script src="assets/js/profile-renderers.js?v=202609291728"></script>
-    <script src="assets/js/almacen.js?v=202609291728"></script>
-    <script src="assets/js/reportes-data.js?v=202609291728"></script>
-    <script src="assets/js/reportes.js?v=202609291728"></script>
-    <script src="assets/js/mtto-data.js?v=202609291728"></script>
-    <script src="assets/js/mtto-lector.js?v=202609291728"></script>
-    <script src="assets/js/mtto-registro.js?v=202609291728"></script>
-    <script src="assets/js/mtto-indicadores.js?v=202609291728"></script>
-    <script src="assets/js/diario.js?v=202609291728"></script>
-    <script src="assets/js/centros-costo.js?v=202609291728"></script>
-    <script src="assets/js/nucleo.js?v=202609291728"></script>
-    <script src="assets/js/reglas-pendientes.js?v=202609291728"></script>
-    <script src="assets/js/shell.js?v=202609291728"></script>
-    <script src="assets/js/pendientes.js?v=202609291728"></script>
-    <script src="assets/js/presupuesto.js?v=202609291728"></script>
-    <script src="assets/js/hoy.js?v=202609291728"></script>
-    <script src="assets/js/ajustes.js?v=202609291728"></script>
-    <script src="assets/js/ficha-actividad.js?v=202609291728"></script>
-    <script src="assets/js/app.js?v=202609291728"></script>
+    <script src="assets/equipos.js?v=202609292135"></script>
+    <script src="assets/js/causa-codes.js?v=202609292135"></script>
+    <script src="assets/js/integra320-procedimientos.js?v=202609292135"></script>
+    <script src="assets/js/ms235-sensores.js?v=202609292135"></script>
+    <script src="assets/js/ms235-mecanico.js?v=202609292135"></script>
+    <script src="assets/js/inventario.js?v=202609292135"></script>
+    <script src="assets/js/maestro-almacen.js?v=202609292135"></script>
+    <script src="assets/js/inspecciones-registro.js?v=202609292135"></script>
+    <script src="assets/js/componentes-registro.js?v=202609292135"></script>
+    <script src="assets/js/rich-data.js?v=202609292135"></script>
+    <script src="assets/js/machines-data.js?v=202609292135"></script>
+    <script src="assets/js/turnos-data.js?v=202609292135"></script>
+    <script src="assets/js/profile-renderers.js?v=202609292135"></script>
+    <script src="assets/js/almacen.js?v=202609292135"></script>
+    <script src="assets/js/reportes-data.js?v=202609292135"></script>
+    <script src="assets/js/reportes.js?v=202609292135"></script>
+    <script src="assets/js/mtto-data.js?v=202609292135"></script>
+    <script src="assets/js/mtto-lector.js?v=202609292135"></script>
+    <script src="assets/js/mtto-registro.js?v=202609292135"></script>
+    <script src="assets/js/mtto-indicadores.js?v=202609292135"></script>
+    <script src="assets/js/diario.js?v=202609292135"></script>
+    <script src="assets/js/centros-costo.js?v=202609292135"></script>
+    <script src="assets/js/nucleo.js?v=202609292135"></script>
+    <script src="assets/js/reglas-pendientes.js?v=202609292135"></script>
+    <script src="assets/js/shell.js?v=202609292135"></script>
+    <script src="assets/js/pendientes.js?v=202609292135"></script>
+    <script src="assets/js/presupuesto.js?v=202609292135"></script>
+    <script src="assets/js/hoy.js?v=202609292135"></script>
+    <script src="assets/js/ajustes.js?v=202609292135"></script>
+    <script src="assets/js/ficha-actividad.js?v=202609292135"></script>
+    <script src="assets/js/app.js?v=202609292135"></script>
   </body>
 </html>

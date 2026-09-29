@@ -529,3 +529,26 @@ body.app .alm-nube-error { border-color: var(--bad-l, #f5b7b1); color: var(--bad
 
 /* Índice de planos: las piezas de cada hoja del despiece (códigos del fabricante) */
 .sch-piezas { font-family: var(--mono, ui-monospace, Menlo, Consolas, monospace); font-size: 11.5px; line-height: 1.5; overflow-wrap: anywhere; }
+
+/* Componentes seguidos por posición (ficha → Mantenimiento): un bloque por correa */
+.cmp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr)); gap: 12px; margin: 4px 0 8px; }
+.cmp-card { display: grid; gap: 10px; align-content: start; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); border-top: 3px solid var(--line-2); min-width: 0; }
+.cmp-card--ok { border-top-color: var(--ok, #16a34a); }
+.cmp-card--warn { border-top-color: var(--warn, #f59e0b); }
+.cmp-card--bad { border-top-color: var(--bad, #dc2626); }
+.cmp-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.cmp-card__top h4 { margin: 0; font-size: 15px; font-weight: 650; line-height: 1.3; }
+.cmp-est { flex-shrink: 0; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 650; white-space: nowrap; background: var(--well); color: var(--ink-2); }
+.cmp-est--ok { background: var(--ok-t, #e8f7ee); color: var(--ok-d, #0b6b34); }
+.cmp-est--warn { background: var(--warn-t, #fff4e0); color: #7a4a00; }
+.cmp-est--bad { background: var(--bad-t, #fdecea); color: var(--bad-d, #b3261e); }
+.cmp-card__pieza { margin: 0; font-size: 13.5px; line-height: 1.4; }
+.cmp-kv { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+.cmp-kv div { min-width: 0; padding: 8px; border-radius: 10px; background: var(--well); }
+.cmp-kv dt { color: var(--mute); font-size: 11.5px; font-weight: 600; }
+.cmp-kv dd { margin: 2px 0 0; font-size: 13.5px; font-weight: 650; }
+.cmp-nota { margin: 0; color: var(--mute); font-size: 12.5px; line-height: 1.45; }
+.cmp-nota--bad { color: var(--bad-d, #b3261e); }
+.cmp-nota--warn { padding: 6px 9px; border-radius: 9px; background: var(--warn-t, #fff4e0); color: #6b4000; }
+.cmp-acc { display: flex; flex-wrap: wrap; gap: 8px; }
+.cmp-acc .button { min-height: 34px; padding: 0 12px; font-size: 13px; }
