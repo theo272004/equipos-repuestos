@@ -4405,6 +4405,211 @@ const initialMachines = [
             { name: "Listas de formato y planos de circuitos de fluidos", status: "Pendiente" },
             { name: "Hojas de ajuste por producto/formato", status: "Pendiente" }
           ]
+        },
+        {
+          // Envasadora de Líquidos #3 de Sede 4 (así la llaman los reportes de turno):
+          // llenadora-tapadora de frascos Marchesini ML642, código 125334003.
+          id: "eq-125334003",
+          equipoCod: "125334003",
+          name: "Envasadora de Líquidos #3 · Llenadora-tapadora Marchesini ML642",
+          model: "ML642",
+          current: "Código 125334003",
+          area: "Sede 4 · Envasado de líquidos · Área blanca",
+          location: "Sede 4 · Envasado de líquidos",
+          status: "Planos cargados",
+          criticality: "Alta",
+          manual: "Esquemas eléctrico y neumático disponibles; manual de uso y despiece pendientes",
+          maintenance: "Por definir con el manual del fabricante",
+          completion: 45,
+          image: "",
+          notes: "Matrícula M6210005 (Marchesini Group, 2023). Tiene los esquemas eléctrico EM6210005 (97 hojas) y neumático WM6210005 (26 hojas). Faltan el manual de uso, el de calibrado y regulaciones y el catálogo de piezas de recambio.",
+          searchAliases: ["envasadora 3", "envasadora #3", "envasadora3", "envasadora de liquidos 3", "envasadora de líquidos #3", "liquidos 3", "líquidos #3", "ml642", "ml 642", "m6210005", "llenadora", "tapadora", "llenadora tapadora", "riempitrice", "marchesini liquidos", "125334003"],
+          description:
+            "Llenadora-tapadora automática de frascos (riempitrice-tappatrice) Marchesini ML642 de la línea de envasado de líquidos de Sede 4: entrada de frascos por cinta, dosificación desde la tina de producto con mezclador y celdas de carga, tapado en dos grupos (subtapa y tapa roscada con vibradores de alimentación) y salida con expulsión de rechazos.",
+          technicalData: {
+            function: "Dosificar líquido en frascos y taparlos (subtapa + tapa roscada), con control de peso por celdas de carga y expulsión de frascos no conformes.",
+            capacity: "Por registrar",
+            capsuleSizes: "Frascos · formatos por registrar",
+            dosingSystem: "Dosificación con motor de regulación y motor de mando, tina de producto con mezclador y celdas de carga",
+            manufacturer: "Marchesini Group",
+            brand: "Marchesini",
+            serialNumber: "M6210005",
+            year: "2023",
+            voltage: "3×220 V + N + PE · 60 Hz · mando 24 V DC",
+            power: "7 kW · 15 A a plena carga",
+            weight: "Por registrar",
+            dimensions: "Por registrar"
+          },
+          summarySpecs: [
+            { label: "Tensión", value: "3×220 V + N + PE · 60 Hz" },
+            { label: "Potencia", value: "7 kW · 15 A" },
+            { label: "Mando", value: "24 V DC" },
+            { label: "Aire", value: "6 bar ±0,5 · 215 NL/min" },
+            { label: "PLC", value: "Beckhoff EtherCAT + Safety EL6910" },
+            { label: "Esquemas", value: "EM6210005 · WM6210005" }
+          ],
+          guideSections: [
+            {
+              id: "ml642-placa",
+              title: "Datos de placa y componentes principales (ML642 - M6210005)",
+              content: `
+                <p><strong>Máquina:</strong> ML642 llenadora-tapadora &middot; <strong>Matrícula:</strong> M6210005 &middot; <strong>Fabricante:</strong> Marchesini Group &middot; plano eléctrico del 27/01/2023</p>
+                <p><strong>Eléctrico (EM6210005, pág. 1):</strong> 3×220 V + N + PE &middot; 60 Hz &middot; 15 A a plena carga &middot; poder de interrupción 6 kA &middot; mando 24 V DC &middot; 7 kW instalados &middot; programa PLC M6210005</p>
+                <p><strong>Neumático (WM6210005, hoja 001):</strong> presión de trabajo 6 bar ±0,5 (0,6 MPa) &middot; consumo máximo 215 NL/min</p>
+                <table class="crit-table"><thead><tr><th>Componente</th><th>Marca y tipo</th><th>Dónde en el plano</th></tr></thead><tbody>
+                  <tr><td>PLC (EtherCAT) y seguridad</td><td>Beckhoff EK1100, lógica de seguridad EL6910, E/S EL1809 / EL2809 / EL1918 / EL2904, analógicas EL3162 / EL3164 / EL4104</td><td>Z-ZDIST.1 (pág. 87) · P01 a P08 (págs. 59-66)</td></tr>
+                  <tr><td>PC de operador</td><td>Siemens SIMATIC IPC677D (6AV7260-3DM42-0XX6)</td><td>Hoja 15 (pág. 19) · Z-ZDIST.2 (pág. 88)</td></tr>
+                  <tr><td>Servos</td><td>Beckhoff AX8620 (alimentador 20 A) + módulos AX8206 2×6 A</td><td>Hojas 24 / 24A (págs. 22-23)</td></tr>
+                  <tr><td>Variadores</td><td>Lenze i550 230 V 0,55 kW y 0,37 kW, con tarjeta de seguridad SM PU01</td><td>Y-ILZ04 parámetros (pág. 84)</td></tr>
+                  <tr><td>Vibradores de tapas</td><td>REO Elektronik REOVIB MFS 268</td><td>Hojas 73 y 83 (págs. 33 y 39) · parámetros Y-REOVIB (págs. 85-86)</td></tr>
+                  <tr><td>Sensores y fotocélulas</td><td>Selet B60122P0C5 / B0281P0V6 · Wenglor P1KL002, P1KH002, P1KH006, YM22PA2</td><td>Z-ZDIST.3 (pág. 89)</td></tr>
+                  <tr><td>Celdas de carga</td><td>2 celdas (B39.1, B39.2)</td><td>X39-001 / X42-001 (págs. 78 y 80)</td></tr>
+                </tbody></table>
+                <p class="pl-soft">La lista de materiales completa, con el código Marchesini de cada pieza, está en las hojas Z-ZDIST.1 a Z-ZDIST.11 (págs. 87 a 97 del plano eléctrico). Es lo que hay que citar al pedir un recambio.</p>`
+            }
+          ],
+          schematicIndex: {
+            ref: "EM6210005 (eléctrico) · WM6210005 (neumático)",
+            archivo: "manuales/ml642/ML642-esquema-electrico-EM6210005.pdf",
+            paginas: 97,
+            idioma: "IT",
+            ejemplos: "tapa roscada, dosificación, vibrador, celda de carga, PLC, Z-ZDIST…",
+            titulo: "Planos eléctrico y neumático — índice de hojas",
+            nota: "Índice levantado de los propios planos: el eléctrico de su índice (págs. 2 a 4) y el neumático de su listado de hojas (pág. 2). Las hojas del neumático llevan «N» delante y abren su propio PDF. La lista de materiales (Z-ZDIST, págs. 87 a 97) trae marca, tipo y código de cada componente.",
+            hojas: [
+              { loc: "0-TAV1-001", h: "", en: "Legenda dispositivi impianti elettrici", es: "Leyenda de dispositivos de la instalación eléctrica", pag: 5 },
+              { loc: "0-TAV2-001", h: "", en: "Guida grafica alla consultazione dello schema", es: "Guía gráfica para consultar el esquema", pag: 6 },
+              { loc: "0-TAV3-001", h: "", en: "Guida grafica per ordinazione parti di ricambio", es: "Guía gráfica para pedir piezas de recambio", pag: 7 },
+              { loc: "1", h: "", en: "Alimentazione generale", es: "Alimentación general", pag: 8 },
+              { loc: "2", h: "", en: "Alimentazione di servizio", es: "Alimentación de servicio", pag: 9 },
+              { loc: "4", h: "", en: "Alimentazione", es: "Alimentación", pag: 10 },
+              { loc: "6", h: "", en: "Collegamenti morsettiere", es: "Conexiones de borneras", pag: 11 },
+              { loc: "7", h: "", en: "Emergenze", es: "Emergencias", pag: 12 },
+              { loc: "8", h: "", en: "Circuiti di sicurezza macchina", es: "Circuitos de seguridad de la máquina", pag: 13 },
+              { loc: "9", h: "", en: "Carter macchina", es: "Cárter (guardas) de la máquina", pag: 14 },
+              { loc: "10", h: "", en: "Carter macchina", es: "Cárter (guardas) de la máquina", pag: 15 },
+              { loc: "11A", h: "", en: "Carter", es: "Cárter (guardas)", pag: 16 },
+              { loc: "12", h: "", en: "Alimentazione schede PLC", es: "Alimentación de tarjetas PLC", pag: 17 },
+              { loc: "13", h: "", en: "Interfaccia operatore", es: "Interfaz de operador", pag: 18 },
+              { loc: "15", h: "", en: "Personal computer", es: "PC industrial", pag: 19 },
+              { loc: "16", h: "", en: "Segnalazioni", es: "Señalizaciones", pag: 20 },
+              { loc: "18", h: "", en: "Sicurezza", es: "Seguridad", pag: 21 },
+              { loc: "24", h: "", en: "Alimentazione motori", es: "Alimentación de motores", pag: 22 },
+              { loc: "24A", h: "", en: "Alimentazione motori", es: "Alimentación de motores", pag: 23 },
+              { loc: "25", h: "", en: "Motore macchina", es: "Motor principal de la máquina", pag: 24 },
+              { loc: "27", h: "", en: "Nastro flaconi", es: "Cinta de frascos", pag: 25 },
+              { loc: "30", h: "", en: "Entrata flaconi", es: "Entrada de frascos", pag: 26 },
+              { loc: "35", h: "", en: "Alimentazione motore regolazione dosaggio", es: "Alimentación del motor de regulación de dosificación", pag: 27 },
+              { loc: "36", h: "", en: "Motore comando dosaggio", es: "Motor de mando de dosificación", pag: 28 },
+              { loc: "39", h: "", en: "Vasca prodotto + connettore", es: "Tina de producto + conector", pag: 29 },
+              { loc: "40", h: "", en: "Vasca prodotto", es: "Tina de producto", pag: 30 },
+              { loc: "40A", h: "", en: "Mescolatore prodotto", es: "Mezclador de producto", pag: 31 },
+              { loc: "41", h: "", en: "Nastro ingresso prodotto", es: "Cinta de ingreso de producto", pag: 32 },
+              { loc: "73", h: "", en: "Alimentazione vibratori tappo testa 1", es: "Alimentación vibradores de tapa, cabeza 1", pag: 33 },
+              { loc: "75", h: "", en: "Tappatura tappo 1° gruppo", es: "Tapado, 1.er grupo", pag: 34 },
+              { loc: "76", h: "", en: "Tappatura tappo 1° gruppo", es: "Tapado, 1.er grupo", pag: 35 },
+              { loc: "77", h: "", en: "Tappatura tappo a vite - testa 1", es: "Tapado de tapa roscada, cabeza 1", pag: 36 },
+              { loc: "78", h: "", en: "Motore avvitamento - testa 1", es: "Motor de atornillado, cabeza 1", pag: 37 },
+              { loc: "79", h: "", en: "Alimentazione modulo uscita", es: "Alimentación del módulo de salidas", pag: 38 },
+              { loc: "83", h: "", en: "Alimentazione vibratori tappo testa 2", es: "Alimentación vibradores de tapa, cabeza 2", pag: 39 },
+              { loc: "83A", h: "", en: "Nastro flaconi", es: "Cinta de frascos", pag: 40 },
+              { loc: "85", h: "", en: "Tappatura tappo", es: "Tapado", pag: 41 },
+              { loc: "86", h: "", en: "Tappatura tappo 2° gruppo", es: "Tapado, 2.º grupo", pag: 42 },
+              { loc: "87", h: "", en: "Motore preavvitamento", es: "Motor de preatornillado", pag: 43 },
+              { loc: "88", h: "", en: "Motore avvitamento - testa 3", es: "Motor de atornillado, cabeza 2 (el plano dice «testa 3»)", pag: 44 },
+              { loc: "91", h: "", en: "Scarto", es: "Expulsión (descarte)", pag: 45 },
+              { loc: "93", h: "", en: "Uscita flaconi", es: "Salida de frascos", pag: 46 },
+              { loc: "100", h: "", en: "Controllo", es: "Control", pag: 47 },
+              { loc: "110", h: "", en: "Alimentazione", es: "Alimentación", pag: 48 },
+              { loc: "111", h: "", en: "Alimentazione modulo uscita", es: "Alimentación del módulo de salidas", pag: 49 },
+              { loc: "112", h: "", en: "Motore coclea uscita macchina", es: "Motor del tornillo sin fin de salida", pag: 50 },
+              { loc: "A01", h: "", en: "Ingressi PLC non utilizzati", es: "Entradas PLC no utilizadas", pag: 51 },
+              { loc: "A02", h: "", en: "Uscite PLC non utilizzate", es: "Salidas PLC no utilizadas", pag: 52 },
+              { loc: "A03", h: "", en: "Ingressi/uscite bordo macchina non utilizzati", es: "Entradas/salidas de borde de máquina no utilizadas", pag: 53 },
+              { loc: "B00", h: "", en: "Disposizione componenti armadio elettrico", es: "Disposición de componentes del armario eléctrico", pag: 54 },
+              { loc: "B01", h: "", en: "Disposizione componenti emergenze/carter/morsettiere", es: "Disposición de emergencias, cárteres y borneras", pag: 55 },
+              { loc: "B02", h: "", en: "Disposizione componenti di ingresso", es: "Disposición de componentes de entrada", pag: 56 },
+              { loc: "B03", h: "", en: "Disposizione componenti di uscita", es: "Disposición de componentes de salida", pag: 57 },
+              { loc: "B04", h: "", en: "Disposizione componenti display", es: "Disposición de componentes del display", pag: 58 },
+              { loc: "P01-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 59 },
+              { loc: "P02-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 60 },
+              { loc: "P03-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 61 },
+              { loc: "P04-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 62 },
+              { loc: "P05-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 63 },
+              { loc: "P06-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 64 },
+              { loc: "P07-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 65 },
+              { loc: "P08-001", h: "", en: "Scheda PLC", es: "Tarjeta PLC", pag: 66 },
+              { loc: "P09-001", h: "", en: "Bordo macchina", es: "Borde de máquina", pag: 67 },
+              { loc: "X0-001", h: "", en: "Morsettiera di linea", es: "Bornera de línea", pag: 68 },
+              { loc: "X01-001", h: "", en: "Morsettiera quadro elettrico", es: "Bornera del cuadro eléctrico", pag: 69 },
+              { loc: "X01-002", h: "", en: "Morsettiera quadro elettrico", es: "Bornera del cuadro eléctrico", pag: 70 },
+              { loc: "X01-003", h: "", en: "Morsettiera quadro elettrico", es: "Bornera del cuadro eléctrico", pag: 71 },
+              { loc: "X02-001", h: "", en: "Barra di terra", es: "Barra de tierra", pag: 72 },
+              { loc: "X07-001", h: "", en: "Barra di terra inverter", es: "Barra de tierra de variadores", pag: 73 },
+              { loc: "X11-001", h: "", en: "Morsettiera reserved - Seavision", es: "Bornera reservada Seavision", pag: 74 },
+              { loc: "X18-001", h: "", en: "Morsettiera vibratore", es: "Bornera del vibrador", pag: 75 },
+              { loc: "X21-001", h: "", en: "Morsettiera gruppo tappo a vite", es: "Bornera del grupo de tapa roscada", pag: 76 },
+              { loc: "X27-001", h: "", en: "Morsettiera abbinamento a valle", es: "Bornera de acople con la máquina siguiente", pag: 77 },
+              { loc: "X39-001", h: "", en: "Morsettiera cella di carico", es: "Bornera de la celda de carga", pag: 78 },
+              { loc: "X40-001", h: "", en: "Connettore marcia ad impulsi", es: "Conector de marcha por impulsos", pag: 79 },
+              { loc: "X42-001", h: "", en: "Connettore cella di carico", es: "Conector de la celda de carga", pag: 80 },
+              { loc: "X43-001", h: "", en: "Connettore mescolatore prodotto", es: "Conector del mezclador de producto", pag: 81 },
+              { loc: "Y-FA000", h: "", en: "Descrizione fasi macchina", es: "Descripción de fases de la máquina", pag: 82 },
+              { loc: "Y-FA100", h: "", en: "Descrizione fasi macchina", es: "Descripción de fases de la máquina", pag: 83 },
+              { loc: "Y-ILZ04", h: "", en: "Impostazione inverter", es: "Parámetros de los variadores", pag: 84 },
+              { loc: "Y-REOVIB", h: "", en: "Impostazione scheda azionamento vibratore REOVIB MFS", es: "Parámetros de la tarjeta del vibrador REOVIB MFS", pag: 85 },
+              { loc: "Y-REOVIB1", h: "", en: "Impostazione scheda azionamento vibratore REOVIB MFS", es: "Parámetros de la tarjeta del vibrador REOVIB MFS", pag: 86 },
+              { loc: "Z-ZDIST.1", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 87 },
+              { loc: "Z-ZDIST.2", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 88 },
+              { loc: "Z-ZDIST.3", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 89 },
+              { loc: "Z-ZDIST.4", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 90 },
+              { loc: "Z-ZDIST.5", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 91 },
+              { loc: "Z-ZDIST.6", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 92 },
+              { loc: "Z-ZDIST.7", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 93 },
+              { loc: "Z-ZDIST.8", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 94 },
+              { loc: "Z-ZDIST.9", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 95 },
+              { loc: "Z-ZDIST.10", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 96 },
+              { loc: "Z-ZDIST.11", h: "", en: "Distinta materiali", es: "Lista de materiales (marca, tipo y código de cada componente)", pag: 97 },
+              { loc: "N 001", h: "", en: "Dati generali", es: "Datos generales (6 bar ±0,5 · 215 NL/min)", pag: 1, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 002", h: "", en: "Dati generali", es: "Datos generales · listado de hojas", pag: 2, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 004", h: "", en: "Legenda dispositivi pneumatici", es: "Leyenda de dispositivos neumáticos", pag: 3, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 005", h: "", en: "Legenda dispositivi pneumatici", es: "Leyenda de dispositivos neumáticos", pag: 4, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 006", h: "", en: "Guida grafica alla consultazione dello schema", es: "Guía gráfica para consultar el esquema", pag: 5, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 007", h: "", en: "Lay-out trattamento aria", es: "Lay-out del tratamiento de aire", pag: 6, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 010", h: "", en: "Gruppo trattamento aria", es: "Grupo de tratamiento de aire", pag: 7, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 012", h: "", en: "Gruppo entrata flaconi", es: "Grupo de entrada de frascos", pag: 8, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 016", h: "", en: "Gruppo chiusura ugelli dosaggio", es: "Grupo de cierre de boquillas de dosificación", pag: 9, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 018", h: "", en: "Gruppo dosaggio", es: "Grupo de dosificación", pag: 10, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 020", h: "", en: "Gruppo tappatura sottotappo", es: "Grupo de tapado de subtapa", pag: 11, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 022", h: "", en: "Gruppo tappatura tappo a vite", es: "Grupo de tapado de tapa roscada", pag: 12, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 024", h: "", en: "Gruppo tappatura", es: "Grupo de tapado", pag: 13, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 026", h: "", en: "Gruppo serbatoio prodotto", es: "Grupo del depósito de producto", pag: 14, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 028", h: "", en: "Gruppo tirante pneumatico", es: "Grupo del tirante neumático", pag: 15, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 030", h: "", en: "Gruppo scarto flaconi", es: "Grupo de expulsión de frascos", pag: 16, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 035", h: "", en: "Lay-out macchina", es: "Lay-out de la máquina", pag: 17, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 040", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 18, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 041", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 19, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 042", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 20, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 043", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 21, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 044", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 22, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 045", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 23, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 046", h: "", en: "Legenda schema", es: "Leyenda del esquema", pag: 24, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 089", h: "", en: "Guida grafica per ordinazione parti di ricambio", es: "Guía gráfica para pedir piezas de recambio", pag: 25, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" },
+              { loc: "N 090", h: "", en: "Pagina note", es: "Página de notas", pag: 26, archivo: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf", plano: "neumático" }
+            ],
+            frente: [
+              { pag: 1, txt: "Datos de la máquina: ML642 · matrícula M6210005 · 3×220 V + N + PE · 60 Hz · 15 A · 7 kW · mando 24 V DC · 6 kA" },
+              { pag: 2, txt: "Índice del plano (págs. 2 a 4)" }
+            ]
+          },
+          documents: [
+            { name: "Esquema eléctrico EM6210005 (97 hojas, ITA/SPA)", status: "Disponible", file: "manuales/ml642/ML642-esquema-electrico-EM6210005.pdf" },
+            { name: "Esquema neumático WM6210005 (26 hojas, ITA/SPA)", status: "Disponible", file: "manuales/ml642/ML642-esquema-neumatico-WM6210005.pdf" },
+            { name: "Códigos de causa y centros de costo (3 págs.)", status: "Disponible", file: "manuales/_codigos-causa/LISTADO-CODIGOS-CAUSA-CENTROS-COSTO.pdf" },
+            { name: "Manual de uso y mantenimiento ML642", status: "Pendiente" },
+            { name: "Calibrado y regulaciones / cambio de formato", status: "Pendiente" },
+            { name: "Catálogo de piezas de recambio", status: "Pendiente" }
+          ]
         }
       ];
 
@@ -6699,7 +6904,9 @@ const initialMachines = [
       function renderSchematicIndex(machine) {
         const x = machine.schematicIndex;
         if (!x) return "";
-        const pdf = (n) => `${x.archivo}#page=${n}`;
+        // Una fila puede venir de otro PDF (p. ej. el plano neumático junto al eléctrico)
+        const pdf = (n, archivo) => `${archivo || x.archivo}#page=${n}`;
+        const otros = [...new Set(x.hojas.map((h) => h.archivo).filter(Boolean))];
         const grupos = [];
         x.hojas.forEach((h) => {
           const ult = grupos[grupos.length - 1];
@@ -6708,25 +6915,26 @@ const initialMachines = [
         });
         return `
           <div class="panel-header-clean">
-            <h3>Plano eléctrico — índice de hojas</h3>
-            <p>Esquema <strong>${planEsc(x.ref)}</strong> · ${x.hojas.length} hojas de dibujo en ${x.paginas} páginas de PDF.
-            Busca la hoja que necesitas y ábrela directo en su página. El PDF está escaneado, así que el buscador de aquí trabaja sobre este índice, no sobre el dibujo.</p>
+            <h3>${planEsc(x.titulo || "Plano eléctrico — índice de hojas")}</h3>
+            <p>Esquema <strong>${planEsc(x.ref)}</strong> · ${x.hojas.length} hojas${otros.length ? "" : ` de dibujo en ${x.paginas} páginas de PDF`}.
+            Busca la hoja que necesitas y ábrela directo en su página.${x.idioma === "IT" ? "" : " El PDF está escaneado, así que el buscador de aquí trabaja sobre este índice, no sobre el dibujo."}</p>
           </div>
           <div class="alert-box" style="background:#eef4ff;border-color:#cdddff">${planEsc(x.nota)}</div>
           <div class="sch-toolbar">
-            <input id="pxIdxQ" placeholder="Buscar: moldeo, sellado, parada de emergencia, PLUTO, +070…" oninput="pxIdxFiltrar()" />
-            <a class="button button--dark" href="${x.archivo}" target="_blank" rel="noopener">Abrir el PDF completo</a>
+            <input id="pxIdxQ" placeholder="Buscar: ${planEsc(x.ejemplos || "moldeo, sellado, parada de emergencia, PLUTO, +070…")}" oninput="pxIdxFiltrar()" />
+            <a class="button button--dark" href="${x.archivo}" target="_blank" rel="noopener">${otros.length ? "Abrir el plano eléctrico" : "Abrir el PDF completo"}</a>
+            ${otros.map((a) => `<a class="button button--light" href="${a}" target="_blank" rel="noopener">Abrir el plano ${planEsc((x.hojas.find((h) => h.archivo === a) || {}).plano || "")}</a>`).join("")}
           </div>
           <div class="pl-tablewrap">
             <table class="pl-table" id="pxIdxTabla">
-              <thead><tr><th>Hoja</th><th>Descripción</th><th>Description (EN)</th><th class="pl-num">Pág. PDF</th></tr></thead>
+              <thead><tr><th>Hoja</th><th>Descripción</th><th>${x.idioma === "IT" ? "Original (IT)" : "Description (EN)"}</th><th class="pl-num">Pág. PDF</th></tr></thead>
               <tbody>
                 ${grupos.map((g) => g.filas.map((h, n) => `
-                  <tr data-buscar="${planEsc(planPlain([h.loc, h.h, h.es, h.en].join(" ")))}">
+                  <tr data-buscar="${planEsc(planPlain([h.loc, h.h, h.es, h.en, h.plano || ""].join(" ")))}">
                     <td class="pl-code"><strong>${planEsc(h.loc)}</strong> <span class="pl-soft">${planEsc(h.h)}</span></td>
                     <td class="pl-desc">${planEsc(h.es)}</td>
                     <td class="pl-soft">${planEsc(h.en)}</td>
-                    <td class="pl-num"><a class="pl-reg" href="${pdf(h.pag)}" target="_blank" rel="noopener">${h.pag}</a></td>
+                    <td class="pl-num"><a class="pl-reg" href="${pdf(h.pag, h.archivo)}" target="_blank" rel="noopener">${h.pag}</a></td>
                   </tr>`).join("")).join("")}
               </tbody>
             </table>
