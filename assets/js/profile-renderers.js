@@ -1146,7 +1146,13 @@ function dt(machine, campo) {
         saveCambios();
       }
 
-      function cambiosEventos() { return cambios.filter((c) => c && c.id !== CAMBIOS_SEED_ID && c.cod); }
+      function cambiosEventos() {
+        const propios = cambios.filter((c) => c && c.id !== CAMBIOS_SEED_ID && c.cod);
+        // Los del registro del repositorio (componentes-registro.js), salvo que
+        // alguien ya haya anotado ese mismo cambio a mano
+        const ya = new Set(propios.filter((c) => c.ubic).map((c) => c.ubic + "|" + c.fecha));
+        return propios.concat(compEventosRegistro().filter((e) => !ya.has(e.ubic + "|" + e.fecha)));
+      }
 
       // Historial de una pieza en una maquina, de la mas antigua a la mas reciente.
       // Se agrupa por codigo interno: es la unidad con la que se pide en almacen, asi que
@@ -1375,12 +1381,147 @@ function dt(machine, campo) {
 
 
       // Las inspecciones de este equipo, dentro de su ficha.
+      // ── Componentes seguidos por posición (assets/js/componentes-registro.js) ──
+      // Un bloque por posición (p. ej. cada correa de la Blister 2): dónde va,
+      // qué código lleva, cuándo se cambió, cuándo se inspeccionó por última vez
+      // y cuándo se va a necesitar otra, con de dónde sale ese estimado.
+      function compGrupos(eqCod) { return (window.COMPONENTES_SEGUIDOS || []).filter((g) => g && g.eq === eqCod); }
+      function compEventosRegistro() {
+        const out = [];
+        (window.COMPONENTES_SEGUIDOS || []).forEach((g) => (g.items || []).forEach((it) => (it.cambios || []).forEach((c) => out.push({
+          id: `reg-${it.id}-${c.fecha}`, eq: g.eq, cod: it.cod, d: it.d, fecha: c.fecha, q: 1, quien: "",
+          nota: it.ubicacion + (c.nota ? " · " + c.nota : "") + (c.fuente ? " (" + c.fuente + ")" : ""),
+          ubic: it.id, registro: true
+        }))));
+        return out;
+      }
+      // "1A" cada año, "1B" cada dos (bienal), "6M" cada seis meses… como en el plan del Excel
+      function compFreqDias(f) {
+        const m = /^(\d+(?:[.,]\d+)?)\s*([AMB])$/i.exec(String(f || "").trim());
+        if (!m) return 0;
+        const n = Number(m[1].replace(",", "."));
+        return Math.round(m[2].toUpperCase() === "M" ? n * 30.44 : m[2].toUpperCase() === "B" ? n * 730.5 : n * 365.25);
+      }
+      function compFreqTexto(dias) {
+        if (dias >= 700) return `cada ${Math.round(dias / 365.25 * 10) / 10} años`.replace(".", ",");
+        if (dias >= 330) return "cada año";
+        return `cada ${Math.round(dias / 30.44)} meses`;
+      }
+      // Cuánto dura: lo medido entre los dos últimos cambios, y si no hay dos, lo
+      // que dice el plan para ese código en esta máquina o en otra que lo use.
+      function compVida(eqCod, it, fechas) {
+        if (fechas.length >= 2) {
+          const d = planDiasEntre(fechas[fechas.length - 2], fechas[fechas.length - 1]);
+          if (isFinite(d) && d > 0) return { dias: d, base: `lo que duró la anterior (${planFmtDias(d)})` };
+        }
+        const eq = PLAN_EQUIPOS.find((e) => e.c === eqCod);
+        const propia = eq && eq.r.find((r) => r.cod === it.cod && compFreqDias((r.xls || {}).f));
+        if (propia) { const d = compFreqDias(propia.xls.f); return { dias: d, base: `la frecuencia del plan (${compFreqTexto(d)})` }; }
+        for (const e of PLAN_EQUIPOS) {
+          const r = e.r.find((x) => x.cod === it.cod && compFreqDias((x.xls || {}).f));
+          if (r) { const d = compFreqDias(r.xls.f); return { dias: d, base: `la frecuencia del plan de ${e.n} para esta misma pieza (${compFreqTexto(d)})` }; }
+        }
+        return null;
+      }
+      function compUltimaInspeccion(eqCod, it, titulo) {
+        const clave = planPlain(titulo || "").replace(/s$/, "");
+        const i = inspDeEquipo(eqCod).find((x) => {
+          const txt = planPlain([x.revisado, x.hallazgos, ...(x.piezas || []).map((p) => p.cod + " " + p.d)].join(" "));
+          return txt.includes(it.cod) || (clave && txt.includes(clave));
+        });
+        return i ? i.fecha : "";
+      }
+      function compEstado(eqCod, g, it) {
+        const propios = cambios.filter((c) => c && c.eq === eqCod && c.ubic === it.id).map((c) => c.fecha);
+        const fechas = [...new Set([...(it.cambios || []).map((c) => c.fecha), ...propios])].filter(Boolean).sort();
+        const ultimo = fechas[fechas.length - 1] || "";
+        const vida = compVida(eqCod, it, fechas);
+        const proximo = ultimo && vida ? planSumarDias(ultimo, vida.dias) : "";
+        const hoy = new Date().toISOString().slice(0, 10);
+        const pendiente = it.pendiente && !(ultimo && ultimo >= it.pendiente.desde);
+        let estado = "al-dia";
+        if (pendiente) estado = "pendiente";
+        else if (!ultimo) estado = "sin-dato";
+        else if (proximo && proximo <= hoy) estado = "vencida";
+        else if (proximo && planDiasEntre(hoy, proximo) <= 60) estado = "pronto";
+        return { fechas, ultimo, vida, proximo, estado, pendiente, insp: compUltimaInspeccion(eqCod, it, g.titulo) };
+      }
+      const COMP_ESTADOS = {
+        pendiente: ["Pendiente de cambio", "bad"], vencida: ["Ya toca cambiarla", "bad"],
+        pronto: ["Cambiar pronto", "warn"], "al-dia": ["Al día", "ok"], "sin-dato": ["Sin cambio registrado", "n"]
+      };
+      // Con año: el próximo cambio suele caer el año que viene
+      function compFecha(f) {
+        const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(f || ""));
+        if (!m) return "&mdash;";
+        return `${Number(m[3])} ${["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"][Number(m[2]) - 1]} ${m[1]}`;
+      }
+      function compBloques(eqCod) {
+        const grupos = compGrupos(eqCod);
+        if (!grupos.length) return "";
+        return grupos.map((g) => {
+          const filas = (g.items || []).map((it) => ({ it, e: compEstado(eqCod, g, it) }));
+          const n = (k) => filas.filter((x) => x.e.estado === k).length;
+          const resumen = [n("pendiente") + n("vencida") ? `${n("pendiente") + n("vencida")} por cambiar` : "", n("pronto") ? `${n("pronto")} pronto` : "", n("al-dia") ? `${n("al-dia")} al día` : ""].filter(Boolean).join(" · ");
+          return `
+          <div class="panel-header-clean">
+            <h3>${planEsc(g.titulo)} &middot; dónde va cada una y cuándo se cambió</h3>
+            <p>${filas.length} posiciones${resumen ? " &middot; " + resumen : ""}. El próximo cambio es un estimado: se corrige solo a medida que se registran cambios.</p>
+          </div>
+          <div class="cmp-grid">${filas.map(({ it, e }) => {
+            const [txt, tono] = COMP_ESTADOS[e.estado];
+            const inv = window.INVENTARIO ? window.INVENTARIO.de(it.cod) : null;
+            const hay = inv && inv.exist != null ? Number(inv.exist) : null;
+            return `<article class="cmp-card cmp-card--${tono}">
+              <div class="cmp-card__top">
+                <h4>${planEsc(it.ubicacion)}</h4>
+                <span class="cmp-est cmp-est--${tono}">${txt}</span>
+              </div>
+              <p class="cmp-card__pieza"><span class="pl-code">${planEsc(it.cod)}</span> ${planEsc(it.d)}${hay !== null ? ` <span class="pl-soft">&middot; almacén: ${hay}</span>` : ""}</p>
+              <dl class="cmp-kv">
+                <div><dt>Último cambio</dt><dd>${compFecha(e.ultimo)}</dd></div>
+                <div><dt>Última inspección</dt><dd>${compFecha(e.insp)}</dd></div>
+                <div><dt>Se necesitará</dt><dd>${e.pendiente ? "Ya (quedó pendiente)" : compFecha(e.proximo)}</dd></div>
+              </dl>
+              ${e.pendiente ? `<p class="cmp-nota cmp-nota--bad">${planEsc(it.pendiente.nota || "Quedó marcada para cambiar.")}</p>`
+                : e.vida && e.proximo ? `<p class="cmp-nota">Estimado con ${planEsc(e.vida.base)}.</p>` : ""}
+              ${it.nota ? `<p class="cmp-nota cmp-nota--warn">${planEsc(it.nota)}</p>` : ""}
+              <div class="cmp-acc">
+                <button class="button button--light" type="button" onclick="compRegistrar('${planEsc(eqCod)}', '${planEsc(it.id)}')">Registrar cambio</button>
+                ${e.estado === "pendiente" || e.estado === "vencida" || e.estado === "pronto" ? `<button class="button button--light" type="button" onclick="window.goAlmacen && window.goAlmacen({ q: '${planEsc(it.cod)}' })">Pedir en almacén</button>` : ""}
+              </div>
+            </article>`;
+          }).join("")}</div>
+          <div class="panel-split"></div>`;
+        }).join("");
+      }
+      // Registrar el cambio de una posición: el mismo formulario que el plan,
+      // pero el cambio queda atado a esa posición (sellado, troqueladora…)
+      function compRegistrar(eqCod, id) {
+        const g = compGrupos(eqCod).find((x) => (x.items || []).some((i) => i.id === id));
+        const it = g && g.items.find((i) => i.id === id);
+        const eq = PLAN_EQUIPOS.find((e) => e.c === eqCod);
+        const sheet = document.getElementById("plSheet");
+        const back = document.getElementById("plSheetBackdrop");
+        const form = document.getElementById("plForm");
+        if (!it || !sheet || !back || !form) return;
+        planRegCtx = { eq: eqCod, cod: it.cod, d: it.d, q: 1, ubic: it.id, ubicacion: it.ubicacion };
+        const what = document.getElementById("plSheetWhat");
+        if (what) what.innerHTML = `<strong>${planEsc(it.cod)}</strong> &middot; ${planEsc(it.d)}<br><span class="pl-soft">${planEsc(eq ? eq.n : eqCod)} &middot; ${planEsc(it.ubicacion)}</span>`;
+        form.reset();
+        form.fecha.value = new Date().toISOString().slice(0, 10);
+        form.q.value = 1;
+        back.hidden = false;
+        sheet.hidden = false;
+        setTimeout(() => form.fecha.focus(), 60);
+      }
+
       function renderInspMaquina(machine) {
         const eq = equipoDeMachine(machine);
         const cod = eq ? eq.c : (machine.equipoCod || "");
         const lista = cod ? inspDeEquipo(cod) : [];
         const abiertas = lista.filter((i) => (i.estado || "abierta") !== "cerrada").length;
-        return `
+        return `${cod ? compBloques(cod) : ""}
           <div class="panel-header-clean">
             <h3>Inspecciones de este equipo</h3>
             <p>Qu&eacute; se ha revisado, qu&eacute; se encontr&oacute; y qu&eacute; piezas quedaron marcadas para cambiar.</p>
@@ -1528,13 +1669,16 @@ function dt(machine, campo) {
           fecha,
           q: parseInt(f.q.value, 10) || 0,
           quien: String(f.quien.value || "").trim(),
-          nota: String(f.nota.value || "").trim(),
+          // Si es de una posición (bloques de Mantenimiento), el historial dice cuál
+          nota: [planRegCtx.ubicacion || "", String(f.nota.value || "").trim()].filter(Boolean).join(" · "),
+          ...(planRegCtx.ubic ? { ubic: planRegCtx.ubic, ubicacion: planRegCtx.ubicacion || "" } : {}),
           createdAt: new Date().toISOString()
         });
         planHistOpen.add(planRegCtx.eq + "|" + planRegCtx.cod);
         saveCambios();
         planSheetClose();
         renderPlan();
+        renderFichaSiVisible();
       }
 
       function planBorrarCambio(id) {

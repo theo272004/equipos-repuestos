@@ -5939,7 +5939,7 @@ const initialMachines = [
                   <span class="pl-ev__f">${planEsc(ev.fecha)}</span>
                   <span class="pl-ev__d">${ev.q ? planEsc(ev.q) + " ud. " : ""}${planEsc(ev.quien) || ""}${ev.nota ? (ev.quien ? " &middot; " : "") + planEsc(ev.nota) : ""}</span>
                   ${prev !== null && isFinite(prev) ? `<span class="pl-ev__i">+${planEsc(planFmtDias(prev))}</span>` : '<span class="pl-ev__i">1.&ordm;</span>'}
-                  <button class="pl-ev__x" type="button" onclick="planBorrarCambio('${planEsc(ev.id)}')" title="Borrar este registro">&times;</button>
+                  ${ev.registro ? '<span class="pl-ev__x" title="Viene del informe escrito en el repositorio (componentes-registro.js)">&middot;</span>' : `<button class="pl-ev__x" type="button" onclick="planBorrarCambio('${planEsc(ev.id)}')" title="Borrar este registro">&times;</button>`}
                 </div>`;
               }).join("")}
             </div>` : '<p class="pl-soft">Todav&iacute;a no hay ning&uacute;n cambio registrado de esta pieza.</p>'}
