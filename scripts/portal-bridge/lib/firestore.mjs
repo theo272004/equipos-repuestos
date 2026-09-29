@@ -56,6 +56,19 @@ export class Firestore {
     return docs;
   }
 
+  // Solo los documentos cuyo campo (una fecha ISO, que se compara como texto)
+  // es posterior a "desde". Cada documento leído cuenta en la cuota diaria.
+  async leerCambiadosDesde(coleccion, campo, desde) {
+    const j = await this.#pedir(`${this.base}:runQuery?${this.qs}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ structuredQuery: { from: [{ collectionId: coleccion }], where: { fieldFilter: { field: { fieldPath: campo }, op: "GREATER_THAN", value: { stringValue: desde } } } } }),
+    });
+    const docs = new Map();
+    for (const x of j || []) if (x.document) docs.set(x.document.name.split("/").pop(), plano(x.document.fields || {}));
+    return docs;
+  }
+
   async escribir(writes) {
     let hechas = 0;
     for (let i = 0; i < writes.length; i += LOTE) {

@@ -15,6 +15,7 @@ import { crearCliente } from "./lib/firestore-rest.mjs";
 import { tg, enviar, configurado, CHAT } from "./lib/telegram.mjs";
 import { cargarDatosApp, leerNube, panorama, hoyCO, turnoEnCurso, esc, plano, URL_APP } from "./lib/datos-app.mjs";
 import { msgHoy, msgPendientes, msgParados, msgTurno, msgPresupuesto, AYUDA, MENU, botonesApp } from "./lib/mensajes.mjs";
+import { cargarMaestro, buscarEn } from "./lib/maestro.mjs";
 
 const PROYECTO = process.env.FIREBASE_PROJECT_ID || "mantenimiento-f405b";
 const db = crearCliente({ proyecto: PROYECTO, apiKey: process.env.FIREBASE_API_KEY || "", email: process.env.FIREBASE_EMAIL, password: process.env.FIREBASE_PASSWORD });
@@ -72,18 +73,14 @@ async function crearTarea({ titulo, desc, prioridad, quien }) {
 }
 
 // Busca repuestos en el inventario: por código exacto o por palabras
+// Si el inventario no la tiene, se busca en el maestro de artículos (todos los
+// códigos de la empresa): al menos sale el código para pedirla.
 async function buscarRepuestos(texto) {
-  const items = await inv();
-  const q = plano(texto);
-  const exacto = items.find((a) => plano(a.cod) === q.replace(/\s+/g, ""));
-  if (exacto) return [exacto];
-  const toks = q.split(" ").filter((t) => t.length > 1);
-  if (!toks.length) return [];
-  return items.filter((a) => { const h = plano(`${a.cod} ${a.desc} ${a.ub}`); return toks.every((t) => h.includes(t)); })
-    .sort((a, b) => (Number(b.exist) > 0) - (Number(a.exist) > 0) || String(a.desc).localeCompare(String(b.desc)))
-    .slice(0, 8);
+  return buscarEn(await inv(), cargarMaestro(), texto);
 }
-const lineaRepuesto = (a) => `<code>${esc(a.cod)}</code> ${esc(a.desc || "")} — <b>${Number(a.exist) > 0 ? esc(a.exist) : "0"}</b> ${esc(a.um || "")}${a.ub ? " · " + esc(a.ub) : ""}${Number(a.min) > 0 && Number(a.exist) < Number(a.min) ? " ⚠️ bajo el mínimo" : ""}`;
+const lineaRepuesto = (a) => a.maestro
+  ? `<code>${esc(a.cod)}</code> ${esc(a.desc || "")} — <i>no sale en el inventario</i>${a.dias ? ` (compra: ${esc(a.dias)} días)` : ""}`
+  : `<code>${esc(a.cod)}</code> ${esc(a.desc || "")} — <b>${Number(a.exist) > 0 ? esc(a.exist) : "0"}</b> ${esc(a.um || "")}${a.ub ? " · " + esc(a.ub) : ""}${Number(a.min) > 0 && Number(a.exist) < Number(a.min) ? " ⚠️ bajo el mínimo" : ""}`;
 
 async function crearPedido({ lineas, destino, quien, nota }) {
   const id = uid("s");
@@ -209,7 +206,7 @@ async function atenderComando(msg) {
   if (comando === "stock") {
     if (!resto) return responder("Escríbelo así: <code>/stock rodamiento 6204</code> o <code>/stock 741901076</code>");
     const res = await buscarRepuestos(resto);
-    if (!res.length) return responder(db.estado.inventario === "denegado" ? "No puedo leer el inventario (revisa las reglas de Firebase)." : `No encontré «${esc(resto)}» en el inventario.`);
+    if (!res.length) return responder(db.estado.inventario === "denegado" ? "No puedo leer el inventario (revisa las reglas de Firebase)." : `No encontré «${esc(resto)}» ni en el inventario ni en el maestro de artículos.`);
     return responder([`📦 <b>Almacén · «${esc(resto)}»</b>`, "", ...res.map(lineaRepuesto), "", "<i>Para pedirlo: /pedir código cantidad para equipo</i>"].join("\n"));
   }
 
@@ -220,7 +217,8 @@ async function atenderComando(msg) {
     if (res.length === 1) {
       const a = res[0];
       const id = await crearPedido({ lineas: [{ cod: a.cod, desc: a.desc, cant: p.cant, um: a.um }], destino: p.destino, quien, nota: resto });
-      return responder(id ? `📦 Pedido anotado: <b>${esc(p.cant)} × ${esc(a.desc || a.cod)}</b> (<code>${esc(a.cod)}</code>)${p.destino ? ` para ${esc(p.destino)}` : ""}.\nHay ${esc(a.exist ?? "?")} ${esc(a.um || "")}${a.ub ? " en " + esc(a.ub) : ""}. Ya aparece en Almacén.` : "No pude guardar el pedido. Inténtalo otra vez en un momento.", id ? { inline_keyboard: [[{ text: "Abrir Almacén", url: `${URL_APP}?v=almacen` }]] } : undefined);
+      const hay = a.maestro ? `No sale en el inventario de almacén${a.dias ? `; si hay que comprarla tarda unos ${esc(a.dias)} días` : ""}.` : `Hay ${esc(a.exist ?? "?")} ${esc(a.um || "")}${a.ub ? " en " + esc(a.ub) : ""}.`;
+      return responder(id ? `📦 Pedido anotado: <b>${esc(p.cant)} × ${esc(a.desc || a.cod)}</b> (<code>${esc(a.cod)}</code>)${p.destino ? ` para ${esc(p.destino)}` : ""}.\n${hay} Ya aparece en Almacén.` : "No pude guardar el pedido. Inténtalo otra vez en un momento.", id ? { inline_keyboard: [[{ text: "Abrir Almacén", url: `${URL_APP}?v=almacen` }]] } : undefined);
     }
     if (res.length > 1) {
       const tmp = uid("tmp-");
@@ -230,7 +228,7 @@ async function atenderComando(msg) {
     }
     // No está en el inventario: se pide igual, con la descripción escrita
     const id = await crearPedido({ lineas: [{ cod: "", desc: p.texto, cant: p.cant }], destino: p.destino, quien, nota: resto });
-    return responder(id ? `📦 No encontré «${esc(p.texto)}» en el inventario, pero lo anoté como pedido${p.destino ? ` para ${esc(p.destino)}` : ""}. En Almacén se le pone el código.` : "No pude guardar el pedido.");
+    return responder(id ? `📦 No encontré «${esc(p.texto)}» ni en el inventario ni en el maestro de artículos, pero lo anoté como pedido${p.destino ? ` para ${esc(p.destino)}` : ""}. En Almacén se le pone el código.` : "No pude guardar el pedido.");
   }
 
   if (comando === "falla") {

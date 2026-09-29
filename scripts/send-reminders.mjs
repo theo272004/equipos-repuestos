@@ -115,9 +115,13 @@ function tocaAhora(a, memoria, hoy, hm) {
 async function main() {
   if (!configurado()) { console.log("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID: nada que enviar."); return; }
   // Cada pasada lee lo mínimo (corre 288 veces al día y cada documento leído
-  // cuenta en la cuota de Firebase): las tareas y el estado del bot. Todo lo
-  // demás solo cuando toca un parte o un aviso.
-  const tareas = await db.listar("tareas");
+  // cuenta en la cuota de Firebase, 50.000 al día en el plan gratuito): las
+  // tareas con el recordatorio ya vencido, no todas, y el estado del bot. Leer
+  // todas las tareas cada 5 minutos eran (número de tareas × 288) lecturas al
+  // día. Todo lo demás solo cuando toca un parte o un aviso.
+  const vencidas = await db.consultarRango("tareas", "remindNextAt", "2000-01-01", new Date().toISOString());
+  // Si la consulta falla (p. ej. reglas viejas), se vuelve a leer todo como antes
+  const tareas = vencidas === null ? await db.listar("tareas") : vencidas;
   const tareasEnviadas = await recordatorios(tareas);
 
   const hoy = hoyCO();

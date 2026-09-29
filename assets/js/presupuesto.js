@@ -247,7 +247,6 @@
       <div class="ux-head__txt">
         <p class="ux-eyebrow">${ic("presupuesto")}Almacén y costos</p>
         <h1 class="ux-title">Presupuesto de mantenimiento</h1>
-        <p class="ux-sub">El monto del año repartido por centro de costo. Cada solicitud de almacén se descuenta sola con el precio del inventario; las compras y servicios se anotan o se importan del RE355.</p>
       </div>
       <div class="ux-head__acts">
         <select class="ux-select" style="width:auto;min-height:40px" data-pp-anio aria-label="Año">${anios.map((y) => `<option value="${y}" ${y === vista.anio ? "selected" : ""}>${y}</option>`).join("")}</select>

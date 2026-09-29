@@ -10,7 +10,7 @@
     "prueba": "node bridge.mjs --dry-run",
     "columnas": "node bridge.mjs --columnas",
     "test": "node test/detector.test.mjs && node test/formato.test.mjs",
-    "test:navegador": "node test/ui.test.mjs && node test/almacen.test.mjs"
+    "test:navegador": "node test/ui.test.mjs && node test/almacen.test.mjs && node test/celular.test.mjs && node test/nube.test.mjs"
   },
   "dependencies": {
     "playwright": "^1.47.0",

@@ -259,9 +259,14 @@ body.sb-min .sb__brandtxt,
 body.sb-min .sb__item span,
 body.sb-min .sb__label { opacity: 0; pointer-events: none; }
 body.sb-min .sb__label { height: 0; margin: 0; }
-body.sb-min .sb__group { padding: 6px 0; }
+body.sb-min .sb__group { grid-template-columns: minmax(0, 1fr); padding: 6px 0; }
+body.sb-min .sb__label { overflow: hidden; }
 body.sb-min .sb__group + .sb__group { border-top-color: var(--line); }
 body.sb-min .sb__item { grid-template-columns: 20px; justify-content: center; padding: 0; }
+/* El nombre se oculta del todo (sigue para lectores de pantalla): si solo se
+   volvía transparente, bajaba a otra fila del grid, estiraba el botón y los
+   iconos de abajo se montaban sobre el pie del menú */
+body.sb-min .sb__item > span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 body.sb-min .sb__badge { position: absolute; top: 2px; right: 4px; min-width: 16px; height: 16px; padding: 0 4px; font-size: 10px; }
 body.sb-min .sb__collapse .ic { transform: rotate(180deg); }
 body.sb-min .sb__item::after {
@@ -1056,6 +1061,7 @@ button.ux-hbar:hover .ux-hbar__t { color: var(--accent-2); }
   body.sb-min .sb__label { height: auto; margin: 0 0 4px; }
   body.sb-min .sb__item { grid-template-columns: 20px minmax(0, 1fr) auto; justify-content: stretch; padding: 0 10px; }
   body.sb-min .sb__item::after { display: none; }
+  body.sb-min .sb__item > span { position: static; width: auto; height: auto; clip-path: none; }
   body.sb-min .sb__badge { position: static; }
   body.sb-min .sb__nav { overflow-y: auto; }
   .sb__collapse { display: none !important; }

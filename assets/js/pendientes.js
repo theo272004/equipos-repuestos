@@ -429,7 +429,6 @@
         <div class="ux-head__txt">
           <p class="ux-eyebrow">${ic("pendientes")}Seguimiento</p>
           <h1 class="ux-title">Pendientes</h1>
-          <p class="ux-sub">Todo lo que quedó abierto en planta, venga de donde venga: el registro diario y el chat, tareas, inspecciones y almacén. Arrastra una tarjeta para cambiar su estado o tócala para ver el detalle.</p>
         </div>
         <div class="ux-head__acts">
           <button class="ux-btn" type="button" data-pd="copiar">${ic("copiar")}Copiar resumen</button>

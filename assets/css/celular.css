@@ -1,0 +1,220 @@
+/* ============================================================================
+   CELULAR: lo que hace falta para usar la app con el teléfono en planta
+   ============================================================================
+   Va al final de todos los estilos y todo está dentro de media queries: en el
+   computador no cambia nada. Lo carga index.html y el formulario de turno
+   (reporte.html).
+
+   Tres reglas de fondo:
+   1. Nada puede ser más ancho que la pantalla. Si algo empuja, el navegador
+      del celular aleja toda la página y se lee en miniatura.
+   2. Los campos de texto van a 16 px: con menos, el iPhone agranda la página
+      al tocarlos y hay que volver a alejarla a mano.
+   3. Lo que se toca con el dedo mide al menos 40 px de alto.
+   ============================================================================ */
+
+/* El botón flotante de la solicitud (Almacén): solo cuando la solicitud va
+   debajo de los resultados (celular y tablet) */
+@media (min-width: 1280px) { body.app .alm-ir-sol { display: none; } }
+@media (min-width: 761px) and (max-width: 1279px) {
+  body.app .alm-ir-sol:not([hidden]) {
+    position: fixed; z-index: 49; right: 24px; bottom: 24px;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px;
+    border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600;
+    box-shadow: 0 12px 28px -10px rgba(15, 23, 42, 0.55); cursor: pointer;
+  }
+}
+
+/* El margen del menú lateral se anima solo en escritorio. Al girar una tablet
+   o achicar la ventana, el contenido no debe quedar un momento aplastado. */
+@media (max-width: 1023px) {
+  body.app, body.app.sb-min { transition: none; }
+}
+
+/* ---------------------------------------------- 1. nada más ancho que la pantalla -- */
+@media (max-width: 760px) {
+  /* Un hijo de grid o flex no se encoge por debajo de su contenido si no se le
+     dice: una línea larga sin espacios estiraba toda la ficha del equipo. */
+  body.app .app-shell > *, body.app .view > *, body.app .detail-header > *,
+  body.app .ux-card > *, body.app .ux-card__head > * { min-width: 0; }
+  body.app select { max-width: 100%; }
+  body.app .detail-header h2, body.app #detailSubtitle { overflow-wrap: anywhere; }
+
+  /* Barra de arriba: los botones no se aplastan; el título se corta con "…" */
+  body.app .tb__crumb { flex: 1 1 auto; min-width: 0; }
+  body.app .tb__crumb b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  body.app .tb__acts { flex-shrink: 0; gap: 6px; }
+  body.app .tb__acts > *, body.app .tb__search { flex-shrink: 0; }
+
+  /* Filtros: los desplegables comparten la fila en vez de estirarse con su
+     opción más larga ("Todas las máquinas" empujaba Tareas 70 px). */
+  body.app .pl-filters select, body.app .tk-filters select { flex: 1 1 150px; width: auto; min-width: 0; }
+  body.app .pl-filters input[type="search"] { flex: 1 1 100%; }
+
+  /* Ficha del equipo · "En planta": el título arriba y las acciones debajo,
+     repartidas a lo ancho, en vez de todo apretado en una fila. */
+  body.app .fa-card .ux-card__head { flex-wrap: wrap; }
+  body.app .fa-card .ux-card__head > div:first-child { flex: 1 1 100%; }
+  body.app .fa-card .ux-card__title small { display: block; margin: 2px 0 0; }
+  body.app .fa-card .ux-card__acts { flex: 1 1 100%; }
+  body.app .fa-card .ux-card__acts > * { flex: 1 1 0; justify-content: center; }
+  body.app .fa-kpis b { font-size: 18px; }
+
+  /* Registro diario e Indicadores: con el rediseño el lienzo ya no tiene
+     relleno, así que el margen negativo de antes los dejaba pegados al borde
+     de la pantalla. Solo la fila de indicadores deslizables llega al borde. */
+  body.app #registroView, body.app #indicadoresView { margin: 0; }
+  body.app .mx-tiles { margin: 0 -16px; padding: 2px 16px 6px; scroll-padding: 0 16px; }
+
+  /* Tablas anchas: se deslizan dentro de su marco, con inercia en el iPhone */
+  body.app .pl-tablewrap, body.app .ux-tablewrap { -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+
+  /* Botones de cabecera (Exportar, Presupuesto…): uno al lado del otro, no
+     uno debajo de otro a lo ancho de la pantalla */
+  body.app .section-actions { display: flex; flex-wrap: wrap; width: 100%; gap: 8px; }
+  body.app .section-actions > *, body.app .section-actions .button { flex: 1 1 auto; width: auto; }
+
+  /* Almacén: el buscador más arriba. La explicación de cómo cargar el RE356
+     se hace en el computador, no en planta. */
+  body.app #almFuente .pl-note { display: none; }
+  body.app .alm-fuente { gap: 6px; }
+  body.app .alm-fuente .pl-inv { min-height: 32px; font-size: 12px; }
+
+  /* Almacén: botón flotante que lleva a la solicitud, encima de la barra de abajo */
+  body.app .alm-ir-sol:not([hidden]) {
+    position: fixed; z-index: 49; left: 50%; bottom: calc(84px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px;
+    border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600;
+    box-shadow: 0 12px 28px -10px rgba(15, 23, 42, 0.55); cursor: pointer; animation: uxFade 0.2s both;
+  }
+  body.app .alm-ir-sol b { font-weight: 700; }
+
+  /* Solicitud: en el celular "Sacar de" va rotulado encima de su lista */
+  body.app .alm-linea__mid .alm-linea__de { grid-template-columns: 1fr; gap: 3px; }
+  body.app .alm-linea__extra { grid-template-columns: 1fr 1fr; }
+  body.app .alm-linea__extra label:nth-child(3) { grid-column: 1 / -1; }
+
+  /* Lo último de la página no queda tapado por la barra de abajo */
+  body.app .app-shell { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
+}
+
+/* --------------------------------- tablas que se usan en planta: tarjetas -- */
+/* En el celular una tabla de nueve columnas solo deja ver las dos primeras y
+   el nombre de la pieza queda fuera. Los repuestos de la ficha y los
+   resultados de Almacén pasan a una tarjeta por pieza: el nombre arriba y los
+   datos debajo, rotulados. En el computador siguen siendo tabla. */
+@media (max-width: 760px) {
+  body.app .sp-table, body.app .alm-table { min-width: 0; width: 100%; border-collapse: separate; }
+  body.app .sp-table thead, body.app .alm-table thead { display: none; }
+  body.app .sp-table tbody, body.app .alm-table tbody { display: grid; gap: 8px; }
+  body.app .pl-tablewrap:has(> .sp-table), body.app .pl-tablewrap:has(> .alm-table) { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+
+  body.app .sp-table tr.sp-row, body.app .alm-table tbody tr {
+    display: grid; align-items: center; gap: 6px 12px;
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel);
+  }
+  body.app .sp-table tr.sp-row > td, body.app .alm-table tbody tr > td { display: block; min-width: 0; padding: 0; border: 0; background: none; text-align: left; }
+  body.app .sp-table td[data-l]::before, body.app .alm-table td[data-l]::before {
+    content: attr(data-l); display: block; margin-bottom: 2px; color: var(--mute); font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  }
+  body.app .sp-table tr.sp-row > td.is-vacio, body.app .alm-table tbody tr > td.is-vacio { display: none; }
+
+  /* Repuestos de la ficha: nombre y criticidad / referencia / código, cantidad
+     y existencia / frecuencia / sistema y el botón de registrar. Las columnas
+     "auto" solo llevan cosas cortas: si no, se comen el ancho del nombre. */
+  body.app .sp-table tr.sp-row {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "desc desc crit" "ref ref ref" "cod q exist" "freq freq freq" "sys sys acc";
+  }
+  body.app .sp-table tr.sp-row.is-open { border-radius: 14px 14px 0 0; border-bottom-style: dashed; }
+  body.app .sp-table .pl-desc { grid-area: desc; font-size: 15px; }
+  body.app .sp-table .sp-name { font-weight: 650; text-align: left; }
+  body.app .sp-table .sp-crit { grid-area: crit; }
+  body.app .sp-table .sp-ref { grid-area: ref; color: var(--mute); font-size: 12.5px; }
+  body.app .sp-table .pl-code { grid-area: cod; }
+  body.app .sp-table .sp-q { grid-area: q; }
+  body.app .sp-table .sp-exist { grid-area: exist; }
+  body.app .sp-table .sp-sys { grid-area: sys; font-size: 12.5px; }
+  body.app .sp-table .pl-freq { grid-area: freq; font-size: 12.5px; }
+  body.app .sp-table .sp-acc { grid-area: acc; align-self: end; }
+  body.app .sp-table .pl-edit--cod { width: 100%; max-width: 170px; border-color: var(--line); }
+  body.app .sp-table .sp-exist .pl-edit { width: 76px; min-width: 0; border-color: var(--line); }
+  body.app .sp-table .sp-q, body.app .sp-table .sp-exist { text-align: right; }
+  body.app .sp-table .pl-freq::before { display: inline; margin: 0 6px 0 0; }
+  body.app .sp-table tr.sp-detalle { display: block; margin-top: -8px; }
+  body.app .sp-table tr.sp-detalle > td { display: block; padding: 12px 14px; border: 1px solid var(--line); border-top: 0; border-radius: 0 0 14px 14px; background: var(--panel-2); }
+
+  /* Resultados de Almacén: descripción y "Pedir" / código, U/M, existencia y
+     mínimo / dónde está / qué equipos la usan */
+  body.app .alm-table tbody tr {
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    grid-template-areas: "desc desc desc acc" "cod um exist min" "donde donde donde donde" "uso uso uso uso";
+  }
+  body.app .alm-table .alm-desc { grid-area: desc; font-weight: 600; }
+  body.app .alm-table .alm-accion { grid-area: acc; align-self: start; }
+  body.app .alm-table .pl-code { grid-area: cod; align-self: end; }
+  body.app .alm-table .alm-um { grid-area: um; }
+  body.app .alm-table .alm-exist { grid-area: exist; }
+  body.app .alm-table .alm-min { grid-area: min; }
+  body.app .alm-table .alm-donde { grid-area: donde; max-width: none; }
+  body.app .alm-table .alm-uso { grid-area: uso; max-width: none; }
+  body.app .alm-table tr.is-bajo { border-color: var(--warn-l); background: #fffbf2; }
+
+  /* Ficha · plan de mantenimiento del manual: la tarea arriba, con su
+     frecuencia; sistema y tipo debajo; el criterio al final */
+  body.app #maintenance-table { min-width: 0; width: 100%; }
+  body.app #maintenance-table thead { display: none; }
+  body.app #maintenance-table tbody { display: grid; gap: 8px; }
+  body.app .table-container:has(> #maintenance-table) { overflow: visible; border: 0; background: transparent; box-shadow: none; }
+  body.app #maintenance-table tr.maint-row {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 6px 10px; align-items: start;
+    grid-template-areas: "tarea frec" "sis tipo" "crit crit";
+    padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel);
+  }
+  body.app #maintenance-table tr.maint-row > td { display: block; padding: 0; border: 0; background: none; min-width: 0; }
+  body.app #maintenance-table td:nth-child(1) { grid-area: frec; }
+  body.app #maintenance-table td:nth-child(2) { grid-area: tarea; }
+  body.app #maintenance-table td:nth-child(3) { grid-area: sis; }
+  body.app #maintenance-table td:nth-child(4) { grid-area: tipo; }
+  body.app #maintenance-table td:nth-child(5) { grid-area: crit; }
+  body.app .maint-tab-btn { min-height: 36px; }
+}
+
+/* ------------------------------------------ 2. sin zoom al tocar un campo (iPhone) -- */
+@media (max-width: 760px), (pointer: coarse) {
+  body.app input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]):not([type="color"]),
+  body.app select,
+  body.app textarea { font-size: 16px !important; }
+}
+
+/* ---------------------------------------------- 3. hecho para el dedo -- */
+@media (pointer: coarse) {
+  /* Botones pequeños, chips y segmentos: de 30-32 px a 40 px */
+  body.app .ux-btn--sm, body.app .ux-chip, body.app .ux-seg button, body.app .alm-chip,
+  body.app .pl-reg, body.app .spf-rapido, body.app .spf-chip, body.app .pl-more,
+  body.app .mx-seg button, body.app .tn-seg button { min-height: 40px; }
+  body.app .ux-btn--icon.ux-btn--sm, body.app .mx-iconbtn--sm { width: 40px; height: 40px; }
+  body.app .alm-fam select { min-height: 40px; }
+  body.app .alm-stepper { grid-template-columns: 44px 58px 44px; height: 44px; }
+  body.app .sp-sug { min-height: 40px; margin-top: 6px; padding: 0 12px; }
+  body.app .alm-linea .alm-x { width: 40px; height: 40px; }
+  body.app .alm-linea__extra input, body.app .alm-linea__extra select, body.app .alm-linea__de select, body.app .alm-agregar input, body.app .alm-agregar .button { min-height: 44px; }
+  body.app .pl-reg { min-width: 40px; justify-content: center; }
+  /* Filas que se tocan enteras: barras de equipos, últimas novedades de la ficha */
+  body.app .ux-hbar, body.app .fa-ult button { min-height: 40px; }
+  body.app .download-link { padding-top: 9px; padding-bottom: 9px; }
+  body.app summary { padding-top: 10px; padding-bottom: 10px; }
+
+  /* Enlaces y nombres de equipo que se tocan dentro del texto: el área de
+     toque crece sin mover el texto (relleno y margen se compensan). */
+  body.app .ux-link, body.app .mx-link, body.app .mx-nov__eq, body.app .in-eq,
+  body.app .dy-ir-rep, body.app .sp-name, body.app .sp-sys__go {
+    padding-top: 9px; padding-bottom: 9px; margin-top: -9px; margin-bottom: -9px;
+  }
+
+  /* Casillas de marcar un poco más grandes */
+  body.app input[type="checkbox"], body.app input[type="radio"] { width: 20px; height: 20px; }
+
+  /* Sin el destello gris de Android al tocar, y sin el retraso del doble toque */
+  body.app button, body.app a, body.app [role="button"], body.app summary, body.app label { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+}

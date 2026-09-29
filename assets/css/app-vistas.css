@@ -246,6 +246,56 @@ body.app #tnFecha { height: 40px; padding: 0 12px; border: 1px solid var(--line-
 /* ----------------------------------------------------------- Almacén -- */
 body.app .alm-grid { gap: 20px; grid-template-columns: minmax(0, 1fr) minmax(380px, 460px); }
 body.app .alm-side { top: calc(var(--tb-h) + 16px); }
+/* Solicitud en pantalla ancha: más ancha, con su propio scroll (no hace falta
+   bajar la página entera para llegar al final) y se puede esconder. */
+body.app .alm-sol__head h3 { flex: 1; min-width: 0; }
+body.app .alm-sol-ocultar { display: none; }
+body.app .alm-sol-tab { display: none; }
+/* Debajo de 1280 px no caben bien las dos columnas: la solicitud va debajo
+   de los resultados y un botón flotante lleva a ella */
+@media (max-width: 1279px) {
+  body.app .alm-grid { grid-template-columns: minmax(0, 1fr); }
+  body.app .alm-side { position: static; }
+}
+@media (min-width: 1280px) {
+  body.app .alm-grid { grid-template-columns: minmax(0, 1fr) clamp(400px, 32vw, 540px); }
+  body.app .alm-side {
+    max-height: calc(100vh - var(--tb-h) - 32px); max-height: calc(100dvh - var(--tb-h) - 32px);
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+    border-radius: var(--r-lg); box-shadow: var(--sh-2); container-type: inline-size;
+  }
+  body.app .alm-side .alm-sol { box-shadow: none; }
+  body.app .alm-sol__head { position: sticky; top: 0; z-index: 2; margin: -18px -18px 0; padding: 14px 18px 12px; border-bottom: 1px solid var(--line); background: var(--panel); border-radius: var(--r-lg) var(--r-lg) 0 0; }
+  body.app .alm-sol-ocultar { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink-2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  body.app .alm-sol-ocultar:hover { background: var(--well); }
+  body.app .alm-grid.is-sol-oculta { grid-template-columns: minmax(0, 1fr); }
+  body.app .alm-grid.is-sol-oculta .alm-side { display: none; }
+  body.app .alm-grid.is-sol-oculta ~ .alm-sol-tab {
+    display: inline-flex; align-items: center; gap: 8px; position: fixed; right: 0; top: 50%; z-index: 30;
+    padding: 12px 14px 12px 12px; border: 1px solid var(--line-2); border-right: 0; border-radius: 12px 0 0 12px;
+    background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--sh-2); cursor: pointer; transform: translateY(-50%);
+  }
+  body.app .alm-sol-tab b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 12.5px; }
+  body.app .alm-main { container-type: inline-size; }
+}
+/* Con la solicitud abierta la tabla de resultados queda más angosta: se
+   quitan U/M y Mín. (siguen en la ficha) para que no haya que desplazarla */
+@container (max-width: 760px) {
+  body.app .alm-table { min-width: 0; }
+  body.app .alm-table th:nth-child(4), body.app .alm-table td.alm-um,
+  body.app .alm-table th:nth-child(7), body.app .alm-table td.alm-min { display: none; }
+  body.app .alm-table { width: 100%; table-layout: fixed; }
+  body.app .alm-table th:nth-child(1) { width: 86px; }
+  body.app .alm-table th:nth-child(2) { width: 92px; }
+  body.app .alm-table th:nth-child(5) { width: 54px; }
+  body.app .alm-table th:nth-child(6) { width: 112px; }
+  body.app .alm-table th:nth-child(8) { width: 118px; }
+  body.app .alm-table td { overflow-wrap: anywhere; }
+  body.app .alm-table td.alm-uso { font-size: 12.5px; }
+}
+@container (max-width: 600px) {
+  body.app .alm-table th:nth-child(8), body.app .alm-table td.alm-uso { display: none; }
+}
 body.app .alm-chip { min-height: 32px; padding: 0 12px; border-color: var(--line); color: var(--ink-2); font-size: 13px; font-weight: 550; }
 body.app .alm-chip.is-on { border-color: var(--ink); background: var(--ink); color: #fff; }
 body.app .alm-chip.is-on span { color: rgba(255, 255, 255, 0.7); }
@@ -256,6 +306,21 @@ body.app .alm-sitio { border-radius: 6px; background: var(--well); font-family: 
 body.app .alm-sitio b { color: var(--accent-2); }
 body.app .alm-table tr.is-bajo td { background: #fffbf2; }
 body.app .alm-cant, body.app .alm-sitio-sel, body.app .alm-sol-sub input { border-radius: 8px; }
+/* Maestro de artículos (RE356R): familia, plazo de compra y el aviso de código que no existe */
+body.app .pl-inv--maestro { background: var(--accent-t); color: var(--accent-2); padding: 4px 11px; display: inline-flex; align-items: center; }
+body.app .alm-fam { display: inline-flex; min-width: 0; max-width: 100%; }
+body.app .alm-fam select { min-height: 32px; max-width: 100%; padding: 0 30px 0 12px; border: 1px solid var(--line); border-radius: 999px; background-color: var(--panel); color: var(--ink-2); font: inherit; font-size: 13px; font-weight: 550; text-overflow: ellipsis; }
+body.app .alm-fam-txt { display: block; margin-top: 2px; color: var(--mute); font-size: 11.5px; font-weight: 500; }
+body.app .alm-plazo { display: block; margin-top: 2px; font-size: 11.5px; }
+body.app .sp-maestro-no { display: block; width: fit-content; margin-top: 3px; border-radius: 999px; padding: 1px 7px; background: var(--warn-t); color: var(--warn-d); font-size: 10.5px; font-weight: 700; cursor: help; white-space: nowrap; }
+body.app .sp-sug { display: block; margin-top: 3px; border: 1px dashed var(--accent); border-radius: 999px; padding: 1px 8px; background: var(--accent-t); color: var(--accent-2); font-family: var(--mono); font-size: 11.5px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+body.app .sp-sug:hover { border-style: solid; }
+body.app .sp-maestro-modelo { margin-top: 8px; }
+/* Solicitud: almacén principal y lo que va en otra hoja */
+body.app .alm-principal { display: grid; gap: 4px; }
+body.app .alm-principal label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--ink-2); }
+body.app .alm-principal select { flex: 1; min-width: 0; min-height: 34px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 8px; background-color: var(--panel); font: inherit; font-size: 13px; }
+body.app .alm-principal .pl-soft { font-size: 12px; }
 
 /* ------------------------------------------------------------ Diario -- */
 body.app .dy-cal, body.app .dy-detalle { padding: 16px; border-radius: var(--r-lg); box-shadow: var(--sh-1); }
@@ -380,7 +445,59 @@ body.app .alm-cc-nota.is-warn { background: var(--warn-t); color: #6b4000; }
 body.app .alm-cc-nota.is-bad { background: var(--bad-t); color: #7a1a12; }
 body.app .alm-form select { min-height: 42px; padding: 8px 10px; border: 1px solid var(--line-2); border-radius: 11px; background: var(--panel); font: inherit; font-size: 14px; }
 body.app .alm-valor { white-space: nowrap; font-weight: 600; }
-body.app .alm-sol-table tfoot td { padding: 10px 5px; border-top: 1px solid var(--line); background: var(--panel-2); }
+/* Solicitud: materiales como tarjetas numeradas (renglón del formato) */
+body.app .alm-mat { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+body.app .alm-mat > *, body.app .alm-lineas > *, body.app .alm-linea > *, body.app .alm-sol > * { min-width: 0; }
+body.app .alm-mat__head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+body.app .alm-mat__head h4, body.app .alm-datos-t { margin: 0; font-size: 14px; font-weight: 650; color: var(--ink); }
+body.app .alm-datos-t { margin-top: 6px; padding-top: 14px; border-top: 1px solid var(--line); }
+body.app .alm-agregar { display: flex; gap: 8px; }
+body.app .alm-agregar input { flex: 1; min-width: 0; min-height: 42px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 11px; background: var(--panel); font: inherit; font-size: 14px; }
+body.app .alm-agregar input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(44, 91, 255, 0.12); }
+body.app .alm-agregar .button { min-height: 42px; padding: 0 16px; }
+body.app .alm-sol-vacia { margin: 0; padding: 16px; border: 1px dashed var(--line-2); border-radius: 12px; color: var(--mute); font-size: 13.5px; text-align: center; }
+body.app .alm-lineas { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; margin: 0; padding: 0; list-style: none; }
+body.app .alm-linea { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+body.app .alm-linea.is-aparte { border-style: dashed; background: var(--panel-2); }
+body.app .alm-linea.is-pasa { border-color: var(--bad-l, #f5b7b1); }
+body.app .alm-linea__top { display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 10px; align-items: start; }
+body.app .alm-linea__n { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 8px; background: var(--well); color: var(--ink-2); font-size: 12.5px; font-weight: 700; font-variant-numeric: tabular-nums; }
+body.app .alm-linea__txt { display: grid; gap: 3px; min-width: 0; }
+body.app .alm-linea__txt b { font-size: 14px; font-weight: 650; line-height: 1.3; overflow-wrap: anywhere; }
+body.app .alm-linea__meta { color: var(--mute); font-size: 12.5px; }
+body.app .alm-linea__meta code { color: var(--accent-2); font-family: var(--mono); font-size: 12px; font-weight: 600; }
+body.app .alm-linea__meta .pl-tag { margin-left: 2px; }
+body.app .alm-linea .alm-x { display: grid; place-items: center; width: 32px; height: 32px; margin: -4px -4px 0 0; border: 0; border-radius: 9px; background: transparent; color: var(--mute); font-size: 20px; line-height: 1; cursor: pointer; }
+body.app .alm-linea .alm-x:hover { background: var(--bad-t); color: var(--bad-d); }
+body.app .alm-linea__mid { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "paso valor" "de de"; gap: 10px; align-items: center; }
+body.app .alm-linea__mid .alm-stepper { grid-area: paso; }
+body.app .alm-linea__mid .alm-linea__valor { grid-area: valor; justify-self: end; }
+body.app .alm-linea__mid .alm-linea__de { grid-area: de; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 10px; }
+body.app .alm-stepper { display: inline-grid; grid-template-columns: 36px 52px 36px; height: 38px; border: 1px solid var(--line-2); border-radius: 11px; overflow: hidden; background: var(--panel); }
+body.app .alm-stepper button { border: 0; background: var(--panel-2); color: var(--ink); font: inherit; font-size: 18px; font-weight: 600; line-height: 1; cursor: pointer; }
+body.app .alm-stepper button:hover:not([disabled]) { background: var(--well); }
+body.app .alm-stepper button[disabled] { color: var(--line-2); cursor: default; }
+body.app .alm-stepper .alm-cant { width: 100%; min-width: 0; height: 100%; padding: 0 4px; border: 0; border-inline: 1px solid var(--line); border-radius: 0; background: var(--panel); font: inherit; font-size: 15px; font-weight: 650; text-align: center; -moz-appearance: textfield; }
+body.app .alm-stepper .alm-cant::-webkit-inner-spin-button, body.app .alm-stepper .alm-cant::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+body.app .alm-stepper .alm-cant:focus { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+body.app .alm-linea__de { display: grid; gap: 2px; min-width: 0; color: var(--mute); font-size: 11px; font-weight: 600; }
+body.app .alm-linea__de select { width: 100%; max-width: none; min-height: 36px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; font-weight: 500; }
+body.app .alm-linea__sitio { color: var(--ink); font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
+body.app .alm-linea__valor { font-size: 14px; font-weight: 650; white-space: nowrap; font-variant-numeric: tabular-nums; }
+body.app .alm-linea .alm-pasa { margin: -4px 0 0; padding: 6px 10px; border-radius: 9px; background: var(--bad-t); color: var(--bad-d); font-size: 12.5px; font-weight: 600; }
+/* Trans., causa y centro casi nunca se llenan: plegados, se abren solos si tienen algo */
+body.app .alm-linea__mas > summary { display: inline-flex; align-items: center; gap: 4px; width: max-content; color: var(--mute); font-size: 12.5px; font-weight: 600; cursor: pointer; list-style: none; }
+body.app .alm-linea__mas > summary::-webkit-details-marker { display: none; }
+body.app .alm-linea__mas > summary::before { content: "+"; font-size: 14px; }
+body.app .alm-linea__mas[open] > summary::before { content: "–"; }
+body.app .alm-linea__mas > summary:hover { color: var(--ink); }
+body.app .alm-linea__mas[open] > summary { margin-bottom: 8px; }
+body.app .alm-linea__extra { display: grid; grid-template-columns: 80px 110px minmax(0, 1fr); gap: 8px; }
+body.app .alm-linea__extra label { display: grid; gap: 3px; min-width: 0; color: var(--mute); font-size: 11px; font-weight: 600; }
+body.app .alm-linea__extra input, body.app .alm-linea__extra select { width: 100%; min-width: 0; min-height: 34px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
+body.app .alm-linea__extra input:focus, body.app .alm-linea__extra select:focus, body.app .alm-linea__de select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(44, 91, 255, 0.12); }
+body.app .alm-mat__total { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--panel-2); font-size: 13px; }
+body.app .alm-mat__total strong { margin-left: 6px; font-size: 16px; }
 body.app .alm-hist-acc { white-space: nowrap; }
 body.app .alm-hist-acc .pl-reg + .pl-reg { margin-left: 4px; }
 body.app .alm-hist tr.is-resaltada td { background: var(--accent-t); }
@@ -391,3 +508,8 @@ body.app .alm-pedido > div:first-child { display: grid; gap: 2px; min-width: 0; 
 body.app .alm-pedido__acc { display: flex; gap: 6px; }
 body.app .alm-pedido__acc .button { min-height: 34px; font-size: 13px; }
 body.app .alm-form, body.app .dy-nota { padding: 0; border: 0; box-shadow: none; background: transparent; }
+
+/* Con sitio, cantidad, "sacar de" y valor van en una sola fila */
+@container (min-width: 420px) {
+  body.app .alm-side .alm-linea__mid { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "paso de valor"; }
+}

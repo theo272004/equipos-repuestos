@@ -138,7 +138,7 @@
     const raiz = document.getElementById("ajustesRoot");
     if (!raiz) return;
     raiz.innerHTML = `<div class="ux-page ux-seq">
-      <div class="ux-head"><div class="ux-head__txt"><p class="ux-eyebrow">${ic("ajustes")}Configuración</p><h1 class="ux-title">Conexión y ajustes</h1><p class="ux-sub">Quién usa este equipo, si la nube guarda todo, el bot de Telegram y el formulario de turno.</p></div></div>
+      <div class="ux-head"><div class="ux-head__txt"><p class="ux-eyebrow">${ic("ajustes")}Configuración</p><h1 class="ux-title">Conexión y ajustes</h1></div></div>
       <div class="ux-grid ux-grid--main">
         <div class="ux-stack">${cardNube()}${cardBot()}</div>
         <div class="ux-stack">${cardUsuario()}${cardFormulario()}${cardClave()}${cardDatos()}</div>

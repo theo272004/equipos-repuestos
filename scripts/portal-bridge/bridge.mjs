@@ -13,6 +13,8 @@
 //   node bridge.mjs --archivo x.xlsx    salta el portal y usa un Excel que ya tienes
 //   node bridge.mjs --columnas          dice que columnas entendio y no sube nada
 //   node bridge.mjs --dry-run           hace todo menos escribir en Firestore
+//   node bridge.mjs --releer            compara leyendo el inventario entero de la nube
+//                                       (normalmente solo lee lo cambiado desde la pasada anterior)
 //
 // Las credenciales van en .env, NUNCA en portal.config.json ni en el repo.
 
@@ -176,8 +178,25 @@ async function main() {
   // ------------------------------------------------------- comparar y subir
   console.log("3. Comparando con lo que ya hay en la nube");
   const fs = new Firestore(cfg.firebase);
-  const actual = await fs.leerColeccion("inventario");
-  console.log(`   en la nube habia ${actual.size} articulos`);
+  // Leer la colección entera son ~5.000 lecturas de la cuota diaria de Firebase
+  // (50.000 en el plan gratuito), y el puente corre varias veces al día. Así que
+  // se guarda en salida/ lo que quedó en la nube tras cada pasada, y la
+  // siguiente solo pide lo que cambió desde entonces (lo que haya subido la app
+  // desde un archivo). Con --releer se lee todo otra vez.
+  const COPIA = join(SALIDA, "nube-inventario.json");
+  const inicio = new Date().toISOString();
+  const guardada = tiene("--releer") ? null : await readFile(COPIA, "utf8").then(JSON.parse).catch(() => null);
+  let actual;
+  if (guardada && guardada.sello && guardada.docs) {
+    actual = new Map(Object.entries(guardada.docs));
+    const nuevos = await fs.leerCambiadosDesde("inventario", "actualizado", guardada.sello);
+    nuevos.forEach((v, k) => actual.set(k, v));
+    console.log(`   copia de la pasada anterior: ${actual.size} articulos; en la nube cambiaron ${nuevos.size} desde entonces`);
+  } else {
+    actual = await fs.leerColeccion("inventario");
+    console.log(`   en la nube habia ${actual.size} articulos`);
+  }
+  const guardarCopia = () => writeFile(COPIA, JSON.stringify({ sello: inicio, docs: Object.fromEntries(actual) }), "utf8");
 
   const ahora = new Date().toISOString();
   const writes = [];
@@ -206,16 +225,23 @@ async function main() {
     if (previo && (previo.exist ?? null) !== (nuevo.exist ?? null) && codigos.has(f.cod)) {
       cambios.push({ cod: f.cod, desc: f.desc, antes: previo.exist, ahora: nuevo.exist });
     }
-    writes.push(fs.upsert("inventario", f.cod, { ...nuevo, actualizado: ahora, fuente: "miportal" }));
+    const doc = { ...nuevo, actualizado: ahora, fuente: "miportal", agotado: false };
+    writes.push(fs.upsert("inventario", f.cod, doc));
+    actual.set(f.cod, { ...(previo || {}), ...doc });
   }
 
-  // Un articulo que ya no viene en el reporte se da de baja del almacen: se
-  // borra en vez de dejar una existencia vieja haciendose pasar por fresca.
+  // Un articulo que ya no viene en el reporte se agoto (el RE356 no lista los
+  // ceros). Se deja en 0 en vez de borrarlo: la app solo pide lo cambiado desde
+  // su ultima copia, y un borrado no le llegaria; una existencia 0 si.
   const vienen = new Set(filas.map((f) => f.cod));
-  const bajas = [...actual.keys()].filter((cod) => !vienen.has(cod));
-  for (const cod of bajas) writes.push(fs.borrar("inventario", cod));
+  const bajas = [...actual.keys()].filter((cod) => !vienen.has(cod) && Number(actual.get(cod).exist) !== 0);
+  for (const cod of bajas) {
+    const doc = { cod, exist: 0, sitios: "[]", agotado: true, actualizado: ahora, fuente: "miportal" };
+    writes.push(fs.upsert("inventario", cod, doc));
+    actual.set(cod, { ...actual.get(cod), ...doc });
+  }
 
-  console.log(`   ${writes.length - bajas.length} para crear o actualizar, ${iguales} sin cambios, ${bajas.length} dados de baja`);
+  console.log(`   ${writes.length - bajas.length} para crear o actualizar, ${iguales} sin cambios, ${bajas.length} agotados (quedan en 0)`);
   if (cambios.length) {
     console.log(`   movimientos en piezas del plan (${cambios.length}):`);
     for (const c of cambios.slice(0, 15)) {
@@ -248,6 +274,9 @@ async function main() {
   } else {
     console.log("   nada que subir, el portal dice lo mismo que la nube");
   }
+  // Solo tras subir bien: si algo falla, la proxima pasada vuelve a comparar
+  // con lo que diga la nube desde la copia anterior.
+  await guardarCopia();
   console.log(`\nInforme: ${informe}`);
 }
 

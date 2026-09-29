@@ -126,7 +126,7 @@ window.INVENTARIO = (function () {
       if (!k || vistos.has(k)) return;
       vistos.add(k);
       const prev = nube.porCodigo[k];
-      const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app" };
+      const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app", agotado: false };
       if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min) cambios.push(reg);
     });
     Object.values(nube.porCodigo).forEach((a) => {
@@ -157,13 +157,31 @@ window.INVENTARIO = (function () {
   // gratuito de Firebase da 50.000 al día. Ahora se escucha solo el sello de
   // la última carga (1 lectura) y la colección se baja completa únicamente
   // cuando ese sello cambia; mientras tanto se usa la copia de este navegador.
+  //
+  // Y cuando cambia, no se baja entera: cada artículo guarda en "actualizado"
+  // cuándo se subió, así que con copia aquí se piden solo los que cambiaron
+  // después de la carga anterior (una carga del RE356 suele mover unos cientos,
+  // no 5.000). Los agotados no se borran de la nube: quedan con existencia 0,
+  // para que esta consulta también se entere de ellos.
   let bajando = false;
   function bajarColeccion(sello) {
     if (bajando) return;
     bajando = true;
-    cloud.db.collection("inventario").get().then((snap) => {
-      const porCodigo = {};
-      snap.forEach((doc) => { const v = doc.data() || {}; const k = norm(v.cod || doc.id); if (k) porCodigo[k] = registro(v, k); });
+    const previo = nube.estado.sello || "";
+    const hayCopia = Object.keys(nube.porCodigo).length > 0;
+    const soloCambios = hayCopia && previo && sello && sello > previo;
+    const col = cloud.db.collection("inventario");
+    (soloCambios ? col.where("actualizado", ">", previo).get() : col.get()).then((snap) => {
+      const porCodigo = soloCambios ? { ...nube.porCodigo } : {};
+      snap.forEach((doc) => {
+        const v = doc.data() || {};
+        const k = norm(v.cod || doc.id);
+        if (!k) return;
+        const r = registro({ ...(porCodigo[k] || {}), ...v }, k);
+        // Un agotado conserva dónde estaba, pero ya sin nada en ningún estante
+        if (Number(v.exist) === 0) r.sitios = r.sitios.map((s) => ({ ...s, exist: 0 }));
+        porCodigo[k] = r;
+      });
       nube.porCodigo = porCodigo;
       nube.estado.articulos = Object.keys(porCodigo).length;
       nube.estado.origen = "miportal";

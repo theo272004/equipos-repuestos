@@ -298,7 +298,6 @@
       <div class="mx-head__txt">
         <p class="mx-eyebrow">${ic("capas")}Mantenimiento · FARMACAPSULAS</p>
         <h2 class="mx-title">Registro diario</h2>
-        <p class="mx-sub">Lo que pasó en planta, turno por turno. De aquí salen los indicadores.</p>
       </div>
       <div class="mx-head__acc">
         ${syncPill()}

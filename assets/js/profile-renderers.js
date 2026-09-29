@@ -190,7 +190,48 @@ function dt(machine, campo) {
       const tasksKey = "equipos-tareas-v1";
       const cloud = window.CLOUD || { db: null, enabled: false, connected: false };
       cloud.connected = false; // se pone a true al recibir datos del servidor
-      let cloudKnownIds = new Set();
+
+      // ── Subir a la nube solo lo que cambió ──────────────────────────────────
+      // Tareas, datos de repuestos, inspecciones y cambios guardan la lista
+      // entera en el navegador. Antes, al guardar, se subía TODA la lista: un
+      // celular con la copia de hace un rato pisaba lo que otro técnico (o el
+      // bot, que marca tareas hechas y mueve recordatorios) acababa de cambiar,
+      // y pasados 500 documentos Firestore rechazaba el lote entero y no se
+      // guardaba nada. Ahora cada colección recuerda cómo estaba cada documento
+      // en la nube ("visto": id -> firma) y solo sube los que difieren, y borra
+      // solo los que se quitaron aquí. Los lotes van de 400.
+      function firma(o) {
+        const orden = (v) => (Array.isArray(v) ? v.map(orden) : v && typeof v === "object"
+          ? Object.keys(v).sort().reduce((a, k) => { a[k] = orden(v[k]); return a; }, {}) : v);
+        return JSON.stringify(orden(JSON.parse(JSON.stringify(o))));
+      }
+      function vistoDe(lista) { return new Map(lista.filter((d) => d && d.id).map((d) => [d.id, firma(d)])); }
+      function subirCambiados(nombre, lista, visto, rutaDoc = (id) => id) {
+        const col = cloud.db.collection(nombre);
+        const ops = [];
+        const ids = new Set();
+        lista.forEach((d) => {
+          if (!d || !d.id) return;
+          ids.add(d.id);
+          const f = firma(d);
+          if (visto.get(d.id) !== f) ops.push({ id: d.id, dato: JSON.parse(JSON.stringify(d)), f });
+        });
+        visto.forEach((_, id) => { if (!ids.has(id)) ops.push({ id, borrar: true }); });
+        ops.forEach((o) => { if (o.borrar) visto.delete(o.id); else visto.set(o.id, o.f); });
+        for (let i = 0; i < ops.length; i += 400) {
+          const lote = ops.slice(i, i + 400);
+          const b = cloud.db.batch();
+          lote.forEach((o) => { const ref = col.doc(rutaDoc(o.id)); if (o.borrar) b.delete(ref); else b.set(ref, o.dato); });
+          // Si falla, se marca para reintentar en el próximo guardado
+          b.commit().catch((e) => {
+            console.error(`[${nombre}] guardar nube:`, e);
+            lote.forEach((o) => visto.set(o.id, "reintentar"));
+          });
+        }
+        return ops.length;
+      }
+
+      let tareasVisto = new Map();
       function loadTasks() { try { return JSON.parse(localStorage.getItem(tasksKey) || "[]"); } catch { return []; } }
       let tasks = loadTasks();
       function saveLocal() { try { localStorage.setItem(tasksKey, JSON.stringify(tasks)); } catch (e) {} }
@@ -202,17 +243,9 @@ function dt(machine, campo) {
         return `<option value="">General / Otra</option>` + machines.map((m) => `<option value="${escapeHtml(m.id)}" ${sel === m.id ? "selected" : ""}>${escapeHtml(m.model || m.name)}</option>`).join("");
       }
 
-      // Sube el estado actual a Firestore (upsert de lo presente + borra lo que ya no esta)
+      // Sube a Firestore las tareas que cambiaron aquí (y borra las que se quitaron)
       function cloudSync() {
-        try {
-          const col = cloud.db.collection("tareas");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          tasks.forEach((t) => { ids.add(t.id); batch.set(col.doc(t.id), JSON.parse(JSON.stringify(t))); });
-          cloudKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
-          cloudKnownIds = ids;
-          batch.commit().catch((e) => console.error("[Tareas] guardar nube:", e));
-        } catch (e) { console.error("[Tareas] cloudSync:", e); }
+        try { subirCambiados("tareas", tasks, tareasVisto); } catch (e) { console.error("[Tareas] cloudSync:", e); }
       }
 
       function cloudSubscribe() {
@@ -222,7 +255,7 @@ function dt(machine, campo) {
           const remote = [];
           snap.forEach((d) => remote.push(d.data()));
           tasks = remote;
-          cloudKnownIds = new Set(remote.map((t) => t.id));
+          tareasVisto = vistoDe(remote);
           saveLocal();
           window.diarioRenderSiVisible?.();
           if (document.getElementById("tkList")) renderTasks(); else updateCloudChip();
@@ -452,7 +485,7 @@ function dt(machine, campo) {
       const inspKey = "equipos-inspecciones-v1";
       const inspRegistroBorradasKey = "equipos-inspecciones-registro-borradas-v1";
       let inspecciones = loadInsp();
-      let inspKnownIds = new Set();
+      let inspVisto = new Map();
       const inspNube = { conectado: false, error: "" };
       const inspFiltro = { q: "", eq: "", tipo: "", estado: "" };
 
@@ -502,15 +535,7 @@ function dt(machine, campo) {
       }
 
       function inspSync() {
-        try {
-          const col = cloud.db.collection("inspecciones");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          inspecciones.forEach((i) => { ids.add(i.id); batch.set(col.doc(i.id), JSON.parse(JSON.stringify(i))); });
-          inspKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
-          inspKnownIds = ids;
-          batch.commit().catch((e) => { inspNube.error = e && e.code ? e.code : "error"; console.error("[Inspecciones] guardar nube:", e); });
-        } catch (e) { console.error("[Inspecciones] inspSync:", e); }
+        try { subirCambiados("inspecciones", inspecciones, inspVisto); } catch (e) { console.error("[Inspecciones] inspSync:", e); }
       }
 
       function inspSubscribe() {
@@ -518,7 +543,7 @@ function dt(machine, campo) {
         cloud.db.collection("inspecciones").onSnapshot({ includeMetadataChanges: true }, (snap) => {
           const remoto = [];
           snap.forEach((d) => remoto.push(d.data()));
-          inspKnownIds = new Set(remoto.map((i) => i.id));
+          inspVisto = vistoDe(remoto);
           inspecciones = inspConRegistro(remoto);
           window.diarioRenderSiVisible?.();
           inspNube.conectado = !snap.metadata.fromCache;
@@ -964,7 +989,7 @@ function dt(machine, campo) {
       // ----------------------------------------------------------------------
       const datosKey = "equipos-datos-repuesto-v1";
       let datosRep = loadDatosRep();
-      let datosKnownIds = new Set();
+      let datosVisto = new Map();
       const datosNube = { conectado: false, error: "" };
 
       function loadDatosRep() { try { return JSON.parse(localStorage.getItem(datosKey) || "{}"); } catch { return {}; } }
@@ -988,15 +1013,7 @@ function dt(machine, campo) {
       }
 
       function datosSync() {
-        try {
-          const col = cloud.db.collection("datos");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          Object.values(datosRep).forEach((d) => { ids.add(d.id); batch.set(col.doc(encodeURIComponent(d.id)), JSON.parse(JSON.stringify(d))); });
-          datosKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(encodeURIComponent(id))); });
-          datosKnownIds = ids;
-          batch.commit().catch((e) => { datosNube.error = e && e.code ? e.code : "error"; console.error("[Datos] guardar nube:", e); });
-        } catch (e) { console.error("[Datos] datosSync:", e); }
+        try { subirCambiados("datos", Object.values(datosRep), datosVisto, encodeURIComponent); } catch (e) { console.error("[Datos] datosSync:", e); }
       }
 
       function datosSubscribe() {
@@ -1005,7 +1022,7 @@ function dt(machine, campo) {
           const remoto = {};
           snap.forEach((d) => { const v = d.data(); if (v && v.id) remoto[v.id] = v; });
           datosRep = remoto;
-          datosKnownIds = new Set(Object.keys(remoto));
+          datosVisto = vistoDe(Object.values(remoto));
           datosNube.conectado = !snap.metadata.fromCache;
           datosNube.error = "";
           saveDatosLocal();
@@ -1052,7 +1069,7 @@ function dt(machine, campo) {
       const cambiosKey = "equipos-cambios-v1";
       const CAMBIOS_SEED_ID = "__seed_ago2026";
       let cambios = loadCambios();
-      let cambiosKnownIds = new Set();
+      let cambiosVisto = new Map();
       // Si el historial no llega a la nube hay que verlo en pantalla: si no, parece
       // compartido con el resto del taller y en realidad solo esta en este navegador.
       const cambiosNube = { conectado: false, error: "" };
@@ -1066,20 +1083,7 @@ function dt(machine, campo) {
       }
 
       function cambiosSync() {
-        try {
-          const col = cloud.db.collection("cambios");
-          const batch = cloud.db.batch();
-          const ids = new Set();
-          cambios.forEach((c) => { ids.add(c.id); batch.set(col.doc(c.id), JSON.parse(JSON.stringify(c))); });
-          cambiosKnownIds.forEach((id) => { if (!ids.has(id)) batch.delete(col.doc(id)); });
-          cambiosKnownIds = ids;
-          batch.commit().catch((e) => {
-            cambiosNube.conectado = false;
-            cambiosNube.error = e && e.code ? e.code : "error";
-            console.error("[Cambios] Error guardando en la nube:", e);
-            renderPlanIfVisible();
-          });
-        } catch (e) { console.error("[Cambios] cambiosSync:", e); }
+        try { subirCambiados("cambios", cambios, cambiosVisto); } catch (e) { console.error("[Cambios] cambiosSync:", e); }
       }
 
       function cambiosSubscribe() {
@@ -1088,18 +1092,22 @@ function dt(machine, campo) {
           const remote = [];
           snap.forEach((d) => remote.push(d.data()));
           cambios = remote;
-          cambiosKnownIds = new Set(remote.map((c) => c.id));
+          cambiosVisto = vistoDe(remote);
           window.diarioRenderSiVisible?.();
           cambiosNube.conectado = !snap.metadata.fromCache;
           cambiosNube.error = "";
           saveCambiosLocal();
-          cambiosSeedIfNeeded();
+          // Solo con la respuesta del servidor: la primera respuesta de un
+          // navegador nuevo sale de su copia local, vacía, y sembraría otra vez
+          // (y reviviría lo que alguien borró a propósito).
+          if (!snap.metadata.fromCache) cambiosSeedIfNeeded();
           renderPlanIfVisible();
         }, (err) => {
           cambiosNube.conectado = false;
           cambiosNube.error = err && err.code ? err.code : "error";
           console.error("[Cambios] onSnapshot:", err);
-          cambiosSeedIfNeeded();
+          // Sin nube se siembra solo para verlo aquí, sin subir nada
+          cambiosSeedIfNeeded({ soloLocal: true });
           renderPlanIfVisible();
         });
       }
@@ -1127,13 +1135,14 @@ function dt(machine, campo) {
         }).filter(Boolean);
       }
 
-      function cambiosSeedIfNeeded() {
+      function cambiosSeedIfNeeded(op = {}) {
         if (cambios.some((c) => c.id === CAMBIOS_SEED_ID)) return;
         const semilla = cambiosSemilla();
         if (!semilla.length) return;
         const tengo = new Set(cambios.map((c) => c.id));
         semilla.forEach((ev) => { if (!tengo.has(ev.id)) cambios.push(ev); });
         cambios.push({ id: CAMBIOS_SEED_ID, marca: true, createdAt: new Date().toISOString() });
+        if (op.soloLocal) { saveCambiosLocal(); return; }
         saveCambios();
       }
 

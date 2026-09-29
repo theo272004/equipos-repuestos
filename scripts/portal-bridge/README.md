@@ -117,8 +117,17 @@ iniciar en la carpeta de `portal-bridge`.
 | `node bridge.mjs --archivo x.xlsx` | Salta el portal y usa un Excel que ya tienes. |
 | `node bridge.mjs --columnas` | Dice qué columnas entendió y no sube nada. |
 | `node bridge.mjs --dry-run` | Hace todo menos escribir en Firestore. |
+| `node bridge.mjs --releer` | Compara leyendo el inventario entero de la nube (ver abajo). |
 | `npm test` | Comprueba el lector de Excel y el relleno del DAD-010A, sin tocar el portal. |
 | `npm run test:navegador` | Prueba la app en Chromium (sirve antes el repo con `python3 -m http.server 8777`). |
+
+**Lecturas de Firebase.** El plan gratuito da 50.000 lecturas al día para
+todo el proyecto (app, bot y puente). Leer el inventario entero son unas
+5.000, así que el puente guarda en `salida/nube-inventario.json` lo que quedó
+en la nube tras cada pasada y la siguiente solo pide lo que cambió desde
+entonces. Los artículos que salen del reporte no se borran: quedan en 0, para
+que la app, que también pide solo lo cambiado, se entere de que se agotaron.
+Si la copia se pierde o se duda de ella, `--releer` vuelve a leerlo todo.
 
 ## Qué reporte usar: RE356
 
@@ -213,6 +222,41 @@ existencias se movieron respecto a la pasada anterior.
 | `No encontré el campo de usuario` | El login cambió. Saca el selector con `--explorar` y ponlo en `portal.selectores`. |
 | `no la columna de existencias` | El reporte no trae existencias, o se llama de forma nueva. Mira `--columnas`. |
 | `ni uno solo coincide con los códigos` | Casi siempre es otro reporte del portal, no el de inventario. |
+
+## El RE356R: el maestro de artículos
+
+Hay un tercer reporte, el **RE356R**, que no sirve para existencias del día pero
+sí para algo que los otros no dan: **todos los códigos que existen en la
+empresa**, tengan existencia o no.
+
+| | RE356 (repuestos) | **RE356R (maestro)** |
+|---|---|---|
+| Códigos | 5.113 (solo lo que hay) | **13.651** (todo, incluido lo que está en 0) |
+| Almacén y estante | sí | no |
+| Días de aprovisionamiento, MRP | sí | sí |
+| Códigos del plan que cubre | 182 | **352 de 445** |
+
+Cruzado con el plan (septiembre de 2026): **92 códigos del plan no existen en
+el maestro**. Algunos están claramente mal copiados (`7240030314` tiene diez
+cifras; `17332002` es el código del propio equipo, no de una pieza) y del resto
+no se sabe si están mal copiados o si almacén nunca los creó: hay que revisarlos
+con almacén. La ficha de cada equipo los marca como *no está en el maestro*.
+
+La app lo trae ya convertido en `assets/data/maestro-almacen.json` y lo usa
+para buscar cualquier código en Almacén (con familia y plazo de compra), para
+proponer el código interno de los repuestos del manual que no lo tienen
+(cruzando su referencia de fabricante: `8-108-136-292` → `741203262`) y en el
+bot (`/stock`, `/pedir`). **Sin precios ni existencias**: el repositorio es
+público. Para actualizarlo con un RE356R nuevo:
+
+```bash
+python3 scripts/gen-maestro-almacen.py ~/Descargas/Datos.xls --fecha AAAA-MM-DD
+node scripts/bump-assets.mjs
+```
+
+El `.xls` no se sube (trae precios); `manuales/_almacen/` está en `.gitignore`.
+Si se carga el RE356R en Almacén como si fuera un RE356, la app conserva los
+estantes del inventario anterior, porque este reporte no los trae.
 
 ## Sin puente: cargar el RE356 en la app
 
