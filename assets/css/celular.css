@@ -13,8 +13,17 @@
    3. Lo que se toca con el dedo mide al menos 40 px de alto.
    ============================================================================ */
 
-/* El botón flotante de la solicitud (Almacén) solo existe en el celular */
-@media (min-width: 761px) { body.app .alm-ir-sol { display: none; } }
+/* El botón flotante de la solicitud (Almacén): solo cuando la solicitud va
+   debajo de los resultados (celular y tablet) */
+@media (min-width: 1280px) { body.app .alm-ir-sol { display: none; } }
+@media (min-width: 761px) and (max-width: 1279px) {
+  body.app .alm-ir-sol:not([hidden]) {
+    position: fixed; z-index: 49; right: 24px; bottom: 24px;
+    display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 18px;
+    border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600;
+    box-shadow: 0 12px 28px -10px rgba(15, 23, 42, 0.55); cursor: pointer;
+  }
+}
 
 /* El margen del menú lateral se anima solo en escritorio. Al girar una tablet
    o achicar la ventana, el contenido no debe quedar un momento aplastado. */

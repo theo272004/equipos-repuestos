@@ -182,6 +182,14 @@ await pg.selectOption('select[data-alm-campo="almacen"]', "R04");
 ok(/R04 \(1\) · R01 \(1\)/.test(await pg.textContent(".alm-hojas").catch(() => "")), `con R04 de principal: ${await pg.textContent(".alm-hojas").catch(() => "(sin aviso)")}`);
 await pg.selectOption('select[data-alm-campo="almacen"]', "");
 ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R01|M0100" && await pg.locator(".alm-hojas").count() === 0, "al volver a automatico no junto todo en R01");
+// 4b. en pantalla ancha la solicitud tiene su propio scroll y se puede esconder
+const lado = await pg.$eval("#almSolicitud", (x) => ({ ov: getComputedStyle(x).overflowY, alto: x.getBoundingClientRect().height }));
+ok(lado.ov === "auto" && lado.alto <= 1000, `la solicitud no se desplaza por su cuenta: ${JSON.stringify(lado)}`);
+await pg.click('[data-alm="sol-ocultar"]');
+ok(!(await pg.isVisible("#almSolicitud")) && /Solicitud\s*2/.test(await pg.textContent("#almSolTab")), "ocultar no escondio la solicitud o la pestaña no dice cuantas piezas lleva");
+ok(await pg.$eval("#almResultados", (x) => x.getBoundingClientRect().width) > 1000, "con la solicitud oculta los resultados no usan todo el ancho");
+await pg.click("#almSolTab");
+ok(await pg.isVisible("#almSolicitud"), "la pestaña no volvio a mostrar la solicitud");
 pg.once("dialog", (d) => d.accept());
 await pg.click('[data-alm="vaciar"]');
 

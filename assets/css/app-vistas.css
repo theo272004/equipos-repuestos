@@ -246,6 +246,56 @@ body.app #tnFecha { height: 40px; padding: 0 12px; border: 1px solid var(--line-
 /* ----------------------------------------------------------- Almacén -- */
 body.app .alm-grid { gap: 20px; grid-template-columns: minmax(0, 1fr) minmax(380px, 460px); }
 body.app .alm-side { top: calc(var(--tb-h) + 16px); }
+/* Solicitud en pantalla ancha: más ancha, con su propio scroll (no hace falta
+   bajar la página entera para llegar al final) y se puede esconder. */
+body.app .alm-sol__head h3 { flex: 1; min-width: 0; }
+body.app .alm-sol-ocultar { display: none; }
+body.app .alm-sol-tab { display: none; }
+/* Debajo de 1280 px no caben bien las dos columnas: la solicitud va debajo
+   de los resultados y un botón flotante lleva a ella */
+@media (max-width: 1279px) {
+  body.app .alm-grid { grid-template-columns: minmax(0, 1fr); }
+  body.app .alm-side { position: static; }
+}
+@media (min-width: 1280px) {
+  body.app .alm-grid { grid-template-columns: minmax(0, 1fr) clamp(400px, 32vw, 540px); }
+  body.app .alm-side {
+    max-height: calc(100vh - var(--tb-h) - 32px); max-height: calc(100dvh - var(--tb-h) - 32px);
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin;
+    border-radius: var(--r-lg); box-shadow: var(--sh-2); container-type: inline-size;
+  }
+  body.app .alm-side .alm-sol { box-shadow: none; }
+  body.app .alm-sol__head { position: sticky; top: 0; z-index: 2; margin: -18px -18px 0; padding: 14px 18px 12px; border-bottom: 1px solid var(--line); background: var(--panel); border-radius: var(--r-lg) var(--r-lg) 0 0; }
+  body.app .alm-sol-ocultar { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink-2); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer; }
+  body.app .alm-sol-ocultar:hover { background: var(--well); }
+  body.app .alm-grid.is-sol-oculta { grid-template-columns: minmax(0, 1fr); }
+  body.app .alm-grid.is-sol-oculta .alm-side { display: none; }
+  body.app .alm-grid.is-sol-oculta ~ .alm-sol-tab {
+    display: inline-flex; align-items: center; gap: 8px; position: fixed; right: 0; top: 50%; z-index: 30;
+    padding: 12px 14px 12px 12px; border: 1px solid var(--line-2); border-right: 0; border-radius: 12px 0 0 12px;
+    background: var(--ink); color: #fff; font: inherit; font-size: 14px; font-weight: 600; box-shadow: var(--sh-2); cursor: pointer; transform: translateY(-50%);
+  }
+  body.app .alm-sol-tab b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 12.5px; }
+  body.app .alm-main { container-type: inline-size; }
+}
+/* Con la solicitud abierta la tabla de resultados queda más angosta: se
+   quitan U/M y Mín. (siguen en la ficha) para que no haya que desplazarla */
+@container (max-width: 760px) {
+  body.app .alm-table { min-width: 0; }
+  body.app .alm-table th:nth-child(4), body.app .alm-table td.alm-um,
+  body.app .alm-table th:nth-child(7), body.app .alm-table td.alm-min { display: none; }
+  body.app .alm-table { width: 100%; table-layout: fixed; }
+  body.app .alm-table th:nth-child(1) { width: 86px; }
+  body.app .alm-table th:nth-child(2) { width: 92px; }
+  body.app .alm-table th:nth-child(5) { width: 54px; }
+  body.app .alm-table th:nth-child(6) { width: 112px; }
+  body.app .alm-table th:nth-child(8) { width: 118px; }
+  body.app .alm-table td { overflow-wrap: anywhere; }
+  body.app .alm-table td.alm-uso { font-size: 12.5px; }
+}
+@container (max-width: 600px) {
+  body.app .alm-table th:nth-child(8), body.app .alm-table td.alm-uso { display: none; }
+}
 body.app .alm-chip { min-height: 32px; padding: 0 12px; border-color: var(--line); color: var(--ink-2); font-size: 13px; font-weight: 550; }
 body.app .alm-chip.is-on { border-color: var(--ink); background: var(--ink); color: #fff; }
 body.app .alm-chip.is-on span { color: rgba(255, 255, 255, 0.7); }
@@ -451,3 +501,8 @@ body.app .alm-pedido > div:first-child { display: grid; gap: 2px; min-width: 0; 
 body.app .alm-pedido__acc { display: flex; gap: 6px; }
 body.app .alm-pedido__acc .button { min-height: 34px; font-size: 13px; }
 body.app .alm-form, body.app .dy-nota { padding: 0; border: 0; box-shadow: none; background: transparent; }
+
+/* Con sitio, cantidad, "sacar de" y valor van en una sola fila */
+@container (min-width: 420px) {
+  body.app .alm-side .alm-linea__mid { grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "paso de valor"; }
+}

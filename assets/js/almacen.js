@@ -32,6 +32,8 @@
   const hoy = () => bogotaToday();
   const fechaCorta = (iso) => { const [a, m, d] = String(iso || "").split("-"); return d ? `${Number(d)}/${m}/${a}` : String(iso || ""); };
   const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "" };
+  // En pantalla ancha la solicitud se puede esconder para dar sitio a los resultados
+  const CLAVE_SOL_OCULTA = "equipos-alm-sol-oculta";
   let borrador = cargar(BORRADOR, null) || nuevoBorrador();
   let historial = cargar(HISTORIAL, []);
   let cache = { inv: null, m: null, lista: [] };
@@ -170,7 +172,7 @@
       </div>
       <div id="almFuente">${htmlFuente()}</div>
       <div id="almPedidos">${htmlPedidos()}</div>
-      <div class="alm-grid">
+      <div class="alm-grid ${cargar(CLAVE_SOL_OCULTA, false) ? "is-sol-oculta" : ""}" id="almGrid">
         <div class="alm-main">
           <div class="pl-filters">
             <input type="search" id="almQ" value="${esc(vista.q)}" placeholder="C&oacute;digo, descripci&oacute;n, estante o equipo (ej. rodamiento 6204, R01/Z0505, blisteadora 2)&hellip;" aria-label="Buscar en almac&eacute;n" autocomplete="off">
@@ -180,6 +182,7 @@
         </div>
         <aside class="alm-side" id="almSolicitud">${htmlSolicitud()}</aside>
       </div>
+      <button class="alm-sol-tab" id="almSolTab" type="button" data-alm="sol-mostrar" title="Mostrar la solicitud"></button>
       <div id="almHistorial">${htmlHistorial()}</div>
       <button class="alm-ir-sol" id="almIrSol" type="button" data-alm="ir-sol" hidden></button>`;
     const q = document.getElementById("almQ");
@@ -195,10 +198,23 @@
     pintarIrSol();
   }
 
+  function solOculta() { return !!document.getElementById("almGrid")?.classList.contains("is-sol-oculta"); }
+  function ocultarSol(si) {
+    document.getElementById("almGrid")?.classList.toggle("is-sol-oculta", si);
+    guardar(CLAVE_SOL_OCULTA, si);
+    pintarIrSol();
+  }
+  function verSol() {
+    if (solOculta()) ocultarSol(false);
+    document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   function pintarIrSol() {
+    const n = borrador.lineas.length;
+    const t = document.getElementById("almSolTab");
+    if (t) t.innerHTML = `<span aria-hidden="true">&lsaquo;</span> ${borrador.editando ? "Corrección" : "Solicitud"}${n ? ` <b>${n}</b>` : ""}`;
     const b = document.getElementById("almIrSol");
     if (!b) return;
-    const n = borrador.lineas.length;
     b.hidden = !n || vista.solVisible;
     b.innerHTML = `${borrador.editando ? "Corrección" : "Solicitud"} &middot; <b>${n}</b> ${n === 1 ? "pieza" : "piezas"} <span aria-hidden="true">&darr;</span>`;
   }
@@ -482,6 +498,7 @@
         <div class="alm-sol__head">
           <h3>${b.editando ? "Corregir solicitud" : "Solicitud de materiales"}</h3>
           <span class="pl-tag pl-tag--n" title="El formato DAD-010A tiene ${RENGLONES} renglones">${b.lineas.length}/${RENGLONES}</span>
+          <button class="alm-sol-ocultar" type="button" data-alm="sol-ocultar" title="Esconder la solicitud para ver más resultados (no se pierde nada)">Ocultar <span aria-hidden="true">&rsaquo;</span></button>
         </div>
         ${b.editando ? `<p class="alm-cc-nota is-warn alm-editando">Est&aacute;s corrigiendo la solicitud del <b>${esc(b.editandoFecha || b.fecha)}</b>${b.editandoDestino ? ` para <b>${esc(b.editandoDestino)}</b>` : ""}. Al guardar se reemplaza esa misma (no se crea otra) y se descarga el formato corregido.</p>` : ""}
         <p class="pl-soft">Formato oficial DAD-010A · Edición 1. Se llena el mismo archivo, solo con los datos, y queda en el historial y en el presupuesto.</p>
@@ -591,7 +608,7 @@
     pintarSolicitud(); pintarResultados();
     // Un solo aviso a la vez: si se piden varias seguidas no se apilan tapando la lista.
     document.querySelectorAll("#uxToasts [data-alm-aviso]").forEach((t) => t.remove());
-    window.SHELL?.toast(`Renglón ${borrador.lineas.length}: <b>${esc(it ? it.desc || cod : cod)}</b>`, { accion: { txt: "Ver solicitud", fn: () => document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" }) } });
+    window.SHELL?.toast(`Renglón ${borrador.lineas.length}: <b>${esc(it ? it.desc || cod : cod)}</b>`, { accion: { txt: "Ver solicitud", fn: verSol } });
     const ultimo = document.getElementById("uxToasts")?.lastElementChild;
     if (ultimo) ultimo.dataset.almAviso = "1";
   }
@@ -849,7 +866,9 @@
       else if (accion === "emitir") emitir();
       else if (accion === "vaciar") { if (window.confirm(borrador.editando ? "¿Descartar la corrección? La solicitud queda como estaba." : "¿Vaciar la solicitud?")) { borrador = nuevoBorrador(borrador); guardarBorrador(); pintarSolicitud(); pintarResultados(); } }
       else if (accion === "maestro") { window.MAESTRO?.cargar({ reintentar: true }); pintarFuente(); }
-      else if (accion === "ir-sol") document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      else if (accion === "ir-sol") verSol();
+      else if (accion === "sol-ocultar") ocultarSol(true);
+      else if (accion === "sol-mostrar") verSol();
       else if (accion === "cant-menos" || accion === "cant-mas") {
         const l = borrador.lineas[+b.dataset.i];
         if (!l) return;
