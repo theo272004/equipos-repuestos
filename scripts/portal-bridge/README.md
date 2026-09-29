@@ -117,8 +117,17 @@ iniciar en la carpeta de `portal-bridge`.
 | `node bridge.mjs --archivo x.xlsx` | Salta el portal y usa un Excel que ya tienes. |
 | `node bridge.mjs --columnas` | Dice qué columnas entendió y no sube nada. |
 | `node bridge.mjs --dry-run` | Hace todo menos escribir en Firestore. |
+| `node bridge.mjs --releer` | Compara leyendo el inventario entero de la nube (ver abajo). |
 | `npm test` | Comprueba el lector de Excel y el relleno del DAD-010A, sin tocar el portal. |
 | `npm run test:navegador` | Prueba la app en Chromium (sirve antes el repo con `python3 -m http.server 8777`). |
+
+**Lecturas de Firebase.** El plan gratuito da 50.000 lecturas al día para
+todo el proyecto (app, bot y puente). Leer el inventario entero son unas
+5.000, así que el puente guarda en `salida/nube-inventario.json` lo que quedó
+en la nube tras cada pasada y la siguiente solo pide lo que cambió desde
+entonces. Los artículos que salen del reporte no se borran: quedan en 0, para
+que la app, que también pide solo lo cambiado, se entere de que se agotaron.
+Si la copia se pierde o se duda de ella, `--releer` vuelve a leerlo todo.
 
 ## Qué reporte usar: RE356
 

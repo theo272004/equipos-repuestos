@@ -14,6 +14,8 @@ const COD = "724001008";      // pieza del plan que el Excel da por 0
 const errores = [];
 const nav = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH, args: ["--no-sandbox"] } : {});
 const ctx = await nav.newContext({ viewport: { width: 1500, height: 1000 } });
+// Sin nube: la de verdad gastaria cuota y podria recibir escrituras de la prueba
+await ctx.route(/gstatic|googleapis|firebase/, (r) => r.abort());
 const pg = await ctx.newPage();
 pg.on("console", (m) => { if (m.type() === "error") errores.push(m.text()); });
 pg.on("pageerror", (e) => errores.push("PAGEERROR: " + e.message));
@@ -121,7 +123,7 @@ if (!marcas.portal) fallos.push("ninguna casilla quedo marcada como 'portal'");
 if (marcas._marcaDeLaPieza !== "portal") fallos.push(`la pieza ${COD} quedo marcada como ${marcas._marcaDeLaPieza}`);
 if (marcas._placeholderDeLaPieza !== "7") fallos.push(`el placeholder deberia mostrar 7, muestra ${marcas._placeholderDeLaPieza}`);
 // gstatic/fonts los bloquea el sandbox de este contenedor, no son del codigo
-const propios = errores.filter((e) => !/ERR_TUNNEL|ERR_CERT|gstatic|fonts\.googleapis/.test(e));
+const propios = errores.filter((e) => !/ERR_TUNNEL|ERR_CERT|ERR_FAILED|gstatic|fonts\.googleapis/.test(e));
 if (propios.length) fallos.push(`errores de consola propios: ${propios.join(" | ")}`);
 console.log(fallos.length ? "\nFALLOS:\n- " + fallos.join("\n- ") : "\nTodo correcto.");
 process.exit(fallos.length ? 1 : 0);

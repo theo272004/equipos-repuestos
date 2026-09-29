@@ -121,5 +121,21 @@ export function crearCliente({ proyecto, apiKey, email, password }) {
     return (j || []).filter((x) => x.document).map((x) => ({ ...deCampos(x.document.fields), _doc: x.document.name.split("/").pop() }));
   }
 
-  return { listar, obtener, guardar, actualizar, consultar, estado };
+  // Consulta por rango de un campo de texto (fechas ISO): desde <= campo <= hasta.
+  // Una consulta que no encuentra nada cuesta una sola lectura.
+  async function consultarRango(col, campo, desde, hasta, limite = 100) {
+    await autenticar();
+    const filtro = (op, v) => ({ fieldFilter: { field: { fieldPath: campo }, op, value: aValor(v) } });
+    const r = await fetch(`${BASE}:runQuery?key=${apiKey}`, {
+      method: "POST",
+      headers: cab(),
+      body: JSON.stringify({ structuredQuery: { from: [{ collectionId: col }], where: { compositeFilter: { op: "AND", filters: [filtro("GREATER_THAN_OR_EQUAL", desde), filtro("LESS_THAN_OR_EQUAL", hasta)] } }, limit: limite } }),
+    });
+    if (!r.ok) { estado[col] = r.status === 403 ? "denegado" : "error"; console.error(`Firestore consultar ${col}:`, r.status, (await r.text()).slice(0, 200)); return null; }
+    estado[col] = "ok";
+    const j = await r.json();
+    return (j || []).filter((x) => x.document).map((x) => ({ ...deCampos(x.document.fields), _doc: x.document.name.split("/").pop() }));
+  }
+
+  return { listar, obtener, guardar, actualizar, consultar, consultarRango, estado };
 }
