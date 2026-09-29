@@ -89,7 +89,7 @@ window.INVENTARIO = (function () {
     const d = diasDesdeActualizacion();
     if (d === null) return { estado: "sin-datos", texto: "Sin inventario del portal" };
     const cuando = d === 0 ? "de hoy" : d === 1 ? "de ayer" : `de hace ${d} dias`;
-    const donde = activo() === local ? " (archivo cargado en este equipo)" : "";
+    const donde = activo() === local && !local.estado.enNube ? " (solo en este equipo)" : "";
     return { estado: d <= 7 ? "fresco" : "viejo", texto: `Inventario ${cuando}${donde}` };
   }
 
@@ -115,6 +115,8 @@ window.INVENTARIO = (function () {
   // Sube a la nube un RE356 cargado en este equipo, para que lo vea todo el
   // taller (lo mismo que hace el puente de MiPortal). Solo escribe los códigos
   // que cambiaron y marca en 0 los que el reporte ya no lista (agotados).
+  // Con la copia local de Firestore, lo escrito sin señal queda guardado en el
+  // navegador y sube solo al volver la conexión, aunque se recargue la página.
   async function subirNube(filas) {
     if (!(cloud.enabled && cloud.db)) return { ok: false, motivo: "no hay nube configurada" };
     const ahora = new Date().toISOString();
@@ -127,22 +129,34 @@ window.INVENTARIO = (function () {
       vistos.add(k);
       const prev = nube.porCodigo[k];
       const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app", agotado: false };
-      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min) cambios.push(reg);
+      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min || prev.desc !== reg.desc || JSON.stringify(prev.sitios || []) !== reg.sitios) cambios.push(reg);
     });
-    Object.values(nube.porCodigo).forEach((a) => {
-      if (!vistos.has(a.cod) && Number(a.exist) > 0) cambios.push({ cod: a.cod, exist: 0, actualizado: ahora, fuente: "app", agotado: true });
+    // Lo que el reporte no lista se agotó (el RE356 no trae los ceros). Pero si
+    // el archivo trae mucho menos que lo que hay en la nube, es un reporte
+    // parcial (filtrado por familia o almacén) y no se da nada por agotado.
+    const conExistencia = Object.values(nube.porCodigo).filter((a) => Number(a.exist) > 0);
+    const parcial = conExistencia.length > 0 && vistos.size < conExistencia.length * 0.5;
+    let agotados = 0;
+    if (!parcial) conExistencia.forEach((a) => {
+      if (vistos.has(a.cod)) return;
+      agotados++;
+      cambios.push({ cod: a.cod, exist: 0, actualizado: ahora, fuente: "app", agotado: true });
     });
     try {
+      const lotes = [];
       for (let i = 0; i < cambios.length; i += 400) {
         const b = cloud.db.batch();
         cambios.slice(i, i + 400).forEach((c) => b.set(cloud.db.collection("inventario").doc(c.cod), c, { merge: true }));
-        await b.commit();
+        lotes.push(b.commit());
       }
-      await cloud.db.collection("inventario_meta").doc("estado").set({ actualizado: ahora, articulos: vistos.size, origen: "app", por: quien }, { merge: true });
-      return { ok: true, cambios: cambios.length };
+      lotes.push(cloud.db.collection("inventario_meta").doc("estado").set({ actualizado: ahora, articulos: vistos.size, origen: "app", por: quien, fuente: "app" }, { merge: true }));
+      await Promise.all(lotes);
+      local.estado.enNube = ahora;
+      guardar(CLAVE_LOCAL, local);
+      return { ok: true, cambios: cambios.length, agotados, parcial };
     } catch (e) {
       console.error("[Inventario] subir:", e);
-      return { ok: false, motivo: e && e.code === "permission-denied" ? "la nube no deja escribir el inventario (revisa las reglas en Conexión y ajustes)" : (e && e.message) || "error" };
+      return { ok: false, motivo: e && e.code === "permission-denied" ? "la nube no deja escribir el inventario (revisa las reglas en Conexión y ajustes)" : e && e.code === "resource-exhausted" ? "se acabó la cuota diaria de Firebase; vuelve a intentarlo mañana" : (e && e.message) || "error" };
     }
   }
 

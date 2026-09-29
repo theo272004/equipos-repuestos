@@ -93,8 +93,8 @@
     const regs = regsDe(fecha).filter((r) => !vista.sede || r.s === vista.sede)
       .sort((a, b) => ((b.hr || b.hi || "") + b.id).localeCompare((a.hr || a.hi || "") + a.id));
     if (!regs.length) {
-      return `<div class="ux-empty"><span class="ux-empty__ico">${ic("registro")}</span><h4>Sin novedades registradas ${fecha === N.hoy() ? "todavía hoy" : "ese día"}</h4><p>Llegan con el reporte del chat o se anotan en el Registro diario o en el formulario de turno.</p>
-        <div style="display:flex;gap:8px;margin-top:8px"><a class="ux-btn ux-btn--sm" href="reporte.html">${ic("formulario")}Formulario de turno</a><button class="ux-btn ux-btn--sm" type="button" data-hy="nueva">${ic("mas")}Anotar novedad</button></div></div>`;
+      return `<div class="ux-empty"><span class="ux-empty__ico">${ic("registro")}</span><h4>Sin novedades registradas ${fecha === N.hoy() ? "todavía hoy" : "ese día"}</h4>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:8px"><a class="ux-btn ux-btn--sm" href="reporte.html">${ic("formulario")}Formulario de turno</a><button class="ux-btn ux-btn--sm" type="button" data-hy="nueva">${ic("mas")}Anotar novedad</button></div></div>`;
     }
     return `<ul class="ux-tl hy-tl">${regs.slice(0, 8).map((r) => {
       const tono = CAT_TONO[r.cat] || "";

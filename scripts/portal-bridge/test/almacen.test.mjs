@@ -84,7 +84,7 @@ ok(new RegExp(`Maestro: ${maestro.total.toLocaleString("es-CO")} c`).test(await 
 await pg.setInputFiles('input[data-alm="archivo"]', rutaRe);
 await pg.waitForSelector(".alm-aviso--ok, .alm-aviso--error", { timeout: 60000 });
 const carga = (await pg.textContent(".alm-aviso")).trim();
-ok(/Le.{1,2} \d/.test(carga) && /RE356/.test(carga), `no cargo el reporte: ${carga}`);
+ok(/\d+ art.culos de re356-prueba/.test(carga), `no cargo el reporte: ${carga}`);
 
 // 2. buscar por equipo: solo sus piezas, y "2" no confunde con "320"
 await pg.fill("#almQ", "blisteadora 2");
@@ -122,9 +122,12 @@ await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "2");
 await pg.locator('input[data-alm-linea="0"][data-k="cant"]').blur();
 // Trans. y Codigo causa van por articulo: cada renglon con los suyos.
 ok(await pg.locator('[data-alm-campo="trans"], [data-alm-campo="causa"]').count() === 0, "siguen los campos generales de Trans./Causa");
-ok(!(await pg.isVisible("#alm-trans-0")), "Trans., causa y centro deberian ir plegados mientras esten vacios");
-await pg.click(".alm-linea__mas >> nth=0 >> summary"); await pg.click(".alm-linea__mas >> nth=1 >> summary");
+ok(await pg.isVisible("#alm-causa-0") && await pg.isVisible("#alm-causa-1"), "el codigo causa de cada pieza tiene que estar a la vista");
+// "Igual en todas" copia el Trans. y la causa del primer renglon
 await pg.fill("#alm-trans-0", "CO"); await pg.fill("#alm-causa-0", "07");
+await pg.click('[data-alm="dad-todas"]');
+ok(await pg.$eval("#alm-causa-1", (x) => x.value) === "07" && await pg.$eval("#alm-trans-1", (x) => x.value) === "CO", "Igual en todas no copio el Trans. y la causa");
+// y cada una puede llevar el suyo
 await pg.fill("#alm-trans-1", "TR"); await pg.fill("#alm-causa-1", "12");
 await pg.fill('[data-alm-campo="destino"]', "BLISTEADORA #2");
 await pg.fill('[data-alm-campo="solicitadoPor"]', "PRUEBA");
@@ -153,7 +156,8 @@ ok(celda(hoja2, "A13") === codsB2[1] && celda(hoja2, "O13") === "R02", `hoja R02
 ok(celda(hoja2, "G13") === "TR" && celda(hoja2, "H13") === "12", `hoja R02: Trans./Causa = ${celda(hoja2, "G13")}/${celda(hoja2, "H13")}, esperaba TR/12`);
 ok(celda(hoja2, "C8") === "BLISTEADORA #2", "la cabecera no se repitio en la segunda hoja");
 ok(/^DAD-010A \d{4}-\d{2}-\d{2} BLISTEADORA 2\.xlsx$/.test(descarga.suggestedFilename()), `nombre de archivo raro: ${descarga.suggestedFilename()}`);
-await pg.waitForSelector(".alm-aviso--ok");
+await pg.locator(".ux-toast", { hasText: "Descargado · 2 hojas (R04, R02)" }).waitFor({ timeout: 5000 }).catch(() => ok(false, "al descargar no salio el aviso corto con las dos hojas"));
+ok(await pg.locator(".alm-aviso--ok", { hasText: "Ábrelo en Excel" }).count() === 0, "sigue el aviso largo al descargar");
 ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");
 ok(await pg.locator("#almSolicitud .alm-linea").count() === 0, "la solicitud no se vacio despues de descargarla");
 
@@ -206,15 +210,14 @@ const [corregida] = await Promise.all([pg.waitForEvent("download"), pg.click('[d
 const zipC = await JSZip.loadAsync(await readFile(await corregida.path()));
 const hojaC = await zipC.file("xl/worksheets/sheet1.xml").async("string");
 ok(hojaC.includes(`<c r="M13" s="8"><v>5</v></c>`) && !zipC.file("xl/worksheets/sheet2.xml"), "el formato corregido no trae la cantidad nueva o sigue con la hoja de la pieza quitada");
-await pg.waitForSelector(".alm-aviso--ok");
-ok(/corregida/i.test(await pg.textContent(".alm-aviso--ok")), "no dijo que la solicitud quedo corregida");
+await pg.locator(".ux-toast", { hasText: "Solicitud corregida" }).waitFor({ timeout: 5000 }).catch(() => ok(false, "no dijo que la solicitud quedo corregida"));
 ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "corregir creo otra solicitud en vez de reemplazar la misma");
 ok((await pg.textContent(".alm-hist tbody tr td:nth-child(5)")).trim() === "1", "el historial no refleja la pieza quitada");
 
 // 5. todo sobrevive a recargar
 await pg.reload({ waitUntil: "load" });
 await pg.waitForSelector("#almQ");
-ok(/archivo cargado/.test(await pg.textContent(".pl-inv")), "al recargar se perdio el inventario cargado");
+ok(/solo en este equipo\) · \d+ art/.test(await pg.textContent(".pl-inv")), "al recargar se perdio el inventario cargado");
 ok(await pg.$eval('[data-alm-campo="solicitadoPor"]', (i) => i.value) === "PRUEBA", "no recordo quien solicita");
 
 // 5b. un RE356R (sin estantes) cargado encima no borra donde estaba cada cosa

@@ -92,7 +92,7 @@
   /* Solicitud: en el celular "Sacar de" va rotulado encima de su lista */
   body.app .alm-linea__mid .alm-linea__de { grid-template-columns: 1fr; gap: 3px; }
   body.app .alm-linea__extra { grid-template-columns: 1fr 1fr; }
-  body.app .alm-linea__extra label:nth-child(3) { grid-column: 1 / -1; }
+  body.app .alm-linea__extra .alm-igual { grid-column: 1 / -1; justify-self: start; }
 
   /* Lo último de la página no queda tapado por la barra de abajo */
   body.app .app-shell { padding-bottom: calc(112px + env(safe-area-inset-bottom)); }
@@ -198,7 +198,7 @@
   body.app .alm-stepper { grid-template-columns: 44px 58px 44px; height: 44px; }
   body.app .sp-sug { min-height: 40px; margin-top: 6px; padding: 0 12px; }
   body.app .alm-linea .alm-x { width: 40px; height: 40px; }
-  body.app .alm-linea__extra input, body.app .alm-linea__extra select, body.app .alm-linea__de select, body.app .alm-agregar input, body.app .alm-agregar .button { min-height: 44px; }
+  body.app .alm-linea__extra input, body.app .alm-linea__extra select, body.app .alm-linea__cc select, body.app .alm-igual, body.app .alm-linea__de select, body.app .alm-agregar input, body.app .alm-agregar .button { min-height: 44px; }
   body.app .pl-reg { min-width: 40px; justify-content: center; }
   /* Filas que se tocan enteras: barras de equipos, últimas novedades de la ficha */
   body.app .ux-hbar, body.app .fa-ult button { min-height: 40px; }

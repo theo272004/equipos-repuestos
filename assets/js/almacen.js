@@ -240,13 +240,23 @@
       : M.error ? `<button class="pl-reg" type="button" data-alm="maestro" title="${esc(M.error)}">No baj&oacute; el maestro de art&iacute;culos &middot; reintentar</button>`
       : `<span class="pl-soft">Cargando el maestro de art&iacute;culos&hellip;</span>`;
     const trabajando = vista.trabajando ? `<p class="alm-aviso alm-aviso--info" role="status">${esc(vista.trabajando)}</p>` : "";
+    const n = vista.nube;
+    const nube = !n ? ""
+      : n.estado === "subiendo" ? `<span class="pl-inv pl-inv--nube" role="status">${navigator.onLine === false ? "Sin conexi&oacute;n: se guarda en la nube al volver la se&ntilde;al" : "Guardando en la nube&hellip;"}</span>`
+      : n.estado === "ok" ? `<span class="pl-inv pl-inv--fresco" role="status" title="${n.parcial ? "Reporte parcial: no se dio nada por agotado" : "Lo ven todos los equipos del taller"}">Guardado en la nube${n.parcial ? " (parcial)" : ""}</span>`
+      : n.estado === "error" ? `<button class="pl-reg alm-nube-error" type="button" data-alm="subir-nube" title="${esc(n.motivo || "")}">No se guard&oacute; en la nube &middot; reintentar</button>`
+      : ""; // sin nube: la etiqueta del inventario ya dice "solo en este equipo"
+    // Un archivo cargado antes de que se guardara solo en la nube
+    const sinSubir = !n && archivo && !inv.estado.enNube && window.CLOUD && window.CLOUD.enabled
+      ? `<button class="pl-reg" type="button" data-alm="subir-nube" title="Para que lo vean los demás equipos y no se pierda">Guardar en la nube</button>` : "";
     return `
       <div class="alm-fuente">
         <span class="pl-inv pl-inv--${hay ? f.estado : "sin-datos"}">${hay ? `${esc(f.texto)} &middot; ${inv.estado.articulos} art&iacute;culos` : "Sin reporte de almac&eacute;n cargado"}</span>
-        <label class="pl-reg alm-cargar" title="En MiPortal: reporte RE356 &rarr; Generar Excel. Se lee en este equipo y no se sube a ning&uacute;n sitio. Sin &eacute;l se busca en el plan y en el maestro, sin existencias.">
+        <label class="pl-reg alm-cargar" title="En MiPortal: reporte RE356 &rarr; Generar Excel. Queda guardado en la nube y lo ven todos los equipos del taller.">
           Cargar reporte RE356&hellip;<input type="file" accept=".xls,.xlsx" data-alm="archivo" hidden>
         </label>
-        ${archivo ? `<button class="pl-reg" type="button" data-alm="olvidar" title="Volver a lo que suba el puente de MiPortal">Quitar el archivo</button>` : ""}
+        ${nube}${sinSubir}
+        ${archivo && !(n && n.estado === "ok") && !inv.estado.enNube ? `<button class="pl-reg" type="button" data-alm="olvidar" title="Volver a lo que suba el puente de MiPortal">Quitar el archivo</button>` : ""}
         ${maestro}
       </div>
       ${trabajando}${aviso}`;
@@ -398,6 +408,13 @@
   const principalDe = (s) => s.almacen || s.almacenHoja || almacenAuto(s.lineas || []);
 
   // "Sacar de": el almacén principal. Solo se ofrece si hay de dónde elegir.
+  // Códigos de causa y Trans. ya usados en solicitudes anteriores, para elegirlos rápido
+  function usados(k) {
+    const n = new Map();
+    historial.forEach((x) => (x.lineas || []).forEach((l) => { const v = String(l[k] || "").trim(); if (v) n.set(v, (n.get(v) || 0) + 1); }));
+    return [...n.entries()].sort((a, b) => b[1] - a[1]).slice(0, 30).map(([v]) => `<option value="${esc(v)}">`).join("");
+  }
+
   function htmlPrincipal(b) {
     const candidatos = new Map();
     b.lineas.forEach((l) => {
@@ -475,14 +492,15 @@
             <span class="alm-linea__valor" title="${pu ? "Precio unitario del RE356: " + esc(peso(pu)) : "El inventario no trae precio para este código"}">${pu ? esc(pesoCorto(pu * (Number(l.cant) || 0))) : '<span class="pl-soft">sin precio</span>'}</span>
           </div>
           ${pasa ? `<p class="alm-pasa">Pides ${fmt(l.cant)} y ${elegido ? `en ${esc(elegido.alm)} / ${esc(elegido.ub)}` : "en almacén"} hay ${fmt(disp)}.</p>` : ""}
-          <details class="alm-linea__mas" ${l.trans || l.causa || l.cc || vista.mas.has(l.cod) ? "open" : ""}>
-            <summary>Trans., causa y centro</summary>
-            <div class="alm-linea__extra">
-            <label>Trans.<input id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
-            <label>Código causa<input id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
-            ${P() ? `<label title="Si este renglón se carga a otro centro de costo">Centro<select data-alm-linea="${i}" data-k="cc"><option value="">el de la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>` : ""}
-            </div>
-          </details>
+          <div class="alm-linea__extra">
+            <label>Trans.<input id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" list="almTransUsados" autocomplete="off"></label>
+            <label>Código causa<input id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" list="almCausasUsadas" autocomplete="off"></label>
+            ${i === 0 && b.lineas.length > 1 ? `<button class="alm-igual" type="button" data-alm="dad-todas" title="Copiar el Trans. y el código causa de este renglón a todos los demás">Igual en todas</button>` : ""}
+          </div>
+          ${P() ? `<details class="alm-linea__mas" ${l.cc || vista.mas.has(l.cod) ? "open" : ""}>
+            <summary>Otro centro de costo</summary>
+            <label class="alm-linea__cc" title="Si este renglón se carga a otro centro de costo">Centro<select data-alm-linea="${i}" data-k="cc"><option value="">el de la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>
+          </details>` : ""}
         </li>`;
     }).join("");
     const saldo = saldoCC(b.cc);
@@ -513,6 +531,7 @@
           </form>
           ${b.lineas.length ? `${htmlPrincipal(b)}
             <ol class="alm-lineas">${lineas}</ol>
+            <datalist id="almCausasUsadas">${usados("causa")}</datalist><datalist id="almTransUsados">${usados("trans")}</datalist>
             <div class="alm-mat__total"><span class="pl-soft">${sinPrecio ? `${sinPrecio} ${sinPrecio === 1 ? "renglón" : "renglones"} sin precio en el RE356` : "Valorizado con el precio del RE356"}</span><span>Total <strong>${esc(pesoCorto(total))}</strong></span></div>`
           : `<p class="alm-sol-vacia">Todavía no hay materiales. Búscalos y pulsa <strong>Pedir</strong>, o escribe el código aquí arriba.</p>`}
         </section>
@@ -657,6 +676,18 @@
   // una copia vieja guardada en cache.
   const modulo = (ruta) => import(new URL(ruta + VERSION, document.baseURI).href);
 
+  // Todo reporte que se carga queda en la nube: lo ven los demás equipos y no
+  // se pierde si este navegador se borra. Sin señal queda en cola y sube solo.
+  function guardarEnNube(filas) {
+    if (!(window.CLOUD && window.CLOUD.enabled) || !window.INVENTARIO.subirNube) { vista.nube = { estado: "local" }; pintarFuente(); return; }
+    vista.nube = { estado: "subiendo" };
+    pintarFuente();
+    window.INVENTARIO.subirNube(filas).then((r) => {
+      vista.nube = r.ok ? { estado: "ok", parcial: r.parcial } : { estado: "error", motivo: r.motivo };
+      pintarFuente();
+    });
+  }
+
   async function leerArchivo(archivo) {
     if (!archivo) return;
     vista.aviso = null; vista.trabajando = `Leyendo ${archivo.name}…`; pintarFuente();
@@ -694,11 +725,11 @@
       cache = { inv: null, m: null, lista: [] };
       vista.trabajando = "";
       const peso2 = (n) => (window.NUCLEO ? window.NUCLEO.fmt.dineroCorto(n) : n);
-      avisar("ok", `Leí <strong>${r.articulos.toLocaleString("es-CO")}</strong> artículos de <strong>${esc(archivo.name)}</strong> (hoja ${esc(d.hoja)}); ${d.coincidenPlan} son piezas del plan. Inventario valorizado en <strong>${esc(peso2(carga.valorInventario))}</strong>.`
-        + (sinEstantes ? (conservados ? ` Este reporte no trae estantes: conservé los de <strong>${conservados.toLocaleString("es-CO")}</strong> códigos del inventario anterior.` : " Este reporte no trae estantes, así que la columna «Dónde» queda vacía hasta que se cargue un RE356.") : "")
-        + (carga.primera ? "" : ` Desde la carga anterior bajaron <strong>${carga.salidas}</strong> códigos por <strong>${esc(peso2(carga.valorSalidas))}</strong> (queda en Presupuesto → Cargas del inventario).`)
-        + (window.CLOUD && window.CLOUD.enabled ? ` <button class="pl-reg" type="button" data-alm="subir-nube">Compartir estas existencias con todo el taller</button>` : "")
-        + (r.guardado ? "" : " <strong>Ojo:</strong> no cupo en la memoria del navegador; al recargar la página habrá que cargarlo otra vez."));
+      avisar("ok", `<strong>${r.articulos.toLocaleString("es-CO")}</strong> artículos de <strong>${esc(archivo.name)}</strong> · valorizado en <strong>${esc(peso2(carga.valorInventario))}</strong>`
+        + (carga.primera ? "" : ` · bajaron <strong>${carga.salidas}</strong> códigos desde la carga anterior`)
+        + (sinEstantes ? (conservados ? ` · sin estantes: conservé los de ${conservados.toLocaleString("es-CO")} códigos` : " · este reporte no trae estantes") : "")
+        + (r.guardado ? "" : ". <strong>Ojo:</strong> no cupo en la memoria de este navegador"));
+      guardarEnNube(filas);
       pintarResultados(); pintarSolicitud();
     } catch (e) {
       vista.trabajando = "";
@@ -794,7 +825,8 @@
       guardarBorrador();
       vista.trabajando = "";
       const hs = hojasDe(b.lineas, principalDe(b));
-      avisar("ok", `${original ? "Solicitud corregida. " : ""}Listo: <strong>${esc(nombre)}</strong>. Ábrelo en Excel e imprímelo${hs.length > 1 ? `: trae <strong>${hs.length} hojas</strong> (${listaHojas(hs)}), imprime ${hs.length === 2 ? "las dos" : "todas"}` : ""}. La solicitud queda en la lista de abajo, en el Diario${registro.cc ? ` y descontada de <strong>${esc(registro.cc)}</strong> en el presupuesto (${esc(pesoCorto(valor))})` : ""}. Cuando almacén entregue, márcala como <strong>Entregada</strong>.`);
+      vista.aviso = null;
+      window.SHELL?.toast(`${original ? "Solicitud corregida · " : ""}Descargado${hs.length > 1 ? ` · ${hs.length} hojas (${hs.map((h) => esc(h.alm)).join(", ")})` : ""}`);
       pintarSolicitud(); pintarResultados(); pintarHistorial();
     } catch (e) {
       vista.trabajando = "";
@@ -936,11 +968,14 @@
         document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
       }
       else if (accion === "pedido-descartar") { if (window.confirm("¿Descartar este pedido?")) ponerEstado(b.dataset.id, "anulada"); }
-      else if (accion === "subir-nube") {
-        if (!vista.ultimaCarga || !window.INVENTARIO.subirNube) return;
-        b.disabled = true; b.textContent = "Subiendo…";
-        window.INVENTARIO.subirNube(vista.ultimaCarga).then((r) => avisar(r.ok ? "ok" : "error", r.ok ? `Listo: <strong>${r.cambios}</strong> existencias actualizadas en la nube. Todo el taller ve el inventario nuevo.` : "No se pudo subir: " + esc(r.motivo || "error")));
+      else if (accion === "dad-todas") {
+        const [p0, ...resto] = borrador.lineas;
+        if (!p0) return;
+        resto.forEach((l) => { l.trans = p0.trans || ""; l.causa = p0.causa || ""; });
+        guardarBorrador(); pintarSolicitud();
+        window.SHELL?.toast(`Trans. y código causa iguales en los ${borrador.lineas.length} renglones`);
       }
+      else if (accion === "subir-nube") guardarEnNube(vista.ultimaCarga || Object.values(window.INVENTARIO.todo || {}));
     });
 
     raiz.addEventListener("change", (e) => {
@@ -975,7 +1010,6 @@
         guardarBorrador();
       }
     });
-    // Al salir de la cantidad si se repinta: para avisar si pide mas de lo que hay.
     // Recordar qué renglones tienen abiertos "Trans., causa y centro" al repintar
     raiz.addEventListener("toggle", (e) => {
       const d = e.target;
@@ -993,6 +1027,7 @@
       }
     });
 
+    // Al salir de la cantidad si se repinta: para avisar si pide mas de lo que hay.
     raiz.addEventListener("focusout", (e) => {
       if (e.target.dataset && e.target.dataset.k === "cant") pintarSolicitud();
       // Al escribir el destino se propone el centro de costo de ese equipo
