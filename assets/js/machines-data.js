@@ -4418,11 +4418,11 @@ const initialMachines = [
           location: "Sede 4 · Envasado de líquidos",
           status: "Planos cargados",
           criticality: "Alta",
-          manual: "Esquemas eléctrico y neumático disponibles; manual de uso y despiece pendientes",
+          manual: "Esquemas eléctrico y neumático y catálogo de piezas de recambio disponibles; manual de uso pendiente",
           maintenance: "Por definir con el manual del fabricante",
           completion: 45,
           image: "",
-          notes: "Matrícula M6210005 (Marchesini Group, 2023). Tiene los esquemas eléctrico EM6210005 (97 hojas) y neumático WM6210005 (26 hojas). Faltan el manual de uso, el de calibrado y regulaciones y el catálogo de piezas de recambio.",
+          notes: "Matrícula M6210005 (Marchesini Group, 2023). Tiene los esquemas eléctrico EM6210005 (97 hojas) y neumático WM6210005 (26 hojas). Tiene también el catálogo de piezas de recambio (195 págs.). Faltan el manual de uso y el de calibrado y regulaciones.",
           searchAliases: ["envasadora 3", "envasadora #3", "envasadora3", "envasadora de liquidos 3", "envasadora de líquidos #3", "liquidos 3", "líquidos #3", "ml642", "ml 642", "m6210005", "llenadora", "tapadora", "llenadora tapadora", "riempitrice", "marchesini liquidos", "125334003"],
           description:
             "Llenadora-tapadora automática de frascos (riempitrice-tappatrice) Marchesini ML642 de la línea de envasado de líquidos de Sede 4: entrada de frascos por cinta, dosificación desde la tina de producto con mezclador y celdas de carga, tapado en dos grupos (subtapa y tapa roscada con vibradores de alimentación) y salida con expulsión de rechazos.",
@@ -4608,7 +4608,7 @@ const initialMachines = [
             { name: "Códigos de causa y centros de costo (3 págs.)", status: "Disponible", file: "manuales/_codigos-causa/LISTADO-CODIGOS-CAUSA-CENTROS-COSTO.pdf" },
             { name: "Manual de uso y mantenimiento ML642", status: "Pendiente" },
             { name: "Calibrado y regulaciones / cambio de formato", status: "Pendiente" },
-            { name: "Catálogo de piezas de recambio", status: "Pendiente" }
+            { name: "Piezas de recambio (M6210005, 195 págs., ITA/SPA)", status: "Disponible", file: "manuales/ml642/ML642-piezas-de-recambio-M6210005.pdf" }
           ]
         }
       ];
