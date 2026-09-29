@@ -39,7 +39,7 @@ function dt(machine, campo) {
           ["maintenance", "Mantenimiento"],
           ["failures", "Fallas y alarmas"],
           ...(hayDespiece ? [["partsmap", "Despiece"]] : []),
-          ...((machine.schematic || machine.schematicIndex) ? [["schematic", machine.schematicIndex && machine.schematicIndex.hojas.some((h) => h.archivo) ? "Planos" : "Plano eléctrico"]] : []),
+          ...((machine.schematic || machine.schematicIndex) ? [["schematic", machine.schematicIndex && machine.schematicIndex.hojas.some((h) => h.plano === "despiece") ? "Planos y despiece" : machine.schematicIndex && machine.schematicIndex.hojas.some((h) => h.archivo) ? "Planos" : "Plano eléctrico"]] : []),
           ["documents", "Documentos"]
         ];
 

@@ -526,3 +526,6 @@ body.app .alm-form, body.app .dy-nota { padding: 0; border: 0; box-shadow: none;
 /* Estado del reporte de inventario en la nube */
 body.app .pl-inv--nube { background: var(--accent-t); color: var(--accent-2); }
 body.app .alm-nube-error { border-color: var(--bad-l, #f5b7b1); color: var(--bad-d); }
+
+/* Índice de planos: las piezas de cada hoja del despiece (códigos del fabricante) */
+.sch-piezas { font-family: var(--mono, ui-monospace, Menlo, Consolas, monospace); font-size: 11.5px; line-height: 1.5; overflow-wrap: anywhere; }
