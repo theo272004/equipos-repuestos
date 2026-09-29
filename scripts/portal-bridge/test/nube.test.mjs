@@ -14,7 +14,8 @@
 //   cd /ruta/al/repo && python3 -m http.server 8777 &
 //   node test/nube.test.mjs
 import { chromium } from "playwright";
-import { readFile } from "node:fs/promises";
+import { readFile, mkdir } from "node:fs/promises";
+import xlsx from "xlsx";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -91,6 +92,7 @@ async function prepararEquipo(nav, nombre) {
   await ctx.route(/gstatic|googleapis|firebaseio|identitytoolkit/, (r) => r.abort());
   await ctx.route(/www\.gstatic\.com\/firebasejs\//, (r) => r.fulfill({ body: "", contentType: "text/javascript" }));
   await ctx.route(/www\.gstatic\.com\/firebasejs\/.*\/firebase-app-compat\.js/, (r) => r.fulfill({ body: SIMULADO, contentType: "text/javascript" }));
+  await ctx.route("https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js", async (r) => r.fulfill({ body: await readFile(join(AQUI, "..", "node_modules", "xlsx", "dist", "xlsx.full.min.js")), contentType: "text/javascript" }));
   const e = { page: null, sinConexion: false, escuchas: new Map(), ultimaLlamada: Date.now(), enCola: [] };
   equipos.set(nombre, e);
   await ctx.exposeBinding("__fs", async (_src, op, arg) => {
@@ -110,7 +112,8 @@ async function prepararEquipo(nav, nombre) {
     else if (e.sinConexion) return { error: "unavailable" };
     if (op === "leer") {
       const docs = resultado(arg);
-      lecturas.push({ equipo: nombre, col: arg.col, n: Math.max(1, docs.length), como: "consulta", filtros: arg.filtros });
+      // limit(1) es la prueba de conexión de la barra superior, no una descarga
+      lecturas.push({ equipo: nombre, col: arg.col, n: Math.max(1, docs.length), como: arg.limite === 1 ? "prueba" : "consulta", filtros: arg.filtros });
       return { docs };
     }
     if (op === "leerDoc") {
@@ -165,7 +168,7 @@ try {
   ok(await A.page.evaluate(() => window.CLOUD && window.CLOUD.enabled === true), "la app no arrancó con la nube simulada");
   await calma(A);
   ok(escritasDe("A", w0).length === 0, `abrir la app escribió en la nube: ${JSON.stringify(escritasDe("A", w0))}`);
-  const invPrimera = leidasDe("A", l0, (l) => l.col === "inventario");
+  const invPrimera = leidasDe("A", l0, (l) => l.col === "inventario" && l.como !== "prueba");
   ok(invPrimera === cods.length, `la primera vez debía bajar el inventario entero (${cods.length}), bajó ${invPrimera}`);
   console.log(`Equipo A abre por primera vez: ${leidasDe("A", l0)} lecturas (${invPrimera} del inventario), 0 escrituras`);
 
@@ -174,7 +177,7 @@ try {
   await A.page.reload({ waitUntil: "load" });
   await calma(A);
   ok(escritasDe("A", w0).length === 0, `recargar escribió en la nube: ${JSON.stringify(escritasDe("A", w0))}`);
-  const invRecarga = leidasDe("A", l0, (l) => l.col === "inventario");
+  const invRecarga = leidasDe("A", l0, (l) => l.col === "inventario" && l.como !== "prueba");
   ok(invRecarga === 0, `al recargar volvió a bajar ${invRecarga} artículos del inventario`);
   console.log(`Equipo A recarga: ${leidasDe("A", l0)} lecturas (${invRecarga} del inventario), 0 escrituras`);
 
@@ -236,7 +239,7 @@ try {
   l0 = lecturas.length; w0 = escrituras.length;
   avisarEscuchas();
   await calma(A, 1200);
-  const consulta = lecturas.slice(l0).filter((l) => l.equipo === "A" && l.col === "inventario");
+  const consulta = lecturas.slice(l0).filter((l) => l.equipo === "A" && l.col === "inventario" && l.como !== "prueba");
   const invDelta = consulta.reduce((s, l) => s + l.n, 0);
   ok(invDelta === 3, `con la carga nueva debía bajar solo los 3 artículos cambiados, bajó ${invDelta}`);
   ok(consulta.every((l) => JSON.stringify(l.filtros) === JSON.stringify([["actualizado", ">", S1]])), `la consulta del inventario no fue "actualizado > sello anterior": ${JSON.stringify(consulta.map((l) => l.filtros))}`);
@@ -261,6 +264,42 @@ try {
   const wC = escritasDe("C", w0);
   ok(wC.length === 0, `el equipo que abrió sin señal escribió ${wC.length} documentos (${[...new Set(wC.map((w) => w.col))].join(", ")})`);
   ok(![...col("cambios").keys()].some((k) => k.startsWith("seed-ago2026-")), "revivieron en la nube los cambios sembrados que se habían borrado");
+
+  // 10. Un RE356 cargado a mano en A queda guardado en la nube y le llega a B
+  const SALIDA = join(AQUI, "..", "salida");
+  await mkdir(SALIDA, { recursive: true });
+  const re356 = async (nombre, filas) => {
+    const libro = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(libro, xlsx.utils.aoa_to_sheet([["CODIGO", "DESCRIPCION", "U/M", "PRECIO UNIT", "CODIGO_MRP", "TAMAÑO_LOTE", "STOCK_MINIMO", "DIAS_APROV", "CONSUMO_MES", "EXISTENCIA", "ALMACEN", "UBICACION"], ...filas]), "RE356");
+    const ruta = join(SALIDA, nombre);
+    xlsx.writeFile(libro, ruta, { bookType: "biff8" });
+    return ruta;
+  };
+  const NUEVO = "999000111";
+  const filasRe = [...cods.slice(0, 18), NUEVO].map((c, i) => [c, `PIEZA ${c}`, "UN", 1000, "N", 1, 1, 30, 0.2, 40 + i, "R01", `M0${200 + i}`]);
+  const rutaRe = await re356("re356-nube.xls", filasRe);
+  await A.page.click('.sb [data-go="almacen"]');
+  await A.page.waitForSelector("#almQ");
+  w0 = escrituras.length;
+  await A.page.setInputFiles('input[data-alm="archivo"]', rutaRe);
+  await A.page.locator(".pl-inv", { hasText: "Guardado en la nube" }).waitFor({ timeout: 20000 }).catch(() => ok(false, "cargar un RE356 no dijo que quedo guardado en la nube"));
+  await calma(A, 800); await calma(B, 800);
+  const inv = col("inventario");
+  ok(inv.get(NUEVO) && inv.get(NUEVO).exist === 58, "el RE356 cargado en A no quedo en la nube (falta el codigo nuevo)");
+  ok(inv.get(cods[0]).exist === 40 && inv.get(cods[2]).exist === 42, "las existencias del RE356 cargado en A no quedaron en la nube");
+  ok(inv.get(cods[18]).exist === 0 && inv.get(cods[19]).exist === 0, "lo que el RE356 ya no lista no quedo en 0 (agotado)");
+  ok(col("inventario_meta").get("estado").actualizado > S2, "el sello del inventario no cambio con la carga de A");
+  ok(escritasDe("A", w0).some((w) => w.col === "inventario_cargas"), "la carga no quedo registrada en inventario_cargas (Presupuesto)");
+  const invB = await lsDe(B, "equipos-inventario-v1");
+  ok(invB && invB.porCodigo[NUEVO] && invB.porCodigo[NUEVO].exist === 58 && invB.porCodigo[cods[19]].exist === 0, "el equipo B no recibio el inventario que cargo A");
+  console.log(`RE356 cargado en A: ${escritasDe("A", w0).filter((w) => w.col === "inventario").length} artículos escritos; B lo recibió`);
+
+  // 11. Un reporte parcial (3 códigos) no da por agotado todo lo demás
+  const rutaParcial = await re356("re356-parcial.xls", cods.slice(0, 3).map((c, i) => [c, `PIEZA ${c}`, "UN", 1000, "N", 1, 1, 30, 0.2, 7 + i, "R01", "M0300"]));
+  await A.page.setInputFiles('input[data-alm="archivo"]', rutaParcial);
+  await A.page.locator(".pl-inv", { hasText: "(parcial)" }).waitFor({ timeout: 20000 }).catch(() => ok(false, "el reporte parcial no se marco como parcial"));
+  await calma(A, 800);
+  ok(inv.get(cods[10]).exist === 50 && inv.get(NUEVO).exist === 58, "un reporte parcial dejo en 0 lo que no traia");
 
   console.log(`\nLecturas por equipo: ${[...equipos.keys()].map((n) => `${n} ${leidasDe(n)}`).join(", ")}. Escrituras: ${escrituras.length} (${escrituras.map((w) => `${w.equipo}:${w.col}/${decodeURIComponent(w.id)}`).join(", ")})`);
 } finally {
