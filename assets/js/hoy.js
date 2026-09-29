@@ -14,7 +14,7 @@
   const N = window.NUCLEO;
   const esc = N.esc;
   const ic = (n, c) => window.IC(n, c);
-  const vista = { dia: "", sede: "" };
+  const vista = { dia: "", sede: "", quien: false };
   const CAT_TONO = { "Máquina": "bad", "Apoyo crítico": "warn", "Locativo": "vio", "Preventivo": "ok", "Operacional": "acc" };
 
   const S = () => window.MTTO_STORE;
@@ -147,7 +147,7 @@
     });
     const pct = total ? prod / total : 0;
     return `<section class="ux-card">
-      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("fabrica")}Equipos de proceso</h2><p class="ux-card__sub">Según el último estado registrado por turno</p></div>
+      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("fabrica")}Equipos de proceso</h2></div>
         <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="estados">Estados ${ic("der", "ic--sm")}</button></div>
       <div class="hy-prod"><div class="ux-ring ux-ring--sm" style="--p:${Math.round(pct * 100)};--c:var(--ok)"><div><b>${Math.round(pct * 100)}%</b></div></div>
         <div><b class="ux-strong">${prod} de ${total}</b> en producción<div class="ux-small ux-mute">${filas.length ? `${filas.length} en mantenimiento o montaje` : "Ninguno en mantenimiento"}</div></div></div>
@@ -160,7 +160,7 @@
     const ab = P ? P.abiertos().sort((a, b) => ({ alta: 0, media: 1, baja: 2 }[a.prioridad] - { alta: 0, media: 1, baja: 2 }[b.prioridad]) || String(b.fecha).localeCompare(String(a.fecha))) : [];
     const lista = ab.filter((p) => !vista.sede || !p.sede || p.sede === vista.sede).slice(0, 6);
     return `<section class="ux-card">
-      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("pendientes")}Pendientes prioritarios <small>${ab.length} abiertos</small></h2><p class="ux-card__sub">Lo que quedó abierto en el chat, tareas, inspecciones y almacén</p></div>
+      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("pendientes")}Pendientes prioritarios <small>${ab.length} abiertos</small></h2></div>
         <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="pendientes">Tablero ${ic("der", "ic--sm")}</button></div>
       ${lista.length ? `<ul class="ux-list">${lista.map((p) => `<li><button class="ux-row" type="button" data-hy="pend" data-id="${esc(p.id)}">
         <span class="ux-row__ico ux-row__ico--${p.prioridad === "alta" ? "bad" : p.estado === "espera" ? "warn" : "acc"}">${ic(P.ORIGEN[p.origen].ico)}</span>
@@ -235,13 +235,13 @@
     </section>`;
   }
 
-  function tarjetaQuien() {
+  // Sin nombre guardado: un enlace discreto junto al saludo, no un recuadro.
+  // Se abre en una línea al tocarlo.
+  function quien() {
     if (N.usuario.get()) return "";
+    if (!vista.quien) return `<button class="hy-quien-link" type="button" data-hy="quien">¿Quién eres?</button>`;
     const gente = window.PENDIENTES ? window.PENDIENTES.gente() : [];
-    return `<section class="ux-card hy-quien">
-      <div class="ux-card__head ux-card__head--tight"><div><h2 class="ux-card__title">${ic("usuario")}¿Quién está usando este equipo?</h2><p class="ux-card__sub">Tu nombre queda en lo que registres (novedades, pendientes, solicitudes). Solo se pregunta una vez.</p></div></div>
-      <form class="hy-quien__f" data-hy-form="quien"><input class="ux-input" name="n" list="hyGente" placeholder="Escribe o elige tu nombre" required><datalist id="hyGente">${gente.map((n) => `<option value="${esc(n)}">`).join("")}</datalist><button class="ux-btn ux-btn--primary" type="submit">Guardar</button></form>
-    </section>`;
+    return `<form class="hy-quien__f" data-hy-form="quien"><input class="ux-input" name="n" list="hyGente" placeholder="Tu nombre" aria-label="Tu nombre" required autofocus><datalist id="hyGente">${gente.map((n) => `<option value="${esc(n)}">`).join("")}</datalist><button class="ux-btn ux-btn--primary ux-btn--sm" type="submit">Listo</button></form>`;
   }
 
   // ------------------------------------------------------------------ vista
@@ -266,15 +266,13 @@
         <div class="ux-head__txt">
           <p class="ux-eyebrow">${ic(t.turno === "Día" ? "sol" : "luna")}${esc(N.fmt.fechaLarga(hoy).replace(/^./, (c) => c.toUpperCase()))} · turno de ${t.turno === "Día" ? "día" : "noche"} en curso</p>
           <h1 class="ux-title">${saludo()} <em>· así va el día</em></h1>
-          <p class="ux-sub">Novedades, equipos parados, pendientes, almacén y presupuesto de las dos sedes. Toca cualquier cifra para ver el detalle.</p>
+          ${quien()}
         </div>
         <div class="ux-head__acts">
           <div class="ux-seg" aria-label="Sede">${["", "Sede 4", "Sede 2"].map((s) => `<button type="button" class="${vista.sede === s ? "is-on" : ""}" data-hy="sede" data-v="${s}">${s || "Las dos"}</button>`).join("")}</div>
           <a class="ux-btn ux-btn--primary" href="reporte.html">${ic("formulario")}Reporte de turno</a>
         </div>
       </div>
-
-      ${tarjetaQuien()}
 
       <div class="ux-grid ux-grid--5 ux-grid--kpi">
         ${kpi({ n: regsHoy.length, titulo: "Novedades hoy", pie: `${correctivos} correctivas · ${regsHoy.length - correctivos} otras`, ico: "registro", tono: "ux-kpi--dark", go: "registro", goQ: hoy })}
@@ -289,7 +287,7 @@
       <div class="ux-grid ux-grid--main">
         <section class="ux-card">
           <div class="ux-card__head">
-            <div><h2 class="ux-card__title">${ic("reloj")}${dia === hoy ? "Lo que va del día" : "Novedades del " + esc(N.fmt.fecha(dia))}</h2><p class="ux-card__sub">Novedades por día en las últimas dos semanas; toca una barra para ver ese día</p></div>
+            <div><h2 class="ux-card__title">${ic("reloj")}${dia === hoy ? "Lo que va del día" : "Novedades del " + esc(N.fmt.fecha(dia))}</h2><p class="ux-card__sub">Últimas dos semanas</p></div>
             <div class="ux-card__acts">${dia !== hoy ? `<button class="ux-btn ux-btn--sm" type="button" data-hy="dia" data-v="">Hoy</button>` : ""}<button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="registro" data-v="${dia}">Registro ${ic("der", "ic--sm")}</button></div>
           </div>
           ${barrasDias(hoy)}
@@ -320,6 +318,7 @@
       if (!b) return;
       const a = b.dataset.hy;
       const v = b.dataset.v;
+      if (a === "quien") { vista.quien = true; render(); raiz.querySelector('[data-hy-form="quien"] input')?.focus(); return; }
       if (a === "sede") { vista.sede = v; render(); }
       else if (a === "dia") { vista.dia = v; render(); }
       else if (a === "registro") window.goRegistro?.({ fecha: v || b.dataset.q || N.hoy() });
@@ -346,7 +345,8 @@
       const n = new FormData(f).get("n").toString().trim();
       if (!n) return;
       N.usuario.set(n);
-      window.SHELL?.toast(`Listo, ${esc(n.split(" ")[0])}. Tu nombre quedará en lo que registres.`);
+      vista.quien = false;
+      window.SHELL?.toast(`Listo, ${esc(n.split(" ")[0])}.`);
       render();
     });
   }

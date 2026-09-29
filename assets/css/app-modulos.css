@@ -31,9 +31,10 @@
 .hy-mini b { color: var(--ink); font-size: 22px; font-weight: 600; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
 .hy-mini b.is-warn { color: var(--warn-d); }
 .hy-mini b.is-bad { color: var(--bad-d); }
-.hy-quien { background: linear-gradient(135deg, var(--accent-t) 0%, var(--panel) 60%); border-color: var(--accent-t2); }
-.hy-quien__f { display: flex; gap: 8px; max-width: 520px; }
-.hy-quien__f .ux-input { flex: 1; }
+.hy-quien-link { margin-top: 6px; padding: 0; border: 0; background: none; color: var(--mute); font: inherit; font-size: 13.5px; text-decoration: underline; text-decoration-color: var(--line-2); text-underline-offset: 3px; cursor: pointer; }
+.hy-quien-link:hover { color: var(--accent-2); }
+.hy-quien__f { display: flex; gap: 6px; max-width: 320px; margin-top: 8px; }
+.hy-quien__f .ux-input { flex: 1; min-width: 0; min-height: 36px; }
 
 /* ---------------------------------------------------------- Pendientes -- */
 .pd-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
@@ -126,7 +127,6 @@
 @media (max-width: 760px) {
   .hy-mini { grid-template-columns: 1fr 1fr 1fr; }
   .hy-mini b { font-size: 18px; }
-  .hy-quien__f { flex-direction: column; }
   .pp-cc__row, .pp-cc__head { grid-template-columns: minmax(0, 1fr) 90px 56px; }
   .pp-cc__row > :nth-child(2), .pp-cc__head > :nth-child(2) { display: none; }
   .pp-total__leg { grid-template-columns: 1fr 1fr; }

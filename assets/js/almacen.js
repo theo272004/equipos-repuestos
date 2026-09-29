@@ -31,7 +31,7 @@
   const esc = (v) => planEsc(v);
   const hoy = () => bogotaToday();
   const fechaCorta = (iso) => { const [a, m, d] = String(iso || "").split("-"); return d ? `${Number(d)}/${m}/${a}` : String(iso || ""); };
-  const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "" };
+  const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "", mas: new Set() };
   // En pantalla ancha la solicitud se puede esconder para dar sitio a los resultados
   const CLAVE_SOL_OCULTA = "equipos-alm-sol-oculta";
   let borrador = cargar(BORRADOR, null) || nuevoBorrador();
@@ -163,7 +163,6 @@
         <div>
           <p class="eyebrow">Almacén y costos</p>
           <h2>Buscar repuestos y pedirlos</h2>
-          <p class="ux-sub" style="margin-top:6px">Busca por código, pieza, estante o equipo; arma la solicitud DAD-010A y queda cargada al centro de costo del presupuesto.</p>
         </div>
         <div class="section-actions">
           ${pendientesEntrega ? `<button class="button button--light" type="button" data-alm="ver-hist">${pendientesEntrega} sin entregar</button>` : ""}
@@ -244,13 +243,12 @@
     return `
       <div class="alm-fuente">
         <span class="pl-inv pl-inv--${hay ? f.estado : "sin-datos"}">${hay ? `${esc(f.texto)} &middot; ${inv.estado.articulos} art&iacute;culos` : "Sin reporte de almac&eacute;n cargado"}</span>
-        <label class="pl-reg alm-cargar" title="El reporte RE356 de MiPortal, exportado con Generar Excel. Se lee en este equipo y no se sube a ning&uacute;n sitio.">
+        <label class="pl-reg alm-cargar" title="En MiPortal: reporte RE356 &rarr; Generar Excel. Se lee en este equipo y no se sube a ning&uacute;n sitio. Sin &eacute;l se busca en el plan y en el maestro, sin existencias.">
           Cargar reporte RE356&hellip;<input type="file" accept=".xls,.xlsx" data-alm="archivo" hidden>
         </label>
         ${archivo ? `<button class="pl-reg" type="button" data-alm="olvidar" title="Volver a lo que suba el puente de MiPortal">Quitar el archivo</button>` : ""}
         ${maestro}
       </div>
-      ${hay ? "" : `<p class="pl-note">En MiPortal abre el reporte <strong>RE356</strong>, pulsa <strong>Generar Excel</strong> (si no, sale en PDF) y c&aacute;rgalo aqu&iacute;. Mientras tanto se busca en las piezas del plan y en el maestro de art&iacute;culos (todos los c&oacute;digos de la empresa), sin existencias ni estantes.</p>`}
       ${trabajando}${aviso}`;
   }
 
@@ -410,12 +408,11 @@
     const auto = almacenAuto(b.lineas);
     const opts = [...candidatos.entries()].sort((x, y) => y[1] - x[1] || x[0].localeCompare(y[0]));
     return `<div class="alm-principal">
-        <label>Sacar de
+        <label title="Cada pieza sale de este almacén si lo tiene; lo que no, va en otra hoja">Sacar de
           <select data-alm-campo="almacen" aria-label="Almacén principal de la solicitud">
             <option value="" ${!b.almacen ? "selected" : ""}>${auto ? `Automático: ${esc(auto)}` : "Automático"}</option>
             ${opts.map(([a, n]) => `<option value="${esc(a)}" ${b.almacen === a ? "selected" : ""}>${esc(a)} &middot; tiene ${n} de ${b.lineas.length}</option>`).join("")}
           </select></label>
-        <span class="pl-soft">Cada pieza sale de este almacén si lo tiene; lo que no, va en otra hoja.</span>
       </div>`;
   }
 
@@ -459,7 +456,7 @@
         ? `<select class="alm-sitio-sel" data-alm-linea="${i}" data-k="sitio" aria-label="De qué estante sale ${esc(l.cod)}">${sitios.map((s) => `<option value="${esc(s.alm + "|" + s.ub)}" ${`${s.alm}|${s.ub}` === l.sitio ? "selected" : ""}>${esc(s.alm)} / ${esc(s.ub)} &middot; hay ${fmt(s.exist)}</option>`).join("")}</select>`
         : `<span class="alm-linea__sitio">${l.sitio ? esc(l.sitio.replace("|", " / ")) : "&mdash;"}${disp !== null && disp !== undefined && elegido ? ` &middot; hay ${fmt(disp)}` : ""}</span>`;
       return `
-        <li class="alm-linea ${aparte ? "is-aparte" : ""} ${pasa ? "is-pasa" : ""}">
+        <li class="alm-linea ${aparte ? "is-aparte" : ""} ${pasa ? "is-pasa" : ""}" data-cod="${esc(l.cod)}">
           <div class="alm-linea__top">
             <span class="alm-linea__n" title="Renglón ${i + 1} del formato">${i + 1}</span>
             <div class="alm-linea__txt">
@@ -478,11 +475,14 @@
             <span class="alm-linea__valor" title="${pu ? "Precio unitario del RE356: " + esc(peso(pu)) : "El inventario no trae precio para este código"}">${pu ? esc(pesoCorto(pu * (Number(l.cant) || 0))) : '<span class="pl-soft">sin precio</span>'}</span>
           </div>
           ${pasa ? `<p class="alm-pasa">Pides ${fmt(l.cant)} y ${elegido ? `en ${esc(elegido.alm)} / ${esc(elegido.ub)}` : "en almacén"} hay ${fmt(disp)}.</p>` : ""}
-          <div class="alm-linea__extra">
+          <details class="alm-linea__mas" ${l.trans || l.causa || l.cc || vista.mas.has(l.cod) ? "open" : ""}>
+            <summary>Trans., causa y centro</summary>
+            <div class="alm-linea__extra">
             <label>Trans.<input id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" autocomplete="off"></label>
             <label>Código causa<input id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" autocomplete="off"></label>
             ${P() ? `<label title="Si este renglón se carga a otro centro de costo">Centro<select data-alm-linea="${i}" data-k="cc"><option value="">el de la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>` : ""}
-          </div>
+            </div>
+          </details>
         </li>`;
     }).join("");
     const saldo = saldoCC(b.cc);
@@ -501,13 +501,12 @@
           <button class="alm-sol-ocultar" type="button" data-alm="sol-ocultar" title="Esconder la solicitud para ver más resultados (no se pierde nada)">Ocultar <span aria-hidden="true">&rsaquo;</span></button>
         </div>
         ${b.editando ? `<p class="alm-cc-nota is-warn alm-editando">Est&aacute;s corrigiendo la solicitud del <b>${esc(b.editandoFecha || b.fecha)}</b>${b.editandoDestino ? ` para <b>${esc(b.editandoDestino)}</b>` : ""}. Al guardar se reemplaza esa misma (no se crea otra) y se descarga el formato corregido.</p>` : ""}
-        <p class="pl-soft">Formato oficial DAD-010A · Edición 1. Se llena el mismo archivo, solo con los datos, y queda en el historial y en el presupuesto.</p>
         <div class="alm-tipo" role="radiogroup" aria-label="Tipo de solicitud">
           ${Object.entries(TIPOS).map(([k, t]) => `<label class="alm-chip ${b.tipo === k ? "is-on" : ""}"><input type="radio" name="almTipo" value="${k}" ${b.tipo === k ? "checked" : ""} data-alm-campo="tipo">${t}</label>`).join("")}
         </div>
 
         <section class="alm-mat" aria-label="Materiales">
-          <div class="alm-mat__head"><h4>Materiales</h4>${b.lineas.length ? `<span class="pl-soft">${b.lineas.length} de ${RENGLONES} renglones</span>` : ""}</div>
+          <div class="alm-mat__head"><h4>Materiales</h4></div>
           <form class="alm-agregar" data-alm-form="agregar" autocomplete="off">
             <input type="search" name="q" enterkeyhint="done" placeholder="Código o nombre de la pieza" aria-label="Agregar material por código o nombre">
             <button class="button button--light" type="submit">Agregar</button>
@@ -977,6 +976,13 @@
       }
     });
     // Al salir de la cantidad si se repinta: para avisar si pide mas de lo que hay.
+    // Recordar qué renglones tienen abiertos "Trans., causa y centro" al repintar
+    raiz.addEventListener("toggle", (e) => {
+      const d = e.target;
+      if (!d.classList || !d.classList.contains("alm-linea__mas")) return;
+      const cod = d.closest(".alm-linea")?.dataset.cod;
+      if (cod) { if (d.open) vista.mas.add(cod); else vista.mas.delete(cod); }
+    }, true);
     raiz.addEventListener("submit", (e) => {
       const f = e.target.closest("[data-alm-form]");
       if (!f) return;

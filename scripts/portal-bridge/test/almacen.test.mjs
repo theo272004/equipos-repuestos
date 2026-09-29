@@ -122,6 +122,8 @@ await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "2");
 await pg.locator('input[data-alm-linea="0"][data-k="cant"]').blur();
 // Trans. y Codigo causa van por articulo: cada renglon con los suyos.
 ok(await pg.locator('[data-alm-campo="trans"], [data-alm-campo="causa"]').count() === 0, "siguen los campos generales de Trans./Causa");
+ok(!(await pg.isVisible("#alm-trans-0")), "Trans., causa y centro deberian ir plegados mientras esten vacios");
+await pg.click(".alm-linea__mas >> nth=0 >> summary"); await pg.click(".alm-linea__mas >> nth=1 >> summary");
 await pg.fill("#alm-trans-0", "CO"); await pg.fill("#alm-causa-0", "07");
 await pg.fill("#alm-trans-1", "TR"); await pg.fill("#alm-causa-1", "12");
 await pg.fill('[data-alm-campo="destino"]', "BLISTEADORA #2");
