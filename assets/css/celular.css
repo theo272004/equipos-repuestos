@@ -218,3 +218,22 @@
   /* Sin el destello gris de Android al tocar, y sin el retraso del doble toque */
   body.app button, body.app a, body.app [role="button"], body.app summary, body.app label { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 }
+
+/* Cuadro de componentes por posición (ficha → Mantenimiento): en el celular
+   cada fila es una tarjeta con sus rótulos, sin desplazar de lado */
+@media (max-width: 760px) {
+  body.app .cmp-wrap { overflow: visible; }
+  body.app .cmp-tabla thead { display: none; }
+  body.app .cmp-tabla, body.app .cmp-tabla tbody { display: block; }
+  body.app .cmp-tabla tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 12px; padding: 12px 14px; border-top: 1px solid var(--line); }
+  body.app .cmp-tabla tbody tr:first-child { border-top: 0; }
+  body.app .cmp-tabla tbody td { display: block; min-width: 0; padding: 0; border: 0; text-align: left; white-space: normal; }
+  body.app .cmp-tabla td[data-l]::before { content: attr(data-l); display: block; margin-bottom: 1px; color: var(--mute); font-size: 11px; font-weight: 600; }
+  /* Arriba la ubicación y su estado; debajo código, referencia y fechas en dos columnas */
+  body.app .cmp-tabla td.cmp-ubic { grid-column: 1; grid-row: 1; font-size: 15px; }
+  body.app .cmp-tabla td.cmp-ubic::before, body.app .cmp-tabla td.cmp-est-c::before { display: none; }
+  body.app .cmp-tabla td.cmp-est-c { grid-column: 2; grid-row: 1; justify-self: end; align-self: start; }
+  body.app .cmp-tabla td.cmp-acc-c { grid-column: 1 / -1; }
+  body.app .cmp-tabla .cmp-acc-c { display: flex; flex-wrap: wrap; gap: 8px; }
+  body.app .cmp-acc-c .pl-reg + .pl-reg { margin-left: 0; }
+}
