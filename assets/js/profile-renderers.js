@@ -1412,14 +1412,14 @@ function dt(machine, campo) {
       function compVida(eqCod, it, fechas) {
         if (fechas.length >= 2) {
           const d = planDiasEntre(fechas[fechas.length - 2], fechas[fechas.length - 1]);
-          if (isFinite(d) && d > 0) return { dias: d, base: `lo que duró la anterior (${planFmtDias(d)})` };
+          if (isFinite(d) && d > 0) return { dias: d, base: `lo que duró la anterior (${planFmtDias(d)})`, corta: `la anterior duró ${planFmtDias(d)}` };
         }
         const eq = PLAN_EQUIPOS.find((e) => e.c === eqCod);
         const propia = eq && eq.r.find((r) => r.cod === it.cod && compFreqDias((r.xls || {}).f));
-        if (propia) { const d = compFreqDias(propia.xls.f); return { dias: d, base: `la frecuencia del plan (${compFreqTexto(d)})` }; }
+        if (propia) { const d = compFreqDias(propia.xls.f); return { dias: d, base: `la frecuencia del plan (${compFreqTexto(d)})`, corta: `plan: ${compFreqTexto(d)}` }; }
         for (const e of PLAN_EQUIPOS) {
           const r = e.r.find((x) => x.cod === it.cod && compFreqDias((x.xls || {}).f));
-          if (r) { const d = compFreqDias(r.xls.f); return { dias: d, base: `la frecuencia del plan de ${e.n} para esta misma pieza (${compFreqTexto(d)})` }; }
+          if (r) { const d = compFreqDias(r.xls.f); return { dias: d, base: `la frecuencia del plan de ${e.n} para esta misma pieza (${compFreqTexto(d)})`, corta: `plan: ${compFreqTexto(d)}` }; }
         }
         return null;
       }
@@ -1447,7 +1447,7 @@ function dt(machine, campo) {
         return { fechas, ultimo, vida, proximo, estado, pendiente, insp: compUltimaInspeccion(eqCod, it, g.titulo) };
       }
       const COMP_ESTADOS = {
-        pendiente: ["Pendiente de cambio", "bad"], vencida: ["Ya toca cambiarla", "bad"],
+        pendiente: ["Pendiente", "bad"], vencida: ["Ya toca cambiarla", "bad"],
         pronto: ["Cambiar pronto", "warn"], "al-dia": ["Al día", "ok"], "sin-dato": ["Sin cambio registrado", "n"]
       };
       // Con año: el próximo cambio suele caer el año que viene
@@ -1456,42 +1456,53 @@ function dt(machine, campo) {
         if (!m) return "&mdash;";
         return `${Number(m[3])} ${["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"][Number(m[2]) - 1]} ${m[1]}`;
       }
+      // Un cuadro por grupo, como el del informe de mantenimiento: una fila por
+      // posición, coloreada según el estado.
       function compBloques(eqCod) {
         const grupos = compGrupos(eqCod);
         if (!grupos.length) return "";
+        const hoy = new Date().toISOString().slice(0, 10);
         return grupos.map((g) => {
           const filas = (g.items || []).map((it) => ({ it, e: compEstado(eqCod, g, it) }));
           const n = (k) => filas.filter((x) => x.e.estado === k).length;
           const resumen = [n("pendiente") + n("vencida") ? `${n("pendiente") + n("vencida")} por cambiar` : "", n("pronto") ? `${n("pronto")} pronto` : "", n("al-dia") ? `${n("al-dia")} al día` : ""].filter(Boolean).join(" · ");
-          return `
-          <div class="panel-header-clean">
-            <h3>${planEsc(g.titulo)} &middot; dónde va cada una y cuándo se cambió</h3>
-            <p>${filas.length} posiciones${resumen ? " &middot; " + resumen : ""}. El próximo cambio es un estimado: se corrige solo a medida que se registran cambios.</p>
-          </div>
-          <div class="cmp-grid">${filas.map(({ it, e }) => {
-            const [txt, tono] = COMP_ESTADOS[e.estado];
+          const notas = [];
+          const cuerpo = filas.map(({ it, e }) => {
+            let [txt, tono] = COMP_ESTADOS[e.estado];
+            // Recién cambiada (como dice el informe) durante los primeros tres meses
+            if (e.estado === "al-dia" && e.ultimo && planDiasEntre(e.ultimo, hoy) <= 90) txt = "Cambiada";
             const inv = window.INVENTARIO ? window.INVENTARIO.de(it.cod) : null;
             const hay = inv && inv.exist != null ? Number(inv.exist) : null;
-            return `<article class="cmp-card cmp-card--${tono}">
-              <div class="cmp-card__top">
-                <h4>${planEsc(it.ubicacion)}</h4>
-                <span class="cmp-est cmp-est--${tono}">${txt}</span>
-              </div>
-              <p class="cmp-card__pieza"><span class="pl-code">${planEsc(it.cod)}</span> ${planEsc(it.d)}${hay !== null ? ` <span class="pl-soft">&middot; almacén: ${hay}</span>` : ""}</p>
-              <dl class="cmp-kv">
-                <div><dt>Último cambio</dt><dd>${compFecha(e.ultimo)}</dd></div>
-                <div><dt>Última inspección</dt><dd>${compFecha(e.insp)}</dd></div>
-                <div><dt>Se necesitará</dt><dd>${e.pendiente ? "Ya (quedó pendiente)" : compFecha(e.proximo)}</dd></div>
-              </dl>
-              ${e.pendiente ? `<p class="cmp-nota cmp-nota--bad">${planEsc(it.pendiente.nota || "Quedó marcada para cambiar.")}</p>`
-                : e.vida && e.proximo ? `<p class="cmp-nota">Estimado con ${planEsc(e.vida.base)}.</p>` : ""}
-              ${it.nota ? `<p class="cmp-nota cmp-nota--warn">${planEsc(it.nota)}</p>` : ""}
-              <div class="cmp-acc">
-                <button class="button button--light" type="button" onclick="compRegistrar('${planEsc(eqCod)}', '${planEsc(it.id)}')">Registrar cambio</button>
-                ${e.estado === "pendiente" || e.estado === "vencida" || e.estado === "pronto" ? `<button class="button button--light" type="button" onclick="window.goAlmacen && window.goAlmacen({ q: '${planEsc(it.cod)}' })">Pedir en almacén</button>` : ""}
-              </div>
-            </article>`;
-          }).join("")}</div>
+            const marcas = [];
+            if (e.pendiente && it.pendiente && it.pendiente.nota) { notas.push([it.ubicacion, it.pendiente.nota, "bad"]); marcas.push(notas.length); }
+            if (it.nota) { notas.push([it.ubicacion, it.nota, "warn"]); marcas.push(notas.length); }
+            const pedir = e.estado === "pendiente" || e.estado === "vencida" || e.estado === "pronto";
+            return `<tr class="cmp-fila--${tono}">
+              <td class="cmp-ubic" data-l="Ubicación"><strong>${planEsc(it.ubicacion)}</strong>${marcas.map((m) => `<sup class="cmp-ref">${m}</sup>`).join("")}</td>
+              <td class="cmp-cod" data-l="Código"><span class="pl-code">${planEsc(it.cod)}</span>${hay !== null ? `<small>almacén: ${hay}</small>` : ""}</td>
+              <td class="cmp-refd" data-l="Referencia">${planEsc(it.d)}</td>
+              <td class="cmp-f" data-l="Último cambio">${e.ultimo ? compFecha(e.ultimo) : '<span class="pl-soft">sin registro</span>'}</td>
+              <td class="cmp-f" data-l="Última inspección">${compFecha(e.insp)}</td>
+              <td class="cmp-f" data-l="Se necesitará" title="${planEsc(e.vida && !e.pendiente ? "Estimado con " + e.vida.base : "")}">${e.pendiente ? "<strong>Ya</strong>" : compFecha(e.proximo)}${!e.pendiente && e.vida && e.proximo ? `<small>${planEsc(e.vida.corta)}</small>` : ""}</td>
+              <td class="cmp-est-c" data-l="Estado"><span class="cmp-est-t cmp-est-t--${tono}">${txt}</span></td>
+              <td class="cmp-acc-c">
+                <button class="pl-reg" type="button" onclick="compRegistrar('${planEsc(eqCod)}', '${planEsc(it.id)}')" title="Registrar el cambio de la correa de ${planEsc(it.ubicacion)}">Registrar cambio</button>
+                ${pedir ? `<button class="pl-reg" type="button" onclick="window.goAlmacen && window.goAlmacen({ q: '${planEsc(it.cod)}' })">Pedir</button>` : ""}
+              </td>
+            </tr>`;
+          }).join("");
+          return `
+          <div class="panel-header-clean">
+            <h3>${planEsc(g.titulo)}</h3>
+            <p>${filas.length} posiciones${resumen ? " &middot; " + resumen : ""}. «Se necesitará» es un estimado y se corrige solo cada vez que se registra un cambio.</p>
+          </div>
+          <div class="pl-tablewrap cmp-wrap">
+            <table class="cmp-tabla">
+              <thead><tr><th>Ubicación</th><th>Código</th><th>Referencia</th><th>Último cambio</th><th>Última inspección</th><th>Se necesitará</th><th>Estado</th><th></th></tr></thead>
+              <tbody>${cuerpo}</tbody>
+            </table>
+          </div>
+          ${notas.length ? `<ol class="cmp-notas">${notas.map(([u, t, tono]) => `<li class="cmp-nota--${tono}"><strong>${planEsc(u)}:</strong> ${planEsc(t)}</li>`).join("")}</ol>` : ""}
           <div class="panel-split"></div>`;
         }).join("");
       }

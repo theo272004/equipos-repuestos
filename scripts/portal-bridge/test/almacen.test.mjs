@@ -258,10 +258,10 @@ ok(/GKF2600/.test(await pg.textContent(".sp-maestro-modelo")), "no enlaza los co
 // 9. Mantenimiento: las correas de la Blister 2 por posición, con la de troqueladora pendiente
 await pg.evaluate(() => openDetail("eq-17332002"));
 await pg.click('[data-profile-tab="maintenance"]');
-await pg.waitForSelector(".cmp-card");
-const correas = await pg.$$eval(".cmp-card", (c) => c.map((x) => x.innerText.replace(/\s+/g, " ")));
-ok(correas.length === 4, `la Blister 2 deberia tener 4 bloques de correas, tiene ${correas.length}`);
-ok(correas.some((t) => /troqueladora.*Pendiente de cambio/.test(t)), "la correa de la troqueladora no sale pendiente");
+await pg.waitForSelector(".cmp-tabla tbody tr");
+const correas = await pg.$$eval(".cmp-tabla tbody tr", (c) => c.map((x) => x.innerText.replace(/\s+/g, " ")));
+ok(correas.length === 4, `el cuadro de correas de la Blister 2 deberia tener 4 filas, tiene ${correas.length}`);
+ok(correas.some((t) => /troqueladora.*Pendiente/.test(t)), "la correa de la troqueladora no sale pendiente");
 ok(correas.some((t) => /moldeo.*3 sep 2026.*24 oct 2027/.test(t)), `la de moldeo no estima el proximo cambio con lo que duro la anterior: ${correas[2]}`);
 
 ok(!errores.length, "errores en la consola: " + errores.join(" | "));
