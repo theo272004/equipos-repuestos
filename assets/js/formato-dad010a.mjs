@@ -125,6 +125,26 @@ function partirObservaciones(texto) {
   return [l1, l2];
 }
 
+// Rectangulos con texto dibujados en una fila del formato, de izquierda a derecha
+function casillasDeFila(dibujo, fila) {
+  return [...dibujo.matchAll(/<xdr:twoCellAnchor[\s\S]*?<\/xdr:twoCellAnchor>/g)]
+    .map((m) => {
+      const a = m[0];
+      const desde = /<xdr:from><xdr:col>(\d+)<\/xdr:col><xdr:colOff>(\d+)<\/xdr:colOff><xdr:row>(\d+)<\/xdr:row>/.exec(a);
+      return { a, inicio: m.index, fila: desde ? +desde[3] : -1, x: desde ? +desde[1] * 1e7 + +desde[2] : 0, rect: /prst="rect"/.test(a) && /<xdr:sp\b/.test(a) && /<xdr:txBody>/.test(a) };
+    })
+    .filter((x) => x.rect && x.fila === fila)
+    .sort((p, q) => p.x - q.x);
+}
+
+// Escribe una X dentro del rectangulo, como lo haria una persona en Excel
+function escribirX(dibujo, objetivo, que) {
+  const x = '<a:r><a:rPr lang="es-CO" sz="1200" b="1"><a:solidFill><a:srgbClr val="000000"/></a:solidFill><a:latin typeface="Arial"/><a:cs typeface="Arial"/></a:rPr><a:t>X</a:t></a:r>';
+  const nuevo = objetivo.a.replace(/(<xdr:txBody>[\s\S]*?<a:p>(?:<a:pPr[^>]*\/>|<a:pPr[\s\S]*?<\/a:pPr>)?)/, `$1${x}`);
+  if (nuevo === objetivo.a) throw new Error(`No pude escribir en la casilla de ${que}.`);
+  return dibujo.slice(0, objetivo.inicio) + nuevo + dibujo.slice(objetivo.inicio + objetivo.a.length);
+}
+
 // Las tres casillas son los rectangulos dibujados a la altura de la fila 4 del
 // formato (fila 3 contando desde 0 en el dibujo empieza en la 2), de izquierda a
 // derecha: TRASLADO, CONSUMO, DEVOLUCION.
@@ -132,20 +152,18 @@ function marcarCasilla(dibujo, tipo) {
   const orden = ["traslado", "consumo", "devolucion"];
   const i = orden.indexOf(tipo);
   if (i < 0) return dibujo;
-  const anclas = [...dibujo.matchAll(/<xdr:twoCellAnchor[\s\S]*?<\/xdr:twoCellAnchor>/g)]
-    .map((m) => {
-      const a = m[0];
-      const desde = /<xdr:from><xdr:col>(\d+)<\/xdr:col><xdr:colOff>(\d+)<\/xdr:colOff><xdr:row>(\d+)<\/xdr:row>/.exec(a);
-      return { a, inicio: m.index, fila: desde ? +desde[3] : -1, x: desde ? +desde[1] * 1e7 + +desde[2] : 0, rect: /prst="rect"/.test(a) && /<xdr:sp\b/.test(a) && /<xdr:txBody>/.test(a) };
-    })
-    .filter((x) => x.rect && x.fila === 2)
-    .sort((p, q) => p.x - q.x);
+  const anclas = casillasDeFila(dibujo, 2);
   if (anclas.length !== 3) throw new Error(`Esperaba 3 casillas (Traslado, Consumo, Devolucion) y el formato tiene ${anclas.length}: no es la edicion que se esperaba.`);
-  const objetivo = anclas[i];
-  const x = '<a:r><a:rPr lang="es-CO" sz="1200" b="1"><a:solidFill><a:srgbClr val="000000"/></a:solidFill><a:latin typeface="Arial"/><a:cs typeface="Arial"/></a:rPr><a:t>X</a:t></a:r>';
-  const nuevo = objetivo.a.replace(/(<xdr:txBody>[\s\S]*?<a:p>(?:<a:pPr[^>]*\/>|<a:pPr[\s\S]*?<\/a:pPr>)?)/, `$1${x}`);
-  if (nuevo === objetivo.a) throw new Error("No pude escribir en la casilla del tipo de solicitud.");
-  return dibujo.slice(0, objetivo.inicio) + nuevo + dibujo.slice(objetivo.inicio + objetivo.a.length);
+  return escribirX(dibujo, anclas[i], "tipo de solicitud");
+}
+
+// La empresa: debajo de cada logo de la fila 1 hay una casilla. La de la
+// izquierda es la de FARMACAPSULAS (debajo de su logo); la de la derecha, la
+// de la otra empresa del grupo. Mantenimiento pide siempre para Farmacapsulas.
+function marcarEmpresa(dibujo, empresa = "farmacapsulas") {
+  const anclas = casillasDeFila(dibujo, 0);
+  if (anclas.length !== 2) throw new Error(`Esperaba 2 casillas de empresa debajo de los logos y el formato tiene ${anclas.length}: no es la edicion que se esperaba.`);
+  return escribirX(dibujo, anclas[empresa === "farmacapsulas" ? 0 : 1], "la empresa");
 }
 
 // ---------------------------------------------------------------------------
@@ -351,8 +369,9 @@ export async function rellenarDAD010A(JSZip, plantilla, datos, salida = "blob") 
   const rd = await rutaDibujo(zip, ruta);
   if (datos.tipo && !rd) throw new Error("El formato no tiene las casillas dibujadas de Traslado / Consumo / Devolucion.");
   let dibujo = rd ? await zip.file(rd).async("string") : "";
-  if (datos.tipo) {
-    dibujo = marcarCasilla(dibujo, datos.tipo);
+  if (datos.tipo) dibujo = marcarCasilla(dibujo, datos.tipo);
+  if (rd) {
+    dibujo = marcarEmpresa(dibujo, datos.empresa);
     zip.file(rd, dibujo);
   }
 

@@ -301,7 +301,6 @@
       </div>
       <div class="mx-head__acc">
         ${syncPill()}
-        <button class="mx-btn mx-btn--ghost" type="button" data-mt="ver-ind">${ic("grafica")}<span>Indicadores</span></button>
         <button class="mx-btn mx-btn--ghost" type="button" data-mt="exportar">${ic("descargar")}<span>Exportar</span></button>
         <button class="mx-btn mx-btn--soft" type="button" data-mt="pegar">${ic("pegar")}<span>Pegar reporte</span></button>
         <button class="mx-btn mx-btn--primary" type="button" data-mt="nuevo">${ic("mas")}<span>Nueva novedad</span></button>
@@ -423,7 +422,7 @@
         <div><dt>${ic("falla")}Modo de falla</dt><dd>${r.fa ? `<button type="button" class="mx-link" data-mt="ver-fa" data-v="${esc(r.fa)}">${esc(r.fa)}</button>` : "—"}</dd></div>
         <div><dt>${ic("llave")}Mantenimiento</dt><dd>${esc(r.tp || "—")}</dd></div>
         <div><dt>${ic("reloj")}Horario</dt><dd>${horario}</dd></div>
-        ${r.tec ? `<div><dt>${ic("usuario")}${/^chat(-pegado)?$/.test(r.src) ? "Reportó" : "Técnico"}</dt><dd>${esc(r.tec)}</dd></div>` : ""}
+        ${r.tec && !/^chat(-pegado)?$/.test(r.src) ? `<div><dt>${ic("usuario")}Técnico</dt><dd>${esc(r.tec)}</dd></div>` : ""}
       </dl>
       <footer class="mx-nov__foot">
         <span class="mx-est mx-est--${EF[r.ef] || "neutro"}"><i></i>${esc(r.ef || "Sin cierre")}</span>
@@ -503,7 +502,9 @@
     const raiz = document.getElementById("registroRoot");
     if (!raiz) return;
     const lista = delDia();
-    const tabs = [["novedades", "Novedades", lista.length], ["estados", "Estado de equipos", ""], ["pendientes", "Pendientes abiertos", registros().filter((r) => esPend(r) && r.f >= sumaDias(hoy(), -45)).length]];
+    // El estado de los equipos (limpieza, stand by…) ya no se lleva: solo las fallas
+    const tabs = [["novedades", "Novedades", lista.length], ["pendientes", "Pendientes abiertos", registros().filter((r) => esPend(r) && r.f >= sumaDias(hoy(), -45)).length]];
+    if (vista.tab === "estados") vista.tab = "novedades";
     raiz.innerHTML = `<div class="mx-canvas">
       ${cabecera()}
       ${ultimoFallo ? `<p class="mx-note mx-note--bad">${ic("falla")}${esc(ultimoFallo)}</p>` : ""}
@@ -694,7 +695,7 @@
             <span class="mx-chip">${ic(p.t === "Día" ? "sol" : "luna")}Turno ${esc(p.t)}</span>
             <label class="mx-selpill mx-selpill--sede"><select data-pg-sede aria-label="Sede">${opt(C.sedes, r.sede)}</select></label>
           </div>
-          ${r.estados.length ? `<label class="mx-switch"><input type="checkbox" data-pg-est ${p.guardarEstados === false ? "" : "checked"}><span class="mx-switch__ui" aria-hidden="true"></span><span><b>Guardar también el estado de los ${r.estados.length} equipos</b><small>Para el turno ${esc(p.t)} de ${esc(r.sede)}; así se calcula el tiempo programado.</small></span></label>` : ""}
+
           <div class="mx-pg-lista">${filas || `<div class="mx-empty"><h4>No se encontraron novedades en el texto</h4><p>Revisa que el reporte tenga la parte de NOVEDADES.</p></div>`}</div>
         </div>
         <footer class="mx-form__foot"><span class="mx-savenote"><i class="is-ok"></i>${nUsar} de ${r.novedades.length} seleccionadas</span>
@@ -865,7 +866,7 @@
         const txt = f.elements.txt.value;
         const res = window.MTTO_LECTOR.leer(txt);
         res.novedades.forEach((n) => { if (n.eq === "No identificado" || !equiposSede(res.sede).some((x) => x.eq === n.eq)) n.eq = n.eq === "No identificado" ? "" : n.eq; });
-        vista.pegado = { f: f.elements.f.value, t: f.elements.t.value, tec: f.elements.tec.value.trim(), txt, resultado: res, guardarEstados: true };
+        vista.pegado = { f: f.elements.f.value, t: f.elements.t.value, tec: f.elements.tec.value.trim(), txt, resultado: res, guardarEstados: false };
         render();
       } else if (tipo === "estados") {
         const estados = {};

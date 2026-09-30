@@ -41,7 +41,12 @@
       const nom = new Set([...nombres, m.model, m.name].filter(Boolean).map(N.plano));
       window.PRESUPUESTO.movimientos(Number(hoy.slice(0, 4))).forEach((x) => { if (nom.has(N.plano(x.equipo)) && Number.isFinite(x.valor)) gasto += x.valor; });
     }
-    if (!eqs.length && !pend.length && !tareas.length) { caja.innerHTML = ""; return; }
+    // El trabajo de mantenimiento abierto de este equipo (Mantenimiento → Seguimiento)
+    const ePlan = typeof equipoDeMachine === "function" ? equipoDeMachine(m) : null;
+    const cod = (ePlan && ePlan.c) || m.equipoCod || "";
+    const trabajos = cod && window.SEGUIMIENTO ? window.SEGUIMIENTO.trabajos().filter((t) => t.i.eq === cod && t.etapa !== "hecho") : [];
+    const ETAPA = { repuesto: "Esperando repuesto", listo: "Listo para intervenir", programado: "Programado" };
+    if (!eqs.length && !pend.length && !tareas.length && !cod) { caja.innerHTML = ""; return; }
     const ultimas = regs.slice().sort((a, b) => (b.f + (b.hr || "")).localeCompare(a.f + (a.hr || ""))).slice(0, 4);
     const eqNombre = eqs[0] ? eqs[0].eq : m.model || m.name;
     const titulo = window.REGLAS_PEND ? (r) => window.REGLAS_PEND.tituloDe(r.de, r.eq) : (r) => r.de;
@@ -50,6 +55,7 @@
         <div class="ux-card__acts">
           <button class="ux-btn ux-btn--sm" type="button" data-fa="novedad">${ic("mas")}Anotar novedad</button>
           <button class="ux-btn ux-btn--sm" type="button" data-fa="pedir">${ic("almacen")}Pedir repuesto</button>
+          ${cod ? `<button class="ux-btn ux-btn--sm" type="button" data-fa="inspeccionar" data-v="${esc(cod)}">${ic("insp")}Inspeccionar</button>` : ""}
         </div></div>
       <div class="fa-kpis">
         <button type="button" data-fa="indicadores"><b>${ult30.length}</b><span>novedades en 30 días</span></button>
@@ -58,6 +64,11 @@
         <button type="button" data-fa="tareas"><b>${tareas.length}</b><span>tareas sin cerrar</span></button>
         <button type="button" data-fa="presupuesto"><b>${esc(N.fmt.dineroCorto(gasto))}</b><span>gastado este año</span></button>
       </div>
+      ${trabajos.map((t) => `<button type="button" class="fa-trabajo" data-fa="seguimiento" data-id="${esc(t.i.id)}">
+          <span class="sg-etapa is-${t.etapa}">${ETAPA[t.etapa]}</span>
+          <span><b>Trabajo de la inspección del ${esc(N.fmt.corta(t.i.fecha))}</b><small>${t.hs.length - t.pend.length} de ${t.hs.length} hechos${t.i.programado ? ` · mantenimiento el ${esc(N.fmt.corta(t.i.programado))}` : ""}</small></span>
+          <span class="fa-trabajo__ir">Ver el trabajo ${ic("der", "ic--sm")}</span>
+        </button>`).join("")}
       ${ultimas.length ? `<ul class="fa-ult">${ultimas.map((r) => `<li><button type="button" data-fa="reg" data-id="${esc(r.id)}"><span class="ux-mute ux-small">${esc(N.fmt.corta(r.f))}</span><span>${esc(titulo(r))}</span>${r.ef === "Pendiente" || r.frep ? `<span class="ux-pill ux-pill--warn"><i></i>pendiente</span>` : ""}</button></li>`).join("")}</ul>` : ""}
     </section>`;
     caja.dataset.eq = eqNombre;
@@ -77,6 +88,13 @@
     else if (a === "novedad") window.goRegistro?.({ nueva: true, eq, s: caja.dataset.sede || undefined });
     else if (a === "pedir") window.goAlmacen?.({ q: eq, destino: eq });
     else if (a === "reg") window.goRegistro?.({ abrir: b.dataset.id });
+    // El trabajo completo está en la pestaña Mantenimiento de esta misma ficha
+    else if (a === "seguimiento") {
+      document.querySelector('[data-profile-tab="maintenance"]')?.click();
+      setTimeout(() => document.querySelector(`#detailView [id="${CSS.escape("sg-" + b.dataset.id)}"]`)?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
+      return;
+    }
+    else if (a === "inspeccionar") { window.inspAbrirForm?.(b.dataset.v); return; }
     window.scrollTo({ top: 0, behavior: "auto" });
   });
 

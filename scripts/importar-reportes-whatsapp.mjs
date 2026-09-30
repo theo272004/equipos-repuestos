@@ -1,23 +1,44 @@
-// Importa los reportes de turno del export de WhatsApp del grupo
-// "Mtto Medicamentos" y los deja en assets/js/reportes-data.js
-// (window.REPORTES_TURNO), que es lo que consume la sección Reportes
-// y el resumen del Diario.
+// Importa el export de WhatsApp del grupo "Mtto Medicamentos" y deja al día
+// las dos cosas que la app lee del chat:
+//
+//   1. assets/js/reportes-data.js (window.REPORTES_TURNO): los reportes de
+//      turno tal cual se enviaron, para la sección Reportes, el Calendario y
+//      el "reporte recibido" del Inicio.
+//   2. assets/js/mtto-data.js (window.MTTO.hist): el histórico del Registro
+//      diario. Lo arma generar_registro_mtto.py (carpeta farmacap); este script
+//      le AGREGA lo que el chat trae después del último mensaje que ya leyó,
+//      con las mismas reglas (window.MTTO.reglas, las que usa mtto-lector.js
+//      para "Pegar reporte"). Lo ya importado no se toca.
 //
 // Uso:
 //   node scripts/importar-reportes-whatsapp.mjs "ruta/al/chat.zip"
 //   node scripts/importar-reportes-whatsapp.mjs "ruta/al/chat.txt"
+//   node scripts/importar-reportes-whatsapp.mjs "chat.zip" --solo-reportes
 //
-// El id de cada reporte es determinista (fecha + hora del mensaje), así que
-// volver a correr el script con un chat más largo solo agrega los nuevos.
+// Qué es un reporte y qué es una novedad (comprobado contra lo que tomó el
+// script de Python del 1 de agosto al 28 de septiembre de 2026: las mismas 239
+// entradas, sin faltar ninguna):
+//   - Entrada: cualquier mensaje de un técnico que describe un trabajo (el
+//     lector encuentra una novedad) o que lista el estado de dos o más equipos.
+//     Los mensajes de los supervisores no son entradas.
+//   - Reporte de turno: una entrada con cabecera de reporte ("Reporte de
+//     turno", "Reporte turno", "SEDE 4 -- turno (día)"…) o que lista equipos.
+//
+// El export de WhatsApp puede venir con la hora en 12 h ("8:20 p. m."). Antes
+// se leía sin la marca a. m./p. m. y los reportes de la noche quedaban a las
+// 8 de la mañana; ahora se convierte a 24 h.
 
 import { readFileSync, writeFileSync, existsSync, mkdtempSync, readdirSync, rmSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { execSync } from "node:child_process";
 import { tmpdir } from "node:os";
+import vm from "node:vm";
 
 const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DESDE = "2026-08-01";
+// Quien escribe en el grupo para pedir, recordar o felicitar, no para reportar
+const SUPERVISORES = /juan guilarte|fnegrete|estiven fuentes/i;
 
 // ------------------------------------------------------------------ entrada
 function leerChat(ruta) {
@@ -43,35 +64,73 @@ function leerChat(ruta) {
 }
 
 // ------------------------------------------------------------------ mensajes
-const RE_ENCABEZADO = /^(\d{1,2})\/(\d{1,2})\/(\d{4}),\s*(\d{1,2}):(\d{2})(?:\s*[^-]{0,12})?\s+-\s+(.+?):\s*([\s\S]*)$/;
+// "29/9/2026, 9:05 p. m. - Autor: texto" o "29/9/2026, 21:05 - Autor: texto"
+const RE_ENCABEZADO = /^(\d{1,2})\/(\d{1,2})\/(\d{4}),\s*(\d{1,2}):(\d{2})\s*(?:([ap])\.?\s*m\.?)?\s+-\s+([\s\S]*)$/i;
 
 function parseMensajes(texto) {
-  const lineas = texto.split("\n");
   const msgs = [];
   let actual = null;
-  for (const linea of lineas) {
+  for (const cruda of texto.split("\n")) {
+    const linea = cruda.replace(/[  ]/g, " ");
     const m = linea.match(RE_ENCABEZADO);
     if (m) {
       if (actual) msgs.push(actual);
-      const [, d, mes, anio, hh, mm, autor, resto] = m;
+      const [, d, mes, anio, hh, mm, ap, resto] = m;
+      let h = Number(hh);
+      if (ap) h = (h % 12) + (ap.toLowerCase() === "p" ? 12 : 0);
+      const i = resto.indexOf(": ");
+      const conAutor = i > 0 && i < 60;
       actual = {
         fecha: `${anio}-${String(mes).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
-        hora: `${String(hh).padStart(2, "0")}:${mm}`,
-        autor: autor.trim(),
-        cuerpo: [resto],
+        hora: `${String(h).padStart(2, "0")}:${mm}`,
+        autor: conAutor ? resto.slice(0, i).trim() : "",
+        cuerpo: [conAutor ? resto.slice(i + 2) : resto],
       };
     } else if (actual) {
-      actual.cuerpo.push(linea);
+      actual.cuerpo.push(cruda);
     }
   }
   if (actual) msgs.push(actual);
-  return msgs.map((m) => ({ ...m, cuerpo: m.cuerpo.join("\n").replace(/\n{3,}/g, "\n\n").trim() }));
+  return msgs
+    .filter((m) => m.autor)
+    .map((m) => ({ ...m, cuerpo: m.cuerpo.join("\n").replace(/\n{3,}/g, "\n\n").trim() }));
 }
 
-// ------------------------------------------------------------------ parseo
-function esReporte(t) {
-  const limpia = String(t || "").replace(/\*/g, "").replace(/\u00a0/g, " ");
-  return /reporte\s+de\s+turno\b|reporte\s+maquinas\s+turno\b/i.test(limpia.slice(0, 400));
+// Varios mensajes seguidos del mismo técnico en el mismo minuto son una sola entrada
+function agrupar(msgs) {
+  const out = [];
+  for (const m of msgs) {
+    const prev = out[out.length - 1];
+    if (prev && prev.autor === m.autor && prev.fecha === m.fecha && prev.hora === m.hora) prev.cuerpo += "\n" + m.cuerpo;
+    else out.push({ ...m });
+  }
+  return out;
+}
+
+const idDe = (m) => `rt-${m.fecha.replace(/-/g, "")}-${m.hora.replace(":", "")}`;
+const limpiarCuerpo = (c) => c
+  .replace(/<Se edit[óo] este mensaje\.?>/gi, "")
+  .replace(/Se elimin[oó] este mensaje\.?/gi, "")
+  .replace(/<Multimedia omitido>/gi, "")
+  .replace(/ /g, " ")
+  .trim();
+
+// ------------------------------------------------------ reglas de la app
+function cargarLector() {
+  const ctx = { window: {}, console };
+  vm.createContext(ctx);
+  for (const f of ["assets/js/mtto-data.js", "assets/js/mtto-lector.js", "assets/js/reportes-data.js"]) {
+    const ruta = join(raiz, f);
+    if (existsSync(ruta)) vm.runInContext(readFileSync(ruta, "utf8"), ctx, { filename: f });
+  }
+  if (!ctx.window.MTTO_LECTOR) throw new Error("No cargó mtto-lector.js (¿falta window.MTTO.reglas?)");
+  return ctx.window;
+}
+
+// ------------------------------------------------ reporte (para Reportes)
+function cabeceraDeReporte(cuerpo) {
+  const cab = cuerpo.replace(/[*_]/g, "").split("\n").map((l) => l.trim()).filter(Boolean).slice(0, 4).join(" ").toLowerCase();
+  return /\breporte\b/.test(cab) || (/\bturno\b/.test(cab) && /(sede|grupo|d[ií]a|noche|\bsd\s*\d)/.test(cab));
 }
 
 function detectarSede(cuerpo) {
@@ -82,48 +141,52 @@ function detectarSede(cuerpo) {
   return "Sede 4";
 }
 
-function detectarTurno(cuerpo) {
-  const head = cuerpo.replace(/\*/g, "").slice(0, 400);
-  const grupo = /grupo\s*#?\s*1|turno\s*#?\s*1/i.test(head) ? "Grupo 1" : "";
-  const turno = /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]a\b/i.test(head) ? "Día" : "";
-  return [grupo, turno].filter(Boolean).join(" · ");
+// Día (8 a 20) o noche (20 a 8). Si la cabecera lo dice, manda; si no, por
+// la hora: el reporte de la noche llega por la mañana. La misma regla para
+// los reportes y para el Registro diario.
+const turnoPorHora = (hora) => (hora < "14" ? "Noche" : "Día");
+function turnoDe(msg) {
+  const head = msg.cuerpo.replace(/\*/g, "").slice(0, 400);
+  return /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]a\b/i.test(head) ? "Día" : turnoPorHora(msg.hora);
+}
+
+function detectarTurno(msg) {
+  const head = msg.cuerpo.replace(/\*/g, "").slice(0, 400);
+  const grupo = /grupo\s*#?\s*1|turno\s*#?\s*1\b/i.test(head) ? "Grupo 1" : /grupo\s*#?\s*2|turno\s*#?\s*2\b/i.test(head) ? "Grupo 2" : "";
+  return [grupo, turnoDe(msg)].filter(Boolean).join(" · ");
+}
+
+// La fecha escrita en la cabecera ("2026/08/10") manda, si es de ese día o
+// de uno o dos antes (el reporte de la noche se manda al día siguiente). Una
+// fecha más lejana es un error de tipeo ("2026/08/28" enviado el 28 de sep).
+function fechaDelTurno(msg) {
+  const cab = msg.cuerpo.replace(/[*_]/g, "").split("\n").slice(0, 5).join(" ");
+  let f = null;
+  const a = cab.match(/\b(20\d{2})[\/.-](\d{1,2})[\/.-](\d{1,2})\b/);
+  const b = cab.match(/\b(\d{1,2})[\/.-](\d{1,2})[\/.-](20\d{2})\b/);
+  if (a) f = `${a[1]}-${a[2].padStart(2, "0")}-${a[3].padStart(2, "0")}`;
+  else if (b) f = `${b[3]}-${b[2].padStart(2, "0")}-${b[1].padStart(2, "0")}`;
+  if (f) {
+    const dias = (Date.parse(msg.fecha) - Date.parse(f)) / 864e5;
+    if (dias >= 0 && dias <= 2) return f;
+  }
+  return msg.fecha;
 }
 
 const SKIP_EQUIPO = [
-  /equipos\s+operativ/i,
-  /equipos\s+operando/i,
-  /^[\s>*_\-=#•·]+$/,
-  /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/,
-  /^\d{1,2}\/\d{1,2}\/\d{4}$/,
-  /sede\s*\d/i,
-  /^\s*sd\s*\d/i,
-  /grupo\s*#?\s*\d/i,
-  /^turno\b/i,
-  /^\[?\s*area\s+de/i,
-  /^[\s>*_\-=#]*s[oó]lidos?[\s\]#]*$/i,
-  /^[\s>*_\-=#]*l[ií]quidos?[\s\]#]*$/i,
-  /^l[ií]quido\s*$/i,
-  /^s[oó]lidos?\s*$/i,
-  /tanques?\s+de\s+fabricacion/i,
-  /tanque\s+de\s+fabricaci/i,
-  /preparaci[oó]n\s+de\s+solucion/i,
-  /<se\s+edit/i,
-  /^buen[oa]s?\b/i,
-  /^reporte\b/i,
-  /^20:\d{2}\s*-/,
+  /equipos\s+operativ/i, /equipos\s+operando/i, /^[\s>*_\-=#•·]+$/,
+  /^\d{4}[\/-]\d{1,2}[\/-]\d{1,2}$/, /^\d{1,2}\/\d{1,2}\/\d{4}$/,
+  /sede\s*\d/i, /^\s*sd\s*\d/i, /grupo\s*#?\s*\d/i, /^turno\b/i, /^\[?\s*area\s+de/i,
+  /^[\s>*_\-=#]*s[oó]lidos?[\s\]#]*$/i, /^[\s>*_\-=#]*l[ií]quidos?[\s\]#]*$/i, /^l[ií]quido\s*$/i, /^s[oó]lidos?\s*$/i,
+  /tanques?\s+de\s+fabricacion/i, /tanque\s+de\s+fabricaci/i, /preparaci[oó]n\s+de\s+solucion/i,
+  /<se\s+edit/i, /^buen[oa]s?\b/i, /^reporte\b/i, /^\d{1,2}:\d{2}\s*(a|-)\s*\d{1,2}:\d{2}/,
 ];
 
 const ES_PROSA = (l) =>
-  /\bse\s+(atiende|realiza|monta|limpia|cambia|encuentra|entrega|repara|ajusta|reinicia|desarma|calibra|procede|detecta|observa|presenta|recibe|atiende|solicita|necesita|coloca|quita|arma|baja|sube|pone|deja|requete)\b/i.test(l) ||
-  /\b(llamado|pendiente|qued[oó]\s|queda\s|se\s+env[ií]a|se\s+muestra|se\s+verifica)\b/i.test(l) && l.length > 40;
+  /\bse\s+(atiende|realiza|monta|limpia|cambia|encuentra|entrega|repara|ajusta|reinicia|desarma|calibra|procede|detecta|observa|presenta|recibe|solicita|necesita|coloca|quita|arma|baja|sube|pone|deja|requete|revisa)\b/i.test(l) ||
+  (/\b(llamado|pendiente|qued[oó]\s|queda\s|se\s+env[ií]a|se\s+muestra|se\s+verifica)\b/i.test(l) && l.length > 40);
 
-function limpiarLinea(l) {
-  return l
-    .replace(/\u00a0/g, " ")
-    .replace(/^\s*[-•·]\s*/, "")
-    .replace(/\*/g, "")
-    .trim();
-}
+const limpiarLinea = (l) => l.replace(/ /g, " ").replace(/^\s*[-•·]\s*/, "").replace(/\*/g, "").trim();
 
 function parseLineaEquipo(l) {
   const conColon = l.match(/^([^:]{1,48}):\s*(.*)$/);
@@ -133,83 +196,51 @@ function parseLineaEquipo(l) {
     if (!equipo || /^\d+$/.test(equipo)) return null;
     return { equipo, producto };
   }
-  // Sin dos puntos: "BIN producto", "Blister 5 coltrin", "NJP 2 vitamina A..."
-  const conNumero = l.match(/^(\D+?\s+\d+[A-Za-z#.\-]*)\s+(.+)$/);
-  if (conNumero && conNumero[1].length <= 30) {
-    return { equipo: conNumero[1].trim(), producto: conNumero[2].trim() };
-  }
+  const conNumero = l.match(/^(\D+?\s+#?\d+[A-Za-z#.\-]*)\s+(.+)$/);
+  if (conNumero && conNumero[1].length <= 30) return { equipo: conNumero[1].trim(), producto: conNumero[2].trim() };
   const unaPalabraEq = l.match(/^([A-Za-zÁÉÍÓÚÑ][A-Za-zÁÉÍÓÚÑ0-9#.\-]{1,20})\s+(.+)$/);
-  if (unaPalabraEq && unaPalabraEq[2].split(/\s+/).length <= 14) {
-    return { equipo: unaPalabraEq[1], producto: unaPalabraEq[2] };
-  }
-  if (l.length <= 32 && !/\s\s/.test(l)) {
-    return { equipo: l, producto: "" };
-  }
+  if (unaPalabraEq && unaPalabraEq[2].split(/\s+/).length <= 14) return { equipo: unaPalabraEq[1], producto: unaPalabraEq[2] };
+  if (l.length <= 32 && !/\s\s/.test(l)) return { equipo: l, producto: "" };
   return null;
 }
 
 function partirNovedades(raw) {
-  const t = String(raw || "").replace(/\r/g, "").replace(/\u00a0/g, " ").trim();
+  const t = String(raw || "").replace(/\r/g, "").replace(/ /g, " ").trim();
   if (!t) return [];
-  const lineas = t
-    .split("\n")
-    .map((l) => l.trim())
+  const lineas = t.split("\n").map((l) => l.trim())
     .filter((l) => l && !/^[_=\-–—*#•·\s]+$/.test(l) && !/^noVEDADES?$/i.test(l.replace(/[^A-Za-z]/g, "")));
   if (!lineas.length) return [];
   const conEtiqueta = lineas.filter((l) => /^[-*]?[^:*\n]{1,48}\s*:\s*\S/.test(l));
-  if (conEtiqueta.length >= 2 || (conEtiqueta.length >= 1 && lineas.length <= conEtiqueta.length + 2)) {
-    return lineas;
-  }
-  const paras = t
-    .split(/\n{2,}/)
-    .map((s) => s.replace(/\s*\n\s*/g, " ").trim())
-    .filter(Boolean);
+  if (conEtiqueta.length >= 2 || (conEtiqueta.length >= 1 && lineas.length <= conEtiqueta.length + 2)) return lineas;
+  const paras = t.split(/\n{2,}/).map((s) => s.replace(/\s*\n\s*/g, " ").trim()).filter(Boolean);
   if (paras.length >= 2) return paras;
-  // Párrafos pegados línea a línea: partir donde empieza un evento nuevo
   const trozos = [];
   let buf = "";
   for (const l of lineas) {
-    const nuevo =
-      !buf ||
+    const nuevo = !buf ||
       (/^[A-ZÁÉÍÓÚÑ0-9][A-Za-z0-9ÁÉÍÓÚÑ #/.\-]{1,30}\s/.test(l) && ES_PROSA(buf) && !ES_PROSA(l)) ||
       (ES_PROSA(l) && /^[A-ZÁÉÍÓÚÑ0-9]/.test(l) && buf.length > 120);
-    if (nuevo && buf) { trozos.push(buf); buf = l; }
-    else buf = buf ? `${buf} ${l}` : l;
+    if (nuevo && buf) { trozos.push(buf); buf = l; } else buf = buf ? `${buf} ${l}` : l;
   }
   if (buf) trozos.push(buf);
   return trozos.filter(Boolean);
 }
 
 function partirCuerpo(cuerpo) {
-  const reNov =
-    /(?:^|\n)[ \t]*(?:[-=_*•·\s]{0,120})\b(?:NOVEDADES?|NIVEDADES?|Novedades?|Nota)\b[ \t]*[:*]?[ \t]*/i;
+  const reNov = /(?:^|\n)[ \t]*(?:[-=_*•·\s]{0,120})\b(?:NOVEDADES?|NIVEDADES?|Novedades?|Nota)\b[ \t]*[:*]?[ \t]*/i;
   const m = reNov.exec(cuerpo);
-  if (m) {
-    return {
-      bloqueEq: cuerpo.slice(0, m.index),
-      bloqueNov: cuerpo.slice(m.index + m[0].length),
-    };
-  }
-  // Sin marcador: los equipos van primero y donde empiece la prosa se corta.
+  if (m) return { bloqueEq: cuerpo.slice(0, m.index), bloqueNov: cuerpo.slice(m.index + m[0].length) };
   const lineas = cuerpo.split("\n");
   let corte = -1;
   for (let i = 0; i < lineas.length; i++) {
     const l = limpiarLinea(lineas[i]);
-    if (!l) continue;
-    if (SKIP_EQUIPO.some((re) => re.test(l))) continue;
-    if (/^\d{1,2}:\d{2}\b/.test(l)) continue; // horario del turno: 8:00 a 20:00
+    if (!l || SKIP_EQUIPO.some((re) => re.test(l)) || /^\d{1,2}:\d{2}\b/.test(l)) continue;
     const conColonCorto = /^([^:]{1,40}):\s*\S/.test(l);
-    // La prosa cierra la zona de equipos, salvo que la línea sea claramente
-    // "Equipo: producto" (el producto puede decir "se ajusta…").
     if (ES_PROSA(l) && !conColonCorto) { corte = i; break; }
-    const eq = parseLineaEquipo(l);
-    if (!eq) { corte = i; break; }
+    if (!parseLineaEquipo(l)) { corte = i; break; }
   }
   if (corte < 0) return { bloqueEq: cuerpo, bloqueNov: "" };
-  return {
-    bloqueEq: lineas.slice(0, corte).join("\n"),
-    bloqueNov: lineas.slice(corte).join("\n"),
-  };
+  return { bloqueEq: lineas.slice(0, corte).join("\n"), bloqueNov: lineas.slice(corte).join("\n") };
 }
 
 function parseEquipos(bloque) {
@@ -217,9 +248,7 @@ function parseEquipos(bloque) {
   const vistos = new Set();
   for (const cruda of bloque.split("\n")) {
     const l = limpiarLinea(cruda);
-    if (!l) continue;
-    if (SKIP_EQUIPO.some((re) => re.test(l))) continue;
-    if (/^\d{1,2}:\d{2}\b/.test(l)) continue;
+    if (!l || SKIP_EQUIPO.some((re) => re.test(l)) || /^\d{1,2}:\d{2}\b/.test(l)) continue;
     const eq = parseLineaEquipo(l);
     if (!eq) continue;
     const clave = `${eq.equipo.toLowerCase()}|${eq.producto.toLowerCase()}`;
@@ -230,72 +259,125 @@ function parseEquipos(bloque) {
   return eqs;
 }
 
-function parseReporte(msg) {
-  let cuerpo = msg.cuerpo
-    .replace(/<Se edit[óo] este mensaje\.?>/gi, "")
-    .replace(/Se elimin[oó] este mensaje\.?/gi, "")
-    .replace(/\u00a0/g, " ")
-    .trim();
-  if (!esReporte(cuerpo)) return null;
-
+function reporteDe(msg) {
+  const cuerpo = limpiarCuerpo(msg.cuerpo);
   const { bloqueEq, bloqueNov } = partirCuerpo(cuerpo);
-  const equipos = parseEquipos(bloqueEq);
-  const novedades = partirNovedades(bloqueNov);
-  if (!equipos.length && !novedades.length) return null;
-
-  const id = `rt-${msg.fecha.replace(/-/g, "")}-${msg.hora.replace(":", "")}`;
   return {
-    id,
+    id: idDe(msg),
     fecha: msg.fecha,
     hora: msg.hora,
     autor: msg.autor,
     sede: detectarSede(cuerpo),
-    turno: detectarTurno(cuerpo),
-    equipos,
-    novedades,
+    turno: detectarTurno({ ...msg, cuerpo }),
+    fechaTurno: fechaDelTurno(msg),
+    equipos: parseEquipos(bloqueEq),
+    novedades: partirNovedades(bloqueNov),
     texto: cuerpo,
   };
 }
 
+// ---------------------------------------- novedad (para el Registro diario)
+// Mismo formato que generar_registro_mtto.py
+const tecnico = (autor) => {
+  const tel = autor.replace(/\D/g, "");
+  if (/^\+?[\d\s]+$/.test(autor) && tel.length >= 7) return `Tecnico ...${tel.slice(-4)}`;
+  return autor.replace(/^@/, "");
+};
+
 // ------------------------------------------------------------------ main
-const arg = process.argv[2];
+const args = process.argv.slice(2);
+const arg = args.find((a) => !a.startsWith("--"));
 if (!arg) {
-  console.error('Uso: node scripts/importar-reportes-whatsapp.mjs "chat.zip|chat.txt"');
+  console.error('Uso: node scripts/importar-reportes-whatsapp.mjs "chat.zip|chat.txt" [--solo-reportes]');
   process.exit(1);
 }
+const soloReportes = args.includes("--solo-reportes");
 
-const texto = leerChat(arg);
-const msgs = parseMensajes(texto);
+const W = cargarLector();
+const L = W.MTTO_LECTOR;
+const MTTO = W.MTTO;
+const R = MTTO.reglas;
+const reOper = new RegExp(R.operativo), rePend = new RegExp(R.pendiente);
+
+const msgs = agrupar(parseMensajes(leerChat(arg)).filter((m) => m.fecha >= DESDE));
+const entradas = [];
+for (const m of msgs) {
+  if (SUPERVISORES.test(m.autor)) continue;
+  const cuerpo = limpiarCuerpo(m.cuerpo);
+  if (!cuerpo) continue;
+  const lectura = L.leer(cuerpo);
+  if (!lectura.novedades.length && lectura.estados.length < 2) continue;
+  entradas.push({ msg: { ...m, cuerpo }, lectura });
+}
+
+// 1. Reportes de turno
 const reportes = [];
 const ids = new Set();
-let candidatos = 0;
-for (const m of msgs) {
-  if (m.fecha < DESDE) continue;
-  if (!esReporte(m.cuerpo)) continue;
-  candidatos++;
-  const r = parseReporte(m);
-  if (!r) {
-    console.warn(`  (no parseado) ${m.fecha} ${m.hora} ${m.autor} :: ${m.cuerpo.slice(0, 80).replace(/\n/g, " | ")}`);
-    continue;
-  }
-  let id = r.id;
-  let n = 2;
+for (const { msg, lectura } of entradas) {
+  if (!cabeceraDeReporte(msg.cuerpo) && lectura.estados.length < 2) continue;
+  const r = reporteDe(msg);
+  let id = r.id, n = 2;
   while (ids.has(id)) id = `${r.id}-${n++}`;
   r.id = id;
   ids.add(id);
   reportes.push(r);
 }
-
+// Lo que ya estaba y este export no trae (un export más corto) se conserva
+(Array.isArray(W.REPORTES_TURNO) ? W.REPORTES_TURNO : []).forEach((r) => { if (r && r.id && !ids.has(r.id)) { ids.add(r.id); reportes.push(r); } });
 reportes.sort((a, b) => (a.fecha + a.hora).localeCompare(b.fecha + b.hora));
-
-const salida = join(raiz, "assets", "js", "reportes-data.js");
-const banner = `// Generado por scripts/importar-reportes-whatsapp.mjs — no editar a mano.\n// Reportes de turno del chat "Mtto Medicamentos" desde ${DESDE}.\n`;
-writeFileSync(salida, `${banner}window.REPORTES_TURNO = ${JSON.stringify(reportes, null, 2)};\n`, "utf8");
-
+const salidaRep = join(raiz, "assets", "js", "reportes-data.js");
+writeFileSync(salidaRep,
+  `// Generado por scripts/importar-reportes-whatsapp.mjs — no editar a mano.\n// Reportes de turno del chat "Mtto Medicamentos" desde ${DESDE}.\nwindow.REPORTES_TURNO = ${JSON.stringify(reportes, null, 2)};\n`, "utf8");
 const x4 = reportes.filter((r) => r.sede === "Sede 4").length;
-const x2 = reportes.filter((r) => r.sede === "Sede 2").length;
-const conEq = reportes.filter((r) => r.equipos.length).length;
-const conNov = reportes.filter((r) => r.novedades.length).length;
-console.log(`Candidatos: ${candidatos} · Importados: ${reportes.length} (Sede 4: ${x4}, Sede 2: ${x2}; con equipos: ${conEq}, con novedades: ${conNov})`);
-if (reportes.length) console.log(`Desde ${reportes[0].fecha} hasta ${reportes.at(-1).fecha}`);
-console.log(`→ ${salida}`);
+console.log(`Reportes de turno: ${reportes.length} (Sede 4: ${x4}, Sede 2: ${reportes.length - x4}) del ${reportes[0]?.fecha} al ${reportes.at(-1)?.fecha} → ${salidaRep}`);
+
+// 2. Registro diario: se agrega lo posterior al último mensaje ya leído
+if (!soloReportes) {
+  const H = MTTO.hist;
+  const ultimoLeido = H.registros.reduce((max, r) => (r.rid > max ? r.rid : max), "");
+  const nuevas = entradas.filter(({ msg }) => idDe(msg) > ultimoLeido);
+  let seq = H.registros.reduce((max, r) => Math.max(max, Number(r.id.split("-")[1]) || 0), 0);
+  let agregadas = 0;
+  let hasta = MTTO.hasta;
+  for (const { msg, lectura } of nuevas) {
+    const t = turnoDe(msg);
+    const f = fechaDelTurno(msg);
+    if (f > hasta) hasta = f;
+    for (const n of lectura.novedades) {
+      seq++;
+      const oper = reOper.test(L.norm(n.de)), pend = rePend.test(L.norm(n.de));
+      H.registros.push({
+        id: `H${f.replace(/-/g, "")}-${String(seq).padStart(4, "0")}`,
+        f, hr: msg.hora, rid: idDe(msg), t, s: lectura.sede,
+        eq: n.eq, ar: n.ar, cat: n.cat, tp: n.tp, fa: n.fa || "Sin clasificar", ac: n.ac,
+        de: n.de, min: n.min, det: null,
+        ef: pend && oper ? "Operativo con pendiente" : pend ? "Pendiente" : oper ? "Operativo" : "Sin cierre",
+        frep: n.frep, tec: tecnico(msg.autor), src: "chat",
+      });
+      agregadas++;
+    }
+    // El estado de los equipos (producción, limpieza, stand by) ya no se lleva:
+    // solo importan las fallas, así que hist.horas y ultimoEstado no se tocan.
+  }
+  // Lo ya importado también se aclara: "Marzio" en la Sede 2 es la Marzio 2
+  let aclaradas = 0;
+  for (const r of H.registros) {
+    const eq = L.porSede ? L.porSede(r.eq, r.s) : r.eq;
+    if (eq !== r.eq) { r.eq = eq; r.ar = L.areaDe(eq); aclaradas++; }
+  }
+  if (aclaradas) console.log(`Registro diario: ${aclaradas} novedades con equipo "sin especificar" aclarado por sede`);
+
+  if (agregadas || nuevas.length || aclaradas) {
+    MTTO.hasta = hasta;
+    MTTO.generado = new Date(Date.now() - 5 * 3600e3).toISOString().slice(0, 16).replace("T", " ");
+    const salidaM = join(raiz, "assets", "js", "mtto-data.js");
+    const antes = readFileSync(salidaM, "utf8").split(/\r?\n/);
+    const cab = antes.filter((l) => l.startsWith("//")).map((l) =>
+      l.replace(/del \d{4}-\d{2}-\d{2} al \d{4}-\d{2}-\d{2}/, `del ${MTTO.desde} al ${MTTO.hasta}`));
+    if (!cab.some((l) => l.includes("importar-reportes-whatsapp"))) cab.push("// Lo posterior al último import de Python lo agrega scripts/importar-reportes-whatsapp.mjs.");
+    writeFileSync(salidaM, `${cab.join("\n")}\nwindow.MTTO = ${JSON.stringify(MTTO)};\n`, "utf8");
+    console.log(`Registro diario: ${nuevas.length} mensajes nuevos → ${agregadas} novedades (total ${H.registros.length}, hasta ${MTTO.hasta}) → ${salidaM}`);
+  } else {
+    console.log("Registro diario: nada nuevo después del último mensaje leído.");
+  }
+}

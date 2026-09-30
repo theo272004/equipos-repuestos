@@ -129,7 +129,7 @@
         <div class="aj-col__row">${marcaEstado(inv.estado === "fresco" ? "ok" : "error")}<span>Inventario del almacén (RE356)<small>${esc(inv.texto)}</small></span><button class="ux-btn ux-btn--sm" type="button" data-go="almacen">Cargar</button></div>
       </div>
       <details style="margin-top:12px"><summary class="ux-small ux-strong" style="cursor:pointer">Cómo actualizar lo del chat</summary>
-        <ol class="aj-steps" style="margin-top:12px"><li>En WhatsApp: grupo <b>Mtto Medicamentos</b> → Más → Exportar chat → sin archivos.</li><li>En el PC: <code>node scripts/importar-reportes-whatsapp.mjs "chat.zip"</code> y <code>python generar_registro_mtto.py "chat.zip" "repo"</code> (carpeta farmacap).</li><li>Subir los cambios del repositorio. Con el formulario de turno esto hace falta cada vez menos.</li></ol>
+        <ol class="aj-steps" style="margin-top:12px"><li>En WhatsApp: grupo <b>Mtto Medicamentos</b> → Más → Exportar chat → sin archivos.</li><li>En el PC: <code>node scripts/importar-reportes-whatsapp.mjs "chat.zip"</code>. Actualiza los reportes de turno y agrega al Registro diario las novedades nuevas (solo lo posterior a la última importación).</li><li>Subir los cambios del repositorio. Con el formulario de turno esto hace falta cada vez menos.</li></ol>
       </details>
     </section>`;
   }

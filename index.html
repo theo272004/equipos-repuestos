@@ -7,17 +7,18 @@
     <meta name="description" content="Mantenimiento de Farmacápsulas: el día en planta, pendientes, registro de turnos, fichas de equipos, almacén, presupuesto e indicadores." />
     <meta name="theme-color" content="#f2f3f5" />
     <link rel="icon" href="favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609292144" />
-    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609292144" />
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png?v=202609300258" />
+    <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=202609300258" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/styles.css?v=202609292144" />
-    <link rel="stylesheet" href="assets/css/mtto.css?v=202609292144" />
-    <link rel="stylesheet" href="assets/css/app.css?v=202609292144" />
-    <link rel="stylesheet" href="assets/css/app-vistas.css?v=202609292144" />
-    <link rel="stylesheet" href="assets/css/app-modulos.css?v=202609292144" />
-    <link rel="stylesheet" href="assets/css/celular.css?v=202609292144" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=202609300258" />
+    <link rel="stylesheet" href="assets/css/mtto.css?v=202609300258" />
+    <link rel="stylesheet" href="assets/css/app.css?v=202609300258" />
+    <link rel="stylesheet" href="assets/css/app-vistas.css?v=202609300258" />
+    <link rel="stylesheet" href="assets/css/app-modulos.css?v=202609300258" />
+    <link rel="stylesheet" href="assets/css/celular.css?v=202609300258" />
+    <link rel="stylesheet" href="assets/css/tema.css?v=202609300258" />
     <script>
       // Antes de pintar: el menú contraído o abierto como lo dejó esta persona,
       // para que no salte al cargar.
@@ -28,98 +29,47 @@
     <script>if (document.documentElement.classList.contains("pre-sb-min")) document.body.classList.add("sb-min");</script>
 
     <!-- ===================================================== MENÚ LATERAL ==
-         Cada entrada lleva su nombre. Los grupos siguen el orden del trabajo:
-         lo del día, la operación del turno, los equipos, el almacén y el
-         análisis. El menú se puede contraer a solo iconos (queda recordado). -->
+         Seis secciones. Cada una agrupa sus vistas, que salen como pestañas
+         arriba de la página (shell.js, SECCIONES). El menú se puede contraer
+         a solo iconos (queda recordado). -->
     <aside class="sb" id="sideNav" aria-label="Navegación principal">
       <div class="sb__brand">
-        <span class="sb__logo" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
-        <span class="sb__brandtxt"><b>Mantenimiento</b><span>Farmacápsulas · Medicamentos</span></span>
+        <span class="sb__logo" aria-hidden="true"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span>
+        <span class="sb__brandtxt"><b>Mantenimiento</b><span>Farmacápsulas</span></span>
       </div>
 
       <nav class="sb__nav">
-        <div class="sb__group">
-          <p class="sb__label">General</p>
-          <button class="sb__item" type="button" data-go="hoy" data-tip="Inicio: así va el día">
+          <button class="sb__item" type="button" data-go="hoy" data-tip="Inicio">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
             <span>Inicio</span><em class="sb__badge"></em>
           </button>
-          <button class="sb__item" type="button" data-go="pendientes" data-tip="Pendientes y seguimiento">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="6" height="6" rx="1.5"/><path d="m3.5 17 2 2 3.5-4"/><path d="M13 7h8M13 12h8M13 17h8"/></svg>
-            <span>Pendientes</span><em class="sb__badge sb__badge--alerta" id="sbPendientes"></em>
-          </button>
-        </div>
-
-        <div class="sb__group">
-          <p class="sb__label">Operación</p>
-          <button class="sb__item" type="button" data-go="registro" data-tip="Registro diario">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M8 11h8M8 15h5"/></svg>
-            <span>Registro diario</span><em class="sb__badge"></em>
-          </button>
-          <button class="sb__item" type="button" data-go="reportes" data-tip="Reportes de turno">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 8h8M8 12h5"/></svg>
-            <span>Reportes de turno</span><em class="sb__badge"></em>
-          </button>
-          <button class="sb__item" type="button" data-go="tasks" data-tip="Tareas">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            <span>Tareas</span><em class="sb__badge" id="sbTareas"></em>
-          </button>
-          <button class="sb__item" type="button" data-go="insp" data-tip="Inspecciones">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2"/><circle cx="11.5" cy="11.5" r="3.5"/><path d="m17 17-3-3"/></svg>
-            <span>Inspecciones</span><em class="sb__badge"></em>
-          </button>
-          <button class="sb__item" type="button" data-go="turnos" data-tip="Turnos del personal">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            <span>Turnos</span><em class="sb__badge"></em>
-          </button>
-        </div>
-
-        <div class="sb__group">
-          <p class="sb__label">Equipos</p>
-          <button class="sb__item" type="button" data-go="home" data-tip="Fichas de equipos">
+          <button class="sb__item" type="button" data-go="home" data-tip="Equipos">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/></svg>
-            <span>Fichas de equipos</span><em class="sb__badge"></em>
+            <span>Equipos</span><em class="sb__badge"></em>
           </button>
-          <button class="sb__item" type="button" data-go="plan" data-tip="Plan de mantenimiento">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-            <span>Plan de mantenimiento</span><em class="sb__badge"></em>
+          <button class="sb__item" type="button" data-go="diario" data-tip="Turno">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M8 11h8M8 15h5"/></svg>
+            <span>Turno</span><em class="sb__badge"></em>
           </button>
-        </div>
-
-        <div class="sb__group">
-          <p class="sb__label">Almacén y costos</p>
-          <button class="sb__item" type="button" data-go="almacen" data-tip="Almacén y solicitudes">
+          <button class="sb__item" type="button" data-go="seguimiento" data-tip="Mantenimiento">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="6" height="6" rx="1.5"/><path d="m3.5 17 2 2 3.5-4"/><path d="M13 7h8M13 12h8M13 17h8"/></svg>
+            <span>Mantenimiento</span><em class="sb__badge" id="sbMtto"></em>
+          </button>
+          <button class="sb__item" type="button" data-go="almacen" data-tip="Almacén">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12M6 14h12"/><rect x="6" y="10" width="12" height="12"/></svg>
-            <span>Almacén</span><em class="sb__badge sb__badge--nuevo" id="sbAlmacen"></em>
+            <span>Almacén</span><em class="sb__badge" id="sbAlmacen"></em>
           </button>
-          <button class="sb__item" type="button" data-go="presupuesto" data-tip="Presupuesto por centro de costo">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-            <span>Presupuesto</span><em class="sb__badge"></em>
-          </button>
-        </div>
-
-        <div class="sb__group">
-          <p class="sb__label">Análisis</p>
           <button class="sb__item" type="button" data-go="indicadores" data-tip="Indicadores">
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 16v-4M12 16V8M17 16v-7"/></svg>
             <span>Indicadores</span><em class="sb__badge"></em>
           </button>
-          <button class="sb__item" type="button" data-go="diario" data-tip="Diario del taller">
-            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-            <span>Diario del taller</span><em class="sb__badge"></em>
-          </button>
-        </div>
       </nav>
 
       <div class="sb__foot">
-        <a class="sb__item" href="reporte.html" data-tip="Formulario de reporte de turno">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M10.4 12.6a2 2 0 0 1 3 3L8 21l-4 1 1-4Z"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5.5"/><path d="M4 13.5V6a2 2 0 0 1 2-2h2"/></svg>
-          <span>Formulario de turno</span><em class="sb__badge"></em>
-        </a>
-        <button class="sb__item" type="button" data-go="ajustes" data-tip="Conexión, Telegram y ajustes">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-          <span>Conexión y ajustes</span><em class="sb__badge sb__badge--alerta" id="sbAjustes"></em>
-        </button>
+          <button class="sb__item" type="button" data-go="ajustes" data-tip="Ajustes">
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+            <span>Ajustes</span><em class="sb__badge sb__badge--alerta" id="sbAjustes"></em>
+          </button>
         <button class="sb__item sb__collapse" type="button" id="sbCollapse" data-tip="Expandir menú" aria-label="Contraer o expandir el menú">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M16 15l-3-3 3-3"/></svg>
           <span>Contraer menú</span><em class="sb__badge"></em>
@@ -132,26 +82,24 @@
       <button class="tb__icon tb__burger" type="button" id="tbBurger" aria-label="Abrir el menú" aria-controls="sideNav" aria-expanded="false">
         <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
-      <div class="tb__crumb" id="tbCrumb"><span>General</span><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><b>Inicio</b></div>
+      <div class="tb__crumb" id="tbCrumb"><b>Inicio</b></div>
       <button class="tb__search" type="button" id="tbSearch" aria-label="Buscar equipos, repuestos, reportes o secciones">
         <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
         <span>Buscar equipo, repuesto, sección…</span>
         <kbd>Ctrl K</kbd>
       </button>
       <div class="tb__acts">
-        <button class="tb__sync" type="button" id="tbSync" title="Estado de la conexión con la nube"><i></i><b>Conectando…</b></button>
-        <button class="tb__icon" type="button" id="tbPend" aria-label="Pendientes abiertos" title="Pendientes abiertos">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-          <em id="tbPendN"></em>
+        <button class="tb__sync" type="button" id="tbSync" title="Conectando con la nube…" aria-label="Estado de la conexión"><i></i></button>
+        <button class="ux-btn ux-btn--primary tb__new" type="button" id="tbNew" aria-haspopup="menu" aria-expanded="false" aria-label="Nuevo" title="Nuevo: novedad, reporte, tarea, solicitud…">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
         </button>
-        <button class="ux-btn ux-btn--primary tb__new" type="button" id="tbNew" aria-haspopup="menu" aria-expanded="false">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><b>Nuevo</b>
-        </button>
-        <button class="tb__user" type="button" id="tbUser" title="Quién está usando la app">··</button>
       </div>
     </header>
 
     <main class="app-shell">
+      <!-- Pestañas de la sección en curso: las pinta shell.js -->
+      <nav class="subnav" id="subNav" aria-label="Vistas de la sección" hidden></nav>
+
       <!-- Vistas nuevas: las pintan sus módulos (hoy.js, pendientes.js, presupuesto.js, ajustes.js) -->
       <section class="view hy-view" id="hoyView" aria-label="Inicio: así va el día"><div id="hoyRoot"></div></section>
       <section class="view pd-view" id="pendientesView" aria-label="Pendientes y seguimiento"><div id="pendientesRoot"></div></section>
@@ -162,8 +110,8 @@
         <div class="ux-page">
           <div class="ux-head">
             <div class="ux-head__txt">
-              <p class="ux-eyebrow">Sede 4 y Planta 2 · listados DMM-179</p>
-              <h1 class="ux-title">Fichas de equipos</h1>
+              <h1 class="ux-title">Equipos</h1>
+              <p class="ux-sub" id="homeSub">Sede 4 y Planta 2 · listados DMM-179</p>
             </div>
             <div class="ux-head__acts">
               <button class="ux-btn" id="openModalTop" type="button">
@@ -181,8 +129,8 @@
                 id="homeSearch"
                 type="search"
                 autocomplete="off"
-                placeholder="Buscar equipo, modelo, repuesto o manual y presionar Enter"
-                aria-label="Buscar en las fichas de equipos"
+                placeholder="Buscar por nombre, modelo o código del equipo"
+                aria-label="Buscar equipos"
               />
             </form>
           </div>
@@ -329,45 +277,13 @@
         </aside>
       </section>
 
+      <section class="sg-view view" id="seguimientoView" aria-label="Seguimiento del mantenimiento">
+        <div id="sgRoot"></div>
+      </section>
+
       <section class="insp-view view" id="inspView" aria-label="Inspecciones">
         <div id="inspRoot"></div>
 
-        <div class="tk-sheet-backdrop" id="inspSheetBackdrop" hidden onclick="inspCerrarForm()"></div>
-        <aside class="tk-sheet tk-sheet--ancha" id="inspSheet" hidden aria-label="Anotar inspección">
-          <div class="tk-sheet__head">
-            <h4 id="inspSheetTitulo">Anotar inspecci&oacute;n</h4>
-            <button class="tk-sheet__close" type="button" onclick="inspCerrarForm()" aria-label="Cerrar">&times;</button>
-          </div>
-          <form class="tk-form" id="inspForm" onsubmit="inspGuardar(event)">
-            <label>Equipo<select name="eq" id="inspEqSel" required></select></label>
-            <div class="tk-row2">
-              <label>Fecha<input type="date" name="fecha" required></label>
-              <label>Tipo
-                <select name="tipo">
-                  <option value="rutina">Inspecci&oacute;n de rutina</option>
-                  <option value="parada">Parada programada</option>
-                  <option value="correctiva">Revisi&oacute;n por falla</option>
-                  <option value="arranque">Arranque o puesta a punto</option>
-                </select>
-              </label>
-            </div>
-            <label>Qui&eacute;n revis&oacute;<input name="quien" placeholder="Tu nombre"></label>
-            <label>Qu&eacute; se revis&oacute;<textarea name="revisado" rows="2" placeholder="Estaciones, sistemas o puntos que se miraron&hellip;"></textarea></label>
-            <label>Qu&eacute; se encontr&oacute;<textarea name="hallazgos" rows="3" placeholder="Desgaste, ruido, fugas, holguras&hellip;"></textarea></label>
-            <div class="in-piezas-campo">
-              <span class="in-lbl">Piezas para cambiar</span>
-              <div id="inspPiezas"></div>
-              <button type="button" class="button button--light" onclick="inspAnadirPieza()">A&ntilde;adir pieza</button>
-            </div>
-            <label id="inspEstadoWrap" hidden>Estado
-              <select name="estado">
-                <option value="abierta">Abierta &mdash; queda trabajo pendiente</option>
-                <option value="cerrada">Cerrada &mdash; no queda nada por hacer</option>
-              </select>
-            </label>
-            <button class="button button--dark" type="submit" id="inspSubmitBtn">Guardar inspecci&oacute;n</button>
-          </form>
-        </aside>
       </section>
 
       <section class="turnos-view view" id="turnosView" aria-label="Turnos del personal">
@@ -381,11 +297,6 @@
             <button class="button button--light" type="button" id="tnHoyBtn">Hoy</button>
           </div>
         </div>
-
-        <p class="pl-note">
-          Elige la sede y la fecha. Los turnos se calculan con el ciclo de 6 d&iacute;as
-          (2 de d&iacute;a &middot; 2 de noche &middot; 2 de descanso) sobre el cuadro de julio de 2026.
-        </p>
 
         <div class="tn-controls">
           <div class="tn-ctrl">
@@ -422,7 +333,7 @@
           </ul>
         </div>
 
-        <p class="tn-note">Esto muestra la <b>rotaci&oacute;n</b> del ciclo de 6 d&iacute;as. No refleja <b>vacaciones, permisos ni cambios</b> puntuales, ni los d&iacute;as sueltos marcados <b>XX</b> o <b>W</b> en el cuadro &mdash; para esas excepciones, confirma con el cuadro oficial.</p>
+        <p class="tn-note">Rotación de 6 días (2 día · 2 noche · 2 descanso). No incluye vacaciones, permisos ni cambios: confírmalos en el cuadro oficial.</p>
       </section>
 
       <section class="plan-view view" id="planView" aria-label="Plan de mantenimiento por equipo">
@@ -451,8 +362,53 @@
         </form>
       </aside>
 
+      <!-- Hoja para anotar una inspección: fuera de las vistas porque se abre
+           desde Inspecciones, desde Seguimiento y desde la ficha del equipo. -->
+      <div class="tk-sheet-backdrop" id="inspSheetBackdrop" hidden onclick="inspCerrarForm()"></div>
+      <aside class="tk-sheet tk-sheet--ancha" id="inspSheet" hidden aria-label="Anotar inspección">
+        <div class="tk-sheet__head">
+          <h4 id="inspSheetTitulo">Anotar inspecci&oacute;n</h4>
+          <button class="tk-sheet__close" type="button" onclick="inspCerrarForm()" aria-label="Cerrar">&times;</button>
+        </div>
+        <form class="tk-form" id="inspForm" onsubmit="inspGuardar(event)">
+          <label>Equipo<select name="eq" id="inspEqSel" required onchange="inspPintarChecklist()"></select></label>
+          <div class="tk-row2">
+            <label>Fecha<input type="date" name="fecha" required></label>
+            <label>Tipo
+              <select name="tipo">
+                <option value="rutina">Inspecci&oacute;n de rutina</option>
+                <option value="parada">Parada programada</option>
+                <option value="correctiva">Revisi&oacute;n por falla</option>
+                <option value="arranque">Arranque o puesta a punto</option>
+              </select>
+            </label>
+          </div>
+          <label>Qui&eacute;n revis&oacute;<input name="quien" placeholder="Tu nombre"></label>
+          <!-- Qué revisar en este equipo: sale del manual y de las posiciones seguidas (inspPintarChecklist) -->
+          <div class="in-check" id="inspChecklist"></div>
+          <label>Qu&eacute; se revis&oacute;<textarea name="revisado" rows="2" placeholder="Estaciones, sistemas o puntos que se miraron&hellip;"></textarea></label>
+          <label>Qu&eacute; se encontr&oacute;<textarea name="hallazgos" rows="3" placeholder="Desgaste, ruido, fugas, holguras&hellip;"></textarea></label>
+          <div class="in-piezas-campo">
+            <span class="in-lbl">Hallazgos: qu&eacute; hay que hacer</span>
+            <div id="inspPiezas"></div>
+            <button type="button" class="button button--light" onclick="inspAnadirPieza()">A&ntilde;adir hallazgo</button>
+          </div>
+          <label id="inspEstadoWrap" hidden>Estado
+            <select name="estado">
+              <option value="abierta">Abierta &mdash; queda trabajo pendiente</option>
+              <option value="cerrada">Cerrada &mdash; no queda nada por hacer</option>
+            </select>
+          </label>
+          <button class="button button--dark" type="submit" id="inspSubmitBtn">Guardar inspecci&oacute;n</button>
+        </form>
+      </aside>
+
       <section class="alm-view view" id="almacenView" aria-label="Almac&eacute;n: buscar repuestos y llenar la solicitud de materiales">
         <div id="almRoot"></div>
+      </section>
+
+      <section class="alm-view view" id="solicitudesView" aria-label="Historial de solicitudes de materiales">
+        <div id="solRoot"></div>
       </section>
 
       <section class="dy-view view" id="diarioView" aria-label="Diario: seguimiento de lo que se hace cada d&iacute;a">
@@ -679,13 +635,12 @@
       </div>
     </aside>
 
-    <!-- Barra inferior en el celular: lo más usado al alcance del pulgar; "Más" abre el menú completo -->
+    <!-- Barra inferior en el celular: cuatro accesos; "Menú" abre las demás secciones -->
     <nav class="mb" id="mbBar" aria-label="Accesos rápidos">
       <button type="button" data-go="hoy"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg><span>Inicio</span></button>
-      <button type="button" data-go="pendientes"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="6" height="6" rx="1.5"/><path d="m3.5 17 2 2 3.5-4"/><path d="M13 7h8M13 12h8M13 17h8"/></svg><span>Pendientes</span><em id="mbPend"></em></button>
-      <button type="button" data-go="registro"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M8 11h8M8 15h5"/></svg><span>Registro</span></button>
-      <button type="button" data-go="almacen"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 8.35V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8.35A2 2 0 0 1 3.26 6.5l8-3.2a2 2 0 0 1 1.48 0l8 3.2A2 2 0 0 1 22 8.35Z"/><path d="M6 18h12M6 14h12"/><rect x="6" y="10" width="12" height="12"/></svg><span>Almacén</span></button>
-      <button type="button" data-mb="mas" aria-label="Todas las secciones"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Más</span></button>
+      <button type="button" data-go="home"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M17 18h1M12 18h1M7 18h1"/></svg><span>Equipos</span></button>
+      <button type="button" data-go="seguimiento"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="6" height="6" rx="1.5"/><path d="m3.5 17 2 2 3.5-4"/><path d="M13 7h8M13 12h8M13 17h8"/></svg><span>Mantenimiento</span><em id="mbMtto"></em></button>
+      <button type="button" data-mb="mas" aria-label="Todas las secciones"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span>Menú</span></button>
     </nav>
     <div class="ux-toasts" id="uxToasts" aria-live="polite"></div>
 
@@ -694,38 +649,39 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
     <!-- Inicio de sesión: solo se usa si se activa la "clave del taller" (docs/FIREBASE.md) -->
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
-    <script src="assets/js/nube.js?v=202609292144"></script>
+    <script src="assets/js/nube.js?v=202609300258"></script>
 
-    <script src="assets/equipos.js?v=202609292144"></script>
-    <script src="assets/js/causa-codes.js?v=202609292144"></script>
-    <script src="assets/js/integra320-procedimientos.js?v=202609292144"></script>
-    <script src="assets/js/ms235-sensores.js?v=202609292144"></script>
-    <script src="assets/js/ms235-mecanico.js?v=202609292144"></script>
-    <script src="assets/js/inventario.js?v=202609292144"></script>
-    <script src="assets/js/maestro-almacen.js?v=202609292144"></script>
-    <script src="assets/js/inspecciones-registro.js?v=202609292144"></script>
-    <script src="assets/js/componentes-registro.js?v=202609292144"></script>
-    <script src="assets/js/rich-data.js?v=202609292144"></script>
-    <script src="assets/js/machines-data.js?v=202609292144"></script>
-    <script src="assets/js/turnos-data.js?v=202609292144"></script>
-    <script src="assets/js/profile-renderers.js?v=202609292144"></script>
-    <script src="assets/js/almacen.js?v=202609292144"></script>
-    <script src="assets/js/reportes-data.js?v=202609292144"></script>
-    <script src="assets/js/reportes.js?v=202609292144"></script>
-    <script src="assets/js/mtto-data.js?v=202609292144"></script>
-    <script src="assets/js/mtto-lector.js?v=202609292144"></script>
-    <script src="assets/js/mtto-registro.js?v=202609292144"></script>
-    <script src="assets/js/mtto-indicadores.js?v=202609292144"></script>
-    <script src="assets/js/diario.js?v=202609292144"></script>
-    <script src="assets/js/centros-costo.js?v=202609292144"></script>
-    <script src="assets/js/nucleo.js?v=202609292144"></script>
-    <script src="assets/js/reglas-pendientes.js?v=202609292144"></script>
-    <script src="assets/js/shell.js?v=202609292144"></script>
-    <script src="assets/js/pendientes.js?v=202609292144"></script>
-    <script src="assets/js/presupuesto.js?v=202609292144"></script>
-    <script src="assets/js/hoy.js?v=202609292144"></script>
-    <script src="assets/js/ajustes.js?v=202609292144"></script>
-    <script src="assets/js/ficha-actividad.js?v=202609292144"></script>
-    <script src="assets/js/app.js?v=202609292144"></script>
+    <script src="assets/equipos.js?v=202609300258"></script>
+    <script src="assets/js/causa-codes.js?v=202609300258"></script>
+    <script src="assets/js/integra320-procedimientos.js?v=202609300258"></script>
+    <script src="assets/js/ms235-sensores.js?v=202609300258"></script>
+    <script src="assets/js/ms235-mecanico.js?v=202609300258"></script>
+    <script src="assets/js/inventario.js?v=202609300258"></script>
+    <script src="assets/js/maestro-almacen.js?v=202609300258"></script>
+    <script src="assets/js/inspecciones-registro.js?v=202609300258"></script>
+    <script src="assets/js/componentes-registro.js?v=202609300258"></script>
+    <script src="assets/js/rich-data.js?v=202609300258"></script>
+    <script src="assets/js/machines-data.js?v=202609300258"></script>
+    <script src="assets/js/turnos-data.js?v=202609300258"></script>
+    <script src="assets/js/profile-renderers.js?v=202609300258"></script>
+    <script src="assets/js/almacen.js?v=202609300258"></script>
+    <script src="assets/js/reportes-data.js?v=202609300258"></script>
+    <script src="assets/js/reportes.js?v=202609300258"></script>
+    <script src="assets/js/mtto-data.js?v=202609300258"></script>
+    <script src="assets/js/mtto-lector.js?v=202609300258"></script>
+    <script src="assets/js/mtto-registro.js?v=202609300258"></script>
+    <script src="assets/js/mtto-indicadores.js?v=202609300258"></script>
+    <script src="assets/js/diario.js?v=202609300258"></script>
+    <script src="assets/js/centros-costo.js?v=202609300258"></script>
+    <script src="assets/js/nucleo.js?v=202609300258"></script>
+    <script src="assets/js/reglas-pendientes.js?v=202609300258"></script>
+    <script src="assets/js/shell.js?v=202609300258"></script>
+    <script src="assets/js/pendientes.js?v=202609300258"></script>
+    <script src="assets/js/presupuesto.js?v=202609300258"></script>
+    <script src="assets/js/seguimiento.js?v=202609300258"></script>
+    <script src="assets/js/hoy.js?v=202609300258"></script>
+    <script src="assets/js/ajustes.js?v=202609300258"></script>
+    <script src="assets/js/ficha-actividad.js?v=202609300258"></script>
+    <script src="assets/js/app.js?v=202609300258"></script>
   </body>
 </html>

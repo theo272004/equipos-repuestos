@@ -9,15 +9,19 @@
 //  enlaces al Registro diario, al reporte original del chat y a la ficha
 //  técnica del equipo.
 //
-//  Definiciones (las mismas de la hoja INDICADORES del Excel y del Power BI):
-//   - Tiempo programado: 12 h por turno en que el equipo estuvo en Producción,
-//     Montaje o Mantenimiento.
+//  Definiciones. Todo sale de contar novedades: no depende del estado de los
+//  equipos (producción, limpieza, stand by), que ya no se lleva.
 //   - Falla: novedad con categoría Máquina y tipo Correctivo.
-//   - MTBF = tiempo programado / fallas.  MTTR = horas de las fallas con
-//     horario / fallas con horario.
-//   - Disponibilidad = 1 − horas de parada por falla de máquina / tiempo
-//     programado. Solo se muestra si al menos la mitad de las fallas trae
-//     horario (cobertura); si no, un 99 % sería engañoso.
+//   - Falla repetida (reincidencia): el mismo modo de falla en la misma
+//     máquina dentro de los 7 días siguientes.
+//   - Una falla cada X días: días del periodo / fallas de esa máquina.
+//   - Tiempo de reparación: promedio de las fallas que traen tiempo anotado,
+//     siempre con el % de fallas que lo traen (cobertura), porque hoy es bajo.
+//   - Reportes de turno: turnos terminados del periodo que tienen reporte
+//     (chat o formulario) frente a los que debía haber (2 por día y sede).
+//  MTBF sobre horas programadas y disponibilidad se quitaron: necesitaban el
+//  estado de los equipos turno a turno y el horario de cada falla, y ninguno
+//  de los dos se registra de forma fiable.
 // ============================================================================
 
 (function () {
@@ -39,7 +43,7 @@
   const FILTROS = {
     sede: { l: "Sede" }, area: { l: "Tipo de máquina" }, eq: { l: "Máquina", v: (x) => x.replace("|", " · ") },
     fa: { l: "Modo de falla" }, cat: { l: "Categoría" }, tp: { l: "Mantenimiento" },
-    sem: { l: "Semana del", v: (x) => fechaCorta(x) }, tec: { l: "Técnico" }, pend: { l: "Estado", v: () => "Con pendiente" },
+    sem: { l: "Semana del", v: (x) => fechaCorta(x) }, pend: { l: "Estado", v: () => "Con pendiente" }, frep: { l: "Repuesto", v: () => "Faltó repuesto" },
   };
   const qs = new URLSearchParams(window.location.search);
   const vista = { periodo: "todo", desde: M.desde, hasta: S.hoy(), f: {}, pagina: 0, abierto: "", orden: "fecha", filtros: false };
@@ -82,43 +86,78 @@
     if (f.fa && !no("fa") && (r.fa || "Sin clasificar") !== f.fa) return false;
     if (f.cat && !no("cat") && r.cat !== f.cat) return false;
     if (f.tp && !no("tp") && r.tp !== f.tp) return false;
-    if (f.tec && !no("tec") && (r.tec || "Sin técnico") !== f.tec) return false;
     if (f.pend && !no("pend") && !esPend(r)) return false;
+    if (f.frep && !no("frep") && !r.frep) return false;
     return true;
   }
 
-  function agregar(regs, tProg) {
+  // Reincidencia: la misma falla (mismo modo) en la misma máquina dentro de 7 días
+  function reincidencias(fallas) {
+    const orden = fallas.slice().sort((p, q) => p.f.localeCompare(q.f));
+    let n = 0;
+    orden.forEach((r, i) => { if (r.fa && orden.slice(0, i).some((p) => claveEq(p) === claveEq(r) && p.fa === r.fa && (Date.parse(r.f) - Date.parse(p.f)) / 864e5 <= 7)) n++; });
+    return n;
+  }
+
+  function agregar(regs, dias) {
     const fallas = regs.filter(esFalla);
     const fct = fallas.filter(conTiempo);
     const hFallas = fct.reduce((s, r) => s + r.min, 0) / 60;
-    const hParMaq = regs.filter((r) => r.cat === "Máquina" && paro(r)).reduce((s, r) => s + r.min, 0) / 60;
     const porCat = {};
     C.categorias.forEach((c) => (porCat[c] = 0));
     regs.forEach((r) => { if (paro(r)) porCat[r.cat] = (porCat[r.cat] || 0) + r.min / 60; });
     const cob = fallas.length ? fct.length / fallas.length : null;
+    const modos = {};
+    fallas.forEach((r) => { const k = r.fa || "Sin clasificar"; modos[k] = (modos[k] || 0) + 1; });
+    const top = Object.entries(modos).sort((a, b) => b[1] - a[1])[0];
+    const sem = Math.max(1, dias / 7);
     return {
-      tProg, n: regs.length, fallas: fallas.length, fct: fct.length, cob,
-      hPar: Object.values(porCat).reduce((a, b) => a + b, 0), hParMaq, porCat,
-      disp: tProg > 0 && cob != null && cob >= COB_MIN ? Math.max(0, 1 - hParMaq / tProg) : tProg > 0 && fallas.length === 0 ? 1 : null,
-      mtbf: fallas.length ? tProg / fallas.length : tProg > 0 ? Infinity : null,
+      dias, n: regs.length, fallas: fallas.length, fct: fct.length, cob,
+      porSem: fallas.length / sem,
+      cadaDias: fallas.length ? dias / fallas.length : null,
+      reinc: reincidencias(fallas),
+      topFa: top ? { k: top[0], n: top[1] } : null,
+      hPar: Object.values(porCat).reduce((a, b) => a + b, 0), porCat,
       mttr: fct.length ? hFallas / fct.length : null,
       pend: regs.filter(esPend).length,
       frep: regs.filter((r) => r.frep).length,
     };
   }
 
+  // Turnos del periodo con reporte (del chat o del formulario). El turno de
+  // día de F se reporta entre F 14:00 y F+1 4:59; el de noche, entre F+1 5:00
+  // y F+1 13:59. Solo cuentan los turnos que ya terminaron (hasta ayer).
+  function reportesRecibidos(sede, d, h) {
+    const marcas = [];
+    (Array.isArray(window.REPORTES_TURNO) ? window.REPORTES_TURNO : []).forEach((r) => { if (r.sede === sede) marcas.push(`${r.fecha} ${r.hora || "00:00"}`); });
+    S.registros().forEach((r) => {
+      if (r.s !== sede || !r.rid) return;
+      const m = /^rt-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})/.exec(r.rid);
+      if (m) marcas.push(`${m[1]}-${m[2]}-${m[3]} ${m[4]}:${m[5]}`);
+    });
+    const hay = (a, b) => marcas.some((x) => x >= a && x <= b);
+    let total = 0, con = 0;
+    const ayer = S.sumaDias(S.hoy(), -1);
+    const fin = ayer < h ? ayer : h;
+    for (let f = d; f <= fin; f = S.sumaDias(f, 1)) {
+      const s = S.sumaDias(f, 1);
+      total += 2;
+      if (hay(`${f} 14:00`, `${s} 04:59`)) con++;
+      if (hay(`${s} 05:00`, `${s} 13:59`)) con++;
+    }
+    return { con, total };
+  }
+
   function calcular() {
     const [d, h] = rango();
     const f = vista.f;
+    const dias = Math.max(1, Math.round((Date.parse(h) - Date.parse(d)) / 864e5) + 1);
     const enPeriodo = S.registros().filter((r) => r.f >= d && r.f <= h);
     const regs = enPeriodo.filter((r) => pasa(r, f));
-    const horas = S.horas();
-    const tDe = (sede, eq) => Object.entries(horas[`${sede}|${eq}`] || {}).reduce((s, [x, v]) => (x >= d && x <= h ? s + v : s), 0);
-    // el tiempo programado solo depende de dónde (sede, tipo, máquina), no del modo de falla
     const eqs = C.equipos.filter((e) => e.proc && (!f.sede || e.s === f.sede) && (!f.area || e.ar === f.area) && (!f.eq || `${e.s}|${e.eq}` === f.eq));
     const porEquipo = eqs.map((e) => {
       const rs = regs.filter((r) => r.s === e.s && r.eq === e.eq);
-      return { ...e, k: `${e.s}|${e.eq}`, ...agregar(rs, tDe(e.s, e.eq)), regs: rs };
+      return { ...e, k: `${e.s}|${e.eq}`, ...agregar(rs, dias), regs: rs };
     });
     // con una máquina elegida, su sede y su tipo quedan implícitos
     const eqInfo = f.eq ? C.equipos.find((e) => `${e.s}|${e.eq}` === f.eq) : null;
@@ -127,23 +166,27 @@
     const porArea = C.areasProceso.filter((ar) => !areaEf || ar === areaEf).map((ar) => {
       const es = porEquipo.filter((e) => e.ar === ar);
       const rs = regs.filter((r) => r.ar === ar);
-      return { ar, meta: M.metas[ar], ...agregar(rs, es.reduce((s, e) => s + e.tProg, 0)), equipos: es, regs: rs };
+      const a = { ar, meta: M.metas[ar], ...agregar(rs, dias), equipos: es, regs: rs };
+      // fallas por máquina y semana: lo que dice si un tipo de máquina está peor que otro
+      a.fpm = es.length ? a.porSem / es.length : null;
+      return a;
     });
     const sedes = (sedeEf ? [sedeEf] : C.sedes).map((s) => {
-      const es = porEquipo.filter((e) => e.s === s);
       const rs = regs.filter((r) => r.s === s);
-      const a = agregar(rs.filter((r) => C.areasProceso.includes(r.ar)), es.reduce((x, e) => x + e.tProg, 0));
-      a.porCat = agregar(rs, 0).porCat;
+      const a = agregar(rs.filter((r) => C.areasProceso.includes(r.ar)), dias);
+      a.porCat = agregar(rs, dias).porCat;
       a.n = rs.length;
       a.pend = rs.filter(esPend).length;
+      a.frep = rs.filter((r) => r.frep).length;
+      a.reportes = reportesRecibidos(s, d, h);
       return { s, ...a };
     });
-    const total = agregar(regs.filter((r) => C.areasProceso.includes(r.ar)), porEquipo.reduce((s, e) => s + e.tProg, 0));
-    total.porCat = agregar(regs, 0).porCat;
+    const total = agregar(regs.filter((r) => C.areasProceso.includes(r.ar)), dias);
+    total.porCat = agregar(regs, dias).porCat;
     total.n = regs.length;
     // para las gráficas de distribución: todo menos su propio filtro (así se ve la selección resaltada)
     const sin = (k) => enPeriodo.filter((r) => pasa(r, f, [k]));
-    return { d, h, regs, porEquipo, porArea, sedes, total, sin };
+    return { d, h, dias, regs, porEquipo, porArea, sedes, total, sin };
   }
 
   // ------------------------------------------------------------------------
@@ -162,11 +205,12 @@
   const fil = (k, v, extra = "") => `data-ki="filtro" data-k="${k}" data-v="${esc(v)}" ${extra} role="button" tabindex="0" title="Filtrar: ${esc(FILTROS[k].l)} = ${esc(FILTROS[k].v ? FILTROS[k].v(v) : v)}"`;
   const sel = (k, v) => (vista.f[k] === v ? "is-sel" : "");
 
+  // Cómo va un tipo de máquina: más de una falla por máquina a la semana es
+  // señal de alarma; sin fallas, va bien; sin máquinas, no hay dato.
   function estadoArea(a) {
-    const m = a.meta || {};
-    if (a.disp != null && a.fallas > 0) return a.disp >= m.disp ? "ok" : "bad";
-    if (a.mtbf != null && a.fallas > 0) return a.mtbf >= m.mtbf ? "ok" : "bad";
-    return a.tProg > 0 ? "ok" : "na";
+    if (!a.equipos.length) return "na";
+    if (!a.fallas) return "ok";
+    return a.fpm > 1 ? "bad" : "ok";
   }
   const flecha = (ok) => (ok ? `<span class="ki-ok" aria-label="cumple">✓</span>` : `<span class="ki-bad" aria-label="no cumple">!</span>`);
 
@@ -291,44 +335,40 @@
   }
 
   function bloqueSede(x) {
-    const m = META_GLOBAL;
-    const ok = (v, meta, mayor = true) => (v == null || v === Infinity ? null : mayor ? v >= meta : v <= meta);
-    const cMtbf = x.fallas ? ok(x.mtbf, m.mtbf) : null, cMttr = ok(x.mttr, m.mttr, false), cDisp = ok(x.disp, m.disp);
-    const col = (c) => (c == null ? "#98A2B3" : c ? "#12B76A" : "#F04438");
-    const tile = (tono, tit, valor, sub, visual, attrs = "") => `<div class="mx-stile mx-stile--${tono} ${attrs ? "is-link" : ""}" ${attrs}><span class="mx-stile__l">${tit}</span><div class="mx-stile__b"><b>${valor}</b>${visual || ""}</div><small>${sub}</small></div>`;
+    const tile = (tono, tit, valor, sub, attrs = "") => `<div class="mx-stile mx-stile--${tono} ${attrs ? "is-link" : ""}" ${attrs}><span class="mx-stile__l">${tit}</span><div class="mx-stile__b"><b>${valor}</b></div><small>${sub}</small></div>`;
+    const multi = (set) => `data-ki="multi" data-set='${esc(JSON.stringify({ sede: x.s, ...set }))}' role="button" tabindex="0"`;
+    const rep = x.reportes || { con: 0, total: 0 };
+    const repPct = rep.total ? rep.con / rep.total : null;
     return `<section class="mx-sede ${sel("sede", x.s)}">
       <header class="mx-sede__head is-link" ${fil("sede", x.s)}>
         <span class="mx-sede__ic mx-sede__ic--${x.s === "Sede 4" ? "s4" : "s2"}">${ic("edificio")}</span>
-        <div><h3>${esc(x.s === "Sede 2" ? "Sede 2 · Vía 40" : x.s)}</h3><p>${hh(x.tProg)} programadas · ${x.n} novedades</p></div>
-        <span class="mx-pill ${x.fallas && cMtbf === false ? "mx-pill--maq" : "mx-pill--ok"}"><i></i>${x.fallas ? (cMtbf ? "MTBF en meta" : "MTBF bajo meta") : "Sin fallas"}</span>
+        <div><h3>${esc(x.s === "Sede 2" ? "Sede 2 · Vía 40" : x.s)}</h3><p>${x.n} novedades en ${x.dias} días</p></div>
+        <span class="mx-pill ${x.reinc >= 3 ? "mx-pill--maq" : "mx-pill--ok"}"><i></i>${x.reinc ? `${x.reinc} ${x.reinc === 1 ? "falla repetida" : "fallas repetidas"}` : "Sin fallas repetidas"}</span>
       </header>
       <div class="mx-sede__tiles">
-        ${tile(cDisp == null ? "gray" : cDisp ? "green" : "red", "Disponibilidad", pct(x.disp), x.disp == null ? `faltan horarios (${x.cob == null ? "—" : pct(x.cob, 0)})` : `objetivo ${pct(m.disp, 0)}`, UI.anillo ? UI.anillo(x.disp || 0, col(cDisp)) : "")}
-        ${tile(cMtbf == null ? "gray" : cMtbf ? "green" : "red", "MTBF", x.mtbf == null ? "—" : `${nf(x.mtbf)}<em>h</em>`, `objetivo ≥ ${m.mtbf} h`, UI.anillo ? UI.anillo(x.mtbf && x.mtbf !== Infinity ? Math.min(1, x.mtbf / (m.mtbf * 1.5)) : 0, col(cMtbf)) : "")}
-        ${tile(cMttr == null ? "gray" : cMttr ? "green" : "red", "MTTR", x.mttr == null ? "—" : `${nf(x.mttr, 2)}<em>h</em>`, `objetivo ≤ ${nf(m.mttr)} h`, UI.anillo ? UI.anillo(x.mttr ? Math.min(1, x.mttr / (m.mttr * 2)) : 0, col(cMttr)) : "")}
-        ${tile("amber", "Horas de parada", `${nf(x.hPar, x.hPar >= 100 ? 0 : 1)}<em>h</em>`, "registradas", "")}
-        ${tile("red", "Fallas de máquina", nf(x.fallas, 0), "correctivos · ver lista", "", `data-ki="multi" data-set='${esc(JSON.stringify({ sede: x.s, cat: "Máquina", tp: "Correctivo" }))}' role="button" tabindex="0"`)}
-        ${tile("violet", "Con pendiente", nf(x.pend, 0), "trabajo abierto · ver lista", "", `data-ki="multi" data-set='${esc(JSON.stringify({ sede: x.s, pend: "1" }))}' role="button" tabindex="0"`)}
+        ${tile("red", "Fallas de máquina", nf(x.fallas, 0), `${nf(x.porSem)} por semana · ver lista`, multi({ cat: "Máquina", tp: "Correctivo" }))}
+        ${tile(x.reinc >= 3 ? "red" : "gray", "Fallas repetidas", nf(x.reinc, 0), "mismo modo en ≤ 7 días")}
+        ${tile("violet", "Con pendiente", nf(x.pend, 0), "trabajo abierto · ver lista", multi({ pend: "1" }))}
+        ${tile(x.frep ? "amber" : "gray", "Faltó repuesto", nf(x.frep, 0), "ver cuáles", multi({ frep: "1" }))}
+        ${tile(x.cob != null && x.cob >= COB_MIN ? "green" : "gray", "Tiempo de reparación", x.mttr == null ? "—" : `${nf(x.mttr, 1)}<em>h</em>`, x.cob == null ? "sin fallas" : `anotado en ${pct(x.cob, 0)} de las fallas`)}
+        ${tile(repPct == null ? "gray" : repPct >= 0.9 ? "green" : "amber", "Reportes de turno", rep.total ? `${rep.con}<em>/${rep.total}</em>` : "—", repPct == null ? "sin turnos cerrados" : `${pct(repPct, 0)} de los turnos`)}
       </div>
     </section>`;
   }
 
   function tarjetaArea(a) {
     const st = estadoArea(a);
-    const m = a.meta;
     const top = a.equipos.filter((e) => e.fallas > 0).sort((p, q) => q.fallas - p.fallas).slice(0, 4);
-    const pill = st === "ok" ? `<span class="mx-pill mx-pill--ok"><i></i>${a.fallas ? "Cumple la meta" : "Sin fallas"}</span>` : st === "bad" ? `<span class="mx-pill mx-pill--maq"><i></i>Bajo la meta</span>` : `<span class="mx-pill"><i></i>Sin datos</span>`;
-    const mtbfP = a.mtbf && a.mtbf !== Infinity ? Math.min(1, a.mtbf / m.mtbf) : a.fallas ? 0 : 1;
+    const pill = st === "bad" ? `<span class="mx-pill mx-pill--maq"><i></i>Más de una falla por máquina a la semana</span>` : st === "ok" ? `<span class="mx-pill mx-pill--ok"><i></i>${a.fallas ? "Fallas bajo control" : "Sin fallas"}</span>` : `<span class="mx-pill"><i></i>Sin máquinas</span>`;
     return `<article class="mx-acard mx-acard--${st} ${sel("area", a.ar)}">
       <div class="mx-acard__top">${pill}<button type="button" class="mx-iconbtn mx-iconbtn--sm" ${fil("area", a.ar)} aria-label="Ver detalle de ${esc(a.ar)}">${ic("der")}</button></div>
       <h4 class="is-link" ${fil("area", a.ar)}>${esc(a.ar)}</h4>
-      <p class="mx-acard__sub">${a.equipos.length} máquinas · ${hh(a.tProg)} programadas</p>
-      <div class="mx-acard__num"><b>${a.fallas}</b><span>fallas</span>${a.disp != null ? `<span class="mx-chip ${a.disp >= m.disp ? "mx-chip--ok" : "mx-chip--bad"}">${pct(a.disp)} disp.</span>` : ""}</div>
-      <div class="mx-acard__prog"><p><span>MTBF frente a la meta</span><b>${a.mtbf == null ? "—" : nf(a.mtbf)} / ${m.mtbf} h</b></p>${UI.segBar ? UI.segBar(Math.round(mtbfP * 20), 20, 20, st === "bad" ? "is-bad" : "is-ok") : ""}</div>
+      <p class="mx-acard__sub">${a.equipos.length} máquinas · ${a.n} novedades</p>
+      <div class="mx-acard__num"><b>${a.fallas}</b><span>fallas</span>${a.fallas ? `<span class="mx-chip ${st === "bad" ? "mx-chip--bad" : "mx-chip--ok"}">${nf(a.porSem)} / semana</span>` : ""}</div>
       <dl class="mx-inset">
-        <div><dt>${ic("reloj")}MTTR</dt><dd class="${a.mttr != null && a.mttr > m.mttr ? "mx-falta" : ""}">${a.mttr == null ? "—" : nf(a.mttr, 2) + " h"} <small>meta ≤ ${nf(m.mttr)}</small></dd></div>
-        <div><dt>${ic("falla")}Horas de parada</dt><dd>${hh(a.hPar)}</dd></div>
-        <div><dt>${ic("check")}Con horario</dt><dd>${a.cob == null ? "—" : pct(a.cob, 0)}</dd></div>
+        <div><dt>${ic("falla")}Falla más repetida</dt><dd>${a.topFa ? `${esc(a.topFa.k)} <small>×${a.topFa.n}</small>` : "—"}</dd></div>
+        <div><dt>${ic("reloj")}Reincidencias</dt><dd class="${a.reinc >= 3 ? "mx-falta" : ""}">${a.reinc} <small>mismo modo en ≤ 7 días</small></dd></div>
+        <div><dt>${ic("llave")}Con pendiente</dt><dd>${a.pend}${a.frep ? ` <small>· ${a.frep} sin repuesto</small>` : ""}</dd></div>
       </dl>
       <div class="mx-acard__eqs">${top.map((e) => `<button type="button" class="mx-eqchip ${sel("eq", e.k)}" ${fil("eq", e.k)}>${esc(e.eq)}${vista.f.sede ? "" : e.s === "Sede 2" ? " · S2" : ""}<b>${e.fallas}</b></button>`).join("") || `<span class="mx-acard__nada">Sin fallas en el periodo</span>`}</div>
     </article>`;
@@ -355,26 +395,20 @@
   }
 
   function tablaEquipos(es) {
-    const filas = es.filter((e) => e.tProg > 0 || e.n > 0).sort((a, b) => b.fallas - a.fallas || b.n - a.n);
-    if (!filas.length) return `<p class="pl-soft ki-nada">Sin datos.</p>`;
-    return `<div class="mt-tabla-wrap"><table class="ki-tabla ki-tabla--eq"><thead><tr><th>Máquina</th><th>T. programado</th><th>Novedades</th><th>Fallas</th><th>H. parada</th><th>MTBF</th><th>MTTR</th><th>% disp.</th><th>Meta</th><th>Dif.</th><th>Pend.</th></tr></thead><tbody>
-      ${filas.map((e) => {
-        const m = M.metas[e.ar];
-        const dif = e.disp == null ? null : e.disp - m.disp;
-        return `<tr class="is-link ${sel("eq", e.k)}" ${fil("eq", e.k)}><td><strong>${esc(e.eq)}</strong>${vista.f.sede ? "" : `<small>${esc(e.s)}</small>`}</td><td>${hh(e.tProg)}</td><td>${e.n}</td>
-          <td class="${e.fallas >= 10 ? "ki-hot" : ""}">${e.fallas}</td><td>${e.hPar ? nf(e.hPar) : "—"}</td>
-          <td class="${e.fallas && e.mtbf < m.mtbf ? "ki-bad" : ""}">${e.mtbf == null ? "—" : nf(e.mtbf)}</td>
-          <td class="${e.mttr != null && e.mttr > m.mttr ? "ki-bad" : ""}">${e.mttr == null ? "—" : nf(e.mttr, 2)}</td>
-          <td>${e.disp == null ? `<span class="pl-soft" title="Menos de la mitad de las fallas tiene horario">s/d</span>` : pct(e.disp)}</td><td>${pct(m.disp, 0)}</td>
-          <td class="${dif == null ? "" : dif >= 0 ? "ki-ok" : "ki-bad"}">${dif == null ? "—" : (dif >= 0 ? "+" : "") + nf(dif * 100) + " pts"}</td>
-          <td>${e.pend || ""}</td></tr>`;
-      }).join("")}</tbody></table></div>`;
+    const filas = es.filter((e) => e.n > 0).sort((a, b) => b.fallas - a.fallas || b.n - a.n);
+    if (!filas.length) return `<p class="pl-soft ki-nada">Sin novedades en estas máquinas.</p>`;
+    return `<div class="mt-tabla-wrap"><table class="ki-tabla ki-tabla--eq"><thead><tr><th>Máquina</th><th>Novedades</th><th>Fallas</th><th>Una cada</th><th>Repetidas</th><th>Falla más repetida</th><th>Reparación</th><th>Pend.</th><th>Sin rep.</th></tr></thead><tbody>
+      ${filas.map((e) => `<tr class="is-link ${sel("eq", e.k)}" ${fil("eq", e.k)}><td><strong>${esc(e.eq)}</strong>${vista.f.sede ? "" : `<small>${esc(e.s)}</small>`}</td><td>${e.n}</td>
+          <td class="${e.fallas >= 10 ? "ki-hot" : ""}">${e.fallas}</td><td>${e.cadaDias == null ? "—" : `${nf(e.cadaDias, e.cadaDias < 10 ? 1 : 0)} d`}</td>
+          <td class="${e.reinc >= 2 ? "ki-bad" : ""}">${e.reinc || "—"}</td>
+          <td>${e.topFa ? `${esc(e.topFa.k)} <small>×${e.topFa.n}</small>` : "—"}</td>
+          <td>${e.mttr == null ? `<span class="pl-soft" title="Ninguna falla trae tiempo anotado">s/d</span>` : `${nf(e.mttr, 1)} h <small>${pct(e.cob, 0)}</small>`}</td>
+          <td>${e.pend || ""}</td><td>${e.frep || ""}</td></tr>`).join("")}</tbody></table></div>`;
   }
 
   function detalleArea(res) {
     const a = res.porArea.find((x) => x.ar === vista.f.area);
     if (!a || vista.f.eq) return "";
-    const m = a.meta;
     return `<section class="ki-det" id="kiDetalle">
       <div class="ki-det__head">
         <button type="button" class="mt-ico" data-ki="quitar" data-k="area" aria-label="Quitar filtro">←</button>
@@ -383,18 +417,17 @@
       </div>
       <div class="ki-det__grid">
         <aside class="ki-det__kpis">
-          ${metrica("Disponibilidad", pct(a.disp), `Objetivo ${pct(m.disp, 0)}`, a.disp == null ? null : a.disp >= m.disp, a.cob == null ? "" : `${pct(a.cob, 0)} de fallas con horario`)}
-          ${metrica("Horas de parada", hh(a.hPar), `${hh(a.tProg)} programadas`)}
-          ${metrica("MTBF máquinas", a.mtbf == null ? "—" : `${nf(a.mtbf)} h`, `Objetivo ≥ ${m.mtbf} h`, a.mtbf == null || !a.fallas ? null : a.mtbf >= m.mtbf)}
-          ${metrica("MTTR máquinas", a.mttr == null ? "—" : `${nf(a.mttr, 2)} h`, `Objetivo ≤ ${nf(m.mttr)} h`, a.mttr == null ? null : a.mttr <= m.mttr)}
+          ${metrica("Fallas de máquina", nf(a.fallas, 0), `${nf(a.porSem)} por semana · ${a.equipos.length} máquinas`, null, "", fil("cat", "Máquina"))}
+          ${metrica("Fallas repetidas", nf(a.reinc, 0), "mismo modo en ≤ 7 días", a.fallas ? a.reinc < 3 : null)}
+          ${metrica("Falla más repetida", a.topFa ? esc(a.topFa.k) : "—", a.topFa ? `${a.topFa.n} veces` : "", null, "", a.topFa ? fil("fa", a.topFa.k) : "")}
+          ${metrica("Tiempo de reparación", a.mttr == null ? "—" : `${nf(a.mttr, 1)} h`, a.cob == null ? "" : `anotado en ${pct(a.cob, 0)} de las fallas`, a.mttr == null ? null : a.mttr <= (a.meta || META_GLOBAL).mttr)}
+          ${metrica("Con pendiente", nf(a.pend, 0), "trabajo abierto", null, "", fil("pend", "1"))}
+          ${metrica("Faltó repuesto", nf(a.frep, 0), "para atender la falla", null, "", fil("frep", "1"))}
           ${metrica("H. apoyo crítico", hh(a.porCat["Apoyo crítico"]), "aire, energía, agua, HVAC", null, "", fil("cat", "Apoyo crítico"))}
-          ${metrica("H. operacional", hh(a.porCat["Operacional"]), "cuadres, formatos, operador", null, "", fil("cat", "Operacional"))}
-          ${metrica("H. preventivo", hh(a.porCat["Preventivo"]), "paradas programadas", null, "", fil("cat", "Preventivo"))}
-          ${metrica("Con pendiente", nf(a.pend, 0), `${a.frep} faltó repuesto`, null, "", fil("pend", "1"))}
         </aside>
         <div class="ki-det__main">
           <div class="ki-panel"><h4>Fallas y horas de parada por semana</h4>${tendencia(a.regs, res.d, res.h)}</div>
-          <div class="ki-panel"><h4>Indicadores por máquina <small>toca una fila para ver la máquina</small></h4>${tablaEquipos(a.equipos)}</div>
+          <div class="ki-panel"><h4>Máquinas de este tipo <small>toca una fila para ver la máquina</small></h4>${tablaEquipos(a.equipos)}</div>
           <div class="ki-panel"><h4>Top 10 de fallas en ${esc(a.ar.toLowerCase())}</h4>${topFallas(a.regs)}</div>
         </div>
       </div>
@@ -408,23 +441,18 @@
     const e = res.porEquipo.find((x) => x.k === vista.f.eq);
     const info = C.equipos.find((x) => x.s === sede && x.eq === nombre) || {};
     const regs = res.regs;
-    const a = e || { ...agregar(regs, 0), ar: info.ar || "" };
+    const a = e || { ...agregar(regs, res.dias), ar: info.ar || "" };
     const m = M.metas[a.ar] || META_GLOBAL;
-    // reincidencias: mismo modo de falla en la misma máquina dentro de 7 días
-    const fallas = regs.filter(esFalla).sort((p, q) => p.f.localeCompare(q.f));
-    let reinc = 0;
-    fallas.forEach((r, i) => { if (fallas.slice(0, i).some((p) => (p.fa || "") === (r.fa || "") && r.fa && (new Date(r.f) - new Date(p.f)) / 864e5 <= 7)) reinc++; });
-    // calendario del periodo: horas programadas y novedades por día
-    const horas = (S.horas()[vista.f.eq]) || {};
+    // calendario del periodo: novedades y fallas por día
     const dias = [];
     for (let d = res.d; d <= res.h; d = S.sumaDias(d, 1)) dias.push(d);
     const porDia = {};
-    regs.forEach((r) => { (porDia[r.f] = porDia[r.f] || { n: 0, f: 0 }).n++; if (esFalla(r)) porDia[r.f].f++; });
+    regs.forEach((r) => { (porDia[r.f] = porDia[r.f] || { n: 0, f: 0, p: false }).n++; if (esFalla(r)) porDia[r.f].f++; if (esPend(r)) porDia[r.f].p = true; });
     const cal = dias.length <= 120 ? `<div class="ki-cal">${dias.map((d) => {
-      const h = horas[d] || 0, x = porDia[d];
-      const cls = x && x.f ? "is-falla" : h ? "is-prod" : "is-off";
-      return `<button type="button" class="ki-cal__d ${cls}" data-ki="dia" data-v="${d}" title="${fechaLarga(d)}: ${h} h programadas${x ? ` · ${x.n} novedades (${x.f} fallas)` : ""}">${Number(d.slice(8))}${x ? `<i>${x.n}</i>` : ""}</button>`;
-    }).join("")}</div><p class="ki-leyenda"><span class="ki-sw" style="background:#d1fadf"></span>En producción <span class="ki-sw" style="background:#fee4e2"></span>Con fallas <span class="ki-sw" style="background:#f2f4f7"></span>Parada / stand by · toca un día para abrirlo en el Registro diario</p>` : "";
+      const x = porDia[d];
+      const cls = x && x.f ? "is-falla" : x ? "is-nov" : "is-off";
+      return `<button type="button" class="ki-cal__d ${cls}" data-ki="dia" data-v="${d}" title="${fechaLarga(d)}${x ? `: ${x.n} novedades (${x.f} fallas)${x.p ? " · quedó pendiente" : ""}` : ": sin novedades"}">${Number(d.slice(8))}${x ? `<i>${x.n}</i>` : ""}</button>`;
+    }).join("")}</div><p class="ki-leyenda"><span class="ki-sw" style="background:#fee4e2"></span>Con fallas <span class="ki-sw" style="background:#e0eaff"></span>Con otras novedades <span class="ki-sw" style="background:#f2f4f7"></span>Sin novedades · toca un día para abrirlo en el Registro diario</p>` : "";
     const ultimas = regs.slice().sort((p, q) => (q.f + (q.hi || q.hr || "")).localeCompare(p.f + (p.hi || p.hr || ""))).slice(0, 15);
     return `<section class="ki-det ki-det--maq" id="kiDetalle">
       <div class="ki-det__head">
@@ -435,13 +463,13 @@
       </div>
       <div class="ki-det__grid">
         <aside class="ki-det__kpis">
-          ${metrica("Disponibilidad", pct(a.disp), `Objetivo ${pct(m.disp, 0)}`, a.disp == null ? null : a.disp >= m.disp, a.cob == null ? "" : `${pct(a.cob, 0)} de fallas con horario`)}
-          ${metrica("Tiempo programado", hh(a.tProg), `${Object.keys(horas).filter((d) => d >= res.d && d <= res.h).length} días con producción`)}
-          ${metrica("Fallas", nf(a.fallas, 0), `${reinc} reincidencias (≤ 7 días)`, null, "", fil("cat", "Máquina"))}
-          ${metrica("MTBF", a.mtbf == null ? "—" : `${nf(a.mtbf)} h`, `Objetivo ≥ ${m.mtbf} h`, a.mtbf == null || !a.fallas ? null : a.mtbf >= m.mtbf)}
-          ${metrica("MTTR", a.mttr == null ? "—" : `${nf(a.mttr, 2)} h`, `Objetivo ≤ ${nf(m.mttr)} h`, a.mttr == null ? null : a.mttr <= m.mttr)}
+          ${metrica("Fallas", nf(a.fallas, 0), `${nf(a.porSem)} por semana`, null, "", fil("cat", "Máquina"))}
+          ${metrica("Una falla cada", a.cadaDias == null ? "—" : `${nf(a.cadaDias, a.cadaDias < 10 ? 1 : 0)} días`, `en ${a.dias} días`, a.cadaDias == null ? null : a.cadaDias >= 7)}
+          ${metrica("Fallas repetidas", nf(a.reinc, 0), "mismo modo en ≤ 7 días", a.fallas ? a.reinc < 2 : null)}
+          ${metrica("Tiempo de reparación", a.mttr == null ? "—" : `${nf(a.mttr, 1)} h`, a.cob == null ? "" : `anotado en ${pct(a.cob, 0)} de las fallas`, a.mttr == null ? null : a.mttr <= m.mttr)}
           ${metrica("Horas de parada", hh(a.hPar), `${a.n} novedades`)}
-          ${metrica("Con pendiente", nf(a.pend, 0), `${a.frep} faltó repuesto`, null, "", fil("pend", "1"))}
+          ${metrica("Con pendiente", nf(a.pend, 0), "trabajo abierto", null, "", fil("pend", "1"))}
+          ${metrica("Faltó repuesto", nf(a.frep, 0), "para atender la falla", null, "", fil("frep", "1"))}
         </aside>
         <div class="ki-det__main">
           <div class="ki-duo ki-duo--in">
@@ -526,7 +554,7 @@
         <div class="mx-snaps">
           ${snap("calendario", `${Number(r.f.slice(8))} ${MESES[Number(r.f.slice(5, 7)) - 1].slice(0, 3)}`, `turno ${esc(r.t)}${r.hr ? " · " + esc(r.hr) : ""}`)}
           ${snap("reloj", r.min > 0 ? nf(r.min / 60, 2) + " h" : "—", r.hi ? `${esc(r.hi)} – ${esc(r.hf || "")}` : esFalla(r) ? "sin horario" : "duración")}
-          ${snap("usuario", r.tec ? esc(r.tec.split(" ")[0]) : "—", /^chat(-pegado)?$/.test(r.src) ? "reportó en el chat" : "técnico")}
+          ${r.tec && !/^chat/.test(r.src || "") ? snap("usuario", esc(r.tec.split(" ")[0]), "técnico") : ""}
           ${snap("falla", mismas, "fallas de esta máquina", `data-ki="filtro-y-cerrar" data-k="eq" data-v="${esc(claveEq(r))}" role="button" tabindex="0"`)}
         </div>
         <h5 class="mx-h5">Qué pasó y qué se hizo</h5>
@@ -560,7 +588,7 @@
         <div class="mx-head__txt">
           <p class="mx-eyebrow">${ic("grafica")}Mantenimiento · FARMACAPSULAS</p>
           <h2 class="mx-title">Cuadro de mando</h2>
-          <p class="mx-sub">Disponibilidad, confiabilidad y fallas de las dos sedes · ${fechaCorta(res.d)} – ${fechaCorta(res.h)} · <a href="#kiNovedades" class="mx-link">${t.n} novedades</a></p>
+          <p class="mx-sub">Fallas, fallas repetidas, pendientes y repuestos de las dos sedes · ${fechaCorta(res.d)} – ${fechaCorta(res.h)} · <a href="#kiNovedades" class="mx-link">${t.n} novedades</a></p>
         </div>
         <div class="mx-head__acc">
           <div class="mx-seg" role="group" aria-label="Sede">${["", ...C.sedes].map((s) => `<button type="button" data-ki="sede" data-v="${esc(s)}" class="${s === (vista.f.sede || "") ? "is-on" : ""}">${s || "Todas"}</button>`).join("")}</div>
@@ -581,7 +609,6 @@
         </div>
       </header>
       ${chips()}
-      ${t.cob != null && t.cob < COB_MIN ? `<p class="mx-note mx-note--warn">${ic("reloj")}<span><b>Solo el ${pct(t.cob, 0)} de las fallas de esta selección tiene hora de inicio y fin.</b> Con eso se cuentan bien las fallas y el MTBF; la disponibilidad y el MTTR aparecen cuando se registren los horarios. El histórico del chat casi nunca los trae; el Registro diario los pide siempre.</span></p>` : ""}
 
       <h3 class="ki-sec">Indicadores por sede</h3>
       <div class="ki-sedes">${res.sedes.map(bloqueSede).join("")}</div>
@@ -592,7 +619,8 @@
         <div class="ki-panel"><h4>Fallas y horas de parada por semana</h4>${tendencia(res.regs.filter((r) => C.areasProceso.includes(r.ar)), res.d, res.h)}</div>
         <div class="ki-panel"><h4>Novedades y horas por categoría</h4>${donaCategorias(res.sin("cat"))}</div>
         <div class="ki-panel"><h4>Tipo de mantenimiento</h4>${barrasH(tipos, { k: "tp", color: "#2e90fa" })}
-          <h4 class="ki-h4-sep">Pendientes</h4>${barrasH([{ l: "Con trabajo pendiente", key: "1", v: res.sin("pend").filter(esPend).length }], { k: "pend", color: "var(--ki-warn)" })}</div>
+          <h4 class="ki-h4-sep">Pendientes</h4>${barrasH([{ l: "Con trabajo pendiente", key: "1", v: res.sin("pend").filter(esPend).length }], { k: "pend", color: "var(--ki-warn)" })}
+          ${barrasH([{ l: "Faltó repuesto", key: "1", v: res.sin("frep").filter((r) => r.frep).length }], { k: "frep", color: "var(--ki-bad-bar)" })}</div>
       </div>
 
       <h3 class="ki-sec">Indicadores por tipo de máquina <small>toca un tipo o una máquina</small></h3>
@@ -601,15 +629,15 @@
 
       <div class="ki-duo">
         <div class="ki-panel"><h4>Top 10 de fallas</h4>${topFallas(res.sin("fa"))}</div>
-        <div class="ki-panel"><h4>Máquinas con más fallas</h4>${barrasH(maqs.map((e) => ({ l: `${e.eq}${vista.f.sede ? "" : " · " + e.s.replace("Sede ", "S")}`, key: e.k, v: e.fallas, e })), { k: "eq", color: (x) => (x.e.mtbf < M.metas[x.e.ar].mtbf ? "var(--ki-bad-bar)" : "var(--ki-ok-bar)") })}
-          <p class="ki-leyenda"><span class="ki-sw" style="background:var(--ki-bad-bar)"></span>MTBF bajo la meta <span class="ki-sw" style="background:var(--ki-ok-bar)"></span>Cumple</p></div>
+        <div class="ki-panel"><h4>Máquinas con más fallas</h4>${barrasH(maqs.map((e) => ({ l: `${e.eq}${vista.f.sede ? "" : " · " + e.s.replace("Sede ", "S")}`, key: e.k, v: e.fallas, e })), { k: "eq", color: (x) => (x.e.reinc >= 2 ? "var(--ki-bad-bar)" : "var(--ki-bar)") })}
+          <p class="ki-leyenda"><span class="ki-sw" style="background:var(--ki-bad-bar)"></span>Con fallas repetidas (mismo modo en ≤ 7 días) <span class="ki-sw" style="background:var(--ki-bar)"></span>Sin repetidas</p></div>
       </div>
 
       <div class="ki-panel ki-panel--calor"><h4>Mapa de calor · fallas por máquina y semana</h4>${mapaCalor(res)}</div>
 
       ${tablaFiltro(res)}
 
-      <p class="ki-pie">Tiempo programado: 12 h por turno en que el equipo estuvo en Producción, Montaje o Mantenimiento (Estado de equipos). Falla = novedad de categoría Máquina y tipo Correctivo. MTBF = tiempo programado ÷ fallas · MTTR = horas de las fallas con horario ÷ esas fallas · Disponibilidad = 1 − horas de parada por falla ÷ tiempo programado (solo con ≥ 50 % de fallas con horario). Histórico del chat del ${fechaCorta(M.desde)} al ${fechaCorta(M.hasta)}.</p>
+      <p class="ki-pie">Falla = novedad de categoría Máquina y tipo Correctivo. Falla repetida = el mismo modo de falla en la misma máquina dentro de 7 días. Tiempo de reparación = promedio de las fallas que traen tiempo anotado (se indica en qué % de las fallas está anotado). Reportes de turno = turnos terminados con reporte frente a 2 por día y sede. Histórico del chat del ${fechaCorta(M.desde)} al ${fechaCorta(M.hasta)}.</p>
       </div>
       ${panelNovedad()}`;
     document.body.classList.toggle("mx-lock", !!vista.abierto);
@@ -635,8 +663,8 @@
       const res = calcular();
       const X = window.XLSX;
       const wb = X.utils.book_new();
-      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(res.regs.map((r) => ({ Fecha: r.f, Turno: r.t, Sede: r.s, Equipo: r.eq, "Tipo de máquina": r.ar, Categoría: r.cat, Mantenimiento: r.tp, "Modo de falla": r.fa, "Qué pasó": r.de, Acción: r.ac, "Duración (h)": r.min > 0 ? Math.round((r.min / 60) * 100) / 100 : "", "Estado final": r.ef, Técnico: r.tec || "" }))), "Novedades");
-      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(res.porEquipo.filter((e) => e.tProg || e.n).map((e) => ({ Sede: e.s, Máquina: e.eq, "Tipo de máquina": e.ar, "Tiempo programado (h)": e.tProg, Novedades: e.n, Fallas: e.fallas, "Horas de parada": Math.round(e.hPar * 100) / 100, "MTBF (h)": e.mtbf === Infinity ? "" : e.mtbf, "MTTR (h)": e.mttr ?? "", Disponibilidad: e.disp ?? "", Pendientes: e.pend }))), "Por máquina");
+      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(res.regs.map((r) => ({ Fecha: r.f, Turno: r.t, Sede: r.s, Equipo: r.eq, "Tipo de máquina": r.ar, Categoría: r.cat, Mantenimiento: r.tp, "Modo de falla": r.fa, "Qué pasó": r.de, Acción: r.ac, "Duración (h)": r.min > 0 ? Math.round((r.min / 60) * 100) / 100 : "", "Estado final": r.ef, Técnico: /^chat/.test(r.src || "") ? "" : (r.tec || "") }))), "Novedades");
+      X.utils.book_append_sheet(wb, X.utils.json_to_sheet(res.porEquipo.filter((e) => e.n).map((e) => ({ Sede: e.s, Máquina: e.eq, "Tipo de máquina": e.ar, Novedades: e.n, Fallas: e.fallas, "Fallas por semana": Math.round(e.porSem * 100) / 100, "Una falla cada (días)": e.cadaDias == null ? "" : Math.round(e.cadaDias * 10) / 10, "Fallas repetidas": e.reinc, "Falla más repetida": e.topFa ? e.topFa.k : "", "Horas de parada": Math.round(e.hPar * 100) / 100, "Tiempo de reparación (h)": e.mttr ?? "", "Fallas con tiempo (%)": e.cob == null ? "" : Math.round(e.cob * 100), Pendientes: e.pend, "Faltó repuesto": e.frep }))), "Por máquina");
       const filtros = Object.entries(vista.f).map(([k, v]) => ({ Filtro: FILTROS[k].l, Valor: FILTROS[k].v ? FILTROS[k].v(v) : v }));
       X.utils.book_append_sheet(wb, X.utils.json_to_sheet([{ Filtro: "Periodo", Valor: `${res.d} a ${res.h}` }, ...filtros]), "Filtros");
       X.writeFile(wb, `Indicadores_Mtto_${S.hoy()}.xlsx`);

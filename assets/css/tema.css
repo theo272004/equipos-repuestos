@@ -1,0 +1,1026 @@
+/* ==========================================================================
+   TEMA · la última capa de estilos
+   --------------------------------------------------------------------------
+   Va al final de todo (index.html) para que la app entera hable un solo
+   idioma visual, aunque cada vista se haya escrito con sus propias clases:
+
+   1. Colores: blanco, negro y azul. Rojo, verde y ámbar solo para estados
+      (falla, operativo, en espera), nunca para decorar.
+   2. Un solo botón: mismo alto, mismo radio (8 px), sin sombras. Primario
+      en negro, secundario en blanco con borde, acento en azul.
+   3. Tarjetas planas: borde fino, sin sombra, sin degradados.
+   4. Estructura: menú de seis secciones, pestañas de la sección, barra de
+      arriba corta y barra del celular de cuatro accesos.
+   ========================================================================== */
+
+/* -------------------------------------------------------------- 1. tokens -- */
+:root {
+  --canvas: #f6f7f9;
+  --panel-2: #f8f9fb;
+  --well: #f0f2f5;
+  --line: #e6e8ec;
+  --line-2: #d4d8df;
+
+  --accent: #2456e8;
+  --accent-2: #1a43c4;
+  --accent-t: #eef2fe;
+  --accent-t2: #dce5fd;
+
+  /* Los tonos decorativos (violeta, celeste) pasan a ser el azul de la app */
+  --vio: var(--accent); --vio-t: var(--accent-t); --vio-d: var(--accent-2); --vio-l: var(--accent-t2);
+  --info: var(--accent); --info-t: var(--accent-t); --info-d: var(--accent-2); --info-l: var(--accent-t2);
+
+  --r-ctl: 8px;      /* botones, campos, pestañas */
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r: 10px;
+  --r-lg: 12px;
+  --r-xl: 14px;
+
+  --sh-1: none;
+  --sh-2: 0 8px 24px -12px rgba(15, 23, 42, 0.18);
+
+  --sb-w: 224px;
+  --tb-h: 56px;
+
+  /* Registro diario e Indicadores tenían su propio azul y violeta */
+  --mx-blue: var(--accent); --mx-blue-t: var(--accent-t); --mx-blue-d: var(--accent-2);
+  --mx-violet: var(--accent); --mx-violet-t: var(--accent-t); --mx-violet-d: var(--accent-2);
+  --mx-r-sm: 8px; --mx-r: 10px; --mx-r-lg: 12px; --mx-r-xl: 14px;
+  --mx-sh-1: none;
+}
+
+/* ------------------------------------------------------- 2. menú lateral -- */
+body.app .sb { background: var(--panel); }
+body.app .sb__brand { height: var(--tb-h); padding: 0 18px; border-bottom: 0; }
+body.app .sb__logo { width: 30px; height: 30px; border-radius: var(--r-ctl); background: var(--ink); box-shadow: none; }
+body.app .sb__brandtxt b { font-size: 14.5px; }
+body.app .sb__nav { display: grid; align-content: start; gap: 2px; padding: 12px; }
+body.app .sb__item { min-height: 40px; border-radius: var(--r-ctl); font-size: 14px; }
+body.app .sb__item.is-active { border-color: transparent; background: var(--accent-t); color: var(--accent-2); box-shadow: none; }
+body.app .sb__item.is-active .ic { color: var(--accent); }
+body.app .sb__item.is-active::before { display: none; }
+body.app .sb__badge { border-radius: 999px; background: var(--well); color: var(--ink-2); font-style: normal; }
+body.app .sb__item.is-active .sb__badge { background: var(--panel); color: var(--accent-2); }
+body.app .sb__foot { padding: 8px 12px 12px; }
+body.app.sb-min .sb__item.is-active::before { display: none; }
+
+/* ----------------------------------------------------- 3. barra superior -- */
+body.app .tb { background: rgba(246, 247, 249, 0.86); }
+body.app .tb.is-scrolled { background: rgba(255, 255, 255, 0.92); }
+body.app .tb__search { height: 36px; border-radius: var(--r-ctl); box-shadow: none; }
+body.app .tb__search kbd, body.app .ux-kbd { border-bottom-width: 1px; border-radius: 4px; }
+body.app .tb__user { width: 36px; height: 36px; border-radius: var(--r-ctl); background: var(--ink); font-size: 12px; }
+body.app .tb__icon { width: 36px; height: 36px; border-radius: var(--r-ctl); }
+/* Nuevo: solo el (+), cuadrado como los demás botones de icono */
+body.app .tb__new { width: 36px; min-height: 36px; height: 36px; padding: 0; }
+body.app .tb__new .ic { width: 18px; height: 18px; stroke-width: 2.2; }
+
+/* Conexión: solo un punto. Verde que late cuando todo llega a la nube. */
+body.app .tb__sync {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-ctl);
+  background: transparent;
+}
+body.app .tb__sync:hover { background: var(--well); }
+body.app .tb__sync i { position: relative; width: 9px; height: 9px; border-radius: 50%; background: var(--mute-2); box-shadow: none; }
+body.app .tb__sync.is-ok i { background: var(--ok); box-shadow: none; }
+body.app .tb__sync.is-ok i::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--ok);
+  animation: temaLatido 2s ease-out infinite;
+}
+body.app .tb__sync.is-warn i { background: var(--warn); box-shadow: none; }
+body.app .tb__sync.is-bad { background: transparent; }
+body.app .tb__sync.is-bad i { background: var(--bad); animation: temaParpadeo 1.2s ease-in-out infinite; }
+@keyframes temaLatido { 0% { transform: scale(1); opacity: 0.55; } 100% { transform: scale(2.8); opacity: 0; } }
+@keyframes temaParpadeo { 50% { opacity: 0.25; } }
+
+/* ------------------------------------------------ 4. pestañas de sección -- */
+body.app .subnav {
+  display: flex;
+  gap: 4px;
+  margin: 0 0 20px;
+  border-bottom: 1px solid var(--line);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+body.app .subnav[hidden] { display: none; }
+body.app .subnav::-webkit-scrollbar { display: none; }
+body.app .subnav button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--r-ctl) var(--r-ctl) 0 0;
+  background: transparent;
+  color: var(--mute);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 550;
+  white-space: nowrap;
+  cursor: pointer;
+}
+body.app .subnav button:hover { color: var(--ink); background: var(--well); }
+body.app .subnav button.is-on { color: var(--ink); font-weight: 600; }
+body.app .subnav button.is-on::after { content: ""; position: absolute; left: 8px; right: 8px; bottom: -1px; height: 2px; border-radius: 2px; background: var(--accent); }
+body.app .subnav em { min-width: 20px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 11px; font-style: normal; font-weight: 650; line-height: 18px; text-align: center; }
+body.app .subnav button.is-on em { background: var(--accent-t); color: var(--accent-2); }
+/* La pestaña ya dice dónde se está: la sobra la etiqueta pequeña de encima del título */
+body.app .subnav:not([hidden]) ~ .view .ux-eyebrow:empty { display: none; }
+
+/* ------------------------------------------------------------ 5. botones -- */
+/* Todas las familias de botón de la app con la misma forma */
+body.app .ux-btn,
+body.app .button,
+body.app .mx-btn,
+body.app .pl-reg,
+body.app .pl-hist-btn,
+body.app .filter-tag-btn,
+body.app .maint-tab-btn,
+body.app .icon-button,
+body.app .mx-iconbtn,
+body.app .mx-chipbtn,
+body.app .mx-opt--chip .mx-opt__box,
+body.app .ux-chip,
+body.app .alm-chip,
+body.app .spf-chip,
+body.app .tk-fab,
+body.app .alm-ir-sol,
+body.app .assistant-send {
+  border-radius: var(--r-ctl);
+  box-shadow: none;
+}
+body.app .ux-btn, body.app .button, body.app .mx-btn {
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line-2);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+body.app .ux-btn:hover, body.app .button:hover, body.app .mx-btn:hover { border-color: #b9bfc9; background: var(--panel-2); }
+body.app .ux-btn--sm, body.app .mx-btn--sm { min-height: 30px; padding: 0 10px; font-size: 12.5px; border-radius: var(--r-ctl); }
+body.app .ux-btn--lg { min-height: 44px; padding: 0 18px; border-radius: var(--r-ctl); font-size: 14.5px; }
+body.app .ux-btn--icon { width: 36px; padding: 0; }
+body.app .ux-btn--icon.ux-btn--sm { width: 30px; }
+
+/* Primario: negro */
+body.app .ux-btn--primary, body.app .button--dark, body.app .button--blue, body.app .mx-btn--primary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #fff;
+  box-shadow: none;
+}
+body.app .ux-btn--primary:hover, body.app .button--dark:hover, body.app .button--blue:hover, body.app .mx-btn--primary:hover { border-color: #2a303b; background: #2a303b; }
+/* Acento: azul */
+body.app .ux-btn--accent { border-color: var(--accent); background: var(--accent); color: #fff; box-shadow: none; }
+body.app .ux-btn--accent:hover { border-color: var(--accent-2); background: var(--accent-2); }
+/* Suave y fantasma: sin borde */
+body.app .ux-btn--soft, body.app .mx-btn--soft { border-color: transparent; background: var(--accent-t); color: var(--accent-2); }
+body.app .ux-btn--ghost, body.app .mx-btn--ghost { border-color: transparent; background: transparent; }
+body.app .ux-btn--ghost:hover, body.app .mx-btn--ghost:hover { border-color: transparent; background: var(--well); }
+body.app .button--light { border-color: var(--line-2); background: var(--panel); color: var(--ink); }
+
+/* Botones de solo icono: cuadrados de 36 (30 los pequeños) */
+body.app .mx-iconbtn, body.app .icon-button { width: 36px; height: 36px; border-color: var(--line-2); }
+body.app .mx-iconbtn--sm { width: 30px; height: 30px; }
+body.app .detail-header .button { width: 36px !important; height: 36px !important; min-height: 36px; border-radius: var(--r-ctl) !important; }
+
+/* Filtros tipo ficha: mismo radio que los botones; activo en negro */
+body.app .ux-chip, body.app .alm-chip, body.app .mx-chipbtn, body.app .mx-opt--chip .mx-opt__box, body.app .spf-chip { min-height: 32px; border-color: var(--line-2); }
+body.app .mx-chipbtn.is-on { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+/* Control segmentado: un solo estilo */
+body.app .ux-seg, body.app .mx-seg, body.app .tn-seg { padding: 3px; border-radius: var(--r-ctl); background: var(--well); }
+body.app .ux-seg button, body.app .mx-seg button, body.app .mx-seg .mx-opt__box, body.app .tn-seg button { min-height: 30px; border-radius: 6px; font-size: 13px; font-weight: 600; }
+body.app .ux-seg button.is-on, body.app .mx-seg button.is-on, body.app .mx-seg input:checked + .mx-opt__box, body.app .tn-seg button.is-active { background: var(--panel); color: var(--ink); box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08); }
+
+/* Botón flotante (+) de tareas: mismo lenguaje que el resto */
+body.app .tk-fab { background: var(--ink); }
+
+/* Campos */
+body.app .ux-input, body.app .ux-select, body.app .ux-textarea,
+body.app .tk-form input, body.app .tk-form select, body.app .tk-form textarea,
+body.app .equipment-form input, body.app .equipment-form select, body.app .equipment-form textarea,
+body.app .pl-filters input[type="search"], body.app .pl-filters select,
+body.app .rp-filtro select, body.app .rp-filtro input, body.app .tk-filters select { border-radius: var(--r-ctl); }
+
+/* ------------------------------------------------ 6. tarjetas y colores -- */
+body.app .ux-card, body.app .ux-kpi, body.app .pl-kpi, body.app .mx-card, body.app .mx-tile, body.app .mx-stile { box-shadow: none; }
+body.app .ux-card { border-radius: var(--r-lg); }
+/* Sin degradados de color en los indicadores del registro */
+body.app .mx-tile, body.app .mx-stile { background: var(--panel); border-color: var(--line); }
+body.app .mx-tile header .mx-ic { color: var(--mute); }
+body.app .mx-tile--red header .mx-ic { color: var(--bad); }
+
+/* Iconos en cajitas: grises. Solo rojo (falla / urgente) y verde (bien) dicen algo */
+body.app .ux-kpi__ico,
+body.app .ux-kpi--ok .ux-kpi__ico, body.app .ux-kpi--warn .ux-kpi__ico, body.app .ux-kpi--bad .ux-kpi__ico,
+body.app .ux-kpi--vio .ux-kpi__ico, body.app .ux-kpi--acc .ux-kpi__ico,
+body.app .ux-row__ico, body.app .ux-row__ico--warn, body.app .ux-row__ico--vio,
+body.app .ux-row__ico--acc, body.app .ux-row__ico--info { background: var(--well); color: var(--ink-2); }
+body.app .ux-row__ico--bad { background: var(--bad-t); color: var(--bad-d); }
+body.app .ux-row__ico--ok { background: var(--well); color: var(--ok-d); }
+body.app .ux-kpi--dark { border-color: var(--line); background: var(--panel); color: var(--ink); }
+body.app .ux-kpi--dark .ux-kpi__label { color: var(--ink-2); }
+body.app .ux-kpi--dark .ux-kpi__foot, body.app .ux-kpi--dark .ux-kpi__n small { color: var(--mute); }
+body.app .ux-kpi--dark .ux-kpi__go { color: var(--mute-2); }
+
+/* Etiquetas: las de categoría van en gris; las de estado conservan su color */
+body.app .ux-pill--vio, body.app .ux-pill--info, body.app .ux-pill--acc { background: var(--well); color: var(--ink-2); }
+body.app .mx-pill--apo, body.app .mx-pill--loc, body.app .mx-pill--pre, body.app .mx-pill--ope { background: var(--well); color: var(--ink-2); }
+
+/* Las iniciales del personal conservan su color: ayudan a reconocer a cada uno */
+
+/* Menú "Nuevo" y búsqueda: iconos grises */
+body.app .ux-menu .ux-row__ico, body.app .ux-pal__it .ux-row__ico { background: var(--well); color: var(--ink-2); }
+
+/* Avisos: discretos, sin caja de color */
+body.app .ux-note, body.app .ux-note--warn { border-color: var(--line); background: var(--panel-2); color: var(--ink-2); }
+body.app .ux-note--warn .ic { color: var(--warn-d); }
+body.app .tn-note { border-color: var(--line); background: var(--panel-2); color: var(--ink-2); }
+body.app .mx-note, body.app .mx-note--warn { border-color: var(--line); background: var(--panel-2); color: var(--ink-2); }
+body.app .mx-note .mx-ic { color: var(--mute); }
+body.app .mx-note--warn .mx-ic { color: var(--warn-d); }
+body.app .mx-fbar__ic { background: var(--ink); }
+
+/* --------------------------------------------------------- 7. el celular -- */
+@media (max-width: 1023px) {
+  body.app .subnav { margin-bottom: 16px; }
+}
+@media (max-width: 760px) {
+  /* Arriba: título, punto de conexión, buscar y (+). La persona se cambia en Ajustes. */
+  body.app .tb { height: 56px; gap: 4px; }
+  body.app .tb__user { display: none; }
+  body.app .tb__search { width: 40px; height: 40px; border: 0; background: transparent; }
+  body.app .tb__new { width: 40px; height: 40px; min-height: 40px; padding: 0; }
+  body.app .tb__sync { order: -1; width: 24px; }
+  body.app .tb__acts { gap: 4px; }
+
+  /* Pestañas de sección a todo lo ancho, deslizables */
+  body.app .subnav { margin: -4px -16px 16px; padding: 0 12px; }
+  body.app .subnav button { height: 44px; font-size: 14px; }
+
+  /* Abajo: barra pegada al borde, cuatro accesos, sin píldora flotante */
+  body.app .mb {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: calc(60px + env(safe-area-inset-bottom));
+    padding: 0 8px env(safe-area-inset-bottom);
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: none;
+  }
+  body.app .mb button { gap: 3px; border-radius: 0; font-size: 11px; font-weight: 550; }
+  body.app .mb button .ic { width: 22px; height: 22px; }
+  body.app .mb button.is-on { background: transparent; color: var(--accent); font-weight: 650; }
+  body.app .mb button em { top: 6px; }
+  body.app .app-shell { padding-bottom: 96px; }
+  body.app .ux-toasts { bottom: 76px; }
+
+  /* El menú completo sale de abajo como hoja */
+  body.app .sb { height: auto; max-height: 86vh; border-radius: 16px 16px 0 0; }
+  body.app .sb__nav { padding: 8px 12px; }
+  body.app .sb__item { min-height: 48px; font-size: 15px; }
+}
+
+/* Con el dedo: los botones y segmentos vuelven a medir 40 px (celular.css) */
+@media (pointer: coarse) {
+  body.app .ux-btn, body.app .button, body.app .mx-btn, body.app .ux-btn--sm, body.app .mx-btn--sm,
+  body.app .ux-chip, body.app .alm-chip, body.app .mx-chipbtn, body.app .spf-chip,
+  body.app .ux-seg button, body.app .mx-seg button, body.app .tn-seg button { min-height: 40px; }
+  body.app .mx-iconbtn, body.app .icon-button, body.app .ux-btn--icon, body.app .ux-btn--icon.ux-btn--sm, body.app .mx-iconbtn--sm { width: 40px; height: 40px; }
+}
+
+/* ------------------------------------------------------------- 8. inicio -- */
+/* Las cifras del día en una sola franja, separadas por líneas finas */
+body.app .hy-stats {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  overflow: hidden;
+}
+body.app .hy-stat {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+  padding: 16px 18px;
+  border: 0;
+  border-left: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+body.app .hy-stat:first-child { border-left: 0; }
+body.app .hy-stat:hover { background: var(--panel-2); }
+body.app .hy-stat__t { color: var(--mute); font-size: 13px; font-weight: 550; }
+body.app .hy-stat__n { display: flex; align-items: baseline; gap: 4px; font-size: 30px; font-weight: 600; line-height: 1.05; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+body.app .hy-stat__n small { color: var(--mute-2); font-size: 14px; font-weight: 500; letter-spacing: 0; }
+body.app .hy-stat.is-bad .hy-stat__n { color: var(--bad-d); }
+body.app .hy-stat__s { overflow: hidden; color: var(--mute); font-size: 12.5px; white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-rojo { color: var(--bad-d); font-weight: 600; }
+
+/* Reporte del turno anterior: una línea con su punto */
+body.app .hy-rep2 { display: inline-flex; align-items: center; gap: 8px; padding: 0; border: 0; background: none; color: var(--ink-2); font: inherit; font-size: 12.5px; text-align: left; text-decoration: none; cursor: pointer; }
+body.app .hy-rep2 i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); flex-shrink: 0; }
+body.app .hy-rep2.is-falta { color: var(--bad-d); }
+body.app .hy-rep2.is-falta i { background: var(--bad); }
+body.app .hy-rep2:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* Las tres cifras del almacén sin recuadro propio: solo número y nombre */
+body.app .hy-mini { gap: 0; }
+body.app .hy-mini button { padding: 4px 12px 4px 0; border: 0; border-radius: 0; background: transparent; }
+body.app .hy-mini button + button { padding-left: 12px; border-left: 1px solid var(--line); }
+body.app .hy-mini button:hover { background: transparent; }
+body.app .hy-mini button:hover b { color: var(--accent-2); }
+body.app .hy-mini b.is-warn { color: var(--ink); }
+body.app .hy-pres { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 0; border: 0; background: none; color: var(--ink-2); font: inherit; font-size: 13.5px; font-weight: 550; text-align: left; cursor: pointer; }
+body.app .hy-pres > span { display: inline-flex; align-items: center; gap: 8px; }
+body.app .hy-pres .ic { color: var(--mute); }
+body.app .hy-pres b { font-variant-numeric: tabular-nums; }
+body.app .hy-pres b.is-bad { color: var(--bad-d); }
+
+@media (max-width: 1100px) {
+  body.app .hy-stats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  body.app .hy-stat:nth-child(n + 4) { border-top: 1px solid var(--line); }
+  body.app .hy-stat:nth-child(4) { border-left: 0; }
+}
+@media (max-width: 760px) {
+  body.app .hy-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.app .hy-stat { padding: 14px; border-left: 1px solid var(--line); }
+  body.app .hy-stat:nth-child(odd) { border-left: 0; }
+  body.app .hy-stat:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  body.app .hy-stat:nth-child(4) { border-left: 1px solid var(--line); }
+  body.app .hy-stat:last-child { grid-column: 1 / -1; }
+  body.app .hy-stat__n { font-size: 26px; }
+}
+
+/* ------------------------------------------------------------ 9. equipos -- */
+body.app #homeView .hero-content { margin: 0; padding: 0; }
+body.app #homeView .search-box { max-width: none; height: 44px; border-radius: var(--r-ctl); box-shadow: none; }
+body.app .eq-filtros { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+body.app .eq-cuenta { margin-left: auto; color: var(--mute); font-size: 13px; font-weight: 550; font-variant-numeric: tabular-nums; }
+/* Fichas completas: una sola fila que se desliza, para que la lista quede a la vista */
+body.app .eq-grid { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 4px; scroll-snap-type: x proximity; }
+body.app .eq-grid .eq-card { flex: 0 0 188px; scroll-snap-align: start; }
+body.app .eq-card .ux-progress i { background: var(--accent); }
+body.app .eq-card { grid-template-rows: 112px auto; border-radius: var(--r-lg); }
+body.app .eq-card:hover { box-shadow: none; transform: none; border-color: var(--line-2); }
+
+/* Lista de equipos: una fila por equipo, se toca entera */
+body.app .eq-lista { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); overflow: hidden; }
+body.app .eq-fila {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 2.4fr) minmax(90px, 0.7fr) minmax(0, 1fr) 120px 16px;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-height: 60px;
+  padding: 10px 16px;
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+body.app .eq-fila:first-child { border-top: 0; }
+body.app .eq-fila:hover { background: var(--panel-2); }
+body.app .eq-fila > .ic { color: var(--mute-2); }
+body.app .eq-fila__img { display: grid; place-items: center; width: 40px; height: 40px; overflow: hidden; border-radius: var(--r-ctl); background: var(--well); color: var(--mute); }
+body.app .eq-fila__img img { width: 100%; height: 100%; object-fit: cover; }
+body.app .eq-fila__t { display: grid; min-width: 0; }
+body.app .eq-fila__t b, body.app .eq-fila__t small { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+body.app .eq-fila__t b { font-size: 14px; font-weight: 600; }
+body.app .eq-fila__t small { color: var(--mute); font-size: 12.5px; }
+body.app .eq-fila__c code { color: var(--ink-2); font-family: var(--mono); font-size: 12.5px; }
+body.app .eq-fila__s { overflow: hidden; color: var(--ink-2); font-size: 13px; white-space: nowrap; text-overflow: ellipsis; }
+body.app .eq-fila__f { display: inline-flex; align-items: center; gap: 6px; color: var(--mute); font-size: 12.5px; font-weight: 550; }
+body.app .eq-fila__f i { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); }
+body.app .eq-fila__f:has(i) { color: var(--ink); }
+body.app .eq-plan { display: flex; align-items: center; gap: 10px; width: 100%; margin-bottom: 12px; padding: 12px 16px; border: 1px solid var(--accent-t2); border-radius: var(--r-lg); background: var(--accent-t); color: var(--accent-2); font: inherit; font-size: 13.5px; text-align: left; cursor: pointer; }
+body.app .eq-plan span { flex: 1; }
+body.app #homeLista > .ux-btn--block { margin-top: 12px; }
+body.app .hy-stats--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+body.app .hy-stats--4 .hy-stat:nth-child(5) { border-left: 0; }
+body.app .hy-stats--4 .hy-stat:nth-child(n + 5) { border-top: 1px solid var(--line); }
+body.app .hy-stats--4 .hy-stat__n { font-size: 24px; }
+
+@media (max-width: 760px) {
+  body.app .eq-fila { grid-template-columns: 40px minmax(0, 1fr) 16px; gap: 12px; padding: 10px 14px; }
+  body.app .eq-fila__c, body.app .eq-fila__s, body.app .eq-fila__f { display: none; }
+  body.app .eq-grid { display: flex; margin: 0 -16px; padding: 0 16px 4px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  body.app .eq-grid .eq-card { flex: 0 0 62%; scroll-snap-align: start; }
+  /* Filtros en una fila que se desliza; el contador va debajo */
+  body.app .eq-filtros { flex-wrap: nowrap; margin: 0 -16px; padding: 0 16px 2px; overflow-x: auto; scrollbar-width: none; }
+  body.app .eq-filtros > * { flex-shrink: 0; }
+  body.app .eq-cuenta { margin-left: 4px; }
+  /* Registrar equipo: solo el (+) junto al título */
+  body.app #homeView .ux-head { flex-wrap: nowrap; align-items: center; }
+  body.app #openModalTop { width: 40px; padding: 0; font-size: 0; gap: 0; }
+  body.app .hy-stats--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.app .hy-stats--4 .hy-stat:nth-child(n) { border-left: 1px solid var(--line); border-top: 1px solid var(--line); }
+  body.app .hy-stats--4 .hy-stat:nth-child(odd) { border-left: 0; }
+  body.app .hy-stats--4 .hy-stat:nth-child(-n + 2) { border-top: 0; }
+  body.app .hy-stats--4 .hy-stat:last-child { grid-column: auto; }
+}
+
+/* ---------------------------------------------- 10. franjas de cifras -- */
+/* Toda fila de cifras (ux-grid--kpi, pl-kpis) se ve como la del Inicio:
+   un solo recuadro partido por líneas finas, sin iconos ni flechas. Las
+   líneas son sombras de 1 px que el recuadro recorta en los bordes. */
+body.app .ux-grid--kpi, body.app .pl-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--panel);
+  overflow: hidden;
+}
+body.app .ux-grid--kpi > .ux-kpi, body.app .pl-kpis > .pl-kpi {
+  min-height: 0;
+  padding: 16px 18px;
+  gap: 6px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: -1px 0 0 var(--line), 0 -1px 0 var(--line);
+}
+body.app .ux-grid--kpi > .ux-kpi:hover, body.app .pl-kpis > .pl-kpi:hover { background: var(--panel-2); transform: none; }
+body.app .ux-grid--kpi .ux-kpi__ico, body.app .ux-grid--kpi .ux-kpi__go { display: none; }
+body.app .ux-grid--kpi .ux-kpi__label { color: var(--mute); font-size: 13px; }
+body.app .ux-grid--kpi .ux-kpi__n, body.app .pl-kpis .pl-kpi__n { font-size: 28px; font-weight: 600; }
+body.app .ux-grid--kpi .ux-kpi--bad .ux-kpi__n { color: var(--bad-d); }
+body.app .pl-kpis .pl-kpi__l { color: var(--mute); }
+body.app .pl-kpi--stock, body.app .pl-kpi--warn, body.app .pl-kpi--ok { box-shadow: -1px 0 0 var(--line), 0 -1px 0 var(--line); }
+body.app .pl-kpi--stock .pl-kpi__n { color: var(--bad-d); }
+@media (max-width: 760px) {
+  body.app .ux-grid--kpi, body.app .pl-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.app .ux-grid--kpi > .ux-kpi, body.app .pl-kpis > .pl-kpi { padding: 14px; }
+  body.app .ux-grid--kpi .ux-kpi__n, body.app .pl-kpis .pl-kpi__n { font-size: 24px; }
+}
+
+/* La etiqueta pequeña sobre el título de cada vista ("Seguimiento",
+   "Almacén y costos"…) repetía la pestaña o la sección: fuera. El Inicio
+   conserva la suya porque lleva la fecha y el turno. */
+body.app .view:not(#hoyView) .ux-head__txt > .ux-eyebrow,
+body.app .view .section-bar .eyebrow,
+body.app .view .mx-head__txt > .mx-eyebrow { display: none; }
+
+/* ------------------------------------------------------ 11. tipografía -- */
+/* Cinco tamaños de título y dos de texto para toda la app:
+   H1 título de la página · H2 título de un panel flotante · H3 título de
+   una tarjeta · H4 nombre de una fila · H5 rótulo pequeño. */
+:root {
+  --h1: 26px; --h2: 18px; --h3: 16px; --h4: 14px; --h5: 12px;
+  --t: 14px; --t-sm: 12.5px;
+}
+body.app { font-size: var(--t); }
+
+body.app .ux-title, body.app .section-bar h2, body.app .rp-view h2, body.app .alm-view h2,
+body.app .dy-view h2, body.app .detail-header h2, body.app .mx-title {
+  font-size: var(--h1); font-weight: 650; line-height: 1.2; letter-spacing: -0.02em;
+}
+
+body.app .ux-sheet__head h3, body.app .tk-sheet__head h4, body.app .modal h2,
+body.app .rp-det__head h3, body.app .mx-sheet__head h3, body.app .ki-det__head h3 {
+  font-size: var(--h2); font-weight: 650; line-height: 1.3; letter-spacing: -0.01em;
+}
+
+body.app .ux-card__title, body.app .alm-sol__head h3, body.app .alm-hist-titulo, body.app .dy-cal__head h3,
+body.app .dy-detalle__t, body.app .mx-card__head h3, body.app .mx-sede__head h3, body.app .mx-acard h4,
+body.app .mx-col__head h3, body.app .tk-title, body.app .alm-pedidos__head, body.app .ux-empty h4,
+body.app .pl-empty h3, body.app .mx-empty h4, body.app .mx-pop__panel h4, body.app .summary-section h4,
+body.app .cal-sec h4 {
+  font-size: var(--h3); font-weight: 600; line-height: 1.35; letter-spacing: -0.005em;
+}
+
+body.app .ux-row__t, body.app .ux-tcard__t, body.app .dy-ev__t, body.app .alm-linea__txt b,
+body.app .alm-mat__head h4, body.app .alm-datos-t, body.app .hy-ev__top b, body.app .hy-sede__top b,
+body.app .rp-item__tit, body.app .ux-hbar__t, body.app .ux-col__head b, body.app .mx-h5, body.app .eq-fila__t b,
+body.app .eq-card__n {
+  font-size: var(--h4); font-weight: 600; line-height: 1.4;
+}
+
+body.app .mx-cierre__sede h4, body.app .mx-group__head h4, body.app .ki-panel h4, body.app .mx-pop__panel h5,
+body.app .tn-legend__t, body.app .pp-cc__head, body.app .ux-tl__h, body.app .ux-pal__grp {
+  font-family: var(--font); font-size: var(--h5); font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--mute);
+}
+
+/* Texto secundario: un solo tamaño */
+body.app .ux-card__sub, body.app .ux-sub, body.app .mx-card__head p, body.app .ux-sheet__head p,
+body.app .mx-sede__head p, body.app .ux-row__s, body.app .dy-ev__d, body.app .eq-fila__t small,
+body.app .ux-small, body.app .pl-soft, body.app .ux-kpi__foot, body.app .hy-stat__s {
+  font-size: var(--t-sm);
+}
+@media (max-width: 760px) {
+  :root { --h1: 22px; --h2: 17px; --h3: 15px; }
+}
+
+/* ------------------------------------------------------------ 12. almacén -- */
+/* Estado del inventario: una franja con el documento, su fecha y el botón de subir */
+body.app .alm-fuente {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--panel);
+}
+body.app .alm-fuente__ico { display: grid; place-items: center; width: 40px; height: 40px; flex-shrink: 0; border-radius: var(--r-ctl); background: var(--accent-t); color: var(--accent); }
+body.app .alm-fuente__ico .ic { width: 20px; height: 20px; }
+body.app .alm-fuente__txt { display: grid; gap: 2px; min-width: 0; flex: 1; }
+body.app .alm-fuente__txt b { font-size: var(--h4); font-weight: 600; }
+body.app .alm-fuente__txt > span { display: flex; align-items: center; flex-wrap: wrap; gap: 0 6px; color: var(--mute); font-size: var(--t-sm); }
+body.app .alm-fuente__dot { width: 7px; height: 7px; border-radius: 50%; background: var(--mute-2); }
+body.app .alm-fuente__dot.is-fresco { background: var(--ok); }
+body.app .alm-fuente__dot.is-viejo { background: var(--warn); }
+body.app .alm-fuente__acc { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; flex-shrink: 0; }
+body.app .alm-cargar { cursor: pointer; }
+body.app .alm-fuente .pl-inv { min-height: 30px; }
+
+/* Pedidos por Telegram: aviso sobrio */
+body.app .alm-pedidos { border-color: var(--line); background: var(--panel); }
+
+/* Historial */
+body.app #solRoot, body.app #diarioRoot { min-width: 0; }
+body.app #solRoot .pl-tablewrap { overflow-x: auto; }
+body.app .alm-hist-filtros { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 16px 0 12px; }
+body.app .alm-hist-filtros .pl-filters { flex: 1 1 280px; margin: 0; }
+body.app .alm-hist-filtros .pl-filters input { width: 100%; }
+body.app .alm-hist-filtros .ux-seg span { margin-left: 4px; font-weight: 500; }
+body.app .alm-hist-dest b { display: block; font-weight: 600; }
+body.app .alm-hist-dest small { display: block; max-width: 420px; overflow: hidden; color: var(--mute); font-size: var(--t-sm); white-space: nowrap; text-overflow: ellipsis; }
+body.app .alm-hist tr.is-resaltada td { background: var(--accent-t); }
+/* Acciones de cada fila: se acomodan en dos líneas en vez de ensanchar la tabla */
+body.app .alm-hist-acc { white-space: nowrap; }
+body.app .alm-mas { position: relative; display: inline-block; margin-left: 4px; }
+body.app .alm-mas > summary { display: inline-grid; place-items: center; min-width: 32px; list-style: none; cursor: pointer; letter-spacing: 1px; }
+body.app .alm-mas > summary::-webkit-details-marker { display: none; }
+body.app .alm-mas__menu { position: absolute; right: 0; top: calc(100% + 4px); z-index: 20; display: grid; min-width: 190px; padding: 4px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel); box-shadow: var(--sh-2); }
+body.app .alm-mas__menu button { padding: 8px 10px; border: 0; border-radius: 6px; background: none; color: var(--ink); font: inherit; font-size: 13.5px; text-align: left; cursor: pointer; }
+body.app .alm-mas__menu button:hover { background: var(--well); }
+body.app .alm-mas__menu button.is-bad { color: var(--bad-d); }
+body.app #solRoot .pl-tablewrap { overflow: visible; }
+body.app #solRoot .alm-hist-dest small { max-width: 240px; }
+body.app #solRoot .alm-hist { width: 100%; }
+
+@media (max-width: 760px) {
+  body.app .alm-fuente { flex-wrap: wrap; }
+  body.app .alm-fuente__acc { width: 100%; }
+  body.app .alm-fuente__acc .alm-cargar { flex: 1; }
+  body.app #solRoot .pl-tablewrap { overflow-x: auto; padding-bottom: 150px; margin-bottom: -150px; }
+}
+
+/* --------------------------------------------------------- 13. calendario -- */
+body.app .cal-filtros { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+body.app .cal-chip.is-on { border-color: var(--line-2); background: var(--panel); color: var(--ink); }
+body.app .cal-chip:not(.is-on) { border-color: var(--line); background: var(--panel-2); color: var(--mute-2); text-decoration: line-through; }
+body.app .cal-chip:not(.is-on) .dy-k { opacity: 0.35; }
+body.app .cal-chip .ic { width: 15px; height: 15px; }
+body.app .dy-kpis { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
+body.app .cal-rojo { color: var(--bad-d); font-weight: 600; }
+body.app .dy-grid { grid-template-columns: minmax(0, 1fr) minmax(320px, 400px); gap: 16px; }
+body.app .dy-cal, body.app .dy-detalle { padding: 16px; border-radius: var(--r-lg); box-shadow: none; }
+body.app .dy-cal__head { gap: 6px; margin-bottom: 12px; }
+body.app .dy-cal__head h3 { margin-right: auto; }
+body.app .dy-semana, body.app .dy-mes { gap: 4px; }
+body.app .dy-semana span { font-size: var(--h5); text-transform: capitalize; letter-spacing: 0; }
+body.app .dy-dia { min-height: 96px; padding: 6px 8px; gap: 4px; border-radius: var(--r-ctl); }
+body.app .dy-dia.is-hoy .dy-num { background: var(--ink); color: #fff; }
+body.app .dy-dia.is-sel { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-t2); }
+/* Cada tipo del día: un punto de color con cuántos. Aquí el color sí
+   significa algo: se lee el mes de un vistazo. */
+body.app .dy-marcas { display: flex; flex-wrap: wrap; gap: 3px; }
+body.app .dy-k { display: inline-grid; place-items: center; min-width: 20px; height: 18px; padding: 0 5px; border-radius: 999px; color: #fff; font-size: 10.5px; font-style: normal; font-weight: 700; font-variant-numeric: tabular-nums; }
+body.app .dy-k--novedad { background: #475467; }
+body.app .dy-k--falla { background: #d92d20; }
+body.app .dy-k--reporte { background: #2456e8; }
+body.app .dy-k--insp { background: #039855; }
+body.app .dy-k--tarea { background: #7a5af8; }
+body.app .dy-k--cambio { background: #0e9384; }
+body.app .dy-k--sol { background: #dc6803; }
+body.app .dy-k--nota { background: #98a2b3; }
+body.app .cal-chip .dy-k, body.app .cal-leyenda .dy-k, body.app .cal-sec h4 .dy-k { min-width: 10px; width: 10px; height: 10px; padding: 0; }
+body.app .cal-leyenda { display: inline-flex; align-items: center; gap: 6px; margin-left: 6px; color: var(--mute); font-size: var(--t-sm); }
+body.app .cal-sec h4 { display: flex; align-items: center; gap: 8px; }
+
+/* Detalle del día */
+body.app .dy-detalle__t { margin: 0 0 12px; }
+body.app .cal-turno { display: grid; gap: 8px; margin: 0 0 16px; padding: 10px 12px; border-radius: var(--r-ctl); background: var(--panel-2); font-size: var(--t-sm); }
+body.app .cal-turno__f { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 8px; }
+body.app .cal-turno__t { display: inline-flex; align-items: center; gap: 5px; color: var(--mute); font-weight: 600; }
+body.app .cal-turno__f > div { display: grid; gap: 2px; color: var(--ink-2); }
+body.app .cal-sec { padding: 12px 0; border-top: 1px solid var(--line); }
+body.app .cal-sec h4 { margin: 0 0 8px; }
+body.app .cal-sec .dy-lista { max-height: none; margin: 0 0 6px; gap: 10px; }
+body.app .dy-ev { grid-template-columns: 40px minmax(0, 1fr); gap: 8px; }
+body.app .dy-ev__h { color: var(--mute); font-size: var(--t-sm); font-variant-numeric: tabular-nums; padding-top: 1px; }
+body.app .dy-ev.is-falla .dy-ev__t, body.app .dy-ev.is-falla .dy-ir-rep { color: var(--bad-d); }
+body.app .dy-ir-rep { font-weight: 600; text-decoration: none; }
+body.app .dy-ir-rep:hover { color: var(--accent-2); text-decoration: underline; }
+body.app .dy-nota { padding-top: 12px; border-top: 1px solid var(--line); }
+
+@media (max-width: 1100px) {
+  body.app .dy-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+  body.app .dy-dia { min-height: 52px; padding: 4px; align-items: center; }
+  /* En el celular: solo los puntos, sin número */
+  body.app .dy-marcas { justify-content: center; gap: 2px; }
+  body.app .dy-dia .dy-k { min-width: 7px; width: 7px; height: 7px; padding: 0; font-size: 0; }
+  body.app .cal-filtros { flex-wrap: nowrap; margin: 12px -16px; padding: 0 16px; overflow-x: auto; scrollbar-width: none; }
+  body.app .cal-filtros > * { flex-shrink: 0; }
+  /* Cifras del mes en una fila que se desliza */
+  body.app .dy-kpis { display: flex; overflow-x: auto; scrollbar-width: none; }
+  body.app .dy-kpis > .pl-kpi { flex: 0 0 116px; }
+}
+
+/* --------------------------------------------- 14. almacén en dos pasos -- */
+/* Paso 1 (buscar) y paso 2 (llenar): cada uno a todo lo ancho */
+body.app .alm-grid.is-paso-buscar, body.app .alm-grid.is-paso-llenar { grid-template-columns: minmax(0, 1fr); padding-right: 0; }
+body.app .alm-grid.is-paso-buscar .alm-side { display: none; }
+body.app .alm-grid.is-paso-llenar .alm-main { display: none; }
+body.app .alm-grid.is-paso-llenar .alm-side { position: static; max-height: none; overflow: visible; }
+body.app .alm-sol-tab, body.app .alm-ir-sol { display: none !important; }
+
+/* Los pasos, arriba a la derecha */
+body.app .alm-pasos { display: inline-flex; align-items: center; gap: 6px; }
+body.app .alm-pasos button { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px 0 6px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel); color: var(--mute); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+body.app .alm-pasos button i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: var(--well); font-size: 12px; font-style: normal; }
+body.app .alm-pasos button b { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 11.5px; line-height: 20px; }
+body.app .alm-pasos button.is-on { border-color: var(--ink); color: var(--ink); }
+body.app .alm-pasos button.is-on i { background: var(--ink); color: #fff; }
+body.app .alm-pasos button:disabled { opacity: 0.5; cursor: default; }
+body.app .alm-pasos__sep { width: 16px; height: 1px; background: var(--line-2); }
+
+/* Barra de lo elegido: pegada abajo mientras se busca */
+body.app .alm-carrito {
+  position: sticky;
+  bottom: 16px;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 12px 12px 12px 18px;
+  border: 1px solid var(--ink);
+  border-radius: var(--r-lg);
+  background: var(--ink);
+  color: #fff;
+  box-shadow: 0 12px 32px -12px rgba(14, 17, 23, 0.45);
+}
+body.app .alm-carrito[hidden] { display: none; }
+body.app .alm-carrito.is-vacio { border-color: var(--line); background: var(--panel); color: var(--mute); box-shadow: none; }
+body.app .alm-carrito__txt { display: grid; gap: 2px; min-width: 0; flex: 1; font-size: var(--t-sm); }
+body.app .alm-carrito__txt b { font-size: var(--h4); }
+body.app .alm-carrito__txt span { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; opacity: 0.8; }
+body.app .alm-carrito .ux-btn--primary { border-color: #fff; background: #fff; color: var(--ink); }
+body.app .alm-carrito .ux-btn--primary:hover { background: var(--well); }
+
+/* Paso 2: la solicitud a todo lo ancho, una fila por pieza */
+body.app .is-paso-llenar .alm-sol { padding: 20px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); }
+body.app .is-paso-llenar .alm-sol__head { align-items: center; gap: 10px; }
+body.app .is-paso-llenar .alm-sol__head h3 { margin-right: auto; }
+@media (min-width: 1000px) {
+  body.app .is-paso-llenar .alm-lineas { gap: 0; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+  body.app .is-paso-llenar .alm-linea {
+    grid-template-columns: minmax(0, 2.2fr) minmax(0, 2.4fr) minmax(0, 1.5fr);
+    align-items: center;
+    gap: 16px;
+    padding: 12px 14px;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+  }
+  body.app .is-paso-llenar .alm-linea:first-child { border-top: 0; }
+  body.app .is-paso-llenar .alm-linea__top { order: 1; }
+  body.app .is-paso-llenar .alm-linea__mid { order: 2; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "paso de valor"; }
+  body.app .is-paso-llenar .alm-linea__extra { order: 3; grid-template-columns: 80px minmax(0, 1fr) auto; }
+  body.app .is-paso-llenar .alm-linea__top .alm-x { order: 9; }
+  body.app .is-paso-llenar .alm-pasa, body.app .is-paso-llenar .alm-linea__mas { order: 4; grid-column: 1 / -1; margin: 0; }
+  /* Datos de la solicitud en tres columnas */
+  body.app .is-paso-llenar .alm-form { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 16px; }
+  body.app .is-paso-llenar .alm-form .tk-row2 { display: contents; }
+  body.app .is-paso-llenar .alm-form > label, body.app .is-paso-llenar .alm-form .alm-cc-nota { grid-column: span 1; }
+  body.app .is-paso-llenar .alm-form .alm-cc-nota { align-self: end; }
+}
+@media (max-width: 760px) {
+  body.app .alm-carrito { bottom: calc(68px + env(safe-area-inset-bottom)); margin: 12px 0 0; }
+  body.app .alm-pasos button { padding-right: 10px; font-size: 13px; }
+  body.app .alm-pasos__sep { display: none; }
+  body.app #almPasos { width: 100%; }
+  body.app .alm-pasos { width: 100%; }
+  body.app .alm-pasos button { flex: 1; }
+}
+
+/* ------------------------------------------ 15. ventana para subir archivos -- */
+body.app .up-capa { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: 16px; }
+body.app .up-velo { position: absolute; inset: 0; background: rgba(14, 17, 23, 0.4); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); animation: uxFade 0.2s both; }
+body.app .up {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  width: min(520px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  padding: 28px 24px 20px;
+  border-radius: 20px;
+  background: var(--panel);
+  box-shadow: 0 32px 80px -20px rgba(14, 17, 23, 0.45);
+  animation: uxSheetUp 0.25s var(--ease-out) both;
+}
+body.app .up__x { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border: 0; border-radius: var(--r-ctl); background: transparent; color: var(--mute); font-size: 22px; line-height: 1; cursor: pointer; }
+body.app .up__x:hover { background: var(--well); color: var(--ink); }
+body.app .up__head { text-align: center; }
+body.app .up__head h3 { margin: 0; font-size: var(--h2); font-weight: 650; }
+body.app .up__head p { margin: 4px 0 0; color: var(--mute); font-size: var(--t); }
+body.app .up__zona {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 32px 16px;
+  border: 1.5px dashed var(--line-2);
+  border-radius: 14px;
+  background: var(--panel-2);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+body.app .up__zona:hover, body.app .up__zona:focus-visible, body.app .up__zona.is-encima { border-color: var(--accent); background: var(--accent-t); outline: none; }
+body.app .up__ico { display: grid; place-items: center; width: 56px; height: 56px; margin-bottom: 8px; border-radius: 14px; background: var(--panel); color: var(--ink); box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08); }
+body.app .up__ico .ic { width: 26px; height: 26px; stroke-width: 1.6; }
+body.app .up__zona b { font-size: var(--h4); font-weight: 600; }
+body.app .up__zona b u { text-underline-offset: 3px; }
+body.app .up__zona small { color: var(--mute); font-size: var(--t-sm); }
+body.app .up__lista { display: grid; gap: 10px; }
+body.app .up__archivo { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; }
+body.app .up__tipo { display: grid; place-items: center; width: 44px; height: 44px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--panel-2); color: var(--ink-2); font-size: 11.5px; font-weight: 650; letter-spacing: 0.02em; }
+body.app .up__info { display: grid; gap: 2px; min-width: 0; flex: 1; }
+body.app .up__info b { overflow: hidden; font-size: var(--h4); font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+body.app .up__info span { color: var(--mute); font-size: var(--t-sm); }
+body.app .up__archivo.is-error { border-color: var(--bad-l); }
+body.app .up__archivo.is-error .up__info span { color: var(--bad-d); }
+body.app .up__ok { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--ok); color: #fff; font-size: 14px; font-weight: 700; }
+body.app .up__barra { height: 4px; margin: -4px 12px 0; overflow: hidden; border-radius: 4px; background: var(--well); }
+body.app .up__barra i { display: block; width: 40%; height: 100%; border-radius: 4px; background: var(--ink); animation: upBarra 1.2s ease-in-out infinite; }
+@keyframes upBarra { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
+body.app .up__msg { margin: 0; color: var(--ink-2); font-size: var(--t-sm); line-height: 1.5; }
+body.app .up__msg--error { color: var(--bad-d); }
+body.app .up__pie { display: flex; justify-content: flex-end; }
+body.app .up__pie .ux-btn { min-width: 120px; }
+
+/* --------------------------------------------------- 16. inicio: para hoy -- */
+body.app .hy-stats--4c { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+body.app .hy-agenda { align-self: start; }
+body.app .hy-ag__grupo + .hy-ag__grupo { margin-top: 18px; }
+body.app .hy-ag__t { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; color: var(--mute); font-size: var(--h5); font-weight: 600; }
+body.app .hy-ag__t span { min-width: 20px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 11px; line-height: 18px; text-align: center; }
+body.app .hy-ag__lista { display: grid; margin: 0 0 4px; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+body.app .hy-ag__lista li + li { border-top: 1px solid var(--line); }
+body.app .hy-ag {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+body.app .hy-ag:hover { background: var(--panel-2); }
+body.app .hy-ag__ico { display: grid; place-items: center; width: 34px; height: 34px; border-radius: var(--r-ctl); background: var(--well); color: var(--ink-2); }
+body.app .hy-ag__ico .ic { width: 17px; height: 17px; }
+body.app .hy-ag__ico.is-bad { background: var(--bad-t); color: var(--bad-d); }
+body.app .hy-ag__ico.is-warn { background: var(--warn-t); color: var(--warn-d); }
+body.app .hy-ag__txt { display: grid; gap: 1px; min-width: 0; }
+body.app .hy-ag__txt b { overflow: hidden; font-size: var(--h4); font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-ag__txt small { overflow: hidden; color: var(--mute); font-size: var(--t-sm); white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-ag__acc { display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border: 1px solid var(--line-2); border-radius: var(--r-ctl); background: var(--panel); font-size: 12.5px; font-weight: 600; }
+body.app .hy-ag:hover .hy-ag__acc { border-color: #b9bfc9; }
+body.app .hy-ag__acc.is-pedir { border-color: var(--ink); background: var(--ink); color: #fff; }
+@media (max-width: 1100px) {
+  body.app .hy-stats--4c { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body.app .hy-stats--4c .hy-stat:nth-child(n) { border-top: 0; border-left: 1px solid var(--line); }
+  body.app .hy-stats--4c .hy-stat:nth-child(odd) { border-left: 0; }
+  body.app .hy-stats--4c .hy-stat:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  body.app .hy-stats--4c .hy-stat:last-child { grid-column: auto; }
+}
+@media (max-width: 760px) {
+  body.app .hy-ag { grid-template-columns: 30px minmax(0, 1fr) auto; gap: 10px; padding: 10px; }
+  body.app .hy-ag__ico { width: 30px; height: 30px; }
+  body.app .hy-ag__txt b, body.app .hy-ag__txt small { white-space: normal; }
+}
+
+/* ----------------------------------------- 17. seguimiento del mantenimiento -- */
+body.app #sgRoot { min-width: 0; }
+/* Qué inspeccionar hoy */
+body.app .sg-hoy { margin: 0 0 16px; }
+body.app .sg-hoy h3 { display: flex; align-items: center; gap: 8px; margin: 0 0 8px; font-size: var(--h3); font-weight: 600; }
+body.app .sg-hoy h3 .ic { color: var(--mute); }
+body.app .sg-hoy__lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; }
+body.app .sg-sug { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+body.app .sg-sug:hover { border-color: var(--accent); }
+body.app .sg-sug b { font-size: var(--h4); font-weight: 600; }
+body.app .sg-sug small { color: var(--mute); font-size: var(--t-sm); }
+body.app .sg-sug span { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; color: var(--accent-2); font-size: 13px; font-weight: 600; }
+
+/* Etapas: filtro y resumen a la vez */
+body.app .sg-etapas { display: flex; gap: 8px; margin: 0 0 16px; overflow-x: auto; scrollbar-width: none; }
+body.app .sg-etapas button { display: inline-flex; align-items: baseline; gap: 8px; flex-shrink: 0; min-height: 40px; padding: 8px 14px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel); color: var(--ink-2); font: inherit; font-size: 13.5px; font-weight: 550; cursor: pointer; }
+body.app .sg-etapas button b { font-size: 16px; font-weight: 650; font-variant-numeric: tabular-nums; color: var(--ink); }
+body.app .sg-etapas button.is-repuesto b { color: var(--warn-d); }
+body.app .sg-etapas button.is-hecho b { color: var(--ok-d); }
+body.app .sg-etapas button.is-on { border-color: var(--ink); background: var(--ink); color: #fff; }
+body.app .sg-etapas button.is-on b { color: #fff; }
+
+/* Cada trabajo */
+body.app .sg-lista { display: grid; gap: 12px; }
+body.app .sg-card { display: grid; gap: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); }
+body.app .sg-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+body.app .sg-card__head h3 { margin: 0; font-size: var(--h3); font-weight: 600; }
+body.app .sg-card__head p { margin: 2px 0 0; color: var(--mute); font-size: var(--t-sm); }
+body.app .sg-eq { padding: 0; border: 0; background: none; color: inherit; font: inherit; text-align: left; cursor: pointer; }
+body.app .sg-eq:hover { color: var(--accent-2); text-decoration: underline; text-underline-offset: 3px; }
+body.app .sg-etapa { flex-shrink: 0; padding: 3px 10px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 12px; font-weight: 600; }
+body.app .sg-etapa.is-repuesto { background: var(--warn-t); color: var(--warn-d); }
+body.app .sg-etapa.is-listo { background: var(--accent-t); color: var(--accent-2); }
+body.app .sg-etapa.is-programado { background: var(--ink); color: #fff; }
+body.app .sg-etapa.is-hecho { background: var(--ok-t); color: var(--ok-d); }
+
+/* Las cuatro etapas en línea */
+body.app .sg-pasos { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+body.app .sg-pasos li { position: relative; display: flex; align-items: flex-start; gap: 8px; padding-right: 8px; }
+body.app .sg-pasos li::after { content: ""; position: absolute; left: 30px; right: 8px; top: 11px; height: 2px; background: var(--line); }
+body.app .sg-pasos li:last-child::after { display: none; }
+body.app .sg-pasos li.is-hecho::after { background: var(--ok); }
+body.app .sg-pasos i { position: relative; z-index: 1; display: grid; place-items: center; width: 24px; height: 24px; flex-shrink: 0; border: 2px solid var(--line-2); border-radius: 50%; background: var(--panel); color: #fff; }
+body.app .sg-pasos i .ic { width: 13px; height: 13px; stroke-width: 3; }
+body.app .sg-pasos .is-hecho i { border-color: var(--ok); background: var(--ok); }
+body.app .sg-pasos .is-on i { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-t2); }
+body.app .sg-pasos span { position: relative; z-index: 1; display: grid; padding: 2px 6px 0 0; background: var(--panel); }
+body.app .sg-pasos b { font-size: 12.5px; font-weight: 600; color: var(--ink-2); }
+body.app .sg-pasos small { color: var(--mute); font-size: 11.5px; }
+body.app .sg-pasos .is-on b { color: var(--accent-2); }
+
+/* Hallazgos */
+body.app .sg-hs { display: grid; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: var(--r-ctl); overflow: hidden; }
+body.app .sg-h { display: grid; grid-template-columns: 84px minmax(0, 1fr) minmax(150px, auto) auto; align-items: center; gap: 12px; padding: 9px 12px; }
+body.app .sg-h + .sg-h { border-top: 1px solid var(--line); }
+body.app .sg-h.is-hecho { background: var(--panel-2); }
+body.app .sg-h.is-hecho .sg-h__txt b { color: var(--mute); text-decoration: line-through; }
+body.app .sg-h__tipo { justify-self: start; padding: 2px 8px; border-radius: 6px; background: var(--well); color: var(--ink-2); font-size: 11.5px; font-weight: 600; }
+body.app .sg-h__txt { display: grid; min-width: 0; }
+body.app .sg-h__txt b { overflow: hidden; font-size: var(--h4); font-weight: 600; white-space: nowrap; text-overflow: ellipsis; }
+body.app .sg-h__txt small { color: var(--mute); font-size: var(--t-sm); }
+body.app .sg-h__est { display: inline-flex; align-items: center; gap: 6px; color: var(--ink-2); font-size: 12.5px; font-weight: 550; white-space: nowrap; }
+body.app .sg-h__est i { width: 7px; height: 7px; border-radius: 50%; background: var(--mute-2); }
+body.app .sg-h__est.is-listo i { background: var(--accent); }
+body.app .sg-h__est.is-hecho i { background: var(--ok); }
+body.app .sg-h__est.is-falta { color: var(--bad-d); }
+body.app .sg-h__est.is-falta i { background: var(--bad); }
+body.app .sg-h__est.is-pedido i, body.app .sg-h__est.is-revisar i { background: var(--warn); }
+body.app .sg-h__acc { display: flex; justify-content: flex-end; gap: 6px; }
+body.app .sg-vacio { margin: 0; color: var(--mute); font-size: var(--t-sm); }
+
+body.app .sg-card__pie { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+body.app .sg-prog { display: inline-flex; align-items: center; gap: 8px; color: var(--ink-2); font-size: 13px; font-weight: 600; }
+body.app .sg-prog input { min-height: 32px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: var(--r-ctl); background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
+body.app .sg-nota { color: var(--warn-d); font-size: var(--t-sm); font-weight: 550; }
+body.app .sg-pie__acc { display: flex; gap: 6px; margin-left: auto; }
+
+/* Formulario de inspección: qué revisar y hallazgos */
+body.app .in-check__caja { border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel-2); }
+body.app .in-check__caja > summary { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+body.app .in-check__caja > summary span { color: var(--mute); font-weight: 500; }
+body.app .in-check__lista { display: grid; gap: 2px; max-height: 260px; overflow-y: auto; padding: 0 8px 8px; }
+body.app .in-check__p { display: flex !important; align-items: flex-start; gap: 10px; padding: 6px 4px; border-radius: 6px; cursor: pointer; }
+body.app .in-check__p:hover { background: var(--panel); }
+body.app .in-check__p input[type=checkbox], body.app .in-ya input[type=checkbox] { width: 18px !important; height: 18px !important; min-height: 0 !important; margin: 2px 0 0; padding: 0; flex-shrink: 0; accent-color: var(--ink); }
+body.app .in-check__p span { display: grid; }
+body.app .in-check__p b { color: var(--ink); font-size: 13.5px; font-weight: 500; }
+body.app .in-check__p small { color: var(--mute); font-size: 12px; font-weight: 400; }
+body.app .in-check__vacio { margin: 0; font-size: 12.5px; }
+body.app .in-fila--h { grid-template-columns: 150px minmax(0, 1.8fr) minmax(0, 1fr) 56px 118px auto auto; }
+body.app .in-ya { display: inline-flex !important; flex-direction: row !important; align-items: center; gap: 6px; color: var(--ink-2); font-size: 12.5px; font-weight: 550; white-space: nowrap; }
+body.app .tk-sheet--ancha { width: min(900px, calc(100vw - 24px)); }
+
+@media (max-width: 900px) {
+  body.app .sg-h { grid-template-columns: 1fr auto; }
+  body.app .sg-h__tipo { grid-column: 1 / -1; }
+  body.app .sg-h__est { grid-column: 1; }
+  body.app .sg-h__acc { grid-column: 2; grid-row: 2 / span 2; }
+  body.app .in-fila--h { grid-template-columns: 1fr 1fr; }
+  body.app .in-fila--h .in-desc { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  body.app .sg-card { padding: 14px; }
+  /* Etapas: el círculo arriba y el nombre debajo */
+  body.app .sg-pasos li { flex-direction: column; align-items: center; gap: 4px; padding: 0; text-align: center; }
+  body.app .sg-pasos li::after { left: calc(50% + 14px); right: calc(-50% + 14px); }
+  body.app .sg-pasos span { padding: 0; background: none; }
+  body.app .sg-pasos small { display: none; }
+  body.app .sg-pasos b { font-size: 11px; }
+  /* Sugerencias de inspección: una fila que se desliza */
+  body.app .sg-hoy__lista { display: flex; margin: 0 -16px; padding: 0 16px 2px; overflow-x: auto; scrollbar-width: none; }
+  body.app .sg-sug { flex: 0 0 78%; }
+  body.app .sg-pie__acc { margin-left: 0; }
+}
+
+/* Ficha del equipo: el trabajo de mantenimiento abierto, a la vista */
+body.app .fa-trabajo { display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel-2); color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+body.app .fa-trabajo:hover { border-color: var(--accent); }
+body.app .fa-trabajo > span:nth-child(2) { display: grid; flex: 1; min-width: 0; }
+body.app .fa-trabajo b { font-size: var(--h4); font-weight: 600; }
+body.app .fa-trabajo small { color: var(--mute); font-size: var(--t-sm); }
+body.app .fa-trabajo__ir { display: inline-flex; align-items: center; gap: 4px; color: var(--accent-2); font-size: 13px; font-weight: 600; white-space: nowrap; }
+
+/* Tarjeta del trabajo: inspección, cambios, lo que falta, qué pedir y piezas */
+body.app .sg-bloques { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px; }
+body.app .sg-bloque { display: grid; align-content: start; gap: 8px; min-width: 0; }
+body.app .sg-bloques .sg-bloque { padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel-2); }
+body.app .sg-bloque h4 { display: flex; align-items: center; gap: 8px; margin: 0; color: var(--ink); font-size: 13.5px; font-weight: 650; }
+body.app .sg-bloque h4 span { min-width: 20px; height: 18px; padding: 0 6px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 11px; line-height: 18px; text-align: center; }
+body.app .sg-bloques .sg-bloque h4 span { background: var(--panel); }
+body.app .sg-texto { display: grid; gap: 6px; max-height: 180px; overflow-y: auto; color: var(--ink-2); font-size: 13px; line-height: 1.5; }
+body.app .sg-texto p { margin: 0; }
+body.app .sg-texto__rev { color: var(--mute); }
+body.app .sg-texto__rev b { color: var(--ink-2); font-weight: 600; }
+body.app .sg-cambios { display: grid; gap: 8px; max-height: 180px; margin: 0; padding: 0; overflow-y: auto; list-style: none; }
+body.app .sg-cambios li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 8px; }
+body.app .sg-cambios__f { color: var(--ok-d); font-size: 12px; font-weight: 650; font-variant-numeric: tabular-nums; padding-top: 1px; }
+body.app .sg-cambios b { display: block; font-size: 13px; font-weight: 600; }
+body.app .sg-cambios small { color: var(--mute); font-size: 12px; }
+body.app .sg-pedir { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--bad-l); border-radius: var(--r-ctl); background: var(--bad-t); color: var(--bad-d); font-size: 13px; }
+body.app .sg-pedir > span { display: inline-flex; align-items: center; gap: 6px; }
+body.app .sg-cuadro { border: 1px solid var(--line); border-radius: var(--r-ctl); }
+body.app .sg-cuadro > summary { padding: 10px 14px; font-size: 13.5px; font-weight: 650; cursor: pointer; }
+body.app .sg-lista > *, body.app .sg-card > * { min-width: 0; }
+body.app .sg-cuadro__in { padding: 0 14px 12px; min-width: 0; overflow-x: auto; }
+body.app .sg-cuadro__in .panel-split:last-child { display: none; }
+body.app .sg-cuadro__in .panel-header-clean h3 { font-size: var(--h4); }
+body.app .sg-card .cmp-wrap { overflow-x: auto; }
+body.app .sg-card__pie { padding-top: 12px; border-top: 1px solid var(--line); }
+@media (max-width: 900px) {
+  body.app .sg-bloques { grid-template-columns: 1fr; }
+}
+
+/* Almacén: de cuándo son las existencias, en una línea bajo los filtros */
+body.app .alm-fresc { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0 0; color: var(--mute); font-size: var(--t-sm); }
+body.app .alm-fresc__acc { display: inline-flex; gap: 6px; }
+body.app .alm-fresc .pl-inv { min-height: 26px; }
+/* Indicadores: calendario de la máquina sin estados, solo novedades y fallas */
+body.app .ki-cal__d.is-nov { background: #e0eaff; color: var(--accent-2); }
+
+/* Calendario: día de mantenimiento programado (desde el Seguimiento) */
+body.app .dy-k--prog { background: #0e1117; }
+
+@media (max-width: 760px) {
+  /* Ficha → "En planta": tres botones no caben en una fila */
+  body.app .fa-card .ux-card__acts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  body.app .fa-card .ux-card__acts > * { min-width: 0; }
+  body.app .fa-card .ux-card__acts > :last-child { grid-column: 1 / -1; }
+  /* Etapas del trabajo: nombres cortos, sin desbordar */
+  body.app .sg-pasos b { font-size: 10px; white-space: normal; line-height: 1.2; }
+}
+
+/* Lo marcado como hidden no se ve, aunque una regla le ponga display (labels de los formularios) */
+body.app [hidden] { display: none !important; }
+
+@media (max-width: 760px) {
+  /* Almacén paso 2: la cabecera de la solicitud en dos filas, sin apretar el título */
+  body.app .is-paso-llenar .alm-sol__head { flex-wrap: wrap; }
+  body.app .is-paso-llenar .alm-sol__head h3 { flex: 1 1 auto; margin-right: 0; }
+  body.app .is-paso-llenar .alm-sol__head > .ux-btn { flex: 1 1 100%; justify-content: center; }
+}
