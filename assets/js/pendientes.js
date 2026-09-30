@@ -187,8 +187,6 @@
   function insignias() {
     const n = abiertos().length;
     window.SHELL?.insignia("sbPendientes", n);
-    window.SHELL?.insignia("tbPendN", abiertos().filter((p) => p.prioridad === "alta").length);
-    window.SHELL?.insignia("mbPend", n);
     const tar = typeof tasks !== "undefined" ? tasks.filter((x) => x.status !== "hecha").length : 0;
     window.SHELL?.insignia("sbTareas", tar);
   }
@@ -294,7 +292,7 @@
       ${k("viejos", ab.filter((p) => p.edad > 7).length, "Más de 7 días", "Conviene revisarlos en la reunión", "reloj", "ux-kpi--vio")}
       ${k("resueltos", ab.filter((p) => p.posibleCierre).length, "¿Ya resueltos?", "El registro muestra el equipo operativo después", "check", "ux-kpi--ok")}
     </div>
-    ${antiguos && !vista.antiguos ? `<p class="ux-note">${ic("info")}<span>Hay <b>${antiguos}</b> pendientes del chat con más de ${DIAS_ANTIGUO} días sin seguimiento. No se cuentan arriba para no tapar lo de ahora. <button class="ux-link" type="button" data-pd="antiguos">Revisarlos</button></span></p>` : ""}`;
+    ${antiguos && !vista.antiguos ? `<p class="ux-small ux-mute" style="margin:0">+${antiguos} del chat con más de ${DIAS_ANTIGUO} días sin seguimiento · <button class="ux-link" type="button" data-pd="antiguos">Revisarlos</button></p>` : ""}`;
   }
 
   function barraFiltros(todos) {

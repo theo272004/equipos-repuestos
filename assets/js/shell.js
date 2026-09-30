@@ -79,25 +79,32 @@
   const ic = (n, cls = "") => `<svg class="ic ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONOS[n] || ""}</svg>`;
 
   // Vistas: nombre interno -> título, grupo del menú, icono y cómo abrirla
+  // g: la sección del menú a la que pertenece; pt: el nombre corto de su pestaña
   const VISTAS = {
-    hoy: { t: "Inicio", g: "General", ico: "inicio", go: (o) => window.goHoy?.(o) },
-    pendientes: { t: "Pendientes", g: "General", ico: "pendientes", go: (o) => window.goPendientes?.(o) },
-    registro: { t: "Registro diario", g: "Operación", ico: "registro", go: (o) => window.goRegistro?.(o) },
-    reportes: { t: "Reportes de turno", g: "Operación", ico: "reportes", go: (o) => window.goReportes?.(o && o.id) },
-    tasks: { t: "Tareas", g: "Operación", ico: "tareas", go: () => window.goTasks?.() },
-    insp: { t: "Inspecciones", g: "Operación", ico: "insp", go: () => window.goInsp?.() },
-    turnos: { t: "Turnos", g: "Operación", ico: "turnos", go: () => window.goTurnos?.() },
-    home: { t: "Fichas de equipos", g: "Equipos", ico: "equipos", go: () => window.goHome?.() },
+    hoy: { t: "Inicio", g: "Inicio", ico: "inicio", go: (o) => window.goHoy?.(o) },
+    home: { t: "Equipos", pt: "Fichas", g: "Equipos", ico: "equipos", go: () => window.goHome?.() },
     results: { t: "Buscar equipos", g: "Equipos", nav: "home", ico: "equipos", oculta: true, go: () => window.goResults?.({ keepSelection: true }) },
     detail: { t: "Ficha del equipo", g: "Equipos", nav: "home", ico: "equipos", oculta: true, go: (o) => o && o.id && window.openDetail?.(o.id) },
-    plan: { t: "Plan de mantenimiento", g: "Equipos", ico: "plan", go: (o) => window.goPlan?.(o && o.q) },
-    almacen: { t: "Almacén", g: "Almacén y costos", ico: "almacen", go: (o) => window.goAlmacen?.(o) },
-    presupuesto: { t: "Presupuesto", g: "Almacén y costos", ico: "presupuesto", go: (o) => window.goPresupuesto?.(o) },
-    indicadores: { t: "Indicadores", g: "Análisis", ico: "indicadores", go: (o) => window.goIndicadores?.(o) },
-    diario: { t: "Diario del taller", g: "Análisis", ico: "diario", go: () => window.goDiario?.() },
-    ajustes: { t: "Conexión y ajustes", g: "Configuración", ico: "ajustes", go: () => window.goAjustes?.() },
+    plan: { t: "Plan de mantenimiento", pt: "Plan de mantenimiento", g: "Equipos", ico: "plan", go: (o) => window.goPlan?.(o && o.q) },
+    diario: { t: "Calendario", pt: "Calendario", g: "Turno", ico: "calendario", go: () => window.goDiario?.() },
+    registro: { t: "Registro diario", pt: "Registro", g: "Turno", ico: "registro", go: (o) => window.goRegistro?.(o) },
+    reportes: { t: "Reportes de turno", pt: "Reportes", g: "Turno", ico: "reportes", go: (o) => window.goReportes?.(o && o.id) },
+    turnos: { t: "Personal en turno", pt: "Personal", g: "Turno", ico: "turnos", go: () => window.goTurnos?.() },
+    seguimiento: { t: "Seguimiento del mantenimiento", pt: "Seguimiento", g: "Mantenimiento", ico: "llave", badge: "sbMtto", go: (o) => window.goSeguimiento?.(o) },
+    insp: { t: "Inspecciones", pt: "Inspecciones", g: "Mantenimiento", ico: "insp", go: () => window.goInsp?.() },
+    pendientes: { t: "Pendientes", pt: "Pendientes", g: "Mantenimiento", ico: "pendientes", badge: "sbPendientes", go: (o) => window.goPendientes?.(o) },
+    tasks: { t: "Tareas", pt: "Tareas", g: "Mantenimiento", ico: "tareas", badge: "sbTareas", go: () => window.goTasks?.() },
+    almacen: { t: "Almacén", pt: "Repuestos y solicitudes", g: "Almacén", ico: "almacen", go: (o) => window.goAlmacen?.(o) },
+    presupuesto: { t: "Presupuesto", pt: "Presupuesto", g: "Almacén", ico: "presupuesto", go: (o) => window.goPresupuesto?.(o) },
+    solicitudes: { t: "Historial de solicitudes", pt: "Historial", g: "Almacén", ico: "reloj", badge: "sbSolic", go: (o) => window.goSolicitudes?.(o) },
+    indicadores: { t: "Indicadores", g: "Indicadores", ico: "indicadores", go: (o) => window.goIndicadores?.(o) },
+    ajustes: { t: "Conexión y ajustes", g: "Ajustes", ico: "ajustes", go: () => window.goAjustes?.() },
   };
-  const ALIAS = { inicio: "hoy", tareas: "tasks", inspecciones: "insp", equipos: "home", equipo: "detail" };
+  // Pestañas de cada sección, en el orden de arriba (solo las vistas visibles)
+  const PESTANAS = {};
+  Object.entries(VISTAS).forEach(([k, v]) => { if (!v.oculta) (PESTANAS[v.g] = PESTANAS[v.g] || []).push(k); });
+  const seccionDe = (v) => (VISTAS[v] || {}).g;
+  const ALIAS = { inicio: "hoy", tareas: "tasks", inspecciones: "insp", equipos: "home", equipo: "detail", turno: "diario", calendario: "diario", historial: "solicitudes", mantenimiento: "seguimiento" };
   const nombreVista = (v) => ALIAS[v] || v;
 
   let actual = null;
@@ -109,11 +116,13 @@
   function alCambiarVista(v) {
     const info = VISTAS[v] || { t: v, g: "" };
     const marcar = info.nav || v;
-    document.querySelectorAll("[data-go]").forEach((b) => {
-      const on = b.dataset.go === marcar;
+    // En el menú y en la barra del celular se marca la sección; en las pestañas, la vista
+    document.querySelectorAll(".sb [data-go], .mb [data-go]").forEach((b) => {
+      const on = seccionDe(b.dataset.go) === info.g;
       b.classList.toggle(b.closest(".mb") ? "is-on" : "is-active", on);
       if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
+    pintarPestanas(info.g, marcar);
     const mas = document.querySelector('.mb [data-mb="mas"]');
     if (mas) mas.classList.toggle("is-on", !document.querySelector(".mb [data-go].is-on"));
 
@@ -125,7 +134,7 @@
       if (m) titulo = m.model || m.name;
     }
     const miga = document.getElementById("tbCrumb");
-    if (miga) miga.innerHTML = `${info.g ? `<span>${esc(info.g)}</span>${ic("der")}` : ""}<b>${esc(titulo)}</b>`;
+    if (miga) miga.innerHTML = `${info.g && info.g !== titulo ? `<span>${esc(info.g)}</span>${ic("der")}` : ""}<b>${esc(titulo)}</b>`;
     document.title = `${titulo} · Mantenimiento Farmacápsulas`;
 
     const el = typeof views !== "undefined" ? views[v] : null;
@@ -241,7 +250,6 @@
   }
   document.getElementById("tbBurger")?.addEventListener("click", () => (document.body.classList.contains("sb-open") ? cerrarMenuMovil() : abrirMenuMovil()));
   document.querySelector('.mb [data-mb="mas"]')?.addEventListener("click", () => (document.body.classList.contains("sb-open") ? cerrarMenuMovil() : abrirMenuMovil()));
-  document.querySelectorAll(".sb a.sb__item").forEach((a) => a.addEventListener("click", cerrarMenuMovil));
 
   // Barra superior con borde al desplazarse
   const barra = document.getElementById("topBar");
@@ -252,11 +260,32 @@
     requestAnimationFrame(() => { barra?.classList.toggle("is-scrolled", window.scrollY > 4); ticking = false; });
   }, { passive: true });
 
+  // ------------------------------------------------------------ pestañas
+  // Las secciones con más de una vista las enseñan como pestañas arriba.
+  function pintarPestanas(sec, marcar) {
+    const nav = document.getElementById("subNav");
+    if (!nav) return;
+    const lista = PESTANAS[sec] || [];
+    nav.hidden = lista.length < 2;
+    if (nav.hidden) { nav.innerHTML = ""; return; }
+    nav.innerHTML = lista.map((k) => {
+      const v = VISTAS[k];
+      const n = v.badge ? cuentas[v.badge] : "";
+      const on = k === marcar;
+      return `<button type="button" data-go="${k}" class="${on ? "is-on" : ""}"${on ? ' aria-current="page"' : ""}>${esc(v.pt || v.t)}${n ? `<em>${esc(n)}</em>` : ""}</button>`;
+    }).join("");
+  }
+
   // ------------------------------------------------------------ insignias
+  // Se recuerda cada número para poder ponerlo también en las pestañas.
+  const cuentas = {};
   function insignia(id, n) {
+    const txt = n ? (n > 99 ? "99+" : String(n)) : "";
+    cuentas[id] = txt;
     const el = document.getElementById(id);
-    if (!el) return;
-    el.textContent = n ? (n > 99 ? "99+" : String(n)) : "";
+    if (el) el.textContent = txt;
+    const v = actual && VISTAS[actual];
+    if (v) pintarPestanas(v.g, v.nav || actual);
   }
 
   // ---------------------------------------------------------------- avisos
@@ -445,7 +474,7 @@
     const escribiendo = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "") || document.activeElement?.isContentEditable;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); paleta ? cerrarPaleta() : abrirPaleta(); }
     else if (e.key === "/" && !escribiendo && !paleta) { e.preventDefault(); abrirPaleta(); }
-    else if (e.key === "Escape") { cerrarMenuNuevo(); cerrarMenuMovil(); }
+    else if (e.key === "Escape") { cerrarMenuNuevo(); cerrarMenuMovil(); cerrarPaleta(); }
   });
 
   // --------------------------------------------- estado de la conexión
@@ -465,31 +494,22 @@
     else if (denegadas.length) { clase = "is-warn"; txt = "Nube parcial"; tip = `La nube rechaza: ${denegadas.join(", ")}. Eso queda solo en este equipo hasta publicar las reglas (ver Conexión y ajustes).`; }
     else if (conError && !buenas) { clase = "is-bad"; txt = "Sin conexión"; tip = "No se pudo hablar con la nube. Lo que guardes queda en este equipo y se sube después."; }
     else if (!estados.length) { clase = ""; txt = "Conectando…"; }
+    // Solo un punto: verde que late si todo va bien; el detalle queda en el título
     b.className = `tb__sync ${clase}`;
-    b.innerHTML = `<i></i><b>${txt}</b>`;
-    b.title = tip;
+    b.innerHTML = "<i></i>";
+    b.title = `${txt}. ${tip}`;
+    b.setAttribute("aria-label", txt);
     insignia("sbAjustes", denegadas.length ? "!" : "");
   }
   N.on("permisos", pintarConexion);
   window.addEventListener("online", pintarConexion);
   window.addEventListener("offline", pintarConexion);
   document.getElementById("tbSync")?.addEventListener("click", () => ir("ajustes"));
-  document.getElementById("tbPend")?.addEventListener("click", () => ir("pendientes"));
   // Revisión discreta de permisos al abrir: así el aviso aparece aunque nadie
   // haya intentado guardar todavía.
   setTimeout(() => { N.COLECCIONES.forEach((c) => N.probar(c.id)); }, 1800);
 
-  // ------------------------------------------------------------ usuario
-  function pintarUsuario() {
-    const b = document.getElementById("tbUser");
-    if (!b) return;
-    const n = N.usuario.get();
-    b.textContent = n ? N.iniciales(n).toUpperCase() : "?";
-    b.title = n ? `${n} · cambiar en Conexión y ajustes` : "¿Quién eres? Escribe tu nombre en Conexión y ajustes";
-  }
-  N.on("usuario", pintarUsuario);
-  document.getElementById("tbUser")?.addEventListener("click", () => ir("ajustes"));
-  pintarUsuario();
+
 
   window.SHELL = {
     VISTAS, ICONOS, ic, ir, puedeAbrir, abrirDesdeUrl, alCambiarVista, toast, insignia, animarNumeros, abrirPaleta,

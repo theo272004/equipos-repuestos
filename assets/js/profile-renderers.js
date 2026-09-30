@@ -532,6 +532,7 @@ function dt(machine, campo) {
         if (cloud.enabled && cloud.db) inspSync();
         renderInspIfVisible();
         renderFichaSiVisible();
+        window.segRenderSiVisible?.();
       }
 
       function inspSync() {
@@ -551,6 +552,7 @@ function dt(machine, campo) {
           saveInspLocal();
           renderInspIfVisible();
           renderFichaSiVisible();
+          window.segRenderSiVisible?.();
         }, (err) => { inspNube.conectado = false; inspNube.error = err && err.code ? err.code : "error"; console.error("[Inspecciones] onSnapshot:", err); });
       }
 
@@ -612,12 +614,6 @@ function dt(machine, campo) {
               <button class="button button--dark" type="button" onclick="inspAbrirForm()">Nueva inspección</button>
             </div>
           </div>
-
-          <p class="pl-note">
-            Lo que se revisa en planta: qu&eacute; se mir&oacute;, qu&eacute; se encontr&oacute; y qu&eacute; piezas hay que cambiar.
-            Las piezas que marques aparecen se&ntilde;aladas en la pesta&ntilde;a <strong>Repuestos</strong> de ese equipo hasta que se cambien de verdad
-            y se registre el cambio. Una inspecci&oacute;n <strong>abierta</strong> es trabajo pendiente; ci&eacute;rrala cuando ya no quede nada por hacer.
-          </p>
 
           <div class="pl-kpis">
             <div class="pl-kpi"><span class="pl-kpi__n">${lista.length}</span><span class="pl-kpi__l">Inspecciones</span></div>
@@ -735,7 +731,7 @@ function dt(machine, campo) {
 
         inspEditandoId = registro ? registro.id : "";
         inspEquipoFijo = registro ? registro.eq : eqCod;
-        inspPiezas = registro ? (registro.piezas || []).map((p) => ({ cod: p.cod || "", d: p.d || "", q: p.q || "", urgencia: p.urgencia || "media" })) : [];
+        inspPiezas = registro ? (registro.piezas || []).map((p) => ({ ...p, cod: p.cod || "", d: p.d || "", q: p.q || "", urgencia: p.urgencia || "media", tipo: p.tipo || "pieza" })) : [];
 
         sel.innerHTML = PLAN_EQUIPOS.map((e) => `<option value="${planEsc(e.c)}">${planEsc(e.n)}</option>`).join("");
         form.reset();
@@ -760,6 +756,7 @@ function dt(machine, campo) {
         if (estadoWrap) estadoWrap.hidden = !registro; // una nueva nace abierta
 
         inspPintarPiezas();
+        inspPintarChecklist();
         document.getElementById("inspSheetBackdrop").hidden = false;
         document.getElementById("inspSheet").hidden = false;
       }
@@ -772,8 +769,44 @@ function dt(machine, campo) {
         inspEditandoId = "";
       }
 
+      // Qué es cada hallazgo: una pieza para cambiar, o un trabajo sin repuesto
+      const INSP_HALLAZGO = { pieza: "Cambio de pieza", mecanica: "Mecánica", electrica: "Eléctrica", desgaste: "Desgaste / ajuste", otro: "Otro" };
+
+      // Qué revisar en el equipo elegido: las tareas del manual (ficha completa)
+      // y las posiciones que se siguen en Mantenimiento. Marcar un punto lo
+      // anota en "Qué se revisó".
+      function inspPuntosDe(eqCod) {
+        const m = machines.find((x) => { const e = equipoDeMachine(x); return (e && e.c === eqCod) || x.equipoCod === eqCod; });
+        const puntos = [];
+        ((m && m.maintenanceTasks) || []).forEach((t) => { if (t && t.name) puntos.push({ t: t.name, s: [t.system, t.frequency].filter(Boolean).join(" · ") }); });
+        (window.COMPONENTES_SEGUIDOS || []).filter((g) => g.eq === eqCod).forEach((g) => (g.items || []).forEach((it) => puntos.push({ t: `${g.titulo}: ${it.ubicacion || it.d}`, s: it.d || "" })));
+        return puntos;
+      }
+      function inspPintarChecklist() {
+        const cont = document.getElementById("inspChecklist");
+        const form = document.getElementById("inspForm");
+        if (!cont || !form) return;
+        const puntos = inspPuntosDe(form.eq.value);
+        const hechos = new Set(String(form.revisado.value || "").split("\n").filter((l) => l.startsWith("✓ ")).map((l) => l.slice(2).trim()));
+        cont.innerHTML = puntos.length
+          ? `<details class="in-check__caja" ${hechos.size ? "open" : ""}><summary>Qué revisar en este equipo <span>${puntos.length} puntos</span></summary>
+              <div class="in-check__lista">${puntos.map((p, i) => `<label class="in-check__p"><input type="checkbox" data-i="${i}" ${hechos.has(p.t) ? "checked" : ""} onchange="inspMarcarPunto(this)"><span><b>${planEsc(p.t)}</b>${p.s ? `<small>${planEsc(p.s)}</small>` : ""}</span></label>`).join("")}</div>
+            </details>`
+          : '<p class="pl-soft in-check__vacio">Este equipo aún no tiene puntos de revisión: salen de su manual cuando se carga la ficha completa.</p>';
+        cont._puntos = puntos;
+      }
+      // Los puntos marcados van como líneas "✓ …" al principio de "Qué se revisó"
+      function inspMarcarPunto(caja) {
+        const form = document.getElementById("inspForm");
+        const cont = document.getElementById("inspChecklist");
+        if (!form || !cont) return;
+        const marcados = [...cont.querySelectorAll("input[type=checkbox]:checked")].map((c) => "✓ " + cont._puntos[+c.dataset.i].t);
+        const resto = String(form.revisado.value || "").split("\n").filter((l) => !l.startsWith("✓ ") && l.trim());
+        form.revisado.value = [...marcados, ...resto].join("\n");
+      }
+
       function inspAnadirPieza() {
-        inspPiezas.push({ cod: "", d: "", q: "", urgencia: "media" });
+        inspPiezas.push({ cod: "", d: "", q: "", urgencia: "media", tipo: "pieza" });
         inspPintarPiezas();
       }
 
@@ -785,16 +818,20 @@ function dt(machine, campo) {
         const cont = document.getElementById("inspPiezas");
         if (!cont) return;
         cont.innerHTML = inspPiezas.length
-          ? inspPiezas.map((p, i) => `<div class="in-fila">
-              <input placeholder="Código interno" value="${planEsc(p.cod)}" oninput="inspEditarPieza(${i}, 'cod', this.value)">
-              <input placeholder="Qué pieza es" value="${planEsc(p.d)}" oninput="inspEditarPieza(${i}, 'd', this.value)">
-              <input placeholder="Cant." value="${planEsc(p.q)}" oninput="inspEditarPieza(${i}, 'q', this.value)">
-              <select onchange="inspEditarPieza(${i}, 'urgencia', this.value)">
+          ? inspPiezas.map((p, i) => `<div class="in-fila in-fila--h">
+              <select class="in-tipo" aria-label="Tipo de hallazgo" onchange="inspEditarPieza(${i}, 'tipo', this.value)">
+                ${Object.entries(INSP_HALLAZGO).map(([k, v]) => `<option value="${k}" ${(p.tipo || "pieza") === k ? "selected" : ""}>${planEsc(v)}</option>`).join("")}
+              </select>
+              <input class="in-desc" placeholder="Qué hay que hacer o qué pieza" value="${planEsc(p.d)}" oninput="inspEditarPieza(${i}, 'd', this.value)">
+              <input class="in-cod" placeholder="Código (si es pieza)" value="${planEsc(p.cod)}" oninput="inspEditarPieza(${i}, 'cod', this.value)">
+              <input class="in-q" placeholder="Cant." value="${planEsc(p.q)}" oninput="inspEditarPieza(${i}, 'q', this.value)">
+              <select class="in-urg" aria-label="Urgencia" onchange="inspEditarPieza(${i}, 'urgencia', this.value)">
                 ${Object.entries(INSP_URGENCIA).map(([k, v]) => `<option value="${k}" ${p.urgencia === k ? "selected" : ""}>${planEsc(v)}</option>`).join("")}
               </select>
+              <label class="in-ya" title="Algo menor que se resolvió en la misma inspección"><input type="checkbox" ${p.hecho ? "checked" : ""} onchange="inspEditarPieza(${i}, 'hecho', this.checked ? (this.form.fecha.value || bogotaToday()) : '')">Resuelto ya</label>
               <button type="button" class="in-quitar" onclick="inspQuitarPieza(${i})" aria-label="Quitar">&times;</button>
             </div>`).join("")
-          : '<p class="pl-soft">Ninguna todavía. Si la revisión no encontró nada para cambiar, déjalo vacío.</p>';
+          : '<p class="pl-soft">Ninguno todavía. Si la revisión no encontró nada, déjalo vacío.</p>';
       }
 
       function inspGuardar(e) {
@@ -811,7 +848,7 @@ function dt(machine, campo) {
           quien: String(f.quien.value || "").trim(),
           revisado: String(f.revisado.value || "").trim(),
           hallazgos: String(f.hallazgos.value || "").trim(),
-          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim())
+          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim()).map((p) => { const x = { ...p }; if (!x.hecho) delete x.hecho; return x; })
         };
 
         const editada = inspEditandoId ? inspecciones.find((x) => x.id === inspEditandoId) : null;
@@ -1080,6 +1117,7 @@ function dt(machine, campo) {
         saveCambiosLocal();
         if (cloud.enabled && cloud.db) cambiosSync();
         renderPlanIfVisible();
+        window.segRenderSiVisible?.();
       }
 
       function cambiosSync() {
@@ -1339,13 +1377,6 @@ function dt(machine, campo) {
             </div>
           </div>
 
-          <p class="pl-note">
-            Los <strong>${PLAN_EQUIPOS.length} equipos</strong> de la planta, del Excel de la empresa (hoja <strong>PLAN MTTO</strong>, corte ${planEsc(EQ_DATA.corte)}).
-            <strong>Elige un equipo</strong> y se abre su ficha con todo lo suyo: repuestos, c&oacute;digo interno, existencias e historial.
-            Los que todav&iacute;a no tienen manual ni despiece salen como <em>ficha b&aacute;sica</em> y se les va a&ntilde;adiendo.
-            <strong>La frecuencia no viene del Excel: se mide.</strong> Cada cambio que se registra acerca la pieza a tener su frecuencia real.
-          </p>
-
           ${planAvisoInventario()}
 
           <div class="pl-kpis">
@@ -1527,21 +1558,28 @@ function dt(machine, campo) {
         setTimeout(() => form.fecha.focus(), 60);
       }
 
+      // Pestaña Mantenimiento de la ficha: primero el trabajo abierto (la misma
+      // tarjeta del Seguimiento: inspección, cambios, lo que falta y qué pedir),
+      // después el cuadro de piezas por posición y el historial de inspecciones.
       function renderInspMaquina(machine) {
         const eq = equipoDeMachine(machine);
         const cod = eq ? eq.c : (machine.equipoCod || "");
         const lista = cod ? inspDeEquipo(cod) : [];
-        const abiertas = lista.filter((i) => (i.estado || "abierta") !== "cerrada").length;
-        return `${cod ? compBloques(cod) : ""}
+        const SG = window.SEGUIMIENTO;
+        const trabajos = cod && SG ? SG.trabajos().filter((t) => t.i.eq === cod && t.etapa !== "hecho") : [];
+        const enTrabajo = new Set(trabajos.map((t) => t.i.id));
+        const resto = lista.filter((i) => !enTrabajo.has(i.id));
+        return `${trabajos.length ? `<div class="panel-header-clean"><h3>Trabajo de mantenimiento abierto</h3><p>Lo que dijo la inspección, lo que ya se cambió y lo que falta.</p></div>
+            <div class="sg-lista">${trabajos.map((t) => SG.htmlTrabajo(t, { cuadro: false, sinEquipo: true })).join("")}</div><div class="panel-split"></div>` : ""}
+          ${cod ? compBloques(cod) : ""}
           <div class="panel-header-clean">
-            <h3>Inspecciones de este equipo</h3>
-            <p>Qu&eacute; se ha revisado, qu&eacute; se encontr&oacute; y qu&eacute; piezas quedaron marcadas para cambiar.</p>
+            <h3>Historial de inspecciones</h3>
           </div>
           <div class="in-barra">
-            <span class="counter">${lista.length} ${lista.length === 1 ? "inspección" : "inspecciones"}${abiertas ? " · " + abiertas + " abierta" + (abiertas === 1 ? "" : "s") : ""}</span>
+            <span class="counter">${lista.length} ${lista.length === 1 ? "inspección" : "inspecciones"}</span>
             ${cod ? `<button class="button button--dark" type="button" onclick="inspAbrirForm('${planEsc(cod)}')">Anotar inspección</button>` : ""}
           </div>
-          ${lista.length ? lista.map((i) => inspTarjeta(i, false)).join("") : '<p class="pl-soft" style="padding:6px 2px 2px">Todavía no se ha anotado ninguna inspección de este equipo.</p>'}`;
+          ${resto.length ? resto.map((i) => inspTarjeta(i, false)).join("") : `<p class="pl-soft" style="padding:6px 2px 2px">${lista.length ? "La inspección abierta está arriba, en el trabajo de mantenimiento." : "Todavía no se ha anotado ninguna inspección de este equipo."}</p>`}`;
       }
 
 
@@ -1873,11 +1911,24 @@ function dt(machine, campo) {
         goResults();
       }
 
+      // El buscador de Equipos filtra la lista mientras se escribe
       homeSearchForm.addEventListener("submit", (event) => {
         event.preventDefault();
         currentQuery = homeSearch.value.trim();
         saveUiState();
-        goResults();
+        renderHome();
+      });
+      let homeEscribiendo = null;
+      homeSearch.addEventListener("input", () => {
+        clearTimeout(homeEscribiendo);
+        homeEscribiendo = setTimeout(() => {
+          const antes = currentQuery;
+          currentQuery = homeSearch.value.trim();
+          homeFiltro.limite = 60;
+          // Las fichas con foto solo se ven sin búsqueda: al empezar o borrar se repinta todo
+          if (!antes !== !currentQuery) renderHome(); else renderHomeLista();
+          saveUiState();
+        }, 120);
       });
 
       resultsSearchForm.addEventListener("submit", (event) => {
@@ -1887,9 +1938,6 @@ function dt(machine, campo) {
         goResults();
       });
 
-      homeSearch.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") { event.preventDefault(); currentQuery = homeSearch.value.trim(); saveUiState(); goResults(); }
-      });
 
       resultsSearch.addEventListener("keydown", (event) => {
         if (event.key === "Enter") { event.preventDefault(); currentQuery = resultsSearch.value.trim(); saveUiState(); goResults(); }

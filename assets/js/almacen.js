@@ -33,7 +33,6 @@
   const fechaCorta = (iso) => { const [a, m, d] = String(iso || "").split("-"); return d ? `${Number(d)}/${m}/${a}` : String(iso || ""); };
   const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "", mas: new Set() };
   // En pantalla ancha la solicitud se puede esconder para dar sitio a los resultados
-  const CLAVE_SOL_OCULTA = "equipos-alm-sol-oculta";
   let borrador = cargar(BORRADOR, null) || nuevoBorrador();
   let historial = cargar(HISTORIAL, []);
   let cache = { inv: null, m: null, lista: [] };
@@ -157,65 +156,65 @@
   function render() {
     const raiz = document.getElementById("almRoot");
     if (!raiz) return;
-    const pendientesEntrega = historial.filter((s) => (s.estado || "emitida") === "emitida").length;
+    // Dos pasos: primero se buscan y eligen las piezas, después se llena la
+    // solicitud. Cada paso usa todo el ancho de la página.
+    const llenar = vista.paso === "llenar";
     raiz.innerHTML = `
       <div class="section-bar">
-        <div>
-          <p class="eyebrow">Almacén y costos</p>
-          <h2>Buscar repuestos y pedirlos</h2>
-        </div>
-        <div class="section-actions">
-          ${pendientesEntrega ? `<button class="button button--light" type="button" data-alm="ver-hist">${pendientesEntrega} sin entregar</button>` : ""}
-          <button class="button button--light" type="button" data-alm="ir-presupuesto">Presupuesto</button>
-        </div>
+        <div><h2>${llenar ? (borrador.editando ? "Corregir la solicitud" : "Llenar la solicitud") : "Buscar repuestos"}</h2></div>
+        <div class="section-actions">${llenar ? "" : `<button class="ux-btn ux-btn--icon" type="button" data-alm="subir-abrir" title="Cargar el reporte RE356 de MiPortal" aria-label="Cargar RE356">${window.IC ? window.IC("subir") : "↑"}</button>`}<span id="almPasos">${htmlPasos()}</span></div>
       </div>
-      <div id="almFuente">${htmlFuente()}</div>
       <div id="almPedidos">${htmlPedidos()}</div>
-      <div class="alm-grid ${cargar(CLAVE_SOL_OCULTA, false) ? "is-sol-oculta" : ""}" id="almGrid">
+      <div class="alm-grid is-paso-${llenar ? "llenar" : "buscar"}" id="almGrid">
         <div class="alm-main">
           <div class="pl-filters">
             <input type="search" id="almQ" value="${esc(vista.q)}" placeholder="C&oacute;digo, descripci&oacute;n, estante o equipo (ej. rodamiento 6204, R01/Z0505, blisteadora 2)&hellip;" aria-label="Buscar en almac&eacute;n" autocomplete="off">
           </div>
           <div class="alm-chips" id="almChips">${htmlChips()}</div>
+          <div id="almFuente">${htmlFuente()}</div>
           <div id="almResultados">${htmlResultados()}</div>
         </div>
         <aside class="alm-side" id="almSolicitud">${htmlSolicitud()}</aside>
       </div>
-      <button class="alm-sol-tab" id="almSolTab" type="button" data-alm="sol-mostrar" title="Mostrar la solicitud"></button>
-      <div id="almHistorial">${htmlHistorial()}</div>
-      <button class="alm-ir-sol" id="almIrSol" type="button" data-alm="ir-sol" hidden></button>`;
+      <div class="alm-carrito" id="almCarrito" ${llenar ? "hidden" : ""}></div>`;
     const q = document.getElementById("almQ");
     q.addEventListener("input", () => { vista.q = q.value; vista.limite = 60; vista.todo = false; pintarResultados(); });
-    // En el celular la solicitud queda debajo de los resultados: un botón
-    // flotante lleva a ella, y se esconde cuando ya se está viendo.
-    vista.solVisible = false;
-    if (window.IntersectionObserver) {
-      if (vista.obsSol) vista.obsSol.disconnect();
-      vista.obsSol = new IntersectionObserver((es) => { vista.solVisible = es.some((e) => e.isIntersecting); pintarIrSol(); });
-      vista.obsSol.observe(document.getElementById("almSolicitud"));
-    }
     pintarIrSol();
   }
 
-  function solOculta() { return !!document.getElementById("almGrid")?.classList.contains("is-sol-oculta"); }
-  function ocultarSol(si) {
-    document.getElementById("almGrid")?.classList.toggle("is-sol-oculta", si);
-    guardar(CLAVE_SOL_OCULTA, si);
-    pintarIrSol();
+  // Los dos pasos, arriba a la derecha: se puede ir y volver sin perder nada
+  function htmlPasos() {
+    const n = borrador.lineas.length;
+    const llenar = vista.paso === "llenar";
+    return `<div class="alm-pasos" role="tablist" aria-label="Pasos de la solicitud">
+      <button type="button" role="tab" class="${llenar ? "" : "is-on"}" aria-selected="${!llenar}" data-alm="paso-buscar"><i>1</i>Elegir piezas</button>
+      <span aria-hidden="true" class="alm-pasos__sep"></span>
+      <button type="button" role="tab" class="${llenar ? "is-on" : ""}" aria-selected="${llenar}" data-alm="paso-llenar" ${n ? "" : "disabled"}><i>2</i>Llenar solicitud${n ? ` <b>${n}</b>` : ""}</button>
+    </div>`;
   }
-  function verSol() {
-    if (solOculta()) ocultarSol(false);
-    document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  function ponerPaso(p) {
+    if (p === "llenar" && !borrador.lineas.length) return;
+    vista.paso = p;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    if (p === "buscar" && window.matchMedia("(pointer: fine)").matches) setTimeout(() => document.getElementById("almQ")?.focus({ preventScroll: true }), 30);
   }
+  function ocultarSol() { ponerPaso("buscar"); }
+  function verSol() { ponerPaso("llenar"); }
 
+  // Barra de abajo en el paso 1: lo elegido y el botón para seguir
   function pintarIrSol() {
     const n = borrador.lineas.length;
-    const t = document.getElementById("almSolTab");
-    if (t) t.innerHTML = `<span aria-hidden="true">&lsaquo;</span> ${borrador.editando ? "Corrección" : "Solicitud"}${n ? ` <b>${n}</b>` : ""}`;
-    const b = document.getElementById("almIrSol");
-    if (!b) return;
-    b.hidden = !n || vista.solVisible;
-    b.innerHTML = `${borrador.editando ? "Corrección" : "Solicitud"} &middot; <b>${n}</b> ${n === 1 ? "pieza" : "piezas"} <span aria-hidden="true">&darr;</span>`;
+    const pasos = document.getElementById("almPasos");
+    if (pasos) pasos.innerHTML = htmlPasos();
+    const c = document.getElementById("almCarrito");
+    if (!c) return;
+    c.classList.toggle("is-vacio", !n);
+    const nombres = borrador.lineas.slice(-3).reverse().map((l) => esc(l.desc || l.cod)).join(" · ");
+    c.innerHTML = n
+      ? `<div class="alm-carrito__txt"><b>${n} ${n === 1 ? "pieza elegida" : "piezas elegidas"}</b><span>${nombres}${n > 3 ? " · …" : ""}</span></div>
+         <button class="ux-btn ux-btn--primary" type="button" data-alm="paso-llenar">${borrador.editando ? "Seguir con la corrección" : "Llenar la solicitud"} <span aria-hidden="true">&rarr;</span></button>`
+      : `<div class="alm-carrito__txt"><span>Busca las piezas y pulsa <b>Pedir</b>. Cuando termines, llenas la solicitud.</span></div>`;
   }
 
   function pintarResultados() {
@@ -224,9 +223,89 @@
     const c = document.getElementById("almChips");
     if (c) c.innerHTML = htmlChips();
   }
-  function pintarSolicitud() { const s = document.getElementById("almSolicitud"); if (s) s.innerHTML = htmlSolicitud(); pintarIrSol(); }
+  function pintarSolicitud() {
+    // Sin piezas no hay nada que llenar: de vuelta al buscador
+    if (vista.paso === "llenar" && !borrador.lineas.length) { vista.paso = "buscar"; render(); return; }
+    const s = document.getElementById("almSolicitud"); if (s) s.innerHTML = htmlSolicitud(); pintarIrSol();
+  }
   function pintarHistorial() { const h = document.getElementById("almHistorial"); if (h) h.innerHTML = htmlHistorial(); }
-  function pintarFuente() { const f = document.getElementById("almFuente"); if (f) f.innerHTML = htmlFuente(); }
+  function pintarFuente() { const f = document.getElementById("almFuente"); if (f) f.innerHTML = htmlFuente(); pintarSubir(); }
+
+  // ------------------------------------------------------------------------
+  //  Ventana para subir el RE356: se arrastra el archivo o se busca, y se ve
+  //  cómo va (leyendo, guardando en la nube, listo) sin salir de ella.
+  // ------------------------------------------------------------------------
+  const IC_NUBE = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 13v8"/><path d="m8 17 4-4 4 4"/><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/></svg>';
+  const tamano = (b) => (b >= 1048576 ? `${(b / 1048576).toLocaleString("es-CO", { maximumFractionDigits: 1 })} MB` : `${Math.max(1, Math.round(b / 1024))} KB`);
+  function abrirSubir() {
+    if (document.getElementById("almSubir")) return;
+    vista.subir = { abierto: true, archivo: vista.trabajando ? vista.subir?.archivo : null };
+    const caja = document.createElement("div");
+    caja.id = "almSubir";
+    caja.className = "up-capa";
+    document.body.appendChild(caja);
+    document.body.style.overflow = "hidden";
+    caja.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-up]");
+      if (!b) return;
+      if (b.dataset.up === "cerrar") cerrarSubir();
+      else if (b.dataset.up === "subir-nube") guardarEnNube(vista.ultimaCarga || Object.values(window.INVENTARIO.todo || {}));
+    });
+    caja.addEventListener("change", (e) => { if (e.target.dataset.up === "archivo") { leerArchivo(e.target.files && e.target.files[0]); e.target.value = ""; } });
+    caja.addEventListener("dragover", (e) => { const z = e.target.closest(".up__zona"); if (!z) return; e.preventDefault(); z.classList.add("is-encima"); });
+    caja.addEventListener("dragleave", (e) => { e.target.closest(".up__zona")?.classList.remove("is-encima"); });
+    caja.addEventListener("drop", (e) => {
+      const z = e.target.closest(".up__zona");
+      if (!z) return;
+      e.preventDefault();
+      z.classList.remove("is-encima");
+      leerArchivo(e.dataTransfer.files && e.dataTransfer.files[0]);
+    });
+    document.addEventListener("keydown", escSubir);
+    pintarSubir();
+    setTimeout(() => caja.querySelector(".up__zona")?.focus(), 30);
+  }
+  function escSubir(e) { if (e.key === "Escape") cerrarSubir(); }
+  function cerrarSubir() {
+    document.getElementById("almSubir")?.remove();
+    document.body.style.overflow = "";
+    document.removeEventListener("keydown", escSubir);
+    if (vista.subir) vista.subir.abierto = false;
+  }
+  function pintarSubir() {
+    const caja = document.getElementById("almSubir");
+    if (!caja) return;
+    const inv = window.INVENTARIO;
+    const hay = inv && inv.cargado;
+    const f = inv ? inv.frescura() : { estado: "sin-datos", texto: "" };
+    const a = vista.subir && vista.subir.archivo;
+    const n = vista.nube;
+    const fase = vista.trabajando ? "leyendo" : vista.aviso && vista.aviso.tipo === "error" && a ? "error"
+      : a && n && n.estado === "subiendo" ? "guardando" : a && vista.aviso && vista.aviso.tipo === "ok" ? "listo" : "";
+    const tarjeta = (tipo, titulo, sub, extra = "", cls = "") => `<div class="up__archivo ${cls}"><span class="up__tipo">${tipo}</span><div class="up__info"><b>${titulo}</b><span>${sub}</span></div>${extra}</div>`;
+    const enCurso = !a ? "" : tarjeta("XLS", esc(a.name),
+      fase === "leyendo" ? `${tamano(a.size)} · leyendo…` : fase === "guardando" ? "Guardando en la nube…" : fase === "error" ? "No se pudo leer" : `${tamano(a.size)} · listo`,
+      fase === "listo" ? '<span class="up__ok">&#10003;</span>' : "",
+      `is-${fase || "listo"}`) + (fase === "leyendo" || fase === "guardando" ? '<div class="up__barra"><i></i></div>' : "");
+    const actual = hay && fase !== "leyendo" && fase !== "guardando" && fase !== "listo"
+      ? tarjeta("XLS", "Inventario actual", `${inv.estado.articulos.toLocaleString("es-CO")} artículos · ${esc(f.texto.replace(/^Inventario de /, "actualizado ").replace(/dias/, "días"))}`, "", "is-actual") : "";
+    caja.innerHTML = `
+      <div class="up-velo" data-up="cerrar"></div>
+      <section class="up" role="dialog" aria-modal="true" aria-labelledby="upTitulo">
+        <button class="up__x" type="button" data-up="cerrar" aria-label="Cerrar">&times;</button>
+        <header class="up__head"><h3 id="upTitulo">Cargar inventario</h3><p>Reporte RE356 de MiPortal, en Excel</p></header>
+        <label class="up__zona" tabindex="0">
+          <span class="up__ico">${IC_NUBE}</span>
+          <b>Arrastra el archivo aquí o <u>búscalo</u></b>
+          <small>.xls o .xlsx · MiPortal → RE356 → Generar Excel</small>
+          <input type="file" accept=".xls,.xlsx" data-up="archivo" hidden>
+        </label>
+        ${enCurso || actual ? `<div class="up__lista">${enCurso}${actual}</div>` : ""}
+        ${vista.aviso && a ? `<p class="up__msg up__msg--${vista.aviso.tipo}">${vista.aviso.html}</p>` : ""}
+        ${n && n.estado === "error" ? `<button class="ux-btn ux-btn--sm" type="button" data-up="subir-nube">No se guardó en la nube · reintentar</button>` : ""}
+        <footer class="up__pie"><button class="ux-btn ${fase === "listo" ? "ux-btn--primary" : ""}" type="button" data-up="cerrar">${fase === "listo" ? "Listo" : "Cerrar"}</button></footer>
+      </section>`;
+  }
 
   function htmlFuente() {
     const inv = window.INVENTARIO;
@@ -236,9 +315,9 @@
     const aviso = vista.aviso ? `<p class="alm-aviso alm-aviso--${vista.aviso.tipo}" role="status">${vista.aviso.html}</p>` : "";
     const M = window.MAESTRO;
     const maestro = !M ? ""
-      : M.listo ? `<span class="pl-inv pl-inv--maestro" title="Todos los códigos de la empresa (reporte RE356R de MiPortal), tengan existencia o no. No trae existencias, estantes ni precios.">Maestro: ${M.total.toLocaleString("es-CO")} c&oacute;digos &middot; ${esc(fechaCorta(M.fecha))}</span>`
+      : M.listo ? `<span title="Todos los códigos de la empresa (reporte RE356R de MiPortal), tengan existencia o no. No trae existencias, estantes ni precios.">maestro de ${M.total.toLocaleString("es-CO")} códigos (${esc(fechaCorta(M.fecha))})</span>`
       : M.error ? `<button class="pl-reg" type="button" data-alm="maestro" title="${esc(M.error)}">No baj&oacute; el maestro de art&iacute;culos &middot; reintentar</button>`
-      : `<span class="pl-soft">Cargando el maestro de art&iacute;culos&hellip;</span>`;
+      : "";
     const trabajando = vista.trabajando ? `<p class="alm-aviso alm-aviso--info" role="status">${esc(vista.trabajando)}</p>` : "";
     const n = vista.nube;
     const nube = !n ? ""
@@ -249,16 +328,13 @@
     // Un archivo cargado antes de que se guardara solo en la nube
     const sinSubir = !n && archivo && !inv.estado.enNube && window.CLOUD && window.CLOUD.enabled
       ? `<button class="pl-reg" type="button" data-alm="subir-nube" title="Para que lo vean los demás equipos y no se pierda">Guardar en la nube</button>` : "";
+    // Una sola línea bajo los filtros: de cuándo son las existencias. El botón
+    // de cargar va arriba, con los pasos.
+    const extras = [nube, sinSubir, archivo && !(n && n.estado === "ok") && !inv.estado.enNube ? `<button class="pl-reg" type="button" data-alm="olvidar" title="Volver a lo que suba el puente de MiPortal">Quitar el archivo</button>` : ""].filter(Boolean).join("");
     return `
-      <div class="alm-fuente">
-        <span class="pl-inv pl-inv--${hay ? f.estado : "sin-datos"}">${hay ? `${esc(f.texto)} &middot; ${inv.estado.articulos} art&iacute;culos` : "Sin reporte de almac&eacute;n cargado"}</span>
-        <label class="pl-reg alm-cargar" title="En MiPortal: reporte RE356 &rarr; Generar Excel. Queda guardado en la nube y lo ven todos los equipos del taller.">
-          Cargar reporte RE356&hellip;<input type="file" accept=".xls,.xlsx" data-alm="archivo" hidden>
-        </label>
-        ${nube}${sinSubir}
-        ${archivo && !(n && n.estado === "ok") && !inv.estado.enNube ? `<button class="pl-reg" type="button" data-alm="olvidar" title="Volver a lo que suba el puente de MiPortal">Quitar el archivo</button>` : ""}
-        ${maestro}
-      </div>
+      <p class="alm-fresc">${hay
+        ? `<i class="alm-fuente__dot is-${f.estado}"></i>Existencias del RE356 ${esc(f.texto.replace(/^Inventario /, "").replace(/dias/, "días"))} · ${inv.estado.articulos.toLocaleString("es-CO")} artículos`
+        : `<i class="alm-fuente__dot"></i>Sin reporte RE356: <button class="ux-link" type="button" data-alm="subir-abrir">cárgalo</button> para ver existencias y precios`}${maestro ? ` · ${maestro}` : ""}${extras ? ` <span class="alm-fresc__acc">${extras}</span>` : ""}</p>
       ${trabajando}${aviso}`;
   }
 
@@ -516,7 +592,7 @@
         <div class="alm-sol__head">
           <h3>${b.editando ? "Corregir solicitud" : "Solicitud de materiales"}</h3>
           <span class="pl-tag pl-tag--n" title="El formato DAD-010A tiene ${RENGLONES} renglones">${b.lineas.length}/${RENGLONES}</span>
-          <button class="alm-sol-ocultar" type="button" data-alm="sol-ocultar" title="Esconder la solicitud para ver más resultados (no se pierde nada)">Ocultar <span aria-hidden="true">&rsaquo;</span></button>
+          <button class="ux-btn ux-btn--sm" type="button" data-alm="paso-buscar" title="Volver al buscador para agregar más piezas (no se pierde nada)"><span aria-hidden="true">&larr;</span> Agregar más piezas</button>
         </div>
         ${b.editando ? `<p class="alm-cc-nota is-warn alm-editando">Est&aacute;s corrigiendo la solicitud del <b>${esc(b.editandoFecha || b.fecha)}</b>${b.editandoDestino ? ` para <b>${esc(b.editandoDestino)}</b>` : ""}. Al guardar se reemplaza esa misma (no se crea otra) y se descarga el formato corregido.</p>` : ""}
         <div class="alm-tipo" role="radiogroup" aria-label="Tipo de solicitud">
@@ -557,17 +633,27 @@
   }
 
   const ESTADOS_SOL = { emitida: "Pedida", entregada: "Entregada", anulada: "Anulada", pedido: "Pedido por Telegram", atendido: "Atendido" };
+  function histBase() { return historial.filter((s) => s.estado !== "pedido" && s.estado !== "atendido"); }
+  function histFiltrado() {
+    const toks = planPlain(vista.hq || "").split(" ").filter(Boolean);
+    return histBase().filter((s) => {
+      if (vista.he && (s.estado || "emitida") !== vista.he) return false;
+      if (!toks.length) return true;
+      const txt = planPlain([s.fecha, s.destino, s.cc, s.solicitadoPor, s.observaciones, TIPOS[s.tipo], ...(s.lineas || []).map((l) => `${l.cod} ${l.desc}`)].join(" "));
+      return toks.every((k) => txt.includes(k));
+    });
+  }
   function htmlHistorial() {
-    const lista = historial.filter((s) => s.estado !== "pedido" && s.estado !== "atendido");
-    if (!lista.length) return "";
-    const filas = lista.slice(0, vista.histTodo ? 200 : 15).map((s) => {
+    const lista = histFiltrado();
+    if (!lista.length) return `<div class="ux-empty"><h4>${histBase().length ? "Ninguna solicitud coincide" : "Todavía no hay solicitudes"}</h4><p>${histBase().length ? "Prueba con otro texto o quita el filtro de estado." : "Las que descargues desde Repuestos y solicitudes quedan aquí para seguirlas."}</p></div>`;
+    const filas = lista.slice(0, vista.histTodo ? 1000 : 40).map((s) => {
       const { total } = totalSolicitud(s);
       const est = s.estado || "emitida";
       return `
       <tr class="${vista.resaltar === s.id ? "is-resaltada" : ""}" id="sol-${esc(s.id)}">
         <td class="ux-nowrap">${esc(s.fecha)}</td>
         <td>${esc(TIPOS[s.tipo] || s.tipo || "")}</td>
-        <td>${esc(s.destino) || "&mdash;"}</td>
+        <td class="alm-hist-dest"><b>${esc(s.destino) || "&mdash;"}</b><small>${(s.lineas || []).slice(0, 3).map((l) => `${esc(l.cant)} × ${esc(l.desc || l.cod)}`).join(" · ")}${(s.lineas || []).length > 3 ? ` · y ${(s.lineas || []).length - 3} más` : ""}</small></td>
         <td>${s.cc ? `<span class="pp-cc__cod" title="${esc(P() ? P().nombreCC(s.cc) : "")}">${esc(s.cc)}</span>` : `<button class="pl-reg" type="button" data-alm="asignar-cc" data-id="${esc(s.id)}">asignar</button>`}</td>
         <td class="pl-num">${(s.lineas || []).length}</td>
         <td class="pl-num"><strong>${total ? esc(pesoCorto(total)) : "—"}</strong></td>
@@ -575,20 +661,24 @@
         <td><span class="pl-tag ${est === "entregada" ? "pl-tag--ok" : est === "anulada" ? "pl-tag--n" : "pl-tag--warn"}">${esc(ESTADOS_SOL[est] || est)}</span></td>
         <td class="pl-num alm-hist-acc">
           ${est === "emitida" ? `<button class="pl-reg" type="button" data-alm="entregada" data-id="${esc(s.id)}" title="Almacén ya entregó las piezas">Entregada</button>` : ""}
-          ${est !== "anulada" ? `<button class="pl-reg" type="button" data-alm="editar" data-id="${esc(s.id)}" title="Corregir piezas, cantidades, almacén o datos y volver a descargarla">Corregir</button>` : ""}
-          <button class="pl-reg" type="button" data-alm="redescargar" data-id="${esc(s.id)}" title="Volver a descargar el formato (con una hoja aparte para lo que salga de otro almacén)">Descargar</button>
-          <button class="pl-reg" type="button" data-alm="copiar" data-id="${esc(s.id)}" title="Empezar una solicitud nueva con estas mismas piezas">Repetir</button>
-          ${est !== "anulada" && est !== "entregada" ? `<button class="pl-reg" type="button" data-alm="anular" data-id="${esc(s.id)}" title="No se usó: deja de contar en el presupuesto">Anular</button>` : ""}
+          <details class="alm-mas">
+            <summary class="pl-reg" aria-label="Más acciones" title="Más acciones">&middot;&middot;&middot;</summary>
+            <div class="alm-mas__menu">
+              ${est !== "anulada" ? `<button type="button" data-alm="editar" data-id="${esc(s.id)}" title="Corregir piezas, cantidades, almacén o datos y volver a descargarla">Corregir</button>` : ""}
+              <button type="button" data-alm="redescargar" data-id="${esc(s.id)}" title="Volver a descargar el formato (con una hoja aparte para lo que salga de otro almacén)">Descargar el formato</button>
+              <button type="button" data-alm="copiar" data-id="${esc(s.id)}" title="Empezar una solicitud nueva con estas mismas piezas">Repetir</button>
+              ${est !== "anulada" && est !== "entregada" ? `<button type="button" class="is-bad" data-alm="anular" data-id="${esc(s.id)}" title="No se usó: deja de contar en el presupuesto">Anular</button>` : ""}
+            </div>
+          </details>
         </td>
       </tr>`;
     }).join("");
     return `
-      <h3 class="alm-hist-titulo">Solicitudes hechas <span class="pl-tag pl-tag--n">${lista.length}</span></h3>
       <div class="pl-tablewrap"><table class="pl-table alm-hist">
         <thead><tr><th>Fecha</th><th>Tipo</th><th>Destino</th><th>Centro</th><th class="pl-num">Art.</th><th class="pl-num">Valor</th><th>Solicitó</th><th>Estado</th><th></th></tr></thead>
         <tbody>${filas}</tbody>
       </table></div>
-      ${lista.length > 15 && !vista.histTodo ? `<button class="pl-more" type="button" data-alm="hist-todo">Ver las ${lista.length} solicitudes</button>` : ""}`;
+      ${lista.length > 40 && !vista.histTodo ? `<button class="ux-btn ux-btn--block" type="button" data-alm="hist-todo" style="margin-top:12px">Ver las ${lista.length} solicitudes</button>` : ""}`;
   }
 
   // Pedidos que llegan por Telegram (/pedir): se pasan a una solicitud con un toque
@@ -626,7 +716,6 @@
     pintarSolicitud(); pintarResultados();
     // Un solo aviso a la vez: si se piden varias seguidas no se apilan tapando la lista.
     document.querySelectorAll("#uxToasts [data-alm-aviso]").forEach((t) => t.remove());
-    window.SHELL?.toast(`Renglón ${borrador.lineas.length}: <b>${esc(it ? it.desc || cod : cod)}</b>`, { accion: { txt: "Ver solicitud", fn: verSol } });
     const ultimo = document.getElementById("uxToasts")?.lastElementChild;
     if (ultimo) ultimo.dataset.almAviso = "1";
   }
@@ -690,6 +779,7 @@
 
   async function leerArchivo(archivo) {
     if (!archivo) return;
+    vista.subir = { ...(vista.subir || {}), archivo: { name: archivo.name, size: archivo.size } };
     vista.aviso = null; vista.trabajando = `Leyendo ${archivo.name}…`; pintarFuente();
     try {
       const [XLSX, lector] = await Promise.all([script(CDN.xlsx, "XLSX"), modulo("assets/js/lector-inventario.mjs")]);
@@ -840,6 +930,7 @@
     const i = historial.findIndex((x) => x.id === s.id);
     historial = i >= 0 ? historial.map((x, j) => (j === i ? s : x)) : [s, ...historial];
     guardar(HISTORIAL, historial);
+    contarSinEntregar();
     const cloud = window.CLOUD;
     if (cloud && cloud.enabled && cloud.db) {
       cloud.db.collection("solicitudes").doc(s.id).set(JSON.parse(JSON.stringify(s))).catch((e) => { console.error("[Solicitudes] guardar nube:", e); window.NUCLEO?.marcar("solicitudes", e && e.code === "permission-denied" ? "denegado" : "error"); });
@@ -860,7 +951,9 @@
       soloAqui.forEach((s) => cloud.db.collection("solicitudes").doc(s.id).set(JSON.parse(JSON.stringify(s))).catch(() => {}));
       historial = [...remoto, ...soloAqui].sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
       guardar(HISTORIAL, historial);
-      if (esVisible()) { pintarHistorial(); pintarPedidos(); }
+      if (esVisible()) pintarPedidos();
+      if (esVisibleHist()) renderHist();
+      contarSinEntregar();
       window.diarioRenderSiVisible?.();
     }, (err) => { console.error("[Solicitudes] onSnapshot:", err); window.NUCLEO?.marcar("solicitudes", err && err.code === "permission-denied" ? "denegado" : "error"); });
   }
@@ -874,18 +967,23 @@
     const n = { ...s, ...extra, estado, updatedAt: new Date().toISOString() };
     if (estado === "entregada") n.entregadaEn = n.updatedAt;
     registrar(n);
-    if (esVisible()) { pintarHistorial(); pintarPedidos(); }
+    if (esVisible()) pintarPedidos();
+      if (esVisibleHist()) renderHist();
+      contarSinEntregar();
   }
 
   // ------------------------------------------------------------------------
   //  Eventos (delegados: los codigos van en data-, nunca dentro de un onclick)
   // ------------------------------------------------------------------------
-  function enlazar() {
-    const raiz = document.getElementById("almRoot");
+  // Las mismas acciones sirven en Repuestos y solicitudes y en el Historial
+  function enlazar() { ["almRoot", "solRoot"].forEach((id) => enlazarEn(document.getElementById(id))); }
+  function enlazarEn(raiz) {
     if (!raiz || raiz.dataset.enlazado) return;
     raiz.dataset.enlazado = "1";
 
     raiz.addEventListener("click", (e) => {
+      // El menú "···" se cierra al tocar fuera o al elegir algo
+      raiz.querySelectorAll("details.alm-mas[open]").forEach((d) => { if (!d.contains(e.target) || e.target.closest("[data-alm]")) d.removeAttribute("open"); });
       const b = e.target.closest("[data-alm]");
       if (!b) return;
       const accion = b.dataset.alm;
@@ -927,7 +1025,7 @@
           editando: c.id, editandoFecha: c.fecha || "", editandoDestino: c.destino || "",
         };
         guardarBorrador(); pintarSolicitud(); pintarResultados();
-        document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        verSol();
       } else if (accion === "copiar") {
         const s = historial.find((x) => x.id === b.dataset.id);
         if (!s) return;
@@ -935,12 +1033,12 @@
         borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, cc: s.cc || "", almacen: s.almacen || "", lineas: JSON.parse(JSON.stringify(s.lineas || [])).map((l) => ({ ...l, pu: null })) };
         elegirSitios();
         guardarBorrador(); pintarSolicitud(); pintarResultados();
-        document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        verSol();
       }
       else if (accion === "entregada") { ponerEstado(b.dataset.id, "entregada"); window.SHELL?.toast("Solicitud marcada como entregada"); }
       else if (accion === "anular") { if (window.confirm("¿Anular la solicitud? Deja de contar en el presupuesto.")) { ponerEstado(b.dataset.id, "anulada"); } }
       else if (accion === "hist-todo") { vista.histTodo = true; pintarHistorial(); }
-      else if (accion === "ver-hist") { vista.histTodo = true; pintarHistorial(); document.getElementById("almHistorial")?.scrollIntoView({ behavior: "smooth", block: "start" }); }
+      else if (accion === "ver-hist") goSolicitudes({ estado: "emitida" });
       else if (accion === "ir-presupuesto") window.goPresupuesto?.();
       else if (accion === "asignar-cc") {
         const s = historial.find((x) => x.id === b.dataset.id);
@@ -965,7 +1063,7 @@
         ponerEstado(s.id, "atendido");
         pintarSolicitud(); pintarResultados();
         window.SHELL?.toast("Pedido pasado a la solicitud: revisa cantidades y descarga el formato");
-        document.getElementById("almSolicitud")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        verSol();
       }
       else if (accion === "pedido-descartar") { if (window.confirm("¿Descartar este pedido?")) ponerEstado(b.dataset.id, "anulada"); }
       else if (accion === "dad-todas") {
@@ -976,6 +1074,12 @@
         window.SHELL?.toast(`Trans. y código causa iguales en los ${borrador.lineas.length} renglones`);
       }
       else if (accion === "subir-nube") guardarEnNube(vista.ultimaCarga || Object.values(window.INVENTARIO.todo || {}));
+      else if (accion === "subir-abrir") abrirSubir();
+      else if (accion === "paso-buscar") ponerPaso("buscar");
+      else if (accion === "paso-llenar") ponerPaso("llenar");
+      else if (accion === "hist-estado") { vista.he = b.dataset.v; vista.histTodo = false; renderHist(); }
+      // Corregir o repetir desde el Historial: se sigue en la solicitud
+      if ((accion === "editar" || accion === "copiar") && raiz.id === "solRoot") { goAlmacen(); setTimeout(verSol, 80); }
     });
 
     raiz.addEventListener("change", (e) => {
@@ -1001,6 +1105,7 @@
     // Lo que se escribe se guarda al momento pero sin repintar, para no perder el cursor.
     raiz.addEventListener("input", (e) => {
       const t = e.target;
+      if (t.dataset.alm === "hist-q") { vista.hq = t.value; vista.histTodo = false; pintarHistorial(); return; }
       if (t.dataset.almCampo && t.dataset.almCampo !== "tipo") {
         borrador[t.dataset.almCampo] = t.value;
         guardarBorrador();
@@ -1057,14 +1162,86 @@
       if (op.solicitud) { vista.resaltar = op.solicitud; vista.histTodo = true; }
       guardarBorrador();
     }
+    // Una solicitud concreta vive en el Historial: se va directo, sin pasar por aquí
+    if (op && op.solicitud) { goSolicitudes({ solicitud: op.solicitud }); return; }
     setView("almacen");
     render();
     enlazar();
     saveUiState({ activeView: "almacen" });
     window.scrollTo({ top: 0, behavior: "auto" });
-    if (op && op.solicitud) setTimeout(() => document.getElementById("sol-" + op.solicitud)?.scrollIntoView({ behavior: "smooth", block: "center" }), 80);
-    else if (window.matchMedia("(pointer: fine)").matches) setTimeout(() => document.getElementById("almQ")?.focus({ preventScroll: true }), 30);
+    if (window.matchMedia("(pointer: fine)").matches) setTimeout(() => document.getElementById("almQ")?.focus({ preventScroll: true }), 30);
   }
+
+  // ------------------------------------------------------------------------
+  //  Historial de solicitudes: su propia pestaña dentro de Almacén
+  // ------------------------------------------------------------------------
+  function renderHist() {
+    const raiz = document.getElementById("solRoot");
+    if (!raiz) return;
+    const base = histBase();
+    const cuenta = (e) => base.filter((s) => (s.estado || "emitida") === e).length;
+    const mes = hoy().slice(0, 7);
+    const delMes = base.filter((s) => String(s.fecha || "").startsWith(mes) && s.estado !== "anulada");
+    const valorMes = delMes.reduce((a, s) => a + (totalSolicitud(s).total || 0), 0);
+    const seg = [["", "Todas", base.length], ["emitida", "Sin entregar", cuenta("emitida")], ["entregada", "Entregadas", cuenta("entregada")], ["anulada", "Anuladas", cuenta("anulada")]];
+    raiz.innerHTML = `
+      <div class="section-bar">
+        <div><h2>Historial de solicitudes</h2></div>
+        <div class="section-actions"><button class="button button--dark" type="button" data-go="almacen">Nueva solicitud</button></div>
+      </div>
+      <div class="pl-kpis">
+        <div class="pl-kpi"><span class="pl-kpi__n">${base.length}</span><span class="pl-kpi__l">Solicitudes</span></div>
+        <div class="pl-kpi ${cuenta("emitida") ? "pl-kpi--warn" : ""}"><span class="pl-kpi__n">${cuenta("emitida")}</span><span class="pl-kpi__l">Sin entregar</span></div>
+        <div class="pl-kpi"><span class="pl-kpi__n">${delMes.length}</span><span class="pl-kpi__l">Este mes</span></div>
+        <div class="pl-kpi"><span class="pl-kpi__n">${valorMes ? esc(pesoCorto(valorMes)) : "—"}</span><span class="pl-kpi__l">Valor este mes</span></div>
+      </div>
+      <div class="alm-hist-filtros">
+        <div class="ux-seg">${seg.map(([v, t, n]) => `<button type="button" class="${(vista.he || "") === v ? "is-on" : ""}" data-alm="hist-estado" data-v="${v}">${t} <span class="ux-mute">${n}</span></button>`).join("")}</div>
+        <div class="pl-filters"><input type="search" data-alm="hist-q" value="${esc(vista.hq || "")}" placeholder="Buscar por equipo, código, pieza o persona…" aria-label="Buscar en el historial" autocomplete="off"></div>
+      </div>
+      <div id="almHistorial">${htmlHistorial()}</div>`;
+  }
+  function esVisibleHist() { return document.getElementById("solicitudesView")?.classList.contains("is-active"); }
+  // Lo que falta por entregar, en la pestaña Historial y en el menú
+  function contarSinEntregar() {
+    const n = histBase().filter((s) => (s.estado || "emitida") === "emitida").length;
+    window.SHELL?.insignia("sbSolic", n);
+    window.SHELL?.insignia("sbAlmacen", n);
+  }
+  function goSolicitudes(op) {
+    views.solicitudes = views.solicitudes || document.getElementById("solicitudesView");
+    if (op && op.estado !== undefined) vista.he = op.estado;
+    if (op && op.solicitud) { vista.resaltar = op.solicitud; vista.histTodo = true; vista.he = ""; vista.hq = ""; }
+    setView("solicitudes");
+    renderHist();
+    enlazar();
+    saveUiState({ activeView: "solicitudes" });
+    window.scrollTo({ top: 0, behavior: "auto" });
+    if (op && op.solicitud) setTimeout(() => document.getElementById("sol-" + op.solicitud)?.scrollIntoView({ behavior: "smooth", block: "center" }), 80);
+  }
+  window.goSolicitudes = goSolicitudes;
+  views.solicitudes = document.getElementById("solicitudesView");
+
+  // Pasar varias piezas de una vez a la solicitud (desde el Seguimiento: todo
+  // lo que la inspección pidió y no hay) y abrirla lista para llenar.
+  function pedirVarias({ lineas = [], destino = "", nota = "" } = {}) {
+    let n = 0;
+    lineas.forEach((x) => {
+      const cod = String(x.cod || "").trim();
+      if (!cod || borrador.lineas.some((l) => l.cod === cod) || borrador.lineas.length >= RENGLONES) return;
+      const it = itemDe(cod);
+      borrador.lineas.push({ cod, desc: (it && it.desc) || x.desc || "", um: it ? it.um : "", cant: Number(x.cant) || 1, sitio: "", trans: "", causa: "" });
+      n++;
+    });
+    if (destino && !borrador.destino) { borrador.destino = destino; if (!borrador.cc && P()) borrador.cc = P().ccSugerido(destino); }
+    if (nota && !borrador.observaciones) borrador.observaciones = String(nota).slice(0, OBS_MAX);
+    elegirSitios();
+    guardarBorrador();
+    vista.paso = borrador.lineas.length ? "llenar" : "buscar";
+    goAlmacen();
+    return n;
+  }
+  window.almPedirVarias = pedirVarias;
 
   window.goAlmacen = goAlmacen;
   window.almMarcarEntregada = (id) => ponerEstado(id, "entregada");
@@ -1075,4 +1252,5 @@
   views.almacen = document.getElementById("almacenView");
   document.querySelector('[data-nav-view="almacen"]')?.addEventListener("click", goAlmacen);
   suscribir();
+  window.addEventListener("DOMContentLoaded", contarSinEntregar);
 })();

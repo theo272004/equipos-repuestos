@@ -33,7 +33,7 @@
         if (vista.sede && r.sede !== vista.sede) return false;
         if (!q) return true;
         const heno = [
-          r.fecha, r.autor, r.sede, r.turno, r.texto,
+          r.fecha, r.sede, r.turno, r.texto,
           ...(r.equipos || []).map((e) => `${e.equipo} ${e.producto}`),
           ...(r.novedades || []),
         ].join(" ").toLowerCase();
@@ -62,6 +62,12 @@
     return partes.join(" · ") || "sin detalle";
   }
 
+  // La primera novedad, para que la lista diga algo del turno y no solo cuántas hubo
+  function primeraNovedad(r) {
+    const n = (r.novedades || []).find((x) => String(x).replace(/[^A-Za-zÁÉÍÓÚÑáéíóúñ]/g, "").length > 12) || "";
+    return String(n).replace(/\s+/g, " ").slice(0, 110);
+  }
+
   function htmlDetalle(r) {
     if (!r) return `<p class="pl-soft">Elige un reporte de la lista.</p>`;
     const eqs = (r.equipos || []).length
@@ -78,7 +84,7 @@
         <div>
           <p class="eyebrow">Reporte de turno</p>
           <h3>${esc(fechaLarga(r.fecha))}${r.hora ? ` · ${esc(r.hora)}` : ""}</h3>
-          <p class="rp-det__meta">${badge(r)} <span>${esc(r.autor)}</span></p>
+          <p class="rp-det__meta">${badge(r)}</p>
         </div>
         <button type="button" class="button button--light" data-rp="cerrar">Cerrar</button>
       </div>
@@ -126,8 +132,8 @@
         <button type="button" class="rp-item ${r.id === vista.abierto ? "is-sel" : ""}" data-rp="abrir" data-id="${esc(r.id)}">
           <span class="rp-item__fecha">${esc(r.fecha.slice(8))}/${esc(r.fecha.slice(5, 7))}</span>
           <span class="rp-item__cuerpo">
-            <span class="rp-item__tit">${badge(r)} <strong>${esc(r.autor)}</strong></span>
-            <span class="rp-item__res">${esc(resumenFila(r))}</span>
+            <span class="rp-item__tit">${badge(r)} <strong>${esc(resumenFila(r))}</strong></span>
+            <span class="rp-item__res">${esc(primeraNovedad(r))}</span>
           </span>
         </button>`
           )
@@ -144,7 +150,6 @@
           <span class="counter">${lista.length} reportes</span>
         </div>
       </div>
-      <p class="pl-note">Los reportes que llegan al chat <strong>Mtto Medicamentos</strong>, tal cual se enviaron: equipos operando, novedades del turno y el mensaje original. Se importan desde el export de WhatsApp con <code>scripts/importar-reportes-whatsapp.mjs</code>.</p>
       <div class="rp-filtros">
         <label class="rp-filtro">Mes
           <select data-rp-campo="mes">${optsMes}</select>
@@ -157,7 +162,7 @@
           </select>
         </label>
         <label class="rp-filtro rp-filtro--buscar">Buscar
-          <input type="search" data-rp-campo="q" value="${esc(vista.q)}" placeholder="Equipo, producto, novedad, autor…" />
+          <input type="search" data-rp-campo="q" value="${esc(vista.q)}" placeholder="Equipo, producto o novedad…" />
         </label>
       </div>
       <div class="rp-grid">
@@ -222,7 +227,7 @@
       clase: "reporte",
       dia: r.fecha,
       hora: r.hora || "",
-      quien: r.autor,
+      quien: "",
       id: r.id,
       titulo: `Reporte de turno · ${r.sede}${r.turno ? " · " + r.turno : ""}`,
       detalle: resumenFila(r),
