@@ -51,6 +51,17 @@
     return "Infraestructura";
   }
   const esServicio = (eq) => ["Servicios industriales", "Infraestructura"].includes(areaDe(eq));
+
+  // "Marzio" sin número en un reporte de la Sede 2 es la Marzio 2: es la única
+  // que hay allá. Un equipo "sin especificar" se aclara cuando en esa sede solo
+  // hay uno de esa familia; si hay varios, se deja como está.
+  const CATALOGO = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
+  function porSede(eq, sede) {
+    const m = /^(.*) \(sin especificar\)$/.exec(eq || "");
+    if (!m) return eq;
+    const unicos = CATALOGO.filter((x) => x.s === sede && x.eq.startsWith(m[1] + " "));
+    return unicos.length === 1 ? unicos[0].eq : eq;
+  }
   const etiquetas = (t, reglas) => reglas.filter(([, p]) => p.test(t)).map(([n]) => n);
 
   function minutos(t) {
@@ -170,6 +181,7 @@
       const eqs = buscarEquipos(tn.slice(0, 70)).length ? buscarEquipos(tn.slice(0, 70)) : buscarEquipos(tn);
       let eq = eqs.length ? eqs[0][2] : "No identificado";
       if (!eqs.length && previo && /^\s*[•\-*]/.test(b[0][0])) eq = previo;
+      eq = porSede(eq, sede);
       previo = eq;
       const ar = areaDe(eq);
       const tipos = etiquetas(tn, TIPOS);
@@ -194,5 +206,5 @@
     };
   }
 
-  window.MTTO_LECTOR = { leer, norm, buscarEquipos, areaDe, minutos };
+  window.MTTO_LECTOR = { leer, norm, buscarEquipos, areaDe, minutos, porSede };
 })();
