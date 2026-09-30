@@ -89,14 +89,19 @@ ok(/<c r="L4" s="47"><v>46288<\/v><\/c>/.test(hojaB), "la fecha no quedo como fe
 ok(hojaB.includes("&lt;prueba &amp; escape&gt;"), "no se escaparon los caracteres especiales");
 ok(/<c r="A15" s="23" t="inlineStr"><is><t xml:space="preserve">090020008<\/t>/.test(hojaB), "el codigo con ceros a la izquierda no quedo como texto");
 
-// --- 3. en el dibujo solo aparece la X de CONSUMO ---
+// --- 3. en el dibujo solo aparecen la X de CONSUMO y la de FARMACAPSULAS ---
 const dA = await A.file("xl/drawings/drawing1.xml").async("string");
 const dB = await B.file("xl/drawings/drawing1.xml").async("string");
 const xs = (dB.match(/<a:t>X<\/a:t>/g) || []).length;
-ok(xs === 1, `esperaba una sola X en las casillas y hay ${xs}`);
+ok(xs === 2, `esperaba dos X (tipo y empresa) y hay ${xs}`);
+// La casilla de la empresa es el primer "Rectangle 4" (debajo del logo de Farmacapsulas, id 4)
+const empresa = /<xdr:cNvPr id="4" name="Rectangle 4">[\s\S]*?<\/xdr:twoCellAnchor>/.exec(dB)?.[0] || "";
+ok(empresa.includes("<a:t>X</a:t>"), "la X no quedo en la casilla de FARMACAPSULAS (debajo del logo)");
+const otraEmpresa = /<xdr:cNvPr id="24" name="Rectangle 4">[\s\S]*?<\/xdr:twoCellAnchor>/.exec(dB)?.[0] || "";
+ok(otraEmpresa && !otraEmpresa.includes("<a:t>X</a:t>"), "se marco la casilla de la otra empresa");
 const rect8 = /name="Rectangle 8"[\s\S]*?<\/xdr:twoCellAnchor>/.exec(dB)?.[0] || "";
 ok(rect8.includes("<a:t>X</a:t>"), "la X no quedo en la casilla de CONSUMO (Rectangle 8)");
-ok(dA.replace(/<a:r><a:rPr[^>]*>[\s\S]*?<a:t>X<\/a:t><\/a:r>/, "") === dA && dB.replace(/<a:r><a:rPr[^>]*>[\s\S]*?<a:t>X<\/a:t><\/a:r>/, "") === dA, "el dibujo cambio en algo mas que la X");
+ok(dA.replace(/<a:r><a:rPr[^>]*>[\s\S]*?<a:t>X<\/a:t><\/a:r>/g, "") === dA && dB.replace(/<a:r><a:rPr[^>]*>[\s\S]*?<a:t>X<\/a:t><\/a:r>/g, "") === dA, "el dibujo cambio en algo mas que las X");
 
 // --- 4. otra edicion se rechaza ---
 const otra = await JSZip.loadAsync(plantilla);
@@ -163,8 +168,8 @@ for (const [i, nombre] of nombresEsperados.entries()) {
   const rels = await M.file(ruta.replace("worksheets/", "worksheets/_rels/") + ".rels").async("string");
   const dib = "xl/drawings/" + /drawings\/([^"]+)"/.exec(rels)[1];
   const d = await M.file(dib).async("string");
-  ok(/name="Rectangle 8"[\s\S]*?<a:t>X<\/a:t>/.test(d) && (d.match(/<a:t>X<\/a:t>/g) || []).length === 1, `${nombre}: la casilla de CONSUMO no quedo marcada en su dibujo`);
-  ok(d.replace(/<a:r><a:rPr[^>]*>[\s\S]*?<a:t>X<\/a:t><\/a:r>/, "") === dA, `${nombre}: el dibujo no es copia fiel (logos, casillas)`);
+  ok(/name="Rectangle 8"[\s\S]*?<a:t>X<\/a:t>/.test(d) && (d.match(/<a:t>X<\/a:t>/g) || []).length === 2, `${nombre}: las casillas de CONSUMO y FARMACAPSULAS no quedaron marcadas en su dibujo`);
+  ok(d.replace(/<a:r><a:rPr[^>]*>[\s\S]*?<a:t>X<\/a:t><\/a:r>/g, "") === dA, `${nombre}: el dibujo no es copia fiel (logos, casillas)`);
   const ps = /printerSettings\/([^"]+)"/.exec(rels)?.[1];
   ok(ps && M.file("xl/printerSettings/" + ps), `${nombre}: sin configuracion de impresion`);
   ok(M.file(dib.replace("drawings/", "drawings/_rels/") + ".rels"), `${nombre}: el dibujo perdio sus imagenes`);
