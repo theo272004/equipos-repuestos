@@ -366,8 +366,14 @@ if (!soloReportes) {
     if (eq !== r.eq) { r.eq = eq; r.ar = L.areaDe(eq); aclaradas++; }
   }
   if (aclaradas) console.log(`Registro diario: ${aclaradas} novedades con equipo "sin especificar" aclarado por sede`);
+  // Estados de producción leídos como trabajo ("Envasadora 1 Limpieza",
+  // "termina lote y queda montado"): fuera del registro, aquí y en lo nuevo
+  const antesN = H.registros.length;
+  if (L.esEstado) H.registros = H.registros.filter((r) => !L.esEstado(r.de));
+  const quitadas = antesN - H.registros.length;
+  if (quitadas) console.log(`Registro diario: ${quitadas} líneas de estado de producción quitadas (limpieza, stand by, montaje, fin de lote)`);
 
-  if (agregadas || nuevas.length || aclaradas) {
+  if (agregadas || nuevas.length || aclaradas || quitadas) {
     MTTO.hasta = hasta;
     MTTO.generado = new Date(Date.now() - 5 * 3600e3).toISOString().slice(0, 16).replace("T", " ");
     const salidaM = join(raiz, "assets", "js", "mtto-data.js");

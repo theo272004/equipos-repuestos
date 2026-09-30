@@ -489,7 +489,7 @@
       ${lista.map((r) => `<tr class="is-link ${vista.abierto === r.id ? "is-sel" : ""}" data-ki="abrir" data-id="${esc(r.id)}" role="button" tabindex="0">
         <td><strong>${fechaCorta(r.f)}</strong><small>${esc(r.t)} · ${esc(r.s)}</small></td>
         <td><strong>${esc(r.eq)}</strong><small>${esc(r.ar || "")}</small></td>
-        <td><span class="ki-dotc" style="background:${COLOR_CAT[r.cat] || "#98a2b3"}"></span>${esc(r.cat)}<small>${esc(r.tp)}${r.fa ? " · " + esc(r.fa) : ""}</small></td>
+        <td><span class="ki-dotc" style="background:${COLOR_CAT[r.cat] || "#98a2b3"}"></span>${esc(r.cat)}<small>${esc(r.tp)}${r.fa && r.fa !== "Sin clasificar" ? " · " + esc(r.fa) : ""}</small></td>
         <td class="ki-nov__de">${esc((r.de || "").slice(0, 160))}${(r.de || "").length > 160 ? "…" : ""}</td>
         <td>${r.min > 0 ? nf(r.min / 60, 2) + " h" : esFalla(r) ? `<span class="mt-falta">sin horario</span>` : "—"}</td>
         <td><span class="mt-est mt-est--${r.ef === "Operativo" ? "ok" : r.ef === "Pendiente" ? "bad" : r.ef === "Operativo con pendiente" ? "warn" : "neutro"}">${esc(r.ef || "Sin cierre")}</span></td>

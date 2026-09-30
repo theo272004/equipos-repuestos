@@ -97,6 +97,27 @@
     return "Producción";
   }
 
+  // Un texto que solo dice en qué está el equipo ("Envasadora 1 Limpieza",
+  // "Blíster 5 termina lote y queda montado propanolol", "GB100 montaje
+  // vildagliptina") es un estado de producción, no un trabajo de
+  // mantenimiento. Solo cuenta como trabajo cuando dice qué se hizo
+  // ("limpieza de filtros", "se limpia el tablero eléctrico").
+  const TRABAJO = /\bSE\s+[A-Z]{3,}|LLAMAD|FALLA|DA[ÑN]|PARTID|\bROT[OA]S?\b|FUGA|ALARM|PENDIENTE|CAMBI|AJUST|REPAR|REVIS|LUBRIC|CALIBR|INSTAL|DESMONT|FABRIC|SOLD|VERIFIC|CORRIG|ACOMPA|APOY|LIMPIEZA\s+(DE|A|AL|DEL|EN)\b|LAVADO\s+(DE|A|AL|DEL)\b|MANTENIMIENTO\s+(A|AL|DE|DEL|PREVENTIVO)\b/;
+  const ESTADO_PURO = /^(EN |A |PARA )?(LIMPIEZA|LIMIEZA|LAVADO|SANITIZ\w*|STA[NM]?D?\s*-?\s*BY|STANDBY|DISPONIBLE|DIAPONIBLE|MONTAJE|CUADRE|PRODUCCION|PRODUCIENDO|OPERANDO|PARAD[AO]|APAGAD[AO]|SIN OPERADOR|SIN PRODUCTO|ESPERANDO\b.*|EN ESPERA\b.*)( PROFUNDA| GENERAL| TOTAL| DE (AREA|EQUIPO|MAQUINA|PRODUCTO))?\W*$/;
+  const ESTADO_LOTE = /^(TERMIN|FINALIZ|CULMIN|INICI|CONTINU|ARRANC|SIGUE|EMPIEZ|COMIENZ|CAMBIO DE|QUEDA MONTAD|QUEDAN MONTAD|MONTAJE|CUADRE|MONTAD)/;
+  function sinEquipo(tn) {
+    tn = tn.replace(/^[\s:#\-–•*]+/, "").trim();
+    const eqs = buscarEquipos(tn);
+    if (eqs.length && eqs[0][0] <= 3) tn = tn.slice(eqs[0][1]).replace(/^[\s:#\-–•*,.]+/, "");
+    return tn;
+  }
+  function esEstado(texto) {
+    const tn = sinEquipo(norm(texto));
+    if (!tn || tn.length > 70) return false;
+    if (ESTADO_PURO.test(tn)) return true;
+    return ESTADO_LOTE.test(tn) && !TRABAJO.test(tn);
+  }
+
   function segmentar(msg) {
     const lineas = String(msg).split("\n");
     const normal = lineas.map(norm);
@@ -178,6 +199,12 @@
       const clave = tn.replace(/\W+/g, "").slice(0, 160);
       if (vistos.has(clave)) continue;
       vistos.add(clave);
+      // Estado de producción, no trabajo: va con los estados del equipo
+      if (esEstado(tn)) {
+        const e0 = buscarEquipos(tn);
+        if (e0.length && e0[0][0] <= 3 && !estados.some((x) => x[0] === e0[0][2])) estados.push([e0[0][2], sinEquipo(tn)]);
+        continue;
+      }
       const eqs = buscarEquipos(tn.slice(0, 70)).length ? buscarEquipos(tn.slice(0, 70)) : buscarEquipos(tn);
       let eq = eqs.length ? eqs[0][2] : "No identificado";
       if (!eqs.length && previo && /^\s*[•\-*]/.test(b[0][0])) eq = previo;
@@ -206,5 +233,5 @@
     };
   }
 
-  window.MTTO_LECTOR = { leer, norm, buscarEquipos, areaDe, minutos, porSede };
+  window.MTTO_LECTOR = { leer, norm, buscarEquipos, areaDe, minutos, porSede, esEstado };
 })();
