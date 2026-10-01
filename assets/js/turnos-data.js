@@ -75,5 +75,19 @@
     });
     return out;
   }
-  raiz.TURNOS = { roster, fijos: TN_FIJOS, soporte: TN_SUPPORT, ancla: ANCLA, ciclo: CICLO, bloque: BLOQUE, fases: TN_PHASE_BLOCKS, estadoDe, quienes, nombre, vigente };
+
+  // Especialidad de cada técnico en planta:
+  // - Electricistas: yesid, heiner, bladimir, brayan, oscar, sergio, leo
+  // - Locativo: nestor
+  // - Refrigeración: juan
+  // - El resto son mecánicos (leiner, alexander, jhon, jose luis, miguel, etc.)
+  function especialidad(nombre) {
+    const s = String(nombre || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (/nestor/i.test(s)) return { rol: "Locativo", slug: "loc" };
+    if (/juan\s*carlos|estupi[nñ]an|refrigeraci/i.test(s)) return { rol: "Refrigeración", slug: "ref" };
+    if (/yesid|heiner|bladimir|brayan|oscar|sergio|leonardo\s+santos|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
+    return { rol: "Mecánico", slug: "mec" };
+  }
+
+  raiz.TURNOS = { roster, fijos: TN_FIJOS, soporte: TN_SUPPORT, ancla: ANCLA, ciclo: CICLO, bloque: BLOQUE, fases: TN_PHASE_BLOCKS, estadoDe, quienes, nombre, vigente, especialidad };
 })(typeof window !== "undefined" ? window : globalThis);

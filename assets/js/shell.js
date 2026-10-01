@@ -86,10 +86,10 @@
     results: { t: "Buscar equipos", g: "Equipos", nav: "home", ico: "equipos", oculta: true, go: () => window.goResults?.({ keepSelection: true }) },
     detail: { t: "Ficha del equipo", g: "Equipos", nav: "home", ico: "equipos", oculta: true, go: (o) => o && o.id && window.openDetail?.(o.id) },
     plan: { t: "Plan de mantenimiento", pt: "Plan de mantenimiento", g: "Equipos", ico: "plan", go: (o) => window.goPlan?.(o && o.q) },
-    diario: { t: "Calendario", pt: "Calendario", g: "Turno", ico: "calendario", go: () => window.goDiario?.() },
+    turnos: { t: "Personal en turno", pt: "Personal", g: "Turno", ico: "turnos", go: () => window.goTurnos?.() },
     registro: { t: "Registro diario", pt: "Registro", g: "Turno", ico: "registro", go: (o) => window.goRegistro?.(o) },
     reportes: { t: "Reportes de turno", pt: "Reportes", g: "Turno", ico: "reportes", go: (o) => window.goReportes?.(o && o.id) },
-    turnos: { t: "Personal en turno", pt: "Personal", g: "Turno", ico: "turnos", go: () => window.goTurnos?.() },
+    diario: { t: "Calendario", pt: "Calendario", g: "Turno", ico: "calendario", go: () => window.goDiario?.() },
     seguimiento: { t: "Seguimiento del mantenimiento", pt: "Seguimiento", g: "Mantenimiento", ico: "llave", badge: "sbMtto", go: (o) => window.goSeguimiento?.(o) },
     insp: { t: "Inspecciones", pt: "Inspecciones", g: "Mantenimiento", ico: "insp", go: () => window.goInsp?.() },
     pendientes: { t: "Pendientes", pt: "Pendientes", g: "Mantenimiento", ico: "pendientes", badge: "sbPendientes", go: (o) => window.goPendientes?.(o) },
@@ -104,7 +104,7 @@
   const PESTANAS = {};
   Object.entries(VISTAS).forEach(([k, v]) => { if (!v.oculta) (PESTANAS[v.g] = PESTANAS[v.g] || []).push(k); });
   const seccionDe = (v) => (VISTAS[v] || {}).g;
-  const ALIAS = { inicio: "hoy", tareas: "tasks", inspecciones: "insp", equipos: "home", equipo: "detail", turno: "diario", calendario: "diario", historial: "solicitudes", mantenimiento: "seguimiento" };
+  const ALIAS = { inicio: "hoy", tareas: "tasks", inspecciones: "insp", equipos: "home", equipo: "detail", turno: "turnos", personal: "turnos", calendario: "diario", historial: "solicitudes", mantenimiento: "seguimiento" };
   const nombreVista = (v) => ALIAS[v] || v;
 
   let actual = null;

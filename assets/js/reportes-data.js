@@ -18132,5 +18132,157 @@ window.REPORTES_TURNO = [
       "Recubrimiento 9 Se invierte giro a bombo de 100kg."
     ],
     "texto": "Reporte turno \nSede 2 \n\nBlíster 5: propanolol\nGb100 : esomeprazol \nCD 40 : flectadol\nCentro líquido 1: dimeticona.\n\nNovedades \nSe realiza limpieza y lubricación a troquel de la gb100.\n\nSe instalan discos nuevo en v y en L en selladora de centro líquido 1.\n\nSe modifica estructura de tomas de 220v , en área de fabricación 2.\n\nCentro líquido 1.\nSe ajustan los tiempos de dosificación , seguia inyectando cuando giraba el disco, se deja equipo en funcionamiento.\n\nRecubrimiento 9\nSe invierte giro a bombo de 100kg."
+  },
+  {
+    "id": "rt-20261001-1135",
+    "fecha": "2026-10-01",
+    "hora": "11:35",
+    "autor": "Mateo Castro",
+    "sede": "Sede 4",
+    "turno": "Noche",
+    "fechaTurno": "2026-10-01",
+    "equipos": [
+      {
+        "equipo": "•BLISTER 3",
+        "producto": "FERBIN"
+      },
+      {
+        "equipo": "•CL4",
+        "producto": "ACIDO VALPROICO"
+      },
+      {
+        "equipo": "•BLISTER2",
+        "producto": "NEUROMED"
+      },
+      {
+        "equipo": "•MT",
+        "producto": "SUPERFLUX"
+      },
+      {
+        "equipo": "•LIQUIDOS 3",
+        "producto": "FLUTICAZONA"
+      },
+      {
+        "equipo": "•CL2",
+        "producto": "NAPROCENO"
+      },
+      {
+        "equipo": "•EMBASADORA 2",
+        "producto": "ACETAMINOFÉN"
+      },
+      {
+        "equipo": "•BIN",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•BOSH",
+        "producto": "NIFEDIPINO"
+      },
+      {
+        "equipo": "•NJP2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "LANZOPRAZOL"
+      },
+      {
+        "equipo": "•PILOTBLAB HUYTLIN40",
+        "producto": "INUFLASH"
+      },
+      {
+        "equipo": "•SCHMUKER",
+        "producto": "FLEXTRIL"
+      },
+      {
+        "equipo": "•NJP3",
+        "producto": "NIFEDIPINO"
+      },
+      {
+        "equipo": "•BLISTER #9",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "•BLISTER 6 MB432",
+        "producto": "CONGESTEL"
+      },
+      {
+        "equipo": "•INTEGRA320",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•BLISTER #8",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•EVO",
+        "producto": "CRONOFEN"
+      },
+      {
+        "equipo": "•MARZIO #4",
+        "producto": "MYOSOP"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "FESTRIL"
+      },
+      {
+        "equipo": "•R200",
+        "producto": "DÑTRIMEBUTINA"
+      },
+      {
+        "equipo": "•R400",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "DIFEDIPINO"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "TRIMEBUTINA"
+      },
+      {
+        "equipo": "FETTE 2020/1",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "•FETTE 2020/2",
+        "producto": "ACETAMINOFÉN"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•FETTE 1010",
+        "producto": "EVOFLOSACINA"
+      },
+      {
+        "equipo": "•FETTE2021",
+        "producto": "FLOJRXETINOL"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "GELIMED"
+      }
+    ],
+    "novedades": [
+      "* Se repara filtro de HUTTLIN 400",
+      "- Se instala bomba en  trasvase líquido 2 30 min",
+      "envase 2 no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min",
+      "* Se repara puerta de esclusa de personal de la blisteadora Evo",
+      "* Se cuadran estera de fabricación de liquido y de pesaje 1",
+      "* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9",
+      "Marzio 4 Se atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h",
+      "Etiquetadora 2 Se atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h",
+      "Blíster 3 Se atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno",
+      "*Nota* Se daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
+    ],
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICAZONA\n*•CL2 : NAPROCENO \n*•EMBASADORA 2: ACETAMINOFÉN \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE\n*•BOSH: NIFEDIPINO\n*•NJP2 : DISPONIBLE \n*•NJP1 : LANZOPRAZOL\n*•PILOTBLAB HUYTLIN40: INUFLASH\n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGESTEL\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DISPONIBLE \n*•EVO: CRONOFEN\n*•MARZIO #4 : MYOSOP\n*•HUTTLIN 600: FESTRIL\n*•R200: DÑTRIMEBUTINA\n*•R400: DISPONIBLE \n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \nFETTE 2020/1: ESOMEPRAZOL \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: EVOFLOSACINA \n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n____________________\n       NOVEDADES\n\n* Se repara filtro de HUTTLIN 400 \n\n- Se instala bomba en  trasvase líquido 2 \n 30 min \n\nenvase 2 \n no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min\n\n* Se repara puerta de esclusa de personal de la blisteadora Evo \n\n* Se cuadran estera de fabricación de liquido y de pesaje 1 \n\n* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9 \n\nMarzio 4\nSe atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h \n\nEtiquetadora 2 \nSe atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h \n\nBlíster 3 \nSe atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno \n\n*Nota* \nSe daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
   }
 ];

@@ -242,6 +242,11 @@ body.app .tn-support-item { border-radius: var(--r); }
 body.app .tn-support-item b { color: var(--mute); font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; }
 body.app .tn-legend__t { color: var(--mute); font-size: 12.5px; font-weight: 600; letter-spacing: 0; text-transform: none; }
 body.app #tnFecha { height: 40px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: 11px; background: var(--panel); font: inherit; font-size: 14px; }
+body.app .tn-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; line-height: 1.3; }
+body.app .tn-tag--elec { background: rgba(245, 158, 11, 0.15); color: #b45309; border: 1px solid rgba(245, 158, 11, 0.3); }
+body.app .tn-tag--mec { background: rgba(37, 99, 235, 0.12); color: #1d4ed8; border: 1px solid rgba(37, 99, 235, 0.25); }
+body.app .tn-tag--loc { background: rgba(16, 185, 129, 0.14); color: #047857; border: 1px solid rgba(16, 185, 129, 0.3); }
+body.app .tn-tag--ref { background: rgba(14, 165, 233, 0.14); color: #0369a1; border: 1px solid rgba(14, 165, 233, 0.3); }
 
 /* ----------------------------------------------------------- Almacén -- */
 body.app .alm-grid { gap: 20px; grid-template-columns: minmax(0, 1fr) minmax(380px, 460px); }

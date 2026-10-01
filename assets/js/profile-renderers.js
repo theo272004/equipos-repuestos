@@ -931,6 +931,11 @@ function dt(machine, campo) {
           if (members.length) buckets[tnEstadoDe(g.phase, fecha)].push({ ...g, members });
         });
 
+        const espBadge = (nombre) => {
+          const esp = window.TURNOS?.especialidad?.(nombre) || { rol: "Mecánico", slug: "mec" };
+          return `<span class="tn-tag tn-tag--${esp.slug}">${escapeHtml(esp.rol)}</span>`;
+        };
+
         const grid = document.getElementById("tnShiftGrid");
         grid.innerHTML = ["dia", "noche", "descanso"].map((est) => {
           if (tnTurno !== "todos" && tnTurno !== est) return "";
@@ -940,10 +945,10 @@ function dt(machine, campo) {
           // todos los días laborables, no rotan con su grupo.
           const fijos = est === "dia" ? (TN_FIJOS[tnSede] || []).filter((f) => tnVigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha)) : [];
           const rotan = groups.length
-            ? groups.map((g) => `<div class="tn-group">${escapeHtml(g.name)}</div><ul class="tn-people">${g.members.map((m) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(m).toUpperCase())}</span>${escapeHtml(m)}</li>`).join("")}</ul>`).join("")
+            ? groups.map((g) => `<div class="tn-group">${escapeHtml(g.name)}</div><ul class="tn-people">${g.members.map((m) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(m).toUpperCase())}</span><span>${escapeHtml(m)} ${espBadge(m)}</span></li>`).join("")}</ul>`).join("")
             : "";
           const bloqueFijos = fijos.length
-            ? `<div class="tn-group">Turno fijo</div><ul class="tn-people">${fijos.map((f) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(f.nombre).toUpperCase())}</span><span>${escapeHtml(f.nombre)}<span class="tn-fijo">${escapeHtml(f.horario)} &middot; ${escapeHtml(f.grupo)}</span></span></li>`).join("")}</ul>`
+            ? `<div class="tn-group">Turno fijo</div><ul class="tn-people">${fijos.map((f) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(f.nombre).toUpperCase())}</span><span>${escapeHtml(f.nombre)} ${espBadge(f.nombre)}<span class="tn-fijo">${escapeHtml(f.horario)} &middot; ${escapeHtml(f.grupo)}</span></span></li>`).join("")}</ul>`
             : "";
           const body = (rotan + bloqueFijos) || '<p class="tn-empty">—</p>';
           return `<section class="tn-card ${info.cls}"><div class="tn-head">${info.icon} ${info.label}</div><div class="tn-body">${body}</div></section>`;
@@ -958,7 +963,7 @@ function dt(machine, campo) {
         soporte.innerHTML = mostrar
           ? `<h3>Personal de apoyo · turno fijo</h3>
              <p class="tn-sub">Trabajan horario fijo de día (no rotan). Cubren ambas sedes.</p>
-             <div class="tn-support-grid">${TN_SUPPORT.map((s) => `<div class="tn-support-item"><b>${escapeHtml(s.area)}</b><div>${s.members.map(escapeHtml).join("<br>")}</div></div>`).join("")}</div>`
+             <div class="tn-support-grid">${TN_SUPPORT.map((s) => `<div class="tn-support-item"><b>${escapeHtml(s.area)}</b><div>${s.members.map((m) => `${escapeHtml(m)} ${espBadge(m)}`).join("<br>")}</div></div>`).join("")}</div>`
           : "";
         soporte.hidden = !mostrar;
       }

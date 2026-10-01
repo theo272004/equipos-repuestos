@@ -71,6 +71,24 @@
         const despues = porEquipo.get(k).find((x) => x.id !== r.id && (x.f + (x.hr || "")) > (r.f + (r.hr || "")) && (x.ef === "Operativo" || RE_OK.test(x.de || "")) && !RE_PEND.test(x.de || ""));
         if (despues) posibleCierre = { fecha: despues.f, texto: tituloDe(despues.de, despues.eq), id: despues.id, por: despues.tec || despues.por || "" };
       }
+      if (!posibleCierre && typeof window !== "undefined" && Array.isArray(window.REPORTES_TURNO) && r.eq && !sinFicha.test(r.eq)) {
+        const eqN = r.eq.toLowerCase().replace(/[^a-z0-9]/g, "");
+        if (eqN.length >= 3) {
+          const repDesp = window.REPORTES_TURNO.find((rt) => rt.fecha > r.f && (!r.s || rt.sede === r.s) && (rt.equipos || []).some((e) => {
+            const prod = (e.producto || "").toLowerCase().trim();
+            if (!prod || /mtto|mantenimiento|parada|averiad|no opera/i.test(prod)) return false;
+            const en = e.equipo.toLowerCase().replace(/[^a-z0-9]/g, "");
+            return en.includes(eqN) || eqN.includes(en);
+          }));
+          if (repDesp) {
+            const meq = repDesp.equipos.find((e) => {
+              const en = e.equipo.toLowerCase().replace(/[^a-z0-9]/g, "");
+              return en.includes(eqN) || eqN.includes(en);
+            });
+            posibleCierre = { fecha: repDesp.fecha, texto: `Operando en producción con ${meq.producto || "producto"}`, id: repDesp.id, por: repDesp.autor || "" };
+          }
+        }
+      }
       out.push({
         id: `reg:${r.id}`,
         origen: "registro",

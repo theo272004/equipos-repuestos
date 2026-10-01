@@ -43,17 +43,16 @@
     return { ok: false };
   }
 
-  // Máquinas paradas por una falla: la última novedad de máquina de los últimos
-  // tres días las dejó "Pendiente" y nadie ha anotado después que quedaron operativas.
+  // Máquinas y servicios críticos parados por una falla o pendiente en los últimos 5 días
   function paradasPorFalla() {
     if (!S()) return [];
     const hoy = N.hoy();
-    const desde = N.sumaDias(hoy, -3);
+    const desde = N.sumaDias(hoy, -5);
     const ultima = new Map();
-    S().registros().filter((r) => r && !r.borrado && r.f >= desde && r.cat === "Máquina" && !/no identificado|sin especificar/i.test(r.eq) && (!vista.sede || r.s === vista.sede))
+    S().registros().filter((r) => r && !r.borrado && r.f >= desde && (r.cat === "Máquina" || r.cat === "Apoyo crítico" || /bomba de vac[íi]o|compresor|chiller/i.test(r.de || "")) && (!vista.sede || r.s === vista.sede))
       .sort((a, b) => (a.f + (a.hr || a.hi || "")).localeCompare(b.f + (b.hr || b.hi || "")))
-      .forEach((r) => ultima.set(`${r.s}|${r.eq}`, r));
-    return [...ultima.values()].filter((r) => r.ef === "Pendiente").sort((a, b) => (b.f + (b.hr || "")).localeCompare(a.f + (a.hr || "")));
+      .forEach((r) => ultima.set(`${r.s}|${r.eq || r.de.slice(0, 30)}`, r));
+    return [...ultima.values()].filter((r) => r.ef === "Pendiente" || r.frep === 1 || (/parada|fuera de servicio|averiada|bloqueada|se da[ñn]a.*pendiente/i.test(r.de || "") && r.ef !== "Operativo")).sort((a, b) => (b.f + (b.hr || "")).localeCompare(a.f + (a.hr || "")));
   }
 
   function saludo() {
@@ -239,13 +238,8 @@
     </section>`;
   }
 
-  // Sin nombre guardado: un enlace discreto junto al saludo, no un recuadro.
-  // Se abre en una línea al tocarlo.
   function quien() {
-    if (N.usuario.get()) return "";
-    if (!vista.quien) return `<button class="hy-quien-link" type="button" data-hy="quien">¿Quién eres?</button>`;
-    const gente = window.PENDIENTES ? window.PENDIENTES.gente() : [];
-    return `<form class="hy-quien__f" data-hy-form="quien"><input class="ux-input" name="n" list="hyGente" placeholder="Tu nombre" aria-label="Tu nombre" required autofocus><datalist id="hyGente">${gente.map((n) => `<option value="${esc(n)}">`).join("")}</datalist><button class="ux-btn ux-btn--primary ux-btn--sm" type="submit">Listo</button></form>`;
+    return "";
   }
 
   // ------------------------------------------------------------------ vista
@@ -266,7 +260,6 @@
         <div class="ux-head__txt">
           <p class="ux-eyebrow">${ic(t.turno === "Día" ? "sol" : "luna")}${esc(N.fmt.fechaLarga(hoy).replace(/^./, (c) => c.toUpperCase()))} · turno de ${t.turno === "Día" ? "día" : "noche"} en curso</p>
           <h1 class="ux-title">${saludo()}</h1>
-          ${quien()}
         </div>
         <div class="ux-head__acts">
           <div class="ux-seg" aria-label="Sede">${["", "Sede 4", "Sede 2"].map((s) => `<button type="button" class="${vista.sede === s ? "is-on" : ""}" data-hy="sede" data-v="${s}">${s || "Las dos"}</button>`).join("")}</div>

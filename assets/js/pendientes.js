@@ -159,10 +159,17 @@
     todos.forEach((p) => {
       const s = segs.get(p.id) || (p.origen === "manual" ? segs.get(p.id) : null);
       p.seg = s || null;
-      p.estado = (s && s.estado) || p.estadoBase;
+      if (s && s.estado) {
+        p.estado = s.estado;
+      } else if (p.posibleCierre) {
+        p.estado = "cerrado";
+        p.cerradoEn = p.posibleCierre.fecha;
+      } else {
+        p.estado = p.estadoBase;
+      }
       if (s && s.prioridad) p.prioridad = s.prioridad;
       p.responsable = (s && s.responsable) || "";
-      if (p.estado === "cerrado" && !p.cerradoEn) p.cerradoEn = (s && N.diaCO(s.cerradoEn || s.updatedAt)) || p.fecha;
+      if (p.estado === "cerrado" && !p.cerradoEn) p.cerradoEn = (s && N.diaCO(s.cerradoEn || s.updatedAt)) || (p.posibleCierre && p.posibleCierre.fecha) || p.fecha;
       p.edad = p.fecha ? Math.max(0, N.diasEntre(p.fecha, hoy)) : 0;
       p.antiguo = p.estado !== "cerrado" && p.edad > DIAS_ANTIGUO && !s;
       p.origenTxt = ORIGEN[p.origen].t;
@@ -253,7 +260,8 @@
       if (vista.filtro === "alta" && p.prioridad !== "alta") return false;
       if (vista.filtro === "espera" && p.estado !== "espera") return false;
       if (vista.filtro === "viejos" && !(p.edad > 7 && p.estado !== "cerrado")) return false;
-      if (vista.filtro === "resueltos" && !(p.posibleCierre && p.estado !== "cerrado")) return false;
+      if (vista.filtro === "cerrados" && p.estado !== "cerrado") return false;
+      if (vista.filtro === "resueltos" && p.estado !== "cerrado") return false;
       if (q && !N.plano(`${p.titulo} ${p.detalle} ${p.eq} ${p.sede} ${p.por} ${p.responsable} ${p.origenTxt}`).includes(q)) return false;
       return true;
     }).sort((a, b) => ({ alta: 0, media: 1, baja: 2 }[a.prioridad] - { alta: 0, media: 1, baja: 2 }[b.prioridad]) || String(b.fecha).localeCompare(String(a.fecha)));
@@ -270,7 +278,7 @@
       </span>
       <p class="ux-tcard__t">${esc(p.titulo)}</p>
       ${p.detalle && p.detalle !== p.titulo ? `<p class="ux-tcard__d">${esc(p.detalle)}</p>` : ""}
-      ${p.posibleCierre && p.estado !== "cerrado" ? `<span class="pd-quiza">${ic("check", "ic--sm")}¿Ya se resolvió? ${esc(N.fmt.corta(p.posibleCierre.fecha))}</span>` : ""}
+      ${p.posibleCierre && p.estado === "cerrado" ? `<span class="pd-quiza pd-quiza--ok">${ic("check", "ic--sm")}Resuelto: ${esc(N.fmt.corta(p.posibleCierre.fecha))}</span>` : p.posibleCierre ? `<span class="pd-quiza">${ic("check", "ic--sm")}¿Ya se resolvió? ${esc(N.fmt.corta(p.posibleCierre.fecha))}</span>` : ""}
       <span class="ux-tcard__foot">
         <span>${ic("fabrica")}${esc(p.eq || "General")}${p.sede ? ` · ${esc(p.sede.replace("Sede ", "S"))}` : ""}</span>
         <span>${p.responsable ? `<span class="ux-av ux-av--${N.tono(p.responsable)}" title="${esc(p.responsable)}" style="width:22px;height:22px;font-size:9.5px;border:0">${esc(N.iniciales(p.responsable).toUpperCase())}</span>` : ""}<i class="pd-dot pd-dot--${p.prioridad}" title="Prioridad ${esc(pr.t)}"></i></span>
@@ -285,12 +293,13 @@
       <span class="ux-kpi__n" data-n="${n}">${N.fmt.num(n)}</span>
       <span class="ux-kpi__foot">${s}</span></button>`;
     const antiguos = todos.filter((p) => p.antiguo).length;
+    const cerrados = todos.filter((p) => p.estado === "cerrado").length;
     return `<div class="ux-grid ux-grid--5 ux-grid--kpi">
       ${k("", ab.length, "Abiertos", `${ab.filter((p) => p.estado === "curso").length} en curso · ${ab.filter((p) => p.estado === "abierto").length} por atender`, "pendientes", "ux-kpi--dark")}
       ${k("alta", ab.filter((p) => p.prioridad === "alta").length, "Prioridad alta", "Máquina parada o falta un repuesto", "alerta", "ux-kpi--bad")}
       ${k("espera", ab.filter((p) => p.estado === "espera").length, "Esperando repuesto", "Piezas pedidas o por conseguir", "repuesto", "ux-kpi--warn")}
       ${k("viejos", ab.filter((p) => p.edad > 7).length, "Más de 7 días", "Conviene revisarlos en la reunión", "reloj", "ux-kpi--vio")}
-      ${k("resueltos", ab.filter((p) => p.posibleCierre).length, "¿Ya resueltos?", "El registro muestra el equipo operativo después", "check", "ux-kpi--ok")}
+      ${k("cerrados", cerrados, "Resueltos", "Cerrados o verificados operativos", "check", "ux-kpi--ok")}
     </div>
     ${antiguos && !vista.antiguos ? `<p class="ux-small ux-mute" style="margin:0">+${antiguos} del chat con más de ${DIAS_ANTIGUO} días sin seguimiento · <button class="ux-link" type="button" data-pd="antiguos">Revisarlos</button></p>` : ""}`;
   }
@@ -352,7 +361,7 @@
         <button class="ux-x" type="button" data-pd="cerrar" aria-label="Cerrar">${ic("x")}</button>
       </header>
       <div class="ux-sheet__body ux-stack">
-        ${p.posibleCierre && p.estado !== "cerrado" ? `<div class="ux-note ux-note--ok">${ic("check")}<span><b>¿Ya se resolvió?</b> El ${esc(N.fmt.fecha(p.posibleCierre.fecha))}${p.posibleCierre.por ? ` (${esc(N.nombreCorto(p.posibleCierre.por))})` : ""} el registro dice: «${esc(p.posibleCierre.texto)}». <button class="ux-link" type="button" data-pd="estado" data-v="cerrado">Darlo por resuelto</button></span></div>` : ""}
+        ${p.posibleCierre ? `<div class="ux-note ux-note--ok">${ic("check")}<span><b>${p.estado === "cerrado" ? "Resuelto" : "¿Ya se resolvió?"}</b> El ${esc(N.fmt.fecha(p.posibleCierre.fecha))}${p.posibleCierre.por ? ` (${esc(N.nombreCorto(p.posibleCierre.por))})` : ""} el registro dice: «${esc(p.posibleCierre.texto)}». ${p.estado === "cerrado" ? `<button class="ux-link" type="button" data-pd="estado" data-v="abierto">Reabrir</button>` : `<button class="ux-link" type="button" data-pd="estado" data-v="cerrado">Darlo por resuelto</button>`}</span></div>` : ""}
         <div class="ux-field"><span>Estado</span>
           <div class="ux-seg pd-estados">${ESTADOS.map((e) => `<button type="button" class="${p.estado === e.id ? "is-on" : ""}" data-pd="estado" data-v="${e.id}"><i class="pd-dot" style="background:${e.c}"></i>${e.t}</button>`).join("")}</div>
         </div>
