@@ -28,9 +28,12 @@
 # algo (7419 rodamientos, 7412 correas, 7422 material electrico...). Los
 # nombres salen de leer lo que hay dentro de cada una, no de inventarlos.
 #
-# Se ejecuta con xlrd (pip install xlrd).
-import argparse, datetime, io, json, os, re, sys
-import xlrd
+# Se ejecuta con xlrd (pip install xlrd) o directamente con un .csv exportado de MiPortal.
+import argparse, csv, datetime, io, json, os, re, subprocess, sys
+try:
+    import xlrd
+except ImportError:
+    xlrd = None
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(R, "assets", "data", "maestro-almacen.json")
@@ -158,23 +161,65 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("xls", nargs="?", default=os.path.join(R, "manuales", "_almacen", "RE356R-maestro-articulos.xls"))
     ap.add_argument("--fecha", default="", help="Fecha del reporte (AAAA-MM-DD). El archivo no la trae.")
+    ap.add_argument("--limpiar", action="store_true", help="Reemplazar el archivo maestro sin combinar con el existente.")
     a = ap.parse_args()
     if not os.path.exists(a.xls):
         sys.exit("falta el archivo " + a.xls)
     fecha = a.fecha or datetime.date.fromtimestamp(os.path.getmtime(a.xls)).isoformat()
 
-    sh = xlrd.open_workbook(a.xls).sheet_by_index(0)
-    hdr = [str(sh.cell_value(0, c)).strip().upper() for c in range(sh.ncols)]
-    idx = {h: i for i, h in enumerate(hdr)}
-    need = ("CODIGO", "DESCRIPCION", "U/M", "CODIGO_MRP", "STOCK_MINIMO", "DIAS_APROV")
-    falta = [n for n in need if n not in idx]
-    if falta:
-        sys.exit(f"el reporte no trae {falta}. Columnas: {hdr}")
-
     cat = {}
+    if os.path.exists(OUT) and not a.limpiar:
+        try:
+            with open(OUT, "r", encoding="utf-8") as f:
+                prev = json.load(f)
+            for it in prev.get("items", []):
+                # cols: ["cod", "desc", "um", "fam", "dias", "min", "mrp"]
+                c, d, um, f_idx, dias, mn, mrp = it
+                cat[c] = {"c": c, "d": d, "um": um, "min": mn, "dias": dias, "mrp": mrp}
+        except Exception as e:
+            print("Aviso: no se pudo leer maestro previo para combinar:", e)
+
+    need = ("CODIGO", "DESCRIPCION", "U/M", "CODIGO_MRP", "STOCK_MINIMO", "DIAS_APROV")
+    rows_data = []
+
+    if a.xls.lower().endswith(".csv"):
+        with open(a.xls, "r", encoding="utf-8-sig", errors="replace") as f:
+            reader = list(csv.reader(f))
+        if not reader:
+            sys.exit("El archivo CSV está vacío")
+        hdr = [str(c).strip().upper() for c in reader[0]]
+        idx = {h: i for i, h in enumerate(hdr)}
+        falta = [n for n in need if n not in idx]
+        if falta:
+            sys.exit(f"el reporte CSV no trae {falta}. Columnas: {hdr}")
+        for r in reader[1:]:
+            rows_data.append({h: r[idx[h]] if idx[h] < len(r) else "" for h in need})
+    else:
+        if xlrd is None:
+            csv_alt = a.xls.rsplit(".", 1)[0] + ".csv"
+            if os.path.exists(csv_alt):
+                print(f"xlrd no instalado; usando CSV correspondiente: {csv_alt}")
+                with open(csv_alt, "r", encoding="utf-8-sig", errors="replace") as f:
+                    reader = list(csv.reader(f))
+                hdr = [str(c).strip().upper() for c in reader[0]]
+                idx = {h: i for i, h in enumerate(hdr)}
+                for r in reader[1:]:
+                    rows_data.append({h: r[idx[h]] if idx[h] < len(r) else "" for h in need})
+            else:
+                sys.exit("xlrd no está instalado y no se encontró archivo CSV alternativo. Instale xlrd o pase un .csv")
+        else:
+            sh = xlrd.open_workbook(a.xls).sheet_by_index(0)
+            hdr = [str(sh.cell_value(0, c)).strip().upper() for c in range(sh.ncols)]
+            idx = {h: i for i, h in enumerate(hdr)}
+            falta = [n for n in need if n not in idx]
+            if falta:
+                sys.exit(f"el reporte no trae {falta}. Columnas: {hdr}")
+            for r in range(1, sh.nrows):
+                rows_data.append({h: sh.cell_value(r, idx[h]) for h in need})
+
     filas = 0
-    for r in range(1, sh.nrows):
-        v = lambda h: sh.cell_value(r, idx[h])
+    for r_vals in rows_data:
+        v = lambda h: r_vals.get(h, "")
         cod = re.sub(r"\s+", "", str(v("CODIGO")).strip().upper())
         cod = re.sub(r"\.0+$", "", cod)
         if not cod:

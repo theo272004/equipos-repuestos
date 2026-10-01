@@ -47,7 +47,11 @@ function leerChat(ruta) {
   let tmp = null;
   if (/\.zip$/i.test(ruta)) {
     tmp = mkdtempSync(join(tmpdir(), "chat-mtto-"));
-    execSync(`powershell -NoProfile -Command "Expand-Archive -LiteralPath '${ruta.replace(/'/g, "''")}' -DestinationPath '${tmp.replace(/'/g, "''")}' -Force"`);
+    if (process.platform === "win32") {
+      execSync(`powershell -NoProfile -Command "Expand-Archive -LiteralPath '${ruta.replace(/'/g, "''")}' -DestinationPath '${tmp.replace(/'/g, "''")}' -Force"`);
+    } else {
+      execSync(`unzip -q -o "${ruta.replace(/"/g, '\\"')}" -d "${tmp}"`);
+    }
     const txt = readdirSync(tmp).find((f) => f.toLowerCase().endsWith(".txt"));
     if (!txt) { rmSync(tmp, { recursive: true, force: true }); throw new Error("El ZIP no trae .txt"); }
     txtPath = join(tmp, txt);

@@ -17845,5 +17845,292 @@ window.REPORTES_TURNO = [
       "Se coloca cubierta bomba centrífuga fabricación 1."
     ],
     "texto": "Reporte turno \nSede 2 \n\nBlíster 5 \nTermina lote de Lipogras y queda montado , propanolol.\n\nEnvasadora 1 \nMuxol flem \n\nEtiquetadora 1 \nMuxol fem\n\nCentro líquido 1 \nLimpieza \n\nCd-40\nFlectadol\n\nNovedades \nPlanta de agua \nBomba de agua que suministra a tercer y segundo piso se encontró con alarma en el variador , se revisa sistema , electrico y sistema mecánico y se encuentra el impeler frenado con la tapa , se realizan ajustes y se deja en funcionamiento.\n\nBlíster 5 \nDe desinstala alimentador universal, se instalan bandejas y se colocan racores de 1/4 x 8mm , en formato de pre enfriamiento de formado .\n\nEnvasadora 1 \nProblemas con las mangueras de suministro de el producto porque cogían aire y variaba la dosis, se deja trabajando con dos cheques y dos  boquillas y las otras se le realizaron ajustes , para probar en turno entrante.\n\nse pintan de crema 12 las puertas del ascensor del segundo y tercer piso.\n\nSe coloca cubierta bomba centrífuga fabricación 1."
+  },
+  {
+    "id": "rt-20260930-1322",
+    "fecha": "2026-09-30",
+    "hora": "13:22",
+    "autor": "BLADIMIR",
+    "sede": "Sede 4",
+    "turno": "Día",
+    "fechaTurno": "2026-09-30",
+    "equipos": [
+      {
+        "equipo": "Ms235",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "Njp3",
+        "producto": "lansoprazol"
+      },
+      {
+        "equipo": "Levofloxacina",
+        "producto": ""
+      },
+      {
+        "equipo": "Mb432",
+        "producto": "nifedipino"
+      },
+      {
+        "equipo": "Integra",
+        "producto": "Fluoxetina"
+      },
+      {
+        "equipo": "Blíster 8",
+        "producto": "dolomerpal"
+      },
+      {
+        "equipo": "Blíster 7",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "Marzio 5",
+        "producto": "myosop"
+      },
+      {
+        "equipo": "Huttiln 600",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "Cb 550",
+        "producto": "gelimed"
+      },
+      {
+        "equipo": "Fette 1010",
+        "producto": "montelucast + desloratadina"
+      },
+      {
+        "equipo": "Fette",
+        "producto": "2020-1 esomeprazol"
+      },
+      {
+        "equipo": "Bosch",
+        "producto": "nifedipino"
+      },
+      {
+        "equipo": "Pilot",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "Envasado 2",
+        "producto": "deslodex"
+      },
+      {
+        "equipo": "Envasado 3",
+        "producto": "furoflitil"
+      },
+      {
+        "equipo": "Mt1100",
+        "producto": "supreflux"
+      },
+      {
+        "equipo": "Cl4",
+        "producto": "ácido valproico"
+      },
+      {
+        "equipo": "Blíster 3",
+        "producto": "ferbin"
+      }
+    ],
+    "novedades": [
+      "Schmucker se entiende llamado operador comenta que recibió turno con motor vibrador con los cables partidos se trae a taller y se suelda con cuidado porque ya están muy cortos se habilita y se encontró pasador de presión de mordaza por fuera de ajusta T 2hrs",
+      "Bosch se atiende llamado porque se pasó la columna y se bloqueó se restablece 20min llamado nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad 30 min",
+      "Marzio 5 llamaron por ajuste en brazo  dosificador se realiza cambio de resorte del Brazo y se ajustan tornillos y el brazo. Se restablece. 2 horas",
+      "Se llamo nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad 30 min",
+      "Fette 1010 se atiende llamado porque filomatic no gira se revisa se evidencia que no está atascado y el equipo no muestra falla se quita tapa parte superior del equipo se da arranque y el motor emite vibración pero no gira se desmonta y se desarma se evidencia corona partida se encontró motor en stock y se monta equipo operativo T 3hrs",
+      "MT1100 Se atiende llamado por problemas con jeringa docificador se afloja rosca de seguridad la cual la mantiene sin fuga , se le da toque , se evidencia vástago rallado se soluciona se monta y queda operativa 1h",
+      "*Nota* El operario me comenta que la jeringa en algunas ocasiones fuga producto pero no afecta la dosificación asignada,",
+      "Estuchadora Evo Se atiende llamado por problemas de entrega de estuche y cierre del mismo , se cuadra equipo y se deja operativa 2h"
+    ],
+    "texto": "SEDE 4 -- turno (día)\n2026/08/30\n\nMs235 flextril \nNjp3  lansoprazol\nLevofloxacina\nMb432 nifedipino\nIntegra Fluoxetina\nBlíster 8 dolomerpal \nBlíster 7 cronofen \nMarzio 5  myosop\nHuttiln 600 flextril \nCb 550 gelimed \nFette 1010 montelucast + desloratadina \nFette 2020-1 esomeprazol \nBosch nifedipino\nPilot dimoflax \nEnvasado 2 deslodex \nEnvasado 3  furoflitil\nMt1100 supreflux \nCl4 ácido valproico \nBlíster 3  ferbin \n\n                      *NOVEDADES*\n\nSchmucker se entiende llamado operador comenta que recibió turno con motor vibrador con los cables partidos se trae a taller y se suelda con cuidado porque ya están muy cortos se habilita y se encontró pasador de presión de mordaza por fuera de ajusta T 2hrs\n\nBosch se atiende llamado porque se pasó la columna y se bloqueó se restablece 20min\n llamado nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad \n30 min\n\nMarzio 5 llamaron por ajuste en brazo  dosificador se realiza cambio de resorte del Brazo y se ajustan tornillos y el brazo.\nSe restablece.\n2 horas\n\nSe llamo nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad \n30 min\n\nFette 1010 se atiende llamado porque filomatic no gira se revisa se evidencia que no está atascado y el equipo no muestra falla se quita tapa parte superior del equipo se da arranque y el motor emite vibración pero no gira se desmonta y se desarma se evidencia corona partida se encontró motor en stock y se monta equipo operativo T 3hrs \n\nMT1100\nSe atiende llamado por problemas con jeringa docificador se afloja rosca de seguridad la cual la mantiene sin fuga , se le da toque , se evidencia vástago rallado se soluciona se monta y queda operativa 1h \n\n*Nota* \nEl operario me comenta que la jeringa en algunas ocasiones fuga producto pero no afecta la dosificación asignada, \n\nEstuchadora Evo \nSe atiende llamado por problemas de entrega de estuche y cierre del mismo , se cuadra equipo y se deja operativa 2h"
+  },
+  {
+    "id": "rt-20260930-1942",
+    "fecha": "2026-09-30",
+    "hora": "19:42",
+    "autor": "Jhon",
+    "sede": "Sede 4",
+    "turno": "Grupo 1 · Día",
+    "fechaTurno": "2026-09-30",
+    "equipos": [
+      {
+        "equipo": "CL4",
+        "producto": "Ácido valprohico"
+      },
+      {
+        "equipo": "CL3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CL2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Stick Pack 4",
+        "producto": "Superflux"
+      },
+      {
+        "equipo": "Blíster 2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Blíster 3",
+        "producto": "Ferbin"
+      },
+      {
+        "equipo": "Envasadora 3",
+        "producto": "Fluticasona"
+      },
+      {
+        "equipo": "Envasadora 2",
+        "producto": "Deslodex"
+      },
+      {
+        "equipo": "Bin",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Bosch",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "NJP1",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP2",
+        "producto": "Montaje"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "Lanzoprazol"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "Montaje congestex"
+      },
+      {
+        "equipo": "Integra 320",
+        "producto": "Fluoxetina"
+      },
+      {
+        "equipo": "MB 451",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "Levofloxacino"
+      },
+      {
+        "equipo": "Blíster 8",
+        "producto": "Dolormepal"
+      },
+      {
+        "equipo": "Schmucker",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "Marzio 5",
+        "producto": "Myosop"
+      },
+      {
+        "equipo": "Marzio 4",
+        "producto": "Airomed"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "R200",
+        "producto": "Trimebutina + Simeticona"
+      },
+      {
+        "equipo": "Huttlin 600",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "Huttlin 400",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "Huttlin 40",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "Bombo 300",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Rimek",
+        "producto": "Trimebutina + simeticona"
+      },
+      {
+        "equipo": "Fette 1010",
+        "producto": "Montelukast"
+      },
+      {
+        "equipo": "Fette 2020 2",
+        "producto": "Acetaminofén"
+      },
+      {
+        "equipo": "Fette 2020 1",
+        "producto": "Disponible"
+      }
+    ],
+    "novedades": [
+      "*Blíster 9:* Se realiza el desmonte del cargador universal. *T: 30 mn aprox.*",
+      "*NJP2:* Se brinda apoyo con la alineación de un porta tapas ya que este se encontraba un poco doblado, se endereza la pieza y se pega acrílico al bloque de dosificación. *T: 60 mn aprox.*",
+      "*BLÍSTER 3:* LLamado por filtración en blíster, se ajusta amortiguacion en estación de sellado y se cambian arandelas concavas.",
+      "*T:90 mn aprox*",
+      "*MARZIO 4:* Se extrae tornillo partido M6 de brazo dosificador en mecanizado.",
+      "*T:90 mn aprox*",
+      "*MT 1100:* LLamado por sachet #2  sale con lote ilegible, se mueve cabezal y se intercambia bajante, equipo operativo.",
+      "*T: 60 mn aprox*",
+      "*BOSCH:* LLamado por alarma de vacío, se limpian filtros de captador, se corrige maltrato de capsulas y se corrige falla en sensor decarga mínima.",
+      "*T: 120mn aprox*",
+      "*ETIQUETADORA ENVASE 2:* LLamado por lote ilegible, se verifican parámetros y se alinea cabezal con etiqueta, equipo operativo.",
+      "*T: 90 mn aprox*"
+    ],
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-09-30\n           sede 4\n \n*CL4:* Ácido valprohico \n*CL3:* Disponible \n*CL2:* Disponible \n*Stick Pack 4:* Superflux\n*Blíster 2:* Disponible \n*Blíster 3:* Ferbin\n*Envasadora 3:* Fluticasona\n*Envasadora 2:* Deslodex\n*Bin:* Disponible \n*Bosch:* Nifedipino \n*NJP1:* Disponible \n*NJP2:* Montaje\n*NJP3:* Lanzoprazol \n*MB 432:* Montaje congestex\n*Integra 320:* Fluoxetina \n*MB 451:* cronofen\n*Blíster 9:* Levofloxacino \n*Blíster 8:* Dolormepal\n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Myosop\n*Marzio 4:* Airomed\n*R400:* Limpieza \n*R200:* Trimebutina + Simeticona \n*Huttlin 600:* Flextril C\n*Huttlin 400:* Nifedipino \n*Huttlin 40:* Dimoflax\n*Bombo 300:* Disponible \n*Bombo 300:* Disponible \n*Rimek:*  Trimebutina + simeticona\n*Fette 1010:* Montelukast \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Disponible \n\n              *Novedades*\n*Blíster 9:* Se realiza el desmonte del cargador universal. *T: 30 mn aprox.*\n*NJP2:* Se brinda apoyo con la alineación de un porta tapas ya que este se encontraba un poco doblado, se endereza la pieza y se pega acrílico al bloque de dosificación. *T: 60 mn aprox.*\n*BLÍSTER 3:* LLamado por filtración en blíster, se ajusta amortiguacion en estación de sellado y se cambian arandelas concavas.\n*T:90 mn aprox*\n*MARZIO 4:* Se extrae tornillo partido M6 de brazo dosificador en mecanizado.\n*T:90 mn aprox*\n*MT 1100:* LLamado por sachet #2  sale con lote ilegible, se mueve cabezal y se intercambia bajante, equipo operativo.\n*T: 60 mn aprox*\n*BOSCH:* LLamado por alarma de vacío, se limpian filtros de captador, se corrige maltrato de capsulas y se corrige falla en sensor decarga mínima.\n*T: 120mn aprox*\n*ETIQUETADORA ENVASE 2:* LLamado por lote ilegible, se verifican parámetros y se alinea cabezal con etiqueta, equipo operativo.\n*T: 90 mn aprox*"
+  },
+  {
+    "id": "rt-20260930-2201",
+    "fecha": "2026-09-30",
+    "hora": "22:01",
+    "autor": "+57 301 7510864",
+    "sede": "Sede 2",
+    "turno": "Día",
+    "fechaTurno": "2026-09-30",
+    "equipos": [
+      {
+        "equipo": "Blíster 5",
+        "producto": "propanolol"
+      },
+      {
+        "equipo": "Gb100",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "CD 40",
+        "producto": "flectadol"
+      },
+      {
+        "equipo": "Centro líquido 1",
+        "producto": "dimeticona."
+      }
+    ],
+    "novedades": [
+      "Se realiza limpieza y lubricación a troquel de la gb100.",
+      "Se instalan discos nuevo en v y en L en selladora de centro líquido 1.",
+      "Se modifica estructura de tomas de 220v , en área de fabricación 2.",
+      "Centro líquido 1. Se ajustan los tiempos de dosificación , seguia inyectando cuando giraba el disco, se deja equipo en funcionamiento.",
+      "Recubrimiento 9 Se invierte giro a bombo de 100kg."
+    ],
+    "texto": "Reporte turno \nSede 2 \n\nBlíster 5: propanolol\nGb100 : esomeprazol \nCD 40 : flectadol\nCentro líquido 1: dimeticona.\n\nNovedades \nSe realiza limpieza y lubricación a troquel de la gb100.\n\nSe instalan discos nuevo en v y en L en selladora de centro líquido 1.\n\nSe modifica estructura de tomas de 220v , en área de fabricación 2.\n\nCentro líquido 1.\nSe ajustan los tiempos de dosificación , seguia inyectando cuando giraba el disco, se deja equipo en funcionamiento.\n\nRecubrimiento 9\nSe invierte giro a bombo de 100kg."
   }
 ];
