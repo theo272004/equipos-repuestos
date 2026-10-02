@@ -1,7 +1,7 @@
 // Registro unico de equipos de la planta (Sede 4 y Planta 2), con sus repuestos y codigo interno.
-// Generado a partir de los PDF oficiales DMM-179B (Sede 4) y DMM-179 (Planta 2) + MANTENIMIENTO POR SISTEMAS.xlsm.
+// Generado a partir de los listados oficiales DMM-179B (Sede 4) y DMM-179 (Planta 2) + MANTENIMIENTO POR SISTEMAS.xlsm.
 window.EQUIPOS_PLAN = {
-  "fuente": "Listados oficiales de equipos FARMACAPSULAS (Sede 4: DMM-179B V02-2026, Planta 2: DMM-179 V05-2025) + MANTENIMIENTO POR SISTEMAS",
+  "fuente": "Listados oficiales de equipos FARMACAPSULAS (Sede 4: DMM-179B V02-2026, Planta 2: DMM-179 V05-2025) + MANTENIMIENTO POR SISTEMAS + listado y programa PM 2018",
   "corte": "2026-08-25",
   "equipos": [
     {
@@ -13,7 +13,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16303002",
@@ -24,7 +26,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "44373001",
@@ -35,7 +39,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "44373003",
@@ -46,7 +52,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "44373002",
@@ -57,7 +65,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17371002",
@@ -68,7 +78,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17371004",
@@ -79,7 +91,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17371005",
@@ -90,7 +104,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17371006",
@@ -101,7 +117,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17371007",
@@ -112,7 +130,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17371008",
@@ -123,7 +143,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17371009",
@@ -134,7 +156,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17332002",
@@ -1112,7 +1136,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17332004",
@@ -1469,7 +1500,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17332005",
@@ -2033,7 +2071,14 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17332008",
@@ -2275,7 +2320,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17332009",
@@ -2286,7 +2333,35 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA"
+    },
+    {
+      "c": "17332011",
+      "id": "eq-17332011",
+      "mid": "",
+      "n": "Blisteadora #8 UPS 300",
+      "nOriginal": "BLISTEADORA #8 UPS 300",
+      "u": "SEDE 4",
+      "cc": "BLISTEADO · ÁREA BLANCA",
+      "tipo": "PROCESO",
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA"
+    },
+    {
+      "c": "17332012",
+      "id": "eq-17332012",
+      "mid": "",
+      "n": "Blisteadora #9 UPS 300",
+      "nOriginal": "BLISTEADORA #9 UPS 300",
+      "u": "SEDE 4",
+      "cc": "BLISTEADO · ÁREA BLANCA",
+      "tipo": "PROCESO",
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "121101017",
@@ -2297,7 +2372,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "CUARTO AGUA PURIFICADA · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "CUARTO AGUA PURIFICADA",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "121101018",
@@ -2308,7 +2385,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "CUARTO AGUA PURIFICADA · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "CUARTO AGUA PURIFICADA",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "121101024",
@@ -2319,7 +2398,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "CUARTO AGUA PURIFICADA · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "CUARTO AGUA PURIFICADA",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "121101025",
@@ -2330,7 +2411,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "CUARTO AGUA PURIFICADA · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "CUARTO AGUA PURIFICADA",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "130101004",
@@ -2341,7 +2424,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101005",
@@ -2352,7 +2437,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101012",
@@ -2363,7 +2450,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101013",
@@ -2374,7 +2463,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101014",
@@ -2385,7 +2476,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101015",
@@ -2396,7 +2489,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17370005",
@@ -2454,7 +2549,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370008",
@@ -2465,7 +2562,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370013",
@@ -2476,7 +2575,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370012",
@@ -2487,7 +2588,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370010",
@@ -2498,7 +2601,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370007",
@@ -2556,7 +2661,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "VQM-PUMP",
+        "cl": "VACIO",
+        "pm": 4
+      }
     },
     {
       "c": "17370009",
@@ -2567,7 +2679,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370014",
@@ -2578,7 +2692,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17370015",
@@ -2589,7 +2705,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "16365025",
@@ -2600,7 +2718,15 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "PNEU-MOTOR",
+        "cl": "PNEU-P",
+        "pm": 2,
+        "est": "NO ACTIVO"
+      }
     },
     {
       "c": "130101011",
@@ -2611,7 +2737,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101016",
@@ -2622,7 +2750,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "141312001",
@@ -2633,7 +2763,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "141312002",
@@ -2644,7 +2776,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "49312009",
@@ -2655,7 +2789,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "49312010",
@@ -2666,7 +2802,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "49312011",
@@ -2677,7 +2815,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101009",
@@ -2688,7 +2828,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPRACIÓN SOLUCIONES CL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPRACIÓN SOLUCIONES CL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101003",
@@ -2699,7 +2841,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101007",
@@ -2710,7 +2854,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328001",
@@ -2791,7 +2937,14 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328025",
@@ -2802,7 +2955,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328026",
@@ -2813,7 +2973,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328035",
@@ -2848,29 +3015,40 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
-      "c": "135408024",
-      "id": "eq-135408024",
+      "c": "135351002",
+      "id": "eq-135351002",
       "mid": "",
       "n": "CAB. Flujo Laminar Dispensación 1",
       "nOriginal": "CAB. FLUJO LAMINAR DISPENSACIÓN 1",
       "u": "SEDE 4",
       "cc": "PESAJE · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PESAJE",
+      "zona": "ÁREA BLANCA"
     },
     {
-      "c": "135408022",
-      "id": "eq-135408022",
+      "c": "135351003",
+      "id": "eq-135351003",
       "mid": "",
       "n": "CAB. Flujo Laminar Dispensación 2",
       "nOriginal": "CAB. FLUJO LAMINAR DISPENSACIÓN 2",
       "u": "SEDE 4",
       "cc": "PESAJE · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PESAJE",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "135351004",
@@ -2881,7 +3059,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PESAJE · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PESAJE",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "141373003",
@@ -2916,7 +3096,9 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "ÁREA TECNICA RECUBRIDOR TP R200",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "141373004",
@@ -2927,7 +3109,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA RECUBRIDOR TP R400 · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA RECUBRIDOR TP R400",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "130310001",
@@ -3008,7 +3192,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "ÁREA TECNICA HUTTLIN 40",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "130310002",
@@ -3019,7 +3205,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA HUTTLIN HDGC 400 · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA HUTTLIN HDGC 400",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "130310003",
@@ -3030,7 +3218,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA HUTTLIN HDGC600 · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA HUTTLIN HDGC600",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "138411001",
@@ -3041,7 +3231,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "125334007",
@@ -3049,10 +3241,12 @@ window.EQUIPOS_PLAN = {
       "mid": "",
       "n": "Chequeadora de Peso CS100",
       "nOriginal": "CHEQUEADORA DE PESO CS100",
-      "u": "SE",
+      "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "125334006",
@@ -3063,7 +3257,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "125334004",
@@ -3074,7 +3270,22 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA GRIS"
+    },
+    {
+      "c": "125334008",
+      "id": "eq-125334008",
+      "mid": "",
+      "n": "Chequeadora de Peso Insight",
+      "nOriginal": "CHEQUEADORA DE PESO INSIGHT",
+      "u": "SEDE 4",
+      "cc": "ENCAP-SOL · ÁREA BLANCA",
+      "tipo": "AUXILIAR",
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4307002",
@@ -3085,7 +3296,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "4307003",
@@ -3096,7 +3309,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4307004",
@@ -3107,7 +3322,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "4307005",
@@ -3118,7 +3335,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "4307006",
@@ -3129,7 +3348,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "4037007",
@@ -3140,7 +3361,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "4037008",
@@ -3151,7 +3374,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "BLISTEADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "125305001",
@@ -3162,7 +3387,35 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
+    },
+    {
+      "c": "125305002",
+      "id": "eq-125305002",
+      "mid": "",
+      "n": "Codificadora EasyPrint #2",
+      "nOriginal": "CODIFICADORA EASYPRINT #2",
+      "u": "SEDE 4",
+      "cc": "ENCELOFANADO · ÁREA BLANCA",
+      "tipo": "AUXILIAR",
+      "r": [],
+      "ref": "ENCELOFANADO",
+      "zona": "ÁREA BLANCA"
+    },
+    {
+      "c": "125305003",
+      "id": "eq-125305003",
+      "mid": "",
+      "n": "Codificadora EasyPrint #3",
+      "nOriginal": "CODIFICADORA EASYPRINT #3",
+      "u": "SEDE 4",
+      "cc": "ENCELOFANADO · ÁREA BLANCA",
+      "tipo": "AUXILIAR",
+      "r": [],
+      "ref": "ENCELOFANADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17336010",
@@ -3312,7 +3565,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17336011",
@@ -3323,7 +3578,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17336013",
@@ -3334,7 +3591,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17336014",
@@ -3345,7 +3604,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "134303001",
@@ -3518,7 +3779,9 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "MEZCLADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "134303002",
@@ -3529,7 +3792,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365005",
@@ -3540,7 +3805,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "SANITARIA",
+        "pm": 12
+      }
     },
     {
       "c": "17365008",
@@ -3575,7 +3847,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365012",
@@ -3586,7 +3860,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365006",
@@ -3644,7 +3920,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "ENCAPSULADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365009",
@@ -3655,7 +3933,22 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPSULADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPSULADO",
+      "zona": "ÁREA BLANCA"
+    },
+    {
+      "c": "17365013",
+      "id": "eq-17365013",
+      "mid": "",
+      "n": "Desempolvador Vertical NJP3500",
+      "nOriginal": "DESEMPOLVADOR VERTICAL NJP3500",
+      "u": "SEDE 4",
+      "cc": "ENCAPSULADO · ÁREA BLANCA",
+      "tipo": "AUXILIAR",
+      "r": [],
+      "ref": "ENCAPSULADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17306002",
@@ -3666,7 +3959,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17306003",
@@ -3677,7 +3972,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17306005",
@@ -3688,7 +3985,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 2
+      }
     },
     {
       "c": "17306006",
@@ -3699,7 +4003,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPSULADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPSULADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17306007",
@@ -3710,7 +4016,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17306008",
@@ -3721,7 +4029,22 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
+    },
+    {
+      "c": "17306009",
+      "id": "eq-17306009",
+      "mid": "",
+      "n": "Detector de Metal #9 NJP 3500",
+      "nOriginal": "DETECTOR DE METAL #9 NJP 3500",
+      "u": "SEDE 4",
+      "cc": "ENCAPSULADO · ÁREA BLANCA",
+      "tipo": "AUXILIAR",
+      "r": [],
+      "ref": "ENCAPSULADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101002",
@@ -3732,7 +4055,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130101008",
@@ -3743,7 +4068,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17333005",
@@ -4606,7 +4933,9 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17330006",
@@ -4617,7 +4946,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-LIQ · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-LIQ",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17330007",
@@ -4628,7 +4964,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-LIQ · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-LIQ",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17330009",
@@ -4639,7 +4977,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-LIQ · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-LIQ",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17333007",
@@ -5318,7 +5658,9 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17333006",
@@ -5928,7 +6270,22 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
+    },
+    {
+      "c": "17333008",
+      "id": "njp3500",
+      "mid": "njp3500",
+      "n": "Encapsuladora NJP 3500",
+      "nOriginal": "ENCAPSULADORA NJP 3500",
+      "u": "SEDE 4",
+      "cc": "ENCAP-SOL · ÁREA BLANCA",
+      "tipo": "PROCESO",
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334014",
@@ -5986,7 +6343,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "SACHETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334017",
@@ -6297,7 +6656,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCELOFANADO SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334018",
@@ -6308,7 +6669,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCELOFANADO SÓLIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCELOFANADO SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334009",
@@ -6688,7 +7051,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCELOFANADO SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17368001",
@@ -6699,7 +7064,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "MAQ",
+        "pm": 4
+      }
     },
     {
       "c": "17368002",
@@ -6710,7 +7082,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "MAQ",
+        "pm": 4
+      }
     },
     {
       "c": "17368003",
@@ -6721,7 +7100,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "MAQ",
+        "pm": 3
+      }
     },
     {
       "c": "17368004",
@@ -6732,7 +7118,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "MAQ",
+        "pm": 3
+      }
     },
     {
       "c": "17368005",
@@ -6743,7 +7136,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "MAQ",
+        "pm": 3
+      }
     },
     {
       "c": "17368006",
@@ -6754,7 +7154,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17334006",
@@ -6765,7 +7167,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16372001",
@@ -6915,7 +7319,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "130378001",
@@ -7433,7 +7844,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130378002",
@@ -7444,7 +7857,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "136372002",
@@ -7455,7 +7870,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PESAJE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PESAJE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17332007",
@@ -7674,7 +8091,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17332010",
@@ -7685,7 +8104,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17367003",
@@ -7696,7 +8117,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EMPAQUE · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "125334005",
@@ -7707,7 +8130,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17303004",
@@ -7718,7 +8143,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "EMOTOR",
+        "pm": 3
+      }
     },
     {
       "c": "17329005",
@@ -7729,7 +8161,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17329006",
@@ -7740,7 +8174,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17329008",
@@ -7751,7 +8187,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16336008",
@@ -8384,7 +8822,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "16336009",
@@ -8994,7 +9439,9 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "125334003",
@@ -9005,7 +9452,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "125334002",
@@ -9016,7 +9465,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303002",
@@ -9027,7 +9478,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303001",
@@ -9085,7 +9538,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16331002",
@@ -9096,7 +9551,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "EMOTOR",
+        "pm": 3
+      }
     },
     {
       "c": "130107001",
@@ -9131,7 +9593,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "ÁREA TECNICA HUTTLIN HDGC400",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "130107002",
@@ -9142,7 +9606,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA HUTTLIN HDGC400 · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA HUTTLIN HDGC400",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "130107003",
@@ -9153,7 +9619,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA HUTTLIN HDGC600 · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA HUTTLIN HDGC600",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "125334001",
@@ -9164,7 +9632,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "122354001",
@@ -9751,7 +10221,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "SALA PLANTA DE AGUA",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "122354002",
@@ -10614,7 +11086,9 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "ref": "SALA PLANTA DE AGUA",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "141328042",
@@ -10902,7 +11376,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "RECUBRIMIENTO DE TABLETA",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "141328043",
@@ -10913,7 +11389,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "RECUBRIMIENTO DE TABLETA · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "RECUBRIMIENTO DE TABLETA",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130317002",
@@ -10924,7 +11402,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "130317001",
@@ -10935,7 +11415,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "130317003",
@@ -10946,7 +11428,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA HUTTLIN HDGC600 · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA HUTTLIN HDGC600",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17304003",
@@ -11050,7 +11534,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAP-LIQ",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17330008",
@@ -11061,7 +11552,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-LIQ · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-LIQ",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17304004",
@@ -11072,7 +11565,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCAP-LIQ · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-LIQ",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365003",
@@ -12717,7 +13212,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17365007",
@@ -13005,7 +13507,9 @@ window.EQUIPOS_PLAN = {
             "st": "ALERTA"
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365011",
@@ -13063,7 +13567,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365010",
@@ -13074,7 +13580,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16330025",
@@ -13109,7 +13617,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330003",
@@ -13144,7 +13659,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330004",
@@ -13179,7 +13701,15 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2,
+        "est": "NO ACTIVO"
+      }
     },
     {
       "c": "16330009",
@@ -13214,7 +13744,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330032",
@@ -13225,7 +13762,14 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "130302001",
@@ -13236,7 +13780,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302016",
@@ -13247,7 +13793,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302002",
@@ -13258,7 +13806,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302017",
@@ -13269,7 +13819,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302018",
@@ -13280,7 +13832,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101002",
@@ -13291,7 +13845,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302114",
@@ -13302,7 +13858,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101003",
@@ -13313,7 +13871,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101004",
@@ -13324,7 +13884,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101005",
@@ -13335,7 +13897,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101006",
@@ -13346,7 +13910,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101007",
@@ -13357,7 +13923,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101008",
@@ -13368,7 +13936,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101009",
@@ -13379,7 +13949,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302011",
@@ -13390,7 +13962,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302012",
@@ -13401,7 +13975,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302005",
@@ -13412,7 +13988,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302006",
@@ -13423,7 +14001,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302007",
@@ -13434,7 +14014,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN DE LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN DE LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302023",
@@ -13445,7 +14027,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302021",
@@ -13456,7 +14040,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302019",
@@ -13467,7 +14053,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302020",
@@ -13478,7 +14066,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302024",
@@ -13489,7 +14079,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302022",
@@ -13500,7 +14092,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302003",
@@ -13511,7 +14105,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302004",
@@ -13522,7 +14118,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302013",
@@ -13533,7 +14131,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302014",
@@ -13544,7 +14144,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302015",
@@ -13555,7 +14157,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LECHO FLUIDO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LECHO FLUIDO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "129101001",
@@ -13566,7 +14170,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "PREPARACIÓN SOLUCIONES CL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PREPARACIÓN SOLUCIONES CL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17335001",
@@ -13577,7 +14183,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENVASADO LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENVASADO LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "41373001",
@@ -13588,7 +14196,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "LAVADO DE UTENSILIOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "LAVADO DE UTENSILIOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16370002",
@@ -13599,7 +14209,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16370003",
@@ -13726,7 +14338,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16370005",
@@ -13737,7 +14351,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16370004",
@@ -13748,7 +14364,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ENCELOFANADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCELOFANADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "120308038",
@@ -13921,7 +14539,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ÁREA TECNICA RECUBRIDOR TP R200",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "120308039",
@@ -13932,7 +14552,9 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "ÁREA TECNICA RECUBRIDOR TP R400 · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA RECUBRIDOR TP R400",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "17303017",
@@ -13943,7 +14565,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16303001",
@@ -13954,7 +14578,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG A-LADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG A-LADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "EMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "17303016",
@@ -13965,7 +14596,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "ENCAPCL",
+        "pm": 2
+      }
     },
     {
       "c": "15327006",
@@ -13976,7 +14614,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "ELEVADOR",
+        "cl": "INFRAEST",
+        "pm": 3
+      }
     },
     {
       "c": "17371001",
@@ -13987,7 +14632,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "BLISTEADO · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "BANDA",
+        "pm": 2
+      }
     },
     {
       "c": "17371003",
@@ -13998,7 +14650,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "BLISTEADO · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA GRIS",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "BANDA",
+        "pm": 2
+      }
     },
     {
       "c": "17332006",
@@ -14033,7 +14692,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17332003",
@@ -14712,7 +15378,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "5101001",
@@ -14723,7 +15396,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "BLISTEADO/EMP · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO/EMP",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP",
+        "pm": 12
+      }
     },
     {
       "c": "5101002",
@@ -14734,7 +15414,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "BLISTEADO/EMP · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO/EMP",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP",
+        "pm": 12
+      }
     },
     {
       "c": "5101003",
@@ -14745,7 +15432,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG B-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG B-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP",
+        "pm": 12
+      }
     },
     {
       "c": "5101004",
@@ -14756,7 +15450,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG B-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG B-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP",
+        "pm": 12
+      }
     },
     {
       "c": "5101005",
@@ -14767,7 +15468,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG LADOA/LADOC/VEST · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG LADOA/LADOC/VEST",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP",
+        "pm": 12
+      }
     },
     {
       "c": "5101006",
@@ -14778,7 +15486,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG LADOA/LADOC · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG LADOA/LADOC",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP",
+        "pm": 12
+      }
     },
     {
       "c": "17370001",
@@ -14789,7 +15504,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAP-SOL · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "VQM-PUMP",
+        "cl": "VACIO",
+        "pm": 4
+      }
     },
     {
       "c": "17370004",
@@ -14847,7 +15569,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA NEGRA"
     },
     {
       "c": "17370011",
@@ -14858,7 +15582,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17370006",
@@ -14916,7 +15642,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "VQM-PUMP",
+        "cl": "VACIO",
+        "pm": 4
+      }
     },
     {
       "c": "16365007",
@@ -14927,7 +15660,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "PNEU-MOTOR",
+        "cl": "PNEU-P",
+        "pm": 2
+      }
     },
     {
       "c": "16365010",
@@ -14938,7 +15678,15 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "PNEU-MOTOR",
+        "cl": "PNEU-P",
+        "pm": 2,
+        "est": "NO ACTIVO"
+      }
     },
     {
       "c": "16365017",
@@ -14949,7 +15697,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "PNEU-MOTOR",
+        "cl": "PNEU-P",
+        "pm": 2
+      }
     },
     {
       "c": "16365020",
@@ -14960,7 +15715,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "PNEU-MOTOR",
+        "cl": "PNEU-P",
+        "pm": 2
+      }
     },
     {
       "c": "16365021",
@@ -14971,7 +15733,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "PNEU-MOTOR",
+        "cl": "PNEU-P",
+        "pm": 2
+      }
     },
     {
       "c": "5101222",
@@ -14982,7 +15751,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303009",
@@ -14993,7 +15764,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "PUMP-INOX",
+        "pm": 4
+      }
     },
     {
       "c": "49312008",
@@ -15004,7 +15782,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16101001",
@@ -15015,7 +15795,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16101002",
@@ -15026,7 +15808,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328002",
@@ -15037,7 +15821,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328003",
@@ -15048,7 +15834,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328004",
@@ -15059,7 +15847,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328005",
@@ -15070,7 +15860,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328006",
@@ -15081,7 +15873,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328007",
@@ -15092,7 +15891,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328021",
@@ -15103,7 +15909,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328014",
@@ -15114,7 +15927,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328015",
@@ -15125,7 +15940,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328022",
@@ -15136,7 +15953,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328023",
@@ -15147,7 +15966,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328024",
@@ -15158,7 +15979,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328033",
@@ -15193,7 +16016,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328034",
@@ -15228,7 +16053,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328037",
@@ -15263,7 +16090,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328038",
@@ -15298,7 +16127,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328039",
@@ -15333,7 +16164,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17351001",
@@ -15344,7 +16177,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "CAB FLUJO",
+        "cl": "FILTROS",
+        "pm": 3
+      }
     },
     {
       "c": "17351002",
@@ -15355,7 +16195,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "CAB FLUJO",
+        "cl": "FILTROS",
+        "pm": 3
+      }
     },
     {
       "c": "17310003",
@@ -15366,7 +16213,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "PESAJE · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PESAJE",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "CAB FLUJO",
+        "cl": "FILTROS",
+        "pm": 3
+      }
     },
     {
       "c": "17310004",
@@ -15377,7 +16231,27 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "PESAJE · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PESAJE",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "CAB FLUJO",
+        "cl": "FILTROS",
+        "pm": 3
+      }
+    },
+    {
+      "c": "125305004",
+      "id": "eq-125305004",
+      "mid": "",
+      "n": "Codificadora EasyPrint #4",
+      "nOriginal": "CODIFICADORA EASYPRINT #4",
+      "u": "PLANTA 2",
+      "cc": "SACHETEADO · ÁREA BLANCA",
+      "tipo": "AUXILIAR",
+      "r": [],
+      "ref": "SACHETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17336009",
@@ -15527,7 +16401,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "CODIFICADO",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17336008",
@@ -15549,7 +16425,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENTRADA PLANTA · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENTRADA PLANTA",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "363100002",
@@ -15560,7 +16438,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "PRIMER PISO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "PRIMER PISO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "363100003",
@@ -15571,7 +16451,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SEGUNDO PISO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "SEGUNDO PISO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "363100004",
@@ -15582,7 +16464,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "TERCER PISO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TERCER PISO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17365004",
@@ -15593,7 +16477,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 12
+      }
     },
     {
       "c": "17306001",
@@ -15604,7 +16495,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 2
+      }
     },
     {
       "c": "17306004",
@@ -15615,7 +16513,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "TABLETEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 2
+      }
     },
     {
       "c": "17333001",
@@ -15650,7 +16555,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "ENCAP-SOL",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17333004",
@@ -16099,7 +17011,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17334002",
@@ -16110,7 +17029,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SOBRES · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SOBRES",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 2
+      }
     },
     {
       "c": "17334010",
@@ -17019,7 +17945,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "SACHETEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334015",
@@ -17030,7 +17958,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SOBRES · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SOBRES",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334016",
@@ -17041,7 +17971,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SOBRES · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SOBRES",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17334004",
@@ -17145,7 +18077,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17367002",
@@ -17272,7 +18206,9 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "EMPAQUE",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "4310025",
@@ -17283,7 +18219,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG A-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG A-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310048",
@@ -17294,7 +18237,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG A-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG A-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310049",
@@ -17305,7 +18255,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG A-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG A-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310077",
@@ -17316,7 +18273,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG C-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG C-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310079",
@@ -17327,7 +18291,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG C-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG C-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310037",
@@ -17338,7 +18309,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG 2°PISO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG 2°PISO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310036",
@@ -17349,7 +18327,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG 2°PISO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG 2°PISO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310080",
@@ -17360,7 +18345,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG C-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG C-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310081",
@@ -17371,7 +18363,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG C-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG C-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "4310067",
@@ -17382,7 +18381,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG B-LADO · ÁREA NEGRA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG B-LADO",
+      "zona": "ÁREA NEGRA",
+      "h18": {
+        "fam": "TURBOMAQ",
+        "cl": "BLOWER",
+        "pm": 12
+      }
     },
     {
       "c": "17303024",
@@ -17393,7 +18399,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17329004",
@@ -17404,7 +18412,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "DISCALOR",
+        "cl": "RESISTECIAS",
+        "pm": 12
+      }
     },
     {
       "c": "17329007",
@@ -17439,7 +18454,9 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303018",
@@ -17450,7 +18467,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303003",
@@ -17554,7 +18573,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "EMOTOR",
+        "pm": 3
+      }
     },
     {
       "c": "17303002",
@@ -17565,7 +18591,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303023",
@@ -17576,7 +18604,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16331001",
@@ -17587,7 +18617,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "EMOTOR",
+        "pm": 3
+      }
     },
     {
       "c": "75354001",
@@ -17598,7 +18635,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "W-PLANT · ÁREA GRIS",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "W-PLANT",
+      "zona": "ÁREA GRIS"
     },
     {
       "c": "17304001",
@@ -17679,7 +18718,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17365002",
@@ -17921,7 +18967,14 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "ref": "TABLETEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "16330001",
@@ -18048,7 +19101,14 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330005",
@@ -18059,7 +19119,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330007",
@@ -18070,7 +19137,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330008",
@@ -18081,7 +19155,15 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2,
+        "est": "NO ACTIVO"
+      }
     },
     {
       "c": "16330010",
@@ -18092,7 +19174,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330011",
@@ -18103,7 +19192,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330013",
@@ -18114,7 +19210,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330015",
@@ -18125,7 +19228,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330017",
@@ -18136,7 +19246,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330019",
@@ -18147,7 +19264,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "16330028",
@@ -18158,7 +19282,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "VIBRA-eMOTOR",
+        "pm": 2
+      }
     },
     {
       "c": "130302111",
@@ -18169,7 +19300,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302112",
@@ -18180,7 +19313,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302113",
@@ -18191,7 +19326,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "130302115",
@@ -18202,7 +19339,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "17303013",
@@ -18213,7 +19352,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TK",
+        "cl": "SANITARIA",
+        "pm": 2
+      }
     },
     {
       "c": "17303006",
@@ -18224,7 +19370,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TK",
+        "cl": "SANITARIA",
+        "pm": 12
+      }
     },
     {
       "c": "17303007",
@@ -18235,7 +19388,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TK",
+        "cl": "SANITARIA",
+        "pm": 12
+      }
     },
     {
       "c": "17303011",
@@ -18246,7 +19406,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TK",
+        "cl": "SANITARIA",
+        "pm": 12
+      }
     },
     {
       "c": "17303012",
@@ -18257,7 +19424,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "TK",
+        "cl": "SANITARIA",
+        "pm": 12
+      }
     },
     {
       "c": "17303019",
@@ -18268,7 +19442,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "FAB/ENV LÍQUIDOS · ÁREA BLANCA",
       "tipo": "PROCESO",
-      "r": []
+      "r": [],
+      "ref": "FAB/ENV LÍQUIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608015",
@@ -18279,7 +19455,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608016",
@@ -18290,7 +19468,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310063",
@@ -18301,7 +19481,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UCA",
+        "pm": 3
+      }
     },
     {
       "c": "3608004",
@@ -18312,7 +19499,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608005",
@@ -18323,7 +19512,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608012",
@@ -18334,7 +19525,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608013",
@@ -18345,7 +19538,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310054",
@@ -18356,7 +19551,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UCA",
+        "pm": 3
+      }
     },
     {
       "c": "4310055",
@@ -18367,7 +19569,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UCA",
+        "pm": 3
+      }
     },
     {
       "c": "4310056",
@@ -18378,7 +19587,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UCA",
+        "pm": 3
+      }
     },
     {
       "c": "4310001",
@@ -18389,7 +19605,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UCA",
+        "pm": 3
+      }
     },
     {
       "c": "4310090",
@@ -18400,7 +19623,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "BLISTEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310022",
@@ -18411,7 +19636,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "BLISTEADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "BLISTEADO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UMAW",
+        "pm": 6
+      }
     },
     {
       "c": "3608014",
@@ -18422,7 +19654,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ÁREA TECNICA MEDICAMENTOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA MEDICAMENTOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310018",
@@ -18433,7 +19667,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ENCAPCL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ENCAPCL",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310062",
@@ -18444,7 +19680,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UMAG",
+        "pm": 3
+      }
     },
     {
       "c": "3608001",
@@ -18455,7 +19698,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ÁREA TECNICA MEDICAMENTOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA MEDICAMENTOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310065",
@@ -18466,7 +19711,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG A-LADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG A-LADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310089",
@@ -18477,7 +19724,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG B-LADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG B-LADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310091",
@@ -18488,7 +19737,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG C-LADO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG C-LADO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608009",
@@ -18499,7 +19750,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ÁREA TECNICA MEDICAMENTOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA MEDICAMENTOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608020",
@@ -18510,7 +19763,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ÁREA TECNICA MEDICAMENTOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA MEDICAMENTOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310057",
@@ -18521,7 +19776,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UMAG",
+        "pm": 3
+      }
     },
     {
       "c": "4310058",
@@ -18532,7 +19794,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UMAG",
+        "pm": 3
+      }
     },
     {
       "c": "4310059",
@@ -18543,7 +19812,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UMAG",
+        "pm": 3
+      }
     },
     {
       "c": "4310011",
@@ -18554,7 +19830,14 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "EDIFICIO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "EDIFICIO",
+      "zona": "ÁREA BLANCA",
+      "h18": {
+        "fam": "REF",
+        "cl": "UMAG",
+        "pm": 12
+      }
     },
     {
       "c": "3608022",
@@ -18565,7 +19848,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ÁREA TECNICA MEDICAMENTOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA MEDICAMENTOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310030",
@@ -18576,7 +19861,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "MICROG 2°PISO · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "MICROG 2°PISO",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "4310021",
@@ -18587,7 +19874,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "SÓLIDOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "SÓLIDOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "3608006",
@@ -18598,7 +19887,9 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "ÁREA TECNICA MEDICAMENTOS · ÁREA BLANCA",
       "tipo": "AUXILIAR",
-      "r": []
+      "r": [],
+      "ref": "ÁREA TECNICA MEDICAMENTOS",
+      "zona": "ÁREA BLANCA"
     },
     {
       "c": "16328028",
@@ -18633,7 +19924,11 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM"
+      }
     },
     {
       "c": "16328029",
@@ -18668,7 +19963,11 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM"
+      }
     },
     {
       "c": "16328030",
@@ -18703,7 +20002,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328031",
@@ -18738,7 +20042,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328032",
@@ -18888,7 +20197,12 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328036",
@@ -18923,7 +20237,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328040",
@@ -18958,7 +20277,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "16328041",
@@ -18993,7 +20317,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "R-DRUM",
+        "pm": 2
+      }
     },
     {
       "c": "17366001",
@@ -19028,7 +20357,12 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "SPCL",
+        "cl": "COD",
+        "pm": 4
+      }
     },
     {
       "c": "17366002",
@@ -19063,7 +20397,12 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "SPCL",
+        "cl": "COD",
+        "pm": 4
+      }
     },
     {
       "c": "17366003",
@@ -19098,7 +20437,12 @@ window.EQUIPOS_PLAN = {
             "st": "EN TIEMPO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "SPCL",
+        "cl": "COD",
+        "pm": 4
+      }
     },
     {
       "c": "17334007",
@@ -19984,7 +21328,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 12
+      }
     },
     {
       "c": "17334011",
@@ -22654,7 +24003,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "MAQ-ESTRAT",
+        "cl": "EST-PROC",
+        "pm": 6
+      }
     },
     {
       "c": "17303005",
@@ -22689,7 +24043,12 @@ window.EQUIPOS_PLAN = {
             "st": "RETRASADO"
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "EMOTOR",
+        "cl": "EMOTOR",
+        "pm": 3
+      }
     },
     {
       "c": "17329001",
@@ -22793,7 +24152,12 @@ window.EQUIPOS_PLAN = {
             "st": ""
           }
         }
-      ]
+      ],
+      "h18": {
+        "fam": "DISCALOR",
+        "cl": "RESISTECIAS",
+        "pm": 12
+      }
     },
     {
       "c": "1",

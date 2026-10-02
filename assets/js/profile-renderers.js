@@ -206,6 +206,27 @@ function dt(machine, campo) {
         return JSON.stringify(orden(JSON.parse(JSON.stringify(o))));
       }
       function vistoDe(lista) { return new Map(lista.filter((d) => d && d.id).map((d) => [d.id, firma(d)])); }
+
+      // Equipos a los que el listado oficial les cambió el código. Lo guardado
+      // con el código viejo (cambios, inspecciones, datos de repuestos) se pasa
+      // al nuevo al leerlo; como "visto" se calcula antes, el próximo guardado
+      // lo deja corregido también en la nube.
+      const CODIGO_EQUIPO_NUEVO = { "17333009": "17333008" }; // NJP-3500 (DMM-179B V02-2026)
+      function conCodigoVigente(lista) {
+        (lista || []).forEach((x) => { if (x && CODIGO_EQUIPO_NUEVO[x.eq]) x.eq = CODIGO_EQUIPO_NUEVO[x.eq]; });
+        return lista;
+      }
+      function datosConCodigoVigente(obj) {
+        Object.keys(obj).forEach((k) => {
+          const i = k.indexOf("|");
+          const nuevo = i > 0 ? CODIGO_EQUIPO_NUEVO[k.slice(0, i)] : null;
+          if (!nuevo) return;
+          const k2 = nuevo + k.slice(i);
+          if (!obj[k2]) obj[k2] = { ...obj[k], id: k2 };
+          delete obj[k];
+        });
+        return obj;
+      }
       function subirCambiados(nombre, lista, visto, rutaDoc = (id) => id) {
         const col = cloud.db.collection(nombre);
         const ops = [];
@@ -518,7 +539,7 @@ function dt(machine, campo) {
         const faltan = inspRegistro()
           .filter((i) => i && i.id && !ya.has(i.id) && !fuera.has(i.id))
           .map((i) => JSON.parse(JSON.stringify(i)));
-        return faltan.length ? faltan.concat(lista) : lista;
+        return conCodigoVigente(faltan.length ? faltan.concat(lista) : lista);
       }
 
       function loadInsp() {
@@ -1034,7 +1055,7 @@ function dt(machine, campo) {
       let datosVisto = new Map();
       const datosNube = { conectado: false, error: "" };
 
-      function loadDatosRep() { try { return JSON.parse(localStorage.getItem(datosKey) || "{}"); } catch { return {}; } }
+      function loadDatosRep() { try { return datosConCodigoVigente(JSON.parse(localStorage.getItem(datosKey) || "{}")); } catch { return {}; } }
       function saveDatosLocal() { try { localStorage.setItem(datosKey, JSON.stringify(datosRep)); } catch (e) {} }
 
       // Clave estable de una fila: el código interno si lo tiene, y si no el
@@ -1063,8 +1084,8 @@ function dt(machine, campo) {
         cloud.db.collection("datos").onSnapshot({ includeMetadataChanges: true }, (snap) => {
           const remoto = {};
           snap.forEach((d) => { const v = d.data(); if (v && v.id) remoto[v.id] = v; });
-          datosRep = remoto;
           datosVisto = vistoDe(Object.values(remoto));
+          datosRep = datosConCodigoVigente(remoto);
           datosNube.conectado = !snap.metadata.fromCache;
           datosNube.error = "";
           saveDatosLocal();
@@ -1116,7 +1137,7 @@ function dt(machine, campo) {
       // compartido con el resto del taller y en realidad solo esta en este navegador.
       const cambiosNube = { conectado: false, error: "" };
 
-      function loadCambios() { try { return JSON.parse(localStorage.getItem(cambiosKey) || "[]"); } catch { return []; } }
+      function loadCambios() { try { return conCodigoVigente(JSON.parse(localStorage.getItem(cambiosKey) || "[]")); } catch { return []; } }
       function saveCambiosLocal() { try { localStorage.setItem(cambiosKey, JSON.stringify(cambios)); } catch (e) {} }
       function saveCambios() {
         saveCambiosLocal();
@@ -1134,8 +1155,8 @@ function dt(machine, campo) {
         cloud.db.collection("cambios").onSnapshot({ includeMetadataChanges: true }, (snap) => {
           const remote = [];
           snap.forEach((d) => remote.push(d.data()));
-          cambios = remote;
           cambiosVisto = vistoDe(remote);
+          cambios = conCodigoVigente(remote);
           window.diarioRenderSiVisible?.();
           cambiosNube.conectado = !snap.metadata.fromCache;
           cambiosNube.error = "";

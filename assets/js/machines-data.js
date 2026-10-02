@@ -1,7 +1,7 @@
 const initialMachines = [
         {
           id: "njp3500",
-          equipoCod: "17333009",
+          equipoCod: "17333008",
           causaCod: "K7",
           causaDesc: "ENCAPSULADO SOLIDOS (130599) - NJP",
           name: "Encapsuladora automática NJP-3500",
@@ -4890,14 +4890,28 @@ const initialMachines = [
           summarySpecs: [
             { label: "Código de equipo", value: eq.c },
             { label: "Ubicación", value: eq.u || "Por confirmar" },
-            { label: "Centro de costo", value: eq.cc || "—" },
+            ...(eq.ref ? [{ label: "Área", value: eq.ref }, { label: "Tipo de área", value: eq.zona || "—" }] : []),
+            // En los equipos sin plan, cc es "AREA · TIPO DE AREA" (ya mostrado arriba), no un centro de costo.
+            ...(eq.ref && eq.cc.includes("·") ? [] : [{ label: "Centro de costo", value: eq.cc || "—" }]),
             { label: "Tipo", value: eq.tipo || "—" },
+            ...specs2018(eq.h18),
             { label: "Repuestos en el plan", value: String(total) },
             { label: "Sin existencia", value: String(sinStock) }
           ],
           documents: [],
-          searchAliases: [eq.c, eq.n, eq.nOriginal, eq.tipo, eq.u, ...codigos].filter(Boolean)
+          searchAliases: [eq.c, eq.n, eq.nOriginal, eq.tipo, eq.u, eq.ref, ...codigos].filter(Boolean)
         };
+      }
+
+      // Lo que dice del equipo el listado y el programa de preventivo de 2018
+      // (solo viene cuando la descripcion de 2018 es la del mismo equipo).
+      const FRECUENCIA_PM = { 12: "mensual", 6: "bimestral", 4: "trimestral", 3: "cuatrimestral", 2: "semestral", 1: "anual" };
+      function specs2018(h) {
+        if (!h) return [];
+        const out = [{ label: "Familia / clase (2018)", value: [h.fam, h.cl].filter(Boolean).join(" / ") || "—" }];
+        if (h.pm) out.push({ label: "Preventivos al año (programa 2018)", value: h.pm + (FRECUENCIA_PM[h.pm] ? " · " + FRECUENCIA_PM[h.pm] : "") });
+        if (h.est) out.push({ label: "Estado en 2018", value: h.est });
+        return out;
       }
 
       // Anade al catalogo los equipos que aun no tienen ficha propia, y a las que
