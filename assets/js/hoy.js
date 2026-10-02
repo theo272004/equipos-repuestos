@@ -16,7 +16,7 @@
   const N = window.NUCLEO;
   const esc = N.esc;
   const ic = (n, c) => window.IC(n, c);
-  const vista = { dia: "", sede: "", quien: false };
+  const vista = { dia: "", sede: "", quien: false, sheet: null };
 
   const S = () => window.MTTO_STORE;
 
@@ -103,7 +103,7 @@
     return `<section class="ux-card">
       <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("falla")}Más fallas esta semana</h2><p class="ux-card__sub">Correctivos de máquina, últimos 7 días</p></div>
         <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="indicadores">Indicadores ${ic("der", "ic--sm")}</button></div>
-      ${top.length ? `<div class="ux-hbars">${top.map(([eq, n], i) => `<button class="ux-hbar" type="button" data-hy="eq" data-v="${esc(eq)}"><span class="ux-hbar__t">${esc(eq)}</span><span class="ux-hbar__v">${n} <small>${n === 1 ? "falla" : "fallas"}</small></span><span class="ux-progress ${i === 0 ? "ux-progress--bad" : "ux-progress--dark"}"><i style="width:${Math.round((n / max) * 100)}%"></i></span></button>`).join("")}</div>`
+      ${top.length ? `<div class="ux-hbars">${top.map(([eq, n], i) => `<button class="ux-hbar" type="button" data-hy="ver-fallas-eq" data-v="${esc(eq)}" title="Ver las ${n} fallas de ${esc(eq)}"><span class="ux-hbar__t">${esc(eq)}</span><span class="ux-hbar__v">${n} <small>${n === 1 ? "falla" : "fallas"}</small></span><span class="ux-progress ${i === 0 ? "ux-progress--bad" : "ux-progress--dark"}"><i style="width:${Math.round((n / max) * 100)}%"></i></span></button>`).join("")}</div>`
         : `<div class="ux-empty"><h4>Sin correctivos de máquina</h4><p>No hay fallas de máquina registradas en los últimos 7 días.</p></div>`}
     </section>`;
   }
@@ -130,7 +130,8 @@
     // 0. Máquinas que siguen paradas por una falla
     paradasPorFalla().forEach((r) => grupos.urgente.push({
       tono: "bad", ico: "llave", t: `${r.eq} parada por falla${r.frep ? " · falta repuesto" : ""}`,
-      s: `Desde el ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""} · ${String(r.de || "").replace(/\s+/g, " ").slice(0, 90)}`, acc: "Ver", hy: "reg", id: r.id,
+      s: `Desde el ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""} · ${String(r.de || "").replace(/\s+/g, " ").slice(0, 90)}`,
+      acc: "Ver detalle", hy: "ver-evento", id: r.id, v: r.eq,
     }));
     // 1. Máquinas con fallas repetidas en la semana
     if (S_) {
@@ -140,7 +141,7 @@
         .forEach((r) => { const x = m.get(r.eq) || { n: 0, ult: r }; x.n++; if ((r.f + (r.hr || "")) > (x.ult.f + (x.ult.hr || ""))) x.ult = r; m.set(r.eq, x); });
       [...m.entries()].filter(([, x]) => x.n >= 3).sort((a, b) => b[1].n - a[1].n).slice(0, 4).forEach(([eq, x]) => grupos.urgente.push({
         tono: "bad", ico: "falla", t: `${eq}: ${x.n} fallas en 7 días`, s: `Revisar la causa · la última: ${String(x.ult.de || "").replace(/\s+/g, " ").slice(0, 90)}`,
-        acc: "Revisar", hy: "eq", v: eq,
+        acc: "Ver fallas", hy: "ver-fallas-eq", v: eq,
       }));
     }
     // 2. Pendientes de prioridad alta
@@ -187,7 +188,11 @@
         s: `${t.pend.length} ${t.pend.length === 1 ? "cosa por hacer" : "cosas por hacer"}${t.i.programado < hoy ? ` · era el ${N.fmt.corta(t.i.programado)}` : ""}`, acc: "Abrir", hy: "seg", id: t.i.id,
       }));
       const s = SG.sugerencias()[0];
-      if (s) grupos.mtto.unshift({ tono: "", ico: "insp", t: `Inspeccionar hoy: ${nombreEq(s.c)}`, s: `${s.n} fallas en 14 días · ${s.u ? `última inspección el ${N.fmt.corta(s.u)}` : "nunca inspeccionado"}`, acc: "Inspeccionar", hy: "inspeccionar", v: s.c });
+      if (s) grupos.mtto.unshift({
+        tono: "", ico: "insp", t: `Inspeccionar hoy: ${nombreEq(s.c)}`,
+        s: `${s.n} fallas en 14 días · ${s.u ? `última inspección el ${N.fmt.corta(s.u)}` : "nunca inspeccionado"}`,
+        acc: "Ver fallas", hy: "ver-fallas-insp", v: s.c,
+      });
     }
     // 6. Tareas con aviso para hoy o vencido
     if (typeof tasks !== "undefined") tasks.filter((x) => x.status !== "hecha" && x.remindNextAt && N.diaCO(x.remindNextAt) <= hoy).slice(0, 5)
@@ -238,7 +243,269 @@
     </section>`;
   }
 
-  function quien() {
+  function buscarFichaId(eqNombre, sede) {
+    if (!eqNombre) return null;
+    const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const neq = norm(eqNombre);
+    if (typeof machines !== "undefined") {
+      const direct = machines.find((m) => norm(m.id) === neq || norm(m.model) === neq || norm(m.name) === neq);
+      if (direct) return direct.id;
+    }
+    const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
+    const enCat = cat.find((x) => (!sede || x.s === sede) && norm(x.eq) === neq) || cat.find((x) => norm(x.eq) === neq);
+    if (enCat && enCat.fi) return enCat.fi;
+    const plan = (window.EQUIPOS_PLAN && window.EQUIPOS_PLAN.equipos) || [];
+    const enPlan = plan.find((e) => norm(e.c) === neq || norm(e.n).includes(neq) || neq.includes(norm(e.n)));
+    if (enPlan) {
+      if (typeof machines !== "undefined") {
+        const m = machines.find((x) => x.id === enPlan.id || x.equipoCod === enPlan.c);
+        if (m) return m.id;
+      }
+      return enPlan.id || enPlan.c;
+    }
+    return null;
+  }
+
+  function irAFicha(eqNombre, sede) {
+    const fid = buscarFichaId(eqNombre, sede);
+    if (fid && typeof openDetail === "function" && typeof machines !== "undefined" && machines.some((m) => m.id === fid)) {
+      openDetail(fid);
+      return true;
+    }
+    const plan = (window.EQUIPOS_PLAN && window.EQUIPOS_PLAN.equipos) || [];
+    const enPlan = plan.find((e) => e.c === eqNombre || e.id === eqNombre || e.n.toLowerCase().includes((eqNombre || "").toLowerCase()));
+    if (enPlan && window.goPlan) {
+      window.goPlan(enPlan.c || enPlan.n);
+      return true;
+    }
+    if (window.goIndicadores) {
+      window.goIndicadores({ eq: eqNombre });
+      return true;
+    }
+    return false;
+  }
+
+  function renderSheetEvento() {
+    const r = S() ? S().registros().find((x) => x.id === vista.sheet.id) : null;
+    if (!r) return "";
+    return `<div class="mx-backdrop" data-hy-close="1"></div>
+    <aside class="mx-sheet mx-sheet--ancha" role="dialog" aria-modal="true" aria-label="Detalle de parada">
+      <header class="mx-sheet__head">
+        <div>
+          <p class="mx-eyebrow">${esc(r.s)} · ${esc(r.ar || "Área de proceso")} · Turno ${esc(r.t || "")}</p>
+          <h3>${esc(r.eq)}</h3>
+        </div>
+        <button class="mx-iconbtn" type="button" data-hy-close="1" aria-label="Cerrar">${ic("x")}</button>
+      </header>
+      <div class="mx-form__body" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+        <div class="ux-card" style="margin:0; background:var(--bg-elevated,#1e232d); border:1px solid var(--border-color,#333); padding:16px; border-radius:12px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; gap:8px; align-items:center;">
+              <span class="ux-pill ux-pill--bad" style="background:#dc262622; color:#ef4444; border:1px solid #ef444444; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px;">
+                ${ic("falla", "ic--sm")} ${r.ef === "Pendiente" ? "Parada por falla · Pendiente" : r.ef || "Parada por falla"}
+              </span>
+              ${r.frep ? `<span class="ux-pill ux-pill--warn" style="background:#f59e0b22; color:#f59e0b; border:1px solid #f59e0b44; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px;">Falta repuesto</span>` : ""}
+              <span class="ux-pill" style="background:#3b82f622; color:#60a5fa; border:1px solid #60a5fa44; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px;">
+                ${esc(r.cat || "Máquina")} · ${esc(r.tp || "Correctivo")}
+              </span>
+            </div>
+            <span style="font-size:13px; color:var(--text-muted,#888);">
+              ${ic("calendario", "ic--sm")} ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""}
+            </span>
+          </div>
+
+          <div style="margin-bottom:14px;">
+            <h4 style="margin:0 0 6px 0; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">¿Qué pasó en la máquina?</h4>
+            <p style="margin:0; font-size:15px; line-height:1.5; color:var(--text-main,#eee); background:rgba(0,0,0,0.18); padding:12px 14px; border-radius:8px; border-left:3px solid #ef4444;">
+              ${esc(r.de || "Sin descripción de la novedad")}
+            </p>
+          </div>
+
+          ${r.ac ? `<div style="margin-bottom:14px;">
+            <h4 style="margin:0 0 6px 0; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">Acción realizada</h4>
+            <p style="margin:0; font-size:14px; line-height:1.5; color:var(--text-main,#eee); background:rgba(0,0,0,0.18); padding:10px 14px; border-radius:8px; border-left:3px solid #10b981;">
+              ${esc(r.ac)}
+            </p>
+          </div>` : ""}
+
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-top:14px; font-size:13px;">
+            <div style="background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
+              <span style="color:var(--text-muted,#888); display:block; font-size:11px;">Técnico</span>
+              <b>${esc(r.tec || "No registrado")}</b>
+            </div>
+            <div style="background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
+              <span style="color:var(--text-muted,#888); display:block; font-size:11px;">Tiempo de parada</span>
+              <b>${r.min > 0 ? (r.min >= 60 ? `${Math.floor(r.min / 60)} h ${r.min % 60} min` : `${r.min} min`) : (r.hi ? `${r.hi} - ${r.hf || ""}` : "No cronometrado")}</b>
+            </div>
+            <div style="background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
+              <span style="color:var(--text-muted,#888); display:block; font-size:11px;">Repuesto</span>
+              <b>${esc(r.rep || (r.frep ? "Faltó repuesto en planta" : "Sin repuesto requerido"))}</b>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <h4 style="margin:4px 0; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">Acciones directas</h4>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="ux-btn ux-btn--primary" type="button" data-hy-go-ficha="${esc(r.eq)}" data-hy-sede="${esc(r.s)}">
+              ${ic("ficha")} Ir a la ficha de la máquina
+            </button>
+            <button class="ux-btn ux-btn--ghost" type="button" data-hy="eq" data-v="${esc(r.eq)}">
+              ${ic("grafica")} Ver historial y hoja de vida
+            </button>
+            <button class="ux-btn ux-btn--ghost" type="button" data-hy="reg-edit" data-id="${esc(r.id)}">
+              ${ic("editar")} Completar / Editar registro
+            </button>
+          </div>
+        </div>
+      </div>
+    </aside>`;
+  }
+
+  function renderSheetFallas() {
+    const cod = vista.sheet.cod;
+    const eqNom = vista.sheet.eqNom || (cod ? nombreEq(cod) : "");
+    const hoy = N.hoy();
+    const dias = vista.sheet.dias || 14;
+    const desde = N.sumaDias(hoy, -dias);
+
+    const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
+    const itemsCat = cat.filter((x) => x.fi === cod || (cod && x.fi === `eq-${cod}`) || x.eq.toLowerCase() === eqNom.toLowerCase());
+    const eqNames = new Set([eqNom, ...itemsCat.map((x) => x.eq)].filter(Boolean).map((s) => s.toLowerCase()));
+
+    const regs = S() ? S().registros().filter((r) => {
+      if (!r || r.borrado || r.f < desde || r.f > hoy) return false;
+      if (vista.sede && r.s && r.s !== vista.sede) return false;
+      return eqNames.has(String(r.eq || "").toLowerCase());
+    }).sort((a, b) => (b.f + (b.hr || "")).localeCompare(a.f + (a.hr || ""))) : [];
+
+    const correctivos = regs.filter((r) => r.cat === "Máquina" && r.tp === "Correctivo");
+    const operacionales = regs.filter((r) => r.cat === "Operacional" || r.tp === "Apoyo a producción");
+    const criticos = regs.filter((r) => r.cat === "Apoyo crítico");
+
+    return `<div class="mx-backdrop" data-hy-close="1"></div>
+    <aside class="mx-sheet mx-sheet--ancha" role="dialog" aria-modal="true" aria-label="Eventos recientes del equipo">
+      <header class="mx-sheet__head">
+        <div>
+          <p class="mx-eyebrow">Diagnóstico de eventos · Últimos ${dias} días (${N.fmt.corta(desde)} al ${N.fmt.corta(hoy)})</p>
+          <h3>${esc(eqNom)}</h3>
+        </div>
+        <button class="mx-iconbtn" type="button" data-hy-close="1" aria-label="Cerrar">${ic("x")}</button>
+      </header>
+      <div class="mx-form__body" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+        
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px;">
+          <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); padding:10px 14px; border-radius:10px;">
+            <span style="font-size:11px; text-transform:uppercase; color:#ef4444; font-weight:700; display:block;">Averías de máquina</span>
+            <b style="font-size:24px; color:#ef4444;">${correctivos.length}</b>
+            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">fallas mecánicas / eléctricas</span>
+          </div>
+          <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); padding:10px 14px; border-radius:10px;">
+            <span style="font-size:11px; text-transform:uppercase; color:#f59e0b; font-weight:700; display:block;">Ajustes operacionales</span>
+            <b style="font-size:24px; color:#f59e0b;">${operacionales.length}</b>
+            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">cuadre de lote / operario</span>
+          </div>
+          <div style="background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.25); padding:10px 14px; border-radius:10px;">
+            <span style="font-size:11px; text-transform:uppercase; color:#60a5fa; font-weight:700; display:block;">Servicios / Apoyo</span>
+            <b style="font-size:24px; color:#60a5fa;">${criticos.length}</b>
+            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">aire, vacío, agua helada</span>
+          </div>
+          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); padding:10px 14px; border-radius:10px;">
+            <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted,#888); font-weight:700; display:block;">Total llamadas / paradas</span>
+            <b style="font-size:24px;">${regs.length}</b>
+            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">en ${dias} días</span>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          ${cod ? `<button class="ux-btn ux-btn--primary" type="button" data-hy-insp="${esc(cod)}">
+            ${ic("insp")} Anotar inspección de este equipo
+          </button>` : ""}
+          <button class="ux-btn ux-btn--ghost" type="button" data-hy-go-ficha="${esc(eqNom)}">
+            ${ic("ficha")} Ir a la ficha de la máquina
+          </button>
+          <button class="ux-btn ux-btn--ghost" type="button" data-hy="eq" data-v="${esc(eqNom)}">
+            ${ic("grafica")} Hoja de vida completa
+          </button>
+        </div>
+
+        <div>
+          <h4 style="margin:8px 0 10px 0; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">
+            Detalle cronológico de las ${regs.length} llamadas y paradas:
+          </h4>
+          ${regs.length ? `<div style="display:flex; flex-direction:column; gap:10px;">
+            ${regs.map((r) => {
+              const esMec = r.cat === "Máquina" && r.tp === "Correctivo";
+              const esOpe = r.cat === "Operacional" || r.tp === "Apoyo a producción";
+              const borderCol = esMec ? "#ef4444" : esOpe ? "#f59e0b" : "#3b82f6";
+              const tagTxt = esMec ? "Avería de máquina" : esOpe ? "Soporte operacional / cuadre" : r.cat || "Novedad";
+              const tagBg = esMec ? "rgba(239,68,68,0.15)" : esOpe ? "rgba(245,158,11,0.15)" : "rgba(59,130,246,0.15)";
+              const tagFg = esMec ? "#ef4444" : esOpe ? "#f59e0b" : "#60a5fa";
+              return `<div class="ux-card" style="margin:0; padding:12px 14px; border-left:4px solid ${borderCol}; background:var(--bg-card,#181c24); border-radius:8px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
+                  <div style="display:flex; gap:8px; align-items:center;">
+                    <span style="font-size:11px; font-weight:700; background:${tagBg}; color:${tagFg}; padding:2px 8px; border-radius:4px;">${tagTxt}</span>
+                    <span style="font-size:12px; font-weight:600; color:var(--text-main,#eee);">${esc(N.fmt.corta(r.f))}${r.hr ? " " + r.hr : ""} · Turno ${esc(r.t || "")}</span>
+                  </div>
+                  <div style="font-size:12px; color:var(--text-muted,#888);">
+                    ${r.tec ? `${ic("usuario", "ic--sm")}${esc(r.tec.split(" ")[0])}` : ""}
+                    ${r.min > 0 ? ` · ${r.min >= 60 ? `${Math.floor(r.min / 60)}h ${r.min % 60}m` : `${r.min}m`}` : ""}
+                  </div>
+                </div>
+                <p style="margin:0 0 6px 0; font-size:13.5px; line-height:1.45; color:var(--text-main,#eee);">${esc(r.de || "")}</p>
+                ${r.ac ? `<p style="margin:0 0 4px 0; font-size:12.5px; color:#10b981; line-height:1.4;"><b>Acción:</b> ${esc(r.ac)}</p>` : ""}
+                ${r.rep || r.frep ? `<p style="margin:0; font-size:12px; color:#f59e0b;"><b>Repuesto:</b> ${esc(r.rep || "Faltó repuesto en planta")}</p>` : ""}
+              </div>`;
+            }).join("")}
+          </div>` : `<div class="ux-empty"><p>No se encontraron registros de este equipo en este periodo.</p></div>`}
+        </div>
+
+      </div>
+    </aside>`;
+  }
+
+  function renderSheetParadas() {
+    const paradas = paradasPorFalla();
+    return `<div class="mx-backdrop" data-hy-close="1"></div>
+    <aside class="mx-sheet mx-sheet--ancha" role="dialog" aria-modal="true" aria-label="Máquinas paradas por falla">
+      <header class="mx-sheet__head">
+        <div>
+          <p class="mx-eyebrow">Diagnóstico de planta · Ventana de 5 días</p>
+          <h3>Máquinas y servicios parados por falla (${paradas.length})</h3>
+        </div>
+        <button class="mx-iconbtn" type="button" data-hy-close="1" aria-label="Cerrar">${ic("x")}</button>
+      </header>
+      <div class="mx-form__body" style="padding:20px; display:flex; flex-direction:column; gap:14px;">
+        ${paradas.length ? `<div style="display:flex; flex-direction:column; gap:12px;">
+          ${paradas.map((r) => `
+            <div class="ux-card" style="margin:0; padding:14px; background:var(--bg-elevated,#1e232d); border-left:4px solid #ef4444; border-radius:10px;">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+                <div>
+                  <h4 style="margin:0; font-size:16px;">${esc(r.eq)}</h4>
+                  <small style="color:var(--text-muted,#888);">${esc(r.s)} · ${esc(r.ar || "Área")} · Desde ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""}</small>
+                </div>
+                <div style="display:flex; gap:6px;">
+                  <button class="ux-btn ux-btn--sm ux-btn--primary" type="button" data-hy-go-ficha="${esc(r.eq)}" data-hy-sede="${esc(r.s)}">
+                    ${ic("ficha")} Ir a la máquina
+                  </button>
+                  <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="ver-evento" data-id="${esc(r.id)}">
+                    Ver detalle
+                  </button>
+                </div>
+              </div>
+              <p style="margin:0 0 6px 0; font-size:13.5px; line-height:1.45; color:var(--text-main,#eee);">${esc(r.de || "")}</p>
+              ${r.ac ? `<p style="margin:0; font-size:12.5px; color:#10b981;"><b>Acción:</b> ${esc(r.ac)}</p>` : ""}
+            </div>`).join("")}
+        </div>` : `<div class="ux-empty"><p>No hay máquinas paradas registradas en los últimos 5 días.</p></div>`}
+      </div>
+    </aside>`;
+  }
+
+  function renderSheet() {
+    if (!vista.sheet) return "";
+    if (vista.sheet.tipo === "evento") return renderSheetEvento();
+    if (vista.sheet.tipo === "fallas") return renderSheetFallas();
+    if (vista.sheet.tipo === "paradas") return renderSheetParadas();
     return "";
   }
 
@@ -268,7 +535,7 @@
 
       <div class="hy-stats hy-stats--4c">
         ${kpi({ n: ab.length, titulo: "Pendientes", pie: alta ? `<span class="hy-rojo">${alta} prioridad alta</span>` : "ninguno urgente", go: "pendientes" })}
-        ${kpi({ n: paradas.length, titulo: "Paradas por falla", pie: paradas.length ? paradas.slice(0, 2).map((r) => esc(r.eq)).join(", ") + (paradas.length > 2 ? "…" : "") : "ninguna máquina parada", tono: paradas.length ? "is-bad" : "", go: "registro", goQ: hoy })}
+        ${kpi({ n: paradas.length, titulo: "Paradas por falla", pie: paradas.length ? paradas.slice(0, 2).map((r) => esc(r.eq)).join(", ") + (paradas.length > 2 ? "…" : "") : "ninguna máquina parada", tono: paradas.length ? "is-bad" : "", go: "paradas-modal" })}
         ${kpi({ n: fallasSemana, titulo: "Fallas de máquina", pie: "últimos 7 días", tono: fallasSemana ? "is-bad" : "", go: "indicadores" })}
         ${pres && pres.total
           ? kpi({ n: Math.round((pres.ejecutado / pres.total) * 1000) / 10, dec: 1, unidad: "%", titulo: "Presupuesto", pie: `${esc(N.fmt.dineroCorto(pres.disponible))} disponibles`, go: "presupuesto" })
@@ -282,7 +549,8 @@
           ${tarjetaTurno()}
         </div>
       </div>
-    </div>`;
+    </div>
+    ${renderSheet()}`;
     window.SHELL?.animarNumeros(raiz);
   }
 
@@ -291,6 +559,24 @@
     if (!raiz || raiz.dataset.enlazado) return;
     raiz.dataset.enlazado = "1";
     raiz.addEventListener("click", (e) => {
+      const btnCerrar = e.target.closest("[data-hy-close]");
+      if (btnCerrar) {
+        vista.sheet = null;
+        render();
+        return;
+      }
+      const btnGoFicha = e.target.closest("[data-hy-go-ficha]");
+      if (btnGoFicha) {
+        vista.sheet = null;
+        irAFicha(btnGoFicha.dataset.hyGoFicha, btnGoFicha.dataset.hySede);
+        return;
+      }
+      const btnInsp = e.target.closest("[data-hy-insp]");
+      if (btnInsp) {
+        vista.sheet = null;
+        window.inspAbrirForm?.(btnInsp.dataset.hyInsp);
+        return;
+      }
       const b = e.target.closest("[data-hy]");
       if (!b) return;
       const a = b.dataset.hy;
@@ -298,8 +584,13 @@
       if (a === "quien") { vista.quien = true; render(); raiz.querySelector('[data-hy-form="quien"] input')?.focus(); return; }
       if (a === "sede") { vista.sede = v; render(); }
       else if (a === "dia") { vista.dia = v; render(); }
+      else if (a === "ver-evento") { vista.sheet = { tipo: "evento", id: b.dataset.id }; render(); }
+      else if (a === "ver-fallas-insp") { vista.sheet = { tipo: "fallas", cod: v, dias: 14 }; render(); }
+      else if (a === "ver-fallas-eq") { vista.sheet = { tipo: "fallas", eqNom: v, dias: 7 }; render(); }
+      else if (a === "paradas-modal") { vista.sheet = { tipo: "paradas" }; render(); }
+      else if (a === "reg-edit") { vista.sheet = null; window.goRegistro?.({ abrir: b.dataset.id }); }
       else if (a === "registro") window.goRegistro?.({ fecha: v || b.dataset.q || N.hoy() });
-      else if (a === "reg") window.goRegistro?.({ abrir: b.dataset.id });
+      else if (a === "reg") { vista.sheet = { tipo: "evento", id: b.dataset.id }; render(); }
       else if (a === "nueva") window.goRegistro?.({ nueva: true });
       else if (a === "rep") window.goReportes?.(b.dataset.id);
       else if (a === "pendientes") window.goPendientes?.();
@@ -318,7 +609,7 @@
       else if (a === "seg") window.goSeguimiento?.({ id: b.dataset.id });
       else if (a === "inspeccionar") window.inspAbrirForm?.(v);
       else if (a === "pedir") window.goAlmacen?.({ q: b.dataset.cod || "", destino: nombreEq(v) });
-      else if (a === "ficha") { const e = planEq(v); if (e && typeof machines !== "undefined" && machines.some((m) => m.id === e.id)) window.openDetail?.(e.id); else window.goPlan?.(v); }
+      else if (a === "ficha") irAFicha(v);
       window.scrollTo({ top: 0, behavior: "auto" });
     });
     raiz.addEventListener("submit", (e) => {

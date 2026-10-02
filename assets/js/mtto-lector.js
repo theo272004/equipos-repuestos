@@ -153,6 +153,36 @@
     return { estados, bloques: final.filter((b) => VERBO.test(b.map((x) => x[1]).join(" "))) };
   }
 
+  const RE_AVERIA_FISICA = /PARTID|ROT[OA]|QUEMAD|FISUR|REVENTAD|SULFATAD|DESPRENDID|EN\s*CORTO|SE\s+CAMBIA\s+(?:RESORTE|SENSOR|CORREA|RESISTENCIA|VALVULA|RODAMIENTO|CUCHILLA|CABLE|BOBINA|RETEN|ORING|EMPAQUE|ESP[AÁ]RRAGO)|SE\s+SUELDA|SE\s+EMBOBINA|SE\s+RECTIFICA|VASTAGO\s+RAYADO|VALVULA.*PEGADA|BOMBA.*TRABADA|MOTOR.*QUEMADO/;
+  const RE_OPERACIONAL = /OPERARI[AO]\s+NUEV[AO]|\bINDUCCION\b|SE\s+(?:LE\s+)?ENSENA|SE\s+(?:LE\s+)?EXPLICA|\bCAPACITA\w*|\bAYUDA\s+(?:AL?\s+)?OPERA|\bCOLABORA\s+(?:AL?\s+)?OPERA|\bAPOYO\s+(?:AL?\s+)?OPERA|SE\s+APOYA\s+EN\s+(?:MONTAJE|CUADRE|ARRANQUE)|PROBLEMAS?\s+DE\s+CUADRE|SE\s+CUADRA\s+(?:LOTE|SALIDA\s+DE\s+ETIQUETA|ALTURA|VELOCIDAD|SOBRE|PASO|ARRASTRE|PESTANA|FORMATO|PESO|ESTERAS?)|LOTE\s+(?:BORROS[OA]|TORCID[OA]|CORRID[OA]|ILEGIBLE|RAYAD[OA]|DESALINEAD[OA])|ARRUGA\s+EN\s+(?:LA\s+)?ETIQUETA|ETIQUETA\s+TORCIDA|CENTRADO\s+DE\s+(?:IMPRESION|LAMINADO)|MUESTRA\s+DE\s+SACHET|MONTAJE\s+DE\s+FORMATO|DESATASCA\s+(?:BLISTER|CAPSULAS?)|BLISTER\s+ATASCADO|CAPSULAS?\s+ATASCADAS?|SE\s+DESATASCA|NO\s+DABA\s+CON\s+EL\s+PESO|SE\s+CALIBRA\s+PESO/;
+  const RE_SERVICIOS = /\bCOMPRESOR\b|\bCOMPRESORES\b|\bAIRE\s+COMPRIMIDO\b|\bPRESION\s+DE\s+TRABAJO\b|\bCHILLER\b|\bAGUA\s+HELADA\b|\bAGUA\s+FRIA\b|\bREFRIGERACION\b|\bBOMBA\s+DE\s+VACIO\b|\bSUBESTACION\b|\bCORTE\s+DE\s+ENERGIA\b|\bPLANTA\s+DE\s+AGUA\b|\bSISTEMA\s+DE\s+VACIO\b/;
+  const RE_LOCATIVO = /\bESCLUSA\b|\bPUERTA\s+DE\s+(?:PERSONAL|ACCESO|PASILLO|ESCLUSA)\b|\bVENTANA\b|\bTECHO\b|\bPISO\b|\bDESAGUE\b|\bSIFON\b|\bLUMINARIA\b|\bLAMPARA\b|\bBOMBILLO\b|\bCANALETA\b|\bCORTINA\s+DE\s+AIRE\b|\bMUEBLE\b|\bSILLA\b|\bMESA\b/;
+  const RE_PREVENTIVO = /\bMP\b|\bMANTENIMIENTO\s+PREVENTIVO\b|\bPARADA\s+PROGRAMADA\b|\bRUTINA\s+DE\s+(?:LUBRICACION|ENGRASE|INSPECCION)\b|\bLIMPIEZA\s+PROGRAMADA\b|\bCAMBIO\s+PROGRAMADO\b/;
+  const RE_CORRECTIVO = /\bFALLA\b|\bDANO\b|\bDANAD\w*|\bPARTID\w*|\bROT[OA]S?\b|\bQUEMAD\w*|NO\s+(?:ARRANCA|SELLA|CORTA|DOSIFICA|DESTAPA|CALIENTA|FUNCIONA|PRENDE|GIRA)|\bSIN\s+REFRIGERACION\b|\bALARMA\b|\bFUGA\b|\bATASC\w*|\bTRABAD\w*|\bPEGAD\w*|\bDESALINEAD\w*|\bDESCALIBRAD\w*|\bDESGASTAD\w*|\bSUELT\w*|\bFLOJ\w*|\bVIBRACION\b|\bRUIDO\b|SE\s+REPARA|SE\s+CAMBIA|SE\s+CORRIGE|SE\s+AJUSTA\s+SENSOR|\bPURGA\b/;
+
+  function clasificarNovedad(eq, ar, tn) {
+    const esEquipoProd = /BLISTER|FETTE|HUTTLIN|BOSH|NJP|MARZIO|RIMEK|STICK|MT11|CL\s*[24]|ENVASADORA|ETIQUETADORA|BOMBO|MEZCLADOR|PILOTLAB/i.test(eq || "");
+    if (RE_LOCATIVO.test(tn) && (!esEquipoProd || /ESCLUSA/i.test(tn))) {
+      return { cat: "Locativo", tp: "Mejora / fabricación" };
+    }
+    if (RE_SERVICIOS.test(tn) || ar === "Servicios industriales" || /BOMBA\s+DE\s+VACIO/i.test(tn)) {
+      const esFalla = /DANAD|FALLA|ALARM|FUGA|NO\s+ARRANCA|DISPARAD|SIN\s+PRESION|POR\s+DEBAJO|SE\s+DANA|SIN\s+REFRIGERACION|PEGAD/i.test(tn);
+      return { cat: esEquipoProd && esFalla ? "Máquina" : "Apoyo crítico", tp: esFalla ? "Correctivo" : "Otro" };
+    }
+    if (RE_PREVENTIVO.test(tn) && !/LLAMADO\s+POR\s+(?:FALLA|DANO|PARADA)/i.test(tn)) {
+      return { cat: "Preventivo", tp: "Preventivo" };
+    }
+    if (RE_OPERACIONAL.test(tn) && !RE_AVERIA_FISICA.test(tn)) {
+      return { cat: "Operacional", tp: "Apoyo a producción" };
+    }
+    if (RE_CORRECTIVO.test(tn) || RE_AVERIA_FISICA.test(tn)) {
+      return { cat: "Máquina", tp: "Correctivo" };
+    }
+    const tipos = etiquetas(tn, TIPOS);
+    const tp = tipos.find((t) => t !== "Correctivo" || !/LLAMAD/i.test(tn)) || tipos[0] || "Otro";
+    return { cat: categoria(ar, tp, tn), tp };
+  }
+
   function categoria(area, tipo, tn) {
     if (area === "Servicios industriales" || F.ext.test(tn)) return "Apoyo crítico";
     if (area === "Infraestructura") return "Locativo";
@@ -184,14 +214,13 @@
       eq = porSede(eq, sede);
       previo = eq;
       const ar = areaDe(eq);
-      const tipos = etiquetas(tn, TIPOS);
-      const tp = tipos[0] || "Otro";
+      const cl = clasificarNovedad(eq, ar, tn);
       const fallas = etiquetas(tn, FALLAS);
       const pend = F.pend.test(tn), oper = F.oper.test(tn);
       novedades.push({
-        eq, ar, tp,
-        cat: categoria(ar, tp, tn),
-        fa: fallas[0] || "",
+        eq, ar, tp: cl.tp,
+        cat: cl.cat,
+        fa: fallas[0] || (cl.cat === "Operacional" ? "Ajuste operacional / formato" : ""),
         ac: etiquetas(tn, ACCIONES).join(" | "),
         min: minutos(tn),
         ef: pend && oper ? "Operativo con pendiente" : pend ? "Pendiente" : "Operativo",
