@@ -39,9 +39,9 @@
   const COLOR_CAT = { "Máquina": "#d92d20", "Apoyo crítico": "#f79009", "Locativo": "#7a5af8", "Preventivo": "#12b76a", "Operacional": "#2e90fa" };
   const META_GLOBAL = { disp: 0.92, mtbf: 48, mttr: 1.5 };
 
-  // Filtros cruzados. eq es "Sede|Equipo" porque Blister 3 existe en las dos sedes.
+  // Filtros cruzados. eq es "Sede|Equipo" o "Equipo" (cuando viene de accesos directos).
   const FILTROS = {
-    sede: { l: "Sede" }, area: { l: "Tipo de máquina" }, eq: { l: "Máquina", v: (x) => x.replace("|", " · ") },
+    sede: { l: "Sede" }, area: { l: "Tipo de máquina" }, eq: { l: "Máquina", v: (x) => String(x || "").includes("|") ? x.replace("|", " · ") : x },
     fa: { l: "Modo de falla" }, cat: { l: "Categoría" }, tp: { l: "Mantenimiento" },
     sem: { l: "Semana del", v: (x) => fechaCorta(x) }, pend: { l: "Estado", v: () => "Con pendiente" }, frep: { l: "Repuesto", v: () => "Faltó repuesto" },
   };
@@ -82,7 +82,14 @@
     const no = (k) => ignorar && ignorar.includes(k);
     if (f.sede && !no("sede") && r.s !== f.sede) return false;
     if (f.area && !no("area") && r.ar !== f.area) return false;
-    if (f.eq && !no("eq") && claveEq(r) !== f.eq) return false;
+    if (f.eq && !no("eq")) {
+      const feq = String(f.eq).trim().toLowerCase();
+      if (feq.includes("|")) {
+        if (claveEq(r).toLowerCase() !== feq) return false;
+      } else {
+        if (String(r.eq).trim().toLowerCase() !== feq) return false;
+      }
+    }
     if (f.fa && !no("fa") && (r.fa || "Sin clasificar") !== f.fa) return false;
     if (f.cat && !no("cat") && r.cat !== f.cat) return false;
     if (f.tp && !no("tp") && r.tp !== f.tp) return false;
@@ -437,11 +444,17 @@
   // Hoja de vida de una máquina: todo lo que le pasó en el periodo.
   function detalleMaquina(res) {
     if (!vista.f.eq) return "";
-    const [sede, nombre] = vista.f.eq.split("|");
-    const e = res.porEquipo.find((x) => x.k === vista.f.eq);
-    const info = C.equipos.find((x) => x.s === sede && x.eq === nombre) || {};
+    let sede = "", nombre = vista.f.eq;
+    if (vista.f.eq.includes("|")) {
+      [sede, nombre] = vista.f.eq.split("|").map((s) => s.trim());
+    } else {
+      nombre = vista.f.eq.trim();
+      sede = vista.f.sede || (res.regs[0] && res.regs[0].s) || (C.equipos.find((x) => x.eq.toLowerCase() === nombre.toLowerCase())?.s) || "";
+    }
+    const e = res.porEquipo.find((x) => x.k === vista.f.eq || x.eq?.toLowerCase() === nombre.toLowerCase() || (x.k && x.k.split("|")[1]?.toLowerCase() === nombre.toLowerCase()));
+    const info = C.equipos.find((x) => (!sede || x.s === sede) && x.eq.toLowerCase() === nombre.toLowerCase()) || C.equipos.find((x) => x.eq.toLowerCase() === nombre.toLowerCase()) || {};
     const regs = res.regs;
-    const a = e || { ...agregar(regs, res.dias), ar: info.ar || "" };
+    const a = e || { ...agregar(regs, res.dias), ar: info.ar || (regs[0] && regs[0].ar) || "" };
     const m = M.metas[a.ar] || META_GLOBAL;
     // calendario del periodo: novedades y fallas por día
     const dias = [];
@@ -454,12 +467,14 @@
       return `<button type="button" class="ki-cal__d ${cls}" data-ki="dia" data-v="${d}" title="${fechaLarga(d)}${x ? `: ${x.n} novedades (${x.f} fallas)${x.p ? " · quedó pendiente" : ""}` : ": sin novedades"}">${Number(d.slice(8))}${x ? `<i>${x.n}</i>` : ""}</button>`;
     }).join("")}</div><p class="ki-leyenda"><span class="ki-sw" style="background:#fee4e2"></span>Con fallas <span class="ki-sw" style="background:#e0eaff"></span>Con otras novedades <span class="ki-sw" style="background:#f2f4f7"></span>Sin novedades · toca un día para abrirlo en el Registro diario</p>` : "";
     const ultimas = regs.slice().sort((p, q) => (q.f + (q.hi || q.hr || "")).localeCompare(p.f + (p.hi || p.hr || ""))).slice(0, 15);
+    const machList = typeof machines !== "undefined" ? machines : (window.machines || []);
+    const fichaId = info.fi || (machList.find((m) => m.model?.toLowerCase() === nombre.toLowerCase() || m.name?.toLowerCase() === nombre.toLowerCase() || m.id?.toLowerCase() === nombre.toLowerCase())?.id);
     return `<section class="ki-det ki-det--maq" id="kiDetalle">
       <div class="ki-det__head">
         <button type="button" class="mt-ico" data-ki="quitar" data-k="eq" aria-label="Quitar filtro">←</button>
         <h3>Hoja de vida · ${esc(nombre)}</h3>
-        <span class="pl-soft">${esc(sede)} · <span class="ki-sub-link" ${fil("area", a.ar)}>${esc(a.ar)}</span> · ${fechaCorta(res.d)} – ${fechaCorta(res.h)}</span>
-        ${info.fi ? `<button type="button" class="button button--light ki-det__ficha" data-ki="ficha" data-v="${esc(info.fi)}">Ficha técnica, repuestos y manual ›</button>` : ""}
+        <span class="pl-soft">${esc(sede || "Todas las sedes")} · <span class="ki-sub-link" ${fil("area", a.ar)}>${esc(a.ar)}</span> · ${fechaCorta(res.d)} – ${fechaCorta(res.h)}</span>
+        ${fichaId ? `<button type="button" class="button button--light ki-det__ficha" data-ki="ficha" data-v="${esc(fichaId)}">Ficha técnica, repuestos y manual ›</button>` : ""}
       </div>
       <div class="ki-det__grid">
         <aside class="ki-det__kpis">
@@ -529,6 +544,8 @@
     const snap = (icono, valor, label, attrs = "") => `<div class="mx-snap ${attrs ? "is-link" : ""}" ${attrs}>${ic(icono)}<b>${valor}</b><span>${label}</span></div>`;
     const fila = (l, v) => (v ? `<div><dt>${l}</dt><dd>${v}</dd></div>` : "");
     const mismas = S.registros().filter((x) => x.s === r.s && x.eq === r.eq && esFalla(x)).length;
+    const machList = typeof machines !== "undefined" ? machines : (window.machines || []);
+    const fichaId = info.fi || (machList.find((m) => m.model?.toLowerCase() === r.eq?.toLowerCase() || m.name?.toLowerCase() === r.eq?.toLowerCase() || m.id?.toLowerCase() === r.eq?.toLowerCase())?.id);
     return `<div class="mx-backdrop" data-ki="cerrar"></div>
     <aside class="mx-sheet ki-ficha" role="dialog" aria-modal="true" aria-label="Detalle de la novedad">
       <header class="mx-sheet__head"><div><p class="mx-eyebrow">Novedad · ${esc(origen)}</p><h3>${esc(r.eq)}</h3></div>
@@ -547,7 +564,7 @@
             <button type="button" class="mx-btn mx-btn--primary mx-btn--sm" data-ki="filtro-y-cerrar" data-k="eq" data-v="${esc(claveEq(r))}">${ic("grafica")}Hoja de vida</button>
             <button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="editar" data-id="${esc(r.id)}">${ic("editar")}${r.src === "chat" ? "Completar" : "Editar"}</button>
             ${reporte ? `<button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="reporte" data-v="${esc(r.rid)}">${ic("chat")}Reporte original</button>` : ""}
-            ${info.fi ? `<button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="ficha" data-v="${esc(info.fi)}">${ic("ficha")}Ficha técnica</button>` : ""}
+            ${fichaId ? `<button type="button" class="mx-btn mx-btn--ghost mx-btn--sm" data-ki="ficha" data-v="${esc(fichaId)}">${ic("ficha")}Ficha técnica</button>` : ""}
           </div>
         </div>
         <h5 class="mx-h5">Resumen</h5>
@@ -693,7 +710,11 @@
       else if (a === "dia") S.irA(b.dataset.v);
       else if (a === "editar") { vista.abierto = ""; window.goRegistro && window.goRegistro({ abrir: b.dataset.id }); }
       else if (a === "reporte") { vista.abierto = ""; window.goReportes && window.goReportes(b.dataset.v); }
-      else if (a === "ficha") { vista.abierto = ""; if (typeof openDetail === "function") openDetail(b.dataset.v); }
+      else if (a === "ficha") {
+        vista.abierto = "";
+        const abrir = window.openDetail || (typeof openDetail === "function" ? openDetail : null);
+        if (abrir) abrir(b.dataset.v);
+      }
       else if (a === "registro") window.goRegistro && window.goRegistro();
       else if (a === "exportar") exportarSeleccion();
       else if (a === "filtros") { vista.filtros = !vista.filtros; render(); }

@@ -247,8 +247,9 @@
     if (!eqNombre) return null;
     const norm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
     const neq = norm(eqNombre);
-    if (typeof machines !== "undefined") {
-      const direct = machines.find((m) => norm(m.id) === neq || norm(m.model) === neq || norm(m.name) === neq);
+    const machList = typeof machines !== "undefined" ? machines : (window.machines || []);
+    if (machList.length) {
+      const direct = machList.find((m) => norm(m.id) === neq || norm(m.model) === neq || norm(m.name) === neq);
       if (direct) return direct.id;
     }
     const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
@@ -257,8 +258,8 @@
     const plan = (window.EQUIPOS_PLAN && window.EQUIPOS_PLAN.equipos) || [];
     const enPlan = plan.find((e) => norm(e.c) === neq || norm(e.n).includes(neq) || neq.includes(norm(e.n)));
     if (enPlan) {
-      if (typeof machines !== "undefined") {
-        const m = machines.find((x) => x.id === enPlan.id || x.equipoCod === enPlan.c);
+      if (machList.length) {
+        const m = machList.find((x) => x.id === enPlan.id || x.equipoCod === enPlan.c);
         if (m) return m.id;
       }
       return enPlan.id || enPlan.c;
@@ -268,8 +269,10 @@
 
   function irAFicha(eqNombre, sede) {
     const fid = buscarFichaId(eqNombre, sede);
-    if (fid && typeof openDetail === "function" && typeof machines !== "undefined" && machines.some((m) => m.id === fid)) {
-      openDetail(fid);
+    const machList = typeof machines !== "undefined" ? machines : (window.machines || []);
+    const abrir = window.openDetail || (typeof openDetail === "function" ? openDetail : null);
+    if (fid && abrir && machList.some((m) => m.id === fid)) {
+      abrir(fid);
       return true;
     }
     const plan = (window.EQUIPOS_PLAN && window.EQUIPOS_PLAN.equipos) || [];
@@ -279,7 +282,7 @@
       return true;
     }
     if (window.goIndicadores) {
-      window.goIndicadores({ eq: eqNombre });
+      window.goIndicadores({ eq: eqNombre, sede });
       return true;
     }
     return false;
@@ -288,6 +291,19 @@
   function renderSheetEvento() {
     const r = S() ? S().registros().find((x) => x.id === vista.sheet.id) : null;
     if (!r) return "";
+    const CAT_ICONS = {
+      "Máquina": ["maq", "falla"],
+      "Apoyo crítico": ["apo", "alerta"],
+      "Locativo": ["loc", "edificio"],
+      "Preventivo": ["pre", "check"],
+      "Operacional": ["ope", "ajuste"]
+    };
+    const [cc, icn] = CAT_ICONS[r.cat] || ["maq", "falla"];
+    const efc = r.ef === "Operativo" ? "ok" : r.ef === "Pendiente" ? "bad" : r.ef === "Operativo con pendiente" ? "warn" : "neutro";
+    const durTxt = r.min > 0 ? (r.min >= 60 ? `${Math.floor(r.min / 60)}h ${r.min % 60}m` : `${r.min} min`) : (r.hi ? `${r.hi} - ${r.hf || ""}` : "Sin horario");
+    const snap = (icono, valor, label, attrs = "") => `<div class="mx-snap ${attrs ? "is-link" : ""}" ${attrs}>${ic(icono)}<b>${valor}</b><span>${label}</span></div>`;
+    const fila = (l, v) => (v ? `<div><dt>${l}</dt><dd>${v}</dd></div>` : "");
+
     return `<div class="mx-backdrop" data-hy-close="1"></div>
     <aside class="mx-sheet mx-sheet--ancha" role="dialog" aria-modal="true" aria-label="Detalle de parada">
       <header class="mx-sheet__head">
@@ -297,67 +313,52 @@
         </div>
         <button class="mx-iconbtn" type="button" data-hy-close="1" aria-label="Cerrar">${ic("x")}</button>
       </header>
-      <div class="mx-form__body" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
-        <div class="ux-card" style="margin:0; background:var(--bg-elevated,#1e232d); border:1px solid var(--border-color,#333); padding:16px; border-radius:12px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:8px;">
-            <div style="display:flex; gap:8px; align-items:center;">
-              <span class="ux-pill ux-pill--bad" style="background:#dc262622; color:#ef4444; border:1px solid #ef444444; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px;">
-                ${ic("falla", "ic--sm")} ${r.ef === "Pendiente" ? "Parada por falla · Pendiente" : r.ef || "Parada por falla"}
-              </span>
-              ${r.frep ? `<span class="ux-pill ux-pill--warn" style="background:#f59e0b22; color:#f59e0b; border:1px solid #f59e0b44; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px;">Falta repuesto</span>` : ""}
-              <span class="ux-pill" style="background:#3b82f622; color:#60a5fa; border:1px solid #60a5fa44; padding:4px 10px; border-radius:999px; font-weight:600; font-size:12px;">
-                ${esc(r.cat || "Máquina")} · ${esc(r.tp || "Correctivo")}
-              </span>
-            </div>
-            <span style="font-size:13px; color:var(--text-muted,#888);">
-              ${ic("calendario", "ic--sm")} ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""}
-            </span>
+      <div class="mx-form__body">
+        <div class="mx-hero">
+          <span class="mx-hero__ic mx-hero__ic--${cc}">${ic(icn)}</span>
+          <p class="mx-hero__sub">${esc(r.s)} · ${esc(r.ar || "")} · Turno ${esc(r.t || "")}${r.hr ? " · " + esc(r.hr) : ""}</p>
+          <div class="mx-hero__tags">
+            <span class="mx-pill mx-pill--${cc}">${ic(icn)}${esc(r.cat || "Máquina")}</span>
+            <span class="mx-pill mx-pill--ope">${esc(r.tp || "Correctivo")}</span>
+            ${r.fa ? `<span class="mx-pill mx-pill--apo">${esc(r.fa)}</span>` : ""}
+            <span class="mx-est mx-est--${efc}"><i></i>${esc(r.ef || "Sin cierre")}</span>
+            ${r.frep ? `<span class="mx-pill mx-pill--apo">${ic("alerta")}Falta repuesto</span>` : ""}
           </div>
-
-          <div style="margin-bottom:14px;">
-            <h4 style="margin:0 0 6px 0; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">¿Qué pasó en la máquina?</h4>
-            <p style="margin:0; font-size:15px; line-height:1.5; color:var(--text-main,#eee); background:rgba(0,0,0,0.18); padding:12px 14px; border-radius:8px; border-left:3px solid #ef4444;">
-              ${esc(r.de || "Sin descripción de la novedad")}
-            </p>
-          </div>
-
-          ${r.ac ? `<div style="margin-bottom:14px;">
-            <h4 style="margin:0 0 6px 0; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">Acción realizada</h4>
-            <p style="margin:0; font-size:14px; line-height:1.5; color:var(--text-main,#eee); background:rgba(0,0,0,0.18); padding:10px 14px; border-radius:8px; border-left:3px solid #10b981;">
-              ${esc(r.ac)}
-            </p>
-          </div>` : ""}
-
-          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:10px; margin-top:14px; font-size:13px;">
-            <div style="background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
-              <span style="color:var(--text-muted,#888); display:block; font-size:11px;">Técnico</span>
-              <b>${esc(r.tec || "No registrado")}</b>
-            </div>
-            <div style="background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
-              <span style="color:var(--text-muted,#888); display:block; font-size:11px;">Tiempo de parada</span>
-              <b>${r.min > 0 ? (r.min >= 60 ? `${Math.floor(r.min / 60)} h ${r.min % 60} min` : `${r.min} min`) : (r.hi ? `${r.hi} - ${r.hf || ""}` : "No cronometrado")}</b>
-            </div>
-            <div style="background:rgba(255,255,255,0.03); padding:8px 12px; border-radius:6px;">
-              <span style="color:var(--text-muted,#888); display:block; font-size:11px;">Repuesto</span>
-              <b>${esc(r.rep || (r.frep ? "Faltó repuesto en planta" : "Sin repuesto requerido"))}</b>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; flex-direction:column; gap:8px;">
-          <h4 style="margin:4px 0; font-size:12px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">Acciones directas</h4>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <button class="ux-btn ux-btn--primary" type="button" data-hy-go-ficha="${esc(r.eq)}" data-hy-sede="${esc(r.s)}">
+          <div class="mx-hero__acc">
+            <button class="mx-btn mx-btn--primary mx-btn--sm" type="button" data-hy-go-ficha="${esc(r.eq)}" data-hy-sede="${esc(r.s)}">
               ${ic("ficha")} Ir a la ficha de la máquina
             </button>
-            <button class="ux-btn ux-btn--ghost" type="button" data-hy="eq" data-v="${esc(r.eq)}">
-              ${ic("grafica")} Ver historial y hoja de vida
+            <button class="mx-btn mx-btn--ghost mx-btn--sm" type="button" data-hy="eq" data-v="${esc(r.eq)}">
+              ${ic("grafica")} Hoja de vida completa
             </button>
-            <button class="ux-btn ux-btn--ghost" type="button" data-hy="reg-edit" data-id="${esc(r.id)}">
+            <button class="mx-btn mx-btn--ghost mx-btn--sm" type="button" data-hy="reg-edit" data-id="${esc(r.id)}">
               ${ic("editar")} Completar / Editar registro
             </button>
           </div>
         </div>
+
+        <h5 class="mx-h5">Resumen del evento</h5>
+        <div class="mx-snaps">
+          ${snap("calendario", N.fmt.corta(r.f), `Turno ${esc(r.t || "")}${r.hr ? " · " + esc(r.hr) : ""}`)}
+          ${snap("reloj", durTxt, r.min > 0 ? "tiempo parada" : "duración")}
+          ${r.tec ? snap("usuario", esc(r.tec.split(" ")[0]), "técnico") : ""}
+          ${snap("almacen", r.frep ? "Faltó repuesto" : (r.rep ? "Con repuesto" : "Sin repuesto"), "repuesto")}
+        </div>
+
+        <h5 class="mx-h5">¿Qué pasó en la máquina?</h5>
+        <p class="mx-quote">${esc(r.de || "Sin descripción de la novedad")}</p>
+
+        ${r.ac ? `<h5 class="mx-h5">Acción realizada</h5><p class="mx-quote" style="border-left-color:var(--mx-green,#12b76a);">${esc(r.ac)}</p>` : ""}
+
+        <h5 class="mx-h5">Detalle técnico</h5>
+        <dl class="mx-inset mx-inset--2">
+          ${fila("Estado", esc(r.ef || "Sin cierre"))}
+          ${fila("¿Detuvo equipo?", esc(r.det || (r.min > 0 ? "Sí" : "Sin dato")))}
+          ${fila("Repuesto", esc(r.rep || (r.frep ? "Faltó repuesto en planta" : "No requerido")))}
+          ${fila("Técnico", esc(r.tec || "Sin registrar"))}
+          ${fila("Área de proceso", esc(r.ar || ""))}
+          ${fila("Turno", esc(r.t || ""))}
+        </dl>
       </div>
     </aside>`;
   }
@@ -383,6 +384,8 @@
     const operacionales = regs.filter((r) => r.cat === "Operacional" || r.tp === "Apoyo a producción");
     const criticos = regs.filter((r) => r.cat === "Apoyo crítico");
 
+    const snap = (icono, valor, label, attrs = "") => `<div class="mx-snap ${attrs ? "is-link" : ""}" ${attrs}>${ic(icono)}<b>${valor}</b><span>${label}</span></div>`;
+
     return `<div class="mx-backdrop" data-hy-close="1"></div>
     <aside class="mx-sheet mx-sheet--ancha" role="dialog" aria-modal="true" aria-label="Eventos recientes del equipo">
       <header class="mx-sheet__head">
@@ -392,74 +395,53 @@
         </div>
         <button class="mx-iconbtn" type="button" data-hy-close="1" aria-label="Cerrar">${ic("x")}</button>
       </header>
-      <div class="mx-form__body" style="padding:20px; display:flex; flex-direction:column; gap:16px;">
+      <div class="mx-form__body">
         
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px;">
-          <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); padding:10px 14px; border-radius:10px;">
-            <span style="font-size:11px; text-transform:uppercase; color:#ef4444; font-weight:700; display:block;">Averías de máquina</span>
-            <b style="font-size:24px; color:#ef4444;">${correctivos.length}</b>
-            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">fallas mecánicas / eléctricas</span>
-          </div>
-          <div style="background:rgba(245,158,11,0.08); border:1px solid rgba(245,158,11,0.25); padding:10px 14px; border-radius:10px;">
-            <span style="font-size:11px; text-transform:uppercase; color:#f59e0b; font-weight:700; display:block;">Ajustes operacionales</span>
-            <b style="font-size:24px; color:#f59e0b;">${operacionales.length}</b>
-            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">cuadre de lote / operario</span>
-          </div>
-          <div style="background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.25); padding:10px 14px; border-radius:10px;">
-            <span style="font-size:11px; text-transform:uppercase; color:#60a5fa; font-weight:700; display:block;">Servicios / Apoyo</span>
-            <b style="font-size:24px; color:#60a5fa;">${criticos.length}</b>
-            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">aire, vacío, agua helada</span>
-          </div>
-          <div style="background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); padding:10px 14px; border-radius:10px;">
-            <span style="font-size:11px; text-transform:uppercase; color:var(--text-muted,#888); font-weight:700; display:block;">Total llamadas / paradas</span>
-            <b style="font-size:24px;">${regs.length}</b>
-            <span style="font-size:11px; color:var(--text-muted,#888); display:block;">en ${dias} días</span>
-          </div>
+        <div class="mx-snaps">
+          ${snap("falla", correctivos.length, "averías mecánicas / eléctricas")}
+          ${snap("ajuste", operacionales.length, "ajustes operacionales / cuadres")}
+          ${snap("alerta", criticos.length, "apoyo crítico / servicios")}
+          ${snap("calendario", regs.length, `total llamadas en ${dias} días`)}
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          ${cod ? `<button class="ux-btn ux-btn--primary" type="button" data-hy-insp="${esc(cod)}">
+        <div class="mx-hero__acc" style="justify-content:flex-start; margin: 12px 0 16px;">
+          ${cod ? `<button class="mx-btn mx-btn--primary mx-btn--sm" type="button" data-hy-insp="${esc(cod)}">
             ${ic("insp")} Anotar inspección de este equipo
           </button>` : ""}
-          <button class="ux-btn ux-btn--ghost" type="button" data-hy-go-ficha="${esc(eqNom)}">
+          <button class="mx-btn mx-btn--ghost mx-btn--sm" type="button" data-hy-go-ficha="${esc(eqNom)}">
             ${ic("ficha")} Ir a la ficha de la máquina
           </button>
-          <button class="ux-btn ux-btn--ghost" type="button" data-hy="eq" data-v="${esc(eqNom)}">
+          <button class="mx-btn mx-btn--ghost mx-btn--sm" type="button" data-hy="eq" data-v="${esc(eqNom)}">
             ${ic("grafica")} Hoja de vida completa
           </button>
         </div>
 
-        <div>
-          <h4 style="margin:8px 0 10px 0; font-size:13px; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted,#888);">
-            Detalle cronológico de las ${regs.length} llamadas y paradas:
-          </h4>
-          ${regs.length ? `<div style="display:flex; flex-direction:column; gap:10px;">
-            ${regs.map((r) => {
-              const esMec = r.cat === "Máquina" && r.tp === "Correctivo";
-              const esOpe = r.cat === "Operacional" || r.tp === "Apoyo a producción";
-              const borderCol = esMec ? "#ef4444" : esOpe ? "#f59e0b" : "#3b82f6";
-              const tagTxt = esMec ? "Avería de máquina" : esOpe ? "Soporte operacional / cuadre" : r.cat || "Novedad";
-              const tagBg = esMec ? "rgba(239,68,68,0.15)" : esOpe ? "rgba(245,158,11,0.15)" : "rgba(59,130,246,0.15)";
-              const tagFg = esMec ? "#ef4444" : esOpe ? "#f59e0b" : "#60a5fa";
-              return `<div class="ux-card" style="margin:0; padding:12px 14px; border-left:4px solid ${borderCol}; background:var(--bg-card,#181c24); border-radius:8px;">
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px; flex-wrap:wrap; gap:6px;">
-                  <div style="display:flex; gap:8px; align-items:center;">
-                    <span style="font-size:11px; font-weight:700; background:${tagBg}; color:${tagFg}; padding:2px 8px; border-radius:4px;">${tagTxt}</span>
-                    <span style="font-size:12px; font-weight:600; color:var(--text-main,#eee);">${esc(N.fmt.corta(r.f))}${r.hr ? " " + r.hr : ""} · Turno ${esc(r.t || "")}</span>
-                  </div>
-                  <div style="font-size:12px; color:var(--text-muted,#888);">
-                    ${r.tec ? `${ic("usuario", "ic--sm")}${esc(r.tec.split(" ")[0])}` : ""}
-                    ${r.min > 0 ? ` · ${r.min >= 60 ? `${Math.floor(r.min / 60)}h ${r.min % 60}m` : `${r.min}m`}` : ""}
-                  </div>
+        <h5 class="mx-h5">Detalle cronológico de las ${regs.length} llamadas y paradas:</h5>
+        ${regs.length ? `<div style="display:flex; flex-direction:column; gap:10px;">
+          ${regs.map((r) => {
+            const esMec = r.cat === "Máquina" && r.tp === "Correctivo";
+            const esOpe = r.cat === "Operacional" || r.tp === "Apoyo a producción";
+            const pillCls = esMec ? "mx-pill--maq" : esOpe ? "mx-pill--ope" : "mx-pill--apo";
+            const tagTxt = esMec ? "Avería de máquina" : esOpe ? "Soporte operacional / cuadre" : r.cat || "Novedad";
+            const efc = r.ef === "Operativo" ? "ok" : r.ef === "Pendiente" ? "bad" : r.ef === "Operativo con pendiente" ? "warn" : "neutro";
+            return `<div class="mx-card" style="padding:14px;">
+              <div class="mx-card__head" style="margin-bottom:8px;">
+                <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+                  <span class="mx-pill ${pillCls}">${tagTxt}</span>
+                  <span class="mx-est mx-est--${efc}"><i></i>${esc(r.ef || "Sin cierre")}</span>
+                  <small style="color:var(--mx-mute);">${esc(N.fmt.corta(r.f))}${r.hr ? " " + r.hr : ""} · Turno ${esc(r.t || "")}</small>
                 </div>
-                <p style="margin:0 0 6px 0; font-size:13.5px; line-height:1.45; color:var(--text-main,#eee);">${esc(r.de || "")}</p>
-                ${r.ac ? `<p style="margin:0 0 4px 0; font-size:12.5px; color:#10b981; line-height:1.4;"><b>Acción:</b> ${esc(r.ac)}</p>` : ""}
-                ${r.rep || r.frep ? `<p style="margin:0; font-size:12px; color:#f59e0b;"><b>Repuesto:</b> ${esc(r.rep || "Faltó repuesto en planta")}</p>` : ""}
-              </div>`;
-            }).join("")}
-          </div>` : `<div class="ux-empty"><p>No se encontraron registros de este equipo en este periodo.</p></div>`}
-        </div>
-
+                <div style="font-size:12px; color:var(--mx-mute);">
+                  ${r.tec ? `${ic("usuario", "ic--sm")} ${esc(r.tec.split(" ")[0])}` : ""}
+                  ${r.min > 0 ? ` · ${r.min >= 60 ? `${Math.floor(r.min / 60)}h ${r.min % 60}m` : `${r.min}m`}` : ""}
+                </div>
+              </div>
+              <p class="mx-quote" style="margin-bottom:6px;">${esc(r.de || "")}</p>
+              ${r.ac ? `<p style="margin:0 0 4px 0; font-size:12.5px; color:var(--mx-green,#12b76a); line-height:1.4;"><b>Acción:</b> ${esc(r.ac)}</p>` : ""}
+              ${r.rep || r.frep ? `<p style="margin:0; font-size:12px; color:var(--mx-amber-d,#b54708);"><b>Repuesto:</b> ${esc(r.rep || "Faltó repuesto en planta")}</p>` : ""}
+            </div>`;
+          }).join("")}
+        </div>` : `<div class="ux-empty"><p>No se encontraron registros de este equipo en este periodo.</p></div>`}
       </div>
     </aside>`;
   }
@@ -475,26 +457,26 @@
         </div>
         <button class="mx-iconbtn" type="button" data-hy-close="1" aria-label="Cerrar">${ic("x")}</button>
       </header>
-      <div class="mx-form__body" style="padding:20px; display:flex; flex-direction:column; gap:14px;">
+      <div class="mx-form__body">
         ${paradas.length ? `<div style="display:flex; flex-direction:column; gap:12px;">
           ${paradas.map((r) => `
-            <div class="ux-card" style="margin:0; padding:14px; background:var(--bg-elevated,#1e232d); border-left:4px solid #ef4444; border-radius:10px;">
-              <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
+            <div class="mx-card" style="padding:14px; border-left:4px solid var(--mx-red,#d92d20);">
+              <div class="mx-card__head" style="margin-bottom:8px;">
                 <div>
-                  <h4 style="margin:0; font-size:16px;">${esc(r.eq)}</h4>
-                  <small style="color:var(--text-muted,#888);">${esc(r.s)} · ${esc(r.ar || "Área")} · Desde ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""}</small>
+                  <h4 style="margin:0; font-size:15px; font-weight:700;">${esc(r.eq)}</h4>
+                  <small style="color:var(--mx-mute);">${esc(r.s)} · ${esc(r.ar || "Área")} · Desde ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""}</small>
                 </div>
                 <div style="display:flex; gap:6px;">
-                  <button class="ux-btn ux-btn--sm ux-btn--primary" type="button" data-hy-go-ficha="${esc(r.eq)}" data-hy-sede="${esc(r.s)}">
+                  <button class="mx-btn mx-btn--primary mx-btn--sm" type="button" data-hy-go-ficha="${esc(r.eq)}" data-hy-sede="${esc(r.s)}">
                     ${ic("ficha")} Ir a la máquina
                   </button>
-                  <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="ver-evento" data-id="${esc(r.id)}">
+                  <button class="mx-btn mx-btn--ghost mx-btn--sm" type="button" data-hy="ver-evento" data-id="${esc(r.id)}">
                     Ver detalle
                   </button>
                 </div>
               </div>
-              <p style="margin:0 0 6px 0; font-size:13.5px; line-height:1.45; color:var(--text-main,#eee);">${esc(r.de || "")}</p>
-              ${r.ac ? `<p style="margin:0; font-size:12.5px; color:#10b981;"><b>Acción:</b> ${esc(r.ac)}</p>` : ""}
+              <p class="mx-quote" style="margin-bottom:6px;">${esc(r.de || "")}</p>
+              ${r.ac ? `<p style="margin:0; font-size:12.5px; color:var(--mx-green,#12b76a);"><b>Acción:</b> ${esc(r.ac)}</p>` : ""}
             </div>`).join("")}
         </div>` : `<div class="ux-empty"><p>No hay máquinas paradas registradas en los últimos 5 días.</p></div>`}
       </div>

@@ -81,7 +81,7 @@
     const caja = document.getElementById("fichaActividad");
     const eq = caja.dataset.eq;
     const a = b.dataset.fa;
-    if (a === "indicadores") window.goIndicadores?.({ eq });
+    if (a === "indicadores") window.goIndicadores?.({ eq, sede: caja.dataset.sede || undefined });
     else if (a === "pendientes") { window.goPendientes?.(); setTimeout(() => { const q = document.querySelector("[data-pd-q]"); if (q) { q.value = eq; q.dispatchEvent(new Event("input", { bubbles: true })); } }, 60); }
     else if (a === "tareas") window.goTasks?.();
     else if (a === "presupuesto") window.goPresupuesto?.();

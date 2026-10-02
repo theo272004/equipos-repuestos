@@ -4915,7 +4915,48 @@ const initialMachines = [
             return;
           }
           machines.push(equipoAMachine(eq));
+          yaHay.add(eq.id);
         });
+
+        // Asegurar que equipos de proceso del registro diario también tengan ficha técnica básica
+        const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
+        cat.filter((x) => x.proc && !x.fi).forEach((x) => {
+          const normId = "eq-" + String(x.eq).toLowerCase().replace(/[^a-z0-9]/g, "") + (x.s === "Sede 2" ? "-sd2" : "");
+          if (yaHay.has(normId)) {
+            x.fi = normId;
+            return;
+          }
+          x.fi = normId;
+          machines.push({
+            id: normId,
+            equipoCod: "Sin código DMM",
+            fromRegistry: true,
+            name: `${x.eq} (${x.s})`,
+            model: x.eq,
+            current: "Operativo · " + x.s,
+            area: `${x.s} · ${x.ar}`,
+            location: x.s,
+            status: "Operativo",
+            criticality: "Media",
+            manual: "Pendiente de cargar",
+            maintenance: "Registro diario y novedades",
+            completion: 25,
+            image: "",
+            notes: "",
+            description: `Equipo ${x.eq} registrado en las operaciones de ${x.s}, área de ${x.ar}. Sus novedades y fallas se reportan en el registro diario.`,
+            technicalData: { ...FICHA_TECNICA_VACIA, function: `Operación y proceso en área de ${x.ar}.` },
+            summarySpecs: [
+              { label: "Sede", value: x.s },
+              { label: "Área de proceso", value: x.ar },
+              { label: "Estado en planta", value: "Operativo" },
+              { label: "Documentación", value: "Ficha básica en proceso" }
+            ],
+            documents: [],
+            searchAliases: [x.eq, x.ar, x.s]
+          });
+          yaHay.add(normId);
+        });
+        window.machines = machines;
       }
       integrarEquipos();
 

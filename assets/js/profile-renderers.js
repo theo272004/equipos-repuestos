@@ -1830,6 +1830,7 @@ function dt(machine, campo) {
         setView("detail");
         saveUiState({ activeView: "detail" });
       }
+      window.openDetail = openDetail;
 
       function openModal() {
         modalBackdrop.hidden = false;
