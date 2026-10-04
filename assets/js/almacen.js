@@ -27,13 +27,19 @@
   const BORRADOR = "equipos-solicitud-borrador-v1";
   const HISTORIAL = "equipos-solicitudes-v1";
   const TIPOS = { traslado: "Traslado", consumo: "Consumo", devolucion: "Devolución" };
+  // En Medicamentos el DAD-010A siempre lleva lo mismo: Trans. SR, área
+  // Mantenimiento y departamento Medicamentos. El código causa de cada renglón
+  // ES el centro de costo (S1, L0, X8…): por eso no hay un centro de costo
+  // aparte para toda la solicitud, y es el del renglón el que descuenta del
+  // presupuesto.
+  const TRANS_DEF = "SR", AREA_DEF = "Mantenimiento", DEPTO_DEF = "Medicamentos";
 
   const esc = (v) => planEsc(v);
   const hoy = () => bogotaToday();
   const fechaCorta = (iso) => { const [a, m, d] = String(iso || "").split("-"); return d ? `${Number(d)}/${m}/${a}` : String(iso || ""); };
-  const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "", mas: new Set() };
+  const vista = { q: "", filtro: "", fam: "", limite: 60, aviso: null, trabajando: "", todo: false, histTodo: false, resaltar: "" };
   // En pantalla ancha la solicitud se puede esconder para dar sitio a los resultados
-  let borrador = cargar(BORRADOR, null) || nuevoBorrador();
+  let borrador = conFijos(cargar(BORRADOR, null) || nuevoBorrador());
   let historial = cargar(HISTORIAL, []);
   let cache = { inv: null, m: null, lista: [] };
 
@@ -45,14 +51,48 @@
     const b = base || {};
     return {
       tipo: b.tipo || "consumo", fecha: hoy(),
-      area: b.area || "", departamento: b.departamento || "", destino: "",
+      area: b.area || AREA_DEF, departamento: b.departamento || DEPTO_DEF, destino: "",
       alistadoPor: "", solicitadoPor: b.solicitadoPor || (window.NUCLEO ? window.NUCLEO.usuario.get() : ""), autorizadoPor: "",
-      // Centro de costo al que se carga la salida (presupuesto). Se sugiere
-      // según el equipo de destino y se puede cambiar por renglón.
-      cc: "",
       observaciones: "", lineas: [],
     };
   }
+  // Un borrador guardado antes de estos valores fijos los recibe vacíos.
+  function conFijos(b) {
+    if (!b.area) b.area = AREA_DEF;
+    if (!b.departamento) b.departamento = DEPTO_DEF;
+    (b.lineas || []).forEach((l) => {
+      if (!l.trans) l.trans = TRANS_DEF;
+      if (!l.causa && l.cc) l.causa = l.cc;
+    });
+    return b;
+  }
+  // Código causa propuesto para un renglón: el centro de costo del equipo de
+  // destino. Primero el del presupuesto (DMM-229 o lo último cargado a ese
+  // equipo); si no, el del plan de mantenimiento de esa máquina, buscada por su
+  // nombre en el registro ("NJP 2" → Encapsuladora NJP 1200-2 → EN).
+  const plano = (t) => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  function causaDe(destino) {
+    if (!destino) return "";
+    const sug = window.PRESUPUESTO ? window.PRESUPUESTO.ccSugerido(destino) : "";
+    if (sug) return sug;
+    const validos = new Set(((window.CENTROS_COSTO && window.CENTROS_COSTO.lista) || []).map((c) => c.cod));
+    const plan = (window.EQUIPOS_PLAN && window.EQUIPOS_PLAN.equipos) || [];
+    const d = plano(destino);
+    const cat = ((window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || []).find((e) => plano(e.eq) === d);
+    const eq = (cat && cat.fi && plan.find((p) => p.id === cat.fi || p.mid === cat.fi)) || plan.find((p) => plano(p.n) === d || plano(p.c) === d);
+    return eq && validos.has(eq.cc) ? eq.cc : "";
+  }
+  const ccDeLinea = (l) => String(l.causa || l.cc || "").trim().toUpperCase();
+  // Pone el código causa del destino en los renglones que aún no tienen. Devuelve si cambió algo.
+  function completarCausas() {
+    const cc = causaDe(borrador.destino);
+    let n = 0;
+    if (cc) borrador.lineas.forEach((l) => { if (!String(l.causa || "").trim()) { l.causa = cc; n++; } });
+    return n > 0;
+  }
+  const nuevaLinea = (cod, it, cant = 1, desc = "") => ({
+    cod, desc: (it && it.desc) || desc || "", um: it ? it.um : "", cant, sitio: "", trans: TRANS_DEF, causa: causaDe(borrador.destino),
+  });
   function guardarBorrador() { guardar(BORRADOR, borrador); }
 
   // ------------------------------------------------------------------------
@@ -570,23 +610,31 @@
           ${pasa ? `<p class="alm-pasa">Pides ${fmt(l.cant)} y ${elegido ? `en ${esc(elegido.alm)} / ${esc(elegido.ub)}` : "en almacén"} hay ${fmt(disp)}.</p>` : ""}
           <div class="alm-linea__extra">
             <label>Trans.<input id="alm-trans-${i}" value="${esc(l.trans)}" data-alm-linea="${i}" data-k="trans" list="almTransUsados" autocomplete="off"></label>
-            <label>Código causa<input id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" list="almCausasUsadas" autocomplete="off"></label>
+            <label title="El código causa es el centro de costo al que se carga este renglón">Código causa<input id="alm-causa-${i}" value="${esc(l.causa)}" data-alm-linea="${i}" data-k="causa" list="almCausas" autocomplete="off" placeholder="Ej. S1">${P() && ccDeLinea(l) ? `<span class="alm-linea__ccnom">${esc(P().nombreCC(ccDeLinea(l)) || "No está en la lista de centros de costo")}</span>` : ""}</label>
             ${i === 0 && b.lineas.length > 1 ? `<button class="alm-igual" type="button" data-alm="dad-todas" title="Copiar el Trans. y el código causa de este renglón a todos los demás">Igual en todas</button>` : ""}
           </div>
-          ${P() ? `<details class="alm-linea__mas" ${l.cc || vista.mas.has(l.cod) ? "open" : ""}>
-            <summary>Otro centro de costo</summary>
-            <label class="alm-linea__cc" title="Si este renglón se carga a otro centro de costo">Centro<select data-alm-linea="${i}" data-k="cc"><option value="">el de la solicitud</option>${P().opcionesCC(l.cc || "", true).replace('<option value="">— Sin centro de costo —</option>', "")}</select></label>
-          </details>` : ""}
         </li>`;
     }).join("");
-    const saldo = saldoCC(b.cc);
-    const avisoCC = !P() ? "" : !b.cc
-      ? `<p class="alm-cc-nota is-warn">Sin centro de costo: esta salida no se descontará de ningún presupuesto.</p>`
-      : saldo && saldo.fuera
-        ? `<p class="alm-cc-nota is-warn">${esc(b.cc)} no está en el reparto del presupuesto de este año.</p>`
-        : saldo
-          ? `<p class="alm-cc-nota ${saldo.queda - total < 0 ? "is-bad" : ""}">De <b>${esc(b.cc)} · ${esc(P().nombreCC(b.cc))}</b> quedan <b>${esc(pesoCorto(saldo.queda))}</b>${total ? `; con esta solicitud quedarían <b>${esc(pesoCorto(saldo.queda - total))}</b>` : ""}.</p>`
-          : "";
+    // Lo que se descuenta de cada centro de costo: el de cada renglón (su código causa)
+    const porCC = new Map();
+    b.lineas.forEach((l) => {
+      const cc = ccDeLinea(l);
+      const pu = Number(l.pu) > 0 ? Number(l.pu) : precio(l.cod);
+      const v = pu ? pu * (Number(l.cant) || 0) : 0;
+      porCC.set(cc, (porCC.get(cc) || 0) + v);
+    });
+    const avisoCC = !P() ? "" : [...porCC.entries()].map(([cc, v]) => {
+      if (!cc) {
+        const n = b.lineas.filter((l) => !ccDeLinea(l)).length;
+        return `<p class="alm-cc-nota is-warn">${n} ${n === 1 ? "renglón" : "renglones"} sin código causa: no se descuentan de ningún presupuesto.</p>`;
+      }
+      const saldo = saldoCC(cc);
+      if (!saldo || saldo.fuera) return `<p class="alm-cc-nota is-warn">${esc(cc)} no está en el reparto del presupuesto de este año.</p>`;
+      return `<p class="alm-cc-nota ${saldo.queda - v < 0 ? "is-bad" : ""}">De <b>${esc(cc)} · ${esc(P().nombreCC(cc))}</b> quedan <b>${esc(pesoCorto(saldo.queda))}</b>${v ? `; con esta solicitud quedarían <b>${esc(pesoCorto(saldo.queda - v))}</b>` : ""}.</p>`;
+    }).join("");
+    // Centros de costo para elegir el código causa: primero los más usados
+    const ccLista = ((window.CENTROS_COSTO && window.CENTROS_COSTO.lista) || []).slice().sort((x, y) => (y.uso || 0) - (x.uso || 0) || x.cod.localeCompare(y.cod));
+    const datalistCC = `<datalist id="almCausas">${ccLista.map((c) => `<option value="${esc(c.cod)}">${esc(c.cod)} · ${esc(c.nombre)}</option>`).join("")}</datalist>`;
     return `
       <div class="alm-sol">
         <div class="alm-sol__head">
@@ -607,7 +655,7 @@
           </form>
           ${b.lineas.length ? `${htmlPrincipal(b)}
             <ol class="alm-lineas">${lineas}</ol>
-            <datalist id="almCausasUsadas">${usados("causa")}</datalist><datalist id="almTransUsados">${usados("trans")}</datalist>
+            ${datalistCC}<datalist id="almTransUsados"><option value="${TRANS_DEF}">${usados("trans")}</datalist>${avisoCC}
             <div class="alm-mat__total"><span class="pl-soft">${sinPrecio ? `${sinPrecio} ${sinPrecio === 1 ? "renglón" : "renglones"} sin precio en el RE356` : "Valorizado con el precio del RE356"}</span><span>Total <strong>${esc(pesoCorto(total))}</strong></span></div>`
           : `<p class="alm-sol-vacia">Todavía no hay materiales. Búscalos y pulsa <strong>Pedir</strong>, o escribe el código aquí arriba.</p>`}
         </section>
@@ -617,7 +665,6 @@
           <div class="tk-row2">${campo("fecha", "Fecha", 'type="date"')}${campo("area", "Área", 'placeholder="Mantenimiento"')}</div>
           <div class="tk-row2">${campo("departamento", "Departamento")}${campo("destino", "Destino (equipo)", 'placeholder="Equipo o lugar" list="almDestinos"')}</div>
           <datalist id="almDestinos">${[...new Set(((window.MTTO && window.MTTO.catalogo.equipos) || []).map((x) => x.eq))].map((x) => `<option value="${esc(x)}">`).join("")}</datalist>
-          ${P() ? `<label>Centro de costo<select data-alm-campo="cc">${P().opcionesCC(b.cc || "")}</select></label>${avisoCC}` : ""}
           <div class="tk-row2">${campo("solicitadoPor", "Solicitado por")}${campo("alistadoPor", "Alistado por", 'placeholder="Lo llena almacén"')}</div>
         </div>
         <label class="alm-obs">Observaciones
@@ -707,10 +754,10 @@
       return;
     }
     const it = itemDe(cod);
-    // Trans. y Codigo causa son de cada articulo: se dejan vacios para que no
-    // se arrastre sin querer el de la pieza anterior a una que no le toca.
-    // El estante lo pone elegirSitios: del almacen principal si lo tiene.
-    borrador.lineas.push({ cod, desc: it ? it.desc : "", um: it ? it.um : "", cant: 1, sitio: "", trans: "", causa: "" });
+    // Trans. va siempre SR; el código causa sale del equipo de destino (no de
+    // la pieza anterior). El estante lo pone elegirSitios: del almacen
+    // principal si lo tiene.
+    borrador.lineas.push(nuevaLinea(cod, it));
     elegirSitios();
     guardarBorrador();
     pintarSolicitud(); pintarResultados();
@@ -864,7 +911,7 @@
       observaciones: s.observaciones, almacen: principalDe(s),
       lineas: s.lineas.map((l) => {
         const [alm, ub] = String(l.sitio || "").split("|");
-        return { cod: l.cod, desc: l.desc, um: l.um, cant: l.cant, alm: alm || "", ub: ub || "", trans: l.trans || "", causa: l.causa || "" };
+        return { cod: l.cod, desc: l.desc, um: l.um, cant: l.cant, alm: alm || "", ub: ub || "", trans: String(l.trans || "").trim().toUpperCase(), causa: ccDeLinea(l) };
       }),
     };
   }
@@ -899,11 +946,16 @@
     try {
       const nombre = await descargarFormato(b);
       // El precio y el centro de costo quedan fijos en la solicitud: si mañana
-      // cambia el precio en el RE356, lo que ya se pidió no se revaloriza.
-      const lineas = b.lineas.map((l) => ({ ...l, pu: l.pu || precio(l.cod) || null, cc: l.cc || b.cc || "" }));
+      // cambia el precio en el RE356, lo que ya se pidió no se revaloriza. El
+      // centro de costo de cada renglón es su código causa.
+      const lineas = b.lineas.map((l) => ({ ...l, pu: l.pu || precio(l.cod) || null, causa: ccDeLinea(l), cc: ccDeLinea(l) }));
       const valor = totalSolicitud({ lineas }).total;
       const quien = window.NUCLEO ? window.NUCLEO.usuario.get() : "";
       const { editando, editandoFecha, editandoDestino, ...datos } = b;
+      // El de la solicitud (para el historial): el código causa más repetido
+      const cuenta = new Map();
+      lineas.forEach((l) => { if (l.cc) cuenta.set(l.cc, (cuenta.get(l.cc) || 0) + 1); });
+      datos.cc = [...cuenta.entries()].sort((x, y) => y[1] - x[1])[0]?.[0] || "";
       const original = editando ? historial.find((x) => x.id === editando) : null;
       // Una corrección reemplaza la misma solicitud: mismo id, misma fecha de
       // creación y mismo estado (si ya estaba entregada, sigue entregada).
@@ -1018,10 +1070,10 @@
         // salía; si se cambia "Sacar de", se vuelve a repartir todo.
         const c = JSON.parse(JSON.stringify(s));
         borrador = {
-          ...nuevoBorrador(c), tipo: c.tipo || "consumo", fecha: c.fecha || hoy(), area: c.area || "", departamento: c.departamento || "",
+          ...nuevoBorrador(c), tipo: c.tipo || "consumo", fecha: c.fecha || hoy(), area: c.area || AREA_DEF, departamento: c.departamento || DEPTO_DEF,
           destino: c.destino || "", alistadoPor: c.alistadoPor || "", solicitadoPor: c.solicitadoPor || "", autorizadoPor: c.autorizadoPor || "",
-          cc: c.cc || "", observaciones: c.observaciones || "", almacen: c.almacen || "",
-          lineas: (c.lineas || []).map((l) => ({ ...l, sitioManual: l.sitioManual || !!l.sitio })),
+          observaciones: c.observaciones || "", almacen: c.almacen || "",
+          lineas: (c.lineas || []).map((l) => ({ ...l, trans: l.trans || TRANS_DEF, causa: l.causa || l.cc || c.cc || "", sitioManual: l.sitioManual || !!l.sitio })),
           editando: c.id, editandoFecha: c.fecha || "", editandoDestino: c.destino || "",
         };
         guardarBorrador(); pintarSolicitud(); pintarResultados();
@@ -1030,7 +1082,7 @@
         const s = historial.find((x) => x.id === b.dataset.id);
         if (!s) return;
         if (borrador.lineas.length && !window.confirm("La solicitud que estás llenando se reemplaza. ¿Seguir?")) return;
-        borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, cc: s.cc || "", almacen: s.almacen || "", lineas: JSON.parse(JSON.stringify(s.lineas || [])).map((l) => ({ ...l, pu: null })) };
+        borrador = { ...nuevoBorrador(s), tipo: s.tipo, destino: s.destino, almacen: s.almacen || "", lineas: JSON.parse(JSON.stringify(s.lineas || [])).map((l) => ({ ...l, trans: l.trans || TRANS_DEF, causa: l.causa || l.cc || s.cc || "", pu: null })) };
         elegirSitios();
         guardarBorrador(); pintarSolicitud(); pintarResultados();
         verSol();
@@ -1053,11 +1105,11 @@
         (s.lineas || []).forEach((l) => {
           if (borrador.lineas.some((x) => x.cod === l.cod) || borrador.lineas.length >= RENGLONES) return;
           const it = itemDe(l.cod);
-          borrador.lineas.push({ cod: l.cod || "", desc: l.desc || (it ? it.desc : ""), um: it ? it.um : "", cant: l.cant || 1, sitio: "", trans: "", causa: "" });
+          borrador.lineas.push({ ...nuevaLinea(l.cod || "", it, l.cant || 1, l.desc), desc: l.desc || (it ? it.desc : "") });
         });
         elegirSitios();
         if (!borrador.destino && s.destino) borrador.destino = s.destino;
-        if (!borrador.cc && s.destino && window.PRESUPUESTO) borrador.cc = window.PRESUPUESTO.ccSugerido(s.destino);
+        completarCausas();
         if (!borrador.observaciones && s.nota) borrador.observaciones = String(s.nota).slice(0, OBS_MAX);
         guardarBorrador();
         ponerEstado(s.id, "atendido");
@@ -1087,17 +1139,16 @@
       if (t.dataset.alm === "archivo") { leerArchivo(t.files && t.files[0]); t.value = ""; return; }
       if (t.dataset.alm === "fam") { vista.fam = t.value; vista.limite = 60; pintarResultados(); return; }
       if (t.dataset.almCampo === "tipo") { borrador.tipo = t.value; guardarBorrador(); pintarSolicitud(); return; }
-      if (t.dataset.almCampo === "cc") { borrador.cc = t.value; guardarBorrador(); pintarSolicitud(); return; }
       if (t.dataset.almCampo === "almacen") {
         // Cambiar el principal vuelve a repartir todo, tambien lo tocado a mano.
         borrador.almacen = t.value;
         borrador.lineas.forEach((l) => { delete l.sitioManual; });
         elegirSitios(); guardarBorrador(); pintarSolicitud(); return;
       }
-      if (t.dataset.almLinea !== undefined && (t.dataset.k === "sitio" || t.dataset.k === "cc")) {
+      if (t.dataset.almLinea !== undefined && t.dataset.k === "sitio") {
         const l = borrador.lineas[+t.dataset.almLinea];
-        l[t.dataset.k] = t.value;
-        if (t.dataset.k === "sitio") l.sitioManual = true;
+        l.sitio = t.value;
+        l.sitioManual = true;
         guardarBorrador(); pintarSolicitud();
       }
     });
@@ -1115,13 +1166,6 @@
         guardarBorrador();
       }
     });
-    // Recordar qué renglones tienen abiertos "Trans., causa y centro" al repintar
-    raiz.addEventListener("toggle", (e) => {
-      const d = e.target;
-      if (!d.classList || !d.classList.contains("alm-linea__mas")) return;
-      const cod = d.closest(".alm-linea")?.dataset.cod;
-      if (cod) { if (d.open) vista.mas.add(cod); else vista.mas.delete(cod); }
-    }, true);
     raiz.addEventListener("submit", (e) => {
       const f = e.target.closest("[data-alm-form]");
       if (!f) return;
@@ -1134,12 +1178,9 @@
 
     // Al salir de la cantidad si se repinta: para avisar si pide mas de lo que hay.
     raiz.addEventListener("focusout", (e) => {
-      if (e.target.dataset && e.target.dataset.k === "cant") pintarSolicitud();
-      // Al escribir el destino se propone el centro de costo de ese equipo
-      if (e.target.dataset && e.target.dataset.almCampo === "destino" && !borrador.cc && window.PRESUPUESTO) {
-        const cc = window.PRESUPUESTO.ccSugerido(borrador.destino);
-        if (cc) { borrador.cc = cc; guardarBorrador(); pintarSolicitud(); }
-      }
+      if (e.target.dataset && (e.target.dataset.k === "cant" || e.target.dataset.k === "causa")) pintarSolicitud();
+      // Al escribir el destino, los renglones sin código causa toman el centro de costo de ese equipo
+      if (e.target.dataset && e.target.dataset.almCampo === "destino" && completarCausas()) { guardarBorrador(); pintarSolicitud(); }
     });
   }
 
@@ -1157,7 +1198,7 @@
     if (op && typeof op === "object") {
       if (op.q !== undefined) { vista.q = String(op.q); vista.todo = false; vista.limite = 60; }
       if (op.filtro !== undefined) vista.filtro = op.filtro;
-      if (op.destino && !borrador.destino) { borrador.destino = op.destino; if (!borrador.cc && window.PRESUPUESTO) borrador.cc = window.PRESUPUESTO.ccSugerido(op.destino); }
+      if (op.destino && !borrador.destino) { borrador.destino = op.destino; completarCausas(); }
       if (op.nota && !borrador.observaciones) borrador.observaciones = String(op.nota).slice(0, OBS_MAX);
       if (op.solicitud) { vista.resaltar = op.solicitud; vista.histTodo = true; }
       guardarBorrador();
@@ -1230,10 +1271,11 @@
       const cod = String(x.cod || "").trim();
       if (!cod || borrador.lineas.some((l) => l.cod === cod) || borrador.lineas.length >= RENGLONES) return;
       const it = itemDe(cod);
-      borrador.lineas.push({ cod, desc: (it && it.desc) || x.desc || "", um: it ? it.um : "", cant: Number(x.cant) || 1, sitio: "", trans: "", causa: "" });
+      borrador.lineas.push(nuevaLinea(cod, it, Number(x.cant) || 1, x.desc));
       n++;
     });
-    if (destino && !borrador.destino) { borrador.destino = destino; if (!borrador.cc && P()) borrador.cc = P().ccSugerido(destino); }
+    if (destino && !borrador.destino) borrador.destino = destino;
+    completarCausas();
     if (nota && !borrador.observaciones) borrador.observaciones = String(nota).slice(0, OBS_MAX);
     elegirSitios();
     guardarBorrador();
