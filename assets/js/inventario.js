@@ -131,7 +131,13 @@ window.INVENTARIO = (function () {
       vistos.add(k);
       const prev = nube.porCodigo[k];
       const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, mrp: f.mrp || "", dias: f.dias ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app", agotado: false };
-      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min || prev.consumo !== reg.consumo || prev.mrp !== reg.mrp || prev.dias !== reg.dias || prev.desc !== reg.desc || JSON.stringify(prev.sitios || []) !== reg.sitios) cambios.push(reg);
+      // M/N y los dias de compra solo cuentan como cambio si la nube ya los
+      // tenia. Los articulos subidos antes de que existieran no los traen, y si
+      // contaran, la primera carga reescribiria los ~5.000 y cada equipo bajaria
+      // el inventario entero ese dia (la cuota gratis es de 50.000 lecturas).
+      // Se van llenando al cambiar otra cosa; mientras, salen del maestro.
+      const cambioCompra = (prev && prev.mrp && prev.mrp !== reg.mrp) || (prev && prev.dias !== null && prev.dias !== undefined && prev.dias !== reg.dias);
+      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min || prev.consumo !== reg.consumo || cambioCompra || prev.desc !== reg.desc || JSON.stringify(prev.sitios || []) !== reg.sitios) cambios.push(reg);
     });
     // Lo que el reporte no lista se agotó (el RE356 no trae los ceros). Pero si
     // el archivo trae mucho menos que lo que hay en la nube, es un reporte
