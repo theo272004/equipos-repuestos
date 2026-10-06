@@ -5380,7 +5380,17 @@ const initialMachines = [
         return `<input class="pl-edit pl-edit--num" value="${planEsc(f.exist)}" placeholder="${planEsc(fondo || "\u2014")}"`
           + ` title="${planEsc(m.d)} Escribe aqui la existencia real; se comparte con todo el taller."`
           + ` onchange="editarDato(this, '${planEsc(f.clave)}', 'exist')">`
-          + `<span class="pl-exist-src pl-exist-src--${m.t}" title="${planEsc(m.d)}">${m.t}</span>`;
+          + `<span class="pl-exist-src pl-exist-src--${m.t}" title="${planEsc(m.d)}">${m.t}</span>`
+          + enCamino(f.cod);
+      }
+
+      // Lo pedido que aun no llega (RE355 cargado en Almacen)
+      function enCamino(cod) {
+        const rq = cod ? window.REQUISICIONES?.de(cod) : null;
+        if (!rq || !(rq.camino > 0)) return "";
+        const fc = (iso) => { const [a, m, d] = String(iso || "").split("-"); return d ? `${Number(d)}/${m}/${a}` : ""; };
+        const det = rq.lineas.map((l) => `${l.q} · ${l.oc ? "OC " + l.oc : l.rq ? "RQ " + l.rq : "requisición"} · ${l.est}${l.fe ? " · llega " + fc(l.fe) : ""}`).join("\n");
+        return `<span class="pl-exist-src pl-exist-src--camino${rq.atrasada ? " is-tarde" : ""}" title="${planEsc("En camino (RE355):\n" + det + (rq.atrasada ? "\nCon la entrega vencida." : ""))}">+${rq.camino} en camino</span>`;
       }
 
       // Una fila de la tabla, con todo lo que sabemos de esa pieza venga de donde venga.

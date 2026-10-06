@@ -1797,6 +1797,7 @@ function dt(machine, campo) {
       cambiosSubscribe(); // historial de cambios en tiempo real (o local si no hay nube)
       datosSubscribe();   // código interno y existencias escritos a mano, compartidos
       window.INVENTARIO?.suscribir();  // existencias reales de almacén que sube el puente de MiPortal
+      window.REQUISICIONES?.suscribir();  // lo pedido que aún no llega (RE355 cargado en Almacén)
 
       function setView(viewName) {
         Object.entries(views).forEach(([name, element]) => { if (element) element.classList.toggle("is-active", name === viewName); });

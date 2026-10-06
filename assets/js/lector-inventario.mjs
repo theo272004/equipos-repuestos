@@ -52,6 +52,9 @@ const TITULOS = {
   um:    ["U M", "UM", "UNIDAD", "UNIDAD DE MEDIDA", "UND", "UNIDAD MEDIDA"],
   min:   ["STOCK MINIMO", "MINIMO", "EXISTENCIA MINIMA", "CANTIDAD MINIMA", "PUNTO DE REORDEN"],
   consumo: ["CONSUMO MES", "CONSUMO MENSUAL", "CONSUMO PROMEDIO", "CONSUMO"],
+  // M = el MRP lo compra solo cuando baja del minimo; N = hay que pedirlo a mano
+  mrp:   ["CODIGO MRP", "MRP", "MRP MPS", "TIPO MRP"],
+  dias:  ["DIAS APROV", "DIAS APROVISIONAMIENTO", "DIAS DE APROVISIONAMIENTO", "PLAZO", "LEAD TIME", "TIEMPO DE ENTREGA"],
 };
 
 function puntajeTitulo(titulo, campo) {
@@ -86,6 +89,12 @@ export function numero(v) {
   if (s.includes(",")) s = s.replace(/\./g, "").replace(",", ".");
   const n = Number(s);
   return neg ? -n : n;
+}
+
+// CODIGO_MRP: "M" (compra automatica) o "N" (a mano). Cualquier otra cosa, vacio.
+function mrpDe(v) {
+  const s = String(v ?? "").trim().toUpperCase();
+  return s === "M" || s === "N" ? s : "";
 }
 
 // Busca la fila de cabecera y las columnas dentro de una hoja ya convertida a
@@ -156,6 +165,8 @@ function analizarHoja(matriz, codigosPlan, forzadas = {}) {
       min: elegir("min", (x) => x.ratioNum >= 0.7),
       consumo: elegir("consumo", (x) => x.ratioNum >= 0.7),
       um: elegir("um", (x) => x.largoMedio <= 6),
+      mrp: elegir("mrp", (x) => x.largoMedio <= 2 && x.ratioNum < 0.5),
+      dias: elegir("dias", (x) => x.ratioNum >= 0.7),
     };
 
     // Puntaje de la hoja+cabecera: lo que pesa es cuantos codigos del plan
@@ -232,6 +243,8 @@ export function analizarLibro(libro, utils, codigosPlan, opciones = {}) {
       min: num(sel.min),
       consumo: num(sel.consumo),
       um: String(fila[sel.um?.c] ?? "").trim(),
+      mrp: mrpDe(fila[sel.mrp?.c]),
+      dias: num(sel.dias),
       alm,
       // Desglose por sitio. Hace falta para la solicitud de materiales: el
       // formato pide ALM. y UBIC. de UN sitio concreto, el de donde se va a
@@ -248,7 +261,9 @@ export function analizarLibro(libro, utils, codigosPlan, opciones = {}) {
       if (reg.ub && !String(previo.ub).split(" · ").includes(reg.ub)) previo.ub = previo.ub ? `${previo.ub} · ${reg.ub}` : reg.ub;
       // Precio, minimo y consumo son del articulo, no del almacen: no se suman,
       // se toma el primero que venga con dato.
-      for (const k of ["pu", "min", "consumo"]) if (previo[k] === null && reg[k] !== null) previo[k] = reg[k];
+      for (const k of ["pu", "min", "consumo", "dias"]) if (previo[k] === null && reg[k] !== null) previo[k] = reg[k];
+      // Si alguna fila dice que lo compra el MRP, lo compra el MRP
+      if (reg.mrp === "M" || !previo.mrp) previo.mrp = reg.mrp || previo.mrp;
       if (!previo.um && reg.um) previo.um = reg.um;
       // El reporte de inventarios repite el mismo estante una vez por lote: se
       // suma dentro del mismo sitio en vez de listarlo tres veces.

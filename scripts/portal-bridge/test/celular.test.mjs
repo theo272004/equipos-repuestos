@@ -79,7 +79,7 @@ for (const ancho of [390, 360]) {
       const t = await pg.evaluate(() => { const f = document.querySelector(".alm-table tbody tr"); return f ? getComputedStyle(f).display : ""; });
       ok(t === "grid", `${donde}: los resultados no salen como tarjetas`);
       ok(await pg.locator("#almSolicitud .alm-linea").count() === 1, `${donde}: "Pedir" no sumo la pieza a la solicitud`);
-      ok(await pg.locator("#almIrSol:not([hidden])").count() === 1, `${donde}: no aparece el boton flotante que lleva a la solicitud`);
+      ok(await pg.locator('#almCarrito:not([hidden]) [data-alm="paso-llenar"]').isVisible(), `${donde}: no aparece la barra de abajo que lleva a la solicitud`);
     }
   }
   ok(!errores.length, `errores en la consola a ${ancho} px: ${errores.join(" | ")}`);

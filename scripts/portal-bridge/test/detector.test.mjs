@@ -102,10 +102,13 @@ ok(d2.columnas.exist === "EXISTENCIA", `RE356: existencia -> ${d2.columnas.exist
 ok(d2.columnas.min === "STOCK_MINIMO", `RE356: minimo -> ${d2.columnas.min}`);
 ok(d2.columnas.consumo === "CONSUMO_MES", `RE356: consumo -> ${d2.columnas.consumo}`);
 ok(d2.columnas.pu === "PRECIO UNIT", `RE356: precio -> ${d2.columnas.pu}`);
+ok(d2.columnas.mrp === "CODIGO_MRP", `RE356: compra automatica (M/N) -> ${d2.columnas.mrp}`);
+ok(d2.columnas.dias === "DIAS_APROV", `RE356: dias de aprovisionamiento -> ${d2.columnas.dias}`);
 const p0 = re.filas.find((f) => f.cod === delPlan[0]);
 ok(p0.exist === 1 + 5, `RE356: sumo los dos almacenes: ${p0?.exist}, esperaba 6`);
 ok(p0.ub === "R01/M0302 \u00b7 R02/L0102", `RE356: ubicacion mal emparejada: "${p0?.ub}"`);
 ok(p0.min === 2 && p0.consumo === 0.17, `RE356: minimo/consumo -> ${p0?.min}/${p0?.consumo}`);
+ok(["M", "N"].includes(p0.mrp) && Number.isFinite(p0.dias), `RE356: MRP/dias -> ${p0?.mrp}/${p0?.dias}`);
 const p1 = re.filas.find((f) => f.cod === delPlan[1]);
 ok(p1.ub === "R01/M0302", `RE356: ubicacion simple mal: "${p1?.ub}"`);
 ok(!/\s$/.test(p1.desc), `RE356: quedo relleno de espacios en la descripcion: "${p1?.desc}"`);

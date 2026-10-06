@@ -3063,6 +3063,8 @@
       .pl-exist-src--mano { color: #1849a9; }   /* contado en planta: manda */
       .pl-exist-src--portal { color: #027a48; } /* fresco, viene de MiPortal */
       .pl-exist-src--excel { color: #98a2b3; }  /* foto vieja del Excel */
+      .pl-exist-src--camino { color: #1849a9; } /* pedido que aun no llega (RE355) */
+      .pl-exist-src--camino.is-tarde { color: #b42318; }
 
       /* Aviso de inventario viejo en la cabecera del plan. */
       .pl-inv {

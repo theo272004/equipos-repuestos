@@ -10,6 +10,13 @@
 //  y busca por codigo, descripcion, ubicacion y por el EQUIPO que las usa: escribir
 //  "blisteadora 2" trae todas sus piezas con su existencia y su estante.
 //
+//  Con el RE355 (requisiciones, via assets/js/requisiciones.js) dice ademas que
+//  viene en camino y que falta comprar. "Por comprar" junta lo que no alcanza
+//  (bajo el minimo, o que se acaba antes de que llegue una compra nueva) y
+//  nadie ha pedido, separado en tres: lo que hay que pedir a mano (CODIGO_MRP
+//  N), lo que el MRP debio pedir solo y no pidio (M, bajo el minimo) y lo que
+//  tiene un minimo tan bajo que el MRP no alcanza a pedirlo a tiempo (M).
+//
 //  La solicitud de materiales se llena sobre el formato oficial DAD-010A
 //  (assets/formatos/DAD-010A.xlsx) con assets/js/formato-dad010a.mjs, que solo
 //  escribe los datos en las celdas y deja el formato intacto. Sale un Excel
@@ -63,7 +70,9 @@
   function universo() {
     const inv = window.INVENTARIO ? window.INVENTARIO.todo : {};
     const M = window.MAESTRO && window.MAESTRO.listo ? window.MAESTRO : null;
-    if (cache.inv === inv && cache.m === M && cache.lista.length) return cache.lista;
+    const R = window.REQUISICIONES && window.REQUISICIONES.cargado ? window.REQUISICIONES : null;
+    const rq = R ? R.todo : null;
+    if (cache.inv === inv && cache.m === M && cache.rq === rq && cache.lista.length) return cache.lista;
     const norm = window.INVENTARIO ? window.INVENTARIO.norm : (v) => String(v || "").trim().toUpperCase();
 
     // Que equipos usan cada codigo, segun el plan (con el codigo corregido a mano si lo hay).
@@ -87,6 +96,7 @@
       items.push({
         cod: a.cod, desc: a.desc || (m && m.desc) || descPlan.get(a.cod) || "", um: a.um || (m && m.um) || "", exist: a.exist,
         min: a.min ?? (m && m.min) ?? null, sitios: (a.sitios || []).filter((s) => s.alm || s.ub), ub: a.ub || "",
+        consumo: a.consumo ?? null, dias: a.dias ?? null, mrp: a.mrp || "",
         enBodega: true, equipos: uso.get(a.cod) || [], m,
       });
     });
@@ -100,7 +110,9 @@
       items.push({ cod: m.cod, desc: m.desc, um: m.um, exist: null, min: m.min || null, sitios: [], ub: "", enBodega: false, equipos: [], m });
     });
     const porFam = new Map();
+    const sabe = !!(window.INVENTARIO && window.INVENTARIO.cargado);
     items.forEach((it) => {
+      compras(it, R, sabe);
       const dp = descPlan.get(it.cod);
       it.hay = planPlain([it.cod, it.desc, dp && dp !== it.desc ? dp : "", it.ub, it.sitios.map((s) => `${s.alm}/${s.ub} ${s.alm} ${s.ub}`).join(" "), it.equipos.map((e) => `${e.n} ${e.c}`).join(" ")].join(" "));
       it.bajoMin = it.enBodega && it.min > 0 && (it.exist ?? 0) < it.min;
@@ -110,8 +122,31 @@
       it.noMaestro = !!(M && !it.m && it.equipos.length);
       porFam.set(it.fam, (porFam.get(it.fam) || 0) + 1);
     });
-    cache = { inv, m: M, lista: items, porFam, porCod: new Map(items.map((it) => [it.cod, it])) };
+    cache = { inv, m: M, rq, lista: items, porFam, porCod: new Map(items.map((it) => [it.cod, it])) };
     return items;
+  }
+
+  // Lo que viene en camino y lo que falta pedir. Necesita el RE356 (lo que hay)
+  // y el RE355 (lo pedido): sin el segundo no se sabe si ya alguien lo pidio, y
+  // "por comprar" diria mentiras.
+  //   necesita = el mayor entre el minimo y lo que se gasta mientras llega una
+  //              compra (consumo/mes x plazo, nunca menos de un mes)
+  //   falta    = necesita - lo que hay - lo que viene en camino
+  function compras(it, R, sabe) {
+    it.rq = R ? R.de(it.cod) : null;
+    it.camino = it.rq ? it.rq.camino : 0;
+    // M/N: del RE356; si no lo lista (agotado), del RE355 o del maestro
+    it.mrp = it.mrp || (it.rq && it.rq.mrp) || (it.m ? (it.m.mrp ? "M" : "N") : "");
+    it.plazo = it.dias ?? (it.m && it.m.dias) ?? 0;
+    const hay = Number(it.exist) || 0;
+    const cons = Number(it.consumo) || 0;
+    it.alcanza = cons > 0 ? Math.floor((hay / cons) * 30) : null;
+    const necesita = Math.max(Number(it.min) || 0, Math.ceil((cons * Math.max(it.plazo, 30)) / 30));
+    it.falta = R && sabe && !it.otraArea && necesita > 0 ? Math.max(0, necesita - hay - it.camino) : 0;
+    // Con M, si sigue por encima del minimo el MRP hace bien en no pedirlo: lo
+    // que esta mal es el minimo, que no cubre el consumo mientras llega la compra.
+    it.necesita = necesita;
+    it.pedir = !(it.falta > 0) ? "" : it.mrp !== "M" ? "mano" : hay + it.camino >= (Number(it.min) || 0) ? "minimo" : "mrp";
   }
 
   // Si lo que se escribe es el nombre de un equipo ("blisteadora 2", "njp 1200")
@@ -137,12 +172,24 @@
     if (vista.filtro === "stock") lista = lista.filter((it) => it.exist > 0);
     if (vista.filtro === "plan") lista = lista.filter((it) => it.equipos.length);
     if (vista.filtro === "min") lista = lista.filter((it) => it.bajoMin);
+    if (vista.filtro === "pedir") lista = lista.filter((it) => it.pedir);
+    if (vista.filtro === "camino") lista = lista.filter((it) => it.camino > 0);
     const eqs = tokens.length && !vista.todo ? equiposQueCoinciden(tokens) : [];
     if (eqs.length) {
       const cods = new Set(eqs.map((e) => e.c));
       lista = lista.filter((it) => it.equipos.some((e) => cods.has(e.c)));
     } else if (tokens.length) lista = lista.filter((it) => tokens.every((t) => it.hay.includes(t)));
     else if (!vista.filtro && (vista.fam === "" || vista.fam === "mtto")) return { lista: [], eqs };
+    // Por comprar: primero lo que se acaba antes; lo que no tiene consumo (solo
+    // esta bajo el minimo) al final. En camino: lo que llega antes.
+    if (vista.filtro === "pedir" && !tokens.length) {
+      const dias = (it) => (it.alcanza === null ? 1e6 : it.alcanza);
+      return { lista: lista.slice().sort((a, b) => dias(a) - dias(b) || (a.pedir === b.pedir ? 0 : a.pedir === "mano" ? -1 : 1) || b.falta - a.falta), eqs };
+    }
+    if (vista.filtro === "camino" && !tokens.length) {
+      const fe = (it) => (it.rq && it.rq.proxima && it.rq.proxima.fe) || "9999";
+      return { lista: lista.slice().sort((a, b) => fe(a).localeCompare(fe(b))), eqs };
+    }
     // Primero lo que hay, luego lo de almacen en cero, las piezas del plan, el
     // resto del maestro y al final lo de otras areas (laboratorio, oficina...).
     const lugar = (it) => (it.exist > 0 ? 0 : it.enBodega ? 1 : it.equipos.length ? 2 : it.otraArea ? 4 : 3);
@@ -293,11 +340,11 @@
       <div class="up-velo" data-up="cerrar"></div>
       <section class="up" role="dialog" aria-modal="true" aria-labelledby="upTitulo">
         <button class="up__x" type="button" data-up="cerrar" aria-label="Cerrar">&times;</button>
-        <header class="up__head"><h3 id="upTitulo">Cargar inventario</h3><p>Reporte RE356 de MiPortal, en Excel</p></header>
+        <header class="up__head"><h3 id="upTitulo">Cargar reporte</h3><p>De MiPortal, en Excel: el RE356 (inventario) o el RE355 (requisiciones)</p></header>
         <label class="up__zona" tabindex="0">
           <span class="up__ico">${IC_NUBE}</span>
           <b>Arrastra el archivo aquí o <u>búscalo</u></b>
-          <small>.xls o .xlsx · MiPortal → RE356 → Generar Excel</small>
+          <small>.xls o .xlsx · MiPortal → RE356 o RE355 → Generar Excel</small>
           <input type="file" accept=".xls,.xlsx" data-up="archivo" hidden>
         </label>
         ${enCurso || actual ? `<div class="up__lista">${enCurso}${actual}</div>` : ""}
@@ -318,6 +365,12 @@
       : M.listo ? `<span title="Todos los códigos de la empresa (reporte RE356R de MiPortal), tengan existencia o no. No trae existencias, estantes ni precios.">maestro de ${M.total.toLocaleString("es-CO")} códigos (${esc(fechaCorta(M.fecha))})</span>`
       : M.error ? `<button class="pl-reg" type="button" data-alm="maestro" title="${esc(M.error)}">No baj&oacute; el maestro de art&iacute;culos &middot; reintentar</button>`
       : "";
+    const R = window.REQUISICIONES;
+    const rn = R ? R.nube : {};
+    const reqs = !R ? ""
+      : R.cargado ? `<span title="Lo pedido que aún no llega (reporte RE355 de MiPortal)${R.estado.archivo ? ": " + esc(R.estado.archivo) : ""}">requisiciones ${esc(R.frescura().texto)} (${R.estado.abiertas.toLocaleString("es-CO")} sin llegar)</span>`
+        + (rn.estado === "subiendo" ? " <span class=\"pl-inv pl-inv--nube\">guardando en la nube&hellip;</span>" : rn.estado === "error" ? ` <button class="pl-reg alm-nube-error" type="button" data-alm="req-nube" title="${esc(rn.motivo || "")}">Requisiciones sin guardar en la nube &middot; reintentar</button>` : "")
+      : hay ? `<button class="ux-link" type="button" data-alm="subir-abrir" title="Con el RE355 se ve lo que ya está pedido y lo que falta pedir">carga el RE355</button> para ver qu&eacute; viene en camino` : "";
     const trabajando = vista.trabajando ? `<p class="alm-aviso alm-aviso--info" role="status">${esc(vista.trabajando)}</p>` : "";
     const n = vista.nube;
     const nube = !n ? ""
@@ -334,15 +387,17 @@
     return `
       <p class="alm-fresc">${hay
         ? `<i class="alm-fuente__dot is-${f.estado}"></i>Existencias del RE356 ${esc(f.texto.replace(/^Inventario /, "").replace(/dias/, "días"))} · ${inv.estado.articulos.toLocaleString("es-CO")} artículos`
-        : `<i class="alm-fuente__dot"></i>Sin reporte RE356: <button class="ux-link" type="button" data-alm="subir-abrir">cárgalo</button> para ver existencias y precios`}${maestro ? ` · ${maestro}` : ""}${extras ? ` <span class="alm-fresc__acc">${extras}</span>` : ""}</p>
+        : `<i class="alm-fuente__dot"></i>Sin reporte RE356: <button class="ux-link" type="button" data-alm="subir-abrir">cárgalo</button> para ver existencias y precios`}${maestro ? ` · ${maestro}` : ""}${reqs ? ` · ${reqs}` : ""}${extras ? ` <span class="alm-fresc__acc">${extras}</span>` : ""}</p>
       ${trabajando}${aviso}`;
   }
 
   function htmlChips() {
     const lista = universo();
-    const n = { stock: lista.filter((i) => i.exist > 0).length, plan: lista.filter((i) => i.equipos.length).length, min: lista.filter((i) => i.bajoMin).length };
+    const n = { stock: lista.filter((i) => i.exist > 0).length, plan: lista.filter((i) => i.equipos.length).length, min: lista.filter((i) => i.bajoMin).length, pedir: lista.filter((i) => i.pedir).length, camino: lista.filter((i) => i.camino > 0).length };
     const chip = (id, txt, cant) => `<button type="button" class="alm-chip ${vista.filtro === id ? "is-on" : ""}" data-alm="filtro" data-v="${id}">${txt} <span>${cant}</span></button>`;
-    return chip("stock", "Con existencia", n.stock) + chip("plan", "Piezas del plan", n.plan) + (n.min ? chip("min", "Bajo el m&iacute;nimo", n.min) : "") + htmlFamilias();
+    const R = window.REQUISICIONES && window.REQUISICIONES.cargado;
+    return chip("stock", "Con existencia", n.stock) + chip("plan", "Piezas del plan", n.plan) + (n.min ? chip("min", "Bajo el m&iacute;nimo", n.min) : "")
+      + (R && n.pedir ? chip("pedir", "Por comprar", n.pedir) : "") + (R && n.camino ? chip("camino", "En camino", n.camino) : "") + htmlFamilias();
   }
 
   // Familias del maestro (salen de los digitos del codigo: 7419 rodamientos,
@@ -366,7 +421,7 @@
 
   function donde(it) {
     // Si no hay y toca comprarla, cuanto tarda (dias de aprovisionamiento del maestro).
-    const plazo = !(it.exist > 0) && it.m && it.m.dias ? ` <span class="pl-soft alm-plazo" title="D&iacute;as de aprovisionamiento seg&uacute;n el maestro de art&iacute;culos">compra: ${fmt(it.m.dias)} d&iacute;as</span>` : "";
+    const plazo = !(it.exist > 0) && it.plazo ? ` <span class="pl-soft alm-plazo" title="D&iacute;as de aprovisionamiento${it.mrp === "M" ? ". Compra autom&aacute;tica: el MRP lo pide solo al bajar del m&iacute;nimo" : it.mrp === "N" ? ". Se pide a mano: el MRP no lo compra solo" : ""}">compra: ${fmt(it.plazo)} d&iacute;as${it.mrp === "M" ? " · MRP" : ""}</span>` : "";
     if (!it.sitios.length) {
       if (it.enBodega) return esc(it.ub || "—") + plazo;
       const sabe = window.INVENTARIO && window.INVENTARIO.cargado;
@@ -380,6 +435,36 @@
     return primeros + (it.equipos.length > 2 ? `<br><span class="pl-soft">y ${it.equipos.length - 2} m&aacute;s</span>` : "");
   }
   const fmt = (n) => (n === null || n === undefined ? "—" : Number(n).toLocaleString("es-CO"));
+
+  // Lo de compras de cada articulo, en palabras
+  function tagPedir(it) {
+    if (it.pedir === "minimo") return ` <span class="pl-tag pl-tag--warn" title="Compra autom&aacute;tica, pero el m&iacute;nimo (${fmt(it.min)}) no cubre lo que se gasta mientras llega una compra (${fmt(it.necesita)}). El MRP no lo va a pedir a tiempo: hay que subir el m&iacute;nimo o pedirlo a mano.">m&iacute;nimo muy bajo</span>`;
+    return it.pedir === "mano"
+      ? ` <span class="pl-tag pl-tag--warn" title="C&oacute;digo N: el MRP no lo compra solo. Hay que hacer la requisici&oacute;n en MiPortal.">comprar a mano</span>`
+      : ` <span class="pl-tag pl-tag--late" title="C&oacute;digo M (compra autom&aacute;tica): est&aacute; por debajo de lo necesario y no tiene requisici&oacute;n abierta. El MRP no lo pidi&oacute;: rev&iacute;salo con compras.">el MRP no lo pidi&oacute;</span>`;
+  }
+  const lineaRq = (l) => `${fmt(l.q)} · ${l.oc ? "OC " + l.oc : l.rq ? "RQ " + l.rq : "requisici&oacute;n"} · ${l.est}${l.fe ? " · llega " + fechaCorta(l.fe) : ""}`;
+  function detalleCamino(it) {
+    return it.rq.lineas.map((l) => lineaRq(l).replace(/&oacute;/g, "ó")).join("\n");
+  }
+  function ultimoPedido(it) {
+    const u = it.rq && it.rq.ultimo;
+    if (!u) return window.REQUISICIONES && window.REQUISICIONES.cargado ? "no se ha pedido este a&ntilde;o" : "";
+    return `&uacute;ltimo pedido ${fechaCorta(u.fp)} (${esc(String(u.est || "").toLowerCase())})`;
+  }
+  function lineaCompra(it) {
+    if (it.camino > 0) {
+      const p = it.rq.proxima;
+      const tarde = it.rq.atrasada ? ' <b class="alm-tarde">entrega vencida</b>' : "";
+      const sinOC = it.rq.sinOC ? ' <b class="alm-tarde">sin orden de compra</b>' : "";
+      return `<small class="alm-rq">${p ? esc(lineaRq(p).replace(/&oacute;/g, "ó")) : ""}${it.rq.lineas.length > 1 ? ` y ${it.rq.lineas.length - 1} m&aacute;s` : ""}${tarde}${sinOC}</small>`;
+    }
+    if (it.pedir) {
+      const alc = it.alcanza !== null ? `alcanza ~${fmt(it.alcanza)} d&iacute;as · ` : "";
+      return `<small class="alm-rq">${alc}faltan ${fmt(it.falta)} · ${ultimoPedido(it)}</small>`;
+    }
+    return "";
+  }
 
   function htmlResultados() {
     const tokens = planTokens(vista.q);
@@ -399,16 +484,16 @@
           ? `<button class="pl-reg is-on" type="button" data-alm="quitar" data-cod="${esc(it.cod)}" title="Quitar de la solicitud">Pedida &#10003;</button>`
           : `<button class="pl-reg" type="button" data-alm="agregar" data-cod="${esc(it.cod)}">Pedir</button>`}</td>
         <td class="pl-code">${planMark(it.cod, tokens)}</td>
-        <td class="alm-desc">${planMark(it.desc, tokens) || "&mdash;"}${it.bajoMin ? ` <span class="pl-tag pl-tag--warn" title="M&iacute;nimo de almac&eacute;n: ${fmt(it.min)}">bajo el m&iacute;nimo</span>` : ""}${it.noMaestro ? ` <span class="pl-tag pl-tag--warn" title="El plan usa este c&oacute;digo pero no aparece en el maestro de art&iacute;culos de almac&eacute;n: puede estar mal copiado o no estar creado. Rev&iacute;salo con almac&eacute;n.">no est&aacute; en el maestro</span>` : ""}${it.m ? `<small class="alm-fam-txt">${esc(it.m.famNombre)}</small>` : ""}</td>
+        <td class="alm-desc">${planMark(it.desc, tokens) || "&mdash;"}${it.pedir ? tagPedir(it) : it.bajoMin ? ` <span class="pl-tag pl-tag--warn" title="M&iacute;nimo de almac&eacute;n: ${fmt(it.min)}">bajo el m&iacute;nimo</span>` : ""}${it.noMaestro ? ` <span class="pl-tag pl-tag--warn" title="El plan usa este c&oacute;digo pero no aparece en el maestro de art&iacute;culos de almac&eacute;n: puede estar mal copiado o no estar creado. Rev&iacute;salo con almac&eacute;n.">no est&aacute; en el maestro</span>` : ""}${it.m ? `<small class="alm-fam-txt">${esc(it.m.famNombre)}</small>` : ""}${lineaCompra(it)}</td>
         <td class="alm-um" data-l="U/M">${esc(it.um) || "&mdash;"}</td>
-        <td class="pl-num alm-exist" data-l="Exist."><strong>${fmt(it.exist)}</strong></td>
+        <td class="pl-num alm-exist" data-l="Exist."><strong>${fmt(it.exist)}</strong>${it.camino > 0 ? `<small class="alm-camino ${it.rq.atrasada ? "is-tarde" : ""}" title="${esc(detalleCamino(it))}">+${fmt(it.camino)} en camino</small>` : ""}</td>
         <td class="alm-donde">${donde(it)}</td>
         <td class="pl-num alm-min ${it.min ? "" : "is-vacio"}" data-l="Mín.">${it.min ? fmt(it.min) : "&mdash;"}</td>
         <td class="alm-uso ${it.equipos.length ? "" : "is-vacio"}" data-l="Usado en">${usadoEn(it)}</td>
       </tr>`).join("");
     const mas = res.length > vista.limite ? `<button class="pl-reg alm-mas" type="button" data-alm="mas">Ver ${Math.min(60, res.length - vista.limite)} m&aacute;s (quedan ${res.length - vista.limite})</button>` : "";
     return `${deEquipo}
-      <p class="pl-soft alm-cuenta">${res.length} ${res.length === 1 ? "art&iacute;culo" : "art&iacute;culos"}</p>
+      <p class="pl-soft alm-cuenta">${res.length} ${res.length === 1 ? "art&iacute;culo" : "art&iacute;culos"}${vista.filtro === "pedir" ? ` · <button class="pl-reg" type="button" data-alm="lista-pedir" title="Excel con lo que falta, para pasarlo a requisici&oacute;n en MiPortal">Descargar la lista</button>` : ""}</p>
       <div class="pl-tablewrap">
         <table class="pl-table alm-table">
           <thead><tr><th></th><th>C&oacute;digo</th><th>Descripci&oacute;n</th><th>U/M</th><th class="pl-num">Exist.</th><th>D&oacute;nde</th><th class="pl-num">M&iacute;n.</th><th>Usado en</th></tr></thead>
@@ -745,6 +830,28 @@
     pintarSolicitud(); pintarResultados();
   }
 
+  // La lista de "Por comprar" en Excel, para pasarla a requisicion en MiPortal.
+  async function descargarListaPedir() {
+    try {
+      const XLSX = await script(CDN.xlsx, "XLSX");
+      const { lista } = buscar();
+      const filas = [["Qué hacer", "Código", "Descripción", "U/M", "Hay", "En camino", "Mínimo", "Consumo/mes", "Días aprov.", "Días que alcanza", "Faltan", "Último pedido", "Familia"]];
+      lista.filter((it) => it.pedir).forEach((it) => {
+        const u = it.rq && it.rq.ultimo;
+        filas.push([it.pedir === "mano" ? "Hacer requisición (N: no se compra solo)" : it.pedir === "minimo" ? `Subir el mínimo a ${it.necesita} o pedirlo a mano (M)` : "Revisar con compras: el MRP no lo pidió (M)", it.cod, it.desc, it.um, Number(it.exist) || 0, it.camino || 0,
+          Number(it.min) || 0, Number(it.consumo) || 0, it.plazo || 0, it.alcanza ?? "", it.falta,
+          u ? `${fechaCorta(u.fp)} · ${u.oc ? "OC " + u.oc : u.rq} · ${u.est}` : "No se ha pedido este año", it.m ? it.m.famNombre : ""]);
+      });
+      const hoja = XLSX.utils.aoa_to_sheet(filas);
+      hoja["!cols"] = [28, 12, 48, 6, 8, 10, 9, 12, 10, 14, 8, 36, 30].map((w) => ({ wch: w }));
+      const libro = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(libro, hoja, "Por comprar");
+      XLSX.writeFile(libro, `Por comprar ${hoy()}.xlsx`);
+    } catch (e) {
+      avisar("error", "No pude armar la lista: " + esc(e.message || e));
+    }
+  }
+
   // Carga perezosa de las librerias: solo hacen falta al leer un Excel o llenar el formato.
   const cargando = {};
   function script(url, global) {
@@ -782,8 +889,13 @@
     vista.subir = { ...(vista.subir || {}), archivo: { name: archivo.name, size: archivo.size } };
     vista.aviso = null; vista.trabajando = `Leyendo ${archivo.name}…`; pintarFuente();
     try {
-      const [XLSX, lector] = await Promise.all([script(CDN.xlsx, "XLSX"), modulo("assets/js/lector-inventario.mjs")]);
+      const [XLSX, lector, lectorReq] = await Promise.all([script(CDN.xlsx, "XLSX"), modulo("assets/js/lector-inventario.mjs"), modulo("assets/js/lector-requisiciones.mjs")]);
       const libro = XLSX.read(await archivo.arrayBuffer(), { type: "array", cellDates: false, raw: true });
+      // ¿Es el RE355 (requisiciones)? Se reconoce por sus columnas.
+      for (const nombre of libro.SheetNames) {
+        const matriz = XLSX.utils.sheet_to_json(libro.Sheets[nombre], { header: 1, defval: "", raw: true });
+        if (lectorReq.esRE355(matriz)) { cargarRE355(lectorReq.analizarRE355(matriz, { hoy: hoy() }), archivo); return; }
+      }
       const codigos = new Set();
       planEquipos().forEach((eq) => (eq.r || []).forEach((r) => { const c = lector.normCod(r.cod); if (c) codigos.add(c); }));
       const { filas, diagnostico: d } = lector.analizarLibro(libro, XLSX.utils, codigos, { nombre: archivo.name });
@@ -825,6 +937,18 @@
       vista.trabajando = "";
       avisar("error", "No pude leer el reporte: " + esc(e.message || e));
     }
+  }
+
+  function cargarRE355(res, archivo) {
+    const R = window.REQUISICIONES;
+    const r = R.cargar(res, { archivo: archivo.name });
+    cache = { inv: null, m: null, lista: [] };
+    vista.trabajando = "";
+    avisar("ok", `Requisiciones de <strong>${esc(archivo.name)}</strong> (RE355, ${esc(fechaCorta(r.desde))} a ${esc(fechaCorta(r.hasta))}) · <strong>${r.abiertas.toLocaleString("es-CO")}</strong> l&iacute;neas sin llegar`
+      + (r.atrasadas ? `, <strong>${r.atrasadas.toLocaleString("es-CO")}</strong> con la entrega vencida` : "")
+      + (r.guardado ? "" : ". <strong>Ojo:</strong> no cupo en la memoria de este navegador"));
+    if (window.CLOUD && window.CLOUD.enabled) R.subirNube().then(() => pintarFuente());
+    pintarResultados();
   }
 
   // Compara el RE356 nuevo con el que había: valor del inventario y lo que
@@ -995,6 +1119,8 @@
       else if (accion === "emitir") emitir();
       else if (accion === "vaciar") { if (window.confirm(borrador.editando ? "¿Descartar la corrección? La solicitud queda como estaba." : "¿Vaciar la solicitud?")) { borrador = nuevoBorrador(borrador); guardarBorrador(); pintarSolicitud(); pintarResultados(); } }
       else if (accion === "maestro") { window.MAESTRO?.cargar({ reintentar: true }); pintarFuente(); }
+      else if (accion === "lista-pedir") descargarListaPedir();
+      else if (accion === "req-nube") window.REQUISICIONES?.subirNube().then(() => pintarFuente());
       else if (accion === "ir-sol") verSol();
       else if (accion === "sol-ocultar") ocultarSol(true);
       else if (accion === "sol-mostrar") verSol();
