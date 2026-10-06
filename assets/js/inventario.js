@@ -59,6 +59,8 @@ window.INVENTARIO = (function () {
     return {
       cod, desc: v.desc || "", exist: v.exist ?? null, ub: v.ub || "", alm: v.alm || "", um: v.um || "",
       min: v.min ?? null, consumo: v.consumo ?? null, pu: v.pu ?? null,
+      // M = compra automatica (el MRP lo pide solo), N = a mano; dias = plazo de compra
+      mrp: v.mrp || "", dias: v.dias ?? null,
       sitios: sitiosDe(v.sitios), actualizado: v.actualizado || "",
     };
   }
@@ -128,8 +130,8 @@ window.INVENTARIO = (function () {
       if (!k || vistos.has(k)) return;
       vistos.add(k);
       const prev = nube.porCodigo[k];
-      const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app", agotado: false };
-      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min || prev.desc !== reg.desc || JSON.stringify(prev.sitios || []) !== reg.sitios) cambios.push(reg);
+      const reg = { cod: k, desc: f.desc || "", exist: f.exist ?? null, ub: f.ub || "", alm: f.alm || "", um: f.um || "", min: f.min ?? null, consumo: f.consumo ?? null, pu: f.pu ?? null, mrp: f.mrp || "", dias: f.dias ?? null, sitios: JSON.stringify(f.sitios || []), actualizado: ahora, fuente: "app", agotado: false };
+      if (!prev || prev.exist !== reg.exist || prev.pu !== reg.pu || prev.ub !== reg.ub || prev.min !== reg.min || prev.consumo !== reg.consumo || prev.mrp !== reg.mrp || prev.dias !== reg.dias || prev.desc !== reg.desc || JSON.stringify(prev.sitios || []) !== reg.sitios) cambios.push(reg);
     });
     // Lo que el reporte no lista se agotó (el RE356 no trae los ceros). Pero si
     // el archivo trae mucho menos que lo que hay en la nube, es un reporte

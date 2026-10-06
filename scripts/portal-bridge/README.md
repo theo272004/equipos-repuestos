@@ -165,6 +165,24 @@ mostrar directamente **0** en esas piezas. No se hizo por defecto porque es una
 conclusión que conviene confirmar con almacén antes de que alguien decida no
 pedir una pieza fiándose de ella.
 
+### Compra automática (M) y requisiciones (RE355)
+
+`CODIGO_MRP` del RE356 dice cómo se repone cada artículo: **M** es compra
+automática (el MRP lo pide solo al bajar del mínimo) y **N** es a mano (alguien
+tiene que hacer la requisición). El puente y la app lo guardan junto con los
+días de aprovisionamiento (`DIAS_APROV`).
+
+Lo que ya está pedido y no ha llegado sale del **RE355** (seguimiento a
+requisiciones). Ese no lo baja el puente: se carga en Almacén con el mismo
+botón de subir, y la app reconoce cuál de los dos reportes es. Con los dos
+cargados, Almacén muestra "en camino" (con la OC y la fecha de entrega, y si
+ya se venció) y el filtro **Por comprar**: lo que no alcanza (bajo el mínimo,
+o que se acaba antes de que llegue una compra nueva) y no tiene requisición
+abierta, separado entre *comprar a mano* (N), *el MRP no lo pidió* (M bajo
+el mínimo) y *mínimo muy bajo* (M sobre el mínimo, pero el mínimo no cubre lo
+que se gasta mientras llega la compra). La
+lista se descarga en Excel para pasarla a MiPortal.
+
 ## Cómo adivina las columnas
 
 No se fía de los títulos. Cada reporte los escribe a su manera (`EXISTENCIA`,

@@ -35,7 +35,8 @@ const b2 = equipos.find((e) => e.c === "17332002");
 const codsB2 = [...new Set(b2.r.map((r) => String(r.cod).trim().toUpperCase()).filter((c) => c && c !== "N/A"))];
 const otros = equipos.filter((e) => e.c !== "17332002").flatMap((e) => e.r.map((r) => String(r.cod).trim().toUpperCase())).filter((c) => c && c !== "N/A" && !codsB2.includes(c)).slice(0, 30);
 const filas = [["CODIGO", "DESCRIPCION", "U/M", "PRECIO UNIT", "CODIGO_MRP", "TAMAÑO_LOTE", "STOCK_MINIMO", "DIAS_APROV", "CONSUMO_MES", "EXISTENCIA", "ALMACEN", "UBICACION"]];
-[...codsB2, ...otros].forEach((c, i) => filas.push([c, `PIEZA ${c}`, "UN", 1000, "N", 1, i % 5 === 0 ? 9 : 1, 30, 0.2, (i % 6) + 1, "R0" + ((i % 3) + 1), `M0${100 + i}`]));
+// Cada 7 codigos uno de compra automatica (M); los demas se piden a mano (N)
+[...codsB2, ...otros].forEach((c, i) => filas.push([c, `PIEZA ${c}`, "UN", 1000, i % 7 === 0 ? "M" : "N", 1, i % 5 === 0 ? 9 : 1, 30, 0.2, (i % 6) + 1, "R0" + ((i % 3) + 1), `M0${100 + i}`]));
 filas.push([codsB2[0], `PIEZA ${codsB2[0]}`, "UN", 1000, "N", 1, 1, 30, 0.2, 7, "R04", "B0204"]); // segundo estante
 const libro = xlsx.utils.book_new();
 xlsx.utils.book_append_sheet(libro, xlsx.utils.aoa_to_sheet(filas), "RE356");
@@ -59,6 +60,22 @@ xlsx.utils.book_append_sheet(libroR, xlsx.utils.aoa_to_sheet(filasR), "RE356R");
 const rutaReR = join(SALIDA, "re356r-prueba.xls");
 xlsx.writeFile(libroR, rutaReR, { bookType: "biff8" });
 
+// --- un RE355 (requisiciones): lo pedido que aun no llega ---
+// todos = codsB2 + otros, en el orden del RE356. i=0 (M, min 9, hay 1) y i=5 (N,
+// min 9, hay 6) estan bajo el minimo. Al de i=5 se le pide lo que falta: deja de
+// estar "por comprar" y pasa a "en camino", con la entrega vencida. El de i=0 no
+// tiene pedido abierto (su ultimo se cerro): el MRP no lo pidio. El de i=10 (N,
+// min 9) no se ha pedido nunca: comprar a mano.
+const todos = [...codsB2, ...otros];
+const filasQ = [["RE355 - SEGUIMIENTO A REQUISICIONES"], ["CODIGO", "DESCRIPCION", "MRP/MPS", "FEC PEDIDO", "No. REQUISICION", "REQUERIDO", "ORDENADO", "RECIBIDO", "U/M", "USUARIO", "INSTAL", "ALMAC", "ESTADO", "ORD COMPRA", "LINEA", "FEC ENTREGA", "CENTRO DE COSTO", "ESTADO LINEA"]];
+filasQ.push([todos[5], "PIEZA", "N", 20260901, "3012345", 5, 5, 0, "UN", "PRUEBA", "FR", "R01", "OC Aprob", "240001", "1", "20260915", "", ""]);
+filasQ.push([todos[0], "PIEZA", "M", 20260301, "PLAN CON OC", 9, 9, 9, "UN", "PRUEBA", "FR", "R01", "OC Aprob", "230001", "1", "20260320", "", "CERRADA"]);
+filasQ.push([todos[3], "PIEZA", "N", 20260920, "3012399", 4, 0, 0, "UN", "PRUEBA", "FR", "R01", "RQ. Sin Aprob", "", "", "", "", ""]);
+const libroQ = xlsx.utils.book_new();
+xlsx.utils.book_append_sheet(libroQ, xlsx.utils.aoa_to_sheet(filasQ), "RE355");
+const rutaReQ = join(SALIDA, "re355-prueba.xls");
+xlsx.writeFile(libroQ, rutaReQ, { bookType: "biff8" });
+
 // --- navegador ---
 const nav = await chromium.launch(process.env.CHROME_PATH ? { executablePath: process.env.CHROME_PATH, args: ["--no-sandbox"] } : {});
 const ctx = await nav.newContext({ viewport: { width: 1440, height: 1000 }, acceptDownloads: true });
@@ -78,13 +95,43 @@ await pg.waitForSelector("#almQ");
 
 // 0. el maestro de articulos llega solo al abrir Almacen
 await pg.waitForFunction(() => window.MAESTRO && window.MAESTRO.listo, null, { timeout: 20000 });
-ok(new RegExp(`Maestro: ${maestro.total.toLocaleString("es-CO")} c`).test(await pg.textContent("#almFuente")), "no dice cuantos codigos trae el maestro");
+ok(new RegExp(`maestro de ${maestro.total.toLocaleString("es-CO")} c`).test(await pg.textContent("#almFuente")), "no dice cuantos codigos trae el maestro");
+
+// Los reportes se cargan en la ventana "Cargar reporte" (boton de subir)
+async function cargarReporte(ruta) {
+  await pg.click('[data-alm="subir-abrir"] >> nth=0');
+  await pg.setInputFiles('input[data-up="archivo"]', ruta);
+  await pg.waitForSelector(".up__msg--ok, .up__msg--error", { timeout: 60000 });
+  const msg = (await pg.textContent(".up__msg")).replace(/\s+/g, " ").trim();
+  await pg.click('.up__pie [data-up="cerrar"]');
+  return msg;
+}
 
 // 1. cargar el reporte
-await pg.setInputFiles('input[data-alm="archivo"]', rutaRe);
-await pg.waitForSelector(".alm-aviso--ok, .alm-aviso--error", { timeout: 60000 });
-const carga = (await pg.textContent(".alm-aviso")).trim();
+const carga = await cargarReporte(rutaRe);
 ok(/\d+ art.culos de re356-prueba/.test(carga), `no cargo el reporte: ${carga}`);
+ok(await pg.locator('[data-alm="filtro"][data-v="pedir"]').count() === 0, "sin RE355 no se sabe que ya esta pedido: no deberia ofrecer \"Por comprar\"");
+
+// 1b. el RE355: lo que viene en camino y lo que falta comprar
+const cargaQ = await cargarReporte(rutaReQ);
+ok(/Requisiciones de .*re355-prueba.* 2 l.neas sin llegar, 1 con la entrega vencida/.test(cargaQ), `no cargo el RE355 o conto mal lo abierto: ${cargaQ}`);
+ok(/requisiciones de hoy \(2 sin llegar\)/.test(await pg.textContent("#almFuente")), "no dice de cuando son las requisiciones");
+await pg.click('[data-alm="filtro"][data-v="camino"]');
+const camino = await pg.$$eval(".alm-table tbody tr", (t) => t.map((x) => x.innerText.replace(/\s+/g, " ")));
+ok(camino.length === 2 && camino.some((f) => f.includes(todos[5]) && /\+5 en camino/.test(f) && /OC 240001/.test(f) && /entrega vencida/.test(f)), `"En camino" no muestra el pedido atrasado de ${todos[5]}: ${camino.join(" | ")}`);
+ok(camino.some((f) => f.includes(todos[3]) && /sin orden de compra/.test(f)), "no dice que la requisicion sin aprobar no tiene orden de compra");
+await pg.click('[data-alm="filtro"][data-v="pedir"]');
+const porComprar = await pg.$$eval(".alm-table tbody tr", (t) => t.map((x) => x.innerText.replace(/\s+/g, " ")));
+const filaDe = (c) => porComprar.find((f) => f.includes(c)) || "";
+ok(/el MRP no lo pidi/.test(filaDe(todos[0])) && /.ltimo pedido 1\/03\/2026 \(cerrada\)/.test(filaDe(todos[0])), `el codigo M bajo el minimo sin pedido no dice que el MRP no lo pidio: ${filaDe(todos[0])}`);
+ok(/comprar a mano/.test(filaDe(todos[10])) && /no se ha pedido este a.o/.test(filaDe(todos[10])), `el codigo N bajo el minimo no dice comprar a mano: ${filaDe(todos[10])}`);
+ok(!filaDe(todos[5]), "lo que ya viene en camino no deberia estar por comprar");
+const [lista] = await Promise.all([pg.waitForEvent("download"), pg.click('[data-alm="lista-pedir"]')]);
+const libroL = xlsx.read(await readFile(await lista.path()));
+const filasL = xlsx.utils.sheet_to_json(libroL.Sheets["Por comprar"], { header: 1 });
+const nComprar = Number((await pg.textContent(".alm-cuenta")).replace(/\D+art.*$/s, "").replace(/\D/g, ""));
+ok(filasL.length === nComprar + 1 && filasL.some((f) => f[1] === todos[10] && /requisici/.test(f[0])), `la lista descargada no trae lo mismo que la pantalla (${filasL.length - 1} vs ${nComprar})`);
+await pg.click('[data-alm="filtro"][data-v="pedir"]');
 
 // 2. buscar por equipo: solo sus piezas, y "2" no confunde con "320"
 await pg.fill("#almQ", "blisteadora 2");
@@ -113,6 +160,7 @@ await pg.fill("#almQ", codsB2[0]);
 await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
 await pg.fill("#almQ", codsB2[1]);
 await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
+await pg.click('#almPasos [data-alm="paso-llenar"]');   // paso 2: llenar la solicitud
 const sitio = await pg.$eval('select[data-alm-linea="0"]', (s) => s.value).catch(() => "");
 ok(sitio === "R04|B0204", `la pieza con dos estantes no salio del que mas tiene: ${sitio}`);
 await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "999");
@@ -149,7 +197,8 @@ ok(hoja.includes(`<c r="A13" s="23" t="inlineStr"><is><t xml:space="preserve">${
 ok(hoja.includes(`<c r="M13" s="8"><v>2</v></c>`), "la cantidad no quedo en M13");
 ok(hoja.includes('<c r="O13" s="18" t="inlineStr"><is><t xml:space="preserve">R04</t>'), "el almacen elegido no quedo en O13");
 ok(!/<c r="A14"[^>]*t="inlineStr"/.test(hoja), "la hoja de R04 trae un renglon de otro almacen");
-ok((dibujo.match(/<a:t>X<\/a:t>/g) || []).length === 1 && (dibujo2.match(/<a:t>X<\/a:t>/g) || []).length === 1, "la casilla de consumo no quedo marcada en las dos hojas");
+// dos X por hoja: la de Consumo y la de la empresa (Farmacapsulas, bajo el logo)
+ok((dibujo.match(/<a:t>X<\/a:t>/g) || []).length === 2 && (dibujo2.match(/<a:t>X<\/a:t>/g) || []).length === 2, "las casillas de consumo y de la empresa no quedaron marcadas en las dos hojas");
 const celda = (h, ref) => (new RegExp(`<c r="${ref}"[^>]*t="inlineStr"><is><t xml:space="preserve">([^<]*)<`).exec(h) || [])[1];
 ok(celda(hoja, "G13") === "CO" && celda(hoja, "H13") === "07", `hoja R04: Trans./Causa = ${celda(hoja, "G13")}/${celda(hoja, "H13")}, esperaba CO/07`);
 ok(celda(hoja2, "A13") === codsB2[1] && celda(hoja2, "O13") === "R02", `hoja R02: renglon 1 = ${celda(hoja2, "A13")}/${celda(hoja2, "O13")}`);
@@ -158,14 +207,19 @@ ok(celda(hoja2, "C8") === "BLISTEADORA #2", "la cabecera no se repitio en la seg
 ok(/^DAD-010A \d{4}-\d{2}-\d{2} BLISTEADORA 2\.xlsx$/.test(descarga.suggestedFilename()), `nombre de archivo raro: ${descarga.suggestedFilename()}`);
 await pg.locator(".ux-toast", { hasText: "Descargado · 2 hojas (R04, R02)" }).waitFor({ timeout: 5000 }).catch(() => ok(false, "al descargar no salio el aviso corto con las dos hojas"));
 ok(await pg.locator(".alm-aviso--ok", { hasText: "Ábrelo en Excel" }).count() === 0, "sigue el aviso largo al descargar");
-ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");
 ok(await pg.locator("#almSolicitud .alm-linea").count() === 0, "la solicitud no se vacio despues de descargarla");
+await pg.evaluate(() => window.goSolicitudes());
+await pg.waitForSelector("#solRoot .alm-hist");
+ok(await pg.$$eval("#solRoot .alm-hist tbody tr", (t) => t.length) === 1, "la solicitud no quedo en el historial");
+await pg.evaluate(() => window.goAlmacen());
 
 // 4b. se saca todo de un almacen si se puede: solo lo que no hay ahi va aparte
 // codsB2[0] esta en R01 (1) y R04 (7); codsB2[3] solo en R01. Sola, la primera
 // sale de R04 (tiene mas), pero con la segunda las dos caben en R01: una hoja.
+await pg.click('#almPasos [data-alm="paso-buscar"]');
 await pg.fill("#almQ", codsB2[0]);
 await pg.click('.alm-table button[data-alm="agregar"] >> nth=0');
+await pg.click('#almPasos [data-alm="paso-llenar"]');
 ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R04|B0204", "sola, la pieza con dos estantes deberia salir del que mas tiene");
 // la segunda, con "Agregar por codigo" dentro de la solicitud
 await pg.fill(".alm-agregar input", codsB2[3]);
@@ -188,19 +242,21 @@ await pg.selectOption('select[data-alm-campo="almacen"]', "R04");
 ok(/R04 \(1\) · R01 \(1\)/.test(await pg.textContent(".alm-hojas").catch(() => "")), `con R04 de principal: ${await pg.textContent(".alm-hojas").catch(() => "(sin aviso)")}`);
 await pg.selectOption('select[data-alm-campo="almacen"]', "");
 ok(await pg.$eval('select[data-alm-linea="0"]', (x) => x.value) === "R01|M0100" && await pg.locator(".alm-hojas").count() === 0, "al volver a automatico no junto todo en R01");
-// 4b. en pantalla ancha la solicitud tiene su propio scroll y se puede esconder
-const lado = await pg.$eval("#almSolicitud", (x) => ({ ov: getComputedStyle(x).overflowY, alto: x.getBoundingClientRect().height }));
-ok(lado.ov === "auto" && lado.alto <= 1000, `la solicitud no se desplaza por su cuenta: ${JSON.stringify(lado)}`);
-await pg.click('[data-alm="sol-ocultar"]');
-ok(!(await pg.isVisible("#almSolicitud")) && /Solicitud\s*2/.test(await pg.textContent("#almSolTab")), "ocultar no escondio la solicitud o la pestaña no dice cuantas piezas lleva");
-ok(await pg.$eval("#almResultados", (x) => x.getBoundingClientRect().width) > 1000, "con la solicitud oculta los resultados no usan todo el ancho");
-await pg.click("#almSolTab");
-ok(await pg.isVisible("#almSolicitud"), "la pestaña no volvio a mostrar la solicitud");
+// 4b. la solicitud es el paso 2: dice cuantas piezas lleva y se puede volver
+// al buscador sin perder nada
+ok(/Llenar solicitud\s*2/.test(await pg.textContent("#almPasos")), "el paso 2 no dice cuantas piezas lleva la solicitud");
+await pg.click('#almPasos [data-alm="paso-buscar"]');
+ok(await pg.isVisible("#almQ") && /2 piezas elegidas/.test(await pg.textContent("#almCarrito")), "al volver al buscador no se ve lo elegido");
+await pg.click('#almPasos [data-alm="paso-llenar"]');
+ok(await pg.locator("#almSolicitud .alm-linea").count() === 2, "al volver al paso 2 se perdieron las piezas");
 pg.once("dialog", (d) => d.accept());
 await pg.click('[data-alm="vaciar"]');
 
 // 4c. una solicitud ya hecha se corrige y se vuelve a descargar: la misma, no otra
-await pg.click('.alm-hist button[data-alm="editar"]');
+await pg.evaluate(() => window.goSolicitudes());
+await pg.click('#solRoot .alm-hist details.alm-mas summary');
+await pg.click('#solRoot .alm-hist button[data-alm="editar"]');
+await pg.waitForSelector("#almSolicitud .alm-linea");
 ok(/Corregir solicitud/.test(await pg.textContent("#almSolicitud")), "no abrio la solicitud para corregirla");
 ok(await pg.locator("#almSolicitud .alm-linea").count() === 2, "la solicitud a corregir no trajo sus dos piezas");
 await pg.fill('input[data-alm-linea="0"][data-k="cant"]', "5");
@@ -211,26 +267,28 @@ const zipC = await JSZip.loadAsync(await readFile(await corregida.path()));
 const hojaC = await zipC.file("xl/worksheets/sheet1.xml").async("string");
 ok(hojaC.includes(`<c r="M13" s="8"><v>5</v></c>`) && !zipC.file("xl/worksheets/sheet2.xml"), "el formato corregido no trae la cantidad nueva o sigue con la hoja de la pieza quitada");
 await pg.locator(".ux-toast", { hasText: "Solicitud corregida" }).waitFor({ timeout: 5000 }).catch(() => ok(false, "no dijo que la solicitud quedo corregida"));
-ok(await pg.$$eval(".alm-hist tbody tr", (t) => t.length) === 1, "corregir creo otra solicitud en vez de reemplazar la misma");
-ok((await pg.textContent(".alm-hist tbody tr td:nth-child(5)")).trim() === "1", "el historial no refleja la pieza quitada");
+await pg.evaluate(() => window.goSolicitudes());
+await pg.waitForSelector("#solRoot .alm-hist");
+ok(await pg.$$eval("#solRoot .alm-hist tbody tr", (t) => t.length) === 1, "corregir creo otra solicitud en vez de reemplazar la misma");
+ok((await pg.textContent("#solRoot .alm-hist tbody tr td:nth-child(5)")).trim() === "1", "el historial no refleja la pieza quitada");
+await pg.evaluate(() => window.goAlmacen());
 
 // 5. todo sobrevive a recargar
 await pg.reload({ waitUntil: "load" });
 await pg.waitForSelector("#almQ");
-ok(/solo en este equipo\) · \d+ art/.test(await pg.textContent(".pl-inv")), "al recargar se perdio el inventario cargado");
+ok(/solo en este equipo\) · \d+ art/.test(await pg.textContent(".alm-fresc")), "al recargar se perdio el inventario cargado");
+ok(/requisiciones de hoy/.test(await pg.textContent(".alm-fresc")), "al recargar se perdieron las requisiciones");
 ok(await pg.$eval('[data-alm-campo="solicitadoPor"]', (i) => i.value) === "PRUEBA", "no recordo quien solicita");
 
 // 5b. un RE356R (sin estantes) cargado encima no borra donde estaba cada cosa
-await pg.setInputFiles('input[data-alm="archivo"]', rutaReR);
-await pg.waitForSelector(".alm-aviso--ok, .alm-aviso--error", { timeout: 60000 });
-const cargaR = (await pg.textContent(".alm-aviso")).replace(/\s+/g, " ");
+const cargaR = await cargarReporte(rutaReR);
 ok(/conserv.{1,2} los de/.test(cargaR), `no aviso que conservo los estantes: ${cargaR}`);
 await pg.fill("#almQ", codsB2[1]);
 const filaR = (await pg.textContent(".alm-table tbody tr")).replace(/\s+/g, " ");
 ok(/R0\d\/M0\d+/.test(filaR) && filaR.includes("11"), `el RE356R borro el estante o no puso la existencia nueva: ${filaR}`);
 
 // 6. Diario: la solicitud aparece sola y se puede dejar una nota
-await pg.click('.sb [data-go="diario"]');
+await pg.evaluate(() => window.goDiario());   // "Calendario", dentro de Turno
 await pg.waitForSelector(".dy-mes");
 ok(await pg.locator(".dy-ev--sol").count() === 1, "la solicitud no aparece en el Diario de hoy");
 await pg.fill('.dy-nota textarea[name="texto"]', "Nota de prueba");

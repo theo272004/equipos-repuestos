@@ -278,10 +278,17 @@ try {
   const NUEVO = "999000111";
   const filasRe = [...cods.slice(0, 18), NUEVO].map((c, i) => [c, `PIEZA ${c}`, "UN", 1000, "N", 1, 1, 30, 0.2, 40 + i, "R01", `M0${200 + i}`]);
   const rutaRe = await re356("re356-nube.xls", filasRe);
+  // Los reportes se cargan en la ventana "Cargar reporte" de Almacén
+  const cargar = async (E, ruta) => {
+    await E.page.click('[data-alm="subir-abrir"] >> nth=0');
+    await E.page.setInputFiles('input[data-up="archivo"]', ruta);
+    await E.page.waitForSelector(".up__msg--ok, .up__msg--error", { timeout: 60000 });
+    await E.page.click('.up__pie [data-up="cerrar"]');
+  };
   await A.page.click('.sb [data-go="almacen"]');
   await A.page.waitForSelector("#almQ");
   w0 = escrituras.length;
-  await A.page.setInputFiles('input[data-alm="archivo"]', rutaRe);
+  await cargar(A, rutaRe);
   await A.page.locator(".pl-inv", { hasText: "Guardado en la nube" }).waitFor({ timeout: 20000 }).catch(() => ok(false, "cargar un RE356 no dijo que quedo guardado en la nube"));
   await calma(A, 800); await calma(B, 800);
   const inv = col("inventario");
@@ -296,10 +303,39 @@ try {
 
   // 11. Un reporte parcial (3 códigos) no da por agotado todo lo demás
   const rutaParcial = await re356("re356-parcial.xls", cods.slice(0, 3).map((c, i) => [c, `PIEZA ${c}`, "UN", 1000, "N", 1, 1, 30, 0.2, 7 + i, "R01", "M0300"]));
-  await A.page.setInputFiles('input[data-alm="archivo"]', rutaParcial);
+  await cargar(A, rutaParcial);
   await A.page.locator(".pl-inv", { hasText: "(parcial)" }).waitFor({ timeout: 20000 }).catch(() => ok(false, "el reporte parcial no se marco como parcial"));
   await calma(A, 800);
   ok(inv.get(cods[10]).exist === 50 && inv.get(NUEVO).exist === 58, "un reporte parcial dejo en 0 lo que no traia");
+
+  // 12. Un RE355 (requisiciones) cargado en A queda en la nube y le llega a B,
+  //     que lo baja una sola vez: al recargar solo lee el sello.
+  const libroQ = xlsx.utils.book_new();
+  xlsx.utils.book_append_sheet(libroQ, xlsx.utils.aoa_to_sheet([
+    ["RE355 - SEGUIMIENTO A REQUISICIONES"],
+    ["CODIGO", "DESCRIPCION", "MRP/MPS", "FEC PEDIDO", "No. REQUISICION", "REQUERIDO", "ORDENADO", "RECIBIDO", "U/M", "USUARIO", "INSTAL", "ALMAC", "ESTADO", "ORD COMPRA", "LINEA", "FEC ENTREGA", "CENTRO DE COSTO", "ESTADO LINEA"],
+    [cods[4], "PIEZA", "M", 20260920, "PLAN CON OC", 6, 6, 0, "UN", "PRUEBA", "FR", "R01", "OC Aprob", "241000", "1", "20261030", "", ""],
+    [cods[5], "PIEZA", "N", 20260301, "3010999", 2, 2, 2, "UN", "PRUEBA", "FR", "R01", "OC Aprob", "230000", "1", "20260320", "", "CERRADA"],
+  ]), "RE355");
+  const rutaQ = join(SALIDA, "re355-nube.xls");
+  xlsx.writeFile(libroQ, rutaQ, { bookType: "biff8" });
+  w0 = escrituras.length; l0 = lecturas.length;
+  await cargar(A, rutaQ);
+  await calma(A, 800); await calma(B, 1200);
+  const meta = col("inventario_meta");
+  ok(meta.get("req-estado") && meta.get("req-estado").partes === 1 && meta.get("req-0") && meta.get("req-0").t.includes(cods[4]), "el RE355 cargado en A no quedo en la nube");
+  const wQ = escritasDe("A", w0).filter((w) => w.col === "inventario_meta" && /^req-/.test(w.id));
+  ok(wQ.length === 2, `subir el RE355 debia escribir 2 documentos (req-0 y req-estado), escribio ${wQ.length}`);
+  const reqB = await lsDe(B, "equipos-requisiciones-v1");
+  ok(reqB && reqB.datos && reqB.datos[cods[4]] && reqB.datos[cods[4]][2].length === 1 && reqB.estado.sello === meta.get("req-estado").actualizado, "el equipo B no recibio las requisiciones que cargo A");
+  ok(await B.page.evaluate((c) => window.REQUISICIONES.de(c).camino, cods[4]) === 6, "en B la pieza pedida no sale con 6 en camino");
+  ok(escritasDe("B", w0).length === 0, "recibir las requisiciones escribio desde B");
+  l0 = lecturas.length;
+  await B.page.reload({ waitUntil: "load" });
+  await calma(B, 800);
+  const reqRecarga = lecturas.slice(l0).filter((l) => l.equipo === "B" && l.col === "inventario_meta").reduce((s, l) => s + l.n, 0);
+  ok(reqRecarga <= 2, `al recargar B volvio a bajar las requisiciones (${reqRecarga} lecturas de inventario_meta)`);
+  console.log(`RE355 cargado en A: ${wQ.length} documentos escritos; B lo recibió`);
 
   console.log(`\nLecturas por equipo: ${[...equipos.keys()].map((n) => `${n} ${leidasDe(n)}`).join(", ")}. Escrituras: ${escrituras.length} (${escrituras.map((w) => `${w.equipo}:${w.col}/${decodeURIComponent(w.id)}`).join(", ")})`);
 } finally {

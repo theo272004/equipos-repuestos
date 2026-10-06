@@ -209,13 +209,15 @@ async function main() {
   // hacen falta para la app; el precio de 5.000 articulos de almacen no, y es
   // informacion de compras de la empresa.
   const subirPrecios = cfg.firebase.subirPrecios === true;
-  const CAMPOS = ["desc", "exist", "ub", "alm", "um", "min", "consumo", "sitios", ...(subirPrecios ? ["pu"] : [])];
+  const CAMPOS = ["desc", "exist", "ub", "alm", "um", "min", "consumo", "mrp", "dias", "sitios", ...(subirPrecios ? ["pu"] : [])];
 
   for (const f of filas) {
     const previo = actual.get(f.cod);
     const nuevo = {
       cod: f.cod, desc: f.desc, exist: f.exist, ub: f.ub, alm: f.alm, um: f.um || "",
       min: f.min, consumo: f.consumo,
+      // M = compra automatica, N = a mano; dias = plazo de aprovisionamiento
+      mrp: f.mrp || "", dias: f.dias ?? null,
       // Firestore REST con campos planos: el desglose por sitio viaja como JSON.
       sitios: JSON.stringify(f.sitios || []),
       ...(subirPrecios ? { pu: f.pu } : {}),
