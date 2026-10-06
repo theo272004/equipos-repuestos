@@ -249,7 +249,7 @@
     raiz.innerHTML = `
       <div class="section-bar">
         <div><h2>${llenar ? (borrador.editando ? "Corregir la solicitud" : "Llenar la solicitud") : "Buscar repuestos"}</h2></div>
-        <div class="section-actions">${llenar ? "" : `<button class="ux-btn ux-btn--icon" type="button" data-alm="subir-abrir" title="Cargar el reporte RE356 de MiPortal" aria-label="Cargar RE356">${window.IC ? window.IC("subir") : "↑"}</button>`}<span id="almPasos">${htmlPasos()}</span></div>
+        <div class="section-actions">${llenar ? "" : htmlBotonesCarga()}<span id="almPasos">${htmlPasos()}</span></div>
       </div>
       <div id="almPedidos">${htmlPedidos()}</div>
       <div class="alm-grid is-paso-${llenar ? "llenar" : "buscar"}" id="almGrid">
@@ -319,14 +319,29 @@
   function pintarFuente() { const f = document.getElementById("almFuente"); if (f) f.innerHTML = htmlFuente(); pintarSubir(); }
 
   // ------------------------------------------------------------------------
-  //  Ventana para subir el RE356: se arrastra el archivo o se busca, y se ve
-  //  cómo va (leyendo, guardando en la nube, listo) sin salir de ella.
+  //  Ventanas para subir los reportes de MiPortal, una por reporte: el RE356
+  //  (repuestos: existencias, estantes, mínimos) y el RE355 (seguimiento a
+  //  requisiciones: lo pedido que no ha llegado). Cada una solo acepta el
+  //  suyo; si llega el otro, dice dónde va en vez de cargarlo. Se arrastra el
+  //  archivo o se busca, y se ve cómo va sin salir de ella.
   // ------------------------------------------------------------------------
   const IC_NUBE = '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 13v8"/><path d="m8 17 4-4 4 4"/><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/></svg>';
   const tamano = (b) => (b >= 1048576 ? `${(b / 1048576).toLocaleString("es-CO", { maximumFractionDigits: 1 })} MB` : `${Math.max(1, Math.round(b / 1024))} KB`);
-  function abrirSubir() {
+  const CARGAS = {
+    re356: { boton: "Repuestos", rep: "RE356", titulo: "Cargar repuestos (RE356)", sub: "Existencias, estantes y mínimos de almacén", ruta: "MiPortal → RE356 → Generar Excel", ico: "repuesto" },
+    re355: { boton: "Requisiciones", rep: "RE355", titulo: "Cargar requisiciones (RE355)", sub: "Seguimiento a requisiciones: lo pedido que aún no llega", ruta: "MiPortal → RE355 → Generar Excel", ico: "reloj" },
+  };
+  function htmlBotonesCarga() {
+    const ic = (n) => (window.IC ? window.IC(n) : "");
+    return Object.entries(CARGAS).map(([tipo, c]) =>
+      `<button class="ux-btn ux-btn--sm alm-carga" type="button" data-alm="subir-abrir" data-tipo="${tipo}" title="${c.titulo}">${ic(c.ico)}${c.boton} <small>${c.rep}</small></button>`).join("");
+  }
+  function abrirSubir(tipo = "re356") {
+    if (!CARGAS[tipo]) tipo = "re356";
     if (document.getElementById("almSubir")) return;
-    vista.subir = { abierto: true, archivo: vista.trabajando ? vista.subir?.archivo : null };
+    const sigue = vista.trabajando && vista.subir && vista.subir.tipo === tipo;
+    vista.subir = { abierto: true, tipo, archivo: sigue ? vista.subir.archivo : null };
+    if (!sigue) vista.aviso = null;
     const caja = document.createElement("div");
     caja.id = "almSubir";
     caja.className = "up-capa";
@@ -337,6 +352,7 @@
       if (!b) return;
       if (b.dataset.up === "cerrar") cerrarSubir();
       else if (b.dataset.up === "subir-nube") guardarEnNube(vista.ultimaCarga || Object.values(window.INVENTARIO.todo || {}));
+      else if (b.dataset.up === "req-nube") window.REQUISICIONES?.subirNube().then(() => pintarFuente());
     });
     caja.addEventListener("change", (e) => { if (e.target.dataset.up === "archivo") { leerArchivo(e.target.files && e.target.files[0]); e.target.value = ""; } });
     caja.addEventListener("dragover", (e) => { const z = e.target.closest(".up__zona"); if (!z) return; e.preventDefault(); z.classList.add("is-encima"); });
@@ -349,7 +365,7 @@
       leerArchivo(e.dataTransfer.files && e.dataTransfer.files[0]);
     });
     document.addEventListener("keydown", escSubir);
-    pintarSubir();
+    pintarFuente();
     setTimeout(() => caja.querySelector(".up__zona")?.focus(), 30);
   }
   function escSubir(e) { if (e.key === "Escape") cerrarSubir(); }
@@ -362,34 +378,40 @@
   function pintarSubir() {
     const caja = document.getElementById("almSubir");
     if (!caja) return;
+    const tipo = (vista.subir && vista.subir.tipo) || "re356";
+    const c = CARGAS[tipo];
     const inv = window.INVENTARIO;
-    const hay = inv && inv.cargado;
-    const f = inv ? inv.frescura() : { estado: "sin-datos", texto: "" };
+    const R = window.REQUISICIONES;
     const a = vista.subir && vista.subir.archivo;
-    const n = vista.nube;
+    // Lo que ya hay de este reporte y cómo va su guardado en la nube
+    const n = tipo === "re355" ? (R ? R.nube : null) : vista.nube;
+    const hay = tipo === "re355" ? !!(R && R.cargado) : !!(inv && inv.cargado);
+    const f = tipo === "re355" ? (R ? R.frescura() : { texto: "" }) : inv ? inv.frescura() : { estado: "sin-datos", texto: "" };
     const fase = vista.trabajando ? "leyendo" : vista.aviso && vista.aviso.tipo === "error" && a ? "error"
       : a && n && n.estado === "subiendo" ? "guardando" : a && vista.aviso && vista.aviso.tipo === "ok" ? "listo" : "";
-    const tarjeta = (tipo, titulo, sub, extra = "", cls = "") => `<div class="up__archivo ${cls}"><span class="up__tipo">${tipo}</span><div class="up__info"><b>${titulo}</b><span>${sub}</span></div>${extra}</div>`;
+    const tarjeta = (t, titulo, sub, extra = "", cls = "") => `<div class="up__archivo ${cls}"><span class="up__tipo">${t}</span><div class="up__info"><b>${titulo}</b><span>${sub}</span></div>${extra}</div>`;
     const enCurso = !a ? "" : tarjeta("XLS", esc(a.name),
-      fase === "leyendo" ? `${tamano(a.size)} · leyendo…` : fase === "guardando" ? "Guardando en la nube…" : fase === "error" ? "No se pudo leer" : `${tamano(a.size)} · listo`,
+      fase === "leyendo" ? `${tamano(a.size)} · leyendo…` : fase === "guardando" ? "Guardando en la nube…" : fase === "error" ? "No se cargó" : `${tamano(a.size)} · listo`,
       fase === "listo" ? '<span class="up__ok">&#10003;</span>' : "",
       `is-${fase || "listo"}`) + (fase === "leyendo" || fase === "guardando" ? '<div class="up__barra"><i></i></div>' : "");
-    const actual = hay && fase !== "leyendo" && fase !== "guardando" && fase !== "listo"
-      ? tarjeta("XLS", "Inventario actual", `${inv.estado.articulos.toLocaleString("es-CO")} artículos · ${esc(f.texto.replace(/^Inventario de /, "actualizado ").replace(/dias/, "días"))}`, "", "is-actual") : "";
+    const actual = !hay || fase === "leyendo" || fase === "guardando" || fase === "listo" ? ""
+      : tipo === "re355"
+        ? tarjeta("XLS", "Requisiciones actuales", `${R.estado.abiertas.toLocaleString("es-CO")} líneas sin llegar · ${esc(f.texto)}${R.estado.archivo ? " · " + esc(R.estado.archivo) : ""}`, "", "is-actual")
+        : tarjeta("XLS", "Inventario actual", `${inv.estado.articulos.toLocaleString("es-CO")} artículos · ${esc(f.texto.replace(/^Inventario de /, "actualizado ").replace(/dias/, "días"))}`, "", "is-actual");
     caja.innerHTML = `
       <div class="up-velo" data-up="cerrar"></div>
-      <section class="up" role="dialog" aria-modal="true" aria-labelledby="upTitulo">
+      <section class="up" role="dialog" aria-modal="true" aria-labelledby="upTitulo" data-tipo="${tipo}">
         <button class="up__x" type="button" data-up="cerrar" aria-label="Cerrar">&times;</button>
-        <header class="up__head"><h3 id="upTitulo">Cargar reporte</h3><p>De MiPortal, en Excel: el RE356 (inventario) o el RE355 (requisiciones)</p></header>
+        <header class="up__head"><h3 id="upTitulo">${c.titulo}</h3><p>${c.sub}</p></header>
         <label class="up__zona" tabindex="0">
           <span class="up__ico">${IC_NUBE}</span>
-          <b>Arrastra el archivo aquí o <u>búscalo</u></b>
-          <small>.xls o .xlsx · MiPortal → RE356 o RE355 → Generar Excel</small>
+          <b>Arrastra el ${c.rep} aquí o <u>búscalo</u></b>
+          <small>.xls o .xlsx · ${c.ruta}</small>
           <input type="file" accept=".xls,.xlsx" data-up="archivo" hidden>
         </label>
         ${enCurso || actual ? `<div class="up__lista">${enCurso}${actual}</div>` : ""}
         ${vista.aviso && a ? `<p class="up__msg up__msg--${vista.aviso.tipo}">${vista.aviso.html}</p>` : ""}
-        ${n && n.estado === "error" ? `<button class="ux-btn ux-btn--sm" type="button" data-up="subir-nube">No se guardó en la nube · reintentar</button>` : ""}
+        ${n && n.estado === "error" ? `<button class="ux-btn ux-btn--sm" type="button" data-up="${tipo === "re355" ? "req-nube" : "subir-nube"}">No se guardó en la nube · reintentar</button>` : ""}
         <footer class="up__pie"><button class="ux-btn ${fase === "listo" ? "ux-btn--primary" : ""}" type="button" data-up="cerrar">${fase === "listo" ? "Listo" : "Cerrar"}</button></footer>
       </section>`;
   }
@@ -410,7 +432,7 @@
     const reqs = !R ? ""
       : R.cargado ? `<span title="Lo pedido que aún no llega (reporte RE355 de MiPortal)${R.estado.archivo ? ": " + esc(R.estado.archivo) : ""}">requisiciones ${esc(R.frescura().texto)} (${R.estado.abiertas.toLocaleString("es-CO")} sin llegar)</span>`
         + (rn.estado === "subiendo" ? " <span class=\"pl-inv pl-inv--nube\">guardando en la nube&hellip;</span>" : rn.estado === "error" ? ` <button class="pl-reg alm-nube-error" type="button" data-alm="req-nube" title="${esc(rn.motivo || "")}">Requisiciones sin guardar en la nube &middot; reintentar</button>` : "")
-      : hay ? `<button class="ux-link" type="button" data-alm="subir-abrir" title="Con el RE355 se ve lo que ya está pedido y lo que falta pedir">carga el RE355</button> para ver qu&eacute; viene en camino` : "";
+      : hay ? `<button class="ux-link" type="button" data-alm="subir-abrir" data-tipo="re355" title="Con el RE355 se ve lo que ya está pedido y lo que falta pedir">carga el RE355</button> para ver qu&eacute; viene en camino` : "";
     const trabajando = vista.trabajando ? `<p class="alm-aviso alm-aviso--info" role="status">${esc(vista.trabajando)}</p>` : "";
     const n = vista.nube;
     const nube = !n ? ""
@@ -427,7 +449,7 @@
     return `
       <p class="alm-fresc">${hay
         ? `<i class="alm-fuente__dot is-${f.estado}"></i>Existencias del RE356 ${esc(f.texto.replace(/^Inventario /, "").replace(/dias/, "días"))} · ${inv.estado.articulos.toLocaleString("es-CO")} artículos`
-        : `<i class="alm-fuente__dot"></i>Sin reporte RE356: <button class="ux-link" type="button" data-alm="subir-abrir">cárgalo</button> para ver existencias y precios`}${maestro ? ` · ${maestro}` : ""}${reqs ? ` · ${reqs}` : ""}${extras ? ` <span class="alm-fresc__acc">${extras}</span>` : ""}</p>
+        : `<i class="alm-fuente__dot"></i>Sin reporte RE356: <button class="ux-link" type="button" data-alm="subir-abrir" data-tipo="re356">cárgalo</button> para ver existencias y precios`}${maestro ? ` · ${maestro}` : ""}${reqs ? ` · ${reqs}` : ""}${extras ? ` <span class="alm-fresc__acc">${extras}</span>` : ""}</p>
       ${trabajando}${aviso}`;
   }
 
@@ -938,11 +960,20 @@
     try {
       const [XLSX, lector, lectorReq] = await Promise.all([script(CDN.xlsx, "XLSX"), modulo("assets/js/lector-inventario.mjs"), modulo("assets/js/lector-requisiciones.mjs")]);
       const libro = XLSX.read(await archivo.arrayBuffer(), { type: "array", cellDates: false, raw: true });
-      // ¿Es el RE355 (requisiciones)? Se reconoce por sus columnas.
+      // Cada ventana carga solo su reporte. El RE355 se reconoce por sus
+      // columnas; si llega a la ventana que no es, se dice dónde va.
+      const tipo = (vista.subir && vista.subir.tipo) || "re356";
+      let re355 = null;
       for (const nombre of libro.SheetNames) {
         const matriz = XLSX.utils.sheet_to_json(libro.Sheets[nombre], { header: 1, defval: "", raw: true });
-        if (lectorReq.esRE355(matriz)) { cargarRE355(lectorReq.analizarRE355(matriz, { hoy: hoy() }), archivo); return; }
+        if (lectorReq.esRE355(matriz)) { re355 = matriz; break; }
       }
+      if (tipo === "re355") {
+        if (!re355) throw new Error("este archivo no es el RE355 (seguimiento a requisiciones). Si es el de existencias, cárgalo con el botón «Repuestos RE356».");
+        cargarRE355(lectorReq.analizarRE355(re355, { hoy: hoy() }), archivo);
+        return;
+      }
+      if (re355) throw new Error("este archivo es el RE355 (seguimiento a requisiciones), no el de repuestos. Cárgalo con el botón «Requisiciones RE355».");
       const codigos = new Set();
       planEquipos().forEach((eq) => (eq.r || []).forEach((r) => { const c = lector.normCod(r.cod); if (c) codigos.add(c); }));
       const { filas, diagnostico: d } = lector.analizarLibro(libro, XLSX.utils, codigos, { nombre: archivo.name });
@@ -982,7 +1013,7 @@
       pintarResultados(); pintarSolicitud();
     } catch (e) {
       vista.trabajando = "";
-      avisar("error", "No pude leer el reporte: " + esc(e.message || e));
+      avisar("error", "No cargué el archivo: " + esc(e.message || e));
     }
   }
 
@@ -1252,7 +1283,7 @@
         window.SHELL?.toast(`Trans. y código causa iguales en los ${borrador.lineas.length} renglones`);
       }
       else if (accion === "subir-nube") guardarEnNube(vista.ultimaCarga || Object.values(window.INVENTARIO.todo || {}));
-      else if (accion === "subir-abrir") abrirSubir();
+      else if (accion === "subir-abrir") abrirSubir(b.dataset.tipo);
       else if (accion === "paso-buscar") ponerPaso("buscar");
       else if (accion === "paso-llenar") ponerPaso("llenar");
       else if (accion === "hist-estado") { vista.he = b.dataset.v; vista.histTodo = false; renderHist(); }
