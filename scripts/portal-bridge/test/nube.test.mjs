@@ -278,9 +278,9 @@ try {
   const NUEVO = "999000111";
   const filasRe = [...cods.slice(0, 18), NUEVO].map((c, i) => [c, `PIEZA ${c}`, "UN", 1000, "N", 1, 1, 30, 0.2, 40 + i, "R01", `M0${200 + i}`]);
   const rutaRe = await re356("re356-nube.xls", filasRe);
-  // Los reportes se cargan en la ventana "Cargar reporte" de Almacén
-  const cargar = async (E, ruta) => {
-    await E.page.click('[data-alm="subir-abrir"] >> nth=0');
+  // Cada reporte tiene su botón y su ventana en Almacén: Repuestos (RE356) y Requisiciones (RE355)
+  const cargar = async (E, ruta, tipo = "re356") => {
+    await E.page.click(`.section-actions [data-alm="subir-abrir"][data-tipo="${tipo}"]`);
     await E.page.setInputFiles('input[data-up="archivo"]', ruta);
     await E.page.waitForSelector(".up__msg--ok, .up__msg--error", { timeout: 60000 });
     await E.page.click('.up__pie [data-up="cerrar"]');
@@ -320,7 +320,7 @@ try {
   const rutaQ = join(SALIDA, "re355-nube.xls");
   xlsx.writeFile(libroQ, rutaQ, { bookType: "biff8" });
   w0 = escrituras.length; l0 = lecturas.length;
-  await cargar(A, rutaQ);
+  await cargar(A, rutaQ, "re355");
   await calma(A, 800); await calma(B, 1200);
   const meta = col("inventario_meta");
   ok(meta.get("req-estado") && meta.get("req-estado").partes === 1 && meta.get("req-0") && meta.get("req-0").t.includes(cods[4]), "el RE355 cargado en A no quedo en la nube");

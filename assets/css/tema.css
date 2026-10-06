@@ -673,6 +673,8 @@ body.app .alm-sol-tab, body.app .alm-ir-sol { display: none !important; }
 
 /* Los pasos, arriba a la derecha */
 body.app .alm-pasos { display: inline-flex; align-items: center; gap: 6px; }
+/* Los dos botones de carga: Repuestos (RE356) y Requisiciones (RE355) */
+body.app .alm-carga small { color: var(--mute); font-size: 11px; font-weight: 600; letter-spacing: .02em; }
 body.app .alm-pasos button { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 12px 0 6px; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--panel); color: var(--mute); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; }
 body.app .alm-pasos button i { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 6px; background: var(--well); font-size: 12px; font-style: normal; }
 body.app .alm-pasos button b { min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: var(--accent); color: #fff; font-size: 11.5px; line-height: 20px; }

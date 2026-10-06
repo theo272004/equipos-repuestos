@@ -97,9 +97,9 @@ await pg.waitForSelector("#almQ");
 await pg.waitForFunction(() => window.MAESTRO && window.MAESTRO.listo, null, { timeout: 20000 });
 ok(new RegExp(`maestro de ${maestro.total.toLocaleString("es-CO")} c`).test(await pg.textContent("#almFuente")), "no dice cuantos codigos trae el maestro");
 
-// Los reportes se cargan en la ventana "Cargar reporte" (boton de subir)
-async function cargarReporte(ruta) {
-  await pg.click('[data-alm="subir-abrir"] >> nth=0');
+// Cada reporte tiene su boton y su ventana: "Repuestos" (RE356) y "Requisiciones" (RE355)
+async function cargarReporte(ruta, tipo = "re356") {
+  await pg.click(`.section-actions [data-alm="subir-abrir"][data-tipo="${tipo}"]`);
   await pg.setInputFiles('input[data-up="archivo"]', ruta);
   await pg.waitForSelector(".up__msg--ok, .up__msg--error", { timeout: 60000 });
   const msg = (await pg.textContent(".up__msg")).replace(/\s+/g, " ").trim();
@@ -112,8 +112,16 @@ const carga = await cargarReporte(rutaRe);
 ok(/\d+ art.culos de re356-prueba/.test(carga), `no cargo el reporte: ${carga}`);
 ok(await pg.locator('[data-alm="filtro"][data-v="pedir"]').count() === 0, "sin RE355 no se sabe que ya esta pedido: no deberia ofrecer \"Por comprar\"");
 
+// 1a. cada ventana carga solo su reporte: cruzados, dicen donde van y no cargan nada
+const cruzado1 = await cargarReporte(rutaReQ, "re356");
+ok(/es el RE355/.test(cruzado1) && /Requisiciones RE355/.test(cruzado1), `el RE355 en la ventana de repuestos no dijo donde va: ${cruzado1}`);
+ok(!(await pg.evaluate(() => window.REQUISICIONES.cargado)), "el RE355 entro por la ventana de repuestos");
+const cruzado2 = await cargarReporte(rutaRe, "re355");
+ok(/no es el RE355/.test(cruzado2) && /Repuestos RE356/.test(cruzado2), `el RE356 en la ventana de requisiciones no dijo donde va: ${cruzado2}`);
+ok(/\d+ art.culos/.test(await pg.textContent("#almFuente")), "un archivo rechazado borro el inventario");
+
 // 1b. el RE355: lo que viene en camino y lo que falta comprar
-const cargaQ = await cargarReporte(rutaReQ);
+const cargaQ = await cargarReporte(rutaReQ, "re355");
 ok(/Requisiciones de .*re355-prueba.* 2 l.neas sin llegar, 1 con la entrega vencida/.test(cargaQ), `no cargo el RE355 o conto mal lo abierto: ${cargaQ}`);
 ok(/requisiciones de hoy \(2 sin llegar\)/.test(await pg.textContent("#almFuente")), "no dice de cuando son las requisiciones");
 await pg.click('[data-alm="filtro"][data-v="camino"]');
