@@ -500,18 +500,11 @@ body.app .alm-linea__de select { width: 100%; max-width: none; min-height: 36px;
 body.app .alm-linea__sitio { color: var(--ink); font-family: var(--mono); font-size: 12.5px; font-weight: 500; }
 body.app .alm-linea__valor { font-size: 14px; font-weight: 650; white-space: nowrap; font-variant-numeric: tabular-nums; }
 body.app .alm-linea .alm-pasa { margin: -4px 0 0; padding: 6px 10px; border-radius: 9px; background: var(--bad-t); color: var(--bad-d); font-size: 12.5px; font-weight: 600; }
-/* Centro de costo por renglón: plegado, casi siempre es el de la solicitud */
-body.app .alm-linea__mas > summary { display: inline-flex; align-items: center; gap: 4px; width: max-content; color: var(--mute); font-size: 12.5px; font-weight: 600; cursor: pointer; list-style: none; }
-body.app .alm-linea__mas > summary::-webkit-details-marker { display: none; }
-body.app .alm-linea__mas > summary::before { content: "+"; font-size: 14px; }
-body.app .alm-linea__mas[open] > summary::before { content: "–"; }
-body.app .alm-linea__mas > summary:hover { color: var(--ink); }
-body.app .alm-linea__mas[open] > summary { margin-bottom: 8px; }
-body.app .alm-linea__cc { display: grid; gap: 3px; color: var(--mute); font-size: 11px; font-weight: 600; }
-body.app .alm-linea__cc select { width: 100%; min-height: 34px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
-body.app .alm-igual { align-self: end; min-height: 34px; padding: 0 10px; border: 1px dashed var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink-2); font: inherit; font-size: 12.5px; font-weight: 600; white-space: nowrap; cursor: pointer; }
+/* Nombre del centro de costo del código causa del renglón */
+body.app .alm-linea__ccnom { overflow: hidden; color: var(--mute); font-size: 11px; font-weight: 500; white-space: nowrap; text-overflow: ellipsis; }
+body.app .alm-igual { align-self: start; margin-top: 17px; min-height: 34px; padding: 0 10px; border: 1px dashed var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink-2); font: inherit; font-size: 12.5px; font-weight: 600; white-space: nowrap; cursor: pointer; }
 body.app .alm-igual:hover { border-style: solid; background: var(--well); }
-body.app .alm-linea__extra { display: grid; grid-template-columns: 90px minmax(0, 160px) auto; gap: 8px; justify-content: start; }
+body.app .alm-linea__extra { display: grid; grid-template-columns: 90px minmax(0, 200px) auto; gap: 8px; align-items: start; justify-content: start; }
 body.app .alm-linea__extra label { display: grid; gap: 3px; min-width: 0; color: var(--mute); font-size: 11px; font-weight: 600; }
 body.app .alm-linea__extra input, body.app .alm-linea__extra select { width: 100%; min-width: 0; min-height: 34px; padding: 0 8px; border: 1px solid var(--line-2); border-radius: 9px; background: var(--panel); color: var(--ink); font: inherit; font-size: 13px; }
 body.app .alm-linea__extra input:focus, body.app .alm-linea__extra select:focus, body.app .alm-linea__de select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(44, 91, 255, 0.12); }

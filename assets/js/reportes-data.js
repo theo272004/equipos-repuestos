@@ -8,7 +8,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-01",
+    "fechaTurno": "2026-07-31",
     "equipos": [
       {
         "equipo": "Marzio",
@@ -94,7 +94,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 302 2801867",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-02",
+    "fechaTurno": "2026-08-01",
     "equipos": [
       {
         "equipo": "MARZIO 2",
@@ -116,8 +116,8 @@ window.REPORTES_TURNO = [
     "hora": "09:48",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
-    "fechaTurno": "2026-08-02",
+    "turno": "Noche",
+    "fechaTurno": "2026-08-01",
     "equipos": [
       {
         "equipo": "•BIN",
@@ -256,7 +256,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-02",
     "hora": "19:52",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-02",
     "equipos": [
@@ -467,7 +467,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-03",
+    "fechaTurno": "2026-08-02",
     "equipos": [
       {
         "equipo": "[ÁREA DE SÓLIDOS]",
@@ -623,7 +623,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-03",
+    "fechaTurno": "2026-08-02",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -680,7 +680,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-03",
     "hora": "20:04",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-03",
     "equipos": [
@@ -842,7 +842,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-04",
+    "fechaTurno": "2026-08-03",
     "equipos": [
       {
         "equipo": "CL2",
@@ -994,7 +994,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-04",
+    "fechaTurno": "2026-08-03",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -1108,9 +1108,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-05",
     "hora": "07:37",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-05",
+    "fechaTurno": "2026-08-04",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -1172,7 +1172,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-05",
+    "fechaTurno": "2026-08-04",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -1278,9 +1278,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-06",
     "hora": "07:43",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-06",
+    "fechaTurno": "2026-08-05",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -1341,7 +1341,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-06",
+    "fechaTurno": "2026-08-05",
     "equipos": [
       {
         "equipo": "FABRICACIÓN #1",
@@ -1647,7 +1647,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-06",
     "hora": "19:50",
     "autor": "+57 301 7510864",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-06",
     "equipos": [
@@ -1715,7 +1715,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-07",
+    "fechaTurno": "2026-08-06",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -1749,7 +1749,7 @@ window.REPORTES_TURNO = [
     "autor": "BLADIMIR",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-07",
+    "fechaTurno": "2026-08-06",
     "equipos": [
       {
         "equipo": "Marzio 1",
@@ -1945,7 +1945,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-08",
+    "fechaTurno": "2026-08-07",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -1982,7 +1982,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-08",
+    "fechaTurno": "2026-08-07",
     "equipos": [
       {
         "equipo": "Envasado 3",
@@ -2074,7 +2074,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-08",
     "hora": "20:09",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-08",
     "equipos": [
@@ -2279,7 +2279,7 @@ window.REPORTES_TURNO = [
     "autor": "Jhon",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-09",
+    "fechaTurno": "2026-08-08",
     "equipos": [
       {
         "equipo": "CL3",
@@ -2427,7 +2427,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-09",
     "hora": "09:09",
     "autor": "+57 301 7510864",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
     "fechaTurno": "2026-08-08",
     "equipos": [
@@ -2641,7 +2641,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-10",
+    "fechaTurno": "2026-08-09",
     "equipos": [
       {
         "equipo": "CL2",
@@ -2794,7 +2794,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-10",
+    "fechaTurno": "2026-08-09",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -2866,9 +2866,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-11",
     "hora": "07:38",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-11",
+    "fechaTurno": "2026-08-10",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -2931,7 +2931,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-11",
+    "fechaTurno": "2026-08-10",
     "equipos": [
       {
         "equipo": "BIN",
@@ -3032,9 +3032,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-12",
     "hora": "08:08",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-12",
+    "fechaTurno": "2026-08-11",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -3095,7 +3095,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-12",
+    "fechaTurno": "2026-08-11",
     "equipos": [
       {
         "equipo": "ENVASADO#2",
@@ -3493,7 +3493,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 302 2801867",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-13",
+    "fechaTurno": "2026-08-12",
     "equipos": [
       {
         "equipo": "Bosch",
@@ -3591,7 +3591,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-13",
+    "fechaTurno": "2026-08-12",
     "equipos": [
       {
         "equipo": "Gb100",
@@ -3693,7 +3693,7 @@ window.REPORTES_TURNO = [
     "autor": "BLADIMIR",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-14",
+    "fechaTurno": "2026-08-13",
     "equipos": [
       {
         "equipo": "Bin",
@@ -3919,7 +3919,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-14",
     "hora": "20:05",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-14",
     "equipos": [
@@ -3986,7 +3986,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-15",
+    "fechaTurno": "2026-08-14",
     "equipos": [
       {
         "equipo": "CL2",
@@ -4137,7 +4137,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-15",
     "hora": "19:31",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-15",
     "equipos": [
@@ -4202,7 +4202,7 @@ window.REPORTES_TURNO = [
     "autor": "Jhon",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-16",
+    "fechaTurno": "2026-08-15",
     "equipos": [
       {
         "equipo": "[ÁREA DE SÓLIDOS]",
@@ -4390,9 +4390,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-16",
     "hora": "08:48",
     "autor": "+57 301 7510864",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-16",
+    "fechaTurno": "2026-08-15",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -4441,7 +4441,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-16",
     "hora": "21:23",
     "autor": "+57 312 7212941",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-16",
     "equipos": [
@@ -4618,7 +4618,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-17",
+    "fechaTurno": "2026-08-16",
     "equipos": [
       {
         "equipo": "BIN",
@@ -4903,7 +4903,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-17",
     "hora": "21:32",
     "autor": "+57 312 7212941",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-17",
     "equipos": [
@@ -4943,9 +4943,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-18",
     "hora": "07:33",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-18",
+    "fechaTurno": "2026-08-17",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -5008,7 +5008,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-18",
+    "fechaTurno": "2026-08-17",
     "equipos": [
       {
         "equipo": "NJP 2",
@@ -5128,7 +5128,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-18",
     "hora": "21:09",
     "autor": "+57 301 7510864",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-18",
     "equipos": [
@@ -5189,7 +5189,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-19",
     "hora": "07:55",
     "autor": "+57 312 7212941",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
     "fechaTurno": "2026-08-18",
     "equipos": [
@@ -5223,7 +5223,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-19",
+    "fechaTurno": "2026-08-18",
     "equipos": [
       {
         "equipo": "•BIN",
@@ -5555,7 +5555,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-20",
     "hora": "19:55",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-20",
     "equipos": [
@@ -5764,7 +5764,7 @@ window.REPORTES_TURNO = [
     "autor": "Jhon",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-21",
+    "fechaTurno": "2026-08-20",
     "equipos": [
       {
         "equipo": "CL2",
@@ -5913,8 +5913,8 @@ window.REPORTES_TURNO = [
     "hora": "14:30",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
-    "fechaTurno": "2026-08-21",
+    "turno": "Noche",
+    "fechaTurno": "2026-08-20",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -5967,7 +5967,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-21",
     "hora": "19:37",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-21",
     "equipos": [
@@ -6196,7 +6196,7 @@ window.REPORTES_TURNO = [
     "autor": "Jair Mesa",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-22",
+    "fechaTurno": "2026-08-21",
     "equipos": [
       {
         "equipo": "[ÁREA DE SÓLIDOS]",
@@ -6385,7 +6385,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-22",
+    "fechaTurno": "2026-08-21",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -6509,9 +6509,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-23",
     "hora": "07:45",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-23",
+    "fechaTurno": "2026-08-22",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -6573,7 +6573,7 @@ window.REPORTES_TURNO = [
     "autor": "Diego Temporal",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-23",
+    "fechaTurno": "2026-08-22",
     "equipos": [
       {
         "equipo": "BIN",
@@ -6859,9 +6859,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-24",
     "hora": "07:35",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-24",
+    "fechaTurno": "2026-08-23",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -6923,7 +6923,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-24",
+    "fechaTurno": "2026-08-23",
     "equipos": [
       {
         "equipo": "BIN",
@@ -7273,7 +7273,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-25",
+    "fechaTurno": "2026-08-24",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -7321,7 +7321,7 @@ window.REPORTES_TURNO = [
     "autor": "BLADIMIR",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-25",
+    "fechaTurno": "2026-08-24",
     "equipos": [],
     "novedades": [
       "BOSCH: Se recibe equipo Bosch para hacer seguimiento en montaje por alarma de accionamiento de estación de polvo. Se evidencian choque entre disco y pines eyectores.",
@@ -7421,7 +7421,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-26",
+    "fechaTurno": "2026-08-25",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -7463,7 +7463,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-26",
+    "fechaTurno": "2026-08-25",
     "equipos": [],
     "novedades": [
       "Blíster 2 lipogras Mt1100 supreflux Envasado 2 supreflux Cl4 ácido valpropico Envasado 3 fluticasona Huttiln 600 nifedipino Njp2 esomeprazol Njp1 multi vitamínico Pilot dimoflax Njp3 omeprazol Mb cronofen Integra Losartan Marzio 1 esomed Rimek Trimebutina + siméticona Huttiln 400  flextril Cb550 gelimed Bosch nifedipino Blíster 8 nifedipino",
@@ -7486,7 +7486,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-26",
     "hora": "19:56",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-26",
     "equipos": [
@@ -7660,7 +7660,7 @@ window.REPORTES_TURNO = [
     "autor": "Jhon",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-27",
+    "fechaTurno": "2026-08-26",
     "equipos": [
       {
         "equipo": "CL2",
@@ -7810,7 +7810,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-27",
     "hora": "19:39",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-27",
     "equipos": [
@@ -8012,7 +8012,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 302 3194066",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-08-28",
+    "fechaTurno": "2026-08-27",
     "equipos": [
       {
         "equipo": "CL2",
@@ -8165,7 +8165,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-28",
+    "fechaTurno": "2026-08-27",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -8237,9 +8237,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-29",
     "hora": "07:44",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-29",
+    "fechaTurno": "2026-08-28",
     "equipos": [
       {
         "equipo": "Blister 3",
@@ -8302,7 +8302,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-08-29",
+    "fechaTurno": "2026-08-28",
     "equipos": [
       {
         "equipo": "BIN",
@@ -8443,7 +8443,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-29",
     "hora": "21:24",
     "autor": "+57 312 7212941",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-08-29",
     "equipos": [
@@ -8518,7 +8518,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-08-30",
+    "fechaTurno": "2026-08-29",
     "equipos": [
       {
         "equipo": "BIN",
@@ -8861,7 +8861,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-08-31",
+    "fechaTurno": "2026-08-30",
     "equipos": [
       {
         "equipo": "Gb 100",
@@ -8888,7 +8888,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-08-31",
+    "fechaTurno": "2026-08-30",
     "equipos": [
       {
         "equipo": "•BIN",
@@ -9051,7 +9051,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-01",
+    "fechaTurno": "2026-08-31",
     "equipos": [
       {
         "equipo": "Gb100",
@@ -9084,7 +9084,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-01",
+    "fechaTurno": "2026-08-31",
     "equipos": [
       {
         "equipo": "Cl 4",
@@ -9158,7 +9158,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-01",
     "hora": "19:35",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-01",
     "equipos": [
@@ -9374,7 +9374,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-02",
+    "fechaTurno": "2026-09-01",
     "equipos": [
       {
         "equipo": "CL3",
@@ -9524,7 +9524,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-02",
+    "fechaTurno": "2026-09-01",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -9686,7 +9686,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-02",
     "hora": "20:14",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-02",
     "equipos": [
@@ -9752,7 +9752,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-03",
+    "fechaTurno": "2026-09-02",
     "equipos": [
       {
         "equipo": "CL3",
@@ -9967,9 +9967,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-04",
     "hora": "07:35",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-04",
+    "fechaTurno": "2026-09-03",
     "equipos": [
       {
         "equipo": "Blister 5",
@@ -10031,7 +10031,7 @@ window.REPORTES_TURNO = [
     "autor": "Diego Temporal",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-04",
+    "fechaTurno": "2026-09-03",
     "equipos": [
       {
         "equipo": "BIN",
@@ -10206,7 +10206,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-09-05",
+    "fechaTurno": "2026-09-04",
     "equipos": [
       {
         "equipo": "BIN",
@@ -10503,7 +10503,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-06",
+    "fechaTurno": "2026-09-05",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -10533,8 +10533,8 @@ window.REPORTES_TURNO = [
     "hora": "09:34",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
-    "fechaTurno": "2026-09-06",
+    "turno": "Grupo 1 · Noche",
+    "fechaTurno": "2026-09-05",
     "equipos": [
       {
         "equipo": "CL2",
@@ -10736,7 +10736,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-07",
+    "fechaTurno": "2026-09-06",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -10764,7 +10764,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-07",
     "hora": "19:35",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-07",
     "equipos": [
@@ -10970,7 +10970,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-08",
+    "fechaTurno": "2026-09-07",
     "equipos": [
       {
         "equipo": "CL3",
@@ -11121,7 +11121,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-08",
+    "fechaTurno": "2026-09-07",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -11186,7 +11186,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-08",
     "hora": "20:04",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-08",
     "equipos": [
@@ -11247,7 +11247,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-09",
+    "fechaTurno": "2026-09-08",
     "equipos": [
       {
         "equipo": "CL3",
@@ -11588,9 +11588,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-10",
     "hora": "07:53",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-10",
+    "fechaTurno": "2026-09-09",
     "equipos": [
       {
         "equipo": "Blister 5",
@@ -11647,7 +11647,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-10",
+    "fechaTurno": "2026-09-09",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -11936,7 +11936,7 @@ window.REPORTES_TURNO = [
     "autor": "Diego Temporal",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-09-11",
+    "fechaTurno": "2026-09-10",
     "equipos": [
       {
         "equipo": "BIN",
@@ -12075,9 +12075,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-11",
     "hora": "08:10",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-11",
+    "fechaTurno": "2026-09-10",
     "equipos": [
       {
         "equipo": "Blister 5",
@@ -12135,7 +12135,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
     "turno": "Día",
-    "fechaTurno": "2026-09-09",
+    "fechaTurno": "2026-09-11",
     "equipos": [
       {
         "equipo": "CL3",
@@ -12335,7 +12335,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-12",
+    "fechaTurno": "2026-09-11",
     "equipos": [
       {
         "equipo": "Blíster 7",
@@ -12429,7 +12429,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-12",
+    "fechaTurno": "2026-09-11",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -12671,7 +12671,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-13",
     "hora": "20:02",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-13",
     "equipos": [
@@ -12877,7 +12877,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-14",
+    "fechaTurno": "2026-09-13",
     "equipos": [
       {
         "equipo": "CL2",
@@ -13033,7 +13033,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-14",
+    "fechaTurno": "2026-09-13",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -13086,7 +13086,7 @@ window.REPORTES_TURNO = [
     "hora": "19:58",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 1 · Día",
     "fechaTurno": "2026-09-14",
     "equipos": [
       {
@@ -13230,7 +13230,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-14",
     "hora": "20:01",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-14",
     "equipos": [
@@ -13291,7 +13291,7 @@ window.REPORTES_TURNO = [
     "autor": "Jhon",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-15",
+    "fechaTurno": "2026-09-14",
     "equipos": [],
     "novedades": [
       "ESTUCHADORA INTEGRA 320: Se cambia palitos de arrastre (3), se ubica tiempo mecánico para  corregir entrada de blíster en estuches, equipo operativo.",
@@ -13319,7 +13319,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-15",
+    "fechaTurno": "2026-09-14",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -13496,7 +13496,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-16",
     "hora": "07:53",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
     "fechaTurno": "2026-09-15",
     "equipos": [
@@ -13556,7 +13556,7 @@ window.REPORTES_TURNO = [
     "autor": "Diego Temporal",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-09-16",
+    "fechaTurno": "2026-09-15",
     "equipos": [
       {
         "equipo": "BIN",
@@ -13879,7 +13879,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-17",
+    "fechaTurno": "2026-09-16",
     "equipos": [
       {
         "equipo": "BIN",
@@ -13972,9 +13972,9 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-17",
     "hora": "07:52",
     "autor": "@alfonsoorozco10",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-17",
+    "fechaTurno": "2026-09-16",
     "equipos": [
       {
         "equipo": "Blister 5",
@@ -14047,7 +14047,7 @@ window.REPORTES_TURNO = [
     "hora": "19:58",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 1 · Día",
     "fechaTurno": "2026-09-17",
     "equipos": [],
     "novedades": [
@@ -14132,7 +14132,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-18",
+    "fechaTurno": "2026-09-17",
     "equipos": [
       {
         "equipo": "Blíster 3",
@@ -14167,7 +14167,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-18",
+    "fechaTurno": "2026-09-17",
     "equipos": [
       {
         "equipo": "Cl2",
@@ -14470,7 +14470,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 302 2801867",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-19",
+    "fechaTurno": "2026-09-18",
     "equipos": [
       {
         "equipo": "•BLISTER 3",
@@ -14613,7 +14613,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-19",
     "hora": "16:55",
     "autor": "Sergio Vergara Electricista",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Día",
     "fechaTurno": "2026-09-19",
     "equipos": [
@@ -14690,7 +14690,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-20",
+    "fechaTurno": "2026-09-19",
     "equipos": [],
     "novedades": [
       "*ESTUCHADORA INTEGRA:* Cambio de formato, Llamado porque volanta (apertura banda alimentadora, blísters), no accionaba en ninguno de los sentidos, se procede a desarmar sistemas, encontrándose alojamiento (piñón angular de movimiento) partido, se da apertura de banda de forma manual, se comienza a armar nuevamente, se entrega a turno entrante continuar con alineación de ambas bandas.",
@@ -14887,7 +14887,7 @@ window.REPORTES_TURNO = [
     "autor": "Jhon",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-21",
+    "fechaTurno": "2026-09-20",
     "equipos": [
       {
         "equipo": "CL4",
@@ -15033,7 +15033,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-21",
+    "fechaTurno": "2026-09-20",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -15259,7 +15259,7 @@ window.REPORTES_TURNO = [
     "autor": "Lucho",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-09-22",
+    "fechaTurno": "2026-09-21",
     "equipos": [
       {
         "equipo": "BIN",
@@ -15361,7 +15361,7 @@ window.REPORTES_TURNO = [
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-22",
+    "fechaTurno": "2026-09-21",
     "equipos": [],
     "novedades": [
       "de la blíster 5  Se atiende llamado para realizar limpieza de pieza donde va la numeración de lote",
@@ -15526,7 +15526,7 @@ window.REPORTES_TURNO = [
     "autor": "Diego Temporal",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-09-23",
+    "fechaTurno": "2026-09-22",
     "equipos": [
       {
         "equipo": "BIN",
@@ -15887,7 +15887,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-24",
+    "fechaTurno": "2026-09-23",
     "equipos": [
       {
         "equipo": "Blíster ácido acetilsacilico",
@@ -15920,7 +15920,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-24",
+    "fechaTurno": "2026-09-23",
     "equipos": [
       {
         "equipo": "Njp2",
@@ -16165,7 +16165,7 @@ window.REPORTES_TURNO = [
     "autor": "Brayan",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-25",
+    "fechaTurno": "2026-09-24",
     "equipos": [
       {
         "equipo": "•BLISTER 3",
@@ -16415,7 +16415,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 302 3194066",
     "sede": "Sede 4",
     "turno": "Noche",
-    "fechaTurno": "2026-09-26",
+    "fechaTurno": "2026-09-25",
     "equipos": [
       {
         "equipo": "[ÁREA DE SÓLIDOS]",
@@ -16611,7 +16611,7 @@ window.REPORTES_TURNO = [
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-26",
+    "fechaTurno": "2026-09-25",
     "equipos": [
       {
         "equipo": "Blíster 5",
@@ -16828,7 +16828,7 @@ window.REPORTES_TURNO = [
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
     "turno": "Grupo 1 · Noche",
-    "fechaTurno": "2026-09-27",
+    "fechaTurno": "2026-09-26",
     "equipos": [
       {
         "equipo": "CL4",
@@ -17159,7 +17159,7 @@ window.REPORTES_TURNO = [
     "autor": "Diego Temporal",
     "sede": "Sede 4",
     "turno": "Grupo 2 · Noche",
-    "fechaTurno": "2026-09-28",
+    "fechaTurno": "2026-09-27",
     "equipos": [
       {
         "equipo": "BIN",
@@ -17305,7 +17305,7 @@ window.REPORTES_TURNO = [
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-28",
+    "fechaTurno": "2026-09-27",
     "equipos": [
       {
         "equipo": "Marzio",
@@ -17490,8 +17490,8 @@ window.REPORTES_TURNO = [
     "hora": "07:44",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Día",
-    "fechaTurno": "2026-09-29",
+    "turno": "Noche",
+    "fechaTurno": "2026-09-28",
     "equipos": [
       {
         "equipo": "Buen",
@@ -17597,7 +17597,7 @@ window.REPORTES_TURNO = [
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
     "turno": "Noche",
-    "fechaTurno": "2026-09-29",
+    "fechaTurno": "2026-09-28",
     "equipos": [],
     "novedades": [
       "Se realiza cambio de driver para lámpara en área blanca de mezclador en v",
@@ -17852,8 +17852,8 @@ window.REPORTES_TURNO = [
     "hora": "13:22",
     "autor": "BLADIMIR",
     "sede": "Sede 4",
-    "turno": "Día",
-    "fechaTurno": "2026-09-30",
+    "turno": "Noche",
+    "fechaTurno": "2026-09-29",
     "equipos": [
       {
         "equipo": "Ms235",
@@ -18134,6 +18134,158 @@ window.REPORTES_TURNO = [
     "texto": "Reporte turno \nSede 2 \n\nBlíster 5: propanolol\nGb100 : esomeprazol \nCD 40 : flectadol\nCentro líquido 1: dimeticona.\n\nNovedades \nSe realiza limpieza y lubricación a troquel de la gb100.\n\nSe instalan discos nuevo en v y en L en selladora de centro líquido 1.\n\nSe modifica estructura de tomas de 220v , en área de fabricación 2.\n\nCentro líquido 1.\nSe ajustan los tiempos de dosificación , seguia inyectando cuando giraba el disco, se deja equipo en funcionamiento.\n\nRecubrimiento 9\nSe invierte giro a bombo de 100kg."
   },
   {
+    "id": "rt-20261001-1026",
+    "fecha": "2026-10-01",
+    "hora": "10:26",
+    "autor": "+57 301 2263014",
+    "sede": "Sede 4",
+    "turno": "Noche",
+    "fechaTurno": "2026-09-30",
+    "equipos": [
+      {
+        "equipo": "•BLISTER 3",
+        "producto": "FERBIN"
+      },
+      {
+        "equipo": "•CL4",
+        "producto": "ACIDO VALPROICO"
+      },
+      {
+        "equipo": "•BLISTER2",
+        "producto": "NEUROMED"
+      },
+      {
+        "equipo": "•MT",
+        "producto": "SUPERFLUX"
+      },
+      {
+        "equipo": "•LIQUIDOS 3",
+        "producto": "FLUTICAZONA"
+      },
+      {
+        "equipo": "•CL2",
+        "producto": "NAPROCENO"
+      },
+      {
+        "equipo": "•EMBASADORA 2",
+        "producto": "ACETAMINOFÉN"
+      },
+      {
+        "equipo": "•BIN",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•BOSH",
+        "producto": "NIFEDIPINO"
+      },
+      {
+        "equipo": "•NJP2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "LANZOPRAZOL"
+      },
+      {
+        "equipo": "•PILOTBLAB HUYTLIN40",
+        "producto": "INUFLASH"
+      },
+      {
+        "equipo": "•SCHMUKER",
+        "producto": "FLEXTRIL"
+      },
+      {
+        "equipo": "•NJP3",
+        "producto": "NIFEDIPINO"
+      },
+      {
+        "equipo": "•BLISTER #9",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "•BLISTER 6 MB432",
+        "producto": "CONGESTEL"
+      },
+      {
+        "equipo": "•INTEGRA320",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•BLISTER #8",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•EVO",
+        "producto": "CRONOFEN"
+      },
+      {
+        "equipo": "•MARZIO #4",
+        "producto": "MYOSOP"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "FESTRIL"
+      },
+      {
+        "equipo": "•R200",
+        "producto": "DÑTRIMEBUTINA"
+      },
+      {
+        "equipo": "•R400",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "DIFEDIPINO"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "TRIMEBUTINA"
+      },
+      {
+        "equipo": "FETTE 2020/1",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "•FETTE 2020/2",
+        "producto": "ACETAMINOFÉN"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•FETTE 1010",
+        "producto": "EVOFLOSACINA"
+      },
+      {
+        "equipo": "•FETTE2021",
+        "producto": "FLOJRXETINOL"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "GELIMED"
+      }
+    ],
+    "novedades": [
+      "* Se repara filtro de HUTTLIN 400",
+      "- Se instala bomba en  trasvase líquido 2 30 min",
+      "envase 2 no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min",
+      "* Se repara puerta de esclusa de personal de la blisteadora Evo",
+      "* Se cuadran estera de fabricación de liquido y de pesaje 1",
+      "* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9",
+      "Marzio 4 Se atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h",
+      "Etiquetadora 2 Se atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h",
+      "Blíster 3 Se atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno",
+      "*Nota* Se daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
+    ],
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICAZONA\n*•CL2 : NAPROCENO \n*•EMBASADORA 2: ACETAMINOFÉN \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE\n*•BOSH: NIFEDIPINO\n*•NJP2 : DISPONIBLE \n*•NJP1 : LANZOPRAZOL\n*•PILOTBLAB HUYTLIN40: INUFLASH\n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGESTEL\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DISPONIBLE \n*•EVO: CRONOFEN\n*•MARZIO #4 : MYOSOP\n*•HUTTLIN 600: FESTRIL\n*•R200: DÑTRIMEBUTINA\n*•R400: DISPONIBLE \n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \nFETTE 2020/1: ESOMEPRAZOL \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: EVOFLOSACINA \n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n____________________\n       NOVEDADES\n\n* Se repara filtro de HUTTLIN 400 \n\n- Se instala bomba en  trasvase líquido 2 \n 30 min \n\nenvase 2 \n no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min\n\n* Se repara puerta de esclusa de personal de la blisteadora Evo \n\n* Se cuadran estera de fabricación de liquido y de pesaje 1 \n\n* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9 \n\nMarzio 4\nSe atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h \n\nEtiquetadora 2 \nSe atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h \n\nBlíster 3 \nSe atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno \n\n*Nota* \nSe daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
+  },
+  {
     "id": "rt-20261001-1135",
     "fecha": "2026-10-01",
     "hora": "11:35",
@@ -18284,5 +18436,991 @@ window.REPORTES_TURNO = [
       "*Nota* Se daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
     ],
     "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICAZONA\n*•CL2 : NAPROCENO \n*•EMBASADORA 2: ACETAMINOFÉN \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE\n*•BOSH: NIFEDIPINO\n*•NJP2 : DISPONIBLE \n*•NJP1 : LANZOPRAZOL\n*•PILOTBLAB HUYTLIN40: INUFLASH\n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGESTEL\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DISPONIBLE \n*•EVO: CRONOFEN\n*•MARZIO #4 : MYOSOP\n*•HUTTLIN 600: FESTRIL\n*•R200: DÑTRIMEBUTINA\n*•R400: DISPONIBLE \n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \nFETTE 2020/1: ESOMEPRAZOL \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: EVOFLOSACINA \n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n____________________\n       NOVEDADES\n\n* Se repara filtro de HUTTLIN 400 \n\n- Se instala bomba en  trasvase líquido 2 \n 30 min \n\nenvase 2 \n no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min\n\n* Se repara puerta de esclusa de personal de la blisteadora Evo \n\n* Se cuadran estera de fabricación de liquido y de pesaje 1 \n\n* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9 \n\nMarzio 4\nSe atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h \n\nEtiquetadora 2 \nSe atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h \n\nBlíster 3 \nSe atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno \n\n*Nota* \nSe daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
+  },
+  {
+    "id": "rt-20261001-1932",
+    "fecha": "2026-10-01",
+    "hora": "19:32",
+    "autor": "Lucho",
+    "sede": "Sede 4",
+    "turno": "Día",
+    "fechaTurno": "2026-10-01",
+    "equipos": [
+      {
+        "equipo": "NJP 2",
+        "producto": "ensayo"
+      },
+      {
+        "equipo": "NJP 1",
+        "producto": "multivitamínic"
+      },
+      {
+        "equipo": "NJP 3",
+        "producto": "lansoprazol termina lote"
+      },
+      {
+        "equipo": "CTL4",
+        "producto": "ácido valproico"
+      },
+      {
+        "equipo": "Blíster 3",
+        "producto": "ferbin"
+      },
+      {
+        "equipo": "Envasadora3",
+        "producto": "fluticasona"
+      },
+      {
+        "equipo": "Envasadora2",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "MS 235",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "Naproflax"
+      },
+      {
+        "equipo": "MB432",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "Integra",
+        "producto": "Fluoxetina"
+      },
+      {
+        "equipo": "Blíster 8",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "MB",
+        "producto": "EVO Acetaminofén"
+      },
+      {
+        "equipo": "Marzio5",
+        "producto": "myosop"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Montelukast"
+      },
+      {
+        "equipo": "Huttlin 600",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "Marzio4",
+        "producto": "airomed"
+      },
+      {
+        "equipo": "Rimed",
+        "producto": "sertralina"
+      },
+      {
+        "equipo": "Huttlin 400",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "Fette",
+        "producto": "2020#1 esomeprazol"
+      }
+    ],
+    "novedades": [
+      "Se realiza doblez a 8 mallas para granulador",
+      "Se modifica filtro para planta agua, el acople del filtro nuevo era de un diámetro mayor, se corta acople del filtro anterior y se pega al nuevo.",
+      "M432 se atiende llamado por perdida de paso y reventaba pvc, se encuentra un pin de la plancha de formado doblado y desgastado, se anula el pin y se rellena con plastilina de formato y queda equipo operativo.",
+      "BOSHC se realiza instalación y cambio de cable múltiple par de 24 hilos, se marcan para evidenciar dónde iba cada uno y así mismo se conectan nuevamente, se cambia también cable de alimentación de la pantalla HMI 24v desde la pantalla hasta el tablero principal del cuarto técnico.",
+      "NOTA: se deja máquina encendida, queda pendiente ingresar usuario y contraseña para realizar pruebas y verificar que todo haya quedado ok.  No sé pudo hacer la verificación porque no había operario y no tengo conocimiento del usuario y contraseña de la máquina",
+      "Blíster 8 se atiende llamado por malformación por perdida de paso y por qué estaba la banda pequeña frenada queda ok total tiempo 2H",
+      "Marzio5 se atiende llamado por qué el brazo se salía del dosificador se recorta el brazo y también por qué el codificado borroso total tiempo 2.5h",
+      "NJP 2 se ayuda a operador en cuadre de ensayo",
+      "Blíster 9 se atiende llamado por por perdida de paso se toma el paso por qué el operador no sabe hacerlo se le explica"
+    ],
+    "texto": "Buenos noches \nReporte de turno Día \nSD4\n\nNJP 2 ensayo \n\nNJP 1 multivitamínic \n\nNJP 3 lansoprazol termina lote \n\nCTL4 ácido valproico \n\nBlíster 3 ferbin \n\nEnvasadora3 fluticasona \n\nEnvasadora2 cronofen \n\nMS 235 flextril \n\nBlíster 9 Naproflax\n\nMB432 omeprazol \n\nIntegra Fluoxetina \n\nBlíster 8 zintergia \n\nMB EVO Acetaminofén \n\nMarzio5 myosop\n\nR400 Montelukast \n\nHuttlin 600 flextril \n\nMarzio4 airomed \n\nRimed sertralina\n\nHuttlin 400 Nifedipino \n\nFette 2020#1 esomeprazol\n\nNota \n\nSe realiza doblez a 8 mallas para granulador \n\nSe modifica filtro para planta agua, el acople del filtro nuevo era de un diámetro mayor, se corta acople del filtro anterior y se pega al nuevo.\n\nM432 se atiende llamado por perdida de paso y reventaba pvc, se encuentra un pin de la plancha de formado doblado y desgastado, se anula el pin y se rellena con plastilina de formato y queda equipo operativo.\n\nBOSHC \nse realiza instalación y cambio de cable múltiple par de 24 hilos, se marcan para evidenciar dónde iba cada uno y así mismo se conectan nuevamente, se cambia también cable de alimentación de la pantalla HMI 24v desde la pantalla hasta el tablero principal del cuarto técnico.\n\nNOTA: se deja máquina encendida, queda pendiente ingresar usuario y contraseña para realizar pruebas y verificar que todo haya quedado ok.  No sé pudo hacer la verificación porque no había operario y no tengo conocimiento del usuario y contraseña de la máquina \n\nBlíster 8 se atiende llamado por malformación por perdida de paso y por qué estaba la banda pequeña frenada queda ok total tiempo 2H \n\nMarzio5 se atiende llamado por qué el brazo se salía del dosificador se recorta el brazo y también por qué el codificado borroso total tiempo 2.5h\n\nNJP 2 se ayuda a operador en cuadre de ensayo\n\nBlíster 9 se atiende llamado por por perdida de paso se toma el paso por qué el operador no sabe hacerlo se le explica"
+  },
+  {
+    "id": "rt-20261002-0653",
+    "fecha": "2026-10-02",
+    "hora": "06:53",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Noche",
+    "fechaTurno": "2026-10-01",
+    "equipos": [
+      {
+        "equipo": "Blister 5",
+        "producto": "NAPROXENO 250MG"
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "CENTRO LÍQUIDO  1",
+        "producto": "lIPOGRAS. (ESPERANDO MAETRIA PRIMA )"
+      },
+      {
+        "equipo": "SE",
+        "producto": "APOYA EN MONTAJE Y AJUSTE  B5"
+      },
+      {
+        "equipo": "SE",
+        "producto": "LUBRICAN RODAMIENTO LINEALES EN GB 100"
+      }
+    ],
+    "novedades": [],
+    "texto": "Reporte Turno ( *NOCHE* )\nSede 2\n\n *Blister 5* : NAPROXENO 250MG\n\n *GB 100* : ESOMEPRAZOL\n\n *CENTRO LÍQUIDO*  1: lIPOGRAS. (ESPERANDO MAETRIA PRIMA )\n\nSE APOYA EN MONTAJE Y AJUSTE  B5\n\nSE LUBRICAN RODAMIENTO LINEALES EN GB 100"
+  },
+  {
+    "id": "rt-20261002-0814",
+    "fecha": "2026-10-02",
+    "hora": "08:14",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Grupo 1 · Noche",
+    "fechaTurno": "2026-10-01",
+    "equipos": [
+      {
+        "equipo": "CL4",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "CL3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CL2",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "Stick Pack 4",
+        "producto": "Superflux"
+      },
+      {
+        "equipo": "Blíster 2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Blíster 3",
+        "producto": "Ferbin"
+      },
+      {
+        "equipo": "Envasadora 3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Envasadora 2",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "Bin",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Bosch",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "NJP1",
+        "producto": "Multivitaminico"
+      },
+      {
+        "equipo": "NJP2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "Prazed"
+      },
+      {
+        "equipo": "Integra 320",
+        "producto": "Fluoxetina"
+      },
+      {
+        "equipo": "MB 451",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "Naproflash forte"
+      },
+      {
+        "equipo": "Blíster 8",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "Schmucker",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "Marzio 5",
+        "producto": "Myosop"
+      },
+      {
+        "equipo": "Marzio 4",
+        "producto": "Airomed"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Montelukast + Desloratadina"
+      },
+      {
+        "equipo": "R200",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Huttlin 600",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "Huttlin 400",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "Huttlin 40",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "Bombo 300",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Rimek",
+        "producto": "sintrelina"
+      },
+      {
+        "equipo": "Fette 1010",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "Fette 2020 2",
+        "producto": "Acetaminofén"
+      },
+      {
+        "equipo": "Fette 2020 1",
+        "producto": "Esomeprazol"
+      }
+    ],
+    "novedades": [
+      "*BLISTER 9:* Se corrige filtración en blíster y se ubican tiempos mecánicos perdidos, (pin de encoder suel)",
+      "*T: 180mn aprox*",
+      "*ENVASADO 2:* LLamado por falla en cilindro dosificador, el mismo fue corregido, equipo operativo.",
+      "*T:60 mn aprox*",
+      "*MT1100:* Llamados durante todo el turno por diferentes fallas, problemas con la cuba(mal conectado), se corrige dosis en sachet #1, falla en foto centrado de laminado, queda detenido, se entrega al turno entrante continuar revisando.",
+      "*BOSCH:* Se realiza seguimiento a equipo, trabajando S/N.",
+      "*ETIQUETADORA 2:* LLamado por impresión de etiquetas desalineadas, se nivela cabezal y rodillos, equipo operativo.",
+      "*T:30 mn aprox*",
+      "*PILOT LAB:* LLamado por bajo volumen entrda de aire, se revisan equipos en piso técnico OK, Se sugiere limpiar bolw, equipo operativo.",
+      "*T:120 mn aprox*",
+      "*CL 2:* Se reparan roscas M6 , bandeja de solución equipo operativo.",
+      "*T:60 mn*"
+    ],
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-10-01\n           sede 4\n \n*CL4:* Limpieza \n*CL3:* Disponible\n*CL2:* Limpieza \n*Stick Pack 4:* Superflux\n*Blíster 2:* Disponible \n*Blíster 3:* Ferbin\n*Envasadora 3:* Disponible \n*Envasadora 2:* Limpieza \n*Bin:* Disponible \n*Bosch:* Nifedipino \n*NJP1:* Multivitaminico \n*NJP2:* Disponible \n*NJP3:* Limpieza \n*MB 432:* Prazed\n*Integra 320:* Fluoxetina \n*MB 451:* cronofen\n*Blíster 9:* Naproflash forte\n*Blíster 8:* zintergia \n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Myosop\n*Marzio 4:* Airomed\n*R400:* Montelukast + Desloratadina\n*R200:* Disponible \n*Huttlin 600:* Flextril C\n*Huttlin 400:* Nifedipino \n*Huttlin 40:* Dimoflax\n*Bombo 300:* Disponible \n*Bombo 300:* Disponible \n*Rimek:*  sintrelina\n*Fette 1010:* Limpieza\n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Esomeprazol\n*NOVEDADES:* \n*BLISTER 9:* Se corrige filtración en blíster y se ubican tiempos mecánicos perdidos, (pin de encoder suel)\n*T: 180mn aprox*\n*ENVASADO 2:* LLamado por falla en cilindro dosificador, el mismo fue corregido, equipo operativo.\n*T:60 mn aprox*\n*MT1100:* Llamados durante todo el turno por diferentes fallas, problemas con la cuba(mal conectado), se corrige dosis en sachet #1, falla en foto centrado de laminado, queda detenido, se entrega al turno entrante continuar revisando.\n*BOSCH:* Se realiza seguimiento a equipo, trabajando S/N.\n*ETIQUETADORA 2:* LLamado por impresión de etiquetas desalineadas, se nivela cabezal y rodillos, equipo operativo.\n*T:30 mn aprox*\n*PILOT LAB:* LLamado por bajo volumen entrda de aire, se revisan equipos en piso técnico OK, Se sugiere limpiar bolw, equipo operativo.\n*T:120 mn aprox*\n*CL 2:* Se reparan roscas M6 , bandeja de solución equipo operativo.\n*T:60 mn*"
+  },
+  {
+    "id": "rt-20261002-2201",
+    "fecha": "2026-10-02",
+    "hora": "22:01",
+    "autor": "Diego Temporal",
+    "sede": "Sede 4",
+    "turno": "Grupo 2 · Día",
+    "fechaTurno": "2026-10-02",
+    "equipos": [
+      {
+        "equipo": "BIN",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "BOSHC",
+        "producto": "Nifedipino 12hrs"
+      },
+      {
+        "equipo": "NJP #2",
+        "producto": "Pruebas"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "lansoprazol"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "SCMUKER",
+        "producto": "Flextril c"
+      },
+      {
+        "equipo": "BLISTER #9",
+        "producto": "Naproflash"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "Prazed"
+      },
+      {
+        "equipo": "INTEGRA",
+        "producto": "Fluoxetina"
+      },
+      {
+        "equipo": "BLISTER #8",
+        "producto": "Sintergia"
+      },
+      {
+        "equipo": "MARCHESINI EVO",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "R200",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "R400",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "MARZIO #4",
+        "producto": "Myosop"
+      },
+      {
+        "equipo": "MARZIO #5",
+        "producto": "Airomed"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "Sertralina"
+      },
+      {
+        "equipo": "FETTE 2020-2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "levofloxacina"
+      },
+      {
+        "equipo": "FETTE",
+        "producto": "2020-1 Montaje Esomeprazol 40"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "congestex kids jbe"
+      },
+      {
+        "equipo": "ENVASADORA #3",
+        "producto": "Montaje fluticaxona"
+      },
+      {
+        "equipo": "CLIQUIDO #2",
+        "producto": "inspección naproxeno"
+      },
+      {
+        "equipo": "CLIQUIDO #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CLIQUIDO #4",
+        "producto": "Ácido valproico"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "BLISTER #2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "BLISTER #3",
+        "producto": "Ferbin"
+      }
+    ],
+    "novedades": [],
+    "texto": "REPORTE MAQUINAS TURNO #2\n8:00 a 20:00\nSOLIDOS\nBIN: Nifedipino \nBOSHC: Nifedipino 12hrs\nNJP #2: Pruebas \nNJP #1: Disponible \nNJP #3: lansoprazol\nPILOT LAB: Limpieza \nSCMUKER: Flextril c\nBLISTER #9: Naproflash\nMB 432: Prazed \nINTEGRA: Fluoxetina\nBLISTER #8: Sintergia\nMARCHESINI EVO: cronofen \nR200: Esomeprazol \nR400: limpieza\nMARZIO #4 Myosop\nMARZIO #5 Airomed\nCB 550: Disponible \nHUTTLIN 600: Flextril C\nHUTTLIN 400: Nifedipino \nRIMEK: Sertralina\nFETTE 2020-2: acetaminofén\nFETTE 1010: levofloxacina\nFETTE 2020-1 Montaje Esomeprazol 40\n\nLÍQUIDO \nENVASADORA #2: congestex kids jbe\nENVASADORA #3: Montaje fluticaxona\nCLIQUIDO #2: inspección naproxeno \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Ácido valproico \nMT 1100:  Supreflux \nBLISTER #2: Disponible \nBLISTER #3: Ferbin"
+  },
+  {
+    "id": "rt-20261003-0819",
+    "fecha": "2026-10-03",
+    "hora": "08:19",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 4",
+    "turno": "Noche",
+    "fechaTurno": "2026-10-02",
+    "equipos": [
+      {
+        "equipo": "BLISTER 5",
+        "producto": "NAPROXENO"
+      },
+      {
+        "equipo": "(TERMINO)",
+        "producto": ""
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "CL 1",
+        "producto": "DIMETICONA"
+      }
+    ],
+    "novedades": [
+      "SE APOYA EN MONTAJE DE ALIMENTADOR  DE B5",
+      "SE LIMPIA LA CORROSIÓN DE TANQUE MOVIL DE MICROGRANULO",
+      "PENDIENTE: SE RECIBE LLAMADO DEL OPERADOR DE SOLIDO ( HORNO) LA PUERTA NO CIERRA LOS PINES DE SEGURIDAD SE DEVUELVEN Y NO AJUSTAN PARA EL CIERRE"
+    ],
+    "texto": "TURNO NOCHE \n *BLISTER* 5: NAPROXENO \n(TERMINO)\n\n *GB 100*: ESOMEPRAZOL \n\n *CL* 1: DIMETICONA \n\nNOVEDADES: \nSE APOYA EN MONTAJE DE ALIMENTADOR  DE B5\n\nSE LIMPIA LA CORROSIÓN DE TANQUE MOVIL DE MICROGRANULO\n\nPENDIENTE: \nSE RECIBE LLAMADO DEL OPERADOR DE SOLIDO ( HORNO)\nLA PUERTA NO CIERRA LOS PINES DE SEGURIDAD SE DEVUELVEN Y NO AJUSTAN PARA EL CIERRE"
+  },
+  {
+    "id": "rt-20261003-0823",
+    "fecha": "2026-10-03",
+    "hora": "08:23",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Noche",
+    "fechaTurno": "2026-10-02",
+    "equipos": [
+      {
+        "equipo": "[ÁREA DE SÓLIDOS]",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bin",
+        "producto": "colágeno"
+      },
+      {
+        "equipo": ">Bosch",
+        "producto": "nifedipino 12 horas"
+      },
+      {
+        "equipo": ">NJP2",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">NJP1",
+        "producto": "multivitaminico"
+      },
+      {
+        "equipo": ">NJP3",
+        "producto": "nifedipino 24 horas"
+      },
+      {
+        "equipo": ">MB 432",
+        "producto": "multivitaminico"
+      },
+      {
+        "equipo": ">Blíster #8",
+        "producto": "sintergia"
+      },
+      {
+        "equipo": ">Integra 320",
+        "producto": "fluxetina"
+      },
+      {
+        "equipo": ">Estuchadora#1",
+        "producto": "fluxetina"
+      },
+      {
+        "equipo": ">Blíster #9",
+        "producto": "colttrin"
+      },
+      {
+        "equipo": ">MB 451",
+        "producto": "ferbim"
+      },
+      {
+        "equipo": ">Estuchadora#2",
+        "producto": "ferbim"
+      },
+      {
+        "equipo": ">Schmucker",
+        "producto": "flextril"
+      },
+      {
+        "equipo": ">Marzio#4",
+        "producto": "airomed"
+      },
+      {
+        "equipo": ">Marzio#5",
+        "producto": "limpieza y montaje"
+      },
+      {
+        "equipo": ">R400",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">Sólidos",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">R200",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">CB 550",
+        "producto": "gelimed"
+      },
+      {
+        "equipo": ">Fette 1010",
+        "producto": "levotiroxina"
+      },
+      {
+        "equipo": ">fette 2020#1",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": ">Fette 2020#2",
+        "producto": ""
+      },
+      {
+        "equipo": ">Rimex",
+        "producto": "sertralina"
+      },
+      {
+        "equipo": ">Pilot lab",
+        "producto": "multivitaminico"
+      },
+      {
+        "equipo": ">Huttlin 400",
+        "producto": "nifedipino"
+      },
+      {
+        "equipo": ">Huttlin 600",
+        "producto": "flextril"
+      },
+      {
+        "equipo": ">Bombo 300#1",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bombo 300 #2",
+        "producto": ""
+      },
+      {
+        "equipo": "[ÁREA DE LÍQUIDOS",
+        "producto": "]"
+      },
+      {
+        "equipo": ">CL #2",
+        "producto": ""
+      },
+      {
+        "equipo": ">CL #3",
+        "producto": ""
+      },
+      {
+        "equipo": ">CL #4",
+        "producto": ""
+      },
+      {
+        "equipo": ">Blíster #2",
+        "producto": ""
+      },
+      {
+        "equipo": ">tangues de fabricacion liquidos",
+        "producto": ""
+      },
+      {
+        "equipo": ">Tangue de fabricación centro líquido",
+        "producto": ""
+      },
+      {
+        "equipo": ">Envasadora #2",
+        "producto": "congestex"
+      },
+      {
+        "equipo": ">Etiquetadora#2",
+        "producto": "congestex"
+      },
+      {
+        "equipo": ">Envasadora#3",
+        "producto": ""
+      },
+      {
+        "equipo": ">Etiquetadora#3",
+        "producto": ""
+      },
+      {
+        "equipo": ">Marchesine MT1100",
+        "producto": "superflux"
+      },
+      {
+        "equipo": ">Blíster #3",
+        "producto": "ferbin"
+      }
+    ],
+    "novedades": [
+      "*BLISTER 9:* Se cambian pines de expulsión (plancha de formado), para corregir atascamiento de alveolos, se ubica paso de PVC y sellado, equipo operativo.",
+      "*T:90mn aprox*",
+      "*ESTUCHADORA INTEGRA:* Se cambian palitos de arrastre partidos, equipo operativo.",
+      "*T: 60 mn aprox*",
+      "*BLÍSTEADORA 3:* Plancha de formato #1, formación, presenta fisura, ocasionando fuga de agua, se lleva a taller para corregirla con sellante, queda pendiente montar y verificar fuga.",
+      "*ESTUCHADORA EVO:* Se apoya a en cuadre para formato de Ferbin, se habilitan los 3 empujadores, equipo en cuadre (Blíster).",
+      "*Marzio 5:* limpieza llamado porque el equipo se disparaba se revisa se encuentra resistente llenas de agua se limpian se hacen pruebas ok.",
+      "(60 minutos)."
+    ],
+    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/09/26\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: colágeno \n>Bosch: nifedipino 12 horas \n>NJP2: limpieza \n>NJP1:multivitaminico\n>NJP3: nifedipino 24 horas \n>MB 432:multivitaminico\n>Blíster #8:sintergia \n>Integra 320: fluxetina \n>Estuchadora#1: fluxetina \n>Blíster #9: colttrin \n>MB 451:ferbim \n>Estuchadora#2:ferbim \n>Schmucker: flextril \n>Marzio#4:airomed \n>Marzio#5: limpieza y montaje \n>R400: limpieza \n>Sólidos:dimoflax \n>R200: limpieza \n>CB 550: gelimed \n>Fette 1010: levotiroxina \n>fette 2020#1:esomeprazol \n>Fette 2020#2:\n>Rimex:sertralina\n>Pilot lab: multivitaminico \n>Huttlin 400: nifedipino \n>Huttlin 600: flextril \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2:\n>CL #3:\n>CL #4:\n>Blíster #2:\n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: congestex \n>Etiquetadora#2: congestex \n>Envasadora#3:\n>Etiquetadora#3: \n>Marchesine MT1100:superflux \n>Blíster #3:ferbin\n*NOVEDADES:*\n*BLISTER 9:* Se cambian pines de expulsión (plancha de formado), para corregir atascamiento de alveolos, se ubica paso de PVC y sellado, equipo operativo.\n*T:90mn aprox*\n*ESTUCHADORA INTEGRA:* Se cambian palitos de arrastre partidos, equipo operativo.\n*T: 60 mn aprox*\n*BLÍSTEADORA 3:* Plancha de formato #1, formación, presenta fisura, ocasionando fuga de agua, se lleva a taller para corregirla con sellante, queda pendiente montar y verificar fuga.\n*ESTUCHADORA EVO:* Se apoya a en cuadre para formato de Ferbin, se habilitan los 3 empujadores, equipo en cuadre (Blíster).\n*Marzio 5:* limpieza llamado porque el equipo se disparaba se revisa se encuentra resistente llenas de agua se limpian se hacen pruebas ok.\n(60 minutos)."
+  },
+  {
+    "id": "rt-20261003-2106",
+    "fecha": "2026-10-03",
+    "hora": "21:06",
+    "autor": "+57 312 7212941",
+    "sede": "Sede 2",
+    "turno": "Día",
+    "fechaTurno": "2026-10-03",
+    "equipos": [
+      {
+        "equipo": "Blíster 5",
+        "producto": "naproflash"
+      },
+      {
+        "equipo": "Gb 100",
+        "producto": "ezomeprasol"
+      },
+      {
+        "equipo": "Envasado 1",
+        "producto": "supreflux forte"
+      },
+      {
+        "equipo": "Cl",
+        "producto": "dimeticona"
+      },
+      {
+        "equipo": "Marzzio",
+        "producto": "esomed"
+      }
+    ],
+    "novedades": [
+      "Horno se recibe novedades porque puertas se abrian ae revisa horno y se evidencia que micro estaba mal posicionado se ajustan racores de cilindro y se ajusta tuerca desajustada.",
+      "Marzzio se realiza cambio de teflón del abre facil.",
+      "Se atiende llamado por tanque auxiliar de l2 se encontraba disparado",
+      "Envasadora1 se colocan tornillo en mesa de alimentación",
+      "Se realiza recorrido a bomba de aguas frias y umas",
+      "Se brinda acompañamiento a maquina de cd 40 durante el turno.por parte de andres vega"
+    ],
+    "texto": "Reporte de turno \nSede 2 \n\nBlíster 5 naproflash \nGb 100 ezomeprasol \nEnvasado 1 supreflux forte \nCl dimeticona \nMarzzio esomed \n\nNovedades \n\nHorno se recibe novedades porque puertas se abrian ae revisa horno y se evidencia que micro estaba mal posicionado se ajustan racores de cilindro y se ajusta tuerca desajustada.\n\nMarzzio se realiza cambio de teflón del abre facil.\n\nSe atiende llamado por tanque auxiliar de l2 se encontraba disparado\n\nEnvasadora1 se colocan tornillo en mesa de alimentación \n\nSe realiza recorrido a bomba de aguas frias y umas \n\nSe brinda acompañamiento a maquina de cd 40 durante el turno.por parte de andres vega"
+  },
+  {
+    "id": "rt-20261003-2122",
+    "fecha": "2026-10-03",
+    "hora": "21:22",
+    "autor": "+57 301 2263014",
+    "sede": "Sede 4",
+    "turno": "Día",
+    "fechaTurno": "2026-10-03",
+    "equipos": [
+      {
+        "equipo": "•BLISTER 3",
+        "producto": "NIFEDIPINO"
+      },
+      {
+        "equipo": "•CL4",
+        "producto": "ACIDO VALPROICO"
+      },
+      {
+        "equipo": "•BLISTER2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•MT",
+        "producto": "SUPERFLUX"
+      },
+      {
+        "equipo": "•LIQUIDOS 3",
+        "producto": "FLUTICASONA"
+      },
+      {
+        "equipo": "•CL2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•EMBASADORA 2",
+        "producto": "CONJETES KITS"
+      },
+      {
+        "equipo": "•BIN",
+        "producto": "MICRONIZANDONAZUCAR"
+      },
+      {
+        "equipo": "•BOSH",
+        "producto": "NIPEDIPINO"
+      },
+      {
+        "equipo": "•NJP2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP3",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•PILOTBLAB HUYTLIN40",
+        "producto": "FULMSRATO"
+      },
+      {
+        "equipo": "•SCHMUKER",
+        "producto": "FLEXTRIL"
+      },
+      {
+        "equipo": "•BLISTER #9",
+        "producto": "COLTRIM"
+      },
+      {
+        "equipo": "•BLISTER #6 MB432",
+        "producto": "FERRIMED"
+      },
+      {
+        "equipo": "•BLISTER #4 INTEGRA320",
+        "producto": "FLUOXETINA"
+      },
+      {
+        "equipo": "•BLISTER #8",
+        "producto": "ZINTERGIA"
+      },
+      {
+        "equipo": "•EVOBLISTER 7",
+        "producto": "FERBIN250"
+      },
+      {
+        "equipo": "•MARZIO #4",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•R200",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•R400",
+        "producto": "DIMUFLAX"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "AIROMED"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "SERTRALINA"
+      },
+      {
+        "equipo": "•FETE1010",
+        "producto": "LEVOFLACILINA"
+      },
+      {
+        "equipo": "•FETTE20202",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "•FETTE20201",
+        "producto": "ACETAMINOFÉN"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "GELIMED"
+      }
+    ],
+    "novedades": [
+      "*MT 1100:*",
+      "SE REALIZA CAMBIO DE ROSORTE EN CUCHILLAS DE CORTE Y SE AJUSTA SEGUNDO SENSOR DESCARTADORA DE STICK",
+      "VUELVE A LLAMAR POR PORBLEMA DE ENCENTRADO DE IMPRESION SE LIMPIA LENTE Y SE VERIFICA Y SE DEJA OPERATIVA 45H",
+      "*ENVASE 3*",
+      "SE REALIZA INSPECCIÓN DE SONIDO EN MOTOR DE DOSIFICACIÓN POR RUIDO ANOMALO. SE DESMONTA MOTOR PARA DESCARTAR PORBLEMAS DE RODAMIENTO Y PIÑONES DE ARRASTRE Y SE NOTA QUE EL RUIDO PROBIENE EN CHUMACERA DE TORNILLO SINFIN QUE MUEVE BASTAGO DE DOSIFICACIÓN.",
+      "(SE REQUIERE BAJAR EL EQUIPO PARA PODER REVISAR LA REFERENCIA DEL RODAMIENTO Y REALIZAR EL CAMBIO)",
+      "EL EQUIPO SE ENCUENTRA TRABAJANDO PERO QUEDA PENDIENTE PARA UN MANTENIMIENTO CORRECTIVO  Y  REVISAR ESE RODAMIENTO. 3H",
+      "*ESTUCHADORA EVO:*",
+      "SE ATIENDE LLAMADO POR ALARMA DE SEGURIDAD DE POSICIÓN EN PALOADOR, SE REAJUSTAN SENSOSRES Y SE ACOMODA PARA HABALITAR MAQUINA, también se presenta varios llamado por parte del operario por falta de experiencia en máquina ya que es nuevo en ese equipo ,  se ajusta cuadre de estuche y cierre del mismo , se atiende llamado porque las bandas transportadoras de blíster al robot estás desalineada y el robot las estaba rompiendo se realiza alineación de banda y se relaliza prueba queda ok",
+      "5h",
+      "Otro llamado porque unos de los empujadores estaba golpeando en la entrada de los transportadores y se detenía la máquina se alinea queda ok  20min",
+      "*Bosch*",
+      "se atiende llamado por fallas múltiples entre esas de comunicación se realizan varias pruebas y se procede a limpiar conectores de eternet con limpiador de contacto se entrega equipo ok 1.5hrs",
+      "Blíster 3",
+      "se atiende llamado por falla de accionamiento principal se revisa servomotor y se encontró polea con mucho desajuste se desmonta se encontró alojamientos de cuña de polea y eje en mal estado para mandar a mecanizar equipo detenido"
+    ],
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: NIFEDIPINO\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: DISPONIBLE \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICASONA\n*•CL2 : DISPONIBLE \n*•EMBASADORA 2: CONJETES KITS\n\n*SOLIDOS*\n\n*•BIN: MICRONIZANDONAZUCAR\n*•BOSH:NIPEDIPINO \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•NJP3 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40: FULMSRATO\n*•SCHMUKER: FLEXTRIL\n*•BLISTER #9: COLTRIM\n*•BLISTER #6 MB432:FERRIMED\n*•BLISTER #4 INTEGRA320: FLUOXETINA\n*•BLISTER #8: ZINTERGIA \n*•EVOBLISTER 7: FERBIN250\n*•MARZIO #4 : DISPONIBLE \n*•HUTTLIN 600: DISPONIBLE \n*•R200: DISPONIBLE \n*•R400: DIMUFLAX\n*•MARZIO 1: AIROMED\n*•HUTTLIN 400: LIMPIEZA \n*•RIMEK: SERTRALINA \n*•FETE1010: LEVOFLACILINA \n*•FETTE20202: ESOMEPRAZOL \n*•FETTE20201: ACETAMINOFÉN \n*•CB550: GELIMED\n____________________\n       NOVEDADES\n\n*MT 1100:* \nSE REALIZA CAMBIO DE ROSORTE EN CUCHILLAS DE CORTE Y SE AJUSTA SEGUNDO SENSOR DESCARTADORA DE STICK\nVUELVE A LLAMAR POR PORBLEMA DE ENCENTRADO DE IMPRESION SE LIMPIA LENTE Y SE VERIFICA Y SE DEJA OPERATIVA 45H\n\n *ENVASE 3*\n SE REALIZA INSPECCIÓN DE SONIDO EN MOTOR DE DOSIFICACIÓN POR RUIDO ANOMALO. SE DESMONTA MOTOR PARA DESCARTAR PORBLEMAS DE RODAMIENTO Y PIÑONES DE ARRASTRE Y SE NOTA QUE EL RUIDO PROBIENE EN CHUMACERA DE TORNILLO SINFIN QUE MUEVE BASTAGO DE DOSIFICACIÓN.\n(SE REQUIERE BAJAR EL EQUIPO PARA PODER REVISAR LA REFERENCIA DEL RODAMIENTO Y REALIZAR EL CAMBIO)\nEL EQUIPO SE ENCUENTRA TRABAJANDO PERO QUEDA PENDIENTE PARA UN MANTENIMIENTO CORRECTIVO  Y  REVISAR ESE RODAMIENTO. 3H\n\n*ESTUCHADORA EVO:*\n SE ATIENDE LLAMADO POR ALARMA DE SEGURIDAD DE POSICIÓN EN PALOADOR, SE REAJUSTAN SENSOSRES Y SE ACOMODA PARA HABALITAR MAQUINA, también se presenta varios llamado por parte del operario por falta de experiencia en máquina ya que es nuevo en ese equipo ,  se ajusta cuadre de estuche y cierre del mismo , se atiende llamado porque las bandas transportadoras de blíster al robot estás desalineada y el robot las estaba rompiendo se realiza alineación de banda y se relaliza prueba queda ok \n5h\n\nOtro llamado porque unos de los empujadores estaba golpeando en la entrada de los transportadores y se detenía la máquina se alinea queda ok  20min\n\n*Bosch*\nse atiende llamado por fallas múltiples entre esas de comunicación se realizan varias pruebas y se procede a limpiar conectores de eternet con limpiador de contacto se entrega equipo ok 1.5hrs\n\nBlíster 3\n se atiende llamado por falla de accionamiento principal se revisa servomotor y se encontró polea con mucho desajuste se desmonta se encontró alojamientos de cuña de polea y eje en mal estado para mandar a mecanizar equipo detenido"
+  },
+  {
+    "id": "rt-20261004-0859",
+    "fecha": "2026-10-04",
+    "hora": "08:59",
+    "autor": "+57 304 5642880",
+    "sede": "Sede 4",
+    "turno": "Grupo 2 · Noche",
+    "fechaTurno": "2026-10-03",
+    "equipos": [
+      {
+        "equipo": "BIN",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "BOSHC",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "NJP #2",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "nifedipino"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "fumarato"
+      },
+      {
+        "equipo": "SCMUKER",
+        "producto": "flextril c"
+      },
+      {
+        "equipo": "BLISTER #9",
+        "producto": "coltrin"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "multivitaminico"
+      },
+      {
+        "equipo": "INTEGRA",
+        "producto": "fluixetina"
+      },
+      {
+        "equipo": "BLISTER #8",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "MARCHESINI EVO",
+        "producto": "ferbin"
+      },
+      {
+        "equipo": "R200",
+        "producto": "sertralina"
+      },
+      {
+        "equipo": "R400",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "MARZIO #1",
+        "producto": ""
+      },
+      {
+        "equipo": "MARZIO #4",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "MARZIO #5",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "gelimed plus"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "FETTE 2020-2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "levofloxacina"
+      },
+      {
+        "equipo": "FETTE 2020-1",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "congestex kids jarabe"
+      },
+      {
+        "equipo": "ENVASADORA #3",
+        "producto": "fluticasona suspensión"
+      },
+      {
+        "equipo": "CLIQUIDO #2",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "CLIQUIDO #3",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "CLIQUIDO #4",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "BLISTER #2",
+        "producto": "beclazone"
+      },
+      {
+        "equipo": "BLISTER #3",
+        "producto": "stamby"
+      }
+    ],
+    "novedades": [
+      "BLÍSTER #2 se atiende llamado porque se parte manguera 8mm de plancha de enfriamiento después del sellado, se encuentran mangueras en mal estado y racor de 1/8x8 en mal estado, se realiza el cambio de racor y mangueras y queda equipo operativo.",
+      "BLÍSTER #3 se realiza limpieza y desarme de reductor, queda pendiente llevar eje y polea a reparar.",
+      "CB 550 se ayuda a operador en el cuadre de la máquina, se ajusta posición de fotocelda, se cuadra el centrado de la imagen del laminado, se ajustan tiempo de retardo en sellado vertical y horizontal.",
+      "PISO TÉCNICO HUTTLIN 40 Se realiza limpieza se continúa organizando se bota basura la chatarra se deja en la carpa azul pendiente botar.",
+      "R400 Se atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
+    ],
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: stamby\nNJP #1: stamby\nNJP #3: nifedipino\nPILOT LAB: fumarato\nSCMUKER: flextril c \nBLISTER #9: coltrin\nMB 432: multivitaminico\nINTEGRA: fluixetina\nBLISTER #8: zintergia\nMARCHESINI EVO: ferbin \nR200: sertralina\nR400: esomeprazol \nMARZIO #1: \nMARZIO #4: stamby\nMARZIO #5: stamby\nCB 550: gelimed plus\nHUTTLIN 600: stamby\nHUTTLIN 400: congestex \nRIMEK: limpieza \nFETTE 2020-2: acetaminofén \nFETTE 1010: levofloxacina\nFETTE 2020-1: esomeprazol \n\nLÍQUIDO \nENVASADORA #2: congestex kids jarabe \nENVASADORA #3: fluticasona suspensión \nCLIQUIDO #2: stamby \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: limpieza \nBLISTER #2: beclazone\nBLISTER #3: stamby\n______________________________________________\n                       NOVEDADES \nBLÍSTER #2 \nse atiende llamado porque se parte manguera 8mm de plancha de enfriamiento después del sellado, se encuentran mangueras en mal estado y racor de 1/8x8 en mal estado, se realiza el cambio de racor y mangueras y queda equipo operativo.\n\nBLÍSTER #3 \nse realiza limpieza y desarme de reductor, queda pendiente llevar eje y polea a reparar.\n\nCB 550\nse ayuda a operador en el cuadre de la máquina, se ajusta posición de fotocelda, se cuadra el centrado de la imagen del laminado, se ajustan tiempo de retardo en sellado vertical y horizontal.\n\nPISO TÉCNICO HUTTLIN 40 \nSe realiza limpieza se continúa organizando se bota basura la chatarra se deja en la carpa azul pendiente botar.\n\nR400 \nSe atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
   }
 ];

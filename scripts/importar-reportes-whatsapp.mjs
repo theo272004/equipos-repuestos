@@ -123,7 +123,7 @@ const limpiarCuerpo = (c) => c
 function cargarLector() {
   const ctx = { window: {}, console };
   vm.createContext(ctx);
-  for (const f of ["assets/js/mtto-data.js", "assets/js/mtto-lector.js", "assets/js/reportes-data.js"]) {
+  for (const f of ["assets/js/mtto-data.js", "assets/js/mtto-lector.js", "assets/js/reportes-data.js", "assets/js/turnos-data.js"]) {
     const ruta = join(raiz, f);
     if (existsSync(ruta)) vm.runInContext(readFileSync(ruta, "utf8"), ctx, { filename: f });
   }
@@ -137,44 +137,36 @@ function cabeceraDeReporte(cuerpo) {
   return /\breporte\b/.test(cab) || (/\bturno\b/.test(cab) && /(sede|grupo|d[ií]a|noche|\bsd\s*\d)/.test(cab));
 }
 
-function detectarSede(cuerpo) {
-  // Solo el encabezado: más abajo el texto habla de "traslado a sede 2" y eso
-  // no hace que el reporte sea de Sede 2.
+// La sede la dice el encabezado ("Reporte turno sede 2"); si no la dice, es
+// la de quien firma. Solo el encabezado: más abajo el texto habla de "traslado
+// a sede 2" o "apoyo en planta 2" y eso no hace que el reporte sea de Sede 2.
+function detectarSede(cuerpo, autor) {
   const head = cuerpo.replace(/\*/g, "").split("\n").slice(0, 3).join(" ");
-  if (/\bsede\s*2\b|\bsd\s*2\b/i.test(head)) return "Sede 2";
-  return "Sede 4";
+  if (/\bsede\s*2\b|\bsd\s*2\b|v[ií]a\s*40/i.test(head)) return "Sede 2";
+  if (/\bsede\s*4\b|\bsd\s*4\b/i.test(head)) return "Sede 4";
+  const g = TURNOS && TURNOS.grupoDeAutor(autor);
+  return g ? g.sede : "Sede 4";
 }
 
-// Día (8 a 20) o noche (20 a 8). Si la cabecera lo dice, manda; si no, por
-// la hora: el reporte de la noche llega por la mañana. La misma regla para
-// los reportes y para el Registro diario.
-const turnoPorHora = (hora) => (hora < "14" ? "Noche" : "Día");
-function turnoDe(msg) {
-  const head = msg.cuerpo.replace(/\*/g, "").slice(0, 400);
-  return /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]a\b/i.test(head) ? "Día" : turnoPorHora(msg.hora);
+// Día (8 a 20) o noche (20 a 8) y la fecha en que EMPEZÓ ese turno: el
+// reporte de la noche llega a la mañana siguiente y es de la noche anterior.
+// Lo decide turnos-data.js con la hora del mensaje, lo que dice el encabezado
+// y el grupo de quien firma (el turno que de verdad trabajó ese grupo).
+function pistaDe(cuerpo) {
+  const head = String(cuerpo || "").replace(/\*/g, "").slice(0, 400);
+  return /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]a\b/i.test(head) ? "Día" : "";
+}
+function turnoReal(msg) {
+  const pista = msg.pista !== undefined ? msg.pista : pistaDe(msg.cuerpo);
+  if (TURNOS) return TURNOS.turnoDelMensaje(msg.fecha, msg.hora, msg.autor, pista);
+  const turno = pista || (msg.hora < "14" ? "Noche" : "Día");
+  return { turno, fecha: msg.fecha, grupo: "" };
 }
 
 function detectarTurno(msg) {
   const head = msg.cuerpo.replace(/\*/g, "").slice(0, 400);
   const grupo = /grupo\s*#?\s*1|turno\s*#?\s*1\b/i.test(head) ? "Grupo 1" : /grupo\s*#?\s*2|turno\s*#?\s*2\b/i.test(head) ? "Grupo 2" : "";
-  return [grupo, turnoDe(msg)].filter(Boolean).join(" · ");
-}
-
-// La fecha escrita en la cabecera ("2026/08/10") manda, si es de ese día o
-// de uno o dos antes (el reporte de la noche se manda al día siguiente). Una
-// fecha más lejana es un error de tipeo ("2026/08/28" enviado el 28 de sep).
-function fechaDelTurno(msg) {
-  const cab = msg.cuerpo.replace(/[*_]/g, "").split("\n").slice(0, 5).join(" ");
-  let f = null;
-  const a = cab.match(/\b(20\d{2})[\/.-](\d{1,2})[\/.-](\d{1,2})\b/);
-  const b = cab.match(/\b(\d{1,2})[\/.-](\d{1,2})[\/.-](20\d{2})\b/);
-  if (a) f = `${a[1]}-${a[2].padStart(2, "0")}-${a[3].padStart(2, "0")}`;
-  else if (b) f = `${b[3]}-${b[2].padStart(2, "0")}-${b[1].padStart(2, "0")}`;
-  if (f) {
-    const dias = (Date.parse(msg.fecha) - Date.parse(f)) / 864e5;
-    if (dias >= 0 && dias <= 2) return f;
-  }
-  return msg.fecha;
+  return [grupo, turnoReal(msg).turno].filter(Boolean).join(" · ");
 }
 
 const SKIP_EQUIPO = [
@@ -271,9 +263,9 @@ function reporteDe(msg) {
     fecha: msg.fecha,
     hora: msg.hora,
     autor: msg.autor,
-    sede: detectarSede(cuerpo),
+    sede: detectarSede(cuerpo, msg.autor),
     turno: detectarTurno({ ...msg, cuerpo }),
-    fechaTurno: fechaDelTurno(msg),
+    fechaTurno: turnoReal({ ...msg, cuerpo }).fecha,
     equipos: parseEquipos(bloqueEq),
     novedades: partirNovedades(bloqueNov),
     texto: cuerpo,
@@ -288,6 +280,17 @@ const tecnico = (autor) => {
   return autor.replace(/^@/, "");
 };
 
+// Lo que el lector toma por novedad y no lo es: la línea de estado de una
+// máquina ("Centro líquido 1: montaje orlistat", "PAILOT B: limpieza") y la
+// charla del grupo ("ya se solucionó", despedidas). No son fallas ni trabajos.
+const sinTilde = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
+function esRuido(r) {
+  const de = sinTilde(r.de);
+  if (/^[^\n:]{1,40}(:|\n)\s*(montaje|limpieza|stand ?by|disponible|inspeccion|mtto|mantenimiento)\b[^\n]{0,45}$/.test(de) && !/\bse\s/.test(de)) return true;
+  if (/viejo querido|se nos escapan|^ya se soluciono|^gracias\b|^buen(os|as)? (dias|tardes|noches)\b[^\n]{0,30}$/.test(de)) return true;
+  return /no identificado/i.test(r.eq || "") && de.length < 25;
+}
+
 // ------------------------------------------------------------------ main
 const args = process.argv.slice(2);
 const arg = args.find((a) => !a.startsWith("--"));
@@ -298,6 +301,7 @@ if (!arg) {
 const soloReportes = args.includes("--solo-reportes");
 
 const W = cargarLector();
+const TURNOS = W.TURNOS || null;
 const L = W.MTTO_LECTOR;
 const MTTO = W.MTTO;
 const R = MTTO.reglas;
@@ -344,15 +348,16 @@ if (!soloReportes) {
   let agregadas = 0;
   let hasta = MTTO.hasta;
   for (const { msg, lectura } of nuevas) {
-    const t = turnoDe(msg);
-    const f = fechaDelTurno(msg);
+    const { turno: t, fecha: f } = turnoReal(msg);
+    const sede = detectarSede(msg.cuerpo, msg.autor);
     if (f > hasta) hasta = f;
     for (const n of lectura.novedades) {
+      if (esRuido({ de: n.de, eq: n.eq })) continue;
       seq++;
       const oper = reOper.test(L.norm(n.de)), pend = rePend.test(L.norm(n.de));
       H.registros.push({
         id: `H${f.replace(/-/g, "")}-${String(seq).padStart(4, "0")}`,
-        f, hr: msg.hora, rid: idDe(msg), t, s: lectura.sede,
+        f, hr: msg.hora, rid: idDe(msg), t, s: sede,
         eq: n.eq, ar: n.ar, cat: n.cat, tp: n.tp, fa: n.fa || "Sin clasificar", ac: n.ac,
         de: n.de, min: n.min, det: null,
         ef: pend && oper ? "Operativo con pendiente" : pend ? "Pendiente" : oper ? "Operativo" : "Sin cierre",
@@ -363,6 +368,26 @@ if (!soloReportes) {
     // El estado de los equipos (producción, limpieza, stand by) ya no se lleva:
     // solo importan las fallas, así que hist.horas y ultimoEstado no se tocan.
   }
+  // Lo ya importado se vuelve a ubicar con las mismas reglas: el reporte de la
+  // noche que llegó en la mañana pasa a la noche anterior (y a su grupo), y la
+  // sede es la del encabezado o la de quien firma, no la de una línea que dice
+  // "apoyo en sede 2". Y se quita lo que no es novedad (estado, charla).
+  const repPorId = new Map(reportes.map((r) => [r.id, r]));
+  let reubicadas = 0;
+  for (const r of H.registros) {
+    if (r.src !== "chat" || !r.rid) continue;
+    const m = /^rt-(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})/.exec(r.rid);
+    if (!m) continue;
+    const rep = repPorId.get(r.rid);
+    const autor = rep ? rep.autor : r.tec;
+    const x = turnoReal({ fecha: `${m[1]}-${m[2]}-${m[3]}`, hora: `${m[4]}:${m[5]}`, autor, pista: rep ? pistaDe(rep.texto) : "" });
+    const s = rep ? rep.sede : (TURNOS && TURNOS.grupoDeAutor(autor) ? TURNOS.grupoDeAutor(autor).sede : r.s);
+    if (x.fecha !== r.f || x.turno !== r.t || s !== r.s) { r.f = x.fecha; r.t = x.turno; r.s = s; reubicadas++; }
+  }
+  const antesRuido = H.registros.length;
+  H.registros = H.registros.filter((r) => !(r.src === "chat" && esRuido(r)));
+  const quitadas = antesRuido - H.registros.length;
+  if (reubicadas || quitadas) console.log(`Registro diario: ${reubicadas} novedades reubicadas de turno o sede, ${quitadas} quitadas por no ser novedad`);
   // Lo ya importado también se aclara: "Marzio" en la Sede 2 es la Marzio 2
   let aclaradas = 0;
   for (const r of H.registros) {
@@ -371,7 +396,7 @@ if (!soloReportes) {
   }
   if (aclaradas) console.log(`Registro diario: ${aclaradas} novedades con equipo "sin especificar" aclarado por sede`);
 
-  if (agregadas || nuevas.length || aclaradas) {
+  if (agregadas || nuevas.length || aclaradas || reubicadas || quitadas) {
     MTTO.hasta = hasta;
     MTTO.generado = new Date(Date.now() - 5 * 3600e3).toISOString().slice(0, 16).replace("T", " ");
     const salidaM = join(raiz, "assets", "js", "mtto-data.js");
