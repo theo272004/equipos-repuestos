@@ -222,7 +222,11 @@ async function main() {
       sitios: JSON.stringify(f.sitios || []),
       ...(subirPrecios ? { pu: f.pu } : {}),
     };
-    const cambio = !previo || CAMPOS.some((k) => (previo[k] ?? null) !== (nuevo[k] ?? null));
+    // M/N y dias de compra solo cuentan si la nube ya los tenia: los articulos
+    // subidos antes no los traen y la primera pasada los reescribiria todos
+    // (y cada equipo bajaria el inventario entero). Mientras, salen del maestro.
+    const yaTenia = (k) => !["mrp", "dias"].includes(k) || (previo[k] ?? "") !== "";
+    const cambio = !previo || CAMPOS.some((k) => yaTenia(k) && (previo[k] ?? null) !== (nuevo[k] ?? null));
     if (!cambio) { iguales++; continue; }
     if (previo && (previo.exist ?? null) !== (nuevo.exist ?? null) && codigos.has(f.cod)) {
       cambios.push({ cod: f.cod, desc: f.desc, antes: previo.exist, ahora: nuevo.exist });

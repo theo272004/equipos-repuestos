@@ -163,10 +163,18 @@ function turnoReal(msg) {
   return { turno, fecha: msg.fecha, grupo: "" };
 }
 
+// La etiqueta del reporte: el grupo que de verdad trabajó ese turno (según
+// turnos-data.js y quien firma: "Grupo 4-3 · Noche"), el mismo que usa el
+// Registro diario. Solo si no se sabe quién firma vale un "Grupo N" escrito en
+// el encabezado. El "TURNO #2" de los encabezados de Sede 4 es el turno de
+// producción, no el grupo de mantenimiento: antes salía como "Grupo 2" en
+// reportes de los grupos 4-1 y 4-3.
 function detectarTurno(msg) {
+  const t = turnoReal(msg);
   const head = msg.cuerpo.replace(/\*/g, "").slice(0, 400);
-  const grupo = /grupo\s*#?\s*1|turno\s*#?\s*1\b/i.test(head) ? "Grupo 1" : /grupo\s*#?\s*2|turno\s*#?\s*2\b/i.test(head) ? "Grupo 2" : "";
-  return [grupo, turnoReal(msg).turno].filter(Boolean).join(" · ");
+  const escrito = (head.match(/grupo\s*#?\s*([1-3])\b/i) || [])[1];
+  const grupo = t.grupo ? t.grupo.replace(/^Grupo Sede /, "Grupo ") : escrito ? `Grupo ${escrito}` : "";
+  return [grupo, t.turno].filter(Boolean).join(" · ");
 }
 
 const SKIP_EQUIPO = [

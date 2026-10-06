@@ -337,6 +337,34 @@ try {
   ok(reqRecarga <= 2, `al recargar B volvio a bajar las requisiciones (${reqRecarga} lecturas de inventario_meta)`);
   console.log(`RE355 cargado en A: ${wQ.length} documentos escritos; B lo recibió`);
 
+  // 13. La nube tiene artículos subidos antes de que se guardaran M/N y los días
+  //     de compra. Un RE356 igual, pero que sí los trae, no debe reescribirlos
+  //     todos (cada equipo bajaría el inventario entero ese día). Si algo más
+  //     cambia, ese artículo se escribe ya con M/N y días.
+  const S3 = new Date().toISOString();
+  for (const [cod, d] of [...col("inventario")]) { const { mrp, dias, ...resto } = d; col("inventario").set(cod, { ...resto, actualizado: S3 }); }
+  col("inventario_meta").set("estado", { ...col("inventario_meta").get("estado"), actualizado: S3 });
+  // A olvida su copia (que aún tiene el M/N que él mismo subió) y la baja de la nube
+  await A.page.evaluate(() => localStorage.removeItem("equipos-inventario-v1"));
+  await A.page.reload({ waitUntil: "load" });
+  await calma(A, 1200);
+  await A.page.click('.sb [data-go="almacen"]');
+  await A.page.waitForSelector("#almQ");
+  const vigentes = [...col("inventario").values()].filter((d) => Number(d.exist) > 0);
+  // Cada artículo de la prueba está en un solo estante (el ub guardado es "R01/M0300")
+  const filaDe = (d, exist = d.exist) => { const [s] = JSON.parse(d.sitios); return [d.cod, d.desc, d.um, d.pu ?? "", "M", 1, d.min, 45, d.consumo, exist, s.alm, s.ub]; };
+  w0 = escrituras.length;
+  await cargar(A, await re356("re356-con-mrp.xls", vigentes.map((d) => filaDe(d))));
+  await calma(A, 800);
+  const wMrp = escritasDe("A", w0).filter((w) => w.col === "inventario");  ok(wMrp.length === 0, `un RE356 que solo agrega M/N y días reescribió ${wMrp.length} artículos de ${vigentes.length}`);
+  const otro = vigentes[0];
+  w0 = escrituras.length;
+  await cargar(A, await re356("re356-con-mrp-2.xls", vigentes.map((d) => filaDe(d, d === otro ? Number(d.exist) + 1 : d.exist))));
+  await calma(A, 800);
+  const wOtro = escritasDe("A", w0).filter((w) => w.col === "inventario");
+  ok(wOtro.length === 1 && col("inventario").get(otro.cod).mrp === "M" && col("inventario").get(otro.cod).dias === 45, `al cambiar una existencia debía escribir solo ese artículo, ya con M y 45 días (escribió ${wOtro.length}: ${JSON.stringify(col("inventario").get(otro.cod))})`);
+  console.log(`RE356 con M/N y días sobre la nube vieja: ${wMrp.length} reescritos; con una existencia distinta: ${wOtro.length}`);
+
   console.log(`\nLecturas por equipo: ${[...equipos.keys()].map((n) => `${n} ${leidasDe(n)}`).join(", ")}. Escrituras: ${escrituras.length} (${escrituras.map((w) => `${w.equipo}:${w.col}/${decodeURIComponent(w.id)}`).join(", ")})`);
 } finally {
   await nav.close();
