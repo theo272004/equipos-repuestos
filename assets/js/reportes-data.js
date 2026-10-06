@@ -7,7 +7,7 @@ window.REPORTES_TURNO = [
     "hora": "09:15",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-07-31",
     "equipos": [
       {
@@ -39,7 +39,7 @@ window.REPORTES_TURNO = [
     "hora": "19:38",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-01",
     "equipos": [],
     "novedades": [
@@ -59,7 +59,7 @@ window.REPORTES_TURNO = [
     "hora": "19:40",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-01",
     "equipos": [
       {
@@ -93,7 +93,7 @@ window.REPORTES_TURNO = [
     "hora": "08:31",
     "autor": "+57 302 2801867",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-01",
     "equipos": [
       {
@@ -116,7 +116,7 @@ window.REPORTES_TURNO = [
     "hora": "09:48",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-01",
     "equipos": [
       {
@@ -257,7 +257,7 @@ window.REPORTES_TURNO = [
     "hora": "19:52",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-02",
     "equipos": [
       {
@@ -318,7 +318,7 @@ window.REPORTES_TURNO = [
     "hora": "23:12",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-02",
     "equipos": [
       {
@@ -466,7 +466,7 @@ window.REPORTES_TURNO = [
     "hora": "07:45",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-02",
     "equipos": [
       {
@@ -622,7 +622,7 @@ window.REPORTES_TURNO = [
     "hora": "09:06",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-02",
     "equipos": [
       {
@@ -681,7 +681,7 @@ window.REPORTES_TURNO = [
     "hora": "20:04",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-03",
     "equipos": [
       {
@@ -747,7 +747,7 @@ window.REPORTES_TURNO = [
     "hora": "21:13",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-03",
     "equipos": [
       {
@@ -841,7 +841,7 @@ window.REPORTES_TURNO = [
     "hora": "07:39",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-03",
     "equipos": [
       {
@@ -993,7 +993,7 @@ window.REPORTES_TURNO = [
     "hora": "09:21",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-03",
     "equipos": [
       {
@@ -1054,7 +1054,7 @@ window.REPORTES_TURNO = [
     "hora": "21:36",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-08-04",
     "equipos": [
       {
@@ -1086,7 +1086,7 @@ window.REPORTES_TURNO = [
     "hora": "22:10",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-04",
     "equipos": [],
     "novedades": [
@@ -1109,7 +1109,7 @@ window.REPORTES_TURNO = [
     "hora": "07:37",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-04",
     "equipos": [
       {
@@ -1171,7 +1171,7 @@ window.REPORTES_TURNO = [
     "hora": "08:41",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-04",
     "equipos": [
       {
@@ -1243,7 +1243,7 @@ window.REPORTES_TURNO = [
     "hora": "21:14",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-05",
     "equipos": [],
     "novedades": [
@@ -1279,7 +1279,7 @@ window.REPORTES_TURNO = [
     "hora": "07:43",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-05",
     "equipos": [
       {
@@ -1340,7 +1340,7 @@ window.REPORTES_TURNO = [
     "hora": "10:49",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-05",
     "equipos": [
       {
@@ -1495,7 +1495,7 @@ window.REPORTES_TURNO = [
     "hora": "19:39",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-06",
     "equipos": [
       {
@@ -1648,7 +1648,7 @@ window.REPORTES_TURNO = [
     "hora": "19:50",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-06",
     "equipos": [
       {
@@ -1714,7 +1714,7 @@ window.REPORTES_TURNO = [
     "hora": "09:12",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-06",
     "equipos": [
       {
@@ -1748,7 +1748,7 @@ window.REPORTES_TURNO = [
     "hora": "09:39",
     "autor": "BLADIMIR",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-06",
     "equipos": [
       {
@@ -1842,7 +1842,7 @@ window.REPORTES_TURNO = [
     "hora": "19:46",
     "autor": "Jair Mesa",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-07",
     "equipos": [],
     "novedades": [
@@ -1863,7 +1863,7 @@ window.REPORTES_TURNO = [
     "hora": "19:48",
     "autor": "Jair Mesa",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-07",
     "equipos": [
       {
@@ -1884,7 +1884,7 @@ window.REPORTES_TURNO = [
     "hora": "20:59",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-07",
     "equipos": [
       {
@@ -1944,7 +1944,7 @@ window.REPORTES_TURNO = [
     "hora": "09:30",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-07",
     "equipos": [
       {
@@ -1981,7 +1981,7 @@ window.REPORTES_TURNO = [
     "hora": "09:57",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-07",
     "equipos": [
       {
@@ -2075,7 +2075,7 @@ window.REPORTES_TURNO = [
     "hora": "20:09",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-08",
     "equipos": [
       {
@@ -2138,7 +2138,7 @@ window.REPORTES_TURNO = [
     "hora": "22:16",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-08",
     "equipos": [
       {
@@ -2278,7 +2278,7 @@ window.REPORTES_TURNO = [
     "hora": "07:49",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-08",
     "equipos": [
       {
@@ -2428,7 +2428,7 @@ window.REPORTES_TURNO = [
     "hora": "09:09",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-08",
     "equipos": [
       {
@@ -2487,7 +2487,7 @@ window.REPORTES_TURNO = [
     "hora": "19:55",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-09",
     "equipos": [
       {
@@ -2640,7 +2640,7 @@ window.REPORTES_TURNO = [
     "hora": "07:55",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-09",
     "equipos": [
       {
@@ -2793,7 +2793,7 @@ window.REPORTES_TURNO = [
     "hora": "13:38",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-09",
     "equipos": [
       {
@@ -2839,7 +2839,7 @@ window.REPORTES_TURNO = [
     "hora": "23:08",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-10",
     "equipos": [],
     "novedades": [
@@ -2867,7 +2867,7 @@ window.REPORTES_TURNO = [
     "hora": "07:38",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-10",
     "equipos": [
       {
@@ -2930,7 +2930,7 @@ window.REPORTES_TURNO = [
     "hora": "07:40",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-10",
     "equipos": [
       {
@@ -3033,7 +3033,7 @@ window.REPORTES_TURNO = [
     "hora": "08:08",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-11",
     "equipos": [
       {
@@ -3094,7 +3094,7 @@ window.REPORTES_TURNO = [
     "hora": "09:51",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-11",
     "equipos": [
       {
@@ -3249,7 +3249,7 @@ window.REPORTES_TURNO = [
     "hora": "19:44",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-12",
     "equipos": [
       {
@@ -3439,7 +3439,7 @@ window.REPORTES_TURNO = [
     "hora": "22:07",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-12",
     "equipos": [
       {
@@ -3492,7 +3492,7 @@ window.REPORTES_TURNO = [
     "hora": "08:40",
     "autor": "+57 302 2801867",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-12",
     "equipos": [
       {
@@ -3590,7 +3590,7 @@ window.REPORTES_TURNO = [
     "hora": "08:57",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-12",
     "equipos": [
       {
@@ -3619,7 +3619,7 @@ window.REPORTES_TURNO = [
     "hora": "19:51",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-13",
     "equipos": [],
     "novedades": [
@@ -3644,7 +3644,7 @@ window.REPORTES_TURNO = [
     "hora": "19:56",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-13",
     "equipos": [
       {
@@ -3692,7 +3692,7 @@ window.REPORTES_TURNO = [
     "hora": "08:21",
     "autor": "BLADIMIR",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-13",
     "equipos": [
       {
@@ -3774,7 +3774,7 @@ window.REPORTES_TURNO = [
     "hora": "19:54",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-14",
     "equipos": [
       {
@@ -3920,7 +3920,7 @@ window.REPORTES_TURNO = [
     "hora": "20:05",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-14",
     "equipos": [
       {
@@ -3985,7 +3985,7 @@ window.REPORTES_TURNO = [
     "hora": "07:58",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-14",
     "equipos": [
       {
@@ -4138,7 +4138,7 @@ window.REPORTES_TURNO = [
     "hora": "19:31",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-15",
     "equipos": [
       {
@@ -4201,7 +4201,7 @@ window.REPORTES_TURNO = [
     "hora": "08:03",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-15",
     "equipos": [
       {
@@ -4391,7 +4391,7 @@ window.REPORTES_TURNO = [
     "hora": "08:48",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-15",
     "equipos": [
       {
@@ -4442,7 +4442,7 @@ window.REPORTES_TURNO = [
     "hora": "21:23",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-08-16",
     "equipos": [
       {
@@ -4477,7 +4477,7 @@ window.REPORTES_TURNO = [
     "hora": "21:36",
     "autor": "+57 302 2801867",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-16",
     "equipos": [
       {
@@ -4617,7 +4617,7 @@ window.REPORTES_TURNO = [
     "hora": "08:02",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-16",
     "equipos": [
       {
@@ -4760,7 +4760,7 @@ window.REPORTES_TURNO = [
     "hora": "19:54",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-17",
     "equipos": [
       {
@@ -4904,7 +4904,7 @@ window.REPORTES_TURNO = [
     "hora": "21:32",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-08-17",
     "equipos": [
       {
@@ -4944,7 +4944,7 @@ window.REPORTES_TURNO = [
     "hora": "07:33",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-17",
     "equipos": [
       {
@@ -5007,7 +5007,7 @@ window.REPORTES_TURNO = [
     "hora": "07:37",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-17",
     "equipos": [
       {
@@ -5106,7 +5106,7 @@ window.REPORTES_TURNO = [
     "hora": "20:18",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-18",
     "equipos": [],
     "novedades": [
@@ -5129,7 +5129,7 @@ window.REPORTES_TURNO = [
     "hora": "21:09",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-18",
     "equipos": [
       {
@@ -5190,7 +5190,7 @@ window.REPORTES_TURNO = [
     "hora": "07:55",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-18",
     "equipos": [
       {
@@ -5222,7 +5222,7 @@ window.REPORTES_TURNO = [
     "hora": "09:55",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-18",
     "equipos": [
       {
@@ -5373,7 +5373,7 @@ window.REPORTES_TURNO = [
     "hora": "21:53",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-19",
     "equipos": [
       {
@@ -5417,7 +5417,7 @@ window.REPORTES_TURNO = [
     "hora": "09:03",
     "autor": "Brayan",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-19",
     "equipos": [
       {
@@ -5556,7 +5556,7 @@ window.REPORTES_TURNO = [
     "hora": "19:55",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-20",
     "equipos": [
       {
@@ -5618,7 +5618,7 @@ window.REPORTES_TURNO = [
     "hora": "20:01",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-20",
     "equipos": [
       {
@@ -5763,7 +5763,7 @@ window.REPORTES_TURNO = [
     "hora": "08:17",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-20",
     "equipos": [
       {
@@ -5913,7 +5913,7 @@ window.REPORTES_TURNO = [
     "hora": "14:30",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-20",
     "equipos": [
       {
@@ -5968,7 +5968,7 @@ window.REPORTES_TURNO = [
     "hora": "19:37",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-21",
     "equipos": [
       {
@@ -6034,7 +6034,7 @@ window.REPORTES_TURNO = [
     "hora": "21:25",
     "autor": "Heiner",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-21",
     "equipos": [
       {
@@ -6195,7 +6195,7 @@ window.REPORTES_TURNO = [
     "hora": "07:51",
     "autor": "Jair Mesa",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-21",
     "equipos": [
       {
@@ -6384,7 +6384,7 @@ window.REPORTES_TURNO = [
     "hora": "09:50",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-21",
     "equipos": [
       {
@@ -6451,7 +6451,7 @@ window.REPORTES_TURNO = [
     "hora": "22:02",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-22",
     "equipos": [],
     "novedades": [
@@ -6473,7 +6473,7 @@ window.REPORTES_TURNO = [
     "hora": "22:14",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-08-22",
     "equipos": [
       {
@@ -6510,7 +6510,7 @@ window.REPORTES_TURNO = [
     "hora": "07:45",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-22",
     "equipos": [
       {
@@ -6572,7 +6572,7 @@ window.REPORTES_TURNO = [
     "hora": "09:23",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-22",
     "equipos": [
       {
@@ -6716,7 +6716,7 @@ window.REPORTES_TURNO = [
     "hora": "22:11",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-23",
     "equipos": [
       {
@@ -6860,7 +6860,7 @@ window.REPORTES_TURNO = [
     "hora": "07:35",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-23",
     "equipos": [
       {
@@ -6922,7 +6922,7 @@ window.REPORTES_TURNO = [
     "hora": "08:35",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-23",
     "equipos": [
       {
@@ -7060,7 +7060,7 @@ window.REPORTES_TURNO = [
     "hora": "20:11",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-24",
     "equipos": [
       {
@@ -7208,7 +7208,7 @@ window.REPORTES_TURNO = [
     "hora": "21:29",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-24",
     "equipos": [
       {
@@ -7272,7 +7272,7 @@ window.REPORTES_TURNO = [
     "hora": "08:00",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-24",
     "equipos": [
       {
@@ -7320,7 +7320,7 @@ window.REPORTES_TURNO = [
     "hora": "11:25",
     "autor": "BLADIMIR",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-24",
     "equipos": [],
     "novedades": [
@@ -7340,7 +7340,7 @@ window.REPORTES_TURNO = [
     "hora": "20:10",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-25",
     "equipos": [],
     "novedades": [
@@ -7361,7 +7361,7 @@ window.REPORTES_TURNO = [
     "hora": "21:38",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-25",
     "equipos": [
       {
@@ -7420,7 +7420,7 @@ window.REPORTES_TURNO = [
     "hora": "07:58",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-25",
     "equipos": [
       {
@@ -7462,7 +7462,7 @@ window.REPORTES_TURNO = [
     "hora": "10:46",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-25",
     "equipos": [],
     "novedades": [
@@ -7487,7 +7487,7 @@ window.REPORTES_TURNO = [
     "hora": "19:56",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-26",
     "equipos": [
       {
@@ -7553,7 +7553,7 @@ window.REPORTES_TURNO = [
     "hora": "20:02",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-26",
     "equipos": [
       {
@@ -7659,7 +7659,7 @@ window.REPORTES_TURNO = [
     "hora": "08:13",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-26",
     "equipos": [
       {
@@ -7811,7 +7811,7 @@ window.REPORTES_TURNO = [
     "hora": "19:39",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-08-27",
     "equipos": [
       {
@@ -7874,7 +7874,7 @@ window.REPORTES_TURNO = [
     "hora": "20:25",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-08-27",
     "equipos": [
       {
@@ -8011,7 +8011,7 @@ window.REPORTES_TURNO = [
     "hora": "08:09",
     "autor": "+57 302 3194066",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-08-27",
     "equipos": [
       {
@@ -8164,7 +8164,7 @@ window.REPORTES_TURNO = [
     "hora": "09:17",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-08-27",
     "equipos": [
       {
@@ -8221,7 +8221,7 @@ window.REPORTES_TURNO = [
     "hora": "21:58",
     "autor": "BLADIMIR",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-28",
     "equipos": [],
     "novedades": [
@@ -8238,7 +8238,7 @@ window.REPORTES_TURNO = [
     "hora": "07:44",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-08-28",
     "equipos": [
       {
@@ -8301,7 +8301,7 @@ window.REPORTES_TURNO = [
     "hora": "08:52",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-28",
     "equipos": [
       {
@@ -8444,7 +8444,7 @@ window.REPORTES_TURNO = [
     "hora": "21:24",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-08-29",
     "equipos": [
       {
@@ -8487,7 +8487,7 @@ window.REPORTES_TURNO = [
     "hora": "21:52",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-08-29",
     "equipos": [],
     "novedades": [
@@ -8517,7 +8517,7 @@ window.REPORTES_TURNO = [
     "hora": "09:34",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-08-29",
     "equipos": [
       {
@@ -8661,7 +8661,7 @@ window.REPORTES_TURNO = [
     "hora": "19:41",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-30",
     "equipos": [
       {
@@ -8810,7 +8810,7 @@ window.REPORTES_TURNO = [
     "hora": "20:00",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-08-30",
     "equipos": [
       {
@@ -8860,7 +8860,7 @@ window.REPORTES_TURNO = [
     "hora": "09:39",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-30",
     "equipos": [
       {
@@ -8887,7 +8887,7 @@ window.REPORTES_TURNO = [
     "hora": "09:42",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-30",
     "equipos": [
       {
@@ -9029,7 +9029,7 @@ window.REPORTES_TURNO = [
     "hora": "19:45",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-31",
     "equipos": [],
     "novedades": [
@@ -9050,7 +9050,7 @@ window.REPORTES_TURNO = [
     "hora": "09:13",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-08-31",
     "equipos": [
       {
@@ -9083,7 +9083,7 @@ window.REPORTES_TURNO = [
     "hora": "10:23",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-08-31",
     "equipos": [
       {
@@ -9159,7 +9159,7 @@ window.REPORTES_TURNO = [
     "hora": "19:35",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-01",
     "equipos": [
       {
@@ -9224,7 +9224,7 @@ window.REPORTES_TURNO = [
     "hora": "23:04",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-01",
     "equipos": [
       {
@@ -9373,7 +9373,7 @@ window.REPORTES_TURNO = [
     "hora": "07:55",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-01",
     "equipos": [
       {
@@ -9523,7 +9523,7 @@ window.REPORTES_TURNO = [
     "hora": "09:11",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-09-01",
     "equipos": [
       {
@@ -9560,7 +9560,7 @@ window.REPORTES_TURNO = [
     "hora": "19:39",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-02",
     "equipos": [
       {
@@ -9687,7 +9687,7 @@ window.REPORTES_TURNO = [
     "hora": "20:14",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-02",
     "equipos": [
       {
@@ -9751,7 +9751,7 @@ window.REPORTES_TURNO = [
     "hora": "08:09",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-02",
     "equipos": [
       {
@@ -9903,7 +9903,7 @@ window.REPORTES_TURNO = [
     "hora": "21:55",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-03",
     "equipos": [],
     "novedades": [
@@ -9929,7 +9929,7 @@ window.REPORTES_TURNO = [
     "hora": "22:12",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-03",
     "equipos": [
       {
@@ -9968,7 +9968,7 @@ window.REPORTES_TURNO = [
     "hora": "07:35",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-03",
     "equipos": [
       {
@@ -10030,7 +10030,7 @@ window.REPORTES_TURNO = [
     "hora": "07:52",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-03",
     "equipos": [
       {
@@ -10183,7 +10183,7 @@ window.REPORTES_TURNO = [
     "hora": "21:46",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-04",
     "equipos": [],
     "novedades": [
@@ -10205,7 +10205,7 @@ window.REPORTES_TURNO = [
     "hora": "07:59",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-04",
     "equipos": [
       {
@@ -10348,7 +10348,7 @@ window.REPORTES_TURNO = [
     "hora": "20:37",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-05",
     "equipos": [
       {
@@ -10502,7 +10502,7 @@ window.REPORTES_TURNO = [
     "hora": "08:39",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-09-05",
     "equipos": [
       {
@@ -10533,7 +10533,7 @@ window.REPORTES_TURNO = [
     "hora": "09:34",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-05",
     "equipos": [
       {
@@ -10685,7 +10685,7 @@ window.REPORTES_TURNO = [
     "hora": "19:55",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-06",
     "equipos": [
       {
@@ -10735,7 +10735,7 @@ window.REPORTES_TURNO = [
     "hora": "09:23",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-09-06",
     "equipos": [
       {
@@ -10765,7 +10765,7 @@ window.REPORTES_TURNO = [
     "hora": "19:35",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-07",
     "equipos": [
       {
@@ -10822,7 +10822,7 @@ window.REPORTES_TURNO = [
     "hora": "21:09",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-07",
     "equipos": [
       {
@@ -10969,7 +10969,7 @@ window.REPORTES_TURNO = [
     "hora": "07:49",
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-07",
     "equipos": [
       {
@@ -11120,7 +11120,7 @@ window.REPORTES_TURNO = [
     "hora": "09:13",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-09-07",
     "equipos": [
       {
@@ -11187,7 +11187,7 @@ window.REPORTES_TURNO = [
     "hora": "20:04",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-08",
     "equipos": [
       {
@@ -11246,7 +11246,7 @@ window.REPORTES_TURNO = [
     "hora": "08:46",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-08",
     "equipos": [
       {
@@ -11398,7 +11398,7 @@ window.REPORTES_TURNO = [
     "hora": "21:30",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-09",
     "equipos": [
       {
@@ -11440,7 +11440,7 @@ window.REPORTES_TURNO = [
     "hora": "21:36",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-09",
     "equipos": [
       {
@@ -11589,7 +11589,7 @@ window.REPORTES_TURNO = [
     "hora": "07:53",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-09",
     "equipos": [
       {
@@ -11646,7 +11646,7 @@ window.REPORTES_TURNO = [
     "hora": "08:19",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-09",
     "equipos": [
       {
@@ -11766,7 +11766,7 @@ window.REPORTES_TURNO = [
     "hora": "21:18",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-10",
     "equipos": [
       {
@@ -11890,7 +11890,7 @@ window.REPORTES_TURNO = [
     "hora": "21:45",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-10",
     "equipos": [
       {
@@ -11935,7 +11935,7 @@ window.REPORTES_TURNO = [
     "hora": "07:53",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-10",
     "equipos": [
       {
@@ -12076,7 +12076,7 @@ window.REPORTES_TURNO = [
     "hora": "08:10",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-10",
     "equipos": [
       {
@@ -12134,7 +12134,7 @@ window.REPORTES_TURNO = [
     "hora": "19:50",
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-11",
     "equipos": [
       {
@@ -12286,7 +12286,7 @@ window.REPORTES_TURNO = [
     "hora": "20:55",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-11",
     "equipos": [
       {
@@ -12334,7 +12334,7 @@ window.REPORTES_TURNO = [
     "hora": "08:51",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-11",
     "equipos": [
       {
@@ -12428,7 +12428,7 @@ window.REPORTES_TURNO = [
     "hora": "11:17",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-09-11",
     "equipos": [
       {
@@ -12465,7 +12465,7 @@ window.REPORTES_TURNO = [
     "hora": "19:38",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-12",
     "equipos": [
       {
@@ -12619,7 +12619,7 @@ window.REPORTES_TURNO = [
     "hora": "22:55",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-12",
     "equipos": [
       {
@@ -12672,7 +12672,7 @@ window.REPORTES_TURNO = [
     "hora": "20:02",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-13",
     "equipos": [
       {
@@ -12731,7 +12731,7 @@ window.REPORTES_TURNO = [
     "hora": "20:18",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-13",
     "equipos": [
       {
@@ -12876,7 +12876,7 @@ window.REPORTES_TURNO = [
     "hora": "07:35",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-13",
     "equipos": [
       {
@@ -13032,7 +13032,7 @@ window.REPORTES_TURNO = [
     "hora": "09:14",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-09-13",
     "equipos": [
       {
@@ -13086,7 +13086,7 @@ window.REPORTES_TURNO = [
     "hora": "19:58",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-14",
     "equipos": [
       {
@@ -13231,7 +13231,7 @@ window.REPORTES_TURNO = [
     "hora": "20:01",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-14",
     "equipos": [
       {
@@ -13290,7 +13290,7 @@ window.REPORTES_TURNO = [
     "hora": "07:41",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-14",
     "equipos": [],
     "novedades": [
@@ -13318,7 +13318,7 @@ window.REPORTES_TURNO = [
     "hora": "09:19",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-09-14",
     "equipos": [
       {
@@ -13370,7 +13370,7 @@ window.REPORTES_TURNO = [
     "hora": "21:20",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-15",
     "equipos": [
       {
@@ -13463,7 +13463,7 @@ window.REPORTES_TURNO = [
     "hora": "22:10",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-15",
     "equipos": [
       {
@@ -13497,7 +13497,7 @@ window.REPORTES_TURNO = [
     "hora": "07:53",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-15",
     "equipos": [
       {
@@ -13555,7 +13555,7 @@ window.REPORTES_TURNO = [
     "hora": "09:30",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-15",
     "equipos": [
       {
@@ -13692,7 +13692,7 @@ window.REPORTES_TURNO = [
     "hora": "20:40",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-16",
     "equipos": [
       {
@@ -13731,7 +13731,7 @@ window.REPORTES_TURNO = [
     "hora": "22:02",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-16",
     "equipos": [
       {
@@ -13878,7 +13878,7 @@ window.REPORTES_TURNO = [
     "hora": "07:47",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-16",
     "equipos": [
       {
@@ -13973,7 +13973,7 @@ window.REPORTES_TURNO = [
     "hora": "07:52",
     "autor": "@alfonsoorozco10",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-16",
     "equipos": [
       {
@@ -14047,7 +14047,7 @@ window.REPORTES_TURNO = [
     "hora": "19:58",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-17",
     "equipos": [],
     "novedades": [
@@ -14074,7 +14074,7 @@ window.REPORTES_TURNO = [
     "hora": "21:13",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-17",
     "equipos": [
       {
@@ -14131,7 +14131,7 @@ window.REPORTES_TURNO = [
     "hora": "07:41",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-09-17",
     "equipos": [
       {
@@ -14166,7 +14166,7 @@ window.REPORTES_TURNO = [
     "hora": "09:49",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-17",
     "equipos": [
       {
@@ -14240,7 +14240,7 @@ window.REPORTES_TURNO = [
     "hora": "19:40",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-18",
     "equipos": [
       {
@@ -14398,7 +14398,7 @@ window.REPORTES_TURNO = [
     "hora": "19:44",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-18",
     "equipos": [
       {
@@ -14469,7 +14469,7 @@ window.REPORTES_TURNO = [
     "hora": "09:45",
     "autor": "+57 302 2801867",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-18",
     "equipos": [
       {
@@ -14614,7 +14614,7 @@ window.REPORTES_TURNO = [
     "hora": "16:55",
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-19",
     "equipos": [
       {
@@ -14689,7 +14689,7 @@ window.REPORTES_TURNO = [
     "hora": "08:11",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-19",
     "equipos": [],
     "novedades": [
@@ -14711,7 +14711,7 @@ window.REPORTES_TURNO = [
     "hora": "20:04",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-20",
     "equipos": [
       {
@@ -14781,7 +14781,7 @@ window.REPORTES_TURNO = [
     "hora": "20:21",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-20",
     "equipos": [
       {
@@ -14886,7 +14886,7 @@ window.REPORTES_TURNO = [
     "hora": "07:59",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-20",
     "equipos": [
       {
@@ -15032,7 +15032,7 @@ window.REPORTES_TURNO = [
     "hora": "09:24",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-09-20",
     "equipos": [
       {
@@ -15077,7 +15077,7 @@ window.REPORTES_TURNO = [
     "hora": "21:58",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-21",
     "equipos": [
       {
@@ -15116,7 +15116,7 @@ window.REPORTES_TURNO = [
     "hora": "22:23",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-21",
     "equipos": [
       {
@@ -15258,7 +15258,7 @@ window.REPORTES_TURNO = [
     "hora": "08:45",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-21",
     "equipos": [
       {
@@ -15360,7 +15360,7 @@ window.REPORTES_TURNO = [
     "hora": "09:14",
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-21",
     "equipos": [],
     "novedades": [
@@ -15383,7 +15383,7 @@ window.REPORTES_TURNO = [
     "hora": "20:35",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-22",
     "equipos": [
       {
@@ -15424,7 +15424,7 @@ window.REPORTES_TURNO = [
     "hora": "21:20",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-22",
     "equipos": [
       {
@@ -15525,7 +15525,7 @@ window.REPORTES_TURNO = [
     "hora": "09:53",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-22",
     "equipos": [
       {
@@ -15669,7 +15669,7 @@ window.REPORTES_TURNO = [
     "hora": "19:57",
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-23",
     "equipos": [
       {
@@ -15816,7 +15816,7 @@ window.REPORTES_TURNO = [
     "hora": "21:15",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-23",
     "equipos": [
       {
@@ -15886,7 +15886,7 @@ window.REPORTES_TURNO = [
     "hora": "08:58",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-2 · Noche",
     "fechaTurno": "2026-09-23",
     "equipos": [
       {
@@ -15919,7 +15919,7 @@ window.REPORTES_TURNO = [
     "hora": "09:14",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-23",
     "equipos": [
       {
@@ -16002,7 +16002,7 @@ window.REPORTES_TURNO = [
     "hora": "19:55",
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-24",
     "equipos": [
       {
@@ -16164,7 +16164,7 @@ window.REPORTES_TURNO = [
     "hora": "10:24",
     "autor": "Brayan",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-24",
     "equipos": [
       {
@@ -16312,7 +16312,7 @@ window.REPORTES_TURNO = [
     "hora": "22:27",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-25",
     "equipos": [
       {
@@ -16414,7 +16414,7 @@ window.REPORTES_TURNO = [
     "hora": "07:57",
     "autor": "+57 302 3194066",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-25",
     "equipos": [
       {
@@ -16610,7 +16610,7 @@ window.REPORTES_TURNO = [
     "hora": "09:16",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-3 · Noche",
     "fechaTurno": "2026-09-25",
     "equipos": [
       {
@@ -16656,7 +16656,7 @@ window.REPORTES_TURNO = [
     "hora": "21:43",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-26",
     "equipos": [
       {
@@ -16805,7 +16805,7 @@ window.REPORTES_TURNO = [
     "hora": "22:02",
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-1 · Día",
     "fechaTurno": "2026-09-26",
     "equipos": [],
     "novedades": [
@@ -16827,7 +16827,7 @@ window.REPORTES_TURNO = [
     "hora": "07:56",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-09-26",
     "equipos": [
       {
@@ -16984,7 +16984,7 @@ window.REPORTES_TURNO = [
     "hora": "21:28",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-27",
     "equipos": [
       {
@@ -17122,7 +17122,7 @@ window.REPORTES_TURNO = [
     "hora": "21:28",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-27",
     "equipos": [
       {
@@ -17158,7 +17158,7 @@ window.REPORTES_TURNO = [
     "hora": "08:20",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-27",
     "equipos": [
       {
@@ -17304,7 +17304,7 @@ window.REPORTES_TURNO = [
     "hora": "09:03",
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-27",
     "equipos": [
       {
@@ -17333,7 +17333,7 @@ window.REPORTES_TURNO = [
     "hora": "21:20",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-28",
     "equipos": [
       {
@@ -17446,7 +17446,7 @@ window.REPORTES_TURNO = [
     "hora": "21:49",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-09-28",
     "equipos": [
       {
@@ -17490,7 +17490,7 @@ window.REPORTES_TURNO = [
     "hora": "07:44",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-09-28",
     "equipos": [
       {
@@ -17596,7 +17596,7 @@ window.REPORTES_TURNO = [
     "hora": "09:48",
     "autor": "Sergio Vergara Electricista",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo Vía 40-1 · Noche",
     "fechaTurno": "2026-09-28",
     "equipos": [],
     "novedades": [
@@ -17637,7 +17637,7 @@ window.REPORTES_TURNO = [
     "hora": "19:46",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-29",
     "equipos": [
       {
@@ -17793,7 +17793,7 @@ window.REPORTES_TURNO = [
     "hora": "21:04",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-29",
     "equipos": [
       {
@@ -17852,7 +17852,7 @@ window.REPORTES_TURNO = [
     "hora": "13:22",
     "autor": "BLADIMIR",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-29",
     "equipos": [
       {
@@ -17950,7 +17950,7 @@ window.REPORTES_TURNO = [
     "hora": "19:42",
     "autor": "Jhon",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Día",
+    "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-30",
     "equipos": [
       {
@@ -18104,7 +18104,7 @@ window.REPORTES_TURNO = [
     "hora": "22:01",
     "autor": "+57 301 7510864",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-3 · Día",
     "fechaTurno": "2026-09-30",
     "equipos": [
       {
@@ -18139,7 +18139,7 @@ window.REPORTES_TURNO = [
     "hora": "10:26",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-2 · Noche",
     "fechaTurno": "2026-09-30",
     "equipos": [
       {
@@ -18443,7 +18443,7 @@ window.REPORTES_TURNO = [
     "hora": "19:32",
     "autor": "Lucho",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-10-01",
     "equipos": [
       {
@@ -18546,7 +18546,7 @@ window.REPORTES_TURNO = [
     "hora": "06:53",
     "autor": "+57 323 3643481",
     "sede": "Sede 2",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-10-01",
     "equipos": [
       {
@@ -18579,7 +18579,7 @@ window.REPORTES_TURNO = [
     "hora": "08:14",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Grupo 1 · Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-10-01",
     "equipos": [
       {
@@ -18733,7 +18733,7 @@ window.REPORTES_TURNO = [
     "hora": "22:01",
     "autor": "Diego Temporal",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Día",
+    "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-10-02",
     "equipos": [
       {
@@ -18870,7 +18870,7 @@ window.REPORTES_TURNO = [
     "hora": "08:19",
     "autor": "+57 323 3643481",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-10-02",
     "equipos": [
       {
@@ -18903,7 +18903,7 @@ window.REPORTES_TURNO = [
     "hora": "08:23",
     "autor": "Alexander Algarin",
     "sede": "Sede 4",
-    "turno": "Noche",
+    "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-10-02",
     "equipos": [
       {
@@ -19093,7 +19093,7 @@ window.REPORTES_TURNO = [
     "hora": "21:06",
     "autor": "+57 312 7212941",
     "sede": "Sede 2",
-    "turno": "Día",
+    "turno": "Grupo Vía 40-2 · Día",
     "fechaTurno": "2026-10-03",
     "equipos": [
       {
@@ -19133,7 +19133,7 @@ window.REPORTES_TURNO = [
     "hora": "21:22",
     "autor": "+57 301 2263014",
     "sede": "Sede 4",
-    "turno": "Día",
+    "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-10-03",
     "equipos": [
       {
@@ -19282,7 +19282,7 @@ window.REPORTES_TURNO = [
     "hora": "08:59",
     "autor": "+57 304 5642880",
     "sede": "Sede 4",
-    "turno": "Grupo 2 · Noche",
+    "turno": "Grupo 4-3 · Noche",
     "fechaTurno": "2026-10-03",
     "equipos": [
       {
@@ -19422,5 +19422,239 @@ window.REPORTES_TURNO = [
       "R400 Se atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
     ],
     "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: stamby\nNJP #1: stamby\nNJP #3: nifedipino\nPILOT LAB: fumarato\nSCMUKER: flextril c \nBLISTER #9: coltrin\nMB 432: multivitaminico\nINTEGRA: fluixetina\nBLISTER #8: zintergia\nMARCHESINI EVO: ferbin \nR200: sertralina\nR400: esomeprazol \nMARZIO #1: \nMARZIO #4: stamby\nMARZIO #5: stamby\nCB 550: gelimed plus\nHUTTLIN 600: stamby\nHUTTLIN 400: congestex \nRIMEK: limpieza \nFETTE 2020-2: acetaminofén \nFETTE 1010: levofloxacina\nFETTE 2020-1: esomeprazol \n\nLÍQUIDO \nENVASADORA #2: congestex kids jarabe \nENVASADORA #3: fluticasona suspensión \nCLIQUIDO #2: stamby \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: limpieza \nBLISTER #2: beclazone\nBLISTER #3: stamby\n______________________________________________\n                       NOVEDADES \nBLÍSTER #2 \nse atiende llamado porque se parte manguera 8mm de plancha de enfriamiento después del sellado, se encuentran mangueras en mal estado y racor de 1/8x8 en mal estado, se realiza el cambio de racor y mangueras y queda equipo operativo.\n\nBLÍSTER #3 \nse realiza limpieza y desarme de reductor, queda pendiente llevar eje y polea a reparar.\n\nCB 550\nse ayuda a operador en el cuadre de la máquina, se ajusta posición de fotocelda, se cuadra el centrado de la imagen del laminado, se ajustan tiempo de retardo en sellado vertical y horizontal.\n\nPISO TÉCNICO HUTTLIN 40 \nSe realiza limpieza se continúa organizando se bota basura la chatarra se deja en la carpa azul pendiente botar.\n\nR400 \nSe atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
+  },
+  {
+    "id": "rt-20261004-2059",
+    "fecha": "2026-10-04",
+    "hora": "20:59",
+    "autor": "+57 312 7212941",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-2 · Día",
+    "fechaTurno": "2026-10-04",
+    "equipos": [
+      {
+        "equipo": "Gb 100",
+        "producto": "dispax"
+      },
+      {
+        "equipo": "Envasadora1",
+        "producto": "supreflux"
+      }
+    ],
+    "novedades": [
+      "Se encuentra disparado breaker de toma corriente 220 en recubrimiento #10",
+      "Se limpia pared  de area de utensilios en lados se remueve goma boxer .",
+      "Se reporta tamizadora en mal estado se realiza revisión y se encuentra motor en corto. Motor se encuentra en taller y tamizadora en piso rojo",
+      "Se saca tamizadora en mal estado y se posiciona en piso rojo esta presenta problema de motor también que se encuentra en el taller",
+      "*Se realiza revisiones de.la UMA 08B. Y se realiza limpieza de filtracción.",
+      "*Se continúa con trabajos de reposición de  Aire Oficinas.",
+      "*Recorrido a bombas de agua fría y equipos en oficinas.",
+      "*recubrimiento #1, se pinta la estructura y motores ok",
+      "*Se busca de  sede 4 bombas centrífugas para instalar en fabricación de líquido #2",
+      "*Se ayuda a Juan Carlos Estupiñán, para pasar tubería de 7/8 de la manejadora oficina",
+      "Se atiende llamado de planta de agua .se procede a preparar mezcla y arrancar planta."
+    ],
+    "texto": "Reporte de turno \nSede 2 \n\nGb 100 dispax \nEnvasadora1 supreflux \n\nNovedades \n\nSe encuentra disparado breaker de toma corriente 220 en recubrimiento #10\n\nSe limpia pared  de area de utensilios en lados se remueve goma boxer .\n\nSe reporta tamizadora en mal estado se realiza revisión y se encuentra motor en corto.\nMotor se encuentra en taller y tamizadora en piso rojo\n\nSe saca tamizadora en mal estado y se posiciona en piso rojo esta presenta problema de motor también que se encuentra en el taller \n\n*Se realiza revisiones de.la UMA 08B. Y se realiza limpieza de filtracción.\n\n*Se continúa con trabajos de reposición de  Aire Oficinas.\n\n*Recorrido a bombas de agua fría y equipos en oficinas.\n\n*recubrimiento #1, se pinta la estructura y motores ok\n\n*Se busca de  sede 4 bombas centrífugas para instalar en fabricación de líquido #2\n\n*Se ayuda a Juan Carlos Estupiñán, para pasar tubería de 7/8 de la manejadora oficina\n\nSe atiende llamado de planta de agua .se procede a preparar mezcla y arrancar planta."
+  },
+  {
+    "id": "rt-20261005-0943",
+    "fecha": "2026-10-05",
+    "hora": "09:43",
+    "autor": "Lucho",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-3 · Noche",
+    "fechaTurno": "2026-10-04",
+    "equipos": [
+      {
+        "equipo": "BIN",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "BOSHC",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "nifedipino"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "SCMUKER",
+        "producto": "Flextril c"
+      },
+      {
+        "equipo": "BLISTER #9",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "INTEGRA",
+        "producto": "Fluoxetina"
+      },
+      {
+        "equipo": "BLISTER #8",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "MARCHESINI EVO",
+        "producto": "Ferbin 250"
+      },
+      {
+        "equipo": "R200",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Esomeprazol enterica"
+      },
+      {
+        "equipo": "MARZIO #4",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "MARZIO #5",
+        "producto": "Esomed"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "Diclofenac"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "FETTE 2020-2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "valaciclovir"
+      },
+      {
+        "equipo": "FETTE",
+        "producto": "2020-1 Dimoflax"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "supreflux forte"
+      },
+      {
+        "equipo": "ENVASADORA #3",
+        "producto": "Fluticasona furoato"
+      },
+      {
+        "equipo": "CLIQUIDO #2",
+        "producto": "Naproxeno"
+      },
+      {
+        "equipo": "CLIQUIDO #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CLIQUIDO #4",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "BLISTER #2",
+        "producto": "Etorimed"
+      },
+      {
+        "equipo": "BLISTER #3",
+        "producto": ""
+      }
+    ],
+    "novedades": [
+      "ENVASADORA 2 se realiza ajuste de sensor que le da salida a las tapas de los frascos, se le da más tiempo al momento de sensar el frasco para mantener el aire de impulso de las tapas activo y que las tapas no se queden. Blíster 2 se atiende llamado porque no ajusta la guía del blíster antes del troquelado, se encuentra un rosca en mal estado, se rectifica con macho M6, queda ok.",
+      "EVO se realiza cambio de racores de 3/8 x 12mm por unos de 3/8 x 10mm en el sistema del sellado debido a que se dañó el original, se colocan estos ya que no tenemos los de 12mm. Se cambió también el tramo de manguera neumática de 12mm a 10mm.",
+      "CB 550 se atiende llamado por alarma de señal de fotocelda, se revisa fotocelda y se evidencia trabajando dentro de parámetros, se revisa tablero eléctrico y se evidencia servo drive que mueve las bandas de arrastre alarmado, se realiza el reset de la máquina y se quita la alarma. se ajusta posición de la fotocelda. Se lubrica sistema de rodillos que activan la marcha y paro del desembobinado del laminado ya que se estaba atascando. MARZIO 4 se realiza ajuste entre las pinzas de arrastre y las cuchillas ya que estaban tropezando.",
+      "Blíster 9 se recibe para cuadrar tiempos mecánicos y tiempo eléctrico se ayuda en cuadre queda ok",
+      "Blíster 2 se ayuda a operador en cuadre de equipo"
+    ],
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 a 8:00\nSOLIDOS\nBIN: Dimoflax\nBOSHC: Disponible \nNJP #2: Disponible \nNJP #1: Disponible \nNJP #3: nifedipino \nPILOT LAB: Dimoflax \nSCMUKER: Flextril c\nBLISTER #9: Nifedipino \nMB 432: cronofen\nINTEGRA: Fluoxetina\nBLISTER #8: zintergia\nMARCHESINI EVO: Ferbin 250 \nR200: limpieza \nR400: Esomeprazol enterica\nMARZIO #4 Flextril C\nMARZIO #5 Esomed\nCB 550: Gelimed\nHUTTLIN 600: Diclofenac\nHUTTLIN 400: limpieza \nRIMEK: Disponible \nFETTE 2020-2: acetaminofén\nFETTE 1010: valaciclovir\nFETTE 2020-1 Dimoflax \n\nLÍQUIDO \nENVASADORA #2: supreflux forte\nENVASADORA #3: Fluticasona furoato \nCLIQUIDO #2: Naproxeno \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Disponible \nMT 1100:  Supreflux \nBLISTER #2: Etorimed \nBLISTER #3:\n\nNota \n\nENVASADORA 2\nse realiza ajuste de sensor que le da salida a las tapas de los frascos, se le da más tiempo al momento de sensar el frasco para mantener el aire de impulso de las tapas activo y que las tapas no se queden.\nBlíster 2 se atiende llamado porque no ajusta la guía del blíster antes del troquelado, se encuentra un rosca en mal estado, se rectifica con macho M6, queda ok.\n\nEVO\nse realiza cambio de racores de 3/8 x 12mm por unos de 3/8 x 10mm en el sistema del sellado debido a que se dañó el original, se colocan estos ya que no tenemos los de 12mm. Se cambió también el tramo de manguera neumática de 12mm a 10mm.\n\nCB 550\nse atiende llamado por alarma de señal de fotocelda, se revisa fotocelda y se evidencia trabajando dentro de parámetros, se revisa tablero eléctrico y se evidencia servo drive que mueve las bandas de arrastre alarmado, se realiza el reset de la máquina y se quita la alarma.\nse ajusta posición de la fotocelda.\nSe lubrica sistema de rodillos que activan la marcha y paro del desembobinado del laminado ya que se estaba atascando.\nMARZIO 4\nse realiza ajuste entre las pinzas de arrastre y las cuchillas ya que estaban tropezando.\n\nBlíster 9 se recibe para cuadrar tiempos mecánicos y tiempo eléctrico se ayuda en cuadre queda ok \n\nBlíster 2 se ayuda a operador en cuadre de equipo"
+  },
+  {
+    "id": "rt-20261005-2032",
+    "fecha": "2026-10-05",
+    "hora": "20:32",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-05",
+    "equipos": [
+      {
+        "equipo": "ENTREGA TURNO 2",
+        "producto": "- 05/10/26"
+      },
+      {
+        "equipo": "ENV 1",
+        "producto": "Supreflux 240ml - En proceso"
+      },
+      {
+        "equipo": "GB100",
+        "producto": "Dispax - En proceso"
+      },
+      {
+        "equipo": "CL1",
+        "producto": "Dimeticona - (sin operadores)"
+      },
+      {
+        "equipo": "ENCA",
+        "producto": "Flectadol - En proceso"
+      },
+      {
+        "equipo": "Se recibió  llamada de gb 100",
+        "producto": "por baja humedad se soluciona"
+      }
+    ],
+    "novedades": [],
+    "texto": "TURNO DIA \n\n---\n*ENTREGA TURNO 2 - 05/10/26*\n\n*ENV 1:* Supreflux 240ml - En proceso\n*GB100:* Dispax - En proceso  \n*CL1:* Dimeticona - (sin operadores)\n*ENCA:* Flectadol - En proceso\n\nSe recibió  llamada de gb 100 por baja humedad se soluciona \n\n*Novedad:* Sin novedad, equipos operativos, área organizadas"
+  },
+  {
+    "id": "rt-20261005-2102",
+    "fecha": "2026-10-05",
+    "hora": "21:02",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-05",
+    "equipos": [],
+    "novedades": [
+      "*Blíster 9:* Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC *T: 120 min aprox*",
+      "*CB550:* Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. *T: 40 min aprox*",
+      "*Blíster 8:* Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. *T: 70 min aprox.*",
+      "*PILOT LAB* se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.",
+      "*MT 1100:* llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.",
+      "*MARZIO 4:* llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.",
+      "*BLISTER 3:* Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.",
+      "*BOSCH:* Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
+    ],
+    "texto": "*REPORTE DE TURNO GRUPO 1 SEDE 4*\n*NOVEDADES:*\n*Blíster 9:* Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC *T: 120 min aprox*\n*CB550:* Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. *T: 40 min aprox*\n*Blíster 8:* Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. *T: 70 min aprox.*\n*PILOT LAB* se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.\n*MT 1100:* llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.\n*MARZIO 4:* llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.\n*BLISTER 3:* Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.\n*BOSCH:* Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
   }
 ];
