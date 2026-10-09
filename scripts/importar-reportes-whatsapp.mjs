@@ -141,9 +141,14 @@ function cabeceraDeReporte(cuerpo) {
 // la de quien firma. Solo el encabezado: más abajo el texto habla de "traslado
 // a sede 2" o "apoyo en planta 2" y eso no hace que el reporte sea de Sede 2.
 function detectarSede(cuerpo, autor) {
-  const head = cuerpo.replace(/\*/g, "").split("\n").slice(0, 3).join(" ");
-  if (/\bsede\s*2\b|\bsd\s*2\b|v[ií]a\s*40/i.test(head)) return "Sede 2";
-  if (/\bsede\s*4\b|\bsd\s*4\b/i.test(head)) return "Sede 4";
+  const norm = cuerpo.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  const head = norm.split("\n").slice(0, 5).join(" ");
+  if (/\b(?:SEDE|SD)\s*2\b|\bVIA\s*40\b|\bPLANTA\s*2\b/.test(head)) return "Sede 2";
+  if (/\b(?:SEDE|SD)\s*4\b/.test(head)) return "Sede 4";
+  const esSede4Exclusivo = /\b(?:HUTTLIN|FETTE|BOSCH|BOSHC|NJP\s*[13]|INTEGRA|MB\s*432|SCHMUCKER|MS\s*235|CB\s*550|MARZIO\s*[145]|CL\s*[34]|R200|R400)\b/.test(norm);
+  const esSede2Firma = /\b(?:C(?:ENTRO)?\s*(?:DE\s*)?LIQUIDOS?\s*1|CL\s*1|ENVASAD\w*\s*1)\b/.test(norm) ||
+    (/\bGB\s*100\b/.test(norm) && /\b(?:BLISTER\s*5|B5|RONCHI|CD\s*40)\b/.test(norm));
+  if (esSede2Firma && !esSede4Exclusivo) return "Sede 2";
   const g = TURNOS && TURNOS.grupoDeAutor(autor);
   return g ? g.sede : "Sede 4";
 }
@@ -154,7 +159,7 @@ function detectarSede(cuerpo, autor) {
 // y el grupo de quien firma (el turno que de verdad trabajó ese grupo).
 function pistaDe(cuerpo) {
   const head = String(cuerpo || "").replace(/\*/g, "").slice(0, 400);
-  return /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]a\b/i.test(head) ? "Día" : "";
+  return /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]as?\b|\bma[ñn]ana\b/i.test(head) ? "Día" : "";
 }
 function turnoReal(msg) {
   const pista = msg.pista !== undefined ? msg.pista : pistaDe(msg.cuerpo);

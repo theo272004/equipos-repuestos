@@ -153,15 +153,15 @@
     return { estados, bloques: final.filter((b) => VERBO.test(b.map((x) => x[1]).join(" "))) };
   }
 
-  const RE_AVERIA_FISICA = /PARTID|ROT[OA]|QUEMAD|FISUR|REVENTAD|SULFATAD|DESPRENDID|EN\s*CORTO|SE\s+CAMBIA\s+(?:RESORTE|SENSOR|CORREA|RESISTENCIA|VALVULA|RODAMIENTO|CUCHILLA|CABLE|BOBINA|RETEN|ORING|EMPAQUE|ESP[AÁ]RRAGO)|SE\s+SUELDA|SE\s+EMBOBINA|SE\s+RECTIFICA|VASTAGO\s+RAYADO|VALVULA.*PEGADA|BOMBA.*TRABADA|MOTOR.*QUEMADO/;
-  const RE_OPERACIONAL = /OPERARI[AO]\s+NUEV[AO]|\bINDUCCION\b|SE\s+(?:LE\s+)?ENSENA|SE\s+(?:LE\s+)?EXPLICA|\bCAPACITA\w*|\bAYUDA\s+(?:AL?\s+)?OPERA|\bCOLABORA\s+(?:AL?\s+)?OPERA|\bAPOYO\s+(?:AL?\s+)?OPERA|SE\s+APOYA\s+EN\s+(?:MONTAJE|CUADRE|ARRANQUE)|PROBLEMAS?\s+DE\s+CUADRE|SE\s+CUADRA\s+(?:LOTE|SALIDA\s+DE\s+ETIQUETA|ALTURA|VELOCIDAD|SOBRE|PASO|ARRASTRE|PESTANA|FORMATO|PESO|ESTERAS?)|LOTE\s+(?:BORROS[OA]|TORCID[OA]|CORRID[OA]|ILEGIBLE|RAYAD[OA]|DESALINEAD[OA])|ARRUGA\s+EN\s+(?:LA\s+)?ETIQUETA|ETIQUETA\s+TORCIDA|CENTRADO\s+DE\s+(?:IMPRESION|LAMINADO)|MUESTRA\s+DE\s+SACHET|MONTAJE\s+DE\s+FORMATO|DESATASCA\s+(?:BLISTER|CAPSULAS?)|BLISTER\s+ATASCADO|CAPSULAS?\s+ATASCADAS?|SE\s+DESATASCA|NO\s+DABA\s+CON\s+EL\s+PESO|SE\s+CALIBRA\s+PESO/;
+  const RE_AVERIA_FISICA = /PARTID|ROT[OA]|QUEMAD|FISUR|REVENTAD|SULFATAD|DESPRENDID|EN\s*CORTO|SE\s+CAMBIA\s+(?:RESORTE|SENSOR|CORREA|RESISTENCIA|VALVULA|RODAMIENTO|CUCHILLA|CABLE|BOBINA|RETEN|ORING|EMPAQUE|ESP[AÁ]RRAGO)|CORREA\s+PARTIDA|AGITADOR.*PARTIDO|ROSCAS?\s+MAL[AS]?|ROSCAS?\s+QUEDADA|EXTRAE\s+ROSCA|EJE\s+(?:PARTIDO|PEGADO|TORCIDO)|DISCO\s+DURO|SE\s+SUELDA|SE\s+EMBOBINA|SE\s+RECTIFICA|VASTAGO\s+RAYADO|VALVULA.*PEGADA|BOMBA.*TRABADA|MOTOR.*QUEMADO/;
+  const RE_OPERACIONAL = /OPERARI[AO]\s+NUEV[AO]|\bINDUCCION\b|SE\s+(?:LE\s+)?ENSENA|SE\s+(?:LE\s+)?EXPLICA|\bCAPACITA\w*|\bAYUDA\s+(?:AL?\s+)?OPERA|\bCOLABORA\s+(?:AL?\s+)?OPERA|\bAPOYO\s+(?:AL?\s+)?OPERA|SE\s+APOYA\s+EN\s+(?:MONTAJE|CUADRE|ARRANQUE)|PROBLEMAS?\s+DE\s+CUADRE|FALTA\s+DE\s+EXPERIENCIA|NO\s+SAB[IÍ]AN\s+C[OÓ]MO|SE\s+CUADRA\s+(?:LOTE|SALIDA\s+DE\s+ETIQUETA|ALTURA|VELOCIDAD|SOBRE|PASO|ARRASTRE|PESTANA|FORMATO|PESO|ESTERAS?)|LOTE\s+(?:BORROS[OA]|TORCID[OA]|CORRID[OA]|ILEGIBLE|RAYAD[OA]|DESALINEAD[OA])|ARRUGA\s+EN\s+(?:LA\s+)?ETIQUETA|ETIQUETA\s+TORCIDA|CENTRADO\s+DE\s+(?:IMPRESION|LAMINADO)|MUESTRA\s+DE\s+SACHET|MONTAJE\s+DE\s+FORMATO|DESATASCA\s+(?:BLISTER|CAPSULAS?)|BLISTER\s+ATASCADO|CAPSULAS?\s+ATASCADAS?|SE\s+DESATASCA|NO\s+DABA\s+CON\s+EL\s+PESO|SE\s+CALIBRA\s+PESO|P[EÉ]RDIDA\s+CONSTANTE\s+DE\s+PASO|POR\s+CONDICIONES\s+SE\s+ADECUA/;
   const RE_SERVICIOS = /\bCOMPRESOR\b|\bCOMPRESORES\b|\bAIRE\s+COMPRIMIDO\b|\bPRESION\s+DE\s+TRABAJO\b|\bCHILLER\b|\bAGUA\s+HELADA\b|\bAGUA\s+FRIA\b|\bREFRIGERACION\b|\bBOMBA\s+DE\s+VACIO\b|\bSUBESTACION\b|\bCORTE\s+DE\s+ENERGIA\b|\bPLANTA\s+DE\s+AGUA\b|\bSISTEMA\s+DE\s+VACIO\b/;
   const RE_LOCATIVO = /\bESCLUSA\b|\bPUERTA\s+DE\s+(?:PERSONAL|ACCESO|PASILLO|ESCLUSA)\b|\bVENTANA\b|\bTECHO\b|\bPISO\b|\bDESAGUE\b|\bSIFON\b|\bLUMINARIA\b|\bLAMPARA\b|\bBOMBILLO\b|\bCANALETA\b|\bCORTINA\s+DE\s+AIRE\b|\bMUEBLE\b|\bSILLA\b|\bMESA\b/;
   const RE_PREVENTIVO = /\bMP\b|\bMANTENIMIENTO\s+PREVENTIVO\b|\bPARADA\s+PROGRAMADA\b|\bRUTINA\s+DE\s+(?:LUBRICACION|ENGRASE|INSPECCION)\b|\bLIMPIEZA\s+PROGRAMADA\b|\bCAMBIO\s+PROGRAMADO\b/;
-  const RE_CORRECTIVO = /\bFALLA\b|\bDANO\b|\bDANAD\w*|\bPARTID\w*|\bROT[OA]S?\b|\bQUEMAD\w*|NO\s+(?:ARRANCA|SELLA|CORTA|DOSIFICA|DESTAPA|CALIENTA|FUNCIONA|PRENDE|GIRA)|\bSIN\s+REFRIGERACION\b|\bALARMA\b|\bFUGA\b|\bATASC\w*|\bTRABAD\w*|\bPEGAD\w*|\bDESALINEAD\w*|\bDESCALIBRAD\w*|\bDESGASTAD\w*|\bSUELT\w*|\bFLOJ\w*|\bVIBRACION\b|\bRUIDO\b|SE\s+REPARA|SE\s+CAMBIA|SE\s+CORRIGE|SE\s+AJUSTA\s+SENSOR|\bPURGA\b/;
+  const RE_CORRECTIVO = /\bFALLA\b|\bDANO\b|\bDANAD\w*|\bPARTID\w*|\bROT[OA]S?\b|\bQUEMAD\w*|NO\s+(?:ARRANCA|SELLA|CORTA|DOSIFICA|DESTAPA|CALIENTA|FUNCIONA|PRENDE|GIRA)|\bSIN\s+REFRIGERACION\b|\bALARMA\b|\bFUGA\b|\bATASC\w*|\bATACAD\w*|\bTRABAD\w*|\bPEGAD\w*|\bDESALINEAD\w*|\bDESCALIBRAD\w*|\bDESGASTAD\w*|\bMALTRAT\w*|\bSUELT\w*|\bFLOJ\w*|\bVIBRACION\b|\bRUIDO\b|SE\s+REPARA|SE\s+CAMBIA|SE\s+CORRIGE|SE\s+AJUSTA\s+SENSOR|\bPURGA\b/;
 
   function clasificarNovedad(eq, ar, tn) {
-    const esEquipoProd = /BLISTER|FETTE|HUTTLIN|BOSH|NJP|MARZIO|RIMEK|STICK|MT11|CL\s*[24]|ENVASADORA|ETIQUETADORA|BOMBO|MEZCLADOR|PILOTLAB/i.test(eq || "");
+    const esEquipoProd = /BLISTER|FETTE|HUTTLIN|BOSH|NJP|MARZIO|RIMEK|STICK|MT11|CL\s*[1234]|CENTRO\s*LIQUIDOS|ENVASADORA|ETIQUETADORA|BOMBO|MEZCLADOR|PILOTLAB|GB\s*100|MB\s*432|MB\s*451|EVO|INTEGRA|MS\s*235|CB\s*550|RECUBRIDOR|TAMIZADORA|GRANULADOR|MICRONIZADOR/i.test(eq || "");
     if (RE_LOCATIVO.test(tn) && (!esEquipoProd || /ESCLUSA/i.test(tn))) {
       return { cat: "Locativo", tp: "Mejora / fabricación" };
     }
@@ -191,13 +191,24 @@
     return "Máquina";
   }
 
+  function detectarSede(tnTodo) {
+    const head = tnTodo.split("\n").slice(0, 5).join(" ");
+    if (/\b(?:SEDE|SD)\s*2\b|\bVIA\s*40\b|\bPLANTA\s*2\b/.test(head)) return "Sede 2";
+    if (/\b(?:SEDE|SD)\s*4\b/.test(head)) return "Sede 4";
+    const esSede4Exclusivo = /\b(?:HUTTLIN|FETTE|BOSCH|BOSHC|NJP\s*[13]|INTEGRA|MB\s*432|SCHMUCKER|MS\s*235|CB\s*550|MARZIO\s*[145]|CL\s*[34]|R200|R400)\b/.test(tnTodo);
+    const esSede2Firma = /\b(?:C(?:ENTRO)?\s*(?:DE\s*)?LIQUIDOS?\s*1|CL\s*1|ENVASAD\w*\s*1)\b/.test(tnTodo) ||
+      (/\bGB\s*100\b/.test(tnTodo) && /\b(?:BLISTER\s*5|B5|RONCHI|CD\s*40)\b/.test(tnTodo));
+    if (esSede2Firma && !esSede4Exclusivo) return "Sede 2";
+    return F.sede2.test(tnTodo) ? "Sede 2" : "Sede 4";
+  }
+
   // Lee un mensaje (o varios pegados seguidos) y devuelve lo que encontró.
   function leer(texto) {
     const limpio = String(texto || "")
       .replace(/^\s*\d{1,2}\/\d{1,2}\/\d{4},? \d{1,2}:\d{2}\s?[ap]\.?\s?m\.? - [^:\n]+: /gim, "")
       .replace(/<Se editó este mensaje\.>/g, "");
     const tnTodo = norm(limpio);
-    const sede = F.sede2.test(tnTodo) ? "Sede 2" : "Sede 4";
+    const sede = detectarSede(tnTodo);
     const { estados, bloques } = segmentar(limpio);
     const vistos = new Set();
     let previo = null;
@@ -210,7 +221,7 @@
       vistos.add(clave);
       const eqs = buscarEquipos(tn.slice(0, 70)).length ? buscarEquipos(tn.slice(0, 70)) : buscarEquipos(tn);
       let eq = eqs.length ? eqs[0][2] : "No identificado";
-      if (!eqs.length && previo && /^\s*[•\-*]/.test(b[0][0])) eq = previo;
+      if (!eqs.length && previo && (/^\s*[•\-*]/.test(b[0][0]) || /^\s*(?:NOTA|OTRO\s+LLAMAD|SE\s+ATIENDE\s+NUEVAMENTE|NUEVAMENTE|TAMBI[EÉ]N|ESTADO\s+FINAL|PENDIENTE\s+TURNO|EL\s+CAMBIO\s+DE|SE\s+HACE\s+PRESENCIA)/i.test(b[0][0].trim()))) eq = previo;
       eq = porSede(eq, sede);
       previo = eq;
       const ar = areaDe(eq);
@@ -235,5 +246,5 @@
     };
   }
 
-  window.MTTO_LECTOR = { leer, norm, buscarEquipos, areaDe, minutos, porSede };
+  window.MTTO_LECTOR = { leer, norm, buscarEquipos, areaDe, minutos, porSede, detectarSede };
 })();

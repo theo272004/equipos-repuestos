@@ -9028,7 +9028,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-08-31",
     "hora": "19:45",
     "autor": "Alexander Algarin",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-08-31",
     "equipos": [],
@@ -14710,7 +14710,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-09-20",
     "hora": "20:04",
     "autor": "Diego Temporal",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-20",
     "equipos": [
@@ -18869,7 +18869,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-10-03",
     "hora": "08:19",
     "autor": "+57 323 3643481",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Grupo 4-1 · Noche",
     "fechaTurno": "2026-10-02",
     "equipos": [
@@ -19604,7 +19604,7 @@ window.REPORTES_TURNO = [
     "fecha": "2026-10-05",
     "hora": "20:32",
     "autor": "+57 323 3643481",
-    "sede": "Sede 4",
+    "sede": "Sede 2",
     "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-10-05",
     "equipos": [
@@ -19656,5 +19656,966 @@ window.REPORTES_TURNO = [
       "*BOSCH:* Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
     ],
     "texto": "*REPORTE DE TURNO GRUPO 1 SEDE 4*\n*NOVEDADES:*\n*Blíster 9:* Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC *T: 120 min aprox*\n*CB550:* Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. *T: 40 min aprox*\n*Blíster 8:* Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. *T: 70 min aprox.*\n*PILOT LAB* se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.\n*MT 1100:* llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.\n*MARZIO 4:* llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.\n*BLISTER 3:* Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.\n*BOSCH:* Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
+  },
+  {
+    "id": "rt-20261006-0945",
+    "fecha": "2026-10-06",
+    "hora": "09:45",
+    "autor": "+57 312 7212941",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-2 · Noche",
+    "fechaTurno": "2026-10-05",
+    "equipos": [
+      {
+        "equipo": "Blíster 5",
+        "producto": "sertranex"
+      },
+      {
+        "equipo": "Gb",
+        "producto": "dispax"
+      },
+      {
+        "equipo": "Envasadora1",
+        "producto": "supreflux forte"
+      },
+      {
+        "equipo": "Ronchi",
+        "producto": "loratadina"
+      },
+      {
+        "equipo": "Marzzio",
+        "producto": "esomed"
+      }
+    ],
+    "novedades": [
+      "Marzzio Se atiende llamado  por ajuste de tensor de dosificacion",
+      "Se atiende nuevamente llamado por correa de motor principal partida( ref b-37 940mm) se procede a buscar correa en taller y luego en sede 4 se encuentra referencia b39 y b38 ninguna de estas se pudo adecuar. Correa en mal estado se entrega a turno entrante.",
+      "L2 se atiende llamado por  alarma de bomba  se procede  resetear variador y a realizar prueba este se alarmas nuevamente se baja y se despega bomba pero a las 2 horas nuevamente  se disparó perdiente revisar bomba.",
+      "Gb 100 se fabrican sufridera a plancha",
+      "Recorrído a bomba de agua frias y umas"
+    ],
+    "texto": "Reporte de turno \nSede 2 \n\nBlíster 5 sertranex\nGb dispax\nEnvasadora1 supreflux forte \nRonchi loratadina \nMarzzio esomed \n\nNovedades \n\nMarzzio Se atiende llamado  por ajuste de tensor de dosificacion \n\nSe atiende nuevamente llamado por correa de motor principal partida( ref b-37 940mm) se procede a buscar correa en taller y luego en sede 4 se encuentra referencia b39 y b38 ninguna de estas se pudo adecuar. Correa en mal estado se entrega a turno entrante.\n\nL2 se atiende llamado por  alarma de bomba  se procede  resetear variador y a realizar prueba este se alarmas nuevamente se baja y se despega bomba pero a las 2 horas nuevamente  se disparó perdiente revisar bomba.\n\nGb 100 se fabrican sufridera a plancha \n\nRecorrído a bomba de agua frias y umas"
+  },
+  {
+    "id": "rt-20261006-0954",
+    "fecha": "2026-10-06",
+    "hora": "09:54",
+    "autor": "+57 301 2263014",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-2 · Noche",
+    "fechaTurno": "2026-10-05",
+    "equipos": [
+      {
+        "equipo": "•BIN",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•BOSCH",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "NJP2",
+        "producto": "multivitamico"
+      },
+      {
+        "equipo": "Njp2",
+        "producto": "3 Nifedipino"
+      },
+      {
+        "equipo": "•PILOT LAB HUTTLIN 40",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•FETTE 2020/2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "Nifedipino 12h"
+      },
+      {
+        "equipo": "•MS 235 SCHMUCKER",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•MB 432 MARCHESINI",
+        "producto": "vitamina A"
+      },
+      {
+        "equipo": "•INTEGRA 320",
+        "producto": "congexte"
+      },
+      {
+        "equipo": "•BLISTER #8",
+        "producto": "Zintergia"
+      },
+      {
+        "equipo": "•MB 451 EVO",
+        "producto": "ferbin"
+      },
+      {
+        "equipo": "•RC 200",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "RC 400",
+        "producto": "esomeplazol"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "FLEXTRIL"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "granulado exipiente"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "valaciclovir"
+      },
+      {
+        "equipo": "•MARZIO 6",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "FLEXTRIL C + msm"
+      },
+      {
+        "equipo": "•FETTE 1010",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•FETTE 2020/1",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•ENVASADORA #2",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•ML 642 ENVASADORA #3",
+        "producto": "muxol adulto"
+      },
+      {
+        "equipo": "•CLIQUIDOS 2",
+        "producto": "naproflax"
+      },
+      {
+        "equipo": "•CLIQUIDOS 3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CLIQUIDOS 4",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "MT1100 MARCHESINI",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "BLISTER 2",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "BLISTER 5",
+        "producto": "Nifedipino"
+      }
+    ],
+    "novedades": [
+      "Njp2 Se atiende llamado por problemas con el destape destape , se revisa bomba y se  alinea estaciones se deja operativa 1h",
+      "Tanque de fabricación Se arma tubería ya que los operarios no sabían cómo iban   armado y por falta de pieza 1h",
+      "Marzio 4 Se atiende llamado por problemas de tiempo del docificador se ajusta tiempo y se cuadra brazo queda operativa 2h",
+      "Blíster 9 Se desmonta sistema de trasmisión de estación de formado para posicionar la misma ya que por obstrucción en proceso se corre. Se posiciona nuevamente y de toman tiempos se entrega equipo operativo. 2h",
+      "B432 se atiende llamado por qué el equipo se apagó cuando se estaba haciendo el cuadre el operador comenta que estaba cuadrando el sensor de la tolva se revisa de evidencia un cable suelto se lleva a taller se suelda y se entrega T 1.30h",
+      "Blister 3 se atiende llamado por fuerte ruido en la estación de formado se revisan los grupos de arandelas cóncavas las cuales estaban mal montadas se organizan y se ajusta polea también se ajusta tiempo se soplado T 2h",
+      "Se arma tamizadora se monta motor, se fija caja de guardamotor se ajusta cableado T 2hrs"
+    ],
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4\n\n*•BIN: disponible \n*•BOSCH: disponible \n*•NJP1: zintergia \n *NJP2: multivitamico \nNjp2 3 Nifedipino \n*•PILOT LAB HUTTLIN 40: Dimoflax \n*•FETTE 2020/2: acetaminofén \nBlíster 9 Nifedipino 12h \n*•MS 235 SCHMUCKER: disponible \n*•MB 432 MARCHESINI: vitamina A\n*•INTEGRA 320: congexte \n*•BLISTER #8: Zintergia \n*•MB 451 EVO: ferbin \n*•RC 200: disponible \n*RC 400: esomeplazol  \n*•CB550: disponible \n*•HUTTLIN 600: FLEXTRIL \n*•HUTTLIN 400:  granulado exipiente \n*•RIMEK: valaciclovir \n*•MARZIO 6: esomed\n*•MARZIO 1: FLEXTRIL C + msm \n*•FETTE 1010: disponible \n*•FETTE 2020/1: disponible \n*•ENVASADORA #2: disponible \n*•ML 642 ENVASADORA #3: muxol adulto  \n*•CLIQUIDOS 2: naproflax \n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: Disponible \n*MT1100 MARCHESINI: disponible\n*BLISTER 2: disponible \n*BLISTER 5: Nifedipino \n_________________________\n        *NOVEDADES*\n\nNjp2 \nSe atiende llamado por problemas con el destape destape , se revisa bomba y se  alinea estaciones se deja operativa 1h\n\nTanque de fabricación \nSe arma tubería ya que los operarios no sabían cómo iban   armado y por falta de pieza 1h\n\nMarzio 4 \nSe atiende llamado por problemas de tiempo del docificador se ajusta tiempo y se cuadra brazo queda operativa 2h\n\nBlíster 9 \nSe desmonta sistema de trasmisión de estación de formado para posicionar la misma ya que por obstrucción en proceso se corre. Se posiciona nuevamente y de toman tiempos se entrega equipo operativo. 2h\n\nB432 se atiende llamado por qué el equipo se apagó cuando se estaba haciendo el cuadre el operador comenta que estaba cuadrando el sensor de la tolva se revisa de evidencia un cable suelto se lleva a taller se suelda y se entrega T 1.30h\n\nBlister 3 se atiende llamado por fuerte ruido en la estación de formado se revisan los grupos de arandelas cóncavas las cuales estaban mal montadas se organizan y se ajusta polea también se ajusta tiempo se soplado T 2h\n\nSe arma tamizadora se monta motor, se fija caja de guardamotor se ajusta cableado T 2hrs"
+  },
+  {
+    "id": "rt-20261006-2017",
+    "fecha": "2026-10-06",
+    "hora": "20:17",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-06",
+    "equipos": [
+      {
+        "equipo": "ENTREGA",
+        "producto": "DE TURNO - 2026/10/06(DIA)"
+      },
+      {
+        "equipo": "B5",
+        "producto": "Sertralina"
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "Dispax"
+      },
+      {
+        "equipo": "ENVASADO 1",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "ENCAPSULADO",
+        "producto": "Flectadol"
+      },
+      {
+        "equipo": "CL 1",
+        "producto": "Dispax"
+      },
+      {
+        "equipo": "RONCHI",
+        "producto": "Loratadina 10mg - SIN OPERARIOS"
+      }
+    ],
+    "novedades": [
+      ": CD 40 SE REALIZA LIMPIEZA A LA BOMBA DE VACIO",
+      "OPERATIVO ✅️",
+      "SE LE HACE ENTREGA A SUPERVISORA DE AREA",
+      "MALLAS  #12 # 14 #16",
+      "PARA TAMIZADORA",
+      "SE DESMONTA BOMBA DE FABRICACIÓN  DE LIQUIDOS #2",
+      "SE CAMBIAN RODAMIENTOS  Y AJUSTES EN LA FRICCIÓN",
+      "SE RECIBIÓ  LLAMADO  DE MICRONIZADO",
+      "SE APAGO EL EQUIPO",
+      "SE AJUSTA LA CLAVIJA  HEMBRA",
+      "( *REQUIERE CAMBIO* )",
+      "SE CAMBIA RESORTE DE MORDAZA DE LA ENCELOFANADORA",
+      "SECAMBIA CORREA DE MARZIO R120",
+      "SE ATIENDE LLAMADO  DE *CL1*POR FALLAS EN LA DOSIFICACIÓN  SE HACEN AJUSTE",
+      "OPERATIVA✅",
+      "El cambio de rodamientos de la bomba",
+      "RF: 6206",
+      "RF: 6306",
+      "SE RECIBE LLAMADO  DE PORTERÍA",
+      "DEBIDO A LA ACTIVACIÓN  DE ALARMA ( AREA SECADO)",
+      "SE HACE PRESENCIA  Y NO HAY NOVEDADES"
+    ],
+    "texto": "*ENTREGA DE TURNO - 2026/10/06*(DIA)\n\n*B5:* Sertralina\n*GB 100:* Dispax\n*ENVASADO 1:* Supreflux\n*ENCAPSULADO:* Flectadol\n*CL 1:* Dispax\n*RONCHI:* Loratadina 10mg - *SIN OPERARIOS*\n\n *NOVEDADES* : CD 40 SE REALIZA LIMPIEZA A LA BOMBA DE VACIO \nOPERATIVO ✅️\n\nSE LE HACE ENTREGA A SUPERVISORA DE AREA \nMALLAS  #12 # 14 #16\nPARA TAMIZADORA \n\nSE DESMONTA BOMBA DE FABRICACIÓN  DE LIQUIDOS #2\nSE CAMBIAN RODAMIENTOS  Y AJUSTES EN LA FRICCIÓN \n\nSE RECIBIÓ  LLAMADO  DE MICRONIZADO \nSE APAGO EL EQUIPO \nSE AJUSTA LA CLAVIJA  HEMBRA \n( *REQUIERE CAMBIO* )\n\nSE CAMBIA RESORTE DE MORDAZA DE LA ENCELOFANADORA \n\nSECAMBIA CORREA DE MARZIO R120\n\nSE ATIENDE LLAMADO  DE *CL1*POR FALLAS EN LA DOSIFICACIÓN  SE HACEN AJUSTE \nOPERATIVA✅\n\nEl cambio de rodamientos de la bomba \n\nRF: 6206\nRF: 6306\nSE RECIBE LLAMADO  DE PORTERÍA \nDEBIDO A LA ACTIVACIÓN  DE ALARMA ( AREA SECADO)\n\nSE HACE PRESENCIA  Y NO HAY NOVEDADES"
+  },
+  {
+    "id": "rt-20261007-1049",
+    "fecha": "2026-10-07",
+    "hora": "10:49",
+    "autor": "Brayan",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-2 · Noche",
+    "fechaTurno": "2026-10-06",
+    "equipos": [
+      {
+        "equipo": "•BIN",
+        "producto": "propranolol"
+      },
+      {
+        "equipo": "•BOSCH",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "multivitaminico"
+      },
+      {
+        "equipo": "•NJP2",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "•FETTE 2020/2",
+        "producto": "propranolol"
+      },
+      {
+        "equipo": "•PILOT LAB",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•MB 432",
+        "producto": "stand by"
+      },
+      {
+        "equipo": "•BLISTER 8",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": ".Blíster 9",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•MS 235",
+        "producto": "Stan by"
+      },
+      {
+        "equipo": "•INTEGRA 320",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "•RC 200",
+        "producto": "Stand by"
+      },
+      {
+        "equipo": "RC 400",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "•MB 235 EVO",
+        "producto": "Ferbín"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "Trimebutina"
+      },
+      {
+        "equipo": "•MARZIO 4",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "Stand by"
+      },
+      {
+        "equipo": "•FETTE 1010",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•FETTE 2020/1",
+        "producto": "Stand by"
+      },
+      {
+        "equipo": "•CLIQUIDOS 2",
+        "producto": "naproflax"
+      },
+      {
+        "equipo": "•CLIQUIDOS 3",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "CLIQUIDOS 4",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "MT1100 Marchesini",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•ML 642 ENVASADORA #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "BLISTER 2",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "BLÍSTER 3",
+        "producto": "nifedipino"
+      }
+    ],
+    "novedades": [
+      "NJP 3: se llena bomba de aceite de sistema de lubricación de NJP3, se realiza limpieza y posteriormente llenado con el aceite de las bandejas de lubricación.",
+      "NJP2: se desmonta sistema de expulsión de estribo porque estaba atacado, se realizan cambio de rodamientos y limpieza. (PENDIENTE)",
+      "Realizar pedido de eje oscilante del sistema que presenta maltrato.",
+      "Medidas de 20 mm de diámetro y 220.5 mm de longitud. Rosca en la parte superior medida M8 y orificio pasante (horizontal) de sujeción para rotula de seguidor de leva en partes inferior.",
+      "R200: se coloca tapa a sistema de exprayado se retrae sistema a posición de trabajo y se coloca dentro del recubridor.",
+      "Blíster 8: se extrae tornillo barrido de porta tipos.",
+      "Blíster 9: se atiende llamado por falla en alimentador universal, el equipo no operaba en la puesta en marcha, se revisa y evidencia sensor capacitivo dañado, se coloca otro sensor de entrega operativa.",
+      "Estuchadora Evo: se restablece alarma activa de estuche en banda de salida. Se evidencia que la señal del sensor la está obstruyendo un blíster en el fondo cabina donde caen las cajas rechazadas, se retira blíster y normaliza máquina. Principio de turno nos llaman por problemas de seguridad de empujador se cuadra se quitan calsa de los empujadores , se cuadra por qué estaba desalineado , se ajusta escuché y cuadre del equipo, se deja operativa 2.50h",
+      "Blíster 3: se fabrican sufrideras para plancha de sellado.",
+      "CB550",
+      "Se atiende llamado por problemas de arrugas de sobre , se cambian correa y ajusta guías y sobre , se alinea vase y guías , se hacen pruebas y queda operativa 6h",
+      "Bomba de vacío en la NJP1 no encendia, se realizó seguimiento y se encontró que el contactor que la accionaba estaba pegado mecánicamente se realiza ajuste y limpieza y queda operativa."
+    ],
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TN NOCHE 06/10/26\n*•BIN: propranolol\n*•BOSCH: Disponible \n*•NJP1: multivitaminico \n*•NJP2: zintergia\n* NJP3: omeprazol \n*•FETTE 2020/2 : propranolol \n*•PILOT LAB: Dimoflax \n*•MB 432: stand by\n*•BLISTER 8: zintergia\n*.Blíster 9:Dimoflax\n*•MS 235: Stan by \n*•INTEGRA 320: congestex\n*•RC 200: Stand by \n*RC 400: Dimoflax\n*•CB550: Gelimed\n*•MB 235 EVO: Ferbín \n*•HUTTLIN 600: Esomeprazol\n*•HUTTLIN 400: Esomeprazol \n*•RIMEK: Trimebutina \n*•MARZIO 4: esomed\n*•MARZIO 1: Stand by\n*•FETTE 1010: Disponible\n*•FETTE 2020/1: Stand by\n*•CLIQUIDOS 2: naproflax\n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 Marchesini: Disponible \n *ENVASADORA #2: Disponible \n*•ML 642 ENVASADORA #3: Disponible \n*BLISTER 2: disponible\n*BLÍSTER 3: nifedipino \n_________________________\n        *NOVEDADES*\n\nNJP 3: se llena bomba de aceite de sistema de lubricación de NJP3, se realiza limpieza y posteriormente llenado con el aceite de las bandejas de lubricación.\n\nNJP2: se desmonta sistema de expulsión de estribo porque estaba atacado, se realizan cambio de rodamientos y limpieza. (PENDIENTE)\nRealizar pedido de eje oscilante del sistema que presenta maltrato.\nMedidas de 20 mm de diámetro y 220.5 mm de longitud. Rosca en la parte superior medida M8 y orificio pasante (horizontal) de sujeción para rotula de seguidor de leva en partes inferior.\n\nR200: se coloca tapa a sistema de exprayado se retrae sistema a posición de trabajo y se coloca dentro del recubridor.\n\nBlíster 8: se extrae tornillo barrido de porta tipos.\n\nBlíster 9: se atiende llamado por falla en alimentador universal, el equipo no operaba en la puesta en marcha, se revisa y evidencia sensor capacitivo dañado, se coloca otro sensor de entrega operativa.\n\nEstuchadora Evo: se restablece alarma activa de estuche en banda de salida. Se evidencia que la señal del sensor la está obstruyendo un blíster en el fondo cabina donde caen las cajas rechazadas, se retira blíster y normaliza máquina. Principio de turno nos llaman por problemas de seguridad de empujador se cuadra se quitan calsa de los empujadores , se cuadra por qué estaba desalineado , se ajusta escuché y cuadre del equipo, se deja operativa 2.50h\n\nBlíster 3: se fabrican sufrideras para plancha de sellado.\n\nCB550\nSe atiende llamado por problemas de arrugas de sobre , se cambian correa y ajusta guías y sobre , se alinea vase y guías , se hacen pruebas y queda operativa 6h\n\nBomba de vacío en la NJP1 no encendia, se realizó seguimiento y se encontró que el contactor que la accionaba estaba pegado mecánicamente se realiza ajuste y limpieza y queda operativa."
+  },
+  {
+    "id": "rt-20261008-0755",
+    "fecha": "2026-10-08",
+    "hora": "07:55",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-07",
+    "equipos": [
+      {
+        "equipo": "[ÁREA DE SÓLIDOS]",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bin",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": ">Bosch",
+        "producto": "nifedipino espera de resultados"
+      },
+      {
+        "equipo": ">NJP2",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": ">NJP1",
+        "producto": "multi vitamínico esperar resultados"
+      },
+      {
+        "equipo": ">NJP3",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": ">MB 432",
+        "producto": "vitamina A"
+      },
+      {
+        "equipo": ">Blíster #8",
+        "producto": "aerovil"
+      },
+      {
+        "equipo": ">Integra 320",
+        "producto": "ferrimed"
+      },
+      {
+        "equipo": ">Estuchadora#1",
+        "producto": "ferrimed"
+      },
+      {
+        "equipo": ">Blíster #9",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">MB 451",
+        "producto": "ferbin"
+      },
+      {
+        "equipo": ">Estuchadora#2",
+        "producto": "ferbin"
+      },
+      {
+        "equipo": ">Schmucker",
+        "producto": "fextril"
+      },
+      {
+        "equipo": ">Marzio#4",
+        "producto": "esomed"
+      },
+      {
+        "equipo": ">Marzio#5",
+        "producto": "congestex"
+      },
+      {
+        "equipo": ">R400",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">Sólidos",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">R200",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">CB 550",
+        "producto": "gelimed"
+      },
+      {
+        "equipo": ">Fette 1010",
+        "producto": "desmontaje y limpieza"
+      },
+      {
+        "equipo": ">fette 2020#1",
+        "producto": "dimofax"
+      },
+      {
+        "equipo": ">Fette 2020#2",
+        "producto": ""
+      },
+      {
+        "equipo": ">Rimex",
+        "producto": "Trimebutina+ simeticona"
+      },
+      {
+        "equipo": ">Pilot lab",
+        "producto": "dimofax"
+      },
+      {
+        "equipo": ">Huttlin 400",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": ">Huttlin 600",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": ">Bombo 300#1",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bombo 300 #2",
+        "producto": ""
+      },
+      {
+        "equipo": "[ÁREA DE LÍQUIDOS",
+        "producto": "]"
+      },
+      {
+        "equipo": ">CL #2",
+        "producto": "naproxeno"
+      },
+      {
+        "equipo": ">CL #3",
+        "producto": ""
+      },
+      {
+        "equipo": ">CL #4",
+        "producto": ""
+      },
+      {
+        "equipo": ">Blíster #2",
+        "producto": ""
+      },
+      {
+        "equipo": ">tangues de fabricacion liquidos",
+        "producto": ""
+      },
+      {
+        "equipo": ">Envasadora #2",
+        "producto": ""
+      },
+      {
+        "equipo": ">Etiquetadora#2",
+        "producto": ""
+      },
+      {
+        "equipo": ">Envasadora#3",
+        "producto": "azeflu"
+      },
+      {
+        "equipo": ">Etiquetadora#3",
+        "producto": "azeflu"
+      },
+      {
+        "equipo": ">Marchesine MT1100",
+        "producto": ""
+      },
+      {
+        "equipo": ">Blíster #3",
+        "producto": "lanzor"
+      }
+    ],
+    "novedades": [
+      "*CB550:* gelimed se realiza ajustes de mordazas horizontal alineación temperatura, se realiza ajustes en el sistema que saca el aire del sobre, tensión de correa, ajuste de mordazas vertical se hacen pruebas se entrega a producción ( 3 horas).",
+      "*MARZIO#4:* esomed llamado por problemas en dosificación se realiza ajustes tiempos ok.",
+      "Otro llamado por perdida de paso se realiza ajustes de tamaño tornillo de corrección ok. (90 minutos aprox)",
+      "*MARZIO 5:* Se posiciona codificadora y se le ajusta parámetros, también se ajusta foto celda y pinza de arrastre *T: 60 min aprox.*",
+      "*ESTUCHADORA EVO:* Alarma de empujadores, se corrige recorrido y maltrato de blíster en estuche.",
+      "*T:90 mn aprox*",
+      "*FLEXOGRAFÍCA #1:* Se termina de realizar armaje de equipo con accesorios faltantes, habilitan FLEXOGRAFÍCA #2 por falta de foil impreso.",
+      "*T:180 mn aprox*",
+      "*MB 432:* Se cambia manguera de diafragma, cargador #1, equipo operativo.",
+      "*T:40 mn aprox*"
+    ],
+    "texto": "[REPORTE DE TURNO SEDE 4 ]        \n2026/10/07\nGRUPO 1 NOCHE \n*******************\n[ÁREA DE SÓLIDOS]\n>Bin: acetaminofén \n>Bosch: nifedipino espera de resultados \n>NJP2: zintergia \n>NJP1:  multi vitamínico esperar resultados \n>NJP3: omeprazol \n>MB 432: vitamina A \n>Blíster #8:aerovil \n>Integra 320:ferrimed \n>Estuchadora#1:ferrimed \n>Blíster #9: dimoflax \n>MB 451:ferbin \n>Estuchadora#2:ferbin \n>Schmucker:fextril \n>Marzio#4:esomed\n>Marzio#5: congestex \n>R400: dimoflax \n>Sólidos: dimoflax \n>R200: limpieza \n>CB 550: gelimed \n>Fette 1010: desmontaje y limpieza \n>fette 2020#1: dimofax \n>Fette 2020#2:\n>Rimex: Trimebutina+ simeticona \n>Pilot lab:dimofax \n>Huttlin 400:esomeprazol \n>Huttlin 600: esomeprazol \n>Bombo 300#1: \n>Bombo 300 #2:        \n[ÁREA DE LÍQUIDOS:]\n>CL #2: naproxeno \n>CL #3:\n>CL #4:\n>Blíster #2:\n>tangues de fabricacion liquidos:\n>Tanque de fabricación centro líquido:\n>Envasadora #2: \n>Etiquetadora#2:\n>Envasadora#3:azeflu \n>Etiquetadora#3: azeflu \n>Marchesine MT1100:\n>Blíster #3:lanzor\n*NOVEDADES:*\n*CB550:* gelimed se realiza ajustes de mordazas horizontal alineación temperatura, se realiza ajustes en el sistema que saca el aire del sobre, tensión de correa, ajuste de mordazas vertical se hacen pruebas se entrega a producción ( 3 horas).\n*MARZIO#4:* esomed llamado por problemas en dosificación se realiza ajustes tiempos ok. \nOtro llamado por perdida de paso se realiza ajustes de tamaño tornillo de corrección ok. (90 minutos aprox)\n*MARZIO 5:* Se posiciona codificadora y se le ajusta parámetros, también se ajusta foto celda y pinza de arrastre *T: 60 min aprox.*\n*ESTUCHADORA EVO:* Alarma de empujadores, se corrige recorrido y maltrato de blíster en estuche.\n*T:90 mn aprox*\n*FLEXOGRAFÍCA #1:* Se termina de realizar armaje de equipo con accesorios faltantes, habilitan FLEXOGRAFÍCA #2 por falta de foil impreso.\n*T:180 mn aprox*\n*MB 432:* Se cambia manguera de diafragma, cargador #1, equipo operativo.\n*T:40 mn aprox*"
+  },
+  {
+    "id": "rt-20261008-0826",
+    "fecha": "2026-10-08",
+    "hora": "08:26",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-07",
+    "equipos": [
+      {
+        "equipo": "INFORME",
+        "producto": "TURNO NOCHE - 2026-10-08"
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "LORATADINA"
+      },
+      {
+        "equipo": "Equipo",
+        "producto": "GB100 - DISPAX"
+      },
+      {
+        "equipo": "Ronchi",
+        "producto": "Sin operario"
+      },
+      {
+        "equipo": "Centro de Líquidos 1",
+        "producto": "DISPAX"
+      },
+      {
+        "equipo": "Envasado 1",
+        "producto": "SUPREFLUX 240ml"
+      }
+    ],
+    "novedades": [
+      "Se recibe llamado para apoyar en GB100 por pérdida constante de paso, lo cual estaba afectando el centrado del corte.",
+      "*Acciones realizadas:*",
+      "- Ajuste de guías de lámina",
+      "- Revisión y ajuste de plancha de sellado inferior",
+      "- Revisión y limpieza de troquel",
+      "- Ajuste de guías de arrastre",
+      "- Se aumenta flujo de aire en estación de corte Regulador Corte: 5.0 -7.0",
+      "*Estado final:* Equipo queda para más ajustes debió a que trabaja bien 10 0 15min y pierde el paso",
+      "*Pendiente turno día:* Validar filo de troquel y monitoreo de la estación de corte ."
+    ],
+    "texto": "*INFORME TURNO NOCHE - 2026-10-08*\n\n*Blíster 5:* LORATADINA\n*Equipo:* GB100 - DISPAX\n*Ronchi:* Sin operario\n*Centro de Líquidos 1:* DISPAX\n*Envasado 1:* SUPREFLUX 240ml\n\n*NOVEDADES:*\n\nSe recibe llamado para apoyar en GB100 por pérdida constante de paso, lo cual estaba afectando el centrado del corte.\n\n*Acciones realizadas:*\n- Ajuste de guías de lámina\n- Revisión y ajuste de plancha de sellado inferior\n- Revisión y limpieza de troquel\n- Ajuste de guías de arrastre\n- Se aumenta flujo de aire en estación de corte Regulador Corte: 5.0 -7.0 \n\n*Estado final:* Equipo queda para más ajustes debió a que trabaja bien 10 0 15min y pierde el paso \n\n*Pendiente turno día:* Validar filo de troquel y monitoreo de la estación de corte ."
+  },
+  {
+    "id": "rt-20261008-1957",
+    "fecha": "2026-10-08",
+    "hora": "19:57",
+    "autor": "Lucho",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-3 · Día",
+    "fechaTurno": "2026-10-08",
+    "equipos": [
+      {
+        "equipo": "Envasadora3",
+        "producto": "azeflu"
+      },
+      {
+        "equipo": "CTL 2",
+        "producto": "Naproxeno"
+      },
+      {
+        "equipo": "BIN",
+        "producto": "colágeno"
+      },
+      {
+        "equipo": "Bosch",
+        "producto": "Diclofenac"
+      },
+      {
+        "equipo": "NJP 2",
+        "producto": "zintergia"
+      },
+      {
+        "equipo": "NJP 1",
+        "producto": "multivitamínic"
+      },
+      {
+        "equipo": "Huttlin 40",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "NJP 3",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "MS235",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "MB432",
+        "producto": "vitamina A"
+      },
+      {
+        "equipo": "Integra",
+        "producto": "ferrimed"
+      },
+      {
+        "equipo": "Blíster 8",
+        "producto": "Airomed"
+      },
+      {
+        "equipo": "MB",
+        "producto": "EVO ferbin"
+      },
+      {
+        "equipo": "Huttlin 600",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "Marzio4",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "Rimed",
+        "producto": "trimebutina"
+      },
+      {
+        "equipo": "Fette",
+        "producto": "2020#2 Acetaminofén"
+      },
+      {
+        "equipo": "Fette 1010",
+        "producto": "Azitromicina"
+      },
+      {
+        "equipo": "Fette2020#1",
+        "producto": "Dimoflax"
+      }
+    ],
+    "novedades": [
+      "Blísteadora Evo  se limpia y se lubrica elevador de cápsulas Se coloca tapa inoxidable  con silicona MEZCLADOR SOLIDO Equipo granulador se realiza cambio de guarda motor de 6-10 amp debido a que se estaba disparando sin llegar al límite de corriente seteada en el mismo, se deja equipo operativo.",
+      "CLIQUIDO #3 se instala controlador en la selladora de cápsulas.",
+      "Blíster 8 se atiende llamado por qué se estaba variando el corte y el PVC tenía poca pestaña se calibra túnel de calefacción",
+      "ENVASADORA 2 Se repara guía de frascos de banda transportadora, se encontraba partida, se modifica porque se atascaba cuando entraban más de dos frascos queda ok."
+    ],
+    "texto": "Buenas noches \nReporte de turno Días\n\nEnvasadora3 azeflu \n\nCTL 2 Naproxeno\n\nBIN colágeno\n\nBosch Diclofenac \n\nNJP 2 zintergia \n\nNJP 1 multivitamínic \n\nHuttlin 40 Dimoflax \n\nNJP 3 omeprazol \n\nMS235 flextril \n\nBlíster 9 Dimoflax \n\nMB432 vitamina A\n\nIntegra ferrimed \n\nBlíster 8 Airomed \n\nMB EVO ferbin \n\nHuttlin 600 Esomeprazol \n\nMarzio4 esomed \n\nRimed trimebutina \n\nFette 2020#2 Acetaminofén \n\nFette 1010 Azitromicina \n\nFette2020#1 Dimoflax\n\nNota \nBlísteadora Evo  se limpia y se lubrica elevador de cápsulas\nSe coloca tapa inoxidable  con silicona \nMEZCLADOR SOLIDO\nEquipo granulador se realiza cambio de guarda motor de 6-10 amp debido a que se estaba disparando sin llegar al límite de corriente seteada en el mismo, se deja equipo operativo.\n\nCLIQUIDO #3\nse instala controlador en la selladora de cápsulas.\n\nBlíster 8 se atiende llamado por qué se estaba variando el corte y el PVC tenía poca pestaña se calibra túnel de calefacción \n\nENVASADORA 2 \nSe repara guía de frascos de banda transportadora, se encontraba partida, se modifica porque se atascaba cuando entraban más de dos frascos queda ok."
+  },
+  {
+    "id": "rt-20261008-2215",
+    "fecha": "2026-10-08",
+    "hora": "22:15",
+    "autor": "Sergio Vergara Electricista",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-1 · Día",
+    "fechaTurno": "2026-10-08",
+    "equipos": [
+      {
+        "equipo": "Ronchi = Metoclopramida 10",
+        "producto": "mg"
+      },
+      {
+        "equipo": "Centro",
+        "producto": "líquido= preparación"
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "loratadina"
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "en encuentra detenida aún se está corrigiendo unas fallas, se le está rodando el cortee en el blíster"
+      }
+    ],
+    "novedades": [
+      "Se realiza cambio de driver de lámparas 60 x 60 en oficina",
+      "Se realiza instalación de tapa que abre y cierra en el mezclador horizontal",
+      "Se realiza inspección en controlador de temperatura ( PT100 ) centro líquido, queda funcionando",
+      "Se realiza cambia de pieza ( racor de 6 mm ) en centro líquido",
+      "Se realiza inspección en agitador heidolph 1 está pegado el mandril, se realiza mantenimiento y queda funcionando",
+      "Se atiende llamado en la marzio, las cuchillas no estaban haciendo un buen corte, se procede a sacar filo y quedaron operativas."
+    ],
+    "texto": "Sede 2 \nTurno de la mañana \n\nRonchi = Metoclopramida 10 mg \n\nCentro líquido= preparación\n\nBlíster 5 loratadina\n\nGB 100 en encuentra detenida aún se está corrigiendo unas fallas, se le está rodando el cortee en el blíster \n\nSe realiza cambio de driver de lámparas 60 x 60 en oficina \n\nSe realiza instalación de tapa que abre y cierra en el mezclador horizontal \n\nSe realiza inspección en controlador de temperatura ( PT100 ) centro líquido, queda funcionando \n\nSe realiza cambia de pieza ( racor de 6 mm ) en centro líquido \n\nSe realiza inspección en agitador heidolph 1 está pegado el mandril, se realiza mantenimiento y queda funcionando\n\nSe atiende llamado en la marzio, las cuchillas no estaban haciendo un buen corte, se procede a sacar filo y quedaron operativas."
+  },
+  {
+    "id": "rt-20261009-0821",
+    "fecha": "2026-10-09",
+    "hora": "08:21",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-08",
+    "equipos": [
+      {
+        "equipo": "2026 10 09",
+        "producto": ""
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "FLECTADOL"
+      },
+      {
+        "equipo": "Gb100",
+        "producto": "dispax"
+      },
+      {
+        "equipo": "Encapsulado",
+        "producto": "FLECTADOL (sin operador)"
+      },
+      {
+        "equipo": "Tableteado",
+        "producto": "metoclopramida 10mg (sin operador)"
+      },
+      {
+        "equipo": "Centro líquido",
+        "producto": "ibuprofeno"
+      },
+      {
+        "equipo": "Envasado 3",
+        "producto": "supreflux"
+      }
+    ],
+    "novedades": [
+      "Gb100 se realizan ajustes en formato dispax, se corrigen paso, avance y corte. Equipo quedó operativo.",
+      "Centro líquido informa el personal del área que el agua se devuelve por el desagüe. Esto ocurre cuando hacen limpieza en otra área.",
+      "*Planta:* Siendo las 06:10 falla en fluido eléctrico. Se restablece la energía. Se procede a encender las bombas y resetear las manejadoras."
+    ],
+    "texto": "Turno noche\n2026 10 09\n\n*Blíster 5:* FLECTADOL\n*Gb100:* dispax\n*Encapsulado:* FLECTADOL (sin operador)\n*Tableteado:* metoclopramida 10mg (sin operador)\n*Centro líquido:* ibuprofeno\n*Envasado 3:* supreflux\n\n*Novedades:*\nGb100 se realizan ajustes en formato dispax, se corrigen paso, avance y corte. Equipo quedó operativo.\n\nCentro líquido informa el personal del área que el agua se devuelve por el desagüe. Esto ocurre cuando hacen limpieza en otra área.\n\n*Planta:* Siendo las 06:10 falla en fluido eléctrico. Se restablece la energía. Se procede a encender las bombas y resetear las manejadoras."
+  },
+  {
+    "id": "rt-20261009-0916",
+    "fecha": "2026-10-09",
+    "hora": "09:16",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-08",
+    "equipos": [
+      {
+        "equipo": "CL2",
+        "producto": "NAPROXENO"
+      },
+      {
+        "equipo": "CL4",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "SUPERFLUIX"
+      },
+      {
+        "equipo": "BLÍSTER 3",
+        "producto": "LANZOR"
+      },
+      {
+        "equipo": "BLÍSTER 2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "ENVASADO 3",
+        "producto": "AZEFLU"
+      },
+      {
+        "equipo": "CL3",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "ENVASADO 2",
+        "producto": "LEVRONC"
+      },
+      {
+        "equipo": "BIN BLENDER",
+        "producto": "GELIMED"
+      },
+      {
+        "equipo": "BOSCH",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "NJP1",
+        "producto": "ZINTERGIA"
+      },
+      {
+        "equipo": "NJP2",
+        "producto": "FERRIMED"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "OMEPRAZOL"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "DESARROLLO"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "VITAMINA A"
+      },
+      {
+        "equipo": "BLÍSTER 8",
+        "producto": "AEROVIAL"
+      },
+      {
+        "equipo": "SCHMUCKER",
+        "producto": "FLECTRIL"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "COLTRIM"
+      },
+      {
+        "equipo": "INTEGRA 320",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "R200",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "MB 451 EVO",
+        "producto": "FERBIN"
+      },
+      {
+        "equipo": "MARZIO 5",
+        "producto": "CONGESTEX"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "R400",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "BOMBO 300",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "MARZIO 4",
+        "producto": "ESOMED"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "MONTAJE"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "COLTRIM"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "FETTE 2020 2",
+        "producto": "ACETAMINOFEN"
+      },
+      {
+        "equipo": "FETTE 2020 1",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "GELIMED"
+      }
+    ],
+    "novedades": [
+      "*BLISTER 3:* Se recibe Llamado por equipo bloqueado, se resetea el mismo y presenta la misma falla, se procede a limpiaru disco duro y memoria, equipo operativo.",
+      "*T: 120 mn aprox*",
+      "*MT 1100:* Se correge conexión de manguera en cuba, la misma no realizaba la purga correctamente, equipo operativo.",
+      "*T:40 mn aprox*",
+      "*SCHMUCKER:* LLamado por agitador de polvo partido, se extrae rosca quedada en la base, se monta agitador nuevo, equipo operativo.",
+      "*T: 90 mn aprox*",
+      "*CB550:* Se alinea sellado vertical y se le ajusta el sistema que le quita el aire al sobre. *T: 30 min aprox.*",
+      "*NJP#2:* zintergia llamado porque se estaba quedando pegado el eje que expulsa las cápsulas sin destapar se realiza desmontaje y limpieza y lubricación se hacen pruebas se entrega a producción y se calibra dos veces el disco de bronce por variación de peso y se deja para realizar prueba. *T: 120 min aprox.*"
+    ],
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 NOCHE*\n *SEDE* *4* \n- *CL2:* NAPROXENO \n- *CL4:* DISPONIBLE \n- *MT 1100:* SUPERFLUIX \n- *BLÍSTER 3:* LANZOR\n- *BLÍSTER 2 :* DISPONIBLE \n- *ENVASADO 3:* AZEFLU \n- *CL3:* DISPONIBLE \n- *ENVASADO 2:* LEVRONC\n- *BIN BLENDER:* GELIMED\n- *BOSCH:* LIMPIEZA \n- *NJP1:* ZINTERGIA\n- *NJP2:* FERRIMED\n- *NJP3:* OMEPRAZOL\n- *PILOT LAB:* DESARROLLO \n- *MB 432:* VITAMINA A \n- *BLÍSTER 8:* AEROVIAL\n- *SCHMUCKER:* FLECTRIL\n- *Blíster 9:* COLTRIM\n- *INTEGRA 320:* DISPONIBLE \n- *R200:* DIMOFLAX\n- *MB 451 EVO:* FERBIN\n- *MARZIO 5:* CONGESTEX\n- *HUTTLIN 600:* LIMPIEZA \n- *R400:* DIMOFLAX\n- *BOMBO 300:* DISPONIBLE \n- *MARZIO 4:* ESOMED\n- *HUTTLIN 400:* MONTAJE\n- *RIMEK:* COLTRIM\n- *FETTE 1010:* LIMPIEZA \n- *FETTE 2020 2:* ACETAMINOFEN\n- *FETTE 2020 1:* DIMOFLAX\n- *CB 550:* GELIMED\n*NOVEDADES*\n*BLISTER 3:* Se recibe Llamado por equipo bloqueado, se resetea el mismo y presenta la misma falla, se procede a limpiaru disco duro y memoria, equipo operativo.\n*T: 120 mn aprox*\n*MT 1100:* Se correge conexión de manguera en cuba, la misma no realizaba la purga correctamente, equipo operativo.\n*T:40 mn aprox*\n*SCHMUCKER:* LLamado por agitador de polvo partido, se extrae rosca quedada en la base, se monta agitador nuevo, equipo operativo.\n*T: 90 mn aprox*\n*CB550:* Se alinea sellado vertical y se le ajusta el sistema que le quita el aire al sobre. *T: 30 min aprox.*\n*NJP#2:* zintergia llamado porque se estaba quedando pegado el eje que expulsa las cápsulas sin destapar se realiza desmontaje y limpieza y lubricación se hacen pruebas se entrega a producción y se calibra dos veces el disco de bronce por variación de peso y se deja para realizar prueba. *T: 120 min aprox.*"
   }
 ];
