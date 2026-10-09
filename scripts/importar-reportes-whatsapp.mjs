@@ -364,6 +364,7 @@ if (!soloReportes) {
     const { turno: t, fecha: f } = turnoReal(msg);
     const sede = detectarSede(msg.cuerpo, msg.autor);
     if (f > hasta) hasta = f;
+    if (msg.fecha > hasta) hasta = msg.fecha;
     for (const n of lectura.novedades) {
       if (esRuido({ de: n.de, eq: n.eq })) continue;
       seq++;
