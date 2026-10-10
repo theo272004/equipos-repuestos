@@ -16,7 +16,7 @@
   const N = window.NUCLEO;
   const esc = N.esc;
   const ic = (n, c) => window.IC(n, c);
-  const vista = { dia: "", sede: "", quien: false, sheet: null };
+  const vista = { dia: "", sede: "", quien: false, sheet: null, verTodo: false, expandTurno: { sede4: false, sede2: false } };
 
   const S = () => window.MTTO_STORE;
 
@@ -63,34 +63,80 @@
 
   // ----------------------------------------------------------------- piezas
   // Una cifra de la franja de arriba: nombre, número y una línea de detalle
-  function kpi({ n, dec = 0, unidad = "", titulo, pie, tono = "", go, goQ }) {
+  function kpi({ n, dec = 0, unidad = "", titulo, pie, tono = "", ico = "", go, goQ }) {
     const val = Number(n) || 0;
     return `<button class="hy-stat ${tono}" type="button" ${go ? `data-hy="${go}"` : ""} ${goQ ? `data-q="${esc(goQ)}"` : ""}>
-      <span class="hy-stat__t">${titulo}</span>
+      <span class="hy-stat__t">${ico ? ic(ico, "ic--sm") : ""}<span>${esc(titulo)}</span></span>
       <b class="hy-stat__n"><span data-n="${val}" data-dec="${dec}">${val.toLocaleString("es-CO", { maximumFractionDigits: dec, minimumFractionDigits: dec })}</span>${unidad ? `<small>${unidad}</small>` : ""}</b>
-      <span class="hy-stat__s">${pie}</span>
+      ${pie ? `<span class="hy-stat__s">${pie}</span>` : ""}
     </button>`;
+  }
+
+  function rolTecnico(nombre) {
+    const s = String(nombre || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    if (/\bnestor\b|ardila/i.test(s)) return "Locativo";
+    if (/\bjuan\b|estupinan/i.test(s)) return "Refrigeración";
+    if (/\byesid\b|\bheiner\b|\bbladimir\b|\bbrayan\b|\boscar\b|\bsergio\b|\bleo\b|\bleonardo\b/i.test(s)) return "Electricista";
+    return "Mecánico";
   }
 
   function tarjetaTurno() {
     const T = window.TURNOS;
     const t = N.turnoEnCurso();
     const quienes = T ? T.quienes(t.fecha, t.clave) : {};
-    const bloque = (k, sede) => {
+
+    const bloque = (k, sedeLabel) => {
       const g = (quienes[k] && quienes[k].gente) || [];
-      return `<div class="hy-sede">
-        <div class="hy-sede__top"><b>${esc(quienes[k] ? quienes[k].sede : sede)}</b>
-          <span class="ux-avs">${g.slice(0, 5).map((p) => `<span class="ux-av ux-av--${N.tono(p.nombre)}" title="${esc(p.nombre)}${p.fijo ? " · turno fijo" : ""}">${esc(N.iniciales(p.nombre).toUpperCase())}</span>`).join("")}</span></div>
-        <p class="ux-small ux-mute" style="margin:2px 0 0">${g.length ? g.map((p) => esc(p.nombre.split(" ").slice(0, 2).join(" "))).join(", ") : "Sin personal en el cuadro"}</p>
+      const abierto = !!(vista.expandTurno && vista.expandTurno[k]);
+      const count = g.length;
+      const countTxt = count === 1 ? "1 técnico" : `${count} técnicos`;
+
+      return `<div class="hy-turno-sede ${abierto ? "is-open" : ""}">
+        <button class="hy-turno-row" type="button" data-hy="toggle-turno" data-sede="${k}" aria-expanded="${abierto ? "true" : "false"}">
+          <div class="hy-turno-row__t">
+            <b>${esc(sedeLabel)}</b>
+            <span class="ux-mute">· ${count ? countTxt : "Sin personal en cuadro"}</span>
+          </div>
+          <div class="hy-turno-row__end">
+            <span class="ux-avs">${g.slice(0, 4).map((p) => `<span class="ux-av ux-av--${N.tono(p.nombre)}" title="${esc(p.nombre)}">${esc(N.iniciales(p.nombre).toUpperCase())}</span>`).join("")}</span>
+            <span class="hy-turno-row__chev ${abierto ? "is-open" : ""}">${ic("abajo", "ic--sm")}</span>
+          </div>
+        </button>
+        ${abierto && g.length ? `<ul class="hy-turno-detalle">
+          ${g.map((p) => {
+            const rol = rolTecnico(p.nombre);
+            const rolCls = rol === "Electricista" ? "hy-rol--elec" : rol === "Refrigeración" ? "hy-rol--refr" : rol === "Locativo" ? "hy-rol--loc" : "hy-rol--mec";
+            const corto = p.nombre.split(" ").slice(0, 2).join(" ");
+            return `<li>
+              <span class="ux-av ux-av--${N.tono(p.nombre)}">${esc(N.iniciales(p.nombre).toUpperCase())}</span>
+              <div class="hy-turno-detalle__n">
+                <b>${esc(corto)}</b>
+                <small>${esc(p.nombre)}</small>
+              </div>
+              <span class="hy-rol ${rolCls}">${esc(rol)}</span>
+            </li>`;
+          }).join("")}
+        </ul>` : ""}
       </div>`;
     };
-    return `<section class="ux-card">
-      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic(t.turno === "Día" ? "sol" : "luna")}En turno ahora</h2><p class="ux-card__sub">Turno de ${t.turno === "Día" ? "día · 8:00 a 20:00" : "noche · 20:00 a 8:00"}</p></div>
-        <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="turnos">Cuadro ${ic("der", "ic--sm")}</button></div>
-      <div class="ux-stack" style="gap:14px">${bloque("sede4", "Sede 4")}<hr class="ux-divider">${bloque("sede2", "Sede 2")}</div>
+
+    return `<section class="ux-card hy-turno-card">
+      <div class="ux-card__head">
+        <div>
+          <h2 class="ux-card__title">${ic("turnos")}Personal en turno</h2>
+          <p class="ux-card__sub">Turno de ${t.turno === "Día" ? "día · 8:00 a 20:00" : "noche · 20:00 a 8:00"}</p>
+        </div>
+      </div>
+      <div class="hy-turno-list">
+        ${bloque("sede4", "Sede 4")}
+        <hr class="ux-divider" style="margin:4px 0">
+        ${bloque("sede2", "Sede 2")}
+      </div>
+      <div class="hy-turno-foot">
+        <button class="ux-link" type="button" data-hy="turnos">Ver cuadro completo →</button>
+      </div>
     </section>`;
   }
-
 
   function tarjetaFallas() {
     const hasta = N.hoy();
@@ -98,12 +144,17 @@
     const regs = S() ? S().registros().filter((r) => r.f >= desde && r.f <= hasta && r.cat === "Máquina" && r.tp === "Correctivo" && !/no identificado|sin especificar/i.test(r.eq) && (!vista.sede || r.s === vista.sede)) : [];
     const m = new Map();
     regs.forEach((r) => m.set(r.eq, (m.get(r.eq) || 0) + 1));
-    const top = [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6);
+    const top = [...m.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4);
     const max = Math.max(1, ...top.map((x) => x[1]));
-    return `<section class="ux-card">
-      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("falla")}Más fallas esta semana</h2><p class="ux-card__sub">Correctivos de máquina, últimos 7 días</p></div>
-        <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="indicadores">Indicadores ${ic("der", "ic--sm")}</button></div>
-      ${top.length ? `<div class="ux-hbars">${top.map(([eq, n], i) => `<button class="ux-hbar" type="button" data-hy="ver-fallas-eq" data-v="${esc(eq)}" title="Ver las ${n} fallas de ${esc(eq)}"><span class="ux-hbar__t">${esc(eq)}</span><span class="ux-hbar__v">${n} <small>${n === 1 ? "falla" : "fallas"}</small></span><span class="ux-progress ${i === 0 ? "ux-progress--bad" : "ux-progress--dark"}"><i style="width:${Math.round((n / max) * 100)}%"></i></span></button>`).join("")}</div>`
+    return `<section class="ux-card hy-fallas-panel">
+      <div class="ux-card__head">
+        <div>
+          <h2 class="ux-card__title">${ic("falla")}Equipos con más fallas</h2>
+          <p class="ux-card__sub">Correctivos de máquina, últimos 7 días</p>
+        </div>
+        <button class="ux-btn ux-btn--sm ux-btn--ghost" type="button" data-hy="indicadores">Indicadores ${ic("der", "ic--sm")}</button>
+      </div>
+      ${top.length ? `<div class="ux-hbars">${top.map(([eq, n]) => `<button class="ux-hbar" type="button" data-hy="ver-fallas-eq" data-v="${esc(eq)}" title="Ver las ${n} fallas de ${esc(eq)}"><span class="ux-hbar__t">${esc(eq)}</span><span class="ux-hbar__v">${n} <small>${n === 1 ? "falla" : "fallas"}</small></span><span class="ux-progress"><i style="width:${Math.round((n / max) * 100)}%"></i></span></button>`).join("")}</div>`
         : `<div class="ux-empty"><h4>Sin correctivos de máquina</h4><p>No hay fallas de máquina registradas en los últimos 7 días.</p></div>`}
     </section>`;
   }
@@ -123,122 +174,188 @@
   }
   const hayTxt = (n) => (n === null ? "" : n > 0 ? `hay ${N.fmt.num(n)} en almacén` : "no hay en almacén");
 
+  // Siempre 3 equipos recomendados para inspeccionar basados en fallas recientes (14 días)
+  function tresSugerencias(sede, excluir = new Set()) {
+    const hoy = N.hoy();
+    const desde = N.sumaDias(hoy, -14);
+    const S_ = S();
+    const result = [];
+    const vistos = new Set();
+    const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+
+    if (S_) {
+      const regs = S_.registros().filter((r) => r && !r.borrado && r.f >= desde && r.f <= hoy && r.cat === "Máquina" && (!sede || r.s === sede) && r.eq && !/no identificado|sin especificar/i.test(r.eq));
+      const m = new Map();
+      regs.forEach((r) => {
+        const k = r.eq.trim();
+        const cur = m.get(k) || { eq: k, s: r.s, n: 0, ult: r.f, de: r.de || "" };
+        cur.n++;
+        if (r.f > cur.ult) { cur.ult = r.f; cur.de = r.de || cur.de; }
+        m.set(k, cur);
+      });
+      const ordenados = [...m.values()].sort((a, b) => b.n - a.n || b.ult.localeCompare(a.ult));
+      for (const item of ordenados) {
+        if (result.length >= 3) break;
+        const nk = norm(item.eq);
+        if (excluir && excluir.has(nk)) continue;
+        result.push(item);
+        vistos.add(nk);
+      }
+    }
+
+    if (result.length < 3) {
+      const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
+      const deCat = cat.filter((e) => (!sede || e.s === sede) && !vistos.has(norm(e.eq)) && (!excluir || !excluir.has(norm(e.eq))));
+      for (const e of deCat) {
+        if (result.length >= 3) break;
+        result.push({ eq: e.eq, s: e.s, n: 0, ult: "", de: "Equipo crítico del catálogo", fallback: true });
+        vistos.add(norm(e.eq));
+      }
+    }
+
+    if (result.length < 3) {
+      const machList = typeof machines !== "undefined" ? machines : (window.machines || []);
+      for (const m of machList) {
+        if (result.length >= 3) break;
+        const nom = m.model || m.name || m.id;
+        const nk = norm(nom);
+        if (!vistos.has(nk) && (!excluir || !excluir.has(nk))) {
+          result.push({ eq: nom, s: sede || "Sede 4", n: 0, ult: "", de: "Inspección periódica", fallback: true });
+          vistos.add(nk);
+        }
+      }
+    }
+
+    return result.slice(0, 3);
+  }
+
   function agenda() {
     const hoy = N.hoy();
-    const grupos = { urgente: [], mtto: [], almacen: [] };
+    const items = [];
     const S_ = S();
-    // 0. Máquinas que siguen paradas por una falla
-    paradasPorFalla().forEach((r) => grupos.urgente.push({
-      tono: "bad", ico: "llave", t: `${r.eq} parada por falla${r.frep ? " · falta repuesto" : ""}`,
-      s: `Desde el ${N.fmt.corta(r.f)}${r.hr ? " " + r.hr : ""} · ${String(r.de || "").replace(/\s+/g, " ").slice(0, 90)}`,
+
+    // 0. Máquinas que siguen paradas por una falla (críticas en rojo)
+    paradasPorFalla().forEach((r) => items.push({
+      tono: "bad", ico: "llave", t: r.eq,
+      s: `Parada por falla${r.frep ? " · falta repuesto" : ""} · ${N.fmt.corta(r.f)}`,
       acc: "Ver detalle", hy: "ver-evento", id: r.id, v: r.eq,
     }));
-    // 1. Máquinas con fallas repetidas en la semana
+
+    // 1. Máquinas con fallas repetidas en la semana (≥ 3 fallas)
     if (S_) {
       const desde = N.sumaDias(hoy, -6);
       const m = new Map();
       S_.registros().filter((r) => r && !r.borrado && r.f >= desde && r.f <= hoy && r.cat === "Máquina" && r.tp === "Correctivo" && !/no identificado|sin especificar/i.test(r.eq) && (!vista.sede || r.s === vista.sede))
         .forEach((r) => { const x = m.get(r.eq) || { n: 0, ult: r }; x.n++; if ((r.f + (r.hr || "")) > (x.ult.f + (x.ult.hr || ""))) x.ult = r; m.set(r.eq, x); });
-      [...m.entries()].filter(([, x]) => x.n >= 3).sort((a, b) => b[1].n - a[1].n).slice(0, 4).forEach(([eq, x]) => grupos.urgente.push({
-        tono: "bad", ico: "falla", t: `${eq}: ${x.n} fallas en 7 días`, s: `Revisar la causa · la última: ${String(x.ult.de || "").replace(/\s+/g, " ").slice(0, 90)}`,
+      [...m.entries()].filter(([, x]) => x.n >= 3).sort((a, b) => b[1].n - a[1].n).slice(0, 2).forEach(([eq, x]) => items.push({
+        tono: "bad", ico: "llave", t: eq, s: `${x.n} fallas en 7 días · última: ${N.fmt.corta(x.ult.f)}`,
         acc: "Ver fallas", hy: "ver-fallas-eq", v: eq,
       }));
     }
-    // 2. Pendientes de prioridad alta
+
+    // 2. Pendiente de prioridad alta más urgente
     const P = window.PENDIENTES;
     if (P) P.abiertos().filter((p) => p.prioridad === "alta" && (!vista.sede || !p.sede || p.sede === vista.sede))
-      .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha))).slice(0, 5)
-      .forEach((p) => grupos.urgente.push({ tono: p.estado === "espera" ? "warn" : "bad", ico: "pendientes", t: p.titulo, s: `${p.eq || "General"} · ${P.ESTADO_TXT[p.estado]}${p.edad ? ` · hace ${p.edad} d` : ""}`, acc: "Abrir", hy: "pend", id: p.id }));
+      .sort((a, b) => String(b.fecha).localeCompare(String(a.fecha))).slice(0, 1)
+      .forEach((p) => items.push({
+        tono: p.estado === "espera" ? "warn" : "bad", ico: "pendientes",
+        t: `${p.eq ? p.eq + ": " : ""}${p.titulo}`,
+        s: `Pendiente de revisión · ${P.ESTADO_TXT[p.estado]}${p.edad ? ` · hace ${p.edad} d` : ""}`,
+        acc: "Abrir", hy: "pend", id: p.id,
+      }));
 
-    // 3. Piezas que ya toca cambiar (componentes seguidos por posición)
+    // 3. Recomendación inteligente: SIEMPRE 3 equipos para inspeccionar (sin repetir los de arriba)
+    const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+    const yaEnItems = new Set(items.map((it) => norm(it.t)));
+    tresSugerencias(vista.sede, yaEnItems).forEach((sug) => {
+      items.push({
+        tono: sug.n >= 5 ? "bad" : sug.n > 0 ? "warn" : "",
+        ico: "insp",
+        t: sug.eq,
+        s: sug.n > 0 ? `Recomendado inspeccionar · ${sug.n} ${sug.n === 1 ? "falla" : "fallas"} en 14 días` : `Inspección programada · ${sug.s || "planta"}`,
+        acc: "Ver fallas", hy: "ver-fallas-insp", v: sug.eq,
+      });
+    });
+
+    // 4. Mantenimientos programados para hoy (o que ya pasaron sin hacerse)
+    const SG = window.SEGUIMIENTO;
+    if (SG) {
+      SG.trabajos().filter((t) => t.etapa === "programado" && t.i.programado <= hoy).slice(0, 3).forEach((t) => items.push({
+        tono: "bad", ico: "calendario", t: `Mantenimiento: ${nombreEq(t.i.eq)}`,
+        s: `${t.pend.length} ${t.pend.length === 1 ? "tarea" : "tareas"} programadas${t.i.programado < hoy ? ` · era el ${N.fmt.corta(t.i.programado)}` : " hoy"}`,
+        acc: "Abrir", hy: "seg", id: t.i.id,
+      }));
+    }
+
+    // 5. Piezas que ya toca cambiar (componentes seguidos por posición)
     const yaListadas = new Set();
     if (typeof compEstado === "function") (window.COMPONENTES_SEGUIDOS || []).forEach((g) => (g.items || []).forEach((it) => {
       const e = compEstado(g.eq, g, it);
       if (!["pendiente", "vencida", "pronto"].includes(e.estado)) return;
       const n = existencia(it.cod);
       if (it.cod) yaListadas.add(`${g.eq}|${it.cod}`);
-      grupos.mtto.push({
-        tono: e.estado === "pronto" ? "warn" : "bad", ico: "llave",
+      items.push({
+        tono: e.estado === "pronto" ? "warn" : "bad", ico: "repuesto",
         t: `Cambiar ${it.ubicacion || it.d} · ${nombreEq(g.eq)}`,
-        s: [e.estado === "pendiente" ? "Quedó pendiente" : e.estado === "vencida" ? `Tocaba el ${N.fmt.corta(e.proximo)}` : `Toca el ${N.fmt.corta(e.proximo)}`, it.d, hayTxt(n)].filter(Boolean).join(" · "),
+        s: [e.estado === "pendiente" ? "Quedó pendiente" : `Toca el ${N.fmt.corta(e.proximo)}`, hayTxt(n)].filter(Boolean).join(" · "),
         falta: n === 0, acc: n === 0 ? "Pedir" : "Ver", hy: n === 0 ? "pedir" : "ficha", v: g.eq, cod: it.cod,
       });
     }));
-    // 4. Piezas que una inspección abierta marcó para cambiar y no se han hecho
-    //    (el Seguimiento decide qué cuenta como hecho)
+
+    // 6. Piezas que una inspección abierta marcó para cambiar y no se han hecho
     const SGh = window.SEGUIMIENTO;
     (typeof inspecciones !== "undefined" ? inspecciones : []).filter((i) => i && (i.estado || "abierta") !== "cerrada").forEach((i) => (i.piezas || []).forEach((p) => {
       if (p.hecho || (SGh && SGh.estadoHallazgo(i, p).k === "hecho")) return;
-      // La misma pieza ya salió como posición pendiente de esa máquina
       if (p.cod && yaListadas.has(`${i.eq}|${p.cod}`)) return;
       const n = existencia(p.cod);
-      grupos.mtto.push({
+      items.push({
         tono: p.urgencia === "alta" ? "bad" : p.urgencia === "baja" ? "" : "warn", ico: "insp",
         t: `${p.d || p.cod || "Pieza"} · ${nombreEq(i.eq)}`,
-        s: [`Inspección del ${N.fmt.corta(i.fecha)}`, p.q ? `${p.q} und.` : "", hayTxt(n)].filter(Boolean).join(" · "),
+        s: [`Inspección del ${N.fmt.corta(i.fecha)}`, hayTxt(n)].filter(Boolean).join(" · "),
         falta: n === 0, acc: n === 0 ? "Pedir" : "Ver", hy: n === 0 ? "pedir" : "seg", v: i.eq, cod: p.cod, id: i.id,
       });
     }));
-    // 5. Mantenimientos programados para hoy (o que ya pasaron sin hacerse)
-    //    y el equipo que conviene inspeccionar hoy
-    const SG = window.SEGUIMIENTO;
-    if (SG) {
-      SG.trabajos().filter((t) => t.etapa === "programado" && t.i.programado <= hoy).forEach((t) => grupos.urgente.unshift({
-        tono: "bad", ico: "calendario", t: `Mantenimiento ${t.i.programado === hoy ? "hoy" : "atrasado"}: ${nombreEq(t.i.eq)}`,
-        s: `${t.pend.length} ${t.pend.length === 1 ? "cosa por hacer" : "cosas por hacer"}${t.i.programado < hoy ? ` · era el ${N.fmt.corta(t.i.programado)}` : ""}`, acc: "Abrir", hy: "seg", id: t.i.id,
-      }));
-      const s = SG.sugerencias()[0];
-      if (s) grupos.mtto.unshift({
-        tono: "", ico: "insp", t: `Inspeccionar hoy: ${nombreEq(s.c)}`,
-        s: `${s.n} fallas en 14 días · ${s.u ? `última inspección el ${N.fmt.corta(s.u)}` : "nunca inspeccionado"}`,
-        acc: "Ver fallas", hy: "ver-fallas-insp", v: s.c,
-      });
-    }
-    // 6. Tareas con aviso para hoy o vencido
-    if (typeof tasks !== "undefined") tasks.filter((x) => x.status !== "hecha" && x.remindNextAt && N.diaCO(x.remindNextAt) <= hoy).slice(0, 5)
-      .forEach((x) => grupos.mtto.push({ tono: "", ico: "tareas", t: x.title || "Tarea", s: `${x.machineName && x.machineName !== "General / Otra" ? x.machineName + " · " : ""}aviso ${N.diaCO(x.remindNextAt) < hoy ? "vencido" : "de hoy"}`, acc: "Ver", hy: "tareas" }));
 
-    // 7. Almacén
+    // 7. Tareas con aviso para hoy o vencido
+    if (typeof tasks !== "undefined") tasks.filter((x) => x.status !== "hecha" && x.remindNextAt && N.diaCO(x.remindNextAt) <= hoy).slice(0, 3)
+      .forEach((x) => items.push({
+        tono: "", ico: "tareas", t: x.title || "Tarea",
+        s: `${x.machineName && x.machineName !== "General / Otra" ? x.machineName + " · " : ""}aviso ${N.diaCO(x.remindNextAt) < hoy ? "vencido" : "de hoy"}`,
+        acc: "Ver", hy: "tareas",
+      }));
+
+    // 8. Almacén relevante
     const sols = window.almSolicitudes ? window.almSolicitudes() : [];
     const sinEntregar = sols.filter((s) => (s.estado || "emitida") === "emitida").length;
     const telegram = sols.filter((s) => s.estado === "pedido").length;
-    if (telegram) grupos.almacen.push({ tono: "warn", ico: "telegram", t: `${telegram} ${telegram === 1 ? "pedido llegó" : "pedidos llegaron"} por Telegram`, s: "Pasarlos a una solicitud", acc: "Ver", hy: "almacen" });
-    if (sinEntregar) grupos.almacen.push({ tono: "", ico: "almacen", t: `${sinEntregar} ${sinEntregar === 1 ? "solicitud" : "solicitudes"} sin entregar`, s: "Confirmar con almacén y marcarlas entregadas", acc: "Ver", hy: "historial" });
-    const inv = window.INVENTARIO;
-    let bajo = 0;
-    if (inv && inv.cargado && window.EQUIPOS_PLAN) {
-      const vistos = new Set();
-      window.EQUIPOS_PLAN.equipos.forEach((eq) => (eq.r || []).forEach((r) => {
-        const cod = inv.norm(typeof repCodigo === "function" ? repCodigo(eq, r) : r.cod);
-        if (!cod || vistos.has(cod)) return;
-        vistos.add(cod);
-        const a = inv.de(cod);
-        if (a && a.min > 0 && (a.exist ?? 0) < a.min) bajo++;
-      }));
-    }
-    if (bajo) grupos.almacen.push({ tono: "warn", ico: "repuesto", t: `${bajo} piezas del plan bajo el mínimo`, s: "Revisar cuáles pedir", acc: "Ver", hy: "almacen-min" });
-    const f = inv ? inv.frescura() : null;
-    if (f && f.estado !== "fresco") grupos.almacen.push({ tono: "", ico: "subir", t: "Actualizar el inventario", s: f.estado === "sin-datos" ? "No hay reporte RE356 cargado" : `El RE356 es ${f.texto.replace(/^Inventario /, "").replace(/dias/, "días")}`, acc: "Cargar", hy: "almacen" });
-    return grupos;
+    if (telegram) items.push({ tono: "warn", ico: "telegram", t: `${telegram} ${telegram === 1 ? "pedido llegó" : "pedidos llegaron"} por Telegram`, s: "Pasarlos a una solicitud", acc: "Ver", hy: "almacen" });
+    if (sinEntregar) items.push({ tono: "", ico: "almacen", t: `${sinEntregar} ${sinEntregar === 1 ? "solicitud" : "solicitudes"} sin entregar`, s: "Confirmar con almacén", acc: "Ver", hy: "historial" });
+
+    return items;
   }
 
   function tarjetaAgenda() {
-    const g = agenda();
-    const TIT = { urgente: "Urgente", mtto: "Mantenimiento y repuestos", almacen: "Almacén" };
-    const total = Object.values(g).reduce((a, l) => a + l.length, 0);
+    const items = agenda();
+    const total = items.length;
     const MAX = 6;
-    const fila = (x) => `<li><button class="hy-ag" type="button" data-hy="${x.hy}" ${x.v ? `data-v="${esc(x.v)}"` : ""} ${x.id ? `data-id="${esc(x.id)}"` : ""} ${x.cod ? `data-cod="${esc(x.cod)}"` : ""}>
+    const visibles = vista.verTodo ? items : items.slice(0, MAX);
+    const linkTxt = vista.verTodo ? "Ver menos" : (total === 10 ? "Ver las 10" : `Ver las ${total}`);
+
+    const fila = (x) => `<li><button class="hy-ag ${x.tono ? "is-" + x.tono : ""}" type="button" data-hy="${x.hy}" ${x.v ? `data-v="${esc(x.v)}"` : ""} ${x.id ? `data-id="${esc(x.id)}"` : ""} ${x.cod ? `data-cod="${esc(x.cod)}"` : ""}>
         <span class="hy-ag__ico ${x.tono ? "is-" + x.tono : ""}">${ic(x.ico)}</span>
-        <span class="hy-ag__txt"><b>${esc(x.t)}</b><small>${esc(x.s)}</small></span>
-        <span class="hy-ag__acc ${x.falta ? "is-pedir" : ""}">${esc(x.acc)}</span>
+        <span class="hy-ag__txt">
+          <b>${esc(x.t)}</b>
+          <small>${esc(x.s)}</small>
+        </span>
+        <span class="hy-ag__chev">${ic("der", "ic--sm")}</span>
       </button></li>`;
+
     return `<section class="ux-card hy-agenda">
-      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("check")}Para hoy <small>${total ? `${total} por atender` : ""}</small></h2></div></div>
-      ${total ? Object.entries(g).filter(([, l]) => l.length).map(([k, l]) => `<div class="hy-ag__grupo">
-          <h3 class="hy-ag__t">${TIT[k]} <span>${l.length}</span></h3>
-          <ul class="hy-ag__lista">${(vista.abierto === k ? l : l.slice(0, MAX)).map(fila).join("")}</ul>
-          ${l.length > MAX && vista.abierto !== k ? `<button class="ux-link" type="button" data-hy="mas" data-v="${k}">Ver las ${l.length}</button>` : ""}
-        </div>`).join("")
+      <div class="ux-card__head">
+        <div><h2 class="ux-card__title">${ic("check")}Trabajo prioritario</h2></div>
+        ${total > MAX ? `<button class="ux-link" type="button" data-hy="toggle-agenda">${linkTxt}</button>` : ""}
+      </div>
+      ${total ? `<ul class="hy-ag__lista">${visibles.map(fila).join("")}</ul>`
         : `<div class="ux-empty"><span class="ux-empty__ico">${ic("check")}</span><h4>Nada pendiente para hoy</h4></div>`}
     </section>`;
   }
@@ -370,14 +487,18 @@
     const dias = vista.sheet.dias || 14;
     const desde = N.sumaDias(hoy, -dias);
 
+    const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+    const neq = norm(eqNom);
     const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
-    const itemsCat = cat.filter((x) => x.fi === cod || (cod && x.fi === `eq-${cod}`) || x.eq.toLowerCase() === eqNom.toLowerCase());
-    const eqNames = new Set([eqNom, ...itemsCat.map((x) => x.eq)].filter(Boolean).map((s) => s.toLowerCase()));
+    const itemsCat = cat.filter((x) => x.fi === cod || (cod && x.fi === `eq-${cod}`) || norm(x.eq) === neq);
+    const eqNames = new Set([eqNom, cod, ...itemsCat.map((x) => x.eq)].filter(Boolean));
+    const eqNorms = new Set([...eqNames].map(norm));
 
     const regs = S() ? S().registros().filter((r) => {
       if (!r || r.borrado || r.f < desde || r.f > hoy) return false;
       if (vista.sede && r.s && r.s !== vista.sede) return false;
-      return eqNames.has(String(r.eq || "").toLowerCase());
+      const rn = norm(r.eq);
+      return eqNorms.has(rn) || [...eqNorms].some((en) => (en.length >= 4 && (rn.includes(en) || en.includes(rn))));
     }).sort((a, b) => (b.f + (b.hr || "")).localeCompare(a.f + (a.hr || ""))) : [];
 
     const correctivos = regs.filter((r) => r.cat === "Máquina" && r.tp === "Correctivo");
@@ -516,12 +637,12 @@
       </div>
 
       <div class="hy-stats hy-stats--4c">
-        ${kpi({ n: ab.length, titulo: "Pendientes", pie: alta ? `<span class="hy-rojo">${alta} prioridad alta</span>` : "ninguno urgente", go: "pendientes" })}
-        ${kpi({ n: paradas.length, titulo: "Paradas por falla", pie: paradas.length ? paradas.slice(0, 2).map((r) => esc(r.eq)).join(", ") + (paradas.length > 2 ? "…" : "") : "ninguna máquina parada", tono: paradas.length ? "is-bad" : "", go: "paradas-modal" })}
-        ${kpi({ n: fallasSemana, titulo: "Fallas de máquina", pie: "últimos 7 días", tono: fallasSemana ? "is-bad" : "", go: "indicadores" })}
+        ${kpi({ ico: "pendientes", n: ab.length, titulo: "Pendientes", pie: alta ? `<span class="hy-rojo">${alta} prioridad alta</span>` : "ninguno urgente", go: "pendientes" })}
+        ${kpi({ ico: "alerta", n: paradas.length, titulo: "Paradas", pie: paradas.length ? paradas.slice(0, 2).map((r) => esc(r.eq)).join(", ") + (paradas.length > 2 ? "…" : "") : "ninguna máquina parada", tono: paradas.length ? "is-bad" : "", go: "paradas-modal" })}
+        ${kpi({ ico: "indicadores", n: fallasSemana, titulo: "Fallas / 7 días", pie: "últimos 7 días", tono: fallasSemana ? "is-bad" : "", go: "indicadores" })}
         ${pres && pres.total
-          ? kpi({ n: Math.round((pres.ejecutado / pres.total) * 1000) / 10, dec: 1, unidad: "%", titulo: "Presupuesto", pie: `${esc(N.fmt.dineroCorto(pres.disponible))} disponibles`, go: "presupuesto" })
-          : kpi({ n: 0, unidad: "%", titulo: "Presupuesto", pie: "sin configurar", go: "presupuesto-config" })}
+          ? kpi({ ico: "presupuesto", n: Math.round((pres.ejecutado / pres.total) * 1000) / 10, dec: 1, unidad: "%", titulo: "Presupuesto", pie: `${esc(N.fmt.dineroCorto(pres.disponible))} disponibles`, go: "presupuesto" })
+          : kpi({ ico: "presupuesto", n: 0, unidad: "%", titulo: "Presupuesto", pie: "sin configurar", go: "presupuesto-config" })}
       </div>
 
       <div class="ux-grid ux-grid--main">
@@ -563,11 +684,19 @@
       if (!b) return;
       const a = b.dataset.hy;
       const v = b.dataset.v;
+      if (a === "toggle-agenda") { vista.verTodo = !vista.verTodo; render(); return; }
+      if (a === "toggle-turno") {
+        const s = b.dataset.sede;
+        vista.expandTurno = vista.expandTurno || {};
+        vista.expandTurno[s] = !vista.expandTurno[s];
+        render();
+        return;
+      }
       if (a === "quien") { vista.quien = true; render(); raiz.querySelector('[data-hy-form="quien"] input')?.focus(); return; }
       if (a === "sede") { vista.sede = v; render(); }
       else if (a === "dia") { vista.dia = v; render(); }
       else if (a === "ver-evento") { vista.sheet = { tipo: "evento", id: b.dataset.id }; render(); }
-      else if (a === "ver-fallas-insp") { vista.sheet = { tipo: "fallas", cod: v, dias: 14 }; render(); }
+      else if (a === "ver-fallas-insp") { vista.sheet = { tipo: "fallas", cod: v, eqNom: nombreEq(v) || v, dias: 14 }; render(); }
       else if (a === "ver-fallas-eq") { vista.sheet = { tipo: "fallas", eqNom: v, dias: 7 }; render(); }
       else if (a === "paradas-modal") { vista.sheet = { tipo: "paradas" }; render(); }
       else if (a === "reg-edit") { vista.sheet = null; window.goRegistro?.({ abrir: b.dataset.id }); }
