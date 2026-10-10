@@ -620,6 +620,196 @@ ${buildMachineContext(machine)}`;
           (!homeFiltro.completa || !m.fromRegistry));
       }
 
+      let homeSeleccionadoId = null;
+      let homePreviewTab = "detalles";
+
+      function homeRepuestosDe(m) {
+        if (!m) return [];
+        if (Array.isArray(m.spareParts) && m.spareParts.length) {
+          return m.spareParts.map((r) => ({
+            desc: r.name || r.description || r.d || "Repuesto",
+            cod: r.partNumber || r.code || r.cod || "",
+            stock: r.stock !== undefined ? r.stock : (r.exist !== undefined ? r.exist : (r.e !== undefined ? r.e : 0)),
+            ubic: r.location || r.u || ""
+          }));
+        }
+        const eq = (typeof equipoDeMachine === "function" ? equipoDeMachine(m) : null) ||
+          (typeof PLAN_EQUIPOS !== "undefined" ? PLAN_EQUIPOS.find((e) => e.id === m.id || e.c === m.equipoCod || e.n === m.name) : null);
+        if (eq && Array.isArray(eq.r) && eq.r.length) {
+          return eq.r.map((r) => {
+            const v = (typeof datosRep !== "undefined" && typeof datoClave === "function") ? datosRep[datoClave(eq, r)] : null;
+            const stock = Number(v && v.exist !== undefined ? v.exist : (r.e !== undefined ? r.e : 0));
+            return {
+              desc: r.d || "Repuesto",
+              cod: (typeof repCodigo === "function" ? repCodigo(eq, r) : r.cod) || r.cod || "",
+              stock: stock,
+              ubic: r.u || ""
+            };
+          });
+        }
+        return [];
+      }
+
+      function homeFabricanteDe(m) {
+        if (!m) return "Por registrar";
+        let f = (m.technicalData && (m.technicalData.manufacturer || m.technicalData.brand)) || m.manufacturer;
+        if (f) return f;
+        const txt = `${m.name || ""} ${m.model || ""}`.toUpperCase();
+        if (/BOSCH|GKF/.test(txt)) return "Bosch Packaging";
+        if (/FETTE/.test(txt)) return "Fette Compacting";
+        if (/HUTTLIN|HÜTTLIN/.test(txt)) return "Bosch / Hüttlin";
+        if (/NJP|CANAAN/.test(txt)) return "Canaan Kaixinlong";
+        if (/SCHMUCKER|SCHMUKER/.test(txt)) return "Schmucker";
+        if (/MARZIO|MARCHESINI/.test(txt)) return "Marchesini Group";
+        if (/CONTROLSA/.test(txt)) return "Controlsa";
+        if (/INTEGRA/.test(txt)) return "Marchesini / Integra";
+        if (/CB550|RIMEK|R200|R400/.test(txt)) return "Rimek / Carnitech";
+        if (/BLISTER/.test(txt)) return "Blisteadora";
+        return m.fromRegistry ? "Por registrar" : "Industrial";
+      }
+
+      function homeSeleccionar(id, forzarAbrirModal) {
+        if (window.innerWidth < 1024 || forzarAbrirModal) {
+          openDetail(id);
+          return;
+        }
+        homeSeleccionadoId = id;
+        document.querySelectorAll("#homeLista .eq-fila").forEach((el) => {
+          el.classList.toggle("is-selected", el.dataset.id === id);
+        });
+        const m = machines.find((x) => x.id === id);
+        const prev = document.getElementById("homePreview");
+        if (prev && m) {
+          prev.innerHTML = renderHomePreviewHtml(m);
+        }
+      }
+      window.homeSeleccionar = homeSeleccionar;
+
+      function homeSetPreviewTab(tab) {
+        homePreviewTab = tab;
+        const m = machines.find((x) => x.id === homeSeleccionadoId);
+        const prev = document.getElementById("homePreview");
+        if (prev && m) {
+          prev.innerHTML = renderHomePreviewHtml(m);
+        }
+      }
+      window.homeSetPreviewTab = homeSetPreviewTab;
+
+      function renderHomePreviewHtml(m) {
+        if (!m) return "";
+        const ic = (n, c) => (window.IC ? IC(n, c) : "");
+        const cod = homeCodigoDe(m) || m.equipoCod || "";
+        const sede = homeSedeDe(m);
+        const tipo = homeTipoDe(m);
+        const fab = homeFabricanteDe(m);
+        const reps = homeRepuestosDe(m);
+        const isCompleta = !m.fromRegistry;
+        const desc = m.description || m.notes || (m.technicalData && m.technicalData.function) || "Equipo registrado en el sistema de mantenimiento de planta.";
+        const crit = m.criticality || (isCompleta ? "Alta" : "Estándar");
+        const est = m.status || "Operativo";
+        const ubic = m.location || sede || "Planta";
+        const area = m.area || "General";
+
+        return `
+          <div class="eq-prev-card" data-preview-id="${planEsc(m.id)}">
+            <div class="eq-prev-card__head">
+              <span class="eq-prev-card__title">${ic("equipos")} Información del equipo</span>
+              <button class="ux-btn ux-btn--sm" type="button" onclick="openDetail('${planEsc(m.id)}')">
+                Ver ficha ${ic("der", "ic--sm")}
+              </button>
+            </div>
+
+            <div class="eq-prev-card__tabs" role="tablist">
+              <button type="button" role="tab" class="eq-prev-card__tab ${homePreviewTab === "detalles" ? "is-active" : ""}" onclick="homeSetPreviewTab('detalles')">Detalles</button>
+              <button type="button" role="tab" class="eq-prev-card__tab ${homePreviewTab === "repuestos" ? "is-active" : ""}" onclick="homeSetPreviewTab('repuestos')">Repuestos (${reps.length})</button>
+            </div>
+
+            <div class="eq-prev-card__body">
+              ${homePreviewTab === "detalles" ? `
+                <div class="eq-prev__media">
+                  ${m.image ? `<img src="${planEsc(m.image)}" alt="${planEsc(m.name)}" loading="lazy">` : `
+                    <div class="eq-prev__placeholder">
+                      ${ic("equipos")}
+                      <span class="eq-prev__ph-tag">Foto por registrar</span>
+                    </div>`}
+                </div>
+
+                <div class="eq-prev__overview">
+                  <h3 class="eq-prev__name">${planEsc(m.model || m.name)}</h3>
+                  <div class="eq-prev__badges">
+                    ${sede ? `<span class="eq-prev__badge">${planEsc(sede)}</span>` : ""}
+                    ${tipo ? `<span class="eq-prev__badge">${planEsc(tipo)}</span>` : ""}
+                    <span class="eq-prev__badge ${isCompleta ? "eq-prev__badge--completa" : "eq-prev__badge--basica"}">
+                      ${isCompleta ? "<i></i>Ficha completa" : "Ficha básica"}
+                    </span>
+                  </div>
+                  <p class="eq-prev__desc">${planEsc(desc)}</p>
+                </div>
+
+                <div class="eq-prev__grid">
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Fabricante</span>
+                    <span class="eq-prev__cell-val" title="${planEsc(fab)}">${planEsc(fab)}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Modelo</span>
+                    <span class="eq-prev__cell-val" title="${planEsc(m.model || m.name)}">${planEsc(m.model || m.name)}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Código / Placa</span>
+                    <span class="eq-prev__cell-val">${cod ? `<code>${planEsc(cod)}</code>` : "—"}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Ubicación</span>
+                    <span class="eq-prev__cell-val" title="${planEsc(ubic)}">${planEsc(ubic)}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Área</span>
+                    <span class="eq-prev__cell-val" title="${planEsc(area)}">${planEsc(area)}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Criticidad</span>
+                    <span class="eq-prev__cell-val">${planEsc(crit)}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Estado</span>
+                    <span class="eq-prev__cell-val">${planEsc(est)}</span>
+                  </div>
+                  <div class="eq-prev__cell">
+                    <span class="eq-prev__cell-label">Repuestos</span>
+                    <span class="eq-prev__cell-val">${reps.length} en plan</span>
+                  </div>
+                </div>
+              ` : `
+                <div class="eq-prev__repuestos-list">
+                  ${reps.length ? reps.slice(0, 8).map((r) => `
+                    <div class="eq-prev__repuesto-item">
+                      <div class="eq-prev__repuesto-desc">
+                        <b title="${planEsc(r.desc)}">${planEsc(r.desc)}</b>
+                        ${r.cod ? `<small>Cód: ${planEsc(r.cod)}${r.ubic ? ` · ${planEsc(r.ubic)}` : ""}</small>` : ""}
+                      </div>
+                      <span class="eq-prev__repuesto-stock ${Number(r.stock) > 0 ? "is-ok" : "is-zero"}">
+                        ${Number(r.stock) > 0 ? `${r.stock} disp.` : "Sin stock"}
+                      </span>
+                    </div>
+                  `).join("") : `<div class="eq-prev__empty-reps"><p>No hay repuestos registrados en el plan para este equipo.</p></div>`}
+                  ${reps.length > 8 ? `<p class="eq-prev__more-reps">Mostrando 8 de ${reps.length} repuestos</p>` : ""}
+                </div>
+              `}
+            </div>
+
+            <div class="eq-prev-card__foot">
+              <button class="ux-btn ux-btn--primary ux-btn--block" type="button" onclick="openDetail('${planEsc(m.id)}')">
+                Abrir ficha técnica completa
+              </button>
+              ${reps.length ? `<button class="ux-btn ux-btn--block" type="button" onclick="goPlan('${planEsc(m.model || m.name)}')">
+                Ver repuestos en el Plan
+              </button>` : ""}
+            </div>
+          </div>
+        `;
+      }
+
       function renderHomeLista() {
         const box = document.getElementById("homeLista");
         if (!box) return;
@@ -629,24 +819,42 @@ ${buildMachineContext(machine)}`;
         const cuenta = document.getElementById("homeCuenta");
         if (cuenta) cuenta.textContent = `${lista.length} ${lista.length === 1 ? "equipo" : "equipos"}`;
         const planHits = currentQuery ? planCountFor(currentQuery) : 0;
+
+        if (!ver.some((m) => m.id === homeSeleccionadoId)) {
+          homeSeleccionadoId = ver[0] ? ver[0].id : null;
+        }
+        const maquinaSeleccionada = machines.find((m) => m.id === homeSeleccionadoId) || ver[0] || null;
+
         box.innerHTML = `
           ${planHits ? `<button class="eq-plan" type="button" data-q="${planEsc(currentQuery)}" onclick="goPlan(this.dataset.q)">${ic("plan")}<span><b>${planHits}</b> ${planHits === 1 ? "línea" : "líneas"} del plan de mantenimiento ${planHits === 1 ? "coincide" : "coinciden"} con «${planEsc(currentQuery)}»</span>${ic("der", "ic--sm")}</button>` : ""}
-          ${ver.length ? `<div class="eq-lista" role="list">
-            ${ver.map((m) => {
-              const cod = homeCodigoDe(m);
-              const sede = homeSedeDe(m);
-              const tipo = homeTipoDe(m);
-              return `<button class="eq-fila" type="button" role="listitem" onclick="openDetail('${planEsc(m.id)}')">
-                <span class="eq-fila__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ic("equipos")}</span>
-                <span class="eq-fila__t"><b>${planEsc(m.model || m.name)}</b><small>${planEsc(m.name !== m.model ? m.name : m.area)}</small></span>
-                <span class="eq-fila__c">${cod ? `<code>${cod}</code>` : ""}</span>
-                <span class="eq-fila__s">${planEsc([sede, tipo].filter(Boolean).join(" · "))}</span>
-                <span class="eq-fila__f">${m.fromRegistry ? "Básica" : '<i class="is-ok"></i>Ficha completa'}</span>
-                ${ic("der", "ic--sm")}
-              </button>`;
-            }).join("")}
-          </div>` : `<div class="ux-empty"><h4>Ningún equipo coincide</h4><p>Prueba con otro nombre, modelo o código, o quita los filtros.</p></div>`}
-          ${lista.length > ver.length ? `<button class="ux-btn ux-btn--block" type="button" onclick="homeVerMas()">Ver los ${lista.length - ver.length} restantes</button>` : ""}`;
+          ${ver.length ? `
+            <div class="eq-master-detail">
+              <div class="eq-master-detail__list">
+                <div class="eq-lista" role="list">
+                  ${ver.map((m) => {
+                    const cod = homeCodigoDe(m);
+                    const sede = homeSedeDe(m);
+                    const tipo = homeTipoDe(m);
+                    const isSel = m.id === homeSeleccionadoId;
+                    return `<button class="eq-fila ${isSel ? "is-selected" : ""}" type="button" role="listitem" data-id="${planEsc(m.id)}" onclick="homeSeleccionar('${planEsc(m.id)}')" ondblclick="openDetail('${planEsc(m.id)}')">
+                      <span class="eq-fila__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ic("equipos")}</span>
+                      <span class="eq-fila__t"><b>${planEsc(m.model || m.name)}</b><small>${planEsc(m.name !== m.model ? m.name : m.area)}</small></span>
+                      <span class="eq-fila__c">${cod ? `<code>${cod}</code>` : ""}</span>
+                      <span class="eq-fila__s">${planEsc([sede, tipo].filter(Boolean).join(" · "))}</span>
+                      <span class="eq-fila__f">${m.fromRegistry ? "Básica" : '<i class="is-ok"></i>Ficha completa'}</span>
+                      <span class="eq-fila__go" role="button" title="Abrir ficha técnica" onclick="event.stopPropagation(); openDetail('${planEsc(m.id)}')">${ic("der", "ic--sm")}</span>
+                    </button>`;
+                  }).join("")}
+                </div>
+                ${lista.length > ver.length ? `<button class="ux-btn ux-btn--block" type="button" onclick="homeVerMas()">Ver los ${lista.length - ver.length} restantes</button>` : ""}
+              </div>
+
+              <aside class="eq-master-detail__preview" id="homePreview">
+                ${maquinaSeleccionada ? renderHomePreviewHtml(maquinaSeleccionada) : ""}
+              </aside>
+            </div>
+          ` : `<div class="ux-empty"><h4>Ningún equipo coincide</h4><p>Prueba con otro nombre, modelo o código, o quita los filtros.</p></div>`}
+        `;
       }
       function homeVerMas() { homeFiltro.limite = Infinity; renderHomeLista(); }
       function homeFiltrar(k, v) {
