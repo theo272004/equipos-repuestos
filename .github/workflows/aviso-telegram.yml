@@ -1,0 +1,26 @@
+name: Aviso Telegram
+
+# Manda avisos/ultimo.html al grupo de Telegram cuando ese archivo cambia en
+# master (por ejemplo, el resumen que va con cada actualización del chat), o a
+# mano desde la pestaña Actions.
+on:
+  push:
+    branches: [master]
+    paths: ["avisos/ultimo.html"]
+  workflow_dispatch: {}
+
+env:
+  TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+  TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
+jobs:
+  enviar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Enviar aviso
+        run: node scripts/enviar-aviso.mjs avisos/ultimo.html
