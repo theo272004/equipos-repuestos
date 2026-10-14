@@ -12,8 +12,10 @@ const pista = $("[data-pista]");
 const vivo = $("[data-vivo]");
 const pasoTxt = $("[data-paso]");
 
+// Las vistas salen de la planta del esquema, que dibujada asi es el espejo de la maquina real:
+// se reflejan al mostrarlas, y con eso derecha e izquierda se intercambian (az -> 180 - az).
 const NOMBRE_VISTA = (az) => {
-  const a = ((az % 360) + 360) % 360;
+  const a = (((180 - az) % 360) + 360) % 360;
   const nombres = ["derecha", "frente-derecha", "frente", "frente-izquierda", "izquierda", "atrás-izquierda", "atrás", "atrás-derecha"];
   return nombres[Math.round(a / 45) % 8];
 };
@@ -103,6 +105,7 @@ function cargarVista(i) {
       g.innerHTML = texto;
       camaraG.appendChild(g);
       const maquina = $(".g-maquina", g);
+      maquina.setAttribute("transform", `matrix(-1 0 0 1 ${D.W} 0)`);
       const nodos = $$(".it", maquina).map((el, idx) => {
         const m = el.dataset.m.split(",").map(Number);
         return {
@@ -138,6 +141,8 @@ function cargarVista(i) {
         c.x1 = Math.max(c.x1, b.x + b.width);
         c.y1 = Math.max(c.y1, b.y + b.height);
       }
+      // getBBox mide sin el espejo: se reflejan las cajas y su desplazamiento de desarme
+      for (const c of Object.values(cajas)) Object.assign(c, { x0: D.W - c.x1, x1: D.W - c.x0, dx: -c.dx });
       const info = { i, g, maquina, nodos, orden: nodos.map((_, k) => k), cajas, meta };
       marcarNodos(info);
       return info;
@@ -261,7 +266,9 @@ async function mostrarVista(i, { suave = true } = {}) {
   correr();
 }
 
-const girar = (paso) => mostrarVista(actual + paso);
+// con el espejo, la siguiente vista gira la maquina al otro lado: se invierte para que arrastrar
+// a la derecha la siga girando a la derecha
+const girar = (paso) => mostrarVista(actual - paso);
 
 // ───────────── Camara (viewBox) ─────────────
 const camara = { x: 0, y: 0, w: D.W, h: D.H, meta: null, manual: false };
@@ -306,7 +313,10 @@ function encuadre(v) {
     x1 = Math.max(x1, c.x1 + ox);
     y1 = Math.max(y1, c.y1 + oy);
   }
-  if (!isFinite(x0)) return ajustar(D.vistas[v.i].armado);
+  if (!isFinite(x0)) {
+    const [x, y, w, h] = D.vistas[v.i].armado;
+    return ajustar([D.W - x - w, y, w, h]);
+  }
   return ajustar([x0, y0, x1 - x0, y1 - y0]);
 }
 

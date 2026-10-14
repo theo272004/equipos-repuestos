@@ -48,7 +48,9 @@ asiento, y `node ciclos.mjs <azimut> --desarme` 0 ciclos.
   y armario a la izquierda del operador.
 - **Simulación.** Ángulo de máquina con dos anclas reales: cierre de planchas a 30° (Calibrado
   p.20) y cuchilla rotativa de una vuelta por ciclo (p.23). Las demás ventanas son
-  aproximadas. Las planchas cierran con un cilindro neumático con fuelle por lado (Y40.6/Y40.7).
+  aproximadas. La presión de las planchas la dan los tirantes con resorte del bastidor de levas
+  (detrás de la pared, Calibrado p.70-73), que mueven las cuñas sobre cada mordaza. El cilindro con
+  fuelle de cada lado (Y40.6/Y40.7) las habilita y separa.
   Las pinzas bajan la fila, la sueltan sobre el deslizadero (S52.9) y la cinta, que corre por
   debajo del corte, la saca bajo los láser B52. Cada tornillo se mueve con su pieza.
 - **Cableado.** Del dispositivo a sus conectores, por la canaleta de la caja de transmisión y
@@ -60,6 +62,15 @@ asiento, y `node ciclos.mjs <azimut> --desarme` 0 ciclos.
 `gemelo-ms235.html?pieza=soldadura&pestana=historial`, `?sensor=B40.1`,
 `?disp=M30.1` (sigue el cable y abre el armario), `?armario=1`, `?cables=1`,
 `?vista=atras`, `?paso=16` (desarmada), `?calor=1`, `?angulo=200`, `?sim=1`.
+
+## Pendiente (según la auditoría contra el catálogo)
+
+- Correa del motor principal (S4A12100110): servo, correa dentada vertical y grupo motriz junto al volante (Calibrado p.83).
+- Estrella doble de dosificación (S4G72200210): dos ejes, cada uno con su motorreductor y correa dentada, y su bastidor de chapa.
+- Soporte y mando mecánico del dosificador (S4A71100310): columna con brazo giratorio y placa de manivelas. La posición no se conoce.
+- Cajón del corte horizontal (dos bloques macizos) y regulación excéntrica entre cuchillas.
+- Marcos de rodillos color crema de las guías (S4A27100110) y escuadra graduada de la fotocélula.
+- Esquema neumático: el usuario lo va a conseguir.
 
 ## Lo que es y lo que no
 

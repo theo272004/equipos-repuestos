@@ -75,6 +75,7 @@ const ico = {
   medir: '<path d="M3 17 17 3l4 4L7 21Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/>',
   seccion: '<path d="M3 7 12 3l9 4-9 4Z"/><path d="M3 12l9 4 9-4" stroke-dasharray="2 2"/><path d="M3 17l9 4 9-4"/>',
   arbol: '<path d="M4 5h6M4 12h6M4 19h6M14 5h6M14 12h6M14 19h6"/>',
+  colores: '<circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6"/><circle cx="12" cy="7.5" r="1.6"/><circle cx="16" cy="10" r="1.6"/><path d="M12 21c-1.5-2 0-4 2-4h2a4 4 0 0 0 4-4"/>',
   cables: '<path d="M4 20c0-6 4-6 4-11V4M12 20v-7c0-3 4-3 4-6V4M20 20c0-4-3-5-3-8"/><circle cx="8" cy="4" r="1.2"/><circle cx="16" cy="4" r="1.2"/>',
   armario: '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M12 3v18M10 12h0M14 12h0"/>',
 };
@@ -123,7 +124,7 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
       <div class="gm-grupo">${btn("arbol", "Árbol de piezas", { mostrarTexto: true })}</div>
       <div class="gm-grupo g3-vistas">${[["iso", "Iso"], ["frente", "Frente"], ["atras", "Atrás"], ["izquierda", "Izq."], ["derecha", "Der."], ["arriba", "Arriba"]].map(([k, t]) => `<button type="button" class="gm-btn" data-vista3="${k}" title="Vista ${t}">${t}</button>`).join("")}</div>
       <div class="gm-grupo">${btn("orto", "Proyección ortográfica")}${btn("aristas", "Aristas")}${btn("seccion", "Corte de sección")}${btn("medir", "Medir")}</div>
-      <div class="gm-grupo">${btn("resguardos", "Resguardos y acrílicos")}${btn("calor", "Mapa de fallas")}${btn("aislar", "Aislar la pieza elegida")}</div>
+      <div class="gm-grupo">${btn("resguardos", "Resguardos y acrílicos")}${btn("calor", "Mapa de fallas")}${btn("aislar", "Aislar la pieza elegida")}${btn("colores", "Un color por conjunto")}</div>
       <div class="gm-grupo">${btn("cables", "Cableado", { mostrarTexto: true, titulo: "Ver el recorrido de los cables del esquema" })}${btn("armario", "Abrir el armario eléctrico")}</div>
     </div>
     <div class="gm-escena g3-escena" tabindex="0" role="application" aria-label="MS235 en 3D. Clic izquierdo y arrastrar gira, clic derecho mueve, rueda acerca. Flechas giran, Mayúscula y flechas mueven, F enfoca la selección, espacio simula, D desarma, Escape quita la selección.">

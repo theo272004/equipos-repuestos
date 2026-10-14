@@ -23,7 +23,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.localClippingEnabled = true;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = 1.12;
 
 const scene = new THREE.Scene();
 const pmrem = new THREE.PMREMGenerator(renderer);
@@ -82,47 +82,47 @@ function tema3d() {
 const planosCorte = [];
 const M = (o) => new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, clippingPlanes: planosCorte, ...o });
 const MAT = {
-  hi: M({ color: 0xd3d8de, metalness: 0.62, roughness: 0.3 }),
-  mid: M({ color: 0xa9b0b8, metalness: 0.58, roughness: 0.4 }),
-  lo: M({ color: 0x7c838c, metalness: 0.5, roughness: 0.52 }),
-  pintado: M({ color: 0xd9dbd7, metalness: 0.05, roughness: 0.62 }),
+  hi: M({ color: 0xdde3ea, metalness: 0.7, roughness: 0.26 }),
+  mid: M({ color: 0xb4bdc7, metalness: 0.66, roughness: 0.33 }),
+  lo: M({ color: 0x7e8996, metalness: 0.55, roughness: 0.45 }),
+  pintado: M({ color: 0xdcdfda, metalness: 0.05, roughness: 0.55 }),
   oscuro: M({ color: 0x2b2e33, metalness: 0.2, roughness: 0.55 }),
-  motor: M({ color: 0x5a7189, metalness: 0.35, roughness: 0.45 }),
+  motor: M({ color: 0x2f6fb6, metalness: 0.35, roughness: 0.38 }),
   papel: M({ color: 0xf5f2ea, metalness: 0, roughness: 0.92 }),
   bobina: M({ color: 0xf0ece0, metalness: 0, roughness: 0.85 }),
-  lona: M({ color: 0x46524c, metalness: 0, roughness: 0.85 }),
+  lona: M({ color: 0x1f8a4c, metalness: 0, roughness: 0.8 }),
   negro: M({ color: 0x232528, metalness: 0.1, roughness: 0.7 }),
-  aislante: M({ color: 0x9a7b4f, metalness: 0, roughness: 0.75 }),
-  cobre: M({ color: 0xb87333, metalness: 0.75, roughness: 0.35 }),
-  valvula: M({ color: 0x2f62a6, metalness: 0.15, roughness: 0.45 }),
-  sensor: M({ color: 0xb59d67, metalness: 0.7, roughness: 0.3 }),
+  aislante: M({ color: 0xc0914f, metalness: 0, roughness: 0.7 }),
+  cobre: M({ color: 0xd8782f, metalness: 0.75, roughness: 0.3 }),
+  valvula: M({ color: 0x1f7ae0, metalness: 0.15, roughness: 0.4 }),
+  sensor: M({ color: 0xd6b25c, metalness: 0.72, roughness: 0.28 }),
   pantalla: M({ color: 0x0c1826, metalness: 0.1, roughness: 0.2, emissive: 0x153a66, emissiveIntensity: 0.6 }),
-  seta: M({ color: 0xd32626, metalness: 0.1, roughness: 0.45 }),
+  seta: M({ color: 0xe3262a, metalness: 0.1, roughness: 0.4 }),
   vidrio: new THREE.MeshPhysicalMaterial({ color: 0xd9eeff, metalness: 0, roughness: 0.05, transparent: true, opacity: 0.12, depthWrite: false, side: THREE.DoubleSide, clippingPlanes: planosCorte }),
   led: new THREE.MeshStandardMaterial({ color: 0x2e7d32, emissive: 0x43d65a, emissiveIntensity: 0.35, clippingPlanes: planosCorte }),
   ledOn: new THREE.MeshStandardMaterial({ color: 0xffb020, emissive: 0xffa000, emissiveIntensity: 2.2, clippingPlanes: planosCorte }),
   perno: M({ color: 0x8c939b, metalness: 0.8, roughness: 0.28 }),
   // materiales de la maquina real (fotos): inox cepillado, aluminio, acero pardo de las planchas…
-  inox: M({ color: 0xc4cad0, metalness: 0.72, roughness: 0.34 }),
-  alu: M({ color: 0xdfe3e7, metalness: 0.5, roughness: 0.4 }),
-  caliente: M({ color: 0x5b3a27, metalness: 0.45, roughness: 0.55 }),
-  fundicion: M({ color: 0x3f3a36, metalness: 0.35, roughness: 0.68 }),
-  bronce: M({ color: 0x8a6a3e, metalness: 0.62, roughness: 0.42 }),
-  laton: M({ color: 0xc2a04e, metalness: 0.75, roughness: 0.3 }),
+  inox: M({ color: 0xd0d7de, metalness: 0.82, roughness: 0.25 }),
+  alu: M({ color: 0xeaeef2, metalness: 0.55, roughness: 0.3 }),
+  caliente: M({ color: 0x8c4f2b, metalness: 0.55, roughness: 0.44 }),
+  fundicion: M({ color: 0x3e4550, metalness: 0.4, roughness: 0.55 }),
+  bronce: M({ color: 0xc5933e, metalness: 0.72, roughness: 0.32 }),
+  laton: M({ color: 0xd9b44a, metalness: 0.8, roughness: 0.25 }),
   cromo: M({ color: 0xeef1f4, metalness: 0.92, roughness: 0.14 }),
-  crema: M({ color: 0xe6dcc2, metalness: 0, roughness: 0.6 }),
+  crema: M({ color: 0xf1e4c3, metalness: 0, roughness: 0.55 }),
   ptfe: M({ color: 0xf3f1ea, metalness: 0, roughness: 0.5 }),
   caucho: M({ color: 0x1c1d1f, metalness: 0, roughness: 0.85 }),
-  euchner: M({ color: 0xc8352c, metalness: 0.1, roughness: 0.45 }),
-  m12: M({ color: 0x2fa34a, metalness: 0.1, roughness: 0.5 }),
+  euchner: M({ color: 0xe63b2e, metalness: 0.1, roughness: 0.4 }),
+  m12: M({ color: 0x22b14c, metalness: 0.1, roughness: 0.45 }),
   harting: M({ color: 0x9aa1a8, metalness: 0.3, roughness: 0.5 }),
-  manguera: M({ color: 0x2a7fd4, metalness: 0, roughness: 0.45 }),
+  manguera: M({ color: 0x2196f3, metalness: 0, roughness: 0.4 }),
   conduit: M({ color: 0x8d949b, metalness: 0.2, roughness: 0.6 }),
   reten: M({ color: 0x2c74c9, metalness: 0.1, roughness: 0.5 }),
-  champan: M({ color: 0x9d8c6b, metalness: 0.55, roughness: 0.4 }),
+  champan: M({ color: 0xb99f68, metalness: 0.6, roughness: 0.35 }),
   riel: M({ color: 0xb9bec3, metalness: 0.8, roughness: 0.3 }),
-  canaleta: M({ color: 0x8e9398, metalness: 0, roughness: 0.7 }),
-  breaker: M({ color: 0xe9e9e6, metalness: 0, roughness: 0.55 }),
+  canaleta: M({ color: 0x9aa3ab, metalness: 0, roughness: 0.65 }),
+  breaker: M({ color: 0xf4f4f0, metalness: 0, roughness: 0.5 }),
   rele: M({ color: 0x3d4a57, metalness: 0.05, roughness: 0.5 }),
   plc: M({ color: 0x9fa6ad, metalness: 0.15, roughness: 0.5 }),
   borne: M({ color: 0x8e979e, metalness: 0, roughness: 0.6 }),
@@ -157,6 +157,7 @@ function materialDe(it) {
   if (/^bastidor\.(pared|base|lateral|tapa-inspeccion|bandeja|viga)|^salida\.(larguero|pata|travesano)/.test(n)) return MAT.inox;
   if (/^resguardos\.(poste|travesano|larguero|perfil)/.test(n)) return MAT.champan;
   if (/^guias\.rodillo|^desbobinado\.rodillo(?!-motorizado)/.test(n)) return MAT.crema;
+  if (/^guias\.(giro|barra-A|barra-B)/.test(n)) return MAT.cromo;
   if (/conector/.test(n)) return MAT.harting;
   if (/electrovalvula/.test(n)) return MAT.valvula;
   if (/bobina-ev|bisagra|muelle-gas|manilla|tirador|euchner|pata-disco/.test(n)) return MAT.oscuro;
@@ -168,6 +169,14 @@ function materialDe(it) {
 
 // Variantes por estado (resaltado, seleccionado, fantasma, mapa de fallas), en cache.
 const variantes = new Map();
+// "Colores": cada conjunto con su color, para distinguirlos de un vistazo
+const COLOR_CONJUNTO = {
+  bobina: 0xf2b134, desbobinado: 0xe8743b, guias: 0x9b59b6, fotocelula: 0xe84393, dosificacion: 0x00a8a8,
+  soldadura: 0xd63031, arrastre: 0x6c5ce7, corte: 0xfd79a8, pinzas: 0x00b894, salida: 0x27ae60,
+  motor: 0x0984e3, carter: 0x74b9ff, bastidor: 0xb2bec3, hmi: 0x2d3436, armario: 0xfdcb6e,
+  resguardos: 0x81ecec, film: 0xf5f2ea,
+};
+let porConjunto = false;
 const CALOR = [null, 0xfde8c9, 0xfbc98e, 0xf59a5b, 0xe8613a];
 function variante(base, tipo) {
   const clave = `${base.uuid}|${tipo}`;
@@ -179,6 +188,7 @@ function variante(base, tipo) {
   else if (tipo === "sel") Object.assign(m, { emissive: new THREE.Color(0x1f6feb), emissiveIntensity: 0.38 });
   else if (tipo === "parte") Object.assign(m, { emissive: new THREE.Color(0x4f9bff), emissiveIntensity: 0.9 });
   else if (tipo === "fantasma") Object.assign(m, { transparent: true, opacity: 0.07, depthWrite: false });
+  else if (tipo.startsWith("conj:")) Object.assign(m, { color: new THREE.Color(COLOR_CONJUNTO[tipo.slice(5)] ?? 0xb2bec3), metalness: 0.25, roughness: 0.48, map: null });
   else if (tipo.startsWith("calor")) {
     const nivel = Number(tipo.slice(5));
     if (nivel > 0) m.color = new THREE.Color(CALOR[nivel]);
@@ -597,9 +607,13 @@ function reglaAnim(m) {
   if (/^motor\.(eje-levas|leva|corona|volante)/.test(n)) return { rot: [1, 0, 0], p: [0, -40, 236], f: (e) => e.theta };
   if (n === "motor.pinon") return { rot: [1, 0, 0], p: [0, -60, 76], f: (e) => e.theta * 1.5 };
   if (/^arrastre\.(rodillo|engranaje)/.test(n)) return { rot: [0, 1, 0], p: [7 * lado, 0, 212], f: (e) => (-lado * e.papel) / 6 };
-  if (/^corte\.(circular|eje-circulares)/.test(n)) return { rot: [0, 1, 0], p: [-14, 0, 190], f: (e) => e.papel / 13.2 };
-  if (n === "corte.contraste") return { rot: [0, 1, 0], p: [7, 0, 190], f: (e) => -e.papel / 6 };
+  // discos de los cartuchos: locos, giran por contacto con los anillos del eje de contraste
+  if (n === "corte.disco-cartucho") return { rot: [0, 1, 0], p: [-6, 0, 190], f: (e) => e.papel / 5 };
+  if (/^corte\.(eje-contraste|anillo-contraste)/.test(n)) return { rot: [0, 1, 0], p: [7, 0, 190], f: (e) => -e.papel / 6 };
   if (/^corte\.(cuchilla-rotativa|eje-cuchilla|leva)/.test(n)) return { rot: [0, 1, 0], p: [-9, 0, 170], f: (e) => -e.cuchilla };
+  // la cuchilla del desbobinado gira con el papel; el rodillo del balancin oscila con sus brazos
+  if (/^desbobinado\.(cuchilla|eje-cuchilla)/.test(n)) return { rot: [1, 0, 0], p: [0, -146, 361], f: (e) => -e.papel / 9 };
+  if (n === "desbobinado.rodillo-balancin") return { rot: [1, 0, 0], p: [0, -150, 300], f: (e) => Math.sin(e.theta * 1) * 0.03 };
   if (/^desbobinado\.(rodillo|contraste)/.test(n)) {
     const r = n.includes("alto") || n.includes("motorizado") ? 6 : n.includes("balancin") ? 4.5 : n.includes("contraste") ? 4 : 5;
     return { rot: [1, 0, 0], p: [0, c[1], c[2]], f: (e) => -e.papel / r };
@@ -611,9 +625,12 @@ function reglaAnim(m) {
   if (n === "salida.tambor") return { rot: [0, 1, 0], p: [c[0], 0, 94], f: (e) => -e.cinta / 5 };
   // la plancha abierta se aleja del papel 3 unidades (12 mm); cerrada aprieta
   const abre = (e) => [lado * 3 * (1 - e.fCierre), 0, 0];
-  if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|porta-mordaza|casquillo|ret|horquilla|lamina|poste-muelle|codificador|pomo-lote|sensor\.B41)/.test(n)) return { mov: abre };
-  // fuelle del cilindro: fijo al bloque (x = ±58), se estira cuando el vastago cierra la plancha
-  if (n === "soldadura.fuelle") return { escala: { ancla: [58 * lado, 0, 0], k: (e) => (20 - 3 * (1 - e.fCierre)) / 20, mov: () => [0, 0, 0] } };
+  if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|porta-mordaza|horquilla|lamina|poste-muelle|codificador|pomo-lote|sensor\.B41|arbol$|tuerca-arbol|capota|lama|pomo-capota|placa-formato)/.test(n)) return { mov: abre };
+  // fuelle del cilindro: fijo a la tapa del cilindro (x = ±66), se estira cuando el vastago cierra la plancha
+  if (n === "soldadura.fuelle") return { escala: { ancla: [66 * lado, 0, 0], k: (e) => (28 - 3 * (1 - e.fCierre)) / 28, mov: () => [0, 0, 0] } };
+  // bastidor de levas: las dos levas giran con la maquina y los resortes de los tirantes se comprimen al cerrar
+  if (n === "soldadura.leva-plancha") return { rot: [1, 0, 0], p: [0, -41, 280], f: (e) => e.theta };
+  if (/^soldadura\.muelle-tirante/.test(n)) return { escala: { eje: "y", ancla: [0, -48, 0], k: (e) => 1 - 0.12 * e.fCierre, mov: () => [0, 0, 0] } };
   // resortes de la lamina: viajan con la plancha y se estiran un poco al apretar
   if (/^soldadura\.muelle-lamina/.test(n)) return { escala: { ancla: [9.1 * lado, 0, 0], k: (e) => 1 + 0.08 * e.fCierre, mov: abre } };
   // manivelas de la pared: giran con el eje de levas
@@ -659,11 +676,19 @@ function aplicarAnim(e, activa) {
       const [x, y, z] = r.mov(e);
       m.matrix.makeTranslation(x, z, y);
     } else if (r.escala) {
+      // escala a lo largo de x (o de y del modelo) con un extremo fijo: resortes y fuelles
       const [mx, my, mz] = r.escala.mov(e);
       const a = T(r.escala.ancla);
-      _t1.makeTranslation(-a.x, 0, 0);
-      _t2.makeTranslation(a.x + mx, mz, my);
-      m.matrix.copy(_t2).multiply(_m.makeScale(r.escala.k(e), 1, 1)).multiply(_t1);
+      const k = r.escala.k(e);
+      if (r.escala.eje === "y") {
+        _t1.makeTranslation(0, 0, -a.z);
+        _t2.makeTranslation(mx, mz, a.z + my);
+        m.matrix.copy(_t2).multiply(_m.makeScale(1, 1, k)).multiply(_t1);
+      } else {
+        _t1.makeTranslation(-a.x, 0, 0);
+        _t2.makeTranslation(a.x + mx, mz, my);
+        m.matrix.copy(_t2).multiply(_m.makeScale(k, 1, 1)).multiply(_t1);
+      }
     } else if (r.muelle) {
       // el muelle se estira entre el bloque fijo (x = ±58) y el porta-mordaza
       const ancla = 58 * r.muelle;
@@ -926,6 +951,7 @@ function aspecto() {
     let mat = base;
     const sel = seleccion.pieza && pieza === seleccion.pieza;
     const esParte = (seleccion.parte && parte === seleccion.parte && (!seleccion.disp || m.userData.disp === seleccion.disp)) || (cableado.marcados.size && cableado.marcados.has(m.userData.disp));
+    if (porConjunto && base !== MAT.vidrio && base !== MAT.pantalla && pieza !== "film") mat = variante(base, `conj:${pieza}`);
     if (calor && base !== MAT.vidrio && pieza !== "film") mat = variante(base, `calor${nivelCalor(pieza) ?? 0}`);
     if (esParte) mat = variante(mat, "parte");
     else if (sel) mat = variante(mat, "sel");
@@ -1301,6 +1327,7 @@ function actualizarMandos() {
   $("[data-accion=medir]").setAttribute("aria-pressed", String(medir.activo));
   $("[data-accion=seccion]").setAttribute("aria-pressed", String(seccion.activa));
   $("[data-accion=cables]")?.setAttribute("aria-pressed", String(cableado.vista));
+  $("[data-accion=colores]")?.setAttribute("aria-pressed", String(porConjunto));
   $("[data-accion=armario]")?.setAttribute("aria-pressed", String(puerta.meta > 0));
   const bs = $("[data-accion=simular]");
   bs.setAttribute("aria-pressed", String(sim.activa && !sim.pausa));
@@ -1404,6 +1431,13 @@ const acciones = {
     sim.angulo = 0;
     sim.ciclos = 0;
     sim.sobres = 0;
+  },
+  colores: () => {
+    porConjunto = !porConjunto;
+    escena3.toggleAttribute("data-conjuntos", porConjunto);
+    $$(".gm-parte").forEach((b) => b.style.setProperty("--conj", porConjunto ? `#${new THREE.Color(COLOR_CONJUNTO[b.dataset.pieza] ?? 0xb2bec3).getHexString()}` : ""));
+    aspecto();
+    actualizarMandos();
   },
   cables: () => {
     cableado.vista = !cableado.vista;
@@ -1603,6 +1637,7 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
     actualizarMandos();
     if (Q.get("resguardos") === "1") acciones.resguardos();
     if (Q.get("calor") === "1") acciones.calor();
+    if (Q.get("colores") === "1") acciones.colores();
     if (Q.has("paso")) {
       irAPaso(Number(Q.get("paso")) || 0, { seleccionar: !Q.has("pieza"), inmediato: true });
       colocarGrupos();
@@ -1641,4 +1676,4 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
   });
 historialEnVivo();
 
-window.gemelo = { irAPaso, seleccionar: seleccionar_, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
+window.gemelo = { irAPaso, seleccionar: seleccionar_, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };

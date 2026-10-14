@@ -130,10 +130,10 @@ export function construir(P, R) {
     return { F, id };
   }
 
-  function bola(pieza, c, radio, { tone = "hi", name, bias, ride } = {}) {
+  function bola(pieza, c, radio, { tone = "hi", name, bias, ride, mat, solo3d } = {}) {
     const id = R.nameFor(name ?? `${pieza}.bola`);
     const shape = R.solid(A.ball(c, radio, { name: id }));
-    put(pieza, c, S(G.sphereOf(c, radio, P), { tone }), { name: id, shapes: [shape], bias, ride, tono: tone });
+    put(pieza, c, S(G.sphereOf(c, radio, P), { tone }), { name: id, shapes: [shape], bias, ride, tono: tone, mat, solo3d });
   }
 
   // Prisma de un poligono convexo en el plano (u, v) de F, extruido a lo largo de F.a.
@@ -233,7 +233,7 @@ export function construir(P, R) {
 
   // Muelle helicoidal alrededor de un vastago: en la lamina, dos mitades de
   // espiral (atras y delante del vastago); en 3D, una helice de verdad.
-  function muelle(pieza, o, dir, s0, s1, radio, vueltas, { name = `${pieza}.muelle`, ride, alambre = 0.45, mat } = {}) {
+  function muelle(pieza, o, dir, s0, s1, radio, vueltas, { name = `${pieza}.muelle`, ride, alambre = 0.45, mat, solo3d } = {}) {
     const ax = G.unit3(dir);
     const lejos = G.unit3(G.mul3(G.sub3(V, G.mul3(ax, G.dot3(V, ax))), -1));
     const lado = G.unit3(G.cross3(ax, lejos));
@@ -272,8 +272,8 @@ export function construir(P, R) {
     const Ff = G.frameOf(o, ax, G.mul3(lejos, -1), G.mul3(lado, -1));
     const medio = G.add3(o, G.mul3(ax, (s0 + s1) / 2));
     const geo3d = [{ k: "H", o, a: ax, r: radio, s0, s1, n: vueltas, rw: alambre }];
-    put(pieza, G.add3(medio, G.mul3(lejos, radio * 0.7)), Ln(d(atras), { tone: "lo" }), { name: R.nameFor(`${name}-atras`), ride, tono: "hi", geo3d, mat, shapes: [R.solid(A.prism(Fa, corona(), s0, s1, { name }))] });
-    put(pieza, G.sub3(medio, G.mul3(lejos, radio * 0.7)), Ln(d(frente), { tone: "mid" }), { name: R.nameFor(`${name}-frente`), ride, tono: "hi", geo3d: [], shapes: [R.solid(A.prism(Ff, corona(), s0, s1, { name }))] });
+    put(pieza, G.add3(medio, G.mul3(lejos, radio * 0.7)), Ln(d(atras), { tone: "lo" }), { name: R.nameFor(`${name}-atras`), ride, tono: "hi", geo3d, mat, solo3d, shapes: [R.solid(A.prism(Fa, corona(), s0, s1, { name }))] });
+    put(pieza, G.sub3(medio, G.mul3(lejos, radio * 0.7)), Ln(d(frente), { tone: "mid" }), { name: R.nameFor(`${name}-frente`), ride, tono: "hi", geo3d: [], solo3d, shapes: [R.solid(A.prism(Ff, corona(), s0, s1, { name }))] });
   }
 
   // Motor electrico con aletas, tapa de ventilador y caja de bornes.
@@ -305,7 +305,7 @@ export function construir(P, R) {
 
   // ───────────────────────── 1. BASTIDOR ─────────────────────────
   // Patas niveladoras (S4A11100110): disco, husillo y tuerca
-  for (const [x, y] of [[-186, -168], [186, -168], [-186, -60], [186, -60], [-186, 60], [186, 60], [-186, 166], [186, 166]]) {
+  for (const [x, y] of [[-186, -168], [186, -168], [-186, 166], [186, 166]]) {
     cil("bastidor", [x, y, 0], Z, 2, 8, { tone: "lo", name: "bastidor.pata-disco" });
     cil("bastidor", [x, y, 2], Z, 6, 2.5, { tone: "mid", name: "bastidor.pata-husillo" });
     cil("bastidor", [x, y, 8], Z, 2, 4.2, { tone: "hi", name: "bastidor.pata-tuerca" });
@@ -315,19 +315,31 @@ export function construir(P, R) {
     caja("bastidor", [base.x, base.y, zBase], [base.x + base.w, base.y + base.d, zPlaca], { tone: "mid", r: 3, steps: 6, bevel: 1.2, extra: grooves, name: "bastidor.base", tornillos: { cara: "+z", paso: 40, margen: 8, r: 1.6 } });
   }
   // Bandeja de goteo delante de la pared (abertura de la placa del catalogo)
-  caja("bastidor", [-110, 146, zPlaca], [150, 170, zPlaca + 2], { tone: "lo", r: 2, name: "bastidor.bandeja", crease: "none" });
+  // Tapa de la abertura de la base, pegada a la pared (035050305)
+  caja("bastidor", [-110, 18, zPlaca], [125, 90, zPlaca + 1.5], { tone: "mid", r: 1, name: "bastidor.tapa-base", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 3, r: 0.8 } });
 
   // Pared de la maquina (A11.04), con bocas de los ejes y tornilleria de los grupos
   {
     const boc = [];
-    const bocas = [[-150, 300, 9], [150, 300, 9], [0, 120, 13], [-120, 90, 8], [120, 90, 8], [-160, 200, 7], [160, 200, 7], [100, 250, 10], [-100, 250, 10], [0, 60, 9]];
+    const bocas = [[0, 80, 19], [92, 107, 9], [-92, 107, 9], [55, 248, 9], [-55, 248, 9]];
     for (const [x, z, r] of bocas) boc.push(Ln(k.sideRing([x, pared.y1 + 0.05, z], r, "y", P, 28), { tone: "lo" }));
     caja("bastidor", [pared.x0, pared.y0, pared.z0], [pared.x1, pared.y1, pared.z1], { tone: "mid", r: 0.6, bevel: 0.8, extra: boc.join(""), name: "bastidor.pared", tornillos: { cara: "+y", paso: 30, margen: 6, r: 1.4 } });
     // tapas redondas de inspeccion (2A11100421 / 2A11100121)
-    for (const [x, z, r] of [[-120, 90, 11], [120, 90, 11], [0, 60, 12]]) {
+    for (const [x, z, r] of [[0, 80, 19]]) {
       const F = G.frameAlong([x, 0, z], Y);
-      cil("bastidor", [x, 0, z], Y, 1.2, r, { tone: "hi", name: "bastidor.tapa-inspeccion", extra: pernosCirculo("bastidor", F, 1.2, r - 2, 6, { rCabeza: 0.8 }) });
+      cil("bastidor", [x, 0, z], Y, 1.2, r, { tone: "hi", name: "bastidor.tapa-inspeccion", mat: "inox", extra: pernosCirculo("bastidor", F, 1.2, r - 3, 4, { rCabeza: 0.9 }) });
     }
+    // agujeros pasantes y ranura larga detras de las manivelas
+    for (const x of [92, -92]) cil("bastidor", [x, 0, 107], Y, 0.3, 9, { tone: "lo", name: "bastidor.agujero", mat: "oscuro" });
+    caja("bastidor", [-113, 0, 306.5], [113, 0.3, 318], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "bastidor.ranura", mat: "oscuro" });
+    // Botes neumaticos en la cara de la pared (03505R028 con presostato, 03505R029)
+    for (const [x, racores] of [[115, 3], [-106, 2]]) {
+      cil("bastidor", [x, 0, 204], Y, 12, 13.5, { tone: "hi", name: "bastidor.bote-neumatico", mat: "alu" });
+      cil("bastidor", [x, 12, 204], Y, 2.2, 14.5, { tone: "mid", name: "bastidor.tapa-bote", mat: "inox", extra: pernosCirculo("bastidor", G.frameAlong([x, 14.2, 204], Y), 0, 12.5, 6, { rCabeza: 0.6 }) });
+      for (let i = 0; i < racores; i++) cil("bastidor", [x - 5 + i * 5, 14.2, 207], Y, 2.6, 1.1, { tone: "hi", name: "bastidor.racor", mat: "laton" });
+    }
+    caja("bastidor", [131, 0, 196], [135, 10, 212], { tone: "mid", r: 0.4, name: "bastidor.escuadra-presostato", mat: "inox" });
+    caja("bastidor", [131, 10, 198], [141, 18, 210], { tone: "hi", r: 1, name: "bastidor.presostato", mat: "alu" });
   }
   // Laterales de la caja de transmision, con rejillas
   for (const s of [-1, 1]) {
@@ -341,11 +353,11 @@ export function construir(P, R) {
     caja("bastidor", [x0, cj.y0, pared.z0], [x0 + 6, cj.y1, cj.z1], { tone: "mid", r: 0.6, bevel: 0.6, extra: vent.join(""), name: "bastidor.lateral", tornillos: { cara: s < 0 ? "-x" : "+x", paso: 40, margen: 5, r: 1.2 } });
   }
   // Placa CE en el lateral izquierdo
-  caja("bastidor", [pared.x0 - 1, -90, 230], [pared.x0, -66, 248], {
+  caja("bastidor", [pared.x0 - 1, -40, 230], [pared.x0, -16, 248], {
     tone: "hi",
     r: 0.4,
     bevel: 0,
-    extra: [234, 238, 242].map((z, i) => Ln(seg([pared.x0 - 1.05, -87, z], [pared.x0 - 1.05, -87 + [18, 12, 15][i], z]), { tone: "lo", free: true })).join(""),
+    extra: [234, 238, 242].map((z, i) => Ln(seg([pared.x0 - 1.05, -37, z], [pared.x0 - 1.05, -37 + [18, 12, 15][i], z]), { tone: "lo", free: true })).join(""),
     name: "bastidor.placa-ce",
     tornillos: { cara: "-x", solo: "esquinas", margen: 1.5, r: 0.6 },
   });
@@ -373,12 +385,14 @@ export function construir(P, R) {
       name: "carter.trasera",
       tornillos: { cara: "-y", paso: 50, margen: 5, r: 1.1 },
     });
-    for (const z of [60, 160, 260]) cil("carter", [-152, yb - 1.5, z - 9], Z, 18, 2.4, { tone: "hi", name: "carter.bisagra" });
     caja("carter", [130, yb - 6, 140], [136, yb, 200], { tone: "hi", r: 1.5, name: "carter.manilla" });
     caja("carter", [128, yb - 2, 130], [138, yb, 140], { tone: "mid", r: 0.6, name: "carter.cerradura" });
+    for (const x of [-110, -55, 20, 75]) for (let i = 0; i < 5; i++) caja("carter", [x, yb - 0.6, 40 + i * 6], [x + 36, yb, 42.5 + i * 6], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "carter.lama", mat: "oscuro" });
   }
   // Muelle de gas de la tapa (2M01100214)
-  biela("carter", [-150, cj.y0 - 9, 200], 2.8, [-150, cj.y0 - 14, 288], 2.8, 2.2, { tone: "hi", name: "carter.muelle-gas" });
+  // Varilla del compas de la tapa (2M01100214) a lo largo del borde de arriba, con sus dos soportes
+  cil("carter", [-140, cj.y0 + 3, cj.z1 + 7.1], X, 280, 1.1, { tone: "hi", name: "carter.varilla-compas", mat: "cromo" });
+  for (const x of [-146, 140]) caja("carter", [x, cj.y0, cj.z1 + 6], [x + 6, cj.y0 + 6, cj.z1 + 10], { tone: "mid", r: 0.6, name: "carter.soporte-compas", mat: "inox" });
 
   // ───────────────────────── 3. MOTOR Y CADENA ─────────────────────────
   // Motor principal M25.1 donde lo pone la planta del esquema, reductor, cadena en bano
@@ -442,7 +456,25 @@ export function construir(P, R) {
     // travesaños entre columnas
     for (const [y, z] of [[-280, 20], [-200, 20]]) caja("bobina", [-120, y - 4, z - 4], [120, y + 4, z + 4], { tone: "mid", r: 1, name: "bobina.travesano" });
     // Caja de cadena y reductor del portabobinas (2M16100122 / 2M16100121) en la columna derecha
-    caja("bobina", [-136, -282, 30], [-126, -196, 52], { tone: "mid", r: 3, steps: 5, bevel: 0.6, name: "bobina.caja-cadena", tornillos: { cara: "-x", paso: 18, margen: 3, r: 0.8 } });
+    {
+      // estadio entre los centros de los dos ejes (bobina en uso y de reserva), 40 de ancho
+      const c1 = [bob.y, bob.z];
+      const c2 = [res.y, res.z];
+      const L = Math.hypot(c2[0] - c1[0], c2[1] - c1[1]);
+      const d = [(c2[0] - c1[0]) / L, (c2[1] - c1[1]) / L];
+      const a0 = Math.atan2(d[1], d[0]);
+      const arco = ([cy, cz], desde) => Array.from({ length: 11 }, (_, i) => {
+        const t = desde + (Math.PI * i) / 10;
+        return [cy + 20 * Math.cos(t), cz + 20 * Math.sin(t)];
+      });
+      const poli = [...arco(c2, a0 - Math.PI / 2), ...arco(c1, a0 + Math.PI / 2)];
+      chapaYZ("bobina", poli, -146, -136, { tone: "mid", name: "bobina.caja-cadena", mat: "inox" });
+      // tensor de la cadena: bloque con su tornillo largo a un costado de la caja
+      const n = [d[1], -d[0]];
+      const m = [(c1[0] + c2[0]) / 2 + n[0] * 27, (c1[1] + c2[1]) / 2 + n[1] * 27];
+      caja("bobina", [-146, m[0] - 7.5, m[1] - 7.5], [-134, m[0] + 7.5, m[1] + 7.5], { tone: "hi", r: 1, name: "bobina.tensor-cadena", mat: "fundicion", tornillos: { cara: "-x", solo: "esquinas", margen: 2, r: 0.6 } });
+      cil("bobina", [-141, m[0] + 7.5, m[1]], Y, 12, 1.2, { tone: "hi", name: "bobina.tornillo-tensor", mat: "cromo" });
+    }
     // Centrado de la bobina: motorreductor M31.1 y finales de carrera B31.7 / B31.8 / B31.9 (planta)
     {
       const [cx, cy] = pl("M31.1", [-172, -138]);
@@ -453,26 +485,36 @@ export function construir(P, R) {
     }
     // los dos ejes con sus conos
     for (const [e, nombre] of [[bob, "bobina.eje"], [res, "bobina.eje-reserva"]]) {
-      eje("bobina", [-146, e.y, e.z], X, 292, 9.25, [[0, 26], [146 - 112, 146 + 112], [266, 282]], { tone: "mid", name: nombre });
-      cil("bobina", [-152, e.y, e.z], X, 6, 6, { tone: "hi", name: "bobina.valvula-inflado" });
-      if (e === res) cil("bobina", [-146, e.y, e.z], X, 10, 3, { tone: "mid", name: "bobina.punta-eje", mat: "cromo" });
-      for (const s of [-1, 1]) {
-        const C = G.frameAlong([s * (W + 12), e.y, e.z], [-s, 0, 0]);
-        torno("bobina", C, [[0, 22], [6, 22], [6, 16], [12, 12]], { tone: "mid", name: "bobina.cono" });
-      }
+      // tubo ranurado D74 que sujeta el nucleo de 3" (S4A26100410): solo asoma entre acoplamiento y brida
+      eje("bobina", [-146, e.y, e.z], X, 292, 9.25, [[0, 38], [44.5, 292]], { tone: "mid", name: nombre, mat: "cromo" });
+      cil("bobina", [-120, e.y, e.z], X, 12, 15, { tone: "hi", name: "bobina.acoplamiento", mat: "inox", extra: pernosCirculo("bobina", G.frameAlong([-108, e.y, e.z], X), 0, 11, 4, { rCabeza: 0.8, parte: "bobina.acoplamiento" }) });
+      cil("bobina", [-101.5, e.y, e.z], X, 1.5, 22, { tone: "hi", name: "bobina.brida-eje", mat: "inox" });
+      for (const [x0, x1] of [[100, 104], [107, 114], [117, 120]]) cil("bobina", [x0, e.y, e.z], X, x1 - x0, 5, { tone: "hi", name: "bobina.munon", mat: "cromo" });
+      for (const x of [104, 114]) cil("bobina", [x, e.y, e.z], X, 3, 7, { tone: "mid", name: "bobina.casquillo-munon", mat: "bronce" });
+      // valvula de inflado en la punta (en la bobina en uso, despues de la polea del brazo)
+      const xv = e === bob ? -170 : -152;
+      cil("bobina", [xv, e.y, e.z], X, 6, 6, { tone: "hi", name: "bobina.valvula-inflado", mat: "laton" });
+      if (e === bob) cil("bobina", [-164, e.y, e.z], X, 6, 4, { tone: "mid", name: "bobina.punta-eje", mat: "cromo" });
     }
     // Bobina en uso y bobina de reserva (800 mm de ancho)
     for (const [e, nombre] of [[bob, "bobina.bobina"], [res, "bobina.bobina-reserva"]]) {
       const F = G.frameAlong([-W, e.y, e.z], X);
       const capas = [26, 36, 46, 56].filter((r) => r < e.r).map((r) => Ln(G.circleOf(F, 2 * W + 0.05, r, P), { tone: "faint" })).join("");
-      torno("bobina", F, [[0, 19], [0, e.r], [2 * W, e.r], [2 * W, 19]], { tone: "hi", name: nombre, extra: capas, clase: "bobina" });
+      torno("bobina", F, [[0, 9.6], [0, e.r], [2 * W, e.r], [2 * W, 9.6]], { tone: "hi", name: nombre, extra: capas, clase: "bobina" });
     }
     // Motor de desbobinado con su brazo de correa (S4A26100920)
     {
-      const F = G.frameOf([-146, bob.y, bob.z], X, [0, 0, -1], Y);
-      prisma("bobina", F, G.stadium(15, 12, 72), 0, 9, { tone: "mid", name: "bobina.brazo-correa" });
-      motorElectrico("bobina", [-146, bob.y, bob.z - 72], [-1, 0, 0], 30, 12, { name: "bobina.motor-freno" });
-      caja("bobina", [-172, bob.y - 10, 8], [-150, bob.y + 10, bob.z - 84], { tone: "lo", r: 1, name: "bobina.pie-motor" });
+      const zm = bob.z + 70;
+      const arco = (cz, r0, desde) => Array.from({ length: 11 }, (_, i) => [bob.y + r0 * Math.cos(desde + (Math.PI * i) / 10), cz + r0 * Math.sin(desde + (Math.PI * i) / 10)]);
+      chapaYZ("bobina", [...arco(zm, 12, 0), ...arco(bob.z, 16, Math.PI)], -152, -146, { tone: "mid", name: "bobina.brazo-correa", mat: "inox" });
+      cil("bobina", [-158, bob.y, bob.z], X, 6, 15, { tone: "hi", name: "bobina.polea-bobina", mat: "alu" });
+      cil("bobina", [-158, bob.y, zm], X, 6, 5, { tone: "hi", name: "bobina.polea-motor", mat: "alu" });
+      tubo("bobina", lazo([bob.y, bob.z], 15.6, [bob.y, zm], 5.6, (y, z) => [-155, y, z], 16), 0.8, { tone: "lo", name: "bobina.correa", curva: 0, maxLength: 7, clase: "correa" });
+      motorElectrico("bobina", [-160, bob.y, zm], [-1, 0, 0], 26, 8, { name: "bobina.motor-freno" });
+      // soporte de resortes M2A26100641 que toma la reaccion del brazo
+      caja("bobina", [-164, -196, 8], [-158, -190, 184], { tone: "mid", r: 0.5, name: "bobina.poste-resortes", mat: "inox" });
+      caja("bobina", [-164, -198, 184], [-152, -190, 196], { tone: "hi", r: 0.8, name: "bobina.corredera-resortes", mat: "alu" });
+      for (const z of [187, 193]) muelle("bobina", [-155, bob.y + 12, z], Y, 0, 5, 1.4, 5, { name: "bobina.muelle-reaccion", alambre: 0.3, mat: "cromo" });
     }
     // Sensores del portabobinas
     // Control de bobina B29.8 y su conector X50 en un poste delante de la bobina (planta)
@@ -516,7 +558,9 @@ export function construir(P, R) {
       barra("desbobinado", [-104, -167, 200], [-104, -200, 236], 2.4, { tone: "mid", name: "desbobinado.palanca-empalme" });
     }
     // Fotocelula de horquilla SICK del empalme en su corredera con escala (A95.13)
-    caja("desbobinado", [105, -170, 168], [112, -154, 174], { tone: "mid", r: 0.5, name: "desbobinado.corredera-sick" });
+    caja("desbobinado", [105, -170, 168], [112, -156, 174], { tone: "mid", r: 0.5, name: "desbobinado.corredera-sick", mat: "alu" });
+    for (const [y0, y1] of [[-156, -154], [-151, -149]]) caja("desbobinado", [94, y0, 166], [112, y1, 176], { tone: "hi", r: 0.6, name: "desbobinado.horquilla-sick", mat: "harting" });
+    caja("desbobinado", [112, -156, 166], [116, -149, 176], { tone: "hi", r: 0.6, name: "desbobinado.horquilla-sick", mat: "harting" });
     {
       const [ex, ey] = pl("B29.9", [-125, -107]);
       sensor("bobina", "B29.9", [ex, cj.y0 - 6, 200], [0, -1, 0], { largo: 8, radio: 2.6, ride: "carter" });
@@ -526,7 +570,11 @@ export function construir(P, R) {
     }
     // Cuchilla circular que parte la banda en dos y su rodillo contraste
     cil("desbobinado", [-106, -146, zWeb - 4], X, 212, 4, { tone: "mid", name: "desbobinado.contraste" });
-    cil("desbobinado", [-1, -146, zWeb + 9], X, 2, 9, { tone: "hi", name: "desbobinado.cuchilla" });
+    cil("desbobinado", [-1, -146, zWeb + 9], X, 2, 9, { tone: "hi", name: "desbobinado.cuchilla", mat: "cromo" });
+    caja("desbobinado", [-106, -132, zWeb + 8], [106, -124, zWeb + 16], { tone: "mid", r: 0.8, bevel: 0.5, name: "desbobinado.viga-cuchilla", mat: "inox", tornillos: { cara: "+y", paso: 30, margen: 6, r: 0.7 } });
+    caja("desbobinado", [2, -140, zWeb + 7], [8, -132, zWeb + 13], { tone: "hi", r: 0.5, name: "desbobinado.portacuchilla", mat: "alu" });
+    muelle("desbobinado", [8, -136, zWeb + 10], X, 0, 10, 1.5, 6, { name: "desbobinado.muelle-cuchilla", alambre: 0.3, mat: "cromo" });
+    caja("desbobinado", [18, -140, zWeb + 6], [22, -132, zWeb + 14], { tone: "mid", r: 0.4, name: "desbobinado.tope-muelle", mat: "inox" });
     eje("desbobinado", [-106, -146, zWeb + 9], X, 212, 2, [[105, 107]], { tone: "mid", name: "desbobinado.eje-cuchilla" });
   }
 
@@ -602,6 +650,9 @@ export function construir(P, R) {
         caja("guias", [p[0] - 2, Math.min(p[1], y) - 1, zbT - 2], [p[0] + 2, Math.max(p[1], y) + 1, zbT + 4], { tone: "mid", r: 0.4, name: "guias.horquilla" });
         caja("guias", [p[0] - 2, y - 2, zbT + 4], [p[0] + 2, y + 2, zF], { tone: "mid", r: 0.4, name: "guias.colgante" });
       }
+      // placa guia: la banda pasa por encima, da la vuelta en la barra y sigue por debajo
+      const tri = [[-111.6, 22], [-16, 22], [-16, 117.6]];
+      prisma("guias", G.frameOf([0, 0, 0], Z, X, Y), s < 0 ? tri : tri.map(([x, y]) => [-x, y]).reverse(), zbT - 0.6, zbT + 0.6, { tone: "hi", name: "guias.placa-guia", mat: "inox" });
       // Rodillo de desvio que baja la banda (eje y)
       const xr = s * 14;
       cil("guias", [xr, 14, 325.5], Y, 112, 4, { tone: "hi", name: "guias.rodillo" });
@@ -698,25 +749,28 @@ export function construir(P, R) {
       caja("soldadura", [i0, Y0 - 4, 232], [i1, Y1 + 4, 280], { tone: "lo", r: 0.3, name: "soldadura.aislante", sinTornillos: true });
       const [c0, c1] = sx(14, 32);
       caja("soldadura", [c0, Y0 - 8, 228], [c1, Y1 + 8, 286], { tone: "mid", r: 1.2, bevel: 0.8, name: "soldadura.porta-mordaza", mat: "fundicion", tornillos: { cara, paso: 22, margen: 5, r: 1 } });
-      // columnas guia con sus casquillos lineales (anillo de estanqueidad azul, como en la foto)
-      const COL = [[Y0 + 10, 272], [Y1 - 10, 272], [(Y0 + Y1) / 2, 238]];
-      for (const [y, z] of COL) {
-        cil("soldadura", [s * 32, y, z], [s, 0, 0], 4, 4.2, { tone: "hi", name: "soldadura.casquillo", mat: "inox" });
-        cil("soldadura", [s * 36, y, z], [s, 0, 0], 0.8, 3.4, { tone: "mid", name: "soldadura.retén", mat: "reten" });
-        cil("soldadura", [s * 36.8, y, z], [s, 0, 0], 21.2, 2.4, { tone: "hi", name: "soldadura.columna", mat: "cromo" });
+      // los tres arboles verticales que atraviesan el porta-mordaza (235.21.222/237/263), con tuercas
+      for (const y of [Y0 + 1, (Y0 + Y1) / 2, Y1 + 3]) {
+        cil("soldadura", [s * 28, y, 222], Z, 6, 2.4, { tone: "hi", name: "soldadura.arbol", mat: "cromo" });
+        cil("soldadura", [s * 28, y, 220], Z, 2, 3.6, { tone: "mid", name: "soldadura.tuerca-arbol", mat: "inox" });
+        // el de la pared sube por debajo de la cuna (es su arbol); los otros asoman arriba
+        if (y > Y0 + 1) cil("soldadura", [s * 28, y, 286], Z, 3, 2.4, { tone: "hi", name: "soldadura.arbol", mat: "cromo" });
       }
-      // bloque fijo (recibe columnas y cilindro) y su mensula a la placa de anclaje
-      const [b0, b1] = sx(58, 66);
-      caja("soldadura", [b0, Y0 - 6, 226], [b1, Y1 + 6, 286], { tone: "mid", r: 1, bevel: 0.6, name: "soldadura.bloque-fijo", mat: "inox", tornillos: { cara, paso: 26, margen: 5, r: 1 } });
-      caja("soldadura", [b0, 6, 226], [b1, Y0 - 6, 286], { tone: "mid", r: 0.8, name: "soldadura.mensula", mat: "inox" });
+      // capota en cuna con lamas sobre el costado exterior (235.21.366, Calibrado p.65) y su pomo
+      const cuna = [[32, 268], [38, 271.5], [38, 286], [32, 286]];
+      chapaXZ("soldadura", s > 0 ? cuna : cuna.map(([x, z]) => [-x, z]).reverse(), Y0 + 2, Y1 - 12, { tone: "mid", name: "soldadura.capota", mat: "inox" });
+      for (let i = 0; i < 4; i++) caja("soldadura", [Math.min(s * 38, s * 38.8), Y0 + 14, 273.5 + i * 3], [Math.max(s * 38, s * 38.8), Y1 - 24, 274.7 + i * 3], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.lama", mat: "oscuro" });
+      cil("soldadura", [s * 35, Y1 - 12, 279], Y, 3, 1.8, { tone: "lo", name: "soldadura.pomo-capota", mat: "negro" });
+      // placa de formato de abajo (Calibrado p.66: placas de formato superior e inferior)
+      caja("soldadura", [Math.min(s * 1.2, s * 12), Y0 - 4, 228.4], [Math.max(s * 1.2, s * 12), Y1 + 4, 230], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "soldadura.placa-formato", mat: "inox" });
       // cilindro de cierre con fuelle: cuerpo afuera del bloque fijo, vastago al porta-mordaza
       const yc = (Y0 + Y1) / 2;
       const zc = 260;
       caja("soldadura", [Math.min(s * 32, s * 38), yc - 4, zc - 4], [Math.max(s * 32, s * 38), yc + 4, zc + 4], { tone: "hi", r: 0.6, name: "soldadura.horquilla", mat: "inox", sinTornillos: true });
       const FF = G.frameAlong([s * 38, yc, zc], [s, 0, 0]);
       const perfil = [[0, 2.4]];
-      for (let k2 = 0; k2 < 8; k2++) perfil.push([k2 * 2.5 + 0.6, 3.6], [k2 * 2.5 + 1.9, 2.8]);
-      perfil.push([20, 2.8], [20, 2.4]);
+      for (let k2 = 0; k2 < 11; k2++) perfil.push([k2 * 2.5 + 0.6, 3.6], [k2 * 2.5 + 1.9, 2.8]);
+      perfil.push([28, 2.8], [28, 2.4]);
       torno("soldadura", FF, perfil, { tone: "lo", name: "soldadura.fuelle", mat: "caucho" });
       // mangueras azules de la valvula (Y40.6 izquierda, Y40.7 derecha de la isla) a los dos racores
       const yv = s < 0 ? -66.5 : -58.5;
@@ -731,8 +785,9 @@ export function construir(P, R) {
       cil("soldadura", [s * 68.4, yc, zc], [s, 0, 0], 24, 5, { tone: "hi", name: "soldadura.cilindro", mat: "alu", disp: s < 0 ? "Y40.6" : "Y40.7" });
       cil("soldadura", [s * 92.4, yc, zc], [s, 0, 0], 2.4, 5.6, { tone: "mid", name: "soldadura.cilindro-tapa", mat: "alu" });
       caja("soldadura", [Math.min(s * 94.8, s * 99), yc - 3, zc - 6], [Math.max(s * 94.8, s * 99), yc + 3, zc + 3], { tone: "mid", r: 0.5, name: "soldadura.charnela-cilindro", mat: "inox" });
-      // escuadra bajo el cilindro que ata la charnela al bloque fijo
-      caja("soldadura", [Math.min(s * 66, s * 99), yc - 6, zc - 12], [Math.max(s * 66, s * 99), yc + 6, zc - 6], { tone: "mid", r: 0.5, name: "soldadura.escuadra-cilindro", mat: "inox", tornillos: { cara: "-z", solo: "esquinas", margen: 2, r: 0.6 } });
+      // escuadra bajo el cilindro y su brazo a la pared, que toma la reaccion de la charnela
+      caja("soldadura", [Math.min(s * 66, s * 99), yc - 6, zc - 11.6], [Math.max(s * 66, s * 99), yc + 6, zc - 5.4], { tone: "mid", r: 0.5, name: "soldadura.escuadra-cilindro", mat: "inox", tornillos: { cara: "-z", solo: "esquinas", margen: 2, r: 0.6 } });
+      caja("soldadura", [Math.min(s * 95, s * 99), 0, zc - 11.6], [Math.max(s * 95, s * 99), yc - 6, zc - 5.4], { tone: "mid", r: 0.5, name: "soldadura.brazo-cilindro", mat: "inox" });
       for (const x of [70, 90]) cil("soldadura", [s * x, yc, zc + 5], Z, 2.4, 1, { tone: "hi", name: "soldadura.racor", mat: "laton" });
       // lamina de la cara tensada por 3 resortes de traccion pequenos (foto) y sus tornillos de anclaje
       const [l0, l1] = sx(1.2, 4.6);
@@ -743,12 +798,14 @@ export function construir(P, R) {
       }
       // cable de calefaccion: del Harting de la plancha al conector de la pared (X41 / X42)
       const xc = pl(s < 0 ? "X41" : "X42", [s * 135, 18])[0];
-      tubo("soldadura", [[s * 8, Y1 + 9, 289], [s * 8, Y1 + 9, 296], [s * 20, Y1 - 10, 310], [xc * 0.7, 40, 312], [xc, 12, 308], [xc, 7.5, 300]], 0.9, { tone: "lo", name: "soldadura.cable-calefaccion", clase: "cable", curva: 6, solo3d: true });
-      // brazo de bloqueo en cuna sobre su eje (sale de la placa de anclaje)
-      cil("soldadura", [s * 46, 6, 300], Y, 1.6, 8, { tone: "hi", name: "soldadura.brida-brazo", mat: "inox", extra: pernosCirculo("soldadura", G.frameAlong([s * 46, 7.6, 300], Y), 0, 6, 4, { rCabeza: 0.6 }) });
-      cil("soldadura", [s * 46, 7.6, 300], Y, 8.4, 2.6, { tone: "hi", name: "soldadura.eje-brazo", mat: "cromo" });
-      caja("soldadura", [Math.min(s * 38, s * 52), 16, 295], [Math.max(s * 38, s * 52), 28, 305], { tone: "hi", r: 1.5, bevel: 0.8, name: "soldadura.brazo-bloqueo", mat: "alu", tornillos: { cara: "+z", solo: "esquinas", margen: 2, r: 0.6 } });
-      caja("soldadura", [Math.min(s * 36, s * 40), 18, 290], [Math.max(s * 36, s * 40), 26, 295], { tone: "mid", r: 0.6, name: "soldadura.taco-brazo", mat: "inox" });
+      tubo("soldadura", [[s * 8, Y1 + 9, 289], [s * 8, Y1 + 9, 296], [s * 20, Y1 - 10, 310], [xc * 0.7, 40, 306], [xc, 12, 280], [xc, 5, 267]], 0.9, { tone: "lo", name: "soldadura.cable-calefaccion", clase: "cable", curva: 6, solo3d: true });
+      // palanca en cuna sobre el porta-mordaza, en el extremo de la pared: la mueve el eje que sale
+      // de la pared (del bastidor de levas) y baja al arbol vertical de la mordaza
+      cil("soldadura", [s * 23, 6, 291], Y, 1.6, 6, { tone: "hi", name: "soldadura.brida-cuna", mat: "inox", extra: pernosCirculo("soldadura", G.frameAlong([s * 23, 7.6, 291], Y), 0, 4.6, 4, { rCabeza: 0.6 }) });
+      cil("soldadura", [s * 23, 7.6, 291], Y, 4.4, 2.6, { tone: "hi", name: "soldadura.eje-cuna", mat: "cromo" });
+      caja("soldadura", [Math.min(s * 16, s * 30), 12, 286], [Math.max(s * 16, s * 30), 26, 294], { tone: "hi", r: 1.5, bevel: 0.8, name: "soldadura.cuna", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 2, r: 0.6 } });
+      cil("soldadura", [s * 23, 19, 294], Z, 4, 1.4, { tone: "hi", name: "soldadura.arbol-cuna", mat: "cromo" });
+      cil("soldadura", [s * 23, 19, 298], Z, 1.6, 2.6, { tone: "mid", name: "soldadura.pomo-cuna", mat: "negro" });
     }
     for (const s of [-1, 1]) caja("soldadura", [s < 0 ? -6 : 1.2, Y0 - 2, 284], [s < 0 ? -1.2 : 6, Y1 + 2, 300], { tone: "hi", r: 0.3, bevel: 0.4, name: "soldadura.placa-formado", mat: "inox" });
     caja("soldadura", [16, Y1 + 8, 248], [30, Y1 + 16, 266], { tone: "hi", r: 1, bevel: 0.5, name: "soldadura.codificador", tornillos: { cara: "+y", solo: "esquinas", margen: 2, r: 0.6 } });
@@ -756,22 +813,49 @@ export function construir(P, R) {
     // Sensores de cierre (B40.1 / B40.2) del lado que dice la planta, PT100 y bloqueo B40.8
     for (const tag of ["B40.1", "B40.2"]) {
       const lado = Math.sign(pl(tag, [0, 0])[0]) || 1;
-      caja("soldadura", [Math.min(lado * 52, lado * 58), Y1 + 6, 250], [Math.max(lado * 52, lado * 58), Y1 + 10, 258], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
-      sensor("soldadura", tag, [lado * 52, Y1 + 8, 254], [-lado, 0, 0], { largo: 8 });
+      caja("soldadura", [Math.min(lado * 52, lado * 58), Y1 + 10, 240], [Math.max(lado * 52, lado * 58), Y1 + 16, 248], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
+      sensor("soldadura", tag, [lado * 52, Y1 + 13, 244], [-lado, 0, 0], { largo: 8 });
     }
     for (const tag of ["B41.4", "B41.8"]) {
       const [x, y] = pl(tag, [0, 70]);
       const lado = Math.sign(x) || 1;
-      sensor("soldadura", tag, [lado * 8, Math.max(Y0, Math.min(Y1, y)), 282], [0, 0, 1], { largo: 5, radio: 1.4 });
+      void y;
+      sensor("soldadura", tag, [lado * 8, Y1 + 12, 276], [0, 1, 0], { largo: 4, radio: 1.4 });
     }
-    // B40.8 vigila el brazo de bloqueo izquierdo desde una escuadra en la placa de anclaje
-    caja("soldadura", [-32, 6, 296], [-26, 14, 304], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
-    sensor("soldadura", "B40.8", [-32, 10, 300], [-1, 0, 0], { largo: 5 });
+    // B40.8 vigila la cuna izquierda desde una escuadra en la placa de anclaje
+    caja("soldadura", [-42, 6, 287], [-36, 26, 295], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
+    sensor("soldadura", "B40.8", [-36, 19, 291], [1, 0, 0], { largo: 5 });
     caja("soldadura", [56, 6, 288], [70, 14, 300], { tone: "hi", r: 1, name: "soldadura.presostato", sensor: "B42.1" });
-    // Marco frontal de aluminio con el borde almenado (foto) atado a los bloques fijos
+    // Marco frontal de aluminio con el borde almenado (foto), sobre dos montantes
     caja("soldadura", [-66, Y1 + 16, 229], [66, Y1 + 20, 241], { tone: "hi", r: 0.8, bevel: 0.6, name: "soldadura.marco-frontal", mat: "alu", tornillos: { cara: "+y", paso: 30, margen: 6, r: 0.9 } });
     for (const [x0, x1] of [[-66, -40], [-14, 14], [40, 66]]) caja("soldadura", [x0, Y1 + 16, 241], [x1, Y1 + 20, 249], { tone: "hi", r: 0.8, bevel: 0.6, name: "soldadura.marco-frontal", mat: "alu" });
-    for (const s of [-1, 1]) caja("soldadura", [Math.min(s * 58, s * 66), Y1 + 6, 241], [Math.max(s * 58, s * 66), Y1 + 16, 249], { tone: "mid", r: 0.5, name: "soldadura.separador-marco", mat: "inox" });
+    for (const s of [-1, 1]) caja("soldadura", [Math.min(s * 66, s * 70), Y1 + 16, zPlaca], [Math.max(s * 66, s * 70), Y1 + 20, 249], { tone: "mid", r: 0.5, name: "soldadura.montante-marco", mat: "alu" });
+    // Bastidor de levas de las planchas detras de la pared (M2M14100351; Calibrado p.70-73): caja de
+    // fundicion con reductor, eje con dos levas partidas a 180°, y los dos tirantes con resorte que
+    // mandan el movimiento de las planchas; sus ejes salen por la pared a las cunas.
+    {
+      const zL = 280;
+      const yL = -41;
+      const o = { tone: "mid", r: 0.8, bevel: 0.5, mat: "fundicion", ride: "soldadura", solo3d: true };
+      caja("soldadura", [-70, -60, 263], [70, -22, 266], { ...o, name: "soldadura.bastidor-levas" });
+      caja("soldadura", [-70, -60, 266], [70, -56, 297], { ...o, name: "soldadura.bastidor-levas" });
+      for (const x of [-70, 66]) caja("soldadura", [x, -56, 266], [x + 4, -22, 297], { ...o, name: "soldadura.bastidor-levas", tornillos: { cara: x < 0 ? "-x" : "+x", solo: "esquinas", margen: 3, r: 0.8 } });
+      caja("soldadura", [70, -52, 268], [86, -30, 292], { ...o, name: "soldadura.reductor-levas" });
+      cil("soldadura", [86, yL, zL], X, 10, 2.5, { tone: "hi", name: "soldadura.entrada-levas", mat: "cromo", ride: "soldadura", solo3d: true });
+      for (const [x0, x1] of [[-66, -55], [-49, 49], [55, 66]]) cil("soldadura", [x0, yL, zL], X, x1 - x0, 3, { tone: "hi", name: "soldadura.eje-levas-planchas", mat: "cromo", ride: "soldadura", solo3d: true });
+      for (const s of [-1, 1]) {
+        // leva excentrica (3 de excentricidad) y su marca de alineacion
+        cil("soldadura", [s < 0 ? -55 : 49, yL, zL + 3], X, 6, 12, { tone: "hi", name: "soldadura.leva-plancha", mat: "inox", ride: "soldadura", solo3d: true });
+        // tirante con resorte: rotulas, varilla y muelle; empuja la palanca del eje que sale a la cuna
+        const x = s * 40;
+        for (const y of [-52.6, -25.4]) bola("soldadura", [x, y, 290], 1.4, { tone: "hi", name: "soldadura.rotula-tirante", ride: "soldadura", solo3d: true });
+        cil("soldadura", [x, -51.2, 290], Y, 24.4, 0.8, { tone: "hi", name: "soldadura.varilla-tirante", ride: "soldadura", solo3d: true });
+        muelle("soldadura", [x, -48, 290], Y, 0, 16, 2, 7, { name: "soldadura.muelle-tirante", ride: "soldadura", solo3d: true, alambre: 0.35, mat: "cromo" });
+        caja("soldadura", [Math.min(s * 42.5, s * 49), -44, 286], [Math.max(s * 42.5, s * 49), -38, 289], { tone: "mid", r: 0.4, name: "soldadura.palanca-leva", mat: "inox", ride: "soldadura", solo3d: true });
+        caja("soldadura", [Math.min(s * 23, s * 41.4), -28, 287], [Math.max(s * 23, s * 41.4), -22, 293], { tone: "mid", r: 0.4, name: "soldadura.palanca-salida", mat: "inox", ride: "soldadura", solo3d: true });
+        cil("soldadura", [s * 23, -22, 291], Y, 16, 2.6, { tone: "hi", name: "soldadura.eje-salida", mat: "cromo", ride: "soldadura", solo3d: true });
+      }
+    }
   }
 
   // ───────────────────────── 11. ARRASTRE ─────────────────────────
@@ -779,24 +863,31 @@ export function construir(P, R) {
     caja("arrastre", [-40, 6, 198], [40, 16, 226], { tone: "mid", r: 1, bevel: 0.6, name: "arrastre.placa", tornillos: { cara: "+y", solo: "esquinas", margen: 4, r: 1 } });
     for (const s of [-1, 1]) {
       cil("arrastre", [s * 7, 16, 212], Y, 5, 7, { tone: "mid", name: "arrastre.engranaje" });
-      const F = G.frameAlong([s * 7, 22, 212], Y);
-      const ranuras = LIMITES.map((y) => Ln(G.arcOf(F, y - 22, 6, P), { tone: "faint" })).join("");
-      torno("arrastre", F, [[-1, 3], [0, 3], [0, 6], [104, 6], [104, 3], [106, 3]], { tone: "hi", name: "arrastre.rodillo", extra: ranuras });
+      eje("arrastre", [s * 7, 21, 212], Y, 107, 3, LIMITES.map((y) => [y - 2.5 - 21, y + 2.5 - 21]), { tone: "hi", name: "arrastre.rodillo", mat: "cromo" });
+      for (const y of LIMITES) cil("arrastre", [s * 7, y - 2.5, 212], Y, 5, 6, { tone: "lo", name: "arrastre.rodillo-anillo", mat: "caucho" });
     }
-    barra("arrastre", [-26, 16, 226], [-26, 124, 226], 1.6, { tone: "mid", name: "arrastre.palanca" });
-    caja("arrastre", [-30, 124, 210], [-22, 130, 228], { tone: "mid", r: 0.6, name: "arrastre.soporte-palanca" });
-    // muelle de presion de los rodillos: cuelga del soporte de la palanca y engancha en la escuadra de la placa
-    caja("arrastre", [-26, 126, 176], [-22, 130, 196], { tone: "mid", r: 0.4, name: "arrastre.tirante-muelle" });
-    caja("arrastre", [-30, 124, 196], [-22, 130, 200], { tone: "mid", r: 0.5, name: "arrastre.escuadra-muelle" });
-    muelle("arrastre", [-26, 127, 200], [0, 0, 1], 0, 10, 1.6, 7, { name: "arrastre.muelle-presion" });
+    // Cajon extraible (07P0R008): guias laterales hasta la placa frontal (235.20.038) con su pomo
+    // grande; maneta de la excentrica que abre los rodillos (235.20.324 + V703004030)
+    for (const [x0, z0] of [[-30, 198], [26, 198], [-38, 222], [34, 222]]) caja("arrastre", [x0, 16, z0], [x0 + 4, 130, z0 + 4], { tone: "hi", r: 0.4, name: "arrastre.guia-cajon", mat: "inox" });
+    caja("arrastre", [-38, 130, 196], [38, 134, 236], { tone: "hi", r: 1, bevel: 0.6, name: "arrastre.placa-frontal", mat: "inox", tornillos: { cara: "+y", solo: "esquinas", margen: 3, r: 0.8 } });
+    cil("arrastre", [0, 134, 214], Y, 5, 9, { tone: "hi", name: "arrastre.pomo", mat: "negro" });
+    caja("arrastre", [16, 134, 226], [30, 136, 230], { tone: "mid", r: 0.4, name: "arrastre.maneta-excentrica", mat: "inox" });
+    cil("arrastre", [30, 134, 228], Y, 5, 1.6, { tone: "lo", name: "arrastre.pomo-maneta", mat: "negro" });
   }
 
   // ───────────────────────── 12. CORTE ─────────────────────────
   {
     caja("corte", [-44, 6, 162], [28, 16, 198], { tone: "mid", r: 1, bevel: 0.6, name: "corte.placa", tornillos: { cara: "+y", solo: "esquinas", margen: 4, r: 1 } });
-    eje("corte", [-14, 16, 190], Y, 112, 2.4, LIMITES.map((y) => [y - 16 - 0.6, y - 16 + 0.6]), { tone: "mid", name: "corte.eje-circulares" });
-    for (const y of LIMITES) cil("corte", [-14, y - 0.6, 190], Y, 1.2, 13.2, { tone: "hi", name: "corte.circular" });
-    cil("corte", [7, 16, 190], Y, 110, 6, { tone: "hi", name: "corte.contraste" });
+    caja("corte", [-34, 16, 184], [-28, 124, 196], { tone: "mid", r: 0.6, bevel: 0.4, name: "corte.viga-cartuchos", mat: "inox", tornillos: { cara: "-x", paso: 26, margen: 4, r: 0.7 } });
+    for (const y of LIMITES) {
+      caja("corte", [-28, y - 3, 186], [-18, y + 3, 194], { tone: "hi", r: 0.8, bevel: 0.4, name: "corte.cartucho", mat: "alu" });
+      muelle("corte", [-18, y, 190], X, 0, 7, 1.6, 6, { name: "corte.muelle-cartucho", alambre: 0.3, mat: "cromo" });
+      for (const dy of [-1.5, 0.7]) caja("corte", [-11, y + dy, 188], [-4, y + dy + 0.8, 192], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "corte.horquilla-cartucho", mat: "inox" });
+      cil("corte", [-6, y - 0.5, 190], Y, 1, 5, { tone: "hi", name: "corte.disco-cartucho", mat: "cromo" });
+      caja("corte", [-8, y - 1.4, 195], [-4, y + 1.4, 196.4], { tone: "lo", r: 0.3, bevel: 0, name: "corte.fieltro-cartucho", mat: "crema" });
+    }
+    eje("corte", [7, 16, 190], Y, 110, 3, LIMITES.map((y) => [y - 16 - 1, y - 16 + 1]), { tone: "mid", name: "corte.eje-contraste", mat: "cromo" });
+    for (const y of LIMITES) cil("corte", [7, y - 1, 190], Y, 2, 6, { tone: "hi", name: "corte.anillo-contraste", mat: "inox" });
     // Cuchilla horizontal ROTATIVA (Calibrado p.23): hoja sobre un eje que gira una vuelta por
     // ciclo contra la contracuchilla fija; leva y sensor B32.8 marcan el cero del motor M32.1.
     for (const y of [10, 126]) caja("corte", [-24, y, 160], [18, y + 6, 176], { tone: "mid", r: 0.8, bevel: 0.5, name: "corte.lateral-caja", tornillos: { cara: y < 50 ? "-y" : "+y", solo: "esquinas", margen: 3, r: 0.8 } });
@@ -874,28 +965,27 @@ export function construir(P, R) {
   }
 
   // ───────────────────────── 15. HMI ─────────────────────────
-  // Brazo giratorio sujeto al lateral de la caja (planta B01) que lleva el panel al frente.
+  // Brazo giratorio sujeto al lateral de la caja (planta B01) que entra por arriba en el panel
+  // (S3A95100310): caja honda casi cuadrada, pantalla apaisada arriba, fila de 3 pulsadores y un
+  // tapon abajo a la izquierda, seta abajo a la derecha y selector de llave en el costado.
   {
     const piv = [198, -46];
-    const fin = [244, 190];
-    caja("hmi", [190, piv[1] - 10, 288], [206, piv[1] + 10, 302], { tone: "mid", r: 1, name: "hmi.soporte", tornillos: { cara: "+x", solo: "esquinas", margen: 3, r: 0.8 } });
-    cil("hmi", [piv[0], piv[1], 302], Z, 14, 7, { tone: "hi", name: "hmi.giro" });
+    const fin = [244, 201];
+    caja("hmi", [190, piv[1] - 10, 288], [206, piv[1] + 10, 302], { tone: "mid", r: 1, name: "hmi.soporte", mat: "inox", tornillos: { cara: "+x", solo: "esquinas", margen: 3, r: 0.8 } });
+    cil("hmi", [piv[0], piv[1], 302], Z, 14, 7, { tone: "hi", name: "hmi.giro", mat: "inox" });
     const d = G.unit3([fin[0] - piv[0], fin[1] - piv[1], 0]);
     const lado = G.unit3(G.cross3(Z, d));
     const F = G.frameOf([piv[0], piv[1], 0], d, lado, Z);
-    prisma("hmi", F, [[-5, 316], [5, 316], [5, 326], [-5, 326]], 0, Math.hypot(fin[0] - piv[0], fin[1] - piv[1]), { tone: "mid", name: "hmi.brazo" });
-    cil("hmi", [fin[0], fin[1], 300], Z, 16, 5, { tone: "hi", name: "hmi.rotula" });
-    caja("hmi", [204, 196, 300], [284, 208, 362], {
-      tone: "hi",
-      r: 2,
-      bevel: 0.8,
-      name: "hmi.panel",
-      extra: Dots([[276, 208.05, 350], [276, 208.05, 342], [276, 208.05, 334]], { size: 1, tone: "mid" }),
-      tornillos: { cara: "+y", solo: "esquinas", margen: 2, r: 0.6 },
-      disp: "A15.4",
-    });
-    caja("hmi", [210, 208, 306], [268, 208.4, 356], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "hmi.pantalla", clase: "pantalla" });
-    cil("hmi", [276, 208, 316], Y, 4, 4.5, { tone: "hi", name: "hmi.seta", clase: "seta" });
+    prisma("hmi", F, [[-5, 316], [5, 316], [5, 326], [-5, 326]], 0, Math.hypot(fin[0] - piv[0], fin[1] - piv[1]) - 7, { tone: "mid", name: "hmi.brazo", mat: "alu" });
+    cil("hmi", [fin[0], fin[1], 317.2], Z, 8.8, 7, { tone: "hi", name: "hmi.rotula", mat: "inox" });
+    cil("hmi", [fin[0], fin[1], 316], Z, 1.2, 7, { tone: "mid", name: "hmi.brida", mat: "inox", extra: pernosCirculo("hmi", G.frameAlong([fin[0], fin[1], 317.2], Z), 0, 5.6, 6, { rCabeza: 0.5 }) });
+    caja("hmi", [204, 190, 238], [284, 211, 316], { tone: "hi", r: 2, bevel: 0.8, name: "hmi.panel", disp: "A15.4", tornillos: { cara: "+y", solo: "esquinas", margen: 2, r: 0.6 } });
+    caja("hmi", [210, 211, 276], [278, 211.4, 310], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "hmi.pantalla", clase: "pantalla" });
+    for (const [x, mat] of [[216, "negro"], [227, "m12"], [238, "negro"]]) cil("hmi", [x, 211, 256], Y, 1.6, 3.4, { tone: "hi", name: "hmi.pulsador", mat });
+    cil("hmi", [249, 211, 256], Y, 0.8, 3.2, { tone: "mid", name: "hmi.tapon", mat: "inox" });
+    cil("hmi", [270, 211, 252], Y, 0.6, 7, { tone: "hi", name: "hmi.aro-seta", mat: "amarillo" });
+    cil("hmi", [270, 211.6, 252], Y, 4, 4.8, { tone: "hi", name: "hmi.seta", clase: "seta" });
+    cil("hmi", [284, 200, 262], X, 2, 2.6, { tone: "hi", name: "hmi.selector-llave", mat: "harting" });
   }
 
   // ───────────────────────── 16. ARMARIO ─────────────────────────
@@ -1096,7 +1186,8 @@ export function construir(P, R) {
       caja("resguardos", [xa, 171, 464], [xb, 175, 468], { tone: "mid", r: 0.4, name: "resguardos.perfil-puerta" });
       const xBis = xa < 0 ? xa + 0.6 : xb - 0.6;
       for (const z of [170, 420]) cil("resguardos", [xBis, 175.2, z], Z, 14, 1.6, { tone: "hi", name: "resguardos.bisagra" });
-      caja("resguardos", [xa < 0 ? xb - 14 : xa + 4, 174, 340], [xa < 0 ? xb - 4 : xa + 14, 178, 400], { tone: "hi", r: 1.5, name: "resguardos.tirador" });
+      const xt = xa < 0 ? xb - 9 : xa + 9;
+      tubo("resguardos", [[xt, 174, 346], [xt, 179, 348], [xt, 179, 392], [xt, 174, 394]], 1.2, { tone: "hi", name: "resguardos.tirador", curva: 2, mat: "inox" });
     }
     for (const x of [-195, 191]) caja("resguardos", [x, 8, 130], [x + 4, 170, 464], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.lateral", clase: "vidrio" });
     caja("resguardos", [-190, 8, 468], [190, 170, 470], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.techo", clase: "vidrio" });
@@ -1133,9 +1224,9 @@ export function construir(P, R) {
   // placa ranurada color bronce con su rodamiento en la ranura (carrera regulable).
   for (const [x, z] of [[-96, 317], [-48, 317], [0, 317], [48, 317]]) {
     const F = G.frameAlong([x, 0, z], Y);
-    cil("motor", [x, 0, z], Y, 1.4, 9, { tone: "hi", name: "motor.disco-manivela", mat: "inox", ride: "bastidor", extra: pernosCirculo("motor", G.frameAlong([x, 1.4, z], Y), 0, 7, 3, { rCabeza: 0.6, ride: "bastidor", parte: "motor.disco-manivela" }) });
-    caja("motor", [x - 3, 1.4, z - 10], [x + 3, 3.4, z + 10], { tone: "mid", r: 0.6, bevel: 0.3, name: "motor.manivela", mat: "bronce", ride: "bastidor", tornillos: { cara: "+y", solo: "esquinas", margen: 1.2, r: 0.55 } });
-    cil("motor", [x, 3.4, z + 6], Y, 3.2, 2.6, { tone: "hi", name: "motor.rodamiento-manivela", mat: "cromo", ride: "bastidor" });
+    cil("motor", [x, 0.3, z], Y, 1.4, 9, { tone: "hi", name: "motor.disco-manivela", mat: "inox", ride: "bastidor", extra: pernosCirculo("motor", G.frameAlong([x, 1.7, z], Y), 0, 7, 3, { rCabeza: 0.6, ride: "bastidor", parte: "motor.disco-manivela" }) });
+    caja("motor", [x - 3, 1.7, z - 10], [x + 3, 3.7, z + 10], { tone: "mid", r: 0.6, bevel: 0.3, name: "motor.manivela", mat: "bronce", ride: "bastidor", tornillos: { cara: "+y", solo: "esquinas", margen: 1.2, r: 0.55 } });
+    cil("motor", [x, 3.7, z + 6], Y, 3.2, 2.6, { tone: "hi", name: "motor.rodamiento-manivela", mat: "cromo", ride: "bastidor" });
     void F;
   }
 
@@ -1144,15 +1235,13 @@ export function construir(P, R) {
   // tenia sitio arriba: servomotores M30.1 y M32.1, M29.1 con B29.6/B29.7, sensores del
   // dosificador B42.x, B18.2, conectores X, piloto H40.3 y transformador T22.8.
   {
+    // Servos Beckhoff AM8041 dentro de su tapa de chapa, con reductor en angulo hacia la pared
     const [ax] = pl("M30.1", [-22, -45]);
-    motorElectrico("arrastre", [ax, -6, 212], [0, -1, 0], 34, 9, { name: "arrastre.motor", disp: "M30.1", ride: "motor" });
-    const [cx] = pl("M32.1", [-83, -54]);
-    motorElectrico("corte", [cx, -30, 170], [0, -1, 0], 34, 8, { name: "corte.motor", disp: "M32.1", ride: "motor" });
-    cil("corte", [cx, -30, 170], Y, 6, 2.5, { tone: "mid", name: "corte.eje-motor", ride: "motor" });
-    cil("corte", [cx, -24, 170], Y, 6, 8, { tone: "hi", name: "corte.polea-motor", ride: "motor" });
-    cil("corte", [-9, -24, 170], Y, 6, 8, { tone: "hi", name: "corte.polea-cuchilla", ride: "motor" });
-    cil("corte", [-9, -18, 170], Y, 12, 2.5, { tone: "mid", name: "corte.eje-cuchilla-atras", ride: "motor" });
-    tubo("corte", lazo([cx, 170], 9.2, [-9, 170], 9.2, (x, z) => [x, -21, z], 14), 0.9, { tone: "lo", name: "corte.correa", curva: 0, maxLength: 6, clase: "correa", ride: "motor" });
+    caja("arrastre", [ax - 6, -18, 206], [ax + 6, -6.5, 218], { tone: "mid", r: 1, name: "arrastre.reductor-angulo", mat: "alu", ride: "motor", tornillos: { cara: "-y", solo: "esquinas", margen: 2, r: 0.6 } });
+    caja("arrastre", [ax - 54, -28, 199], [ax - 6, -6.5, 221], { tone: "hi", r: 1.2, bevel: 0.6, name: "arrastre.tapa-servo", mat: "inox", disp: "M30.1", ride: "motor", tornillos: { cara: "-y", solo: "esquinas", margen: 3, r: 0.7 } });
+    caja("corte", [-15, -27, 164], [-3, -15, 176], { tone: "mid", r: 1, name: "corte.reductor-angulo", mat: "alu", ride: "motor", tornillos: { cara: "-y", solo: "esquinas", margen: 2, r: 0.6 } });
+    cil("corte", [-9, -15, 170], Y, 9, 2.5, { tone: "mid", name: "corte.eje-cuchilla-atras", mat: "cromo", ride: "motor" });
+    caja("corte", [-68, -36, 155], [-15, -6.5, 185], { tone: "hi", r: 1.2, bevel: 0.6, name: "corte.tapa-servo", mat: "inox", disp: "M32.1", ride: "motor", tornillos: { cara: "-y", solo: "esquinas", margen: 3, r: 0.7 } });
     const [ux, uy] = pl("M29.1", [162, -73]);
     motorElectrico("desbobinado", [ux - 4, uy + 16, 150], [0, -1, 0], 32, 10, { name: "desbobinado.motor", disp: "M29.1", ride: "motor" });
     caja("desbobinado", [ux - 18, uy - 4, 158], [ux - 12, uy + 4, 196], { tone: "mid", r: 0.4, name: "desbobinado.escuadra-sensores", ride: "motor" });
@@ -1166,7 +1255,8 @@ export function construir(P, R) {
     const conector = (tag, a, b, pieza = "armario", ride = "bastidor") => caja(pieza, a, b, { tone: "hi", r: 1, bevel: 0.4, name: `${pieza}.conector-${tag.toLowerCase()}`, disp: tag, ride, clase: "conector", sinTornillos: true });
     for (const tag of ["X41", "X42"]) {
       const [x] = pl(tag, [0, 19]);
-      conector(tag, [x - 7, pared.y1, 293], [x + 7, pared.y1 + 7, 307]);
+      conector(tag, [x - 6, pared.y1, 236], [x + 6, pared.y1 + 10, 266]);
+      caja("armario", [x - 7, pared.y1 + 10, 244], [x + 7, pared.y1 + 12, 258], { tone: "hi", r: 0.6, name: "armario.palanca-harting", mat: "inox", ride: "bastidor" });
     }
     for (const [tag, z] of [["X43", 194], ["X52", 254]]) {
       const [x] = pl(tag, [0, -20]);
