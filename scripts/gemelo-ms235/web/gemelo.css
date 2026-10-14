@@ -333,3 +333,5 @@ button { font: inherit; color: inherit; }
 .gm-calor-ley i { width: 14px; height: 10px; border-radius: 3px; display: inline-block; }
 
 @media (prefers-reduced-motion: reduce) { .gm-vista { transition: none; } .it[data-sensor-on] .iso-dots circle { animation: none; } }
+
+.gm-mover { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; }

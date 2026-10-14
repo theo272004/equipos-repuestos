@@ -604,7 +604,8 @@ function reglaAnim(m) {
   const n = m.userData.parte;
   const c = m.userData.centro ?? [0, 0, 0];
   const lado = Math.sign(c[0]) || 1;
-  if (/^motor\.(eje-levas|leva|corona|volante)/.test(n)) return { rot: [1, 0, 0], p: [0, -40, 236], f: (e) => e.theta };
+  if (/^motor\.volante/.test(n)) return { rot: [1, 0, 0], p: [0, -70, 236], f: (e) => e.theta };
+  if (/^motor\.(eje-levas|leva|corona)/.test(n)) return { rot: [1, 0, 0], p: [0, -40, 236], f: (e) => e.theta };
   if (n === "motor.pinon") return { rot: [1, 0, 0], p: [0, -60, 76], f: (e) => e.theta * 1.5 };
   if (/^arrastre\.(rodillo|engranaje)/.test(n)) return { rot: [0, 1, 0], p: [7 * lado, 0, 212], f: (e) => (-lado * e.papel) / 6 };
   // discos de los cartuchos: locos, giran por contacto con los anillos del eje de contraste
@@ -630,9 +631,9 @@ function reglaAnim(m) {
   if (n === "soldadura.fuelle") return { escala: { ancla: [66 * lado, 0, 0], k: (e) => (28 - 3 * (1 - e.fCierre)) / 28, mov: () => [0, 0, 0] } };
   // bastidor de levas: las dos levas giran con la maquina y los resortes de los tirantes se comprimen al cerrar
   if (n === "soldadura.leva-plancha") return { rot: [1, 0, 0], p: [0, -41, 280], f: (e) => e.theta };
-  if (/^soldadura\.muelle-tirante/.test(n)) return { escala: { eje: "y", ancla: [0, -48, 0], k: (e) => 1 - 0.12 * e.fCierre, mov: () => [0, 0, 0] } };
+  if (/^soldadura\.muelle-tirante/.test(n)) return { escala: { eje: "y", ancla: [0, -48, 0], k: (e) => 1 + 0.12 * (1 - e.fCierre), mov: () => [0, 0, 0] } };
   // resortes de la lamina: viajan con la plancha y se estiran un poco al apretar
-  if (/^soldadura\.muelle-lamina/.test(n)) return { escala: { ancla: [9.1 * lado, 0, 0], k: (e) => 1 + 0.08 * e.fCierre, mov: abre } };
+  if (/^soldadura\.muelle-lamina/.test(n)) return { escala: { ancla: [9.1 * lado, 0, 0], k: (e) => 1 - 0.08 * (1 - e.fCierre), mov: abre } };
   // manivelas de la pared: giran con el eje de levas
   if (/^motor\.(disco-manivela|manivela|rodamiento-manivela)/.test(n)) return { rot: [0, 1, 0], p: [c[0], 0, 317], f: (e) => e.theta };
   if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|vastago|biela|rotula)/.test(n)) return { mov: (e) => [0, 0, -BAJADA * e.baja] };
@@ -643,13 +644,92 @@ function reglaAnim(m) {
   if (/^desbobinado\.(balancin)/.test(n)) return { rot: [1, 0, 0], p: [0, -150, 300], f: (e) => Math.sin(e.theta * 1) * 0.03 };
   return null;
 }
+// ───────────── Movimientos a mano (mantenimiento) y simular un solo conjunto ─────────────
+// Cada uno va de 0 (como esta dibujado) a 1 (abierto) con un resorte suave.
+const manual = { puertas: 0, cajon: 0, brazoHmi: 0, mordazas: 0 };
+const manualMeta = { ...manual };
+const MOVIMIENTOS = {
+  resguardos: [["puertas", "Abrir las puertas", "Cerrar las puertas"]],
+  arrastre: [["cajon", "Sacar el cajón de arrastre", "Meter el cajón"]],
+  hmi: [["brazoHmi", "Girar el brazo del panel", "Volver el brazo"]],
+  soldadura: [["mordazas", "Abrir las planchas", "Cerrar las planchas"]],
+  armario: [["armario", "Abrir la puerta", "Cerrar la puerta"]],
+};
+const hayManual = () => Object.values(manual).some((v) => v > 0.001) || Object.values(manualMeta).some((v) => v > 0);
+const _q2 = new THREE.Quaternion();
+// giro alrededor de un eje vertical del modelo (z) por un punto (x, y); el espejo invierte el signo
+function giroVertical([px, py], ang) {
+  const c = T([px, py, 0]);
+  _t1.makeTranslation(-c.x, 0, -c.z);
+  _t2.makeTranslation(c.x, 0, c.z);
+  return new THREE.Matrix4().copy(_t2).multiply(new THREE.Matrix4().makeRotationFromQuaternion(_q2.setFromAxisAngle(new THREE.Vector3(0, 1, 0), -ang))).multiply(_t1);
+}
+function reglaManual(m) {
+  const n = m.userData.parte;
+  const c = m.userData.centro ?? [0, 0, 0];
+  if (/^resguardos\.(puerta|perfil-puerta|bisagra|tirador|actuador)/.test(n)) {
+    // cada puerta gira hacia fuera sobre su bisagra (x = ±189,4)
+    const lado = Math.sign(c[0]) || 1;
+    return () => giroVertical([lado * 189.4, 175.2], -lado * 1.75 * manual.puertas);
+  }
+  if (/^arrastre\.(guia-cajon|placa-frontal|pomo|maneta-excentrica|pomo-maneta|rodillo|rodillo-anillo|engranaje)/.test(n)) return () => new THREE.Matrix4().makeTranslation(0, 0, 70 * manual.cajon);
+  if (/^hmi\.(brazo|rotula|brida|panel|pantalla|pulsador|tapon|aro-seta|seta|selector-llave)/.test(n)) return () => giroVertical([198, -46], -0.7 * manual.brazoHmi);
+  return null;
+}
+const reposo = () => ({ u: 0, theta: 0, papel: 0, avance: 0, fCierre: 1 - manual.mordazas, baja: 0, agarre: 1, cuchilla: 0, estrella: 0, cinta: 0, reposo: true });
+function moverManual(dt) {
+  let mueve = false;
+  for (const k of Object.keys(manual)) {
+    const d = manualMeta[k] - manual[k];
+    if (Math.abs(d) < 0.002) {
+      if (manual[k] !== manualMeta[k]) (manual[k] = manualMeta[k]), (mueve = true);
+      continue;
+    }
+    manual[k] = quieto3.matches ? manualMeta[k] : manual[k] + d * Math.min(1, dt * 3.5);
+    mueve = true;
+  }
+  if (mueve && !sim.activa) aplicarAnim(hayManual() ? reposo() : null, hayManual());
+  return mueve;
+}
+function movimientosDe(pieza) {
+  const lista = (MOVIMIENTOS[pieza] ?? []).map(([k, abrir, cerrar]) => [k, (k === "armario" ? puerta.meta > 0 : manualMeta[k] > 0) ? cerrar : abrir]);
+  if (animadas.some((a) => a.r && a.m.userData.pieza === pieza)) lista.push(["solo", sim.activa && sim.solo === pieza ? "Detener la simulación" : "Simular solo este conjunto"]);
+  return lista;
+}
+function moverPieza(k) {
+  if (k === "armario") abrirArmario();
+  else if (k === "solo") simularSolo(seleccion.pieza);
+  else {
+    manualMeta[k] = manualMeta[k] > 0 ? 0 : 1;
+    if (k === "puertas" && sinResguardos) acciones.resguardos();
+  }
+  pintarPanel();
+  pedirCuadro();
+}
+function simularSolo(pieza) {
+  if (sim.activa && sim.solo === pieza) {
+    sim.solo = null;
+    pararSim();
+    aislar = false;
+    aspecto();
+    return;
+  }
+  sim.solo = pieza;
+  aislar = true;
+  if (!sim.activa) iniciarSim();
+  else sim.pausa = false;
+  aspecto();
+  actualizarMandos();
+}
+
 const animadas = [];
 function prepararAnim() {
   for (const m of [...mallas, ...instancias.filter((i) => i.userData.perno)]) {
     const r = reglaAnim(m);
-    if (!r) continue;
-    if (r.sobre || r.oculto) m.userData.sim = true;
-    animadas.push({ m, r, base: m.matrix.clone() });
+    const manualDe = reglaManual(m);
+    if (!r && !manualDe) continue;
+    if (r && (r.sobre || r.oculto)) m.userData.sim = true;
+    animadas.push({ m, r, manual: manualDe, base: m.matrix.clone() });
   }
 }
 const _q = new THREE.Quaternion();
@@ -658,14 +738,19 @@ const _t1 = new THREE.Matrix4();
 const _t2 = new THREE.Matrix4();
 function aplicarAnim(e, activa) {
   for (const a of animadas) {
-    const { m, r } = a;
+    const { m } = a;
     if (!activa) {
       m.matrix.identity();
       m.visible = m.userData.visibleBase !== false;
       m.updateMatrixWorld(true);
       continue;
     }
-    if (r.rot) {
+    // "simular solo este conjunto": lo demas queda quieto
+    const r = sim.activa && sim.solo && m.userData.pieza !== sim.solo ? null : a.r;
+    if (!r) {
+      m.matrix.identity();
+      if (m.userData.sim) m.visible = m.userData.visibleBase !== false;
+    } else if (r.rot) {
       const ang = r.f(e);
       const p = T(r.p);
       _q.setFromAxisAngle(T(r.rot).normalize(), ang);
@@ -703,7 +788,8 @@ function aplicarAnim(e, activa) {
       m.visible = m.userData.visibleBase !== false && (u >= FASES.arrastre[0] || u < FASES.suelta);
       const subida = u >= FASES.arrastre[0] && u <= FASES.arrastre[1] ? (1 - e.avance) * PASO_SOBRE : 0;
       m.matrix.makeTranslation(0, subida - BAJADA * e.baja, 0);
-    } else if (r.oculto) m.visible = false;
+    } else if (r.oculto) m.visible = !!e.reposo && m.userData.visibleBase !== false;
+    if (a.manual) m.matrix.premultiply(a.manual());
     m.updateMatrixWorld(true);
   }
 }
@@ -839,7 +925,7 @@ function pasoSim(dt) {
     theta: vueltas * Math.PI * 2,
     papel: avanceTotal,
     avance: e.avance,
-    fCierre: e.fCierre,
+    fCierre: Math.min(e.fCierre, 1 - manual.mordazas),
     baja: e.baja,
     agarre: e.agarre,
     cuchilla: e.cuchilla,
@@ -877,7 +963,8 @@ function iniciarSim() {
 function pararSim() {
   sim.activa = false;
   sim.pausa = false;
-  aplicarAnim(null, false);
+  sim.solo = null;
+  aplicarAnim(hayManual() ? reposo() : null, hayManual());
   limpiarFisica();
   for (const m of mallas) if (m.userData.led) m.userData.led.material = MAT.led;
   escena3.removeAttribute("data-sim");
@@ -934,7 +1021,7 @@ function pintarSenales(u, on) {
 
 // ───────────── Seleccion y aspecto ─────────────
 let aislar = false;
-let sinResguardos = true;
+let sinResguardos = false;
 let calor = false;
 let aristasOn = true;
 let hover = null; // { pieza, parte }
@@ -944,7 +1031,7 @@ function aspecto() {
   for (const m of [...mallas, ...instancias]) {
     const { pieza, parte, base } = m.userData;
     // el boton de resguardos quita puertas, acrilicos y su marco; la caja con mirilla y los Euchner quedan
-    const enMarco = /^resguardos\.(puerta|perfil|bisagra|tirador|lateral|techo|poste|travesano|larguero|actuador)/.test(parte) || (/^resguardos\.(euchner|rfid|conector)/.test(parte) && Math.abs(m.userData.centro?.[0] ?? 0) > 150);
+    const enMarco = /^resguardos\.(puerta|perfil|bisagra|tirador|lateral|techo|poste|travesano|larguero|actuador|panel)/.test(parte) || (/^resguardos\.(euchner|rfid|conector)/.test(parte) && Math.abs(m.userData.centro?.[0] ?? 0) > 150);
     const visible = !ocultas.has(pieza) && !(sinResguardos && enMarco);
     m.userData.visibleBase = visible;
     if (!sim.activa || !m.userData.sim) m.visible = visible;
@@ -1564,6 +1651,7 @@ function cuadro(t) {
   if (ESC) {
     if (avanzarResortes(dt)) sigue = true;
     if (moverPuerta(dt)) sigue = true;
+    if (moverManual(dt)) sigue = true;
     if (IDS.some((id) => resorte[id].pending)) sigue = true;
     colocarGrupos();
     if (sim.activa) {
@@ -1635,7 +1723,7 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
     aspecto();
     pintarArbol();
     actualizarMandos();
-    if (Q.get("resguardos") === "1") acciones.resguardos();
+    if (Q.get("resguardos") === "0") acciones.resguardos();
     if (Q.get("calor") === "1") acciones.calor();
     if (Q.get("colores") === "1") acciones.colores();
     if (Q.has("paso")) {
@@ -1676,4 +1764,4 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
   });
 historialEnVivo();
 
-window.gemelo = { irAPaso, seleccionar: seleccionar_, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
+window.gemelo = { irAPaso, seleccionar: seleccionar_, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };

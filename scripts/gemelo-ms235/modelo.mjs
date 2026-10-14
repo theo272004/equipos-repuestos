@@ -427,17 +427,19 @@ export function construir(P, R) {
   cil("motor", [62, -80, zPlaca], Z, 26, 7, { tone: "hi", name: "motor.dropsa-bomba" });
   cil("motor", [80, -80, zPlaca], Z, 20, 5, { tone: "mid", name: "motor.dropsa-filtro" });
   tubo("motor", [[62, -80, 48], [62, -80, 62], [40, -80, 62], [30, -60, 62], [30, -60, 56]], 0.9, { name: "motor.dropsa-tubo", tone: "mid" });
-  // Volante manual (lado derecho de la maquina real) con su sensor B18.3 y el cero B25.8
+  // Volante manual DENTRO de la caja de transmision, junto a la correa del motor (Calibrado p.83):
+  // se usa con la puerta trasera abierta. B18.3 lee su borde desde arriba y B25.8 va en el lateral.
   {
-    const [, vy] = pl("B18.3", [-173, -79]);
-    const F = G.frameAlong([pared.x0, vy, 236], [-1, 0, 0]);
-    torno("motor", F, [[0, 5], [10, 5], [10, 26], [16, 26], [16, 8], [19, 8]], { tone: "hi", name: "motor.volante", ride: "bastidor", extra: pernosCirculo("motor", F, 16, 18, 6, { ride: "bastidor", parte: "motor.volante" }) });
+    const vy = -70;
+    const F = G.frameAlong([pared.x0 + 6, vy, 236], [1, 0, 0]);
+    torno("motor", F, [[0, 5], [10, 5], [10, 26], [16, 26], [16, 8], [19, 8]], { tone: "hi", name: "motor.volante", mat: "inox", extra: pernosCirculo("motor", F, 16, 18, 6, { parte: "motor.volante" }) });
     const mango = G.pointOf(F, 16, 20, 0.6);
-    cil("motor", mango, [-1, 0, 0], 14, 2.4, { tone: "mid", name: "motor.volante-mango", ride: "bastidor" });
-    sensor("motor", "B18.3", [-176, vy, 262], [-1, 0, 0], { largo: 8, ride: "bastidor" });
+    cil("motor", mango, [1, 0, 0], 14, 2.4, { tone: "mid", name: "motor.volante-mango", mat: "negro" });
+    const [, sy] = pl("B18.3", [-173, -79]);
+    caja("motor", [pared.x0 + 6, sy - 4, 268], [-171 + 3, sy + 4, 271], { tone: "mid", r: 0.4, name: "motor.escuadra-sensor", mat: "inox" });
+    sensor("motor", "B18.3", [-171, sy, 268], [0, 0, -1], { largo: 5 });
     const [, zy] = pl("B25.8", [-171, -88]);
-    sensor("motor", "B25.8", [-168, zy, 210], [-1, 0, 0], { largo: 8, ride: "bastidor" });
-    caja("motor", [-184, zy - 4, 206], [-176, zy + 4, 214], { tone: "mid", r: 0.4, name: "motor.escuadra-sensor", ride: "bastidor" });
+    sensor("motor", "B25.8", [pared.x0 + 6, zy, 200], [1, 0, 0], { largo: 8 });
   }
 
   // ───────────────────────── 4. PORTABOBINAS Y EMPALME ─────────────────────────
@@ -1191,6 +1193,20 @@ export function construir(P, R) {
     }
     for (const x of [-195, 191]) caja("resguardos", [x, 8, 130], [x + 4, 170, 464], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.lateral", clase: "vidrio" });
     caja("resguardos", [-190, 8, 468], [190, 170, 470], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.techo", clase: "vidrio" });
+    // Resguardo lateral alto del desbobinado (S4A95100110): placa base, dos paneles con dos ventanas
+    // cada uno, pomos moleteados en las esquinas y tapa de arriba inclinada
+    {
+      const [xa, xb] = [176, 179];
+      const [ya, yb] = [-176, -104];
+      caja("resguardos", [166, ya, zPlaca], [190, yb, zPlaca + 2], { tone: "mid", r: 0.6, name: "resguardos.panel-base", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 3, r: 0.8 } });
+      for (const [z0, z1] of [[24, 164], [166, 306]]) {
+        for (const [y0, y1] of [[ya, ya + 4], [yb - 4, yb]]) caja("resguardos", [xa, y0, z0], [xb, y1, z1], { tone: "mid", r: 0.4, name: "resguardos.panel-marco", mat: "inox" });
+        for (const z of [z0, (z0 + z1) / 2 - 2, z1 - 4]) caja("resguardos", [xa, ya + 4, z], [xb, yb - 4, z + 4], { tone: "mid", r: 0.4, name: "resguardos.panel-marco", mat: "inox" });
+        for (const [w0, w1] of [[z0 + 4, (z0 + z1) / 2 - 2], [(z0 + z1) / 2 + 2, z1 - 4]]) caja("resguardos", [xa + 1.2, ya + 4, w0], [xa + 1.8, yb - 4, w1], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.panel-vidrio", clase: "vidrio" });
+        for (const y of [ya + 2, yb - 2]) for (const z of [z0 + 4, z1 - 4]) cil("resguardos", [xb, y, z], X, 2, 1.8, { tone: "lo", name: "resguardos.panel-pomo", mat: "negro" });
+      }
+      chapaXZ("resguardos", [[166, 306], [186, 306], [186, 310], [172, 314], [166, 314]], ya, yb, { tone: "mid", name: "resguardos.panel-tapa", mat: "inox" });
+    }
     // interruptores de seguridad Euchner CTP (S08.x)
     // Frente (foto): caja de inox con mirilla delante del corte y, encima, la barra con los dos
     // Euchner CTP de las puertas delanteras (S08.3 / S08.4). Quedan en la maquina al quitar puertas.

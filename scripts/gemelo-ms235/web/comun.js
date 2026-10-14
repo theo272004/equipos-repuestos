@@ -200,7 +200,8 @@ function panelPieza(id) {
       ${fal.length ? `<h3 class="gm-sec">Fallas que se diagnostican aquí</h3><ul class="gm-lista">${fal.map((f, i) => `<li><button type="button" class="gm-fila gm-fila--boton" data-pestana="fallas" data-falla="${i}"><span class="gm-fila__tit">${esc(f.name)}</span><div class="gm-fila__meta">${esc(f.status)}</div></button></li>`).join("")}</ul>` : ""}
       ${tar.length ? `<h3 class="gm-sec">Mantenimiento preventivo</h3><ul class="gm-lista">${tar.map(filaTarea).join("")}</ul>` : ""}
       ${numPiezas ? `<p class="gm-nota" style="margin-top:12px">${numPiezas} números de pieza en ${hojas} láminas del catálogo S4220003.</p>` : ""}
-      <p style="margin-top:10px"><button type="button" class="gm-btn" data-accion-panel="centrar">Acercar a esta pieza</button> <button type="button" class="gm-btn" data-accion="aislar">Aislar</button></p>`;
+      <p style="margin-top:10px"><button type="button" class="gm-btn" data-accion-panel="centrar">Acercar a esta pieza</button> <button type="button" class="gm-btn" data-accion="aislar">Aislar</button></p>
+      ${typeof movimientosDe === "function" && movimientosDe(id).length ? `<h3 class="gm-sec">Mover</h3><p class="gm-mover">${movimientosDe(id).map(([k, t]) => `<button type="button" class="gm-btn" data-mover="${k}">${esc(t)}</button>`).join(" ")}</p>` : ""}`;
   } else if (pest === "despiece") {
     cuerpo = grupos
       .map(([cod, g]) => `<h3 class="gm-sec">${esc(cod)} · ${esc(g.n)}</h3>${g.d ? `<p class="gm-nota">${esc(g.d)}</p>` : ""}
@@ -336,6 +337,8 @@ $(".gm-panel").addEventListener("click", (e) => {
   const t = e.target;
   const volver = t.closest("[data-volver]");
   if (volver) return seleccionar_(null);
+  const mv = t.closest("[data-mover]");
+  if (mv) return moverPieza(mv.dataset.mover);
   const tr = t.closest("[data-trazar]");
   if (tr) return enfocarDispositivo(tr.dataset.trazar);
   const di = t.closest("[data-disp]");
