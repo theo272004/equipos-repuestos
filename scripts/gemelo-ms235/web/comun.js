@@ -57,24 +57,88 @@ function nivelCalor(pieza) {
   if (!n) return 0;
   return Math.max(1, Math.min(4, Math.ceil((n / max) * 4)));
 }
-// ───────────── Leyenda ─────────────
+// ───────────── Dock de Conjuntos ─────────────
 function pintarLeyenda() {
   const lista = $(".gm-partes");
+  if (!lista) return;
   lista.innerHTML = D.lectura
     .map((id) => {
       const n = fallasPorPieza[id] ?? 0;
-      return `<button type="button" class="gm-parte" data-pieza="${id}" aria-pressed="${seleccion.pieza === id}"><span class="gm-parte__num">${String(NUM[id]).padStart(2, "0")}</span><span class="gm-parte__nom">${esc(D.piezas[id].nombre)}</span>${n ? `<span class="gm-parte__n" data-tono="${n >= 5 ? "warn" : ""}" title="intervenciones en el chat">${n}</span>` : ""}</button>`;
+      const p = D.piezas[id] || {};
+      const sel = seleccion.pieza === id;
+      const num = String(NUM[id] || 0).padStart(2, "0");
+      const corto = p.corto || "";
+      const cod = (p.codigos && p.codigos[0]) ? p.codigos[0] : "";
+      return `<button type="button" class="gm-dock__card gm-parte${sel ? " es-activo" : ""}" data-pieza="${id}" aria-pressed="${sel}" title="${esc(p.nombre)} · ${esc(corto)}">
+        <div class="gm-dock__card-top">
+          <span class="gm-dock__card-num">${num}</span>
+          ${cod ? `<span class="gm-dock__card-cod">${esc(cod)}</span>` : ""}
+          ${n ? `<span class="gm-dock__card-pill" data-tono="${n >= 5 ? "warn" : ""}" title="${n} intervenciones de mantenimiento en el chat">⚡ ${n}</span>` : ""}
+        </div>
+        <div class="gm-dock__card-nom">${esc(p.nombre)}</div>
+        <div class="gm-dock__card-sub">${esc(corto)}</div>
+      </button>`;
     })
     .join("");
+  actualizarDockEstado();
 }
-$(".gm-partes").addEventListener("click", (e) => {
-  const b = e.target.closest(".gm-parte");
-  if (!b) return;
-  const id = b.dataset.pieza;
-  seleccionar_(seleccion.pieza === id ? null : id);
-});
-$(".gm-partes").addEventListener("mouseover", (e) => resaltarPieza(e.target.closest(".gm-parte")?.dataset.pieza ?? null));
-$(".gm-partes").addEventListener("mouseleave", () => resaltarPieza(null));
+
+function actualizarDockEstado() {
+  const actual = $("#gmDockActual");
+  const id = seleccion.pieza;
+  if (actual) {
+    if (id && D.piezas[id]) {
+      const num = String(NUM[id] || 0).padStart(2, "0");
+      actual.innerHTML = `<b>${num}</b> ${esc(D.piezas[id].nombre)}`;
+      actual.hidden = false;
+    } else {
+      actual.hidden = true;
+    }
+  }
+
+  // Desplazar suavemente la tarjeta activa al centro visible
+  if (id) {
+    const actCard = $(`.gm-dock__card[data-pieza="${id}"]`);
+    if (actCard) {
+      actCard.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+  }
+}
+
+const trackPartes = $(".gm-partes");
+if (trackPartes) {
+  trackPartes.addEventListener("click", (e) => {
+    const b = e.target.closest(".gm-parte");
+    if (!b) return;
+    const id = b.dataset.pieza;
+    const nuevo = seleccion.pieza === id ? null : id;
+    seleccionar_(nuevo);
+    if (nuevo && typeof centrarEn === "function") centrarEn(nuevo);
+  });
+  trackPartes.addEventListener("mouseover", (e) => resaltarPieza(e.target.closest(".gm-parte")?.dataset.pieza ?? null));
+  trackPartes.addEventListener("mouseleave", () => resaltarPieza(null));
+}
+
+// Navegación con flechas y botón minimizar/expandir del dock
+const dock = $("#gmDock");
+if (dock) {
+  dock.addEventListener("click", (e) => {
+    const scrollBtn = e.target.closest("[data-dock-scroll]");
+    if (scrollBtn && trackPartes) {
+      const dir = scrollBtn.dataset.dockScroll === "izq" ? -240 : 240;
+      trackPartes.scrollBy({ left: dir, behavior: "smooth" });
+      return;
+    }
+    const toggleBtn = e.target.closest("#gmDockToggle");
+    if (toggleBtn) {
+      const colapsado = dock.classList.toggle("is-colapsado");
+      toggleBtn.setAttribute("aria-expanded", String(!colapsado));
+      const txt = $(".gm-dock__toggle-txt", toggleBtn);
+      if (txt) txt.textContent = colapsado ? "Ver conjuntos" : "Ocultar";
+      return;
+    }
+  });
+}
 
 // ───────────── Panel ─────────────
 const fecha = (f) => {

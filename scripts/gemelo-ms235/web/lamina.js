@@ -463,7 +463,12 @@ function seleccionar_(pieza, { sensor = null, pestana, disp = null } = {}) {
   if (aislar && pieza) svg.setAttribute("data-aislar", "");
   else svg.removeAttribute("data-aislar");
   for (const p of vistas.values()) p.then(marcarNodos).catch(() => {});
-  $$(".gm-parte").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.pieza === pieza)));
+  $$(".gm-parte").forEach((b) => {
+    const activo = b.dataset.pieza === pieza;
+    b.setAttribute("aria-pressed", String(activo));
+    b.classList.toggle("es-activo", activo);
+  });
+  if (typeof actualizarDockEstado === "function") actualizarDockEstado();
   pintarPanel();
   decir();
 }

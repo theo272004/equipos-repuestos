@@ -102,9 +102,28 @@ const cabecera = (otra, textoOtra) => `
   </div>
 </header>`;
 const leyenda = `
-    <div class="gm-leyenda">
-      <div class="gm-leyenda__tit">Conjuntos <span style="text-transform:none;letter-spacing:0">· en el orden del papel · el número es de intervenciones en el chat</span></div>
-      <div class="gm-partes"></div>
+    <div class="gm-dock gm-leyenda" id="gmDock" aria-label="Conjuntos mecánicos de la máquina">
+      <div class="gm-dock__cab">
+        <div class="gm-dock__info">
+          <svg class="gm-dock__icono" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span class="gm-dock__tit">Conjuntos mecánicos</span>
+          <span class="gm-dock__badge">16 según manual</span>
+          <span class="gm-dock__actual" id="gmDockActual" hidden></span>
+        </div>
+        <div class="gm-dock__nav">
+          <button type="button" class="gm-dock__nav-btn" data-dock-scroll="izq" title="Desplazar conjuntos hacia la izquierda" aria-label="Anterior conjunto">‹</button>
+          <button type="button" class="gm-dock__nav-btn" data-dock-scroll="der" title="Desplazar conjuntos hacia la derecha" aria-label="Siguiente conjunto">›</button>
+        </div>
+        <div class="gm-dock__acciones">
+          <button type="button" class="gm-dock__toggle" id="gmDockToggle" title="Minimizar / expandir dock de conjuntos" aria-expanded="true">
+            <span class="gm-dock__toggle-txt">Ocultar</span>
+            <svg class="gm-dock__chevron" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+        </div>
+      </div>
+      <div class="gm-dock__cuerpo">
+        <div class="gm-partes" id="gmPartesTrack"></div>
+      </div>
     </div>`;
 const panel = `
   <aside class="gm-panel" aria-label="Datos de la pieza">

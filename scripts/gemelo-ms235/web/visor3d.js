@@ -23,7 +23,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.localClippingEnabled = true;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.12;
+renderer.toneMappingExposure = 1.24;
 
 const scene = new THREE.Scene();
 const pmrem = new THREE.PMREMGenerator(renderer);
@@ -42,16 +42,41 @@ controles.touches = { ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN };
 const ayudaVista = new ViewHelper(camara, lienzo);
 ayudaVista.center = controles.target;
 
-const luzHemi = new THREE.HemisphereLight(0xffffff, 0x8a8f96, 0.55);
+// ───────────── Iluminación Cinematográfica de Estudio ─────────────
+const luzHemi = new THREE.HemisphereLight(0xffffff, 0x64748b, 0.55);
 scene.add(luzHemi);
-const sol = new THREE.DirectionalLight(0xffffff, 1.6);
-sol.position.set(500, 900, 700);
+
+// 1. Key Light (Luz Principal frontal-superior con sombras suaves PCF)
+const sol = new THREE.DirectionalLight(0xffffff, 1.85);
+sol.position.set(550, 950, 750);
 sol.castShadow = true;
 sol.shadow.mapSize.set(2048, 2048);
-Object.assign(sol.shadow.camera, { left: -600, right: 600, top: 600, bottom: -600, near: 10, far: 2500 });
-sol.shadow.bias = -0.0004;
+Object.assign(sol.shadow.camera, { left: -650, right: 650, top: 650, bottom: -650, near: 10, far: 2600 });
+sol.shadow.bias = -0.00015;
+sol.shadow.radius = 1.8;
 scene.add(sol);
-const suelo = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.ShadowMaterial({ opacity: 0.18 }));
+
+// 2. Rim / Edge Backlight (Contraluz metálico para destacar aristas, perfiles y acrílicos)
+const luzContraluz = new THREE.DirectionalLight(0xdbeafe, 1.45);
+luzContraluz.position.set(-650, 800, -750);
+scene.add(luzContraluz);
+
+// 3. Fill Light (Luz de Relleno para revelar detalles mecánicos internos y tolva)
+const luzRelleno = new THREE.DirectionalLight(0xfefce8, 0.75);
+luzRelleno.position.set(-500, 450, 600);
+scene.add(luzRelleno);
+
+// 4. Top Accent Light (Luz Cenital para mesa de empalme, tolva y techos)
+const luzCenital = new THREE.DirectionalLight(0xfff7ed, 0.55);
+luzCenital.position.set(0, 1400, 0);
+scene.add(luzCenital);
+
+// 5. Floor Bounce (Rebote suave del suelo industrial)
+const luzSuelo = new THREE.DirectionalLight(0x64748b, 0.25);
+luzSuelo.position.set(0, -600, 300);
+scene.add(luzSuelo);
+
+const suelo = new THREE.Mesh(new THREE.PlaneGeometry(4000, 4000), new THREE.ShadowMaterial({ opacity: 0.24 }));
 suelo.rotation.x = -Math.PI / 2;
 suelo.receiveShadow = true;
 scene.add(suelo);
@@ -104,69 +129,72 @@ function animarReticula(ahora) {
 
 function tema3d() {
   const oscuro = document.body.dataset.theme === "dark";
-  scene.background = new THREE.Color(oscuro ? 0x14171b : 0xeef1f4);
-  rejilla.material.color = new THREE.Color(oscuro ? 0x2b3138 : 0xc9cfd5);
-  suelo.material.opacity = oscuro ? 0.35 : 0.18;
-  luzHemi.intensity = oscuro ? 0.4 : 0.55;
+  scene.background = new THREE.Color(oscuro ? 0x0f1318 : 0xf1f5f9);
+  rejilla.material.color = new THREE.Color(oscuro ? 0x1e2630 : 0xcad4df);
+  suelo.material.opacity = oscuro ? 0.38 : 0.20;
+  luzHemi.intensity = oscuro ? 0.45 : 0.65;
+  sol.intensity = oscuro ? 1.75 : 1.95;
+  luzContraluz.intensity = oscuro ? 1.45 : 1.15;
+  luzRelleno.intensity = oscuro ? 0.8 : 0.7;
   pedirCuadro();
 }
 
-// ───────────── Materiales ─────────────
+// ───────────── Materiales PBR de Alta Fidelidad ─────────────
 const planosCorte = [];
 const M = (o) => new THREE.MeshStandardMaterial({ side: THREE.DoubleSide, clippingPlanes: planosCorte, ...o });
 const MAT = {
-  hi: M({ color: 0xdde3ea, metalness: 0.7, roughness: 0.26 }),
-  mid: M({ color: 0xb4bdc7, metalness: 0.66, roughness: 0.33 }),
-  lo: M({ color: 0x7e8996, metalness: 0.55, roughness: 0.45 }),
-  pintado: M({ color: 0xdcdfda, metalness: 0.05, roughness: 0.55 }),
-  oscuro: M({ color: 0x2b2e33, metalness: 0.2, roughness: 0.55 }),
-  motor: M({ color: 0x2f6fb6, metalness: 0.35, roughness: 0.38 }),
-  papel: M({ color: 0xf5f2ea, metalness: 0, roughness: 0.92 }),
-  bobina: M({ color: 0xf0ece0, metalness: 0, roughness: 0.85 }),
-  lona: M({ color: 0x1f8a4c, metalness: 0, roughness: 0.8 }),
-  negro: M({ color: 0x232528, metalness: 0.1, roughness: 0.7 }),
-  aislante: M({ color: 0xc0914f, metalness: 0, roughness: 0.7 }),
-  cobre: M({ color: 0xd8782f, metalness: 0.75, roughness: 0.3 }),
-  valvula: M({ color: 0x1f7ae0, metalness: 0.15, roughness: 0.4 }),
-  sensor: M({ color: 0xd6b25c, metalness: 0.72, roughness: 0.28 }),
-  pantalla: M({ color: 0x0c1826, metalness: 0.1, roughness: 0.2, emissive: 0x153a66, emissiveIntensity: 0.6 }),
-  seta: M({ color: 0xe3262a, metalness: 0.1, roughness: 0.4 }),
-  vidrio: new THREE.MeshPhysicalMaterial({ color: 0xd9eeff, metalness: 0, roughness: 0.05, transparent: true, opacity: 0.12, depthWrite: false, side: THREE.DoubleSide, clippingPlanes: planosCorte }),
+  hi: M({ color: 0xdde3ea, metalness: 0.75, roughness: 0.22 }),
+  mid: M({ color: 0xb4bdc7, metalness: 0.68, roughness: 0.28 }),
+  lo: M({ color: 0x7e8996, metalness: 0.58, roughness: 0.40 }),
+  pintado: M({ color: 0xdcdfda, metalness: 0.05, roughness: 0.52 }),
+  oscuro: M({ color: 0x22252a, metalness: 0.25, roughness: 0.50 }),
+  motor: M({ color: 0x1d4ed8, metalness: 0.45, roughness: 0.30 }),
+  papel: M({ color: 0xfcfbf7, metalness: 0, roughness: 0.85 }),
+  bobina: M({ color: 0xf5f1e6, metalness: 0, roughness: 0.82 }),
+  lona: M({ color: 0x1a6b39, metalness: 0.02, roughness: 0.88 }),
+  negro: M({ color: 0x1c1e21, metalness: 0.12, roughness: 0.65 }),
+  aislante: M({ color: 0xc8964e, metalness: 0, roughness: 0.65 }),
+  cobre: M({ color: 0xd8782f, metalness: 0.80, roughness: 0.24 }),
+  valvula: M({ color: 0x2563eb, metalness: 0.22, roughness: 0.36 }),
+  sensor: M({ color: 0xd6b25c, metalness: 0.82, roughness: 0.22 }),
+  pantalla: M({ color: 0x090d16, metalness: 0.3, roughness: 0.16, emissive: 0x1d4ed8, emissiveIntensity: 0.55 }),
+  seta: M({ color: 0xe3262a, metalness: 0.08, roughness: 0.35 }),
+  vidrio: new THREE.MeshPhysicalMaterial({ color: 0xddf2ff, metalness: 0.02, roughness: 0.06, transmission: 0.82, ior: 1.49, thickness: 1.6, transparent: true, opacity: 0.22, depthWrite: false, side: THREE.DoubleSide, clippingPlanes: planosCorte }),
   led: new THREE.MeshStandardMaterial({ color: 0x2e7d32, emissive: 0x43d65a, emissiveIntensity: 0.35, clippingPlanes: planosCorte }),
   ledOn: new THREE.MeshStandardMaterial({ color: 0xffb020, emissive: 0xffa000, emissiveIntensity: 2.2, clippingPlanes: planosCorte }),
-  perno: M({ color: 0x8c939b, metalness: 0.8, roughness: 0.28 }),
-  // materiales de la maquina real (fotos): inox cepillado, aluminio, acero pardo de las planchas…
-  inox: M({ color: 0xd0d7de, metalness: 0.82, roughness: 0.25 }),
-  alu: M({ color: 0xeaeef2, metalness: 0.55, roughness: 0.3 }),
-  caliente: M({ color: 0x8c4f2b, metalness: 0.55, roughness: 0.44 }),
-  fundicion: M({ color: 0x3e4550, metalness: 0.4, roughness: 0.55 }),
-  bronce: M({ color: 0xc5933e, metalness: 0.72, roughness: 0.32 }),
-  laton: M({ color: 0xd9b44a, metalness: 0.8, roughness: 0.25 }),
-  cromo: M({ color: 0xeef1f4, metalness: 0.92, roughness: 0.14 }),
-  crema: M({ color: 0xf1e4c3, metalness: 0, roughness: 0.55 }),
-  ptfe: M({ color: 0xf3f1ea, metalness: 0, roughness: 0.5 }),
-  caucho: M({ color: 0x1c1d1f, metalness: 0, roughness: 0.85 }),
-  euchner: M({ color: 0xe63b2e, metalness: 0.1, roughness: 0.4 }),
-  m12: M({ color: 0x22b14c, metalness: 0.1, roughness: 0.45 }),
-  harting: M({ color: 0x9aa1a8, metalness: 0.3, roughness: 0.5 }),
-  manguera: M({ color: 0x2196f3, metalness: 0, roughness: 0.4 }),
-  conduit: M({ color: 0x8d949b, metalness: 0.2, roughness: 0.6 }),
-  reten: M({ color: 0x2c74c9, metalness: 0.1, roughness: 0.5 }),
-  champan: M({ color: 0xb99f68, metalness: 0.6, roughness: 0.35 }),
-  riel: M({ color: 0xb9bec3, metalness: 0.8, roughness: 0.3 }),
+  perno: M({ color: 0x939ba4, metalness: 0.85, roughness: 0.22 }),
+  // materiales de la maquina real (fotos y manual Schmucker MS235)
+  inox: M({ color: 0xdde3ea, metalness: 0.88, roughness: 0.20 }),
+  alu: M({ color: 0xebf0f5, metalness: 0.78, roughness: 0.24 }),
+  caliente: M({ color: 0xa85a32, metalness: 0.68, roughness: 0.32, emissive: 0x4a1805, emissiveIntensity: 0.35 }),
+  fundicion: M({ color: 0x3e4550, metalness: 0.45, roughness: 0.50 }),
+  bronce: M({ color: 0xc99742, metalness: 0.75, roughness: 0.28 }),
+  laton: M({ color: 0xdfba4e, metalness: 0.82, roughness: 0.22 }),
+  cromo: M({ color: 0xf8fafc, metalness: 0.98, roughness: 0.04 }),
+  crema: M({ color: 0xf3e8cb, metalness: 0, roughness: 0.50 }),
+  ptfe: M({ color: 0xf8f7f2, metalness: 0, roughness: 0.45 }),
+  caucho: M({ color: 0x18191b, metalness: 0.05, roughness: 0.85 }),
+  euchner: M({ color: 0xdc2626, metalness: 0.05, roughness: 0.35 }),
+  m12: M({ color: 0x16a34a, metalness: 0.1, roughness: 0.40 }),
+  harting: M({ color: 0x94a3b8, metalness: 0.35, roughness: 0.45 }),
+  manguera: M({ color: 0x0284c7, metalness: 0.08, roughness: 0.34 }),
+  conduit: M({ color: 0x8d949b, metalness: 0.25, roughness: 0.55 }),
+  reten: M({ color: 0x2563eb, metalness: 0.1, roughness: 0.45 }),
+  champan: M({ color: 0xb99f68, metalness: 0.65, roughness: 0.32 }),
+  riel: M({ color: 0xc4c9ce, metalness: 0.82, roughness: 0.25 }),
   canaleta: M({ color: 0x9aa3ab, metalness: 0, roughness: 0.65 }),
   breaker: M({ color: 0xf4f4f0, metalness: 0, roughness: 0.5 }),
   rele: M({ color: 0x3d4a57, metalness: 0.05, roughness: 0.5 }),
   plc: M({ color: 0x9fa6ad, metalness: 0.15, roughness: 0.5 }),
   borne: M({ color: 0x8e979e, metalness: 0, roughness: 0.6 }),
-  borneAzul: M({ color: 0x3a74c4, metalness: 0, roughness: 0.6 }),
-  borneTierra: M({ color: 0x5fa83a, metalness: 0, roughness: 0.6 }),
-  palanca: M({ color: 0x2b2e33, metalness: 0.1, roughness: 0.5 }),
-  hiloAzul: M({ color: 0x1f5fbf, metalness: 0, roughness: 0.6 }),
-  hiloNegro: M({ color: 0x202226, metalness: 0, roughness: 0.6 }),
-  hiloRojo: M({ color: 0xb3261e, metalness: 0, roughness: 0.6 }),
-  amarillo: M({ color: 0xf2c200, metalness: 0.05, roughness: 0.5 }),
-  maneta: M({ color: 0xc8202a, metalness: 0.05, roughness: 0.45 }),
+  borneAzul: M({ color: 0x2563eb, metalness: 0.6, roughness: 0.6 }),
+  borneTierra: M({ color: 0x65a30d, metalness: 0, roughness: 0.6 }),
+  palanca: M({ color: 0x22252a, metalness: 0.1, roughness: 0.5 }),
+  hiloAzul: M({ color: 0x1d4ed8, metalness: 0, roughness: 0.6 }),
+  hiloNegro: M({ color: 0x18191b, metalness: 0, roughness: 0.6 }),
+  hiloRojo: M({ color: 0xdc2626, metalness: 0, roughness: 0.6 }),
+  amarillo: M({ color: 0xeab308, metalness: 0.05, roughness: 0.5 }),
+  maneta: M({ color: 0xdc2626, metalness: 0.05, roughness: 0.40 }),
 };
 const ARISTA = new THREE.LineBasicMaterial({ color: 0x1f2328, transparent: true, opacity: 0.32, clippingPlanes: planosCorte });
 const ARISTA_SEL = new THREE.LineBasicMaterial({ color: 0x1f6feb, transparent: true, opacity: 0.9, clippingPlanes: planosCorte });
@@ -186,14 +214,19 @@ function materialDe(it) {
   if (it.c === "cable" || it.c === "correa" || it.c === "cadena") return MAT.negro;
   if (/motor(-[a-z]+)?$|motor-bornes|\.motor-|-bornes$/.test(n) && !/eje-motor|polea-motor|pie-motor|escuadra-motor|soporte-motor/.test(n)) return MAT.motor;
   if (/armario\.(cuerpo|zocalo)|hmi\.panel|carter\.(trasera|tapa)/.test(n)) return MAT.pintado;
-  // la maquina real es de inox cepillado (pared, base, cubiertas) con perfiles de resguardo champan
-  if (/^bastidor\.(pared|base|lateral|tapa-inspeccion|bandeja|viga)|^salida\.(larguero|pata|travesano)/.test(n)) return MAT.inox;
+  // Piezas de acero inoxidable pulido / cepillado
+  if (/^bastidor\.(pared|base|lateral|tapa-inspeccion|bandeja|viga)|^salida\.(larguero|pata|travesano|deslizadero|borde-deslizadero|bandeja)|^dosificacion\.tolva/.test(n)) return MAT.inox;
   if (/^resguardos\.(poste|travesano|larguero|perfil)/.test(n)) return MAT.champan;
   if (/^guias\.rodillo|^desbobinado\.rodillo(?!-motorizado)/.test(n)) return MAT.crema;
-  if (/^guias\.(giro|barra-A|barra-B)/.test(n)) return MAT.cromo;
+  // Acero templado rectificado cromo / guías / cuchillas de corte
+  if (/^guias\.(giro|barra-A|barra-B)|^corte\.(cuchilla|eje|disco-cartucho|anillo)|^desbobinado\.cuchilla|^arrastre\.(rodillo|eje)|^pinzas\.(vastago|barra-derecha)|cilindro.*vastago/.test(n)) return MAT.cromo;
+  if (/^bobina\.(cono|eje)/.test(n)) return MAT.alu;
+  if (/^pinzas\.goma/.test(n)) return MAT.caucho;
+  if (/^soldadura\.(placa-soldante|bloque-calefactor)/.test(n)) return MAT.caliente;
   if (/conector/.test(n)) return MAT.harting;
   if (/electrovalvula/.test(n)) return MAT.valvula;
-  if (/bobina-ev|bisagra|muelle-gas|manilla|tirador|euchner|pata-disco/.test(n)) return MAT.oscuro;
+  if (/bobina-ev|bisagra|muelle-gas|manilla|tirador|pata-disco/.test(n)) return MAT.oscuro;
+  if (/euchner/.test(n)) return MAT.euchner;
   if (/aislante/.test(n)) return MAT.aislante;
   if (/resistencia/.test(n)) return MAT.cobre;
   if (/membrana|fieltro|ventilador/.test(n)) return MAT.oscuro;
@@ -1152,6 +1185,10 @@ function pasoSim(dt) {
     cinta: (sim.ciclos + u) * 50,
   };
   aplicarAnim(ev, true);
+  // Simulación térmica dinámica de las mordazas y placas soldantes (Calibrado p.20)
+  if (MAT.caliente) {
+    MAT.caliente.emissiveIntensity = 0.28 + 0.62 * ev.fCierre;
+  }
   if (sim.activa && !sim.pausa) pasoFisica(dt);
   // LEDs de los sensores que estan en el ciclo
   const on = new Set(SENALES.filter((s) => s.on(u)).map((s) => s.tag));
@@ -1191,6 +1228,7 @@ function pararSim() {
   sim.solo = null;
   aplicarAnim(hayManual() ? reposo() : null, hayManual());
   limpiarFisica();
+  if (MAT.caliente) MAT.caliente.emissiveIntensity = 0.35;
   for (const m of mallas) if (m.userData.led) m.userData.led.material = MAT.led;
   escena3.removeAttribute("data-sim");
   $(".g3-senales").hidden = true;
@@ -1414,7 +1452,12 @@ function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null
   if (pestana) seleccion.pestana = pestana;
   else if (cambia) seleccion.pestana = sensor ? "sensores" : "resumen";
   pintarCables();
-  $$(".gm-parte").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.pieza === pieza)));
+  $$(".gm-parte").forEach((b) => {
+    const activo = b.dataset.pieza === pieza;
+    b.setAttribute("aria-pressed", String(activo));
+    b.classList.toggle("es-activo", activo);
+  });
+  if (typeof actualizarDockEstado === "function") actualizarDockEstado();
   marcarArbol();
   aspecto();
   pintarPanel();
