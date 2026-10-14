@@ -588,6 +588,56 @@
     </aside>`;
   }
 
+  function seccionDocumentacion() {
+    if (typeof machines === "undefined" || typeof PLAN_EQUIPOS === "undefined") return "";
+    const total = machines.length;
+    const completas = machines.filter((m) => !m.fromRegistry);
+    const basicas = total - completas.length;
+    const conManual = machines.filter((m) => (m.documents ?? []).some((d) => d.file));
+    const conPlan = PLAN_EQUIPOS.filter((e) => e.r && e.r.length);
+    const retrasados = conPlan.reduce((n, e) => n + e.r.filter((r) => (r.xls || {}).st === "RETRASADO").length, 0);
+    const sinStock = conPlan.reduce((n, e) => n + e.r.filter((r) => {
+      const v = (typeof datosRep !== "undefined" && typeof datoClave === "function") ? datosRep[datoClave(e, r)] : null;
+      return Number(v && v.exist !== undefined ? v.exist : r.e) === 0;
+    }).length, 0);
+    const sinCodigo = conPlan.reduce((n, e) => n + e.r.filter((r) => !(typeof repCodigo === "function" ? repCodigo(e, r) : r.cod)).length, 0);
+
+    const porDocumentar = conPlan
+      .filter((e) => !machines.some((m) => m.id === e.id && !m.fromRegistry))
+      .sort((a, b) => b.r.length - a.r.length)
+      .slice(0, 8);
+    const maxRep = Math.max(1, ...porDocumentar.map((e) => e.r.length));
+    const escStr = (v) => String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+    return `
+      <h3 class="ki-sec">Estado de la documentación de equipos</h3>
+      <div class="ki-duo">
+        <div class="ki-panel">
+          <h4>Avance de fichas y repuestos</h4>
+          <div class="hy-stats hy-stats--4" style="margin-top:12px">
+            <button class="hy-stat" type="button" onclick="window.SHELL?.ir('home'); setTimeout(() => window.homeFiltrar?.('completa'), 50);"><span class="hy-stat__t">Con ficha completa</span><b class="hy-stat__n">${completas.length}</b></button>
+            <button class="hy-stat" type="button" onclick="window.SHELL?.ir('home');"><span class="hy-stat__t">Solo ficha básica</span><b class="hy-stat__n">${basicas}</b></button>
+            <button class="hy-stat" type="button" onclick="window.SHELL?.ir('home');"><span class="hy-stat__t">Con manual descargable</span><b class="hy-stat__n">${conManual.length}</b></button>
+            <button class="hy-stat" type="button" onclick="window.goPlan?.();"><span class="hy-stat__t">Con plan de repuestos</span><b class="hy-stat__n">${conPlan.length}</b></button>
+            <button class="hy-stat ${sinStock ? "is-bad" : ""}" type="button" onclick="window.planSetFilter?.('sinStock', true); window.goPlan?.();"><span class="hy-stat__t">Repuestos sin stock</span><b class="hy-stat__n">${sinStock}</b></button>
+            <button class="hy-stat ${retrasados ? "is-bad" : ""}" type="button" onclick="window.goPlan?.();"><span class="hy-stat__t">Retrasados según Excel</span><b class="hy-stat__n">${retrasados}</b></button>
+            <button class="hy-stat" type="button" onclick="window.goPlan?.();"><span class="hy-stat__t">Repuestos sin código</span><b class="hy-stat__n">${sinCodigo}</b></button>
+          </div>
+        </div>
+        <div class="ki-panel">
+          <h4>Qué documentar primero <small>piden repuestos en el plan pero no tienen ficha</small></h4>
+          ${porDocumentar.length ? `<div class="ux-hbars" style="margin-top:12px">
+            ${porDocumentar.map((e) => `<button class="ux-hbar" type="button" onclick="window.openDetail ? window.openDetail('${escStr(e.id)}') : (window.SHELL?.ir('home'))" title="Código ${escStr(e.c)}${e.u ? " · " + escStr(e.u) : ""}">
+              <span class="ux-hbar__t">${escStr(e.n)}</span>
+              <span class="ux-hbar__v">${e.r.length} <small>repuestos</small></span>
+              <span class="ux-progress"><i style="width:${Math.max(4, Math.round((e.r.length / maxRep) * 100))}%"></i></span>
+            </button>`).join("")}
+          </div>` : '<div class="ux-empty"><h4>Todo documentado</h4></div>'}
+        </div>
+      </div>
+    `;
+  }
+
   // ------------------------------------------------------------------------
   //  Render
   // ------------------------------------------------------------------------
@@ -651,6 +701,8 @@
       </div>
 
       <div class="ki-panel ki-panel--calor"><h4>Mapa de calor · fallas por máquina y semana</h4>${mapaCalor(res)}</div>
+
+      ${seccionDocumentacion()}
 
       ${tablaFiltro(res)}
 

@@ -668,20 +668,8 @@ ${buildMachineContext(machine)}`;
         return m.fromRegistry ? "Por registrar" : "Industrial";
       }
 
-      function homeSeleccionar(id, forzarAbrirModal) {
-        if (window.innerWidth < 1024 || forzarAbrirModal) {
-          openDetail(id);
-          return;
-        }
-        homeSeleccionadoId = id;
-        document.querySelectorAll("#homeLista .eq-fila").forEach((el) => {
-          el.classList.toggle("is-selected", el.dataset.id === id);
-        });
-        const m = machines.find((x) => x.id === id);
-        const prev = document.getElementById("homePreview");
-        if (prev && m) {
-          prev.innerHTML = renderHomePreviewHtml(m);
-        }
+      function homeSeleccionar(id) {
+        openDetail(id);
       }
       window.homeSeleccionar = homeSeleccionar;
 
@@ -810,6 +798,11 @@ ${buildMachineContext(machine)}`;
         `;
       }
 
+      function planEsc(v) {
+        if (typeof window.planEsc === "function") return window.planEsc(v);
+        return String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+      }
+
       function renderHomeLista() {
         const box = document.getElementById("homeLista");
         if (!box) return;
@@ -820,39 +813,31 @@ ${buildMachineContext(machine)}`;
         if (cuenta) cuenta.textContent = `${lista.length} ${lista.length === 1 ? "equipo" : "equipos"}`;
         const planHits = currentQuery ? planCountFor(currentQuery) : 0;
 
-        if (!ver.some((m) => m.id === homeSeleccionadoId)) {
-          homeSeleccionadoId = ver[0] ? ver[0].id : null;
-        }
-        const maquinaSeleccionada = machines.find((m) => m.id === homeSeleccionadoId) || ver[0] || null;
-
         box.innerHTML = `
           ${planHits ? `<button class="eq-plan" type="button" data-q="${planEsc(currentQuery)}" onclick="goPlan(this.dataset.q)">${ic("plan")}<span><b>${planHits}</b> ${planHits === 1 ? "línea" : "líneas"} del plan de mantenimiento ${planHits === 1 ? "coincide" : "coinciden"} con «${planEsc(currentQuery)}»</span>${ic("der", "ic--sm")}</button>` : ""}
           ${ver.length ? `
-            <div class="eq-master-detail">
-              <div class="eq-master-detail__list">
-                <div class="eq-lista" role="list">
-                  ${ver.map((m) => {
-                    const cod = homeCodigoDe(m);
-                    const sede = homeSedeDe(m);
-                    const tipo = homeTipoDe(m);
-                    const isSel = m.id === homeSeleccionadoId;
-                    return `<button class="eq-fila ${isSel ? "is-selected" : ""}" type="button" role="listitem" data-id="${planEsc(m.id)}" onclick="homeSeleccionar('${planEsc(m.id)}')" ondblclick="openDetail('${planEsc(m.id)}')">
-                      <span class="eq-fila__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ic("equipos")}</span>
-                      <span class="eq-fila__t"><b>${planEsc(m.model || m.name)}</b><small>${planEsc(m.name !== m.model ? m.name : m.area)}</small></span>
-                      <span class="eq-fila__c">${cod ? `<code>${cod}</code>` : ""}</span>
-                      <span class="eq-fila__s">${planEsc([sede, tipo].filter(Boolean).join(" · "))}</span>
-                      <span class="eq-fila__f">${m.fromRegistry ? "Básica" : '<i class="is-ok"></i>Ficha completa'}</span>
-                      <span class="eq-fila__go" role="button" title="Abrir ficha técnica" onclick="event.stopPropagation(); openDetail('${planEsc(m.id)}')">${ic("der", "ic--sm")}</span>
-                    </button>`;
-                  }).join("")}
-                </div>
-                ${lista.length > ver.length ? `<button class="ux-btn ux-btn--block" type="button" onclick="homeVerMas()">Ver los ${lista.length - ver.length} restantes</button>` : ""}
-              </div>
-
-              <aside class="eq-master-detail__preview" id="homePreview">
-                ${maquinaSeleccionada ? renderHomePreviewHtml(maquinaSeleccionada) : ""}
-              </aside>
+            <div class="eq-lista" role="list">
+              ${ver.map((m) => {
+                const cod = homeCodigoDe(m) || m.equipoCod || "";
+                const sede = homeSedeDe(m);
+                const tipo = homeTipoDe(m);
+                const isCompleta = !m.fromRegistry;
+                const descSecundaria = m.name !== m.model ? m.name : (m.area || "");
+                const subtitulo = [cod ? `Cód: ${cod}` : "", descSecundaria].filter(Boolean).join(" · ");
+                return `<button class="eq-fila ${isCompleta ? "is-completa" : ""}" type="button" role="listitem" data-id="${planEsc(m.id)}" onclick="openDetail('${planEsc(m.id)}')">
+                  <span class="eq-fila__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ic("equipos")}</span>
+                  <span class="eq-fila__t">
+                    <b>${planEsc(m.model || m.name)}</b>
+                    <small>${planEsc(subtitulo)}</small>
+                  </span>
+                  <span class="eq-fila__c">${cod ? `<code>${planEsc(cod)}</code>` : ""}</span>
+                  <span class="eq-fila__s">${planEsc([sede, tipo].filter(Boolean).join(" · "))}</span>
+                  <span class="eq-fila__f">${isCompleta ? '<i class="is-ok"></i>Ficha completa' : "Básica"}</span>
+                  <span class="eq-fila__go" aria-hidden="true">${ic("der", "ic--sm")}</span>
+                </button>`;
+              }).join("")}
             </div>
+            ${lista.length > ver.length ? `<button class="ux-btn ux-btn--block" type="button" onclick="homeVerMas()">Ver los ${lista.length - ver.length} restantes</button>` : ""}
           ` : `<div class="ux-empty"><h4>Ningún equipo coincide</h4><p>Prueba con otro nombre, modelo o código, o quita los filtros.</p></div>`}
         `;
       }
@@ -866,79 +851,28 @@ ${buildMachineContext(machine)}`;
         });
         renderHomeLista();
       }
+      window.homeFiltrar = homeFiltrar;
+      window.renderHome = renderHome;
+      window.renderHomeLista = renderHomeLista;
 
       function renderHome() {
         const root = document.getElementById("homeDash");
         if (!root) return;
         const s = homeResumen();
-        const basicas = s.total - s.completas.length;
         const ic = (n, c) => (window.IC ? IC(n, c) : "");
         const sub = document.getElementById("homeSub");
         if (sub) sub.textContent = `${s.total} equipos · ${s.completas.length} con ficha completa`;
 
-        const porDocumentar = s.conPlan
-          .filter((e) => !machines.some((m) => m.id === e.id && !m.fromRegistry))
-          .sort((a, b) => b.r.length - a.r.length)
-          .slice(0, 8);
-        const maxRep = Math.max(1, ...porDocumentar.map((e) => e.r.length));
         const seg = (k, opciones) => `<div class="ux-seg">${opciones.map(([v, t]) => `<button type="button" data-hf="${k}:${v}" class="${homeFiltro[k] === v ? "is-on" : ""}" onclick="homeFiltrar('${k}', '${v}')">${t}</button>`).join("")}</div>`;
-        const cifra = (n, t, accion, tono) => `<button class="hy-stat ${tono || ""}" type="button" onclick="${accion}"><span class="hy-stat__t">${t}</span><b class="hy-stat__n">${Number(n).toLocaleString("es-CO")}</b></button>`;
 
         root.innerHTML = `
-          <div class="ux-page">
-            <div class="eq-filtros">
-              ${seg("sede", [["", "Todas"], ["Sede 4", "Sede 4"], ["Planta 2", "Planta 2"]])}
-              ${seg("tipo", [["", "Todos"], ["Proceso", "Proceso"], ["Auxiliar", "Auxiliar"]])}
-              <button class="ux-chip ${homeFiltro.completa ? "is-on" : ""}" type="button" data-hf="completa:1" onclick="homeFiltrar('completa')">Solo fichas completas</button>
-              <span class="eq-cuenta" id="homeCuenta"></span>
-            </div>
+          <div class="eq-filtros">
+            ${seg("sede", [["", "Todas"], ["Sede 4", "Sede 4"], ["Planta 2", "Planta 2"]])}
+            ${seg("tipo", [["", "Todos"], ["Proceso", "Proceso"], ["Auxiliar", "Auxiliar"]])}
+            <button class="ux-chip ${homeFiltro.completa ? "is-on" : ""}" type="button" data-hf="completa:1" onclick="homeFiltrar('completa')">Solo fichas completas</button>
+            <span class="eq-cuenta" id="homeCuenta"></span>
+          </div>
 
-            ${currentQuery ? "" : `<div class="eq-grid">
-              ${s.completas.map((m) => {
-                const tiene = homeFichaTiene(m);
-                const hechos = tiene.filter((t) => t.ok).length;
-                return `<button class="eq-card" type="button" onclick="openDetail('${planEsc(m.id)}')">
-                  <span class="eq-card__img">${m.image ? `<img src="${planEsc(m.image)}" alt="" loading="lazy">` : ic("equipos", "ic--lg")}</span>
-                  <span class="eq-card__body">
-                    <span class="eq-card__n">${planEsc(m.model || m.name)}</span>
-                    <span class="eq-card__s">${planEsc(m.name)}</span>
-                    <span class="ux-progress" title="${tiene.filter((t) => !t.ok).map((t) => "Falta: " + t.k).join(" · ") || "Completa"}"><i style="width:${Math.round((hechos / tiene.length) * 100)}%"></i></span>
-                  </span>
-                </button>`;
-              }).join("")}
-            </div>`}
-
-            <div id="homeLista"></div>
-
-            <div class="ux-grid ux-grid--main">
-              <section class="ux-card">
-                <div class="ux-card__head"><div><h2 class="ux-card__title">Documentación</h2></div></div>
-                <div class="hy-stats hy-stats--4">
-                  ${cifra(s.completas.length, "Con ficha completa", "homeFiltrar('completa')")}
-                  ${cifra(basicas, "Solo ficha básica", "goResults()")}
-                  ${cifra(s.conManual.length, "Con manual descargable", "goResults()")}
-                  ${cifra(s.conPlan.length, "Con plan de repuestos", "goPlan()")}
-                  ${cifra(s.sinStock, "Repuestos sin existencia", "planSetFilter('sinStock', true); goPlan();", s.sinStock ? "is-bad" : "")}
-                  ${cifra(s.retrasados, "Retrasados según el Excel", "goPlan()", s.retrasados ? "is-bad" : "")}
-                  ${cifra(s.sinCodigo, "Repuestos sin código", "goPlan()")}
-                  ${cifra(s.cambiosReg, "Cambios registrados", "goPlan()")}
-                </div>
-              </section>
-
-              <section class="ux-card">
-                <div class="ux-card__head">
-                  <div><h2 class="ux-card__title">Qué documentar primero</h2>
-                  <p class="ux-card__sub">Piden repuestos en el plan pero no tienen ficha</p></div>
-                </div>
-                ${porDocumentar.length ? `<div class="ux-hbars">
-                  ${porDocumentar.map((e) => `<button class="ux-hbar" type="button" onclick="openDetail('${planEsc(e.id)}')" title="Código ${planEsc(e.c)}${e.u ? " · " + planEsc(e.u) : ""}">
-                    <span class="ux-hbar__t">${planEsc(e.n)}</span>
-                    <span class="ux-hbar__v">${e.r.length} <small>repuestos</small></span>
-                    <span class="ux-progress"><i style="width:${Math.max(4, Math.round((e.r.length / maxRep) * 100))}%"></i></span>
-                  </button>`).join("")}
-                </div>` : '<div class="ux-empty"><h4>Todo documentado</h4></div>'}
-              </section>
-            </div>
-          </div>`;
+          <div id="homeLista"></div>`;
         renderHomeLista();
       }
