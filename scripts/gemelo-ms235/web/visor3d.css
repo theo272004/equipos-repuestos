@@ -64,3 +64,16 @@ body[data-solo] .g3-escena { height: 100vh; }
 
 /* Colores por conjunto: la leyenda lleva el color de cada uno */
 .gm-parte[style*="--conj"] .gm-parte__num { background: var(--conj); color: #fff; border-radius: 4px; padding: 3px 0; text-align: center; text-shadow: 0 1px 1px #0006; }
+
+/* Barra flotante para desarmar lo elegido */
+.g3-despiece {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; gap: 6px; align-items: center;
+  padding: 6px 8px 6px 12px; border-radius: 12px; background: var(--gm-card); border: 1px solid var(--gm-line); box-shadow: 0 8px 22px #0003;
+  font-size: 12.5px; max-width: calc(100% - 24px); flex-wrap: wrap;
+}
+.g3-despiece[hidden] { display: none; }
+.g3-despiece__tit { font-weight: 600; color: var(--gm-ink); margin-right: 4px; max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.g3-despiece button { border: 1px solid var(--gm-line); background: var(--gm-card); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; color: var(--gm-text); }
+.g3-despiece button[aria-pressed="true"] { background: var(--gm-ink); color: var(--gm-card); border-color: var(--gm-ink); }
+.g3-despiece input[type="range"] { width: 140px; }
+body[data-solo] .g3-despiece { display: none !important; }

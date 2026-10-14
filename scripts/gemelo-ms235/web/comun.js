@@ -225,11 +225,11 @@ function panelPieza(id) {
     const hojas = gruposDe(id).flatMap(([cod, g]) => g.hojas.map((h, i) => [cod, i, h.tav]));
     const lamina = (tav) => hojas.find(([, , t]) => t === tav);
     cuerpo = `<p class="gm-nota" style="margin-top:12px">Primero se separan los subconjuntos y después cada pieza, como en las láminas del catálogo. Toca un subconjunto para resaltarlo.</p>
-      <p class="gm-mover">${[[0, "Armado"], [1, "Subconjuntos"], [2, "Pieza por pieza"]].map(([n, t]) => `<button type="button" class="gm-btn" data-despiece="${n}" aria-pressed="${dp.nivel === n}">${t}</button>`).join("")}</p>
+      <p class="gm-mover">${(dp.auto ? [[0, "Armado"], [2, "Desarmado"]] : [[0, "Armado"], [1, "Subconjuntos"], [2, "Pieza por pieza"]]).map(([n, t]) => `<button type="button" class="gm-btn" data-despiece="${n}" aria-pressed="${dp.nivel === n}">${t}</button>`).join("")}</p>
       <ul class="gm-lista" style="margin-top:10px">${dp.subs
         .map((sb) => {
           const l = lamina(sb.lamina);
-          return `<li><div class="gm-fila${seleccion.sub === sb.id ? " gm-fila--activa" : ""}"><button type="button" class="gm-fila__boton-sub" data-sub="${esc(sb.id)}"><span class="gm-fila__tit">${esc(sb.nombre)}</span> <span class="gm-mono gm-fila__meta">${esc(sb.lamina ?? "")}</span></button>${l ? ` <button type="button" class="gm-sigla" data-hoja="${esc(l[0])}|${l[1]}">ver lámina</button>` : ""}
+          return `<li><div class="gm-fila${sb.id && seleccion.sub === sb.id ? " gm-fila--activa" : ""}"><button type="button" class="gm-fila__boton-sub" ${sb.id ? `data-sub="${esc(sb.id)}"` : ""}><span class="gm-fila__tit">${esc(sb.nombre)}</span> <span class="gm-mono gm-fila__meta">${esc(sb.lamina ?? "")}</span></button>${l ? ` <button type="button" class="gm-sigla" data-hoja="${esc(l[0])}|${l[1]}">ver lámina</button>` : ""}
             <div class="gm-fila__meta" style="margin-top:4px">${sb.piezas.map(([nombre, cod, n]) => `${esc(nombre)}${n > 1 ? ` ×${n}` : ""}${cod ? ` <a class="gm-mono" href="${app({ v: "almacen", q: cod })}" target="_top" title="Buscar en almacén">${esc(cod)}</a>` : ""}`).join(" · ")}</div></div></li>`;
         })
         .join("")}</ul>`;

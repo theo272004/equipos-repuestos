@@ -672,11 +672,36 @@ const SUBCONJUNTOS = {
   codificador: ["Codificador de lote", "S4M14100110", "S4M14100110"],
   sensores: ["Sensores del sellado", "S4M14100110", "S4M14100110"],
 };
-const tieneDespiece = (pieza) => mallas.some((m) => m.userData.pieza === pieza && m.userData.it.e1);
+const tieneDespiece = (pieza) => !!pieza && mallas.some((m) => m.userData.pieza === pieza);
+const despieceCurado = (pieza) => mallas.some((m) => m.userData.pieza === pieza && m.userData.it.e1);
+// despiece automatico: cada pieza se aleja del centro del conjunto (nivel 1 poco, nivel 2 mas)
+function prepararDespieceAuto(pieza) {
+  const propias = [...mallas, ...instancias].filter((m) => m.userData.pieza === pieza);
+  const caja = new THREE.Box3();
+  const centros = new Map();
+  for (const m of propias) {
+    let c;
+    if (m.isInstancedMesh) c = T(m.userData.centro ?? [0, 0, 0]);
+    else {
+      m.geometry.computeBoundingBox();
+      c = m.geometry.boundingBox.getCenter(new THREE.Vector3());
+    }
+    centros.set(m, c);
+    caja.expandByPoint(c);
+  }
+  const centro = caja.getCenter(new THREE.Vector3());
+  const tam = caja.getSize(new THREE.Vector3()).length() || 1;
+  for (const m of propias) {
+    const d = centros.get(m).clone().sub(centro);
+    // un poco mas hacia arriba y hacia el frente, para que no se tapen
+    d.y += 0.15 * d.length();
+    m.userData.autoExp = d.multiplyScalar(Math.min(1.2, 120 / tam));
+  }
+}
 function desplazamientoDespiece(u, t) {
   const e1 = u.e1 ?? u.it?.e1;
   const e2 = u.e2 ?? u.it?.e2;
-  if (!e1 && !e2) return null;
+  if (!e1 && !e2) return u.autoExp && !despiece.curado ? u.autoExp.clone().multiplyScalar(t * 0.6) : null;
   const a = Math.min(1, t);
   const b = Math.max(0, t - 1);
   const v = [0, 1, 2].map((i) => (e1?.[i] ?? 0) * a + (e2?.[i] ?? 0) * b);
@@ -697,6 +722,13 @@ function pintarDespiece() {
 function despiezar(nivel) {
   const pieza = seleccion.pieza;
   if (!pieza || !tieneDespiece(pieza)) return;
+  // si habia otro conjunto desarmado, vuelve a su sitio
+  if (despiece.pieza && despiece.pieza !== pieza) {
+    despiece.t = 0;
+    pintarDespiece();
+  }
+  despiece.curado = despieceCurado(pieza);
+  if (!despiece.curado) prepararDespieceAuto(pieza);
   if (sim.activa) pararSim();
   for (const k of Object.keys(manualMeta)) manualMeta[k] = manual[k] = 0;
   if (paso !== 0) irAPaso(0, { seleccionar: false, inmediato: true });
@@ -717,8 +749,41 @@ function despiezar(nivel) {
   }
   if (!b.isEmpty()) encuadrar(b.expandByScalar(15));
   pintarPanel();
+  pintarBarraDespiece();
   pedirCuadro();
 }
+// barra flotante en la escena para desarmar lo elegido
+const barraDespiece = document.createElement("div");
+barraDespiece.className = "g3-despiece";
+barraDespiece.hidden = true;
+escena3.appendChild(barraDespiece);
+function pintarBarraDespiece() {
+  const pieza = seleccion.pieza;
+  if (!pieza || !tieneDespiece(pieza)) {
+    barraDespiece.hidden = true;
+    return;
+  }
+  barraDespiece.hidden = false;
+  const nivel = despiece.pieza === pieza ? despiece.meta : 0;
+  const curado = despieceCurado(pieza);
+  barraDespiece.innerHTML = `<span class="g3-despiece__tit">${esc(D.piezas[pieza]?.nombre ?? pieza)}</span>
+    <button type="button" data-despiece="${nivel > 0 ? 0 : curado ? 1 : 2}" aria-pressed="${nivel > 0}">${nivel > 0 ? "Armar" : "Desarmar"}</button>
+    ${curado ? `<button type="button" data-despiece="1" aria-pressed="${nivel === 1}">Subconjuntos</button><button type="button" data-despiece="2" aria-pressed="${nivel === 2}">Pieza por pieza</button>` : ""}
+    <input type="range" min="0" max="200" value="${Math.round(nivel * 100)}" data-rango-despiece aria-label="Cuánto se desarma">`;
+}
+barraDespiece.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-despiece]");
+  if (b) despiezar(Number(b.dataset.despiece));
+});
+barraDespiece.addEventListener("input", (e) => {
+  const rg = e.target.closest("[data-rango-despiece]");
+  if (!rg) return;
+  const v = Number(rg.value) / 100;
+  if (despiece.pieza !== seleccion.pieza || despiece.meta === 0) despiezar(v);
+  despiece.meta = v;
+  aislar = v > 0;
+  pedirCuadro();
+});
 function moverDespiece(dt) {
   if (despiece.pieza === null) return false;
   const falta = despiece.meta - despiece.t;
@@ -740,6 +805,11 @@ function moverDespiece(dt) {
 // datos para el panel: subconjuntos con sus piezas y codigos
 function despieceDe(pieza) {
   if (!tieneDespiece(pieza)) return null;
+  if (!despieceCurado(pieza)) {
+    const piezas = new Map();
+    for (const m of mallas) if (m.userData.pieza === pieza) piezas.set(legible(m.userData.parte), (piezas.get(legible(m.userData.parte)) ?? 0) + 1);
+    return { nivel: despiece.pieza === pieza ? despiece.meta : 0, auto: true, subs: [{ id: "", nombre: "Piezas del conjunto", piezas: [...piezas.entries()].map(([nm, n]) => [nm, "", n]) }] };
+  }
   const subs = new Map();
   for (const m of mallas) {
     const it = m.userData.it;
@@ -1193,6 +1263,7 @@ function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null
   marcarArbol();
   aspecto();
   pintarPanel();
+  pintarBarraDespiece();
   decir();
 }
 function resaltarPieza(pieza) {
@@ -1752,6 +1823,7 @@ escena3.addEventListener("keydown", (e) => {
   else if (k === "]") irAPaso(paso + 1);
   else if (k === "[") irAPaso(paso - 1);
   else if (k === "m" || k === "M") acciones.medir();
+  else if ((k === "e" || k === "E") && seleccion.pieza) despiezar(despiece.pieza === seleccion.pieza && despiece.meta > 0 ? 0 : despieceCurado(seleccion.pieza) ? 2 : 2);
   else if (k === "Escape") {
     if (medir.activo) acciones.medir();
     else seleccionar_(null);
@@ -1891,4 +1963,4 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
   });
 historialEnVivo();
 
-window.gemelo = { irAPaso, seleccionar: seleccionar_, despiezar, despiece, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
+window.gemelo = { irAPaso, seleccionar: seleccionar_, despiezar, despiece, barraDespiece, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
