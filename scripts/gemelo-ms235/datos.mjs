@@ -40,7 +40,7 @@ const piezaDeCodigo = {};
 for (const [id, p] of Object.entries(PIEZAS)) for (const cod of p.codigos) piezaDeCodigo[cod] ??= id;
 
 // Sensores: por sigla primero, si no por zona del esquema.
-const SENSOR_SIGLA = { "B18.3": "motor", "B25.8": "motor", "B29.6": "desbobinado", "B29.7": "desbobinado", "B30.10": "fotocelula" };
+const SENSOR_SIGLA = { "B18.3": "motor", "B25.8": "motor", "B29.6": "desbobinado", "B29.7": "desbobinado", "B30.10": "fotocelula", "B42.2": "dosificacion", "B42.5": "dosificacion", "B42.6": "dosificacion" };
 const SENSOR_ZONA = {
   "Planchas soldantes": "soldadura",
   "Motor principal": "motor",

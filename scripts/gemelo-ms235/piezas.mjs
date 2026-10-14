@@ -9,7 +9,7 @@ export const PIEZAS = {
     corto: "portabobinas · eje neumático Ø74 · bobina hasta Ø500",
     codigos: ["S4M16100110", "S4A26100410", "S4A26100920", "S4A26100220", "S4A92100720", "S4A95101310"],
     desc: "La bobina de papel va en el eje neumático Ø74 (S4A26100410) sobre dos cojinetes. La correa del portabobinas frena el desbobinado; la mesa de empalme une la bobina nueva sin parar la línea.",
-    mover: [0, -230, 0],
+    mover: [0, -260, 0],
   },
   desbobinado: {
     nombre: "Desbobinado, rodillos y cuchilla de corte",

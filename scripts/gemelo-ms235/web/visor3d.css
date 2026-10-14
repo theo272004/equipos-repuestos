@@ -1,0 +1,63 @@
+/* Visor 3D: lienzo, barra de herramientas tipo CAD, arbol de piezas, seccion, medida y senales */
+.g3-barra {
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center; padding: 8px 10px; border-bottom: 1px solid var(--gm-line);
+  background: var(--gm-card);
+}
+.g3-barra .gm-grupo { pointer-events: auto; }
+.g3-barra .gm-btn { height: 30px; min-width: 30px; padding: 0 8px; font-size: 12.5px; }
+.g3-barra .gm-btn svg { width: 16px; height: 16px; }
+.g3-vistas .gm-btn { font-size: 12px; font-weight: 550; }
+.g3-escena { height: min(74vh, 840px); cursor: default; background: transparent; }
+.g3-escena[data-sim] { cursor: default; }
+.g3-lienzo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; outline: none; touch-action: none; }
+
+.g3-arbol {
+  position: absolute; top: 10px; left: 10px; bottom: 64px; width: 250px; display: none; flex-direction: column; z-index: 3;
+  background: color-mix(in srgb, var(--gm-card) 94%, transparent); border: 1px solid var(--gm-line); border-radius: 10px;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); overflow: hidden;
+}
+.g3-arbol[data-abierto] { display: flex; }
+.g3-arbol input { margin: 8px; padding: 6px 9px; border: 1px solid var(--gm-line); border-radius: 8px; background: var(--gm-card); color: var(--gm-ink); font: inherit; font-size: 12.5px; }
+.g3-arbol__lista { list-style: none; margin: 0; padding: 0 4px 8px; overflow: auto; flex: 1; font-size: 12.5px; }
+.g3-nodo ul { list-style: none; margin: 0 0 4px 26px; padding: 0; }
+.g3-nodo__cab { display: flex; align-items: center; gap: 4px; }
+.g3-ojo { border: 0; background: none; width: 22px; height: 22px; color: var(--gm-muted); cursor: pointer; font-size: 11px; }
+.g3-ojo[aria-pressed="true"] { color: var(--gm-accent); }
+.g3-nodo__nom, .g3-hoja { border: 0; background: none; text-align: left; padding: 4px 6px; border-radius: 6px; cursor: pointer; color: var(--gm-text); font: inherit; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.g3-nodo__nom:hover, .g3-hoja:hover { background: var(--gm-soft); color: var(--gm-ink); }
+.g3-nodo[data-pieza] > .g3-nodo__cab .g3-nodo__nom { font-weight: 550; }
+.g3-hoja { width: 100%; font-size: 12px; }
+.g3-hoja[aria-pressed="true"] { background: var(--gm-accent-soft); color: var(--gm-accent); }
+.g3-hoja small { color: var(--gm-muted); font-family: var(--gm-mono); }
+.g3-nodo__n { font: 10.5px var(--gm-mono); color: var(--gm-muted); padding-right: 6px; }
+
+.g3-seccion, .g3-medida {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 8px; align-items: center;
+  padding: 6px 10px; border-radius: 10px; background: var(--gm-card); border: 1px solid var(--gm-line); font-size: 12.5px; box-shadow: 0 6px 18px #0002;
+}
+.g3-seccion[hidden], .g3-medida[hidden] { display: none; }
+.g3-seccion input[type="range"] { width: 200px; }
+.g3-seccion button { border: 1px solid var(--gm-line); background: var(--gm-card); border-radius: 6px; padding: 2px 8px; cursor: pointer; font: inherit; color: var(--gm-text); }
+.g3-seccion button[aria-pressed="true"] { background: var(--gm-ink); color: var(--gm-card); }
+.g3-medida { top: 52px; flex-direction: column; gap: 0; align-items: flex-start; }
+.g3-medida b { font-size: 15px; color: var(--gm-ink); }
+.g3-medida small { color: var(--gm-muted); }
+
+.g3-sim { display: inline-flex; gap: 6px; align-items: center; }
+.g3-sim input[type="range"] { width: 160px; }
+.g3-sim select { border: 1px solid var(--gm-line); border-radius: 7px; background: var(--gm-card); color: var(--gm-ink); font: inherit; font-size: 12px; padding: 4px 6px; }
+.g3-angulo { font: 12px var(--gm-mono); min-width: 40px; text-align: right; color: var(--gm-ink); white-space: pre; }
+.g3-contador { font: 11.5px var(--gm-mono); color: var(--gm-muted); white-space: nowrap; }
+@media (max-width: 700px) { .g3-sim input[type="range"] { width: 100px; } .g3-contador { display: none; } }
+
+.g3-senales { border-top: 1px solid var(--gm-line); padding: 8px 12px 10px; }
+.g3-senales[hidden] { display: none; }
+.g3-senales canvas { width: 100%; display: block; }
+.g3-senales p { margin: 6px 0 0; font-size: 11.5px; color: var(--gm-muted); }
+.g3-escena[data-calor] .gm-calor-ley { display: flex; }
+
+/* ?solo=1: solo la maquina, para capturas (portada de la ficha) */
+body[data-solo] .gm-cab, body[data-solo] .gm-panel, body[data-solo] .g3-barra, body[data-solo] .gm-mandos, body[data-solo] .gm-leyenda, body[data-solo] .gm-esq, body[data-solo] .g3-senales { display: none !important; }
+body[data-solo] .gm { display: block; padding: 0; max-width: none; }
+body[data-solo] .gm-tarjeta { border: 0; border-radius: 0; }
+body[data-solo] .g3-escena { height: 100vh; }
