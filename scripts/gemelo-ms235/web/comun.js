@@ -12,7 +12,7 @@ const panelCuerpo = $(".gm-panel__cuerpo");
 const IDS = Object.keys(D.piezas);
 const PASOS = D.desarme.filter((id) => id !== "bastidor");
 const NUM = Object.fromEntries(D.lectura.map((id, i) => [id, i + 1]));
-const seleccion = { pieza: null, sensor: null, parte: null, disp: null, pestana: "resumen" };
+const seleccion = { pieza: null, sensor: null, parte: null, disp: null, sub: null, pestana: "resumen" };
 
 // ───────────── Historial: snapshot del build, o en vivo desde mtto-data.js ─────────────
 const clasificar = __CLASIFICAR__;
@@ -183,6 +183,7 @@ function panelPieza(id) {
     ["fallas", "Fallas", fal.length],
     ["historial", "Historial", his.length],
     ["tareas", "Tareas", tar.length],
+    ["despiece3d", "Despiece 3D", typeof despieceDe === "function" && despieceDe(id) ? despieceDe(id).subs.length : 0],
   ].filter(([k, , n]) => k === "resumen" || n);
   if (!pestanas.some(([k]) => k === seleccion.pestana)) seleccion.pestana = "resumen";
   const barra = `<div class="gm-pestanas" role="tablist">${pestanas.map(([k, t, n]) => `<button type="button" class="gm-pestana" role="tab" data-pestana="${k}" aria-selected="${seleccion.pestana === k}">${t}${n ? `<small>${n}</small>` : ""}</button>`).join("")}</div>`;
@@ -219,6 +220,19 @@ function panelPieza(id) {
     cuerpo = `<p class="gm-nota" style="margin-top:12px">${his.length} intervenciones del chat de mantenimiento asignadas a este conjunto por lo que dice el reporte.</p><ul class="gm-lista">${his.map((h) => `<li>${filaHistorial(h)}</li>`).join("")}</ul>`;
   } else if (pest === "tareas") {
     cuerpo = `<ul class="gm-lista" style="margin-top:12px">${tar.map(filaTarea).join("")}</ul>`;
+  } else if (pest === "despiece3d") {
+    const dp = despieceDe(id);
+    const hojas = gruposDe(id).flatMap(([cod, g]) => g.hojas.map((h, i) => [cod, i, h.tav]));
+    const lamina = (tav) => hojas.find(([, , t]) => t === tav);
+    cuerpo = `<p class="gm-nota" style="margin-top:12px">Primero se separan los subconjuntos y después cada pieza, como en las láminas del catálogo. Toca un subconjunto para resaltarlo.</p>
+      <p class="gm-mover">${[[0, "Armado"], [1, "Subconjuntos"], [2, "Pieza por pieza"]].map(([n, t]) => `<button type="button" class="gm-btn" data-despiece="${n}" aria-pressed="${dp.nivel === n}">${t}</button>`).join("")}</p>
+      <ul class="gm-lista" style="margin-top:10px">${dp.subs
+        .map((sb) => {
+          const l = lamina(sb.lamina);
+          return `<li><div class="gm-fila${seleccion.sub === sb.id ? " gm-fila--activa" : ""}"><button type="button" class="gm-fila__boton-sub" data-sub="${esc(sb.id)}"><span class="gm-fila__tit">${esc(sb.nombre)}</span> <span class="gm-mono gm-fila__meta">${esc(sb.lamina ?? "")}</span></button>${l ? ` <button type="button" class="gm-sigla" data-hoja="${esc(l[0])}|${l[1]}">ver lámina</button>` : ""}
+            <div class="gm-fila__meta" style="margin-top:4px">${sb.piezas.map(([nombre, cod, n]) => `${esc(nombre)}${n > 1 ? ` ×${n}` : ""}${cod ? ` <a class="gm-mono" href="${app({ v: "almacen", q: cod })}" target="_top" title="Buscar en almacén">${esc(cod)}</a>` : ""}`).join(" · ")}</div></div></li>`;
+        })
+        .join("")}</ul>`;
   }
   panelCuerpo.innerHTML = barra + cuerpo;
   panelCuerpo.scrollTop = 0;
@@ -337,6 +351,10 @@ $(".gm-panel").addEventListener("click", (e) => {
   const t = e.target;
   const volver = t.closest("[data-volver]");
   if (volver) return seleccionar_(null);
+  const dsp = t.closest("[data-despiece]");
+  if (dsp) return despiezar(Number(dsp.dataset.despiece));
+  const sb = t.closest("[data-sub]");
+  if (sb) return elegirSubconjunto(sb.dataset.sub);
   const mv = t.closest("[data-mover]");
   if (mv) return moverPieza(mv.dataset.mover);
   const tr = t.closest("[data-trazar]");

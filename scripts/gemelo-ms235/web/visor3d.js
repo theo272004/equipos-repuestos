@@ -348,7 +348,8 @@ function construirMaquina(esc) {
     const parte = pr.parte?.replace(/[#:].*$/, "") ?? null;
     const centro = pr.pts.reduce((a, p) => a.map((v, i) => v + p[i] / pr.pts.length), [0, 0, 0]);
     const mueve = parte && reglaAnim({ userData: { parte, centro } }) ? `${parte}|${Math.sign(centro[0])}` : "";
-    const clave = `${pr.ride}|${pr.pieza}|${pr.tipo}|${mueve}`;
+    const exp = pr.e1 || pr.e2 ? `|${pr.e1}|${pr.e2}|${Math.sign(centro[0])}` : "";
+    const clave = `${pr.ride}|${pr.pieza}|${pr.tipo}|${mueve}${exp}`;
     if (!porClave.has(clave)) porClave.set(clave, { ...pr, parteMov: mueve ? parte : null, centros: [], lista: [] });
     porClave.get(clave).centros.push(centro);
     for (const p of pr.pts) porClave.get(clave).lista.push({ p, n: pr.n, r: pr.r });
@@ -367,7 +368,7 @@ function construirMaquina(esc) {
     im.receiveShadow = true;
     im.matrixAutoUpdate = false;
     const centro = g.centros.reduce((a, c) => a.map((v, i) => v + c[i] / g.centros.length), [0, 0, 0]);
-    im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: g.parteMov ?? `${g.pieza}.tornilleria`, centro, tornillos: g.lista.length, perno: true };
+    im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: g.parteMov ?? `${g.pieza}.tornilleria`, centro, tornillos: g.lista.length, perno: true, e1: g.e1, e2: g.e2 };
     grupoDe(g.ride).add(im);
     instancias.push(im);
     (porPiezaMallas[g.pieza] ??= []).push(im);
@@ -624,11 +625,20 @@ function reglaAnim(m) {
   if (/^dosificacion\.(estrella|eje-estrella|polea)$/.test(n)) return { rot: [0, 1, 0], p: [0, 0, 368], f: (e) => e.estrella };
   if (/^dosificacion\.(polea-motor|eje-motor)$/.test(n)) return { rot: [0, 1, 0], p: [48, 0, 412], f: (e) => e.estrella * 1.5 };
   if (n === "salida.tambor") return { rot: [0, 1, 0], p: [c[0], 0, 94], f: (e) => -e.cinta / 5 };
-  // la plancha abierta se aleja del papel 3 unidades (12 mm); cerrada aprieta
-  const abre = (e) => [lado * 3 * (1 - e.fCierre), 0, 0];
-  if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|porta-mordaza|horquilla|lamina|poste-muelle|codificador|pomo-lote|sensor\.B41|arbol$|tuerca-arbol|capota|lama|pomo-capota|placa-formato)/.test(n)) return { mov: abre };
-  // fuelle del cilindro: fijo a la tapa del cilindro (x = ±66), se estira cuando el vastago cierra la plancha
-  if (n === "soldadura.fuelle") return { escala: { ancla: [66 * lado, 0, 0], k: (e) => (28 - 3 * (1 - e.fCierre)) / 28, mov: () => [0, 0, 0] } };
+  // apertura de la placa (unidades de 4 mm): la leva la abre 2,5 por ciclo; el aire de los cilindros, 6 mas
+  const apertura = (e) => 2.5 * (1 - e.fCierre) + 6 * manual.mordazas;
+  const abre = (e) => [lado * apertura(e), 0, 0];
+  // la placa calefactora y su varillaje avanzan paralelos (el cuerpo de fundicion no se mueve)
+  if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|lamina|poste-muelle|placa-formato|sensor\.B41|bloque-bisagra|pasador|biela-larga)/.test(n)) return { mov: abre };
+  // bielas cortas: giran sobre su arbol vertical (x = ±23) lo que pide el avance del pasador
+  if (n === "soldadura.biela-corta") {
+    const est = [28, 70, 112].reduce((a, b) => (Math.abs(b - (c[1] + 3)) < Math.abs(a - (c[1] + 3)) ? b : a));
+    return { rot: [0, 0, 1], p: [lado * 23, est - 6, 0], f: (e) => (lado * apertura(e)) / 6 };
+  }
+  // cuna: oscila sobre el eje que sale de la pared
+  if (n === "soldadura.cuna") return { rot: [0, 1, 0], p: [lado * 33, 0, 291], f: (e) => lado * 0.05 * apertura(e) };
+  // fuelle del cilindro: fijo a la tapa del cilindro (x = ±76); el aire recoge el vastago y lo comprime
+  if (n === "soldadura.fuelle") return { escala: { ancla: [76 * lado, 0, 0], k: () => 1 - 0.3 * manual.mordazas, mov: () => [0, 0, 0] } };
   // bastidor de levas: las dos levas giran con la maquina y los resortes de los tirantes se comprimen al cerrar
   if (n === "soldadura.leva-plancha") return { rot: [1, 0, 0], p: [0, -41, 280], f: (e) => e.theta };
   if (/^soldadura\.muelle-tirante/.test(n)) return { escala: { eje: "y", ancla: [0, -48, 0], k: (e) => 1 + 0.12 * (1 - e.fCierre), mov: () => [0, 0, 0] } };
@@ -644,6 +654,113 @@ function reglaAnim(m) {
   if (/^desbobinado\.(balancin)/.test(n)) return { rot: [1, 0, 0], p: [0, -150, 300], f: (e) => Math.sin(e.theta * 1) * 0.03 };
   return null;
 }
+// ───────────── Despiece a profundidad (por ahora, el grupo de soldadura) ─────────────
+// t = 0 armado, 1 subconjuntos separados (e1), 2 cada pieza separada (e2).
+const despiece = { pieza: null, t: 0, meta: 0 };
+const SUBCONJUNTOS = {
+  "plancha-izq": ["Placa calefactora izquierda", "S4A21100230", "S4A21100231"],
+  "plancha-der": ["Placa calefactora derecha", "S4A21100230", "S4A21100231"],
+  "mordaza-izq": ["Mordaza izquierda: cuerpo, paralelogramo y capota", "S4M14100110", "M2M14100346"],
+  "mordaza-der": ["Mordaza derecha: cuerpo, paralelogramo y bandeja", "S4M14100110", "M2M14100354"],
+  "cilindro-izq": ["Cilindro con fuelle izquierdo", "S4M14100110", "2M14100317"],
+  "cilindro-der": ["Cilindro con fuelle derecho", "S4M14100110", "2M14100317"],
+  levas: ["Bastidor de levas y tirantes con resorte", "S4M14100110", "M2M14100351"],
+  puente: ["Puente entre las cunas", "S4M14100110", "2M14100313"],
+  formado: ["Placas de formado (molde)", "S4M14100110", "S4M14100110"],
+  anclaje: ["Placa de anclaje", "S4M15100110", "S4M15100110"],
+  marco: ["Marco frontal", "S4M15100110", "S4M15100110"],
+  codificador: ["Codificador de lote", "S4M14100110", "S4M14100110"],
+  sensores: ["Sensores del sellado", "S4M14100110", "S4M14100110"],
+};
+const tieneDespiece = (pieza) => mallas.some((m) => m.userData.pieza === pieza && m.userData.it.e1);
+function desplazamientoDespiece(u, t) {
+  const e1 = u.e1 ?? u.it?.e1;
+  const e2 = u.e2 ?? u.it?.e2;
+  if (!e1 && !e2) return null;
+  const a = Math.min(1, t);
+  const b = Math.max(0, t - 1);
+  const v = [0, 1, 2].map((i) => (e1?.[i] ?? 0) * a + (e2?.[i] ?? 0) * b);
+  return T(v);
+}
+function pintarDespiece() {
+  const t = despiece.t;
+  for (const m of [...mallas, ...instancias]) {
+    const u = m.userData;
+    if (u.pieza !== despiece.pieza) continue;
+    const d = desplazamientoDespiece(u, t);
+    if (d) {
+      m.matrix.makeTranslation(d.x, d.y, d.z);
+      m.updateMatrixWorld(true);
+    } else if (u.it?.o3 && /^(soldadura\.(manguera|cable-calefaccion))/.test(u.parte)) m.visible = t < 0.02 && u.visibleBase !== false;
+  }
+}
+function despiezar(nivel) {
+  const pieza = seleccion.pieza;
+  if (!pieza || !tieneDespiece(pieza)) return;
+  if (sim.activa) pararSim();
+  for (const k of Object.keys(manualMeta)) manualMeta[k] = manual[k] = 0;
+  if (paso !== 0) irAPaso(0, { seleccionar: false, inmediato: true });
+  aplicarAnim(null, false);
+  despiece.pieza = pieza;
+  despiece.meta = nivel;
+  if (quieto3.matches) despiece.t = nivel;
+  aislar = nivel > 0;
+  aspecto();
+  // encuadre del grupo ya desarmado
+  const b = new THREE.Box3();
+  for (const m of mallas) {
+    if (m.userData.pieza !== pieza || !m.visible) continue;
+    const caja = new THREE.Box3().setFromObject(m);
+    const d = desplazamientoDespiece(m.userData, nivel);
+    if (d) caja.translate(d.multiply(raiz.scale));
+    b.union(caja);
+  }
+  if (!b.isEmpty()) encuadrar(b.expandByScalar(15));
+  pintarPanel();
+  pedirCuadro();
+}
+function moverDespiece(dt) {
+  if (despiece.pieza === null) return false;
+  const falta = despiece.meta - despiece.t;
+  if (Math.abs(falta) < 0.002) {
+    if (despiece.t !== despiece.meta) {
+      despiece.t = despiece.meta;
+      pintarDespiece();
+    }
+    if (despiece.t === 0) {
+      despiece.pieza = null;
+      aplicarAnim(null, false);
+    }
+    return false;
+  }
+  despiece.t += falta * Math.min(1, dt * 3);
+  pintarDespiece();
+  return true;
+}
+// datos para el panel: subconjuntos con sus piezas y codigos
+function despieceDe(pieza) {
+  if (!tieneDespiece(pieza)) return null;
+  const subs = new Map();
+  for (const m of mallas) {
+    const it = m.userData.it;
+    if (m.userData.pieza !== pieza || !it.su) continue;
+    if (!subs.has(it.su)) subs.set(it.su, new Map());
+    const nombre = legible(m.userData.parte);
+    const lista = subs.get(it.su);
+    const clave = `${nombre}|${it.co ?? ""}`;
+    lista.set(clave, (lista.get(clave) ?? 0) + 1);
+  }
+  return {
+    nivel: despiece.pieza === pieza ? despiece.meta : 0,
+    subs: [...subs.entries()].map(([id, piezas]) => ({ id, nombre: SUBCONJUNTOS[id]?.[0] ?? id, grupo: SUBCONJUNTOS[id]?.[1], lamina: SUBCONJUNTOS[id]?.[2], piezas: [...piezas.entries()].map(([k, n]) => [...k.split("|"), n]) })),
+  };
+}
+function elegirSubconjunto(id) {
+  seleccion.sub = seleccion.sub === id ? null : id;
+  aspecto();
+  pintarPanel();
+}
+
 // ───────────── Movimientos a mano (mantenimiento) y simular un solo conjunto ─────────────
 // Cada uno va de 0 (como esta dibujado) a 1 (abierto) con un resorte suave.
 const manual = { puertas: 0, cajon: 0, brazoHmi: 0, mordazas: 0 };
@@ -652,7 +769,7 @@ const MOVIMIENTOS = {
   resguardos: [["puertas", "Abrir las puertas", "Cerrar las puertas"]],
   arrastre: [["cajon", "Sacar el cajón de arrastre", "Meter el cajón"]],
   hmi: [["brazoHmi", "Girar el brazo del panel", "Volver el brazo"]],
-  soldadura: [["mordazas", "Abrir las planchas", "Cerrar las planchas"]],
+  soldadura: [["mordazas", "Separar las placas (aire)", "Juntar las placas"]],
   armario: [["armario", "Abrir la puerta", "Cerrar la puerta"]],
 };
 const hayManual = () => Object.values(manual).some((v) => v > 0.001) || Object.values(manualMeta).some((v) => v > 0);
@@ -951,6 +1068,12 @@ function pasoSim(dt) {
   if (cont) cont.textContent = `${sim.ciclos} ciclos · ${sim.sobres} sobres`;
 }
 function iniciarSim() {
+  if (despiece.pieza) {
+    despiece.meta = despiece.t = 0;
+    despiece.pieza = null;
+    aislar = false;
+    aplicarAnim(null, false);
+  }
   if (paso !== 0) irAPaso(0, { seleccionar: false, inmediato: true });
   sim.activa = true;
   sim.pausa = false;
@@ -1037,18 +1160,20 @@ function aspecto() {
     if (!sim.activa || !m.userData.sim) m.visible = visible;
     let mat = base;
     const sel = seleccion.pieza && pieza === seleccion.pieza;
-    const esParte = (seleccion.parte && parte === seleccion.parte && (!seleccion.disp || m.userData.disp === seleccion.disp)) || (cableado.marcados.size && cableado.marcados.has(m.userData.disp));
+    const esParte = (seleccion.parte && parte === seleccion.parte && (!seleccion.disp || m.userData.disp === seleccion.disp)) || (cableado.marcados.size && cableado.marcados.has(m.userData.disp)) || (seleccion.sub && m.userData.it?.su === seleccion.sub);
     if (porConjunto && base !== MAT.vidrio && base !== MAT.pantalla && pieza !== "film") mat = variante(base, `conj:${pieza}`);
     if (calor && base !== MAT.vidrio && pieza !== "film") mat = variante(base, `calor${nivelCalor(pieza) ?? 0}`);
+    // en el despiece el conjunto se ve con sus materiales reales (lo demas queda en fantasma)
+    const enDespiece = despiece.pieza === pieza && despiece.meta > 0;
     if (esParte) mat = variante(mat, "parte");
-    else if (sel) mat = variante(mat, "sel");
-    else if (seleccion.pieza && aislar) mat = variante(base, "fantasma");
+    else if (sel && !enDespiece) mat = variante(mat, "sel");
+    else if (seleccion.pieza && aislar && !sel) mat = variante(base, "fantasma");
     else if (hover && hover.pieza === pieza && !seleccion.pieza) mat = variante(mat, "hover");
     if (m.material !== mat) m.material = mat;
     const ar = m.userData.aristas;
     if (ar) {
       ar.visible = aristasOn && !(seleccion.pieza && aislar && !sel);
-      ar.material = sel ? ARISTA_SEL : ARISTA;
+      ar.material = sel && !enDespiece ? ARISTA_SEL : ARISTA;
     }
   }
   pedirCuadro();
@@ -1059,6 +1184,7 @@ function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null
   seleccion.pieza = pieza;
   seleccion.sensor = sensor;
   seleccion.parte = parte;
+  if (cambia) seleccion.sub = null;
   seleccion.disp = sensor ? null : disp;
   if (pestana) seleccion.pestana = pestana;
   else if (cambia) seleccion.pestana = sensor ? "sensores" : "resumen";
@@ -1282,7 +1408,7 @@ lienzo.addEventListener("pointermove", (e) => {
     ? `<b>${esc(s.sigla)}</b> · ${esc(s.f)}<small>${esc(s.marca)} ${esc(s.tipo)} · hilo ${esc(s.hilo)}</small>`
     : dc
     ? `<b>${esc(u.disp)}</b> · ${esc(dc.desc || dc.tipo || "")}<small>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}${dc.modulo ? ` · ${esc(dc.modulo.tag)}` : ""}</small>`
-    : `<b>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}</b><small>${esc(parte)}${u.disp ? ` · ${esc(u.disp)}` : ""}${n ? ` · ${n} intervenciones` : ""}</small>`;
+    : `<b>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}</b><small>${esc(parte)}${u.it?.co ? ` · <span class="gm-mono">${esc(u.it.co)}</span>` : ""}${u.disp ? ` · ${esc(u.disp)}` : ""}${n ? ` · ${n} intervenciones` : ""}</small>`;
   const r = escena3.getBoundingClientRect();
   etiqueta.style.left = `${e.clientX - r.left}px`;
   etiqueta.style.top = `${e.clientY - r.top}px`;
@@ -1652,6 +1778,7 @@ function cuadro(t) {
     if (avanzarResortes(dt)) sigue = true;
     if (moverPuerta(dt)) sigue = true;
     if (moverManual(dt)) sigue = true;
+    if (moverDespiece(dt)) sigue = true;
     if (IDS.some((id) => resorte[id].pending)) sigue = true;
     colocarGrupos();
     if (sim.activa) {
@@ -1764,4 +1891,4 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
   });
 historialEnVivo();
 
-window.gemelo = { irAPaso, seleccionar: seleccionar_, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
+window.gemelo = { irAPaso, seleccionar: seleccionar_, despiezar, despiece, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };

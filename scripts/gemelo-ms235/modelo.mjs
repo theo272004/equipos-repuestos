@@ -49,15 +49,26 @@ export function construir(P, R) {
   const moverDe = (pieza) => PIEZAS[pieza].mover;
   // mat: material real para el visor 3D (inox, alu, caliente, fundicion, bronce, ptfe, caucho…)
   function put(pieza, ref, svg, { bias = 0, shapes = [], name, ride, sensor, disp, clase, tono, geo3d, solo3d, puerta, mat } = {}) {
-    return R.put({ piece: pieza, ride: ride ?? pieza, at: ref, centro: ref, bias, svg, move: moverDe(ride ?? pieza), shapes, name: name ?? R.nameFor(`${pieza}.it`), sensor, disp, clase, tono, geo3d, solo3d, puerta, mat });
+    return R.put({ ...CTX, piece: pieza, ride: ride ?? pieza, at: ref, centro: ref, bias, svg, move: moverDe(ride ?? pieza), shapes, name: name ?? R.nameFor(`${pieza}.it`), sensor, disp, clase, tono, geo3d, solo3d, puerta, mat });
   }
+  // Contexto del despiece: subconjunto, codigo del catalogo y desplazamientos (e1 subconjuntos, e2 piezas)
+  let CTX = {};
+  const con = (ctx, fn) => {
+    const antes = CTX;
+    CTX = { ...antes, ...ctx };
+    try {
+      fn();
+    } finally {
+      CTX = antes;
+    }
+  };
 
   // Tornilleria sobre una cara: puntos en el mundo, normal hacia fuera y radio de cabeza.
   // En la lamina son puntos; en 3D, cabezas hexagonales instanciadas.
   // parte: la pieza que los lleva, para que en la simulacion se muevan con ella
   function pernos(pieza, puntos, normal, { r = 1.2, ride, tipo = "hex", parte } = {}) {
     if (!puntos.length) return "";
-    PERNOS.push({ pieza, ride: ride ?? pieza, parte, n: normal, r, tipo, pts: puntos.map((p) => p.map((v) => +v.toFixed(2))) });
+    PERNOS.push({ pieza, ride: ride ?? pieza, parte, n: normal, r, tipo, e1: CTX.e1, e2: CTX.e2, pts: puntos.map((p) => p.map((v) => +v.toFixed(2))) });
     return k.dotsSvg(puntos.map(at), { size: Math.min(0.6, 0.3 + r * 0.15), tone: "mid" });
   }
   // Pernos en el contorno de una cara rectangular de una caja.
@@ -294,7 +305,7 @@ export function construir(P, R) {
   // Tornilleria en circulo (bridas, tapas): en 3D cabezas; en la lamina puntos que se desvanecen.
   function pernosCirculo(pieza, F, s, r, n, { rCabeza = 1, ride, parte } = {}) {
     const pts = Array.from({ length: n }, (_, i) => G.pointOf(F, s, r, (i / n) * Math.PI * 2 + 0.3));
-    PERNOS.push({ pieza, ride: ride ?? pieza, parte, n: F.a, r: rCabeza, tipo: "allen", pts: pts.map((p) => p.map((v) => +v.toFixed(2))) });
+    PERNOS.push({ pieza, ride: ride ?? pieza, parte, n: F.a, r: rCabeza, tipo: "allen", e1: CTX.e1, e2: CTX.e2, pts: pts.map((p) => p.map((v) => +v.toFixed(2))) });
     return k.dotsSvg(G.dotsOf(F, s, r, n, P, { fade: [0.04, 0.42], phase: 0.3 }), { size: 0.45 });
   }
 
@@ -430,14 +441,15 @@ export function construir(P, R) {
   // Volante manual DENTRO de la caja de transmision, junto a la correa del motor (Calibrado p.83):
   // se usa con la puerta trasera abierta. B18.3 lee su borde desde arriba y B25.8 va en el lateral.
   {
-    const vy = -70;
+    const vy = -73;
     const F = G.frameAlong([pared.x0 + 6, vy, 236], [1, 0, 0]);
     torno("motor", F, [[0, 5], [10, 5], [10, 26], [16, 26], [16, 8], [19, 8]], { tone: "hi", name: "motor.volante", mat: "inox", extra: pernosCirculo("motor", F, 16, 18, 6, { parte: "motor.volante" }) });
     const mango = G.pointOf(F, 16, 20, 0.6);
     cil("motor", mango, [1, 0, 0], 14, 2.4, { tone: "mid", name: "motor.volante-mango", mat: "negro" });
     const [, sy] = pl("B18.3", [-173, -79]);
-    caja("motor", [pared.x0 + 6, sy - 4, 268], [-171 + 3, sy + 4, 271], { tone: "mid", r: 0.4, name: "motor.escuadra-sensor", mat: "inox" });
-    sensor("motor", "B18.3", [-171, sy, 268], [0, 0, -1], { largo: 5 });
+    void sy;
+    caja("motor", [pared.x0 + 6, vy - 4, 201], [-168, vy + 4, 205], { tone: "mid", r: 0.4, name: "motor.escuadra-sensor", mat: "inox" });
+    sensor("motor", "B18.3", [-171, vy, 205], [0, 0, 1], { largo: 4 });
     const [, zy] = pl("B25.8", [-171, -88]);
     sensor("motor", "B25.8", [pared.x0 + 6, zy, 200], [1, 0, 0], { largo: 8 });
   }
@@ -714,148 +726,198 @@ export function construir(P, R) {
   }
 
   // ───────────────────────── 10. SOLDADURA ─────────────────────────
-  // Grupo S4M14100110 segun el catalogo y las fotos de la maquina:
-  //  · bloque calefactor S4A21100231 (acero pardo por el calor) con 5 cartuchos R41.x que entran
-  //    por delante, sonda PT100 arriba, caja de bornes con Harting y cara de sellado estriada;
-  //    tapas de PTFE en el extremo de la pared y placa aislante detras;
-  //  · porta-mordaza de fundicion (03510R014/015) que corre sobre 3 columnas (235.21.222/237/263)
-  //    con casquillos lineales hasta el bloque fijo;
-  //  · cierre por cilindro neumatico con fuelle (2M14100317: P117025125 + 235.21.544), uno por
-  //    plancha, mandado por Y40.6 / Y40.7 (no son muelles);
-  //  · en la cara, una lamina tensada por 3 resortes pequenos de traccion (foto);
-  //  · brazos de bloqueo en cuna sobre ejes que salen de la pared (Y40.5, B40.8).
+  // Grupo S4M14100110 (laminas t051-t064, t117-t119) y manual de Calibrado p.63-73.
+  // Como funciona: detras de la pared, las dos levas del bastidor M2M14100351 empujan los tirantes
+  // con resorte (00707R003); estos giran los ejes que salen por la pared a la cuna (235.21.227) de
+  // cada mordaza; la cuna gira el arbol vertical (235.21.228) y el paralelogramo de bielas
+  // (07P2R049 / 07P2R047: 3 bloques bisagra, bielas cortas y largas, juego 0,8 mm) lleva la placa
+  // calefactora (S4A21100231) contra el papel, siempre paralela. El cuerpo de fundicion (03510R015 /
+  // 03510R014) queda quieto; los cilindros con fuelle (2M14100317) separan las placas con aire.
+  // Cada pieza lleva su subconjunto, su codigo y donde va en el despiece (e1: subconjuntos, e2: piezas).
   {
     const [Y0, Y1] = [tira.y0, tira.y1];
-    // La placa de anclaje (S4M15) queda atornillada a la pared al desarmar: arrastre y corte van montados en ella.
-    caja("soldadura", [-74, 0, 160], [74, 6, 306], { tone: "mid", r: 1, bevel: 0.8, ride: "bastidor", name: "soldadura.placa-anclaje", mat: "inox", tornillos: { cara: "+y", paso: 24, margen: 4, r: 1.2 } });
+    con({ sub: "anclaje", e1: [0, 0, 0], e2: [0, 0, 0], cod: "S4M15100110" }, () => {
+      caja("soldadura", [-74, 0, 160], [74, 6, 306], { tone: "mid", r: 1, bevel: 0.8, ride: "bastidor", name: "soldadura.placa-anclaje", mat: "inox", tornillos: { cara: "+y", paso: 24, margen: 4, r: 1.2 } });
+    });
     for (const s of [-1, 1]) {
       const sx = (a, b) => (s < 0 ? [-b, -a] : [a, b]);
       const cara = s < 0 ? "-x" : "+x";
-      // cara de sellado: 10 listones con su ranura (la estria de la foto)
-      const [p0, p1] = sx(1.2, 4.2);
-      for (let i = 0; i < 10; i++) caja("soldadura", [p0, Y0 - 4, 232 + i * 4.8], [p1, Y1 + 4, 236.4 + i * 4.8], { tone: "hi", r: 0.2, bevel: 0.2, steps: 1, name: "soldadura.placa-soldante", mat: "caliente", sinTornillos: true });
-      // bloque calefactor con su tornilleria arriba
-      const [q0, q1] = sx(4.2, 12);
-      caja("soldadura", [q0, Y0 - 6, 230], [q1, Y1 + 6, 282], { tone: "mid", r: 0.6, bevel: 0.5, name: "soldadura.bloque-calefactor", mat: "caliente", tornillos: { cara: "+z", paso: 18, margen: 4, r: 0.8 } });
-      // tapa de PTFE del lado de la pared
-      caja("soldadura", [Math.min(s * 1.2, s * 12), Y0 - 10, 232], [Math.max(s * 1.2, s * 12), Y0 - 6, 280], { tone: "hi", r: 0.6, bevel: 0.4, name: "soldadura.tapa-ptfe", mat: "ptfe", sinTornillos: true });
-      // cartuchos calefactores (R41.1… derecha, R41.6… izquierda de la maquina real) por delante
-      const RES = s < 0 ? ["R41.1", "R41.1.1", "R41.1.2", "R41.1.3", "R41.1.4"] : ["R41.6", "R41.6.1", "R41.6.2", "R41.6.3", "R41.6.4"];
-      RES.forEach((tag, i) => cil("soldadura", [s * 8, Y1 + 6, 236 + i * 8], Y, 4, 1.4, { tone: "mid", name: "soldadura.resistencia", disp: tag }));
-      // caja de bornes con el Harting de la calefaccion
-      const [t0, t1] = sx(4.6, 11.6);
-      caja("soldadura", [t0, Y1 + 6, 272], [t1, Y1 + 12, 282], { tone: "mid", r: 0.6, name: "soldadura.caja-bornes", mat: "inox", tornillos: { cara: "+y", solo: "esquinas", margen: 1.2, r: 0.5 } });
-      caja("soldadura", [Math.min(s * 5, s * 11), Y1 + 6.5, 282], [Math.max(s * 5, s * 11), Y1 + 11.5, 289], { tone: "hi", r: 0.8, name: "soldadura.harting", mat: "harting" });
-      // placa aislante y porta-mordaza de fundicion
-      const [i0, i1] = sx(12, 14);
-      caja("soldadura", [i0, Y0 - 4, 232], [i1, Y1 + 4, 280], { tone: "lo", r: 0.3, name: "soldadura.aislante", sinTornillos: true });
-      const [c0, c1] = sx(14, 32);
-      caja("soldadura", [c0, Y0 - 8, 228], [c1, Y1 + 8, 286], { tone: "mid", r: 1.2, bevel: 0.8, name: "soldadura.porta-mordaza", mat: "fundicion", tornillos: { cara, paso: 22, margen: 5, r: 1 } });
-      // los tres arboles verticales que atraviesan el porta-mordaza (235.21.222/237/263), con tuercas
-      for (const y of [Y0 + 1, (Y0 + Y1) / 2, Y1 + 3]) {
-        cil("soldadura", [s * 28, y, 222], Z, 6, 2.4, { tone: "hi", name: "soldadura.arbol", mat: "cromo" });
-        cil("soldadura", [s * 28, y, 220], Z, 2, 3.6, { tone: "mid", name: "soldadura.tuerca-arbol", mat: "inox" });
-        // el de la pared sube por debajo de la cuna (es su arbol); los otros asoman arriba
-        if (y > Y0 + 1) cil("soldadura", [s * 28, y, 286], Z, 3, 2.4, { tone: "hi", name: "soldadura.arbol", mat: "cromo" });
-      }
-      // capota en cuna con lamas sobre el costado exterior (235.21.366, Calibrado p.65) y su pomo
-      const cuna = [[32, 268], [38, 271.5], [38, 286], [32, 286]];
-      chapaXZ("soldadura", s > 0 ? cuna : cuna.map(([x, z]) => [-x, z]).reverse(), Y0 + 2, Y1 - 12, { tone: "mid", name: "soldadura.capota", mat: "inox" });
-      for (let i = 0; i < 4; i++) caja("soldadura", [Math.min(s * 38, s * 38.8), Y0 + 14, 273.5 + i * 3], [Math.max(s * 38, s * 38.8), Y1 - 24, 274.7 + i * 3], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.lama", mat: "oscuro" });
-      cil("soldadura", [s * 35, Y1 - 12, 279], Y, 3, 1.8, { tone: "lo", name: "soldadura.pomo-capota", mat: "negro" });
-      // placa de formato de abajo (Calibrado p.66: placas de formato superior e inferior)
-      caja("soldadura", [Math.min(s * 1.2, s * 12), Y0 - 4, 228.4], [Math.max(s * 1.2, s * 12), Y1 + 4, 230], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "soldadura.placa-formato", mat: "inox" });
-      // cilindro de cierre con fuelle: cuerpo afuera del bloque fijo, vastago al porta-mordaza
+      const L = s > 0 ? "izq" : "der"; // con el espejo, +x del modelo es la izquierda de la maquina real
       const yc = (Y0 + Y1) / 2;
       const zc = 260;
-      caja("soldadura", [Math.min(s * 32, s * 38), yc - 4, zc - 4], [Math.max(s * 32, s * 38), yc + 4, zc + 4], { tone: "hi", r: 0.6, name: "soldadura.horquilla", mat: "inox", sinTornillos: true });
-      const FF = G.frameAlong([s * 38, yc, zc], [s, 0, 0]);
-      const perfil = [[0, 2.4]];
-      for (let k2 = 0; k2 < 11; k2++) perfil.push([k2 * 2.5 + 0.6, 3.6], [k2 * 2.5 + 1.9, 2.8]);
-      perfil.push([28, 2.8], [28, 2.4]);
-      torno("soldadura", FF, perfil, { tone: "lo", name: "soldadura.fuelle", mat: "caucho" });
-      // mangueras azules de la valvula (Y40.6 izquierda, Y40.7 derecha de la isla) a los dos racores
+      // ── placa calefactora S4A21100231 (se mueve con el paralelogramo) ──
+      const PL = { sub: `plancha-${L}`, e1: [s * 28, 80, 55] };
+      con({ ...PL, e2: [-s * 10, 0, 0], cod: "S4A21100231" }, () => {
+        const [p0, p1] = sx(1.2, 4.2);
+        for (let i = 0; i < 10; i++) caja("soldadura", [p0, Y0 - 4, 232 + i * 4.8], [p1, Y1 + 4, 236.4 + i * 4.8], { tone: "hi", r: 0.2, bevel: 0.2, steps: 1, name: "soldadura.placa-soldante", mat: "caliente", sinTornillos: true });
+      });
+      con({ ...PL, e2: [0, 0, 0], cod: "S4A21100231" }, () => {
+        const [q0, q1] = sx(4.2, 12);
+        caja("soldadura", [q0, Y0 - 6, 230], [q1, Y1 + 6, 282], { tone: "mid", r: 0.6, bevel: 0.5, name: "soldadura.bloque-calefactor", mat: "caliente", tornillos: { cara: "+z", paso: 18, margen: 4, r: 0.8 } });
+      });
+      con({ ...PL, e2: [0, -16, 0], cod: "S4A21100231" }, () => {
+        caja("soldadura", [Math.min(s * 1.2, s * 12), Y0 - 10, 232], [Math.max(s * 1.2, s * 12), Y0 - 6, 280], { tone: "hi", r: 0.6, bevel: 0.4, name: "soldadura.tapa-ptfe", mat: "ptfe", sinTornillos: true });
+      });
+      const RES = s < 0 ? ["R41.1", "R41.1.1", "R41.1.2", "R41.1.3", "R41.1.4"] : ["R41.6", "R41.6.1", "R41.6.2", "R41.6.3", "R41.6.4"];
+      con({ ...PL, e2: [0, 36, 0], cod: "E7423V1330A0" }, () => {
+        RES.forEach((tag, i) => cil("soldadura", [s * 8, Y1 + 6, 236 + i * 8], Y, 4, 1.4, { tone: "mid", name: "soldadura.resistencia", disp: tag }));
+      });
+      con({ ...PL, e2: [0, 16, 6], cod: "035180201" }, () => {
+        const [t0, t1] = sx(4.6, 11.6);
+        caja("soldadura", [t0, Y1 + 6, 272], [t1, Y1 + 12, 282], { tone: "mid", r: 0.6, name: "soldadura.caja-bornes", mat: "inox", tornillos: { cara: "+y", solo: "esquinas", margen: 1.2, r: 0.5 } });
+      });
+      con({ ...PL, e2: [0, 22, 22], cod: "D716722030" }, () => {
+        caja("soldadura", [Math.min(s * 5, s * 11), Y1 + 6.5, 282], [Math.max(s * 5, s * 11), Y1 + 11.5, 289], { tone: "hi", r: 0.8, name: "soldadura.harting", mat: "harting" });
+      });
+      con({ ...PL, e2: [0, 0, 12], cod: s > 0 ? "007160056" : "007160060" }, () => {
+        const [l0, l1] = sx(1.2, 4.6);
+        caja("soldadura", [l0, Y0 - 4, 282], [l1, Y1 + 4, 283.6], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "soldadura.lamina", mat: "inox" });
+      });
+      for (const y of [Y0 + 10, Y0 + 60, Y1 - 8]) {
+        con({ ...PL, e2: [0, 0, 18], cod: "S4A21100231" }, () => cil("soldadura", [s * 10, y, 282], Z, 2, 0.9, { tone: "hi", name: "soldadura.poste-muelle", mat: "inox" }));
+        con({ ...PL, e2: [0, 0, 24], cod: "A531503305" }, () => muelle("soldadura", [s * 4.6, y, 282.8], [s, 0, 0], 0, 4.5, 0.55, 8, { name: "soldadura.muelle-lamina", alambre: 0.14, mat: "cromo" }));
+      }
+      con({ ...PL, e2: [0, 0, -14], cod: "S4A21100232" }, () => {
+        caja("soldadura", [Math.min(s * 1.2, s * 12), Y0 - 4, 228.4], [Math.max(s * 1.2, s * 12), Y1 + 4, 230], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "soldadura.placa-formato", mat: "inox" });
+      });
+      con({ ...PL, e2: [s * 12, 0, 0], cod: s > 0 ? "035180141" : "035180137" }, () => {
+        const [i0, i1] = sx(12, 14);
+        caja("soldadura", [i0, Y0 - 4, 232], [i1, Y1 + 4, 280], { tone: "lo", r: 0.3, name: "soldadura.aislante", sinTornillos: true });
+      });
+
+      // ── mordaza: cuerpo de fundicion, paralelogramo, arboles, capota o bandeja ──
+      const MO = { sub: `mordaza-${L}`, e1: [s * 62, 30, 0] };
+      con({ ...MO, e2: [0, 0, 0], cod: s > 0 ? "03510R015" : "03510R014" }, () => {
+        const [c0, c1] = sx(24.8, 42);
+        caja("soldadura", [c0, Y0 - 8, 228], [c1, Y1 + 8, 286], { tone: "mid", r: 1.2, bevel: 0.8, name: "soldadura.porta-mordaza", mat: "fundicion", tornillos: { cara, paso: 22, margen: 5, r: 1 } });
+      });
+      const ESTACIONES = [Y0 + 8, (Y0 + Y1) / 2, Y1 - 8];
+      const ARBOLES = ["235.21.222", "235.21.237", "235.21.263"];
+      ESTACIONES.forEach((y, i) => {
+        // bloque bisagra en la espalda de la placa, con su pasador arriba y abajo
+        con({ ...MO, e2: [-s * 12, 0, 0], cod: "235.21.268" }, () => caja("soldadura", [Math.min(s * 14, s * 19), y - 4, 248], [Math.max(s * 14, s * 19), y + 4, 264], { tone: "hi", r: 0.6, bevel: 0.4, name: "soldadura.bloque-bisagra", mat: "inox" }));
+        con({ ...MO, e2: [-s * 12, 0, 22], cod: "235.21.242" }, () => cil("soldadura", [s * 16.5, y, 264], Z, 10, 1, { tone: "hi", name: "soldadura.pasador", mat: "cromo" }));
+        con({ ...MO, e2: [-s * 12, 0, -20], cod: "235.21.242" }, () => cil("soldadura", [s * 16.5, y, 238], Z, 10, 1, { tone: "hi", name: "soldadura.pasador", mat: "cromo" }));
+        // arbol vertical que atraviesa el cuerpo (el que se saca para desmontar la placa, Calibrado p.64)
+        con({ ...MO, e2: [0, 0, 46], cod: ARBOLES[i] }, () => cil("soldadura", [s * 23, y - 6, 222], Z, 70, 1.8, { tone: "hi", name: "soldadura.arbol", mat: "cromo" }));
+        con({ ...MO, e2: [0, 0, -14], cod: "C482253504" }, () => cil("soldadura", [s * 23, y - 6, 220], Z, 2, 2.8, { tone: "mid", name: "soldadura.tuerca-arbol", mat: "inox" }));
+        // bielas cortas (235.21.269) arriba y abajo: del arbol al pasador
+        const dl = Math.hypot(6.5, 6);
+        const pa = [s * (23 - (6.5 / dl) * 2), y - 6 + (6 / dl) * 2];
+        const pb = [s * (16.5 + (6.5 / dl) * 1.2), y - (6 / dl) * 1.2];
+        con({ ...MO, e2: [0, 0, 30], cod: "235.21.269" }, () => barra("soldadura", [pa[0], pa[1], 273], [pb[0], pb[1], 273], 1.1, { tone: "mid", name: "soldadura.biela-corta", mat: "inox" }));
+        con({ ...MO, e2: [0, 0, -26], cod: "235.21.269" }, () => barra("soldadura", [pa[0], pa[1], 239], [pb[0], pb[1], 239], 1.1, { tone: "mid", name: "soldadura.biela-corta", mat: "inox" }));
+      });
+      // bielas largas que unen las tres estaciones: 235.21.233 arriba, 235.21.232 abajo
+      con({ ...MO, e2: [-s * 12, 0, 34], cod: "235.21.233" }, () => caja("soldadura", [Math.min(s * 15.6, s * 17.4), ESTACIONES[0] - 2, 274.1], [Math.max(s * 15.6, s * 17.4), ESTACIONES[2] + 2, 275.6], { tone: "hi", r: 0.3, name: "soldadura.biela-larga", mat: "inox" }));
+      con({ ...MO, e2: [-s * 12, 0, -30], cod: "235.21.232" }, () => caja("soldadura", [Math.min(s * 15.6, s * 17.4), ESTACIONES[0] - 2, 236.4], [Math.max(s * 15.6, s * 17.4), ESTACIONES[2] + 2, 237.9], { tone: "hi", r: 0.3, name: "soldadura.biela-larga", mat: "inox" }));
+      // cuna (235.21.227) sobre el cuerpo en el extremo de la pared, con su arbol (235.21.228)
+      con({ ...MO, e2: [0, 0, 18], cod: "235.21.227" }, () => caja("soldadura", [Math.min(s * 26, s * 40), 12, 286], [Math.max(s * 26, s * 40), 26, 294], { tone: "hi", r: 1.5, bevel: 0.8, name: "soldadura.cuna", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 2, r: 0.6 } }));
+      con({ ...MO, e2: [0, 0, 30], cod: "235.21.228" }, () => cil("soldadura", [s * 33, 19, 294], Z, 6, 1.4, { tone: "hi", name: "soldadura.arbol-cuna", mat: "cromo" }));
+      // izquierda: capota en cuna con lamas (235.21.366, Calibrado p.65); derecha: bandeja (235_21_266)
+      if (s > 0) {
+        con({ ...MO, e2: [s * 18, 0, 0], cod: "235.21.366" }, () => {
+          chapaXZ("soldadura", [[42, 268], [48, 271.5], [48, 286], [42, 286]], Y0 + 2, Y1 - 12, { tone: "mid", name: "soldadura.capota", mat: "inox" });
+          for (let i = 0; i < 4; i++) caja("soldadura", [48, Y0 + 14, 273.5 + i * 3], [48.8, Y1 - 24, 274.7 + i * 3], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.lama", mat: "oscuro" });
+        });
+      } else {
+        con({ ...MO, e2: [s * 18, 0, 0], cod: "235_21_266" }, () => {
+          chapaXZ("soldadura", [[-42, 286], [-46, 286], [-46, 268], [-42, 268]], Y0 + 2, Y1 - 12, { tone: "mid", name: "soldadura.bandeja", mat: "inox" });
+          caja("soldadura", [-46.6, Y0 + 20, 276], [-46, Y1 - 30, 278], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.ranura-bandeja", mat: "oscuro" });
+        });
+      }
+      con({ ...MO, e2: [s * 18, 8, 0], cod: "C652100840" }, () => cil("soldadura", [s * (s > 0 ? 45 : 44), Y1 - 12, 279], Y, 3, 1.8, { tone: "lo", name: "soldadura.pomo-capota", mat: "negro" }));
+
+      // ── cilindro con fuelle 2M14100317: separa la placa con aire ──
+      const CI = { sub: `cilindro-${L}`, e1: [s * 100, 20, 30] };
+      con({ ...CI, e2: [-s * 12, 0, 0], cod: "235.21.545" }, () => caja("soldadura", [Math.min(s * 42, s * 48), yc - 4, zc - 4], [Math.max(s * 42, s * 48), yc + 4, zc + 4], { tone: "hi", r: 0.6, name: "soldadura.horquilla", mat: "inox", sinTornillos: true }));
+      con({ ...CI, e2: [-s * 4, 0, 0], cod: "235.21.544" }, () => {
+        const FF = G.frameAlong([s * 48, yc, zc], [s, 0, 0]);
+        const perfil = [[0, 2.4]];
+        for (let k2 = 0; k2 < 11; k2++) perfil.push([k2 * 2.5 + 0.6, 3.6], [k2 * 2.5 + 1.9, 2.8]);
+        perfil.push([28, 2.8], [28, 2.4]);
+        torno("soldadura", FF, perfil, { tone: "lo", name: "soldadura.fuelle", mat: "caucho" });
+      });
+      con({ ...CI, e2: [0, 0, 0], cod: "P117025125" }, () => {
+        cil("soldadura", [s * 76, yc, zc], [s, 0, 0], 2.4, 5.6, { tone: "mid", name: "soldadura.cilindro-tapa", mat: "alu" });
+        cil("soldadura", [s * 78.4, yc, zc], [s, 0, 0], 24, 5, { tone: "hi", name: "soldadura.cilindro", mat: "alu", disp: s < 0 ? "Y40.6" : "Y40.7" });
+      });
+      con({ ...CI, e2: [s * 10, 0, 0], cod: "P117025125" }, () => cil("soldadura", [s * 102.4, yc, zc], [s, 0, 0], 2.4, 5.6, { tone: "mid", name: "soldadura.cilindro-tapa", mat: "alu" }));
+      con({ ...CI, e2: [s * 20, 0, 0], cod: "P011300025" }, () => caja("soldadura", [Math.min(s * 104.8, s * 109), yc - 3, zc - 6], [Math.max(s * 104.8, s * 109), yc + 3, zc + 3], { tone: "mid", r: 0.5, name: "soldadura.charnela-cilindro", mat: "inox" }));
+      con({ ...CI, e2: [0, 0, 10], cod: "P117025125" }, () => { for (const x of [80, 100]) cil("soldadura", [s * x, yc, zc + 5], Z, 2.4, 1, { tone: "hi", name: "soldadura.racor", mat: "laton" }); });
+      con({ ...CI, e2: [0, 0, -12], cod: "P011300025" }, () => caja("soldadura", [Math.min(s * 76, s * 109), yc - 6, zc - 11.6], [Math.max(s * 76, s * 109), yc + 6, zc - 5.4], { tone: "mid", r: 0.5, name: "soldadura.escuadra-cilindro", mat: "inox", tornillos: { cara: "-z", solo: "esquinas", margen: 2, r: 0.6 } }));
+      con({ ...CI, e2: [0, -12, -12], cod: "P011300025" }, () => caja("soldadura", [Math.min(s * 105, s * 109), 0, zc - 11.6], [Math.max(s * 105, s * 109), yc - 6, zc - 5.4], { tone: "mid", r: 0.5, name: "soldadura.brazo-cilindro", mat: "inox" }));
+      // mangueras de la valvula (Y40.6 / Y40.7) a los dos racores (solo 3D)
       const yv = s < 0 ? -66.5 : -58.5;
-      for (const [k3, x] of [[0, 70], [1, 90]]) {
+      for (const [k3, x] of [[0, 80], [1, 100]]) {
         const dy = k3 * 1.6;
         const ruta = s > 0
           ? [[199.5, yv + dy, 198], [199.5, yv + dy, 212], [194, -2 + dy, 226], [150, 36 + dy, 276], [s * x, 70 + dy, 274], [s * x, 70 + dy, 267.4]]
           : [[199.5, yv + dy, 198], [199.5, yv + dy, 212], [194, -2 + dy, 226], [150, 10 + dy, 300], [100, 9 + dy, 336], [-100, 9 + dy, 336], [-140, 12 + dy, 300], [s * x, 70 + dy, 274], [s * x, 70 + dy, 267.4]];
         tubo("soldadura", ruta, 0.6, { tone: "mid", name: "soldadura.manguera", clase: "manguera", curva: 5, solo3d: true, ride: "bastidor" });
       }
-      cil("soldadura", [s * 66, yc, zc], [s, 0, 0], 2.4, 5.6, { tone: "mid", name: "soldadura.cilindro-tapa", mat: "alu" });
-      cil("soldadura", [s * 68.4, yc, zc], [s, 0, 0], 24, 5, { tone: "hi", name: "soldadura.cilindro", mat: "alu", disp: s < 0 ? "Y40.6" : "Y40.7" });
-      cil("soldadura", [s * 92.4, yc, zc], [s, 0, 0], 2.4, 5.6, { tone: "mid", name: "soldadura.cilindro-tapa", mat: "alu" });
-      caja("soldadura", [Math.min(s * 94.8, s * 99), yc - 3, zc - 6], [Math.max(s * 94.8, s * 99), yc + 3, zc + 3], { tone: "mid", r: 0.5, name: "soldadura.charnela-cilindro", mat: "inox" });
-      // escuadra bajo el cilindro y su brazo a la pared, que toma la reaccion de la charnela
-      caja("soldadura", [Math.min(s * 66, s * 99), yc - 6, zc - 11.6], [Math.max(s * 66, s * 99), yc + 6, zc - 5.4], { tone: "mid", r: 0.5, name: "soldadura.escuadra-cilindro", mat: "inox", tornillos: { cara: "-z", solo: "esquinas", margen: 2, r: 0.6 } });
-      caja("soldadura", [Math.min(s * 95, s * 99), 0, zc - 11.6], [Math.max(s * 95, s * 99), yc - 6, zc - 5.4], { tone: "mid", r: 0.5, name: "soldadura.brazo-cilindro", mat: "inox" });
-      for (const x of [70, 90]) cil("soldadura", [s * x, yc, zc + 5], Z, 2.4, 1, { tone: "hi", name: "soldadura.racor", mat: "laton" });
-      // lamina de la cara tensada por 3 resortes de traccion pequenos (foto) y sus tornillos de anclaje
-      const [l0, l1] = sx(1.2, 4.6);
-      caja("soldadura", [l0, Y0 - 4, 282], [l1, Y1 + 4, 283.6], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "soldadura.lamina", mat: "inox" });
-      for (const y of [Y0 + 10, Y0 + 60, Y1 - 8]) {
-        cil("soldadura", [s * 10, y, 282], Z, 2, 0.9, { tone: "hi", name: "soldadura.poste-muelle", mat: "inox" });
-        muelle("soldadura", [s * 4.6, y, 282.8], [s, 0, 0], 0, 4.5, 0.55, 8, { name: "soldadura.muelle-lamina", alambre: 0.14, mat: "cromo" });
-      }
-      // cable de calefaccion: del Harting de la plancha al conector de la pared (X41 / X42)
+      // cable de calefaccion: del Harting de la placa al conector de la pared (X41 / X42), solo 3D
       const xc = pl(s < 0 ? "X41" : "X42", [s * 135, 18])[0];
       tubo("soldadura", [[s * 8, Y1 + 9, 289], [s * 8, Y1 + 9, 296], [s * 20, Y1 - 10, 310], [xc * 0.7, 40, 306], [xc, 12, 280], [xc, 5, 267]], 0.9, { tone: "lo", name: "soldadura.cable-calefaccion", clase: "cable", curva: 6, solo3d: true });
-      // palanca en cuna sobre el porta-mordaza, en el extremo de la pared: la mueve el eje que sale
-      // de la pared (del bastidor de levas) y baja al arbol vertical de la mordaza
-      cil("soldadura", [s * 23, 6, 291], Y, 1.6, 6, { tone: "hi", name: "soldadura.brida-cuna", mat: "inox", extra: pernosCirculo("soldadura", G.frameAlong([s * 23, 7.6, 291], Y), 0, 4.6, 4, { rCabeza: 0.6 }) });
-      cil("soldadura", [s * 23, 7.6, 291], Y, 4.4, 2.6, { tone: "hi", name: "soldadura.eje-cuna", mat: "cromo" });
-      caja("soldadura", [Math.min(s * 16, s * 30), 12, 286], [Math.max(s * 16, s * 30), 26, 294], { tone: "hi", r: 1.5, bevel: 0.8, name: "soldadura.cuna", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 2, r: 0.6 } });
-      cil("soldadura", [s * 23, 19, 294], Z, 4, 1.4, { tone: "hi", name: "soldadura.arbol-cuna", mat: "cromo" });
-      cil("soldadura", [s * 23, 19, 298], Z, 1.6, 2.6, { tone: "mid", name: "soldadura.pomo-cuna", mat: "negro" });
+      // eje que sale de la pared a la cuna, con su brida (va con el bastidor de levas)
+      con({ sub: "levas", e1: [0, -60, 70], e2: [0, 18, 0], cod: "M2M14100351" }, () => {
+        cil("soldadura", [s * 33, 6, 291], Y, 1.6, 6, { tone: "hi", name: "soldadura.brida-cuna", mat: "inox", extra: pernosCirculo("soldadura", G.frameAlong([s * 33, 7.6, 291], Y), 0, 4.6, 4, { rCabeza: 0.6 }) });
+        cil("soldadura", [s * 33, 7.6, 291], Y, 4.4, 2.6, { tone: "hi", name: "soldadura.eje-cuna", mat: "cromo" });
+      });
     }
-    for (const s of [-1, 1]) caja("soldadura", [s < 0 ? -6 : 1.2, Y0 - 2, 284], [s < 0 ? -1.2 : 6, Y1 + 2, 300], { tone: "hi", r: 0.3, bevel: 0.4, name: "soldadura.placa-formado", mat: "inox" });
-    caja("soldadura", [16, Y1 + 8, 248], [30, Y1 + 16, 266], { tone: "hi", r: 1, bevel: 0.5, name: "soldadura.codificador", tornillos: { cara: "+y", solo: "esquinas", margen: 2, r: 0.6 } });
-    cil("soldadura", [23, Y1 + 16, 257], Y, 5, 3.6, { tone: "mid", name: "soldadura.pomo-lote" });
-    // Sensores de cierre (B40.1 / B40.2) del lado que dice la planta, PT100 y bloqueo B40.8
-    for (const tag of ["B40.1", "B40.2"]) {
-      const lado = Math.sign(pl(tag, [0, 0])[0]) || 1;
-      caja("soldadura", [Math.min(lado * 52, lado * 58), Y1 + 10, 240], [Math.max(lado * 52, lado * 58), Y1 + 16, 248], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
-      sensor("soldadura", tag, [lado * 52, Y1 + 13, 244], [-lado, 0, 0], { largo: 8 });
-    }
+    // Puente 2M14100313: une por arriba los arboles de las dos cunas
+    con({ sub: "puente", e1: [0, 10, 60], e2: [0, 0, 0], cod: "07920023" }, () => caja("soldadura", [-29.6, 12, 301], [29.6, 16, 304], { tone: "hi", r: 0.8, bevel: 0.5, name: "soldadura.puente", mat: "inox" }));
+    con({ sub: "puente", e1: [0, 10, 60], e2: [0, 0, 8], cod: "C95BU00006" }, () => { for (const x of [-33, 33]) cil("soldadura", [x, 19, 300], Z, 5, 3.4, { tone: "mid", name: "soldadura.casquillo-puente", mat: "bronce" }); });
+    // Placas de formado (el molde): guian las dos bandas a la tira entre las placas
+    for (const s of [-1, 1]) con({ sub: "formado", e1: [0, 0, 90], e2: [s * 10, 0, 0], cod: "S4M14100110" }, () => caja("soldadura", [s < 0 ? -6 : 1.2, Y0 - 2, 284], [s < 0 ? -1.2 : 6, Y1 + 2, 300], { tone: "hi", r: 0.3, bevel: 0.4, name: "soldadura.placa-formado", mat: "inox" }));
+    con({ sub: "codificador", e1: [36, 70, 10], e2: [0, 0, 0], cod: "S4M14100110" }, () => {
+      caja("soldadura", [16, Y1 + 8, 248], [30, Y1 + 16, 266], { tone: "hi", r: 1, bevel: 0.5, name: "soldadura.codificador", tornillos: { cara: "+y", solo: "esquinas", margen: 2, r: 0.6 } });
+      cil("soldadura", [23, Y1 + 16, 257], Y, 5, 3.6, { tone: "mid", name: "soldadura.pomo-lote" });
+    });
+    // Sensores: cierre B40.1 / B40.2, PT100 B41.x por la caja de bornes, bloqueo B40.8, presostato B42.1
+    con({ sub: "sensores", e1: [0, 40, 24], e2: [0, 0, 0], cod: "B60122POC5" }, () => {
+      for (const tag of ["B40.1", "B40.2"]) {
+        const lado = Math.sign(pl(tag, [0, 0])[0]) || 1;
+        caja("soldadura", [Math.min(lado * 52, lado * 58), Y1 + 10, 240], [Math.max(lado * 52, lado * 58), Y1 + 16, 248], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
+        sensor("soldadura", tag, [lado * 52, Y1 + 13, 244], [-lado, 0, 0], { largo: 8 });
+      }
+      caja("soldadura", [-50, 6, 287], [-44, 26, 295], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
+      sensor("soldadura", "B40.8", [-44, 19, 291], [1, 0, 0], { largo: 3 });
+      caja("soldadura", [56, 6, 288], [70, 14, 300], { tone: "hi", r: 1, name: "soldadura.presostato", sensor: "B42.1" });
+    });
     for (const tag of ["B41.4", "B41.8"]) {
-      const [x, y] = pl(tag, [0, 70]);
-      const lado = Math.sign(x) || 1;
-      void y;
-      sensor("soldadura", tag, [lado * 8, Y1 + 12, 276], [0, 1, 0], { largo: 4, radio: 1.4 });
+      const lado = Math.sign(pl(tag, [0, 70])[0]) || 1;
+      con({ sub: `plancha-${lado > 0 ? "izq" : "der"}`, e1: [lado * 28, 80, 55], e2: [0, 30, 4], cod: "D7911B600650" }, () => sensor("soldadura", tag, [lado * 8, Y1 + 12, 276], [0, 1, 0], { largo: 4, radio: 1.4 }));
     }
-    // B40.8 vigila la cuna izquierda desde una escuadra en la placa de anclaje
-    caja("soldadura", [-42, 6, 287], [-36, 26, 295], { tone: "mid", r: 0.4, name: "soldadura.soporte-sensor", mat: "inox" });
-    sensor("soldadura", "B40.8", [-36, 19, 291], [1, 0, 0], { largo: 5 });
-    caja("soldadura", [56, 6, 288], [70, 14, 300], { tone: "hi", r: 1, name: "soldadura.presostato", sensor: "B42.1" });
     // Marco frontal de aluminio con el borde almenado (foto), sobre dos montantes
-    caja("soldadura", [-66, Y1 + 16, 229], [66, Y1 + 20, 241], { tone: "hi", r: 0.8, bevel: 0.6, name: "soldadura.marco-frontal", mat: "alu", tornillos: { cara: "+y", paso: 30, margen: 6, r: 0.9 } });
-    for (const [x0, x1] of [[-66, -40], [-14, 14], [40, 66]]) caja("soldadura", [x0, Y1 + 16, 241], [x1, Y1 + 20, 249], { tone: "hi", r: 0.8, bevel: 0.6, name: "soldadura.marco-frontal", mat: "alu" });
-    for (const s of [-1, 1]) caja("soldadura", [Math.min(s * 66, s * 70), Y1 + 16, zPlaca], [Math.max(s * 66, s * 70), Y1 + 20, 249], { tone: "mid", r: 0.5, name: "soldadura.montante-marco", mat: "alu" });
+    con({ sub: "marco", e1: [0, 70, -10], e2: [0, 0, 0], cod: "S4M15100110" }, () => {
+      caja("soldadura", [-66, Y1 + 16, 229], [66, Y1 + 20, 241], { tone: "hi", r: 0.8, bevel: 0.6, name: "soldadura.marco-frontal", mat: "alu", tornillos: { cara: "+y", paso: 30, margen: 6, r: 0.9 } });
+      for (const [x0, x1] of [[-66, -40], [-14, 14], [40, 66]]) caja("soldadura", [x0, Y1 + 16, 241], [x1, Y1 + 20, 249], { tone: "hi", r: 0.8, bevel: 0.6, name: "soldadura.marco-frontal", mat: "alu" });
+      for (const s of [-1, 1]) caja("soldadura", [Math.min(s * 66, s * 70), Y1 + 16, zPlaca], [Math.max(s * 66, s * 70), Y1 + 20, 249], { tone: "mid", r: 0.5, name: "soldadura.montante-marco", mat: "alu" });
+    });
     // Bastidor de levas de las planchas detras de la pared (M2M14100351; Calibrado p.70-73): caja de
-    // fundicion con reductor, eje con dos levas partidas a 180°, y los dos tirantes con resorte que
-    // mandan el movimiento de las planchas; sus ejes salen por la pared a las cunas.
+    // fundicion 07P2R041 con reductor, eje 07950324 con dos levas partidas a 180°, palancas con rodillo
+    // (07P2R043) y los dos tirantes con resorte (00707R003); sus ejes salen por la pared a las cunas.
     {
       const zL = 280;
       const yL = -41;
+      const LV = { sub: "levas", e1: [0, -60, 70] };
       const o = { tone: "mid", r: 0.8, bevel: 0.5, mat: "fundicion", ride: "soldadura", solo3d: true };
-      caja("soldadura", [-70, -60, 263], [70, -22, 266], { ...o, name: "soldadura.bastidor-levas" });
-      caja("soldadura", [-70, -60, 266], [70, -56, 297], { ...o, name: "soldadura.bastidor-levas" });
-      for (const x of [-70, 66]) caja("soldadura", [x, -56, 266], [x + 4, -22, 297], { ...o, name: "soldadura.bastidor-levas", tornillos: { cara: x < 0 ? "-x" : "+x", solo: "esquinas", margen: 3, r: 0.8 } });
-      caja("soldadura", [70, -52, 268], [86, -30, 292], { ...o, name: "soldadura.reductor-levas" });
-      cil("soldadura", [86, yL, zL], X, 10, 2.5, { tone: "hi", name: "soldadura.entrada-levas", mat: "cromo", ride: "soldadura", solo3d: true });
-      for (const [x0, x1] of [[-66, -55], [-49, 49], [55, 66]]) cil("soldadura", [x0, yL, zL], X, x1 - x0, 3, { tone: "hi", name: "soldadura.eje-levas-planchas", mat: "cromo", ride: "soldadura", solo3d: true });
+      con({ ...LV, e2: [0, 0, -12], cod: "07P2R041" }, () => caja("soldadura", [-70, -60, 263], [70, -22, 266], { ...o, name: "soldadura.bastidor-levas" }));
+      con({ ...LV, e2: [0, -14, 0], cod: "07P2R041" }, () => caja("soldadura", [-70, -60, 266], [70, -56, 297], { ...o, name: "soldadura.bastidor-levas" }));
+      for (const x of [-70, 66]) con({ ...LV, e2: [x < 0 ? -14 : 14, 0, 0], cod: "07P2R041" }, () => caja("soldadura", [x, -56, 266], [x + 4, -22, 297], { ...o, name: "soldadura.bastidor-levas", tornillos: { cara: x < 0 ? "-x" : "+x", solo: "esquinas", margen: 3, r: 0.8 } }));
+      con({ ...LV, e2: [30, 0, 0], cod: "IG27303030" }, () => caja("soldadura", [70, -52, 268], [86, -30, 292], { ...o, name: "soldadura.reductor-levas" }));
+      con({ ...LV, e2: [42, 0, 0], cod: "235.21.064" }, () => cil("soldadura", [86, yL, zL], X, 10, 2.5, { tone: "hi", name: "soldadura.entrada-levas", mat: "cromo", ride: "soldadura", solo3d: true }));
+      con({ ...LV, e2: [0, 0, 16], cod: "07950324" }, () => { for (const [x0, x1] of [[-66, -55], [-49, 49], [55, 66]]) cil("soldadura", [x0, yL, zL], X, x1 - x0, 3, { tone: "hi", name: "soldadura.eje-levas-planchas", mat: "cromo", ride: "soldadura", solo3d: true }); });
       for (const s of [-1, 1]) {
-        // leva excentrica (3 de excentricidad) y su marca de alineacion
-        cil("soldadura", [s < 0 ? -55 : 49, yL, zL + 3], X, 6, 12, { tone: "hi", name: "soldadura.leva-plancha", mat: "inox", ride: "soldadura", solo3d: true });
-        // tirante con resorte: rotulas, varilla y muelle; empuja la palanca del eje que sale a la cuna
+        con({ ...LV, e2: [s * 12, 0, 16], cod: s > 0 ? "07950333" : "235_21_066" }, () => cil("soldadura", [s < 0 ? -55 : 49, yL, zL + 3], X, 6, 12, { tone: "hi", name: "soldadura.leva-plancha", mat: "inox", ride: "soldadura", solo3d: true }));
         const x = s * 40;
-        for (const y of [-52.6, -25.4]) bola("soldadura", [x, y, 290], 1.4, { tone: "hi", name: "soldadura.rotula-tirante", ride: "soldadura", solo3d: true });
-        cil("soldadura", [x, -51.2, 290], Y, 24.4, 0.8, { tone: "hi", name: "soldadura.varilla-tirante", ride: "soldadura", solo3d: true });
-        muelle("soldadura", [x, -48, 290], Y, 0, 16, 2, 7, { name: "soldadura.muelle-tirante", ride: "soldadura", solo3d: true, alambre: 0.35, mat: "cromo" });
-        caja("soldadura", [Math.min(s * 42.5, s * 49), -44, 286], [Math.max(s * 42.5, s * 49), -38, 289], { tone: "mid", r: 0.4, name: "soldadura.palanca-leva", mat: "inox", ride: "soldadura", solo3d: true });
-        caja("soldadura", [Math.min(s * 23, s * 41.4), -28, 287], [Math.max(s * 23, s * 41.4), -22, 293], { tone: "mid", r: 0.4, name: "soldadura.palanca-salida", mat: "inox", ride: "soldadura", solo3d: true });
-        cil("soldadura", [s * 23, -22, 291], Y, 16, 2.6, { tone: "hi", name: "soldadura.eje-salida", mat: "cromo", ride: "soldadura", solo3d: true });
+        con({ ...LV, e2: [0, 0, 26], cod: "C066084208" }, () => { for (const y of [-52.6, -25.4]) bola("soldadura", [x, y, 290], 1.4, { tone: "hi", name: "soldadura.rotula-tirante", ride: "soldadura", mat: "cromo", solo3d: true }); });
+        con({ ...LV, e2: [0, 0, 26], cod: "235.21.082" }, () => cil("soldadura", [x, -51.2, 290], Y, 24.4, 0.8, { tone: "hi", name: "soldadura.varilla-tirante", ride: "soldadura", mat: "cromo", solo3d: true }));
+        con({ ...LV, e2: [0, 0, 32], cod: "060052508" }, () => muelle("soldadura", [x, -48, 290], Y, 0, 16, 2, 7, { name: "soldadura.muelle-tirante", ride: "soldadura", alambre: 0.35, mat: "cromo", solo3d: true }));
+        con({ ...LV, e2: [0, 0, 20], cod: "07P2R043" }, () => caja("soldadura", [Math.min(s * 42.5, s * 49), -44, 286], [Math.max(s * 42.5, s * 49), -38, 289], { tone: "mid", r: 0.4, name: "soldadura.palanca-leva", mat: "inox", ride: "soldadura", solo3d: true }));
+        con({ ...LV, e2: [0, 12, 12], cod: "07P2R045" }, () => caja("soldadura", [Math.min(s * 33, s * 41.4), -28, 287], [Math.max(s * 33, s * 41.4), -22, 293], { tone: "mid", r: 0.4, name: "soldadura.palanca-salida", mat: "inox", ride: "soldadura", solo3d: true }));
+        con({ ...LV, e2: [0, 22, 12], cod: "M2M14100351" }, () => cil("soldadura", [s * 33, -22, 291], Y, 16, 2.6, { tone: "hi", name: "soldadura.eje-salida", mat: "cromo", ride: "soldadura", solo3d: true }));
       }
     }
   }
@@ -1197,15 +1259,15 @@ export function construir(P, R) {
     // cada uno, pomos moleteados en las esquinas y tapa de arriba inclinada
     {
       const [xa, xb] = [176, 179];
-      const [ya, yb] = [-176, -104];
-      caja("resguardos", [166, ya, zPlaca], [190, yb, zPlaca + 2], { tone: "mid", r: 0.6, name: "resguardos.panel-base", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 3, r: 0.8 } });
+      const [ya, yb] = [-176, -108];
+      caja("resguardos", [166, ya, zPlaca], [190, yb, zPlaca + 2], { tone: "mid", r: 0.6, ride: "armario", name: "resguardos.panel-base", mat: "inox", tornillos: { cara: "+z", solo: "esquinas", margen: 3, r: 0.8 } });
       for (const [z0, z1] of [[24, 164], [166, 306]]) {
-        for (const [y0, y1] of [[ya, ya + 4], [yb - 4, yb]]) caja("resguardos", [xa, y0, z0], [xb, y1, z1], { tone: "mid", r: 0.4, name: "resguardos.panel-marco", mat: "inox" });
-        for (const z of [z0, (z0 + z1) / 2 - 2, z1 - 4]) caja("resguardos", [xa, ya + 4, z], [xb, yb - 4, z + 4], { tone: "mid", r: 0.4, name: "resguardos.panel-marco", mat: "inox" });
-        for (const [w0, w1] of [[z0 + 4, (z0 + z1) / 2 - 2], [(z0 + z1) / 2 + 2, z1 - 4]]) caja("resguardos", [xa + 1.2, ya + 4, w0], [xa + 1.8, yb - 4, w1], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.panel-vidrio", clase: "vidrio" });
-        for (const y of [ya + 2, yb - 2]) for (const z of [z0 + 4, z1 - 4]) cil("resguardos", [xb, y, z], X, 2, 1.8, { tone: "lo", name: "resguardos.panel-pomo", mat: "negro" });
+        for (const [y0, y1] of [[ya, ya + 4], [yb - 4, yb]]) caja("resguardos", [xa, y0, z0], [xb, y1, z1], { tone: "mid", r: 0.4, ride: "armario", name: "resguardos.panel-marco", mat: "inox" });
+        for (const z of [z0, (z0 + z1) / 2 - 2, z1 - 4]) caja("resguardos", [xa, ya + 4, z], [xb, yb - 4, z + 4], { tone: "mid", r: 0.4, ride: "armario", name: "resguardos.panel-marco", mat: "inox" });
+        for (const [w0, w1] of [[z0 + 4, (z0 + z1) / 2 - 2], [(z0 + z1) / 2 + 2, z1 - 4]]) caja("resguardos", [xa + 1.2, ya + 4, w0], [xa + 1.8, yb - 4, w1], { tone: "faint", r: 0, bevel: 0, steps: 1, ride: "armario", name: "resguardos.panel-vidrio", clase: "vidrio" });
+        for (const y of [ya + 2, yb - 2]) for (const z of [z0 + 4, z1 - 4]) cil("resguardos", [xb, y, z], X, 2, 1.8, { tone: "lo", ride: "armario", name: "resguardos.panel-pomo", mat: "negro" });
       }
-      chapaXZ("resguardos", [[166, 306], [186, 306], [186, 310], [172, 314], [166, 314]], ya, yb, { tone: "mid", name: "resguardos.panel-tapa", mat: "inox" });
+      chapaXZ("resguardos", [[166, 306], [186, 306], [186, 310], [172, 314], [166, 314]], ya, yb, { tone: "mid", ride: "armario", name: "resguardos.panel-tapa", mat: "inox" });
     }
     // interruptores de seguridad Euchner CTP (S08.x)
     // Frente (foto): caja de inox con mirilla delante del corte y, encima, la barra con los dos

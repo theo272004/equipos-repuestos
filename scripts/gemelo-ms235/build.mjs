@@ -78,6 +78,10 @@ function escena(R, pernos) {
     if (it.sensor) out.s = it.sensor;
     if (it.disp) out.d = it.disp;
     if (it.mat) out.ma = it.mat;
+    if (it.sub) out.su = it.sub;
+    if (it.e1) out.e1 = it.e1;
+    if (it.e2) out.e2 = it.e2;
+    if (it.cod) out.co = it.cod;
     if (it.puerta) out.pu = 1;
     if (it.solo3d) out.o3 = 1;
     return out;
@@ -144,7 +148,7 @@ for (const [indice, az] of VISTAS.entries()) {
   const cicloDe = (item) => {
     const n = item.name.replace(/#\d+$/, "");
     const lado = Math.sign(item.centro?.[0] ?? 0) || 1;
-    if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|porta-mordaza|casquillo|ret|horquilla|lamina|poste-muelle|muelle-lamina|codificador|pomo-lote)/.test(n)) return `mordaza,${lado * 3},0,0`;
+    if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|lamina|poste-muelle|muelle-lamina|placa-formato|bloque-bisagra|pasador|biela-larga)/.test(n)) return `mordaza,${lado * 2.5},0,0`;
     if (/^corte\.(cuchilla-movil|carro|guia)/.test(n)) return "cuchilla,8,0,0";
     if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|dedo|goma|vastago|biela|rotula)/.test(n) || n === "film.sobre") return "pinzas,0,0,-20";
     if (n === "salida.sobre") return `cinta,${(item.centro[0] - 11).toFixed(0)}`;
