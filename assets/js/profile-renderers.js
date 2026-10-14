@@ -54,8 +54,10 @@ function dt(machine, campo) {
           <section class="profile-panel is-active" data-profile-panel="summary">
             <div class="summary-hero">
               <div class="summary-left-col">
-                <div class="summary-hero__image">
+                <div class="summary-hero__image${machine.gemelo ? " summary-hero__image--gemelo" : ""}">
+                  ${machine.gemelo ? `<a href="${machine.gemelo}" class="gemelo-cta" title="Ver la máquina pieza por pieza: girarla, desarmarla y ver láminas, sensores, repuestos e historial de cada conjunto">` : ""}
                   ${machine.image ? `<img src="${machine.image}" alt="${machine.name}" />` : ""}
+                  ${machine.gemelo ? `<span class="gemelo-cta__boton"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 16 9 5 9-5M3 12l9 5 9-5"/></svg>Abrir gemelo 3D</span></a>` : ""}
                 </div>
                 <div class="summary-card-under-img">
                   <h4>Datos técnicos clave</h4>
