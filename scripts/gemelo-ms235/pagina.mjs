@@ -78,6 +78,10 @@ const ico = {
   colores: '<circle cx="12" cy="12" r="9"/><circle cx="8" cy="10" r="1.6"/><circle cx="12" cy="7.5" r="1.6"/><circle cx="16" cy="10" r="1.6"/><path d="M12 21c-1.5-2 0-4 2-4h2a4 4 0 0 0 4-4"/>',
   cables: '<path d="M4 20c0-6 4-6 4-11V4M12 20v-7c0-3 4-3 4-6V4M20 20c0-4-3-5-3-8"/><circle cx="8" cy="4" r="1.2"/><circle cx="16" cy="4" r="1.2"/>',
   armario: '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M12 3v18M10 12h0M14 12h0"/>',
+  pantallaCompleta: '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>',
+  pantallaSalir: '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>',
+  panel: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v18"/>',
+  enfocar: '<circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
 };
 const btn = (accion, texto, { pri = false, mostrarTexto = false, titulo } = {}) =>
   `<button type="button" class="gm-btn${pri ? " gm-btn--pri" : ""}" data-accion="${accion}" aria-label="${titulo ?? texto}" title="${titulo ?? texto}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[accion]}</svg>${mostrarTexto ? `<span class="gm-btn__txt">${texto}</span>` : ""}</button>`;
@@ -126,10 +130,40 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
       <div class="gm-grupo">${btn("orto", "Proyección ortográfica")}${btn("aristas", "Aristas")}${btn("seccion", "Corte de sección")}${btn("medir", "Medir")}</div>
       <div class="gm-grupo">${btn("resguardos", "Resguardos y acrílicos")}${btn("calor", "Mapa de fallas")}${btn("aislar", "Aislar la pieza elegida")}${btn("colores", "Un color por conjunto")}</div>
       <div class="gm-grupo">${btn("cables", "Cableado", { mostrarTexto: true, titulo: "Ver el recorrido de los cables del esquema" })}${btn("armario", "Abrir el armario eléctrico")}</div>
+      <span class="gm-sep"></span>
+      <div class="gm-grupo">
+        ${btn("panel", "Ficha técnica", { mostrarTexto: true, titulo: "Ver u ocultar panel de repuestos y datos" })}
+        ${btn("pantallaCompleta", "Pantalla completa", { titulo: "Pantalla completa (F)" })}
+      </div>
     </div>
     <div class="gm-escena g3-escena" tabindex="0" role="application" aria-label="MS235 en 3D. Clic izquierdo y arrastrar gira, clic derecho mueve, rueda acerca. Flechas giran, Mayúscula y flechas mueven, F enfoca la selección, espacio simula, D desarma, Escape quita la selección.">
       <canvas class="g3-lienzo" aria-hidden="true"></canvas>
       <div class="gm-cargando">Cargando la máquina en 3D…</div>
+      <!-- HUD de selección contextual directa -->
+      <div class="g3-hud" id="g3Hud" hidden>
+        <div class="g3-hud__top">
+          <div class="g3-hud__info">
+            <div class="g3-hud__etiquetas">
+              <span class="g3-hud__badge" data-hud-conjunto></span>
+              <span class="g3-hud__chip" data-hud-codigo hidden></span>
+            </div>
+            <h3 class="g3-hud__tit" data-hud-titulo></h3>
+            <p class="g3-hud__sub" data-hud-sub></p>
+          </div>
+          <button type="button" class="g3-hud__cerrar" data-hud-act="cerrar" aria-label="Quitar selección" title="Quitar selección (Esc)">✕</button>
+        </div>
+        <div class="g3-hud__acts">
+          <button type="button" class="g3-hud__btn" data-hud-act="enfocar" title="Centrar y enfocar en esta pieza (F)">
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.enfocar}</svg><span>Enfocar</span>
+          </button>
+          <button type="button" class="g3-hud__btn" data-hud-act="aislar" title="Aislar esta pieza">
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.aislar}</svg><span data-hud-aislar-txt>Aislar</span>
+          </button>
+          <button type="button" class="g3-hud__btn g3-hud__btn--pri" data-hud-act="panel" title="Ver ficha técnica, láminas y repuestos">
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.panel}</svg><span>Ver ficha y repuestos</span>
+          </button>
+        </div>
+      </div>
       <div class="g3-arbol"><input type="search" placeholder="Buscar pieza…" aria-label="Buscar pieza"><ul class="g3-arbol__lista"></ul></div>
       <div class="g3-seccion" hidden>Corte en <button type="button" data-eje="x" aria-pressed="true">X</button><button type="button" data-eje="y" aria-pressed="false">Y</button><button type="button" data-eje="z" aria-pressed="false">Z</button><input type="range" min="0" max="100" value="50" data-rango-seccion aria-label="Posición del corte"><button type="button" data-invertir>Invertir</button></div>
       <div class="g3-medida" hidden></div>

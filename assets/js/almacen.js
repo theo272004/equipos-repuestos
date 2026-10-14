@@ -254,8 +254,12 @@
       <div id="almPedidos">${htmlPedidos()}</div>
       <div class="alm-grid is-paso-${llenar ? "llenar" : "buscar"}" id="almGrid">
         <div class="alm-main">
-          <div class="pl-filters">
-            <input type="search" id="almQ" value="${esc(vista.q)}" placeholder="C&oacute;digo, descripci&oacute;n, estante o equipo (ej. rodamiento 6204, R01/Z0505, blisteadora 2)&hellip;" aria-label="Buscar en almac&eacute;n" autocomplete="off">
+          <div class="alm-search-box">
+            <svg class="alm-search-ico ic" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+            </svg>
+            <input type="search" id="almQ" value="${esc(vista.q)}" placeholder="C&oacute;digo, descripci&oacute;n, estante o equipo (ej. rodamiento 6204, R01/Z0505, blisteadora 2)&hellip;" aria-label="Buscar piezas en almac&eacute;n" autocomplete="off">
+            ${vista.q ? `<button type="button" class="alm-search-clear" id="almClear" aria-label="Borrar b&uacute;squeda" title="Borrar b&uacute;squeda">&times;</button>` : `<kbd class="alm-search-kbd ux-kbd">Ctrl K</kbd>`}
           </div>
           <div class="alm-chips" id="almChips">${htmlChips()}</div>
           <div id="almFuente">${htmlFuente()}</div>
@@ -265,7 +269,27 @@
       </div>
       <div class="alm-carrito" id="almCarrito" ${llenar ? "hidden" : ""}></div>`;
     const q = document.getElementById("almQ");
-    q.addEventListener("input", () => { vista.q = q.value; vista.limite = 60; vista.todo = false; pintarResultados(); });
+    q.addEventListener("input", () => {
+      const antes = vista.q;
+      vista.q = q.value;
+      vista.limite = 60;
+      vista.todo = false;
+      pintarResultados();
+      if ((!antes && vista.q) || (antes && !vista.q)) {
+        const caja = q.closest(".alm-search-box");
+        if (caja) {
+          const viejoClr = caja.querySelector(".alm-search-clear");
+          const viejoKbd = caja.querySelector(".alm-search-kbd");
+          if (vista.q && !viejoClr) {
+            viejoKbd?.remove();
+            caja.insertAdjacentHTML("beforeend", `<button type="button" class="alm-search-clear" id="almClear" aria-label="Borrar b&uacute;squeda" title="Borrar b&uacute;squeda">&times;</button>`);
+          } else if (!vista.q && viejoClr) {
+            viejoClr.remove();
+            caja.insertAdjacentHTML("beforeend", `<kbd class="alm-search-kbd ux-kbd">Ctrl K</kbd>`);
+          }
+        }
+      }
+    });
     pintarIrSol();
   }
 
@@ -531,7 +555,27 @@
   function htmlResultados() {
     const tokens = planTokens(vista.q);
     if (!tokens.length && !vista.filtro && (vista.fam === "" || vista.fam === "mtto")) {
-      return `<div class="pl-empty"><h3>Escribe lo que buscas</h3><p>Por c&oacute;digo, por nombre de la pieza, por estante (R01/Z0505) o por el equipo que la usa. O elige una familia para recorrerla entera.</p></div>`;
+      return `
+        <div class="alm-empty-guide">
+          <div class="alm-empty-guide__head">
+            <div class="alm-empty-guide__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
+            </div>
+            <div>
+              <h3>Buscador de piezas y repuestos</h3>
+              <p>Escribe el c&oacute;digo, nombre de la pieza, estante f&iacute;sico de almac&eacute;n (ej. <b>R01/Z0505</b>) o el nombre del equipo que la usa.</p>
+            </div>
+          </div>
+          <div class="alm-sugerencias">
+            <span class="alm-sugerencias__tit">B&uacute;squedas r&aacute;pidas:</span>
+            <button type="button" class="alm-sug-btn" data-alm-sug="rodamiento">&curren; Rodamientos</button>
+            <button type="button" class="alm-sug-btn" data-alm-sug="correa">&sim; Correas</button>
+            <button type="button" class="alm-sug-btn" data-alm-sug="sensor">&#9737; Sensores</button>
+            <button type="button" class="alm-sug-btn" data-alm-sug="valvula">&#9881; V&aacute;lvulas</button>
+            <button type="button" class="alm-sug-btn" data-alm-sug="cuchilla">&#9986; Cuchillas</button>
+            <button type="button" class="alm-sug-btn" data-alm-sug="empaque">&#9678; Retenes y empaques</button>
+          </div>
+        </div>`;
     }
     const { lista: res, eqs } = buscar();
     const deEquipo = eqs.length
@@ -1191,6 +1235,24 @@
     raiz.addEventListener("click", (e) => {
       // El menú "···" se cierra al tocar fuera o al elegir algo
       raiz.querySelectorAll("details.alm-mas[open]").forEach((d) => { if (!d.contains(e.target) || e.target.closest("[data-alm]")) d.removeAttribute("open"); });
+      const sug = e.target.closest("[data-alm-sug]");
+      if (sug) {
+        vista.q = sug.dataset.almSug;
+        vista.limite = 60;
+        vista.todo = false;
+        render();
+        const inp = document.getElementById("almQ");
+        if (inp) { inp.value = vista.q; inp.focus(); }
+        return;
+      }
+      if (e.target.closest("#almClear")) {
+        vista.q = "";
+        vista.limite = 60;
+        vista.todo = false;
+        render();
+        document.getElementById("almQ")?.focus();
+        return;
+      }
       const b = e.target.closest("[data-alm]");
       if (!b) return;
       const accion = b.dataset.alm;

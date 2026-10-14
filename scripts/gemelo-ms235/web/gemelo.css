@@ -126,23 +126,94 @@ button { font: inherit; color: inherit; }
 .gm {
   display: grid; grid-template-columns: minmax(0, 1fr) 420px; gap: 16px;
   padding: 16px 20px 28px; max-width: 1720px; margin: 0 auto;
+  transition: grid-template-columns 0.25s ease;
 }
 @media (max-width: 1100px) { .gm { grid-template-columns: minmax(0, 1fr); padding: 12px 16px 24px; } }
+
+/* Ocultar panel en modo normal para aprovechar todo el ancho */
+.gm.is-sin-panel {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+.gm.is-sin-panel .gm-panel {
+  display: none !important;
+}
+
+/* Modo expandido y Pantalla completa (Workstation CAD) */
+.gm.is-maximizada,
+.gm:fullscreen,
+.gm-tarjeta:fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  z-index: 9999 !important;
+  background: var(--gm-bg) !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.gm.is-maximizada .gm-tarjeta,
+.gm:fullscreen .gm-tarjeta,
+.gm-tarjeta:fullscreen {
+  flex: 1 !important;
+  height: 100% !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.gm.is-maximizada .gm-escena,
+.gm:fullscreen .gm-escena,
+.gm-tarjeta:fullscreen .gm-escena {
+  flex: 1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+.gm.is-maximizada .gm-leyenda,
+.gm:fullscreen .gm-leyenda,
+.gm-tarjeta:fullscreen .gm-leyenda {
+  padding: 6px 14px 8px;
+}
+/* En modo maximizado, el panel se convierte en un cajón flotante lateral */
+.gm.is-maximizada .gm-panel,
+.gm:fullscreen .gm-panel {
+  position: fixed !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: min(440px, 92vw) !important;
+  max-height: none !important;
+  height: 100vh !important;
+  z-index: 10001 !important;
+  border-radius: 0 !important;
+  border-left: 1px solid var(--gm-line) !important;
+  box-shadow: -12px 0 35px rgba(0, 0, 0, 0.3) !important;
+  transform: translateX(105%) !important;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.gm.is-maximizada.has-panel-abierto .gm-panel,
+.gm:fullscreen.has-panel-abierto .gm-panel {
+  transform: translateX(0) !important;
+}
 
 /* Tarjeta del escenario */
 .gm-tarjeta {
   position: relative; background: var(--gm-card); border: 1px solid var(--gm-line); border-radius: var(--gm-radius);
-  overflow: hidden; min-width: 0;
+  overflow: hidden; min-width: 0; display: flex; flex-direction: column;
 }
 .gm-escena {
   position: relative; height: min(76vh, 860px); min-height: 440px; touch-action: none; cursor: grab;
-  user-select: none; -webkit-user-select: none; outline: none;
+  user-select: none; -webkit-user-select: none; outline: none; flex: 1;
 }
 .gm-escena:focus-visible { box-shadow: inset 0 0 0 2px var(--gm-accent); }
 .gm-escena[data-arrastre="girar"] { cursor: ew-resize; }
 .gm-escena[data-arrastre="mover"] { cursor: grabbing; }
 .gm-escena[data-zoom] { cursor: move; }
-@media (max-width: 700px) { .gm-escena { height: 62vh; min-height: 360px; } }
+@media (max-width: 700px) { .gm-escena { height: 68vh; min-height: 380px; } }
 .gm-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: hidden; }
 .gm-vista { transition: opacity 260ms ease, visibility 0s; }
 .gm-vista[data-fuera] { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 260ms ease, visibility 0s 260ms; }
@@ -204,18 +275,37 @@ button { font: inherit; color: inherit; }
 .gm-etiqueta small { display: block; opacity: .72; font-size: 11.5px; }
 
 /* Leyenda de conjuntos */
-.gm-leyenda { border-top: 1px solid var(--gm-line); padding: 12px 14px 14px; }
-.gm-leyenda__tit { display: flex; align-items: baseline; gap: 10px; margin: 0 4px 8px; font-size: 12px; color: var(--gm-muted); text-transform: uppercase; letter-spacing: .08em; }
-.gm-partes { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 2px 8px; }
-.gm-parte {
-  display: flex; align-items: center; gap: 9px; padding: 6px 8px; border: 0; border-radius: 8px; background: transparent;
-  text-align: left; cursor: pointer; color: var(--gm-text); font-size: 13px; min-width: 0;
+.gm-leyenda { border-top: 1px solid var(--gm-line); padding: 8px 14px 10px; background: color-mix(in srgb, var(--gm-card) 96%, transparent); }
+.gm-leyenda__tit { display: flex; align-items: baseline; gap: 10px; margin: 0 4px 6px; font-size: 11px; color: var(--gm-muted); text-transform: uppercase; letter-spacing: .08em; }
+.gm-partes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  max-height: 82px;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
-.gm-parte:hover { background: var(--gm-soft); color: var(--gm-ink); }
-.gm-parte[aria-pressed="true"] { background: var(--gm-accent-soft); color: var(--gm-accent); }
-.gm-parte__num { font: 11px/1 var(--gm-mono); color: var(--gm-muted); width: 18px; flex: none; }
-.gm-parte__nom { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.gm-parte__n { font: 11px/1 var(--gm-mono); padding: 3px 6px; border-radius: 6px; background: var(--gm-soft); color: var(--gm-muted); }
+@media (max-width: 900px) {
+  .gm-partes {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .gm-parte {
+    flex-shrink: 0;
+  }
+}
+.gm-parte {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border: 1px solid var(--gm-line); border-radius: 7px; background: var(--gm-card);
+  text-align: left; cursor: pointer; color: var(--gm-text); font-size: 12px; min-width: 0; transition: all .12s;
+}
+.gm-parte:hover { background: var(--gm-soft); color: var(--gm-ink); border-color: var(--gm-accent); }
+.gm-parte[aria-pressed="true"] { background: var(--gm-accent-soft); color: var(--gm-accent); border-color: var(--gm-accent); font-weight: 600; }
+.gm-parte__num { font: 10.5px/1 var(--gm-mono); color: var(--gm-muted); flex: none; }
+.gm-parte__nom { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
+.gm-parte__n { font: 10px/1 var(--gm-mono); padding: 2px 5px; border-radius: 4px; background: var(--gm-soft); color: var(--gm-muted); }
 .gm-parte__n[data-tono="warn"] { background: var(--gm-warn-soft); color: var(--gm-warn); }
 
 /* Panel */

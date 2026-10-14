@@ -158,6 +158,8 @@
     }
     reemplazar = false;
     actual = v;
+    document.body.dataset.vista = v;
+    document.body.dataset.seccion = info.g || "";
     cerrarMenuMovil();
     N.emitir("vista", v);
   }
@@ -472,8 +474,23 @@
   document.getElementById("tbSearch")?.addEventListener("click", () => abrirPaleta());
   document.addEventListener("keydown", (e) => {
     const escribiendo = /^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement?.tagName || "") || document.activeElement?.isContentEditable;
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); paleta ? cerrarPaleta() : abrirPaleta(); }
-    else if (e.key === "/" && !escribiendo && !paleta) { e.preventDefault(); abrirPaleta(); }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      if (actual === "almacen") {
+        document.getElementById("almQ")?.focus();
+        return;
+      }
+      paleta ? cerrarPaleta() : abrirPaleta();
+    }
+    else if (e.key === "/" && !escribiendo && !paleta) {
+      if (actual === "almacen") {
+        e.preventDefault();
+        document.getElementById("almQ")?.focus();
+        return;
+      }
+      e.preventDefault();
+      abrirPaleta();
+    }
     else if (e.key === "Escape") { cerrarMenuNuevo(); cerrarMenuMovil(); cerrarPaleta(); }
   });
 

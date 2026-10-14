@@ -6,6 +6,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const esc = (t) => String(t ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
 const quieto = matchMedia("(prefers-reduced-motion: reduce)");
+const legible = (n) => String(n ?? "").replace(/^[a-z]+\./, "").replace(/[#:].*$/, "").replace(/-(atras|frente)$/, "").replace(/[.-]/g, " ");
 
 const panelCab = $(".gm-panel__cab");
 const panelCuerpo = $(".gm-panel__cuerpo");
@@ -169,10 +170,11 @@ function panelPieza(id) {
   const hojas = grupos.reduce((a, [, g]) => a + g.hojas.length, 0);
   const procs = grupos.flatMap(([cod, g]) => g.proc.map((pr) => ({ ...pr, cod })));
   const numPiezas = grupos.reduce((a, [, g]) => a + (g.piezas?.length ?? 0), 0);
+  const uParte = seleccion.parte ? legible(seleccion.parte) : null;
   panelCab.innerHTML = `
-    <div class="gm-panel__migas"><button type="button" data-volver>MS235</button> › conjunto ${String(NUM[id] ?? "").padStart(2, "0")}</div>
-    <h2 class="gm-panel__tit">${esc(p.nombre)}</h2>
-    <p class="gm-panel__sub">${esc(p.corto)}</p>
+    <div class="gm-panel__migas"><button type="button" data-volver>MS235</button> › conjunto ${String(NUM[id] ?? "").padStart(2, "0")}${uParte ? ` › <b>${esc(uParte)}</b>` : ""}</div>
+    <h2 class="gm-panel__tit">${esc(uParte || p.nombre)}</h2>
+    <p class="gm-panel__sub">${esc(uParte ? `Componente de: ${p.nombre} · ${p.corto}` : p.corto)}</p>
     <div class="gm-panel__chips">${p.codigos.map((c) => `<span class="gm-chip gm-chip--mono">${esc(c)}</span>`).join("")}${grupos.some(([, g]) => g.fuente === "por confirmar") ? '<span class="gm-chip" data-tono="warn">asignación por confirmar</span>' : ""}</div>`;
   const pestanas = [
     ["resumen", "Resumen", null],

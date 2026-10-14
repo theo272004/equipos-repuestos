@@ -69,6 +69,39 @@ raiz.scale.x = -1;
 scene.add(raiz);
 raiz.updateMatrixWorld(true);
 
+// Retícula visual táctil al tocar una pieza
+const reticulaMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8, side: THREE.DoubleSide, depthTest: false, transparent: true, opacity: 0.95 });
+const reticulaGeo = new THREE.RingGeometry(1.0, 2.2, 28);
+const reticulaMesh = new THREE.Mesh(reticulaGeo, reticulaMat);
+reticulaMesh.visible = false;
+raiz.add(reticulaMesh);
+let reticulaT0 = 0;
+
+function mostrarReticula(p) {
+  if (!p) return;
+  reticulaMesh.position.copy(raiz.worldToLocal(p.clone()));
+  reticulaMesh.quaternion.copy(camara.quaternion);
+  reticulaMesh.scale.set(0.6, 0.6, 0.6);
+  reticulaMat.opacity = 0.95;
+  reticulaMesh.visible = true;
+  reticulaT0 = performance.now();
+  pedirCuadro();
+}
+
+function animarReticula(ahora) {
+  if (!reticulaMesh.visible) return;
+  const trans = (ahora - reticulaT0) / 340;
+  if (trans >= 1) {
+    reticulaMesh.visible = false;
+    return;
+  }
+  const s = 0.6 + trans * 1.8;
+  reticulaMesh.scale.set(s, s, s);
+  reticulaMat.opacity = Math.max(0, 0.95 * (1 - trans));
+  reticulaMesh.quaternion.copy(camara.quaternion);
+  pedirCuadro();
+}
+
 function tema3d() {
   const oscuro = document.body.dataset.theme === "dark";
   scene.background = new THREE.Color(oscuro ? 0x14171b : 0xeef1f4);
@@ -286,7 +319,6 @@ const porPiezaMallas = {};
 const instancias = []; // tornilleria y sobres
 let ESC = null;
 let caja3 = new THREE.Box3();
-const legible = (n) => n.replace(/^[a-z]+\./, "").replace(/[#:].*$/, "").replace(/-(atras|frente)$/, "").replace(/[.-]/g, " ");
 
 function grupoDe(ride) {
   if (!grupos[ride]) {
@@ -1243,11 +1275,134 @@ function aspecto() {
     const ar = m.userData.aristas;
     if (ar) {
       ar.visible = aristasOn && !(seleccion.pieza && aislar && !sel);
-      ar.material = sel && !enDespiece ? ARISTA_SEL : ARISTA;
+      ar.material = (esParte || (sel && !seleccion.parte)) && !enDespiece ? ARISTA_SEL : ARISTA;
     }
   }
   pedirCuadro();
 }
+
+function pintarHud() {
+  const hud = document.getElementById("g3Hud");
+  if (!hud) return;
+  if (!seleccion.pieza) {
+    hud.hidden = true;
+    return;
+  }
+  const p = D.piezas[seleccion.pieza];
+  const uParte = seleccion.parte ? legible(seleccion.parte) : null;
+  const s = seleccion.sensor ? D.sensores.find((x) => x.sigla === seleccion.sensor) : null;
+  const dc = seleccion.disp ? (CAB.dispositivos[seleccion.disp] ?? CAB.modulos[seleccion.disp] ?? CAB.conectores[seleccion.disp]) : null;
+  const colHex = COLOR_CONJUNTO[seleccion.pieza] ? `#${new THREE.Color(COLOR_CONJUNTO[seleccion.pieza]).getHexString()}` : "#1f6feb";
+
+  hud.style.setProperty("--hud-conj-color", colHex);
+  const badge = hud.querySelector("[data-hud-conjunto]");
+  if (badge) badge.textContent = `${String(NUM[seleccion.pieza] || "").padStart(2, "0")} ${p?.nombre || seleccion.pieza}`;
+
+  const chipCod = hud.querySelector("[data-hud-codigo]");
+  const cod = s ? s.sigla : dc ? seleccion.disp : p?.codigos?.[0];
+  if (chipCod) {
+    if (cod) {
+      chipCod.textContent = cod;
+      chipCod.hidden = false;
+    } else {
+      chipCod.hidden = true;
+    }
+  }
+
+  const tit = hud.querySelector("[data-hud-titulo]");
+  if (tit) {
+    tit.textContent = s ? `${s.sigla} · ${s.f}` : dc ? `${seleccion.disp} · ${dc.desc || dc.tipo || ""}` : (uParte || p?.nombre || seleccion.pieza);
+  }
+
+  const sub = hud.querySelector("[data-hud-sub]");
+  if (sub) {
+    const n = fallasPorPieza[seleccion.pieza] ?? 0;
+    const txts = [];
+    if (uParte && p) txts.push(p.corto || p.nombre);
+    if (s) txts.push(`${s.marca} ${s.tipo} · hilo ${s.hilo}`);
+    if (n) txts.push(`${n} ${n === 1 ? "intervención" : "intervenciones"}`);
+    sub.textContent = txts.join(" · ") || p?.desc || "";
+  }
+
+  const aislarTxt = hud.querySelector("[data-hud-aislar-txt]");
+  if (aislarTxt) {
+    aislarTxt.textContent = aislar ? "Ver todo" : "Aislar";
+  }
+
+  hud.hidden = false;
+}
+
+function abrirPanelDatos() {
+  const gm = document.querySelector(".gm");
+  if (gm) {
+    gm.classList.remove("is-sin-panel");
+    if (document.fullscreenElement || gm.classList.contains("is-maximizada")) {
+      gm.classList.add("has-panel-abierto");
+    }
+    redimensionar();
+  }
+  const pan = document.querySelector(".gm-panel");
+  if (pan) {
+    pan.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  actualizarMandos();
+}
+
+function togglePanel() {
+  const gm = document.querySelector(".gm");
+  if (!gm) return;
+  const esFs = document.fullscreenElement || gm.classList.contains("is-maximizada");
+  if (esFs) {
+    gm.classList.toggle("has-panel-abierto");
+  } else {
+    gm.classList.toggle("is-sin-panel");
+    redimensionar();
+  }
+  actualizarMandos();
+}
+
+function togglePantallaCompleta() {
+  const tarjeta = document.querySelector(".gm-tarjeta");
+  const gm = document.querySelector(".gm");
+  if (!tarjeta) return;
+
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  } else if (tarjeta.requestFullscreen) {
+    tarjeta.requestFullscreen().catch(() => {
+      gm?.classList.toggle("is-maximizada");
+      redimensionar();
+      actualizarMandos();
+    });
+  } else {
+    gm?.classList.toggle("is-maximizada");
+    redimensionar();
+    actualizarMandos();
+  }
+}
+
+document.addEventListener("fullscreenchange", () => {
+  actualizarMandos();
+  redimensionar();
+});
+
+document.getElementById("g3Hud")?.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-hud-act]");
+  if (!b) return;
+  const act = b.dataset.hudAct;
+  if (act === "cerrar") {
+    seleccionar_(null);
+  } else if (act === "enfocar") {
+    enfocarSeleccion();
+  } else if (act === "aislar") {
+    aislar = !aislar;
+    aspecto();
+    actualizarMandos();
+    pintarHud();
+  } else if (act === "panel") {
+    abrirPanelDatos();
+  }
+});
 
 function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null } = {}) {
   const cambia = pieza !== seleccion.pieza;
@@ -1264,6 +1419,7 @@ function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null
   aspecto();
   pintarPanel();
   pintarBarraDespiece();
+  pintarHud();
   decir();
 }
 function resaltarPieza(pieza) {
@@ -1439,20 +1595,27 @@ lienzo.addEventListener("pointerup", (e) => {
   }
   const h = tocadoEn(e);
   if (medir.activo) return medirPunto(h);
-  if (!h) return seleccionar_(null);
+  if (!h) {
+    if (seleccion.pieza) seleccionar_(null);
+    return;
+  }
+  mostrarReticula(h.point);
   const { pieza, parte, sensor, disp } = h.object.userData;
   if (sensor) return seleccionar_(pieza, { sensor, pestana: "sensores", parte });
-  // los dispositivos del esquema (motores, conectores, modulos) se eligen con un clic
-  if (disp && CAB.dispositivos[disp] || disp && CAB.modulos[disp] || disp && CAB.conectores[disp] || disp && seleccion.pieza === pieza) return seleccionar_(pieza, { parte, disp });
-  // primer clic: el conjunto; segundo clic sobre el mismo conjunto: la parte
-  if (seleccion.pieza === pieza && seleccion.parte !== parte) seleccionar_(pieza, { parte, pestana: seleccion.pestana });
-  else if (seleccion.pieza === pieza && seleccion.parte === parte) seleccionar_(null);
-  else seleccionar_(pieza);
+  if (disp && (CAB.dispositivos[disp] || CAB.modulos[disp] || CAB.conectores[disp])) return seleccionar_(pieza, { parte, disp });
+
+  if (seleccion.pieza === pieza && seleccion.parte === parte) {
+    seleccionar_(null);
+  } else {
+    // Selección directa de la pieza y componente al primer toque
+    seleccionar_(pieza, { parte, pestana: seleccion.pestana || "resumen" });
+  }
 });
 lienzo.addEventListener("dblclick", (e) => {
   const h = tocadoEn(e);
   if (h) {
     const { pieza, parte } = h.object.userData;
+    mostrarReticula(h.point);
     seleccionar_(pieza, { parte });
     enfocarSeleccion();
   } else encuadrar(cajaVisible());
@@ -1618,6 +1781,15 @@ function actualizarMandos() {
   bs.querySelector(".gm-btn__txt").textContent = sim.activa && !sim.pausa ? "Pausa" : "Simular";
   $(".g3-seccion").hidden = !seccion.activa;
   $(".g3-medida").hidden = !medir.activo;
+  const esFs = !!document.fullscreenElement || document.querySelector(".gm")?.classList.contains("is-maximizada");
+  const btnFs = $("[data-accion=pantallaCompleta]");
+  if (btnFs) {
+    btnFs.setAttribute("aria-pressed", String(esFs));
+    btnFs.title = esFs ? "Salir de pantalla completa (F / Esc)" : "Pantalla completa (F)";
+  }
+  const gm = document.querySelector(".gm");
+  const panelOn = gm && (!gm.classList.contains("is-sin-panel") || gm.classList.contains("has-panel-abierto"));
+  $("[data-accion=panel]")?.setAttribute("aria-pressed", String(panelOn));
   decir();
 }
 function cambiarCamara(orto) {
@@ -1667,6 +1839,7 @@ const acciones = {
   mas: () => zoom(1 / 1.3),
   menos: () => zoom(1.3),
   encuadrar: () => encuadrar(cajaVisible()),
+  enfocar: () => enfocarSeleccion(),
   resguardos: () => {
     sinResguardos = !sinResguardos;
     aspecto();
@@ -1735,6 +1908,8 @@ const acciones = {
     a.toggleAttribute("data-abierto");
     $("[data-accion=arbol]").setAttribute("aria-pressed", String(a.hasAttribute("data-abierto")));
   },
+  pantallaCompleta: () => togglePantallaCompleta(),
+  panel: () => togglePanel(),
   tema: () => {
     const oscuro = document.body.dataset.theme !== "dark";
     document.body.dataset.theme = oscuro ? "dark" : "light";
@@ -1816,7 +1991,10 @@ escena3.addEventListener("keydown", (e) => {
   else if (k === "ArrowDown") e.shiftKey ? desplazar(0, -1) : orbitar(0, giro);
   else if (k === "+" || k === "=") zoom(1 / 1.2);
   else if (k === "-") zoom(1.2);
-  else if (k === "f" || k === "F") enfocarSeleccion();
+  else if (k === "f" || k === "F") {
+    if (seleccion.pieza) enfocarSeleccion();
+    else togglePantallaCompleta();
+  }
   else if (k === "Home" || k === "0") encuadrar(cajaVisible(), vistasFijas.iso);
   else if (k === " ") acciones.simular();
   else if (k === "d" || k === "D") acciones.desarmar();
@@ -1826,7 +2004,14 @@ escena3.addEventListener("keydown", (e) => {
   else if ((k === "e" || k === "E") && seleccion.pieza) despiezar(despiece.pieza === seleccion.pieza && despiece.meta > 0 ? 0 : despieceCurado(seleccion.pieza) ? 2 : 2);
   else if (k === "Escape") {
     if (medir.activo) acciones.medir();
-    else seleccionar_(null);
+    else if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    else if (document.querySelector(".gm")?.classList.contains("is-maximizada")) {
+      document.querySelector(".gm")?.classList.remove("is-maximizada");
+      redimensionar();
+      actualizarMandos();
+    } else if (seleccion.pieza) {
+      seleccionar_(null);
+    }
   } else return;
   e.preventDefault();
 });
@@ -1857,6 +2042,10 @@ function cuadro(t) {
       pasoSim(dt);
       sigue = true;
     }
+  }
+  if (reticulaMesh && reticulaMesh.visible) {
+    animarReticula(t);
+    sigue = true;
   }
   if (animCam) {
     animCam.t = Math.min(1, animCam.t + dt / 0.55);
