@@ -77,6 +77,9 @@ function escena(R, pernos) {
     if (it.clase) out.c = it.clase;
     if (it.sensor) out.s = it.sensor;
     if (it.disp) out.d = it.disp;
+    if (it.mat) out.ma = it.mat;
+    if (it.puerta) out.pu = 1;
+    if (it.solo3d) out.o3 = 1;
     return out;
   });
   const datos = {
@@ -125,6 +128,8 @@ for (const [indice, az] of VISTAS.entries()) {
   const P = proyeccion(az);
   const R = A.recorder(P, { order: DESARME, spring: SPRING });
   construir(P, R);
+  // El interior del armario solo existe en el visor 3D: en la lamina el armario va cerrado.
+  for (let i = R.items.length - 1; i >= 0; i--) if (R.items[i].solo3d) R.items.splice(i, 1);
   for (const it of R.items) if (it.sensor) SENSORES.push(it.sensor);
   // Estados en que se mide quien tapa a quien: armada, desarmada, cada paso del
   // desarme (prefijos) y cuadros de los resortes reales al abrir y cerrar.
@@ -139,9 +144,9 @@ for (const [indice, az] of VISTAS.entries()) {
   const cicloDe = (item) => {
     const n = item.name.replace(/#\d+$/, "");
     const lado = Math.sign(item.centro?.[0] ?? 0) || 1;
-    if (/^soldadura\.(placa-soldante|aislante|porta-mordaza|tirante|codificador|pomo-lote)/.test(n)) return `mordaza,${-lado * 3},0,0`;
+    if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|porta-mordaza|casquillo|ret|horquilla|lamina|poste-muelle|muelle-lamina|codificador|pomo-lote)/.test(n)) return `mordaza,${lado * 3},0,0`;
     if (/^corte\.(cuchilla-movil|carro|guia)/.test(n)) return "cuchilla,8,0,0";
-    if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|dedo|vastago|biela|rotula)/.test(n) || n === "film.sobre") return "pinzas,0,0,-24";
+    if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|dedo|goma|vastago|biela|rotula)/.test(n) || n === "film.sobre") return "pinzas,0,0,-20";
     if (n === "salida.sobre") return `cinta,${(item.centro[0] - 11).toFixed(0)}`;
     return null;
   };

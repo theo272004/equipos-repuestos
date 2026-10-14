@@ -60,6 +60,14 @@ rejilla.material.transparent = true;
 rejilla.material.opacity = 0.35;
 rejilla.position.y = 0.05;
 scene.add(rejilla);
+// El modelo usa las coordenadas de la planta del esquema (x a la derecha, y hacia el frente,
+// z arriba). Al pasarlas a three.js (y <-> z) la mano se invierte: el espejo en x la devuelve,
+// y la maquina queda como la real (cinta, HMI y armario a la izquierda del operador).
+const raiz = new THREE.Group();
+raiz.name = "maquina";
+raiz.scale.x = -1;
+scene.add(raiz);
+raiz.updateMatrixWorld(true);
 
 function tema3d() {
   const oscuro = document.body.dataset.theme === "dark";
@@ -94,12 +102,47 @@ const MAT = {
   led: new THREE.MeshStandardMaterial({ color: 0x2e7d32, emissive: 0x43d65a, emissiveIntensity: 0.35, clippingPlanes: planosCorte }),
   ledOn: new THREE.MeshStandardMaterial({ color: 0xffb020, emissive: 0xffa000, emissiveIntensity: 2.2, clippingPlanes: planosCorte }),
   perno: M({ color: 0x8c939b, metalness: 0.8, roughness: 0.28 }),
+  // materiales de la maquina real (fotos): inox cepillado, aluminio, acero pardo de las planchas…
+  inox: M({ color: 0xc4cad0, metalness: 0.72, roughness: 0.34 }),
+  alu: M({ color: 0xdfe3e7, metalness: 0.5, roughness: 0.4 }),
+  caliente: M({ color: 0x5b3a27, metalness: 0.45, roughness: 0.55 }),
+  fundicion: M({ color: 0x3f3a36, metalness: 0.35, roughness: 0.68 }),
+  bronce: M({ color: 0x8a6a3e, metalness: 0.62, roughness: 0.42 }),
+  laton: M({ color: 0xc2a04e, metalness: 0.75, roughness: 0.3 }),
+  cromo: M({ color: 0xeef1f4, metalness: 0.92, roughness: 0.14 }),
+  crema: M({ color: 0xe6dcc2, metalness: 0, roughness: 0.6 }),
+  ptfe: M({ color: 0xf3f1ea, metalness: 0, roughness: 0.5 }),
+  caucho: M({ color: 0x1c1d1f, metalness: 0, roughness: 0.85 }),
+  euchner: M({ color: 0xc8352c, metalness: 0.1, roughness: 0.45 }),
+  m12: M({ color: 0x2fa34a, metalness: 0.1, roughness: 0.5 }),
+  harting: M({ color: 0x9aa1a8, metalness: 0.3, roughness: 0.5 }),
+  manguera: M({ color: 0x2a7fd4, metalness: 0, roughness: 0.45 }),
+  conduit: M({ color: 0x8d949b, metalness: 0.2, roughness: 0.6 }),
+  reten: M({ color: 0x2c74c9, metalness: 0.1, roughness: 0.5 }),
+  champan: M({ color: 0x9d8c6b, metalness: 0.55, roughness: 0.4 }),
+  riel: M({ color: 0xb9bec3, metalness: 0.8, roughness: 0.3 }),
+  canaleta: M({ color: 0x8e9398, metalness: 0, roughness: 0.7 }),
+  breaker: M({ color: 0xe9e9e6, metalness: 0, roughness: 0.55 }),
+  rele: M({ color: 0x3d4a57, metalness: 0.05, roughness: 0.5 }),
+  plc: M({ color: 0x9fa6ad, metalness: 0.15, roughness: 0.5 }),
+  borne: M({ color: 0x8e979e, metalness: 0, roughness: 0.6 }),
+  borneAzul: M({ color: 0x3a74c4, metalness: 0, roughness: 0.6 }),
+  borneTierra: M({ color: 0x5fa83a, metalness: 0, roughness: 0.6 }),
+  palanca: M({ color: 0x2b2e33, metalness: 0.1, roughness: 0.5 }),
+  hiloAzul: M({ color: 0x1f5fbf, metalness: 0, roughness: 0.6 }),
+  hiloNegro: M({ color: 0x202226, metalness: 0, roughness: 0.6 }),
+  hiloRojo: M({ color: 0xb3261e, metalness: 0, roughness: 0.6 }),
+  amarillo: M({ color: 0xf2c200, metalness: 0.05, roughness: 0.5 }),
+  maneta: M({ color: 0xc8202a, metalness: 0.05, roughness: 0.45 }),
 };
 const ARISTA = new THREE.LineBasicMaterial({ color: 0x1f2328, transparent: true, opacity: 0.32, clippingPlanes: planosCorte });
 const ARISTA_SEL = new THREE.LineBasicMaterial({ color: 0x1f6feb, transparent: true, opacity: 0.9, clippingPlanes: planosCorte });
 
 function materialDe(it) {
   const n = it.n;
+  if (it.ma && MAT[it.ma]) return MAT[it.ma];
+  if (it.c === "manguera") return MAT.manguera;
+  if (/cable-calefaccion/.test(n)) return MAT.conduit;
   if (it.c === "vidrio" || it.c === "vidrio-vaso") return MAT.vidrio;
   if (it.c === "papel") return MAT.papel;
   if (it.c === "bobina") return MAT.bobina;
@@ -110,6 +153,11 @@ function materialDe(it) {
   if (it.c === "cable" || it.c === "correa" || it.c === "cadena") return MAT.negro;
   if (/motor(-[a-z]+)?$|motor-bornes|\.motor-|-bornes$/.test(n) && !/eje-motor|polea-motor|pie-motor|escuadra-motor|soporte-motor/.test(n)) return MAT.motor;
   if (/armario\.(cuerpo|zocalo)|hmi\.panel|carter\.(trasera|tapa)/.test(n)) return MAT.pintado;
+  // la maquina real es de inox cepillado (pared, base, cubiertas) con perfiles de resguardo champan
+  if (/^bastidor\.(pared|base|lateral|tapa-inspeccion|bandeja|viga)|^salida\.(larguero|pata|travesano)/.test(n)) return MAT.inox;
+  if (/^resguardos\.(poste|travesano|larguero|perfil)/.test(n)) return MAT.champan;
+  if (/^guias\.rodillo|^desbobinado\.rodillo(?!-motorizado)/.test(n)) return MAT.crema;
+  if (/conector/.test(n)) return MAT.harting;
   if (/electrovalvula/.test(n)) return MAT.valvula;
   if (/bobina-ev|bisagra|muelle-gas|manilla|tirador|euchner|pata-disco/.test(n)) return MAT.oscuro;
   if (/aislante/.test(n)) return MAT.aislante;
@@ -234,7 +282,7 @@ function grupoDe(ride) {
   if (!grupos[ride]) {
     grupos[ride] = new THREE.Group();
     grupos[ride].name = ride;
-    scene.add(grupos[ride]);
+    raiz.add(grupos[ride]);
   }
   return grupos[ride];
 }
@@ -286,8 +334,13 @@ function construirMaquina(esc) {
   const arriba = new THREE.Vector3(0, 1, 0);
   const porClave = new Map();
   for (const pr of esc.pernos) {
-    const clave = `${pr.ride}|${pr.pieza}|${pr.tipo}`;
-    if (!porClave.has(clave)) porClave.set(clave, { ...pr, lista: [] });
+    // los de una pieza que se mueve en la simulacion van en su propio grupo, para moverlos con ella
+    const parte = pr.parte?.replace(/[#:].*$/, "") ?? null;
+    const centro = pr.pts.reduce((a, p) => a.map((v, i) => v + p[i] / pr.pts.length), [0, 0, 0]);
+    const mueve = parte && reglaAnim({ userData: { parte, centro } }) ? `${parte}|${Math.sign(centro[0])}` : "";
+    const clave = `${pr.ride}|${pr.pieza}|${pr.tipo}|${mueve}`;
+    if (!porClave.has(clave)) porClave.set(clave, { ...pr, parteMov: mueve ? parte : null, centros: [], lista: [] });
+    porClave.get(clave).centros.push(centro);
     for (const p of pr.pts) porClave.get(clave).lista.push({ p, n: pr.n, r: pr.r });
   }
   for (const [, g] of porClave) {
@@ -302,17 +355,62 @@ function construirMaquina(esc) {
     });
     im.castShadow = false;
     im.receiveShadow = true;
-    im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: `${g.pieza}.tornilleria`, tornillos: g.lista.length };
+    im.matrixAutoUpdate = false;
+    const centro = g.centros.reduce((a, c) => a.map((v, i) => v + c[i] / g.centros.length), [0, 0, 0]);
+    im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: g.parteMov ?? `${g.pieza}.tornilleria`, centro, tornillos: g.lista.length, perno: true };
     grupoDe(g.ride).add(im);
     instancias.push(im);
     (porPiezaMallas[g.pieza] ??= []).push(im);
   }
-  for (const g of Object.values(grupos)) g.updateMatrixWorld(true);
+  armarPuerta();
+  raiz.updateMatrixWorld(true);
   caja3 = new THREE.Box3();
   for (const m of mallas) if (m.userData.pieza !== "resguardos") caja3.expandByObject(m);
   totalTornillos = esc.pernos.reduce((a, p) => a + p.pts.length, 0);
 }
 let totalTornillos = 0;
+
+// Puerta del armario: sus piezas (y lo montado en su cara interior) giran sobre la bisagra.
+const puerta = { grupo: null, ang: 0, meta: 0 };
+function armarPuerta() {
+  const suyas = mallas.filter((m) => m.userData.it.pu);
+  if (!suyas.length) return;
+  const caja = new THREE.Box3();
+  for (const m of suyas.filter((x) => x.userData.parte === "armario.puerta")) {
+    m.geometry.computeBoundingBox();
+    caja.union(m.geometry.boundingBox);
+  }
+  const bisagra = new THREE.Vector3(caja.max.x, 0, caja.min.z);
+  puerta.grupo = new THREE.Group();
+  puerta.grupo.name = "puerta-armario";
+  puerta.grupo.position.copy(bisagra);
+  const dentro = new THREE.Group();
+  dentro.position.copy(bisagra).negate();
+  puerta.grupo.add(dentro);
+  for (const m of suyas) dentro.add(m);
+  grupoDe("armario").add(puerta.grupo);
+}
+function abrirArmario(abrir = puerta.meta === 0) {
+  puerta.meta = abrir ? 1.85 : 0;
+  if (quieto3.matches) puerta.ang = puerta.meta;
+  actualizarMandos();
+  pedirCuadro();
+}
+function moverPuerta(dt) {
+  if (!puerta.grupo) return false;
+  const falta = puerta.meta - puerta.ang;
+  if (Math.abs(falta) < 0.002) {
+    if (puerta.ang !== puerta.meta) {
+      puerta.ang = puerta.meta;
+      puerta.grupo.rotation.y = puerta.ang;
+      if (cableado.vista) pintarCables();
+    }
+    return false;
+  }
+  puerta.ang += falta * Math.min(1, dt * 5);
+  puerta.grupo.rotation.y = puerta.ang;
+  return true;
+}
 
 // ───────────── Encuadre ─────────────
 const vistasFijas = {
@@ -377,6 +475,7 @@ let paso = 0;
 function irAPaso(n, { seleccionar = true, inmediato = false } = {}) {
   n = Math.max(0, Math.min(PASOS.length, n));
   if (n > 0 && sim.activa) pararSim();
+  if (n !== paso) setTimeout(pintarCables, 0);
   const antes = paso;
   paso = n;
   if (inmediato) PASOS.forEach((id, i) => Object.assign(resorte[id], { x: i < n ? 1 : 0, v: 0, target: i < n ? 1 : 0, pending: null }));
@@ -439,6 +538,8 @@ function colocarGrupos() {
 // soldadura a 30° con el bloque en su maxima excursion (planchas cerradas). Cuchilla rotativa:
 // una vuelta por ciclo, corte con la hoja enfrentada a la contracuchilla (Calibrado p.23).
 // El resto de ventanas son aproximadas y se avisan en la pagina.
+// Las pinzas toman la fila colgada antes del corte, la bajan y la sueltan sobre el deslizadero:
+// la cinta corre por debajo del corte y sale por el costado.
 const FASES = {
   cierre: [0.9, 0.03, 0.14, 0.24], // empieza a cerrar, cerrada, empieza a abrir, abierta
   corte: 0.1,
@@ -450,6 +551,7 @@ const FASES = {
   agarra: [0.95, 0.02],
 };
 const PASO_SOBRE = 28; // largo del sobre: 112 mm
+const BAJADA = 20;
 const sim = { activa: false, angulo: 0, cpm: 50, ciclos: 0, sobres: 0, ultimoU: 0 };
 const suave = (a, b, x) => {
   const t = Math.max(0, Math.min(1, (x - a) / (b - a)));
@@ -457,9 +559,9 @@ const suave = (a, b, x) => {
 };
 const enVentana = (u, a, b) => (a <= b ? u >= a && u <= b : u >= a || u <= b);
 function estadoCiclo(u) {
-  const cierra = u >= FASES.cierre[0] ? suave(FASES.cierre[0], 1 + FASES.cierre[1], u) : suave(FASES.cierre[0] - 1, FASES.cierre[1], u);
-  const abre = u < 0.5 ? suave(FASES.cierre[2], FASES.cierre[3], u) : 0;
-  const fCierre = cierra * (1 - abre);
+  // cierra de cierre[0] a cierre[1] (pasando por 0°), abre de cierre[2] a cierre[3] y queda abierta
+  const [c0, c1, a0, a1] = FASES.cierre;
+  const fCierre = u >= c0 ? suave(c0, 1 + c1, u) : u < c1 ? suave(c0 - 1, c1, u) : 1 - suave(a0, a1, u);
   const avance = suave(FASES.arrastre[0], FASES.arrastre[1], u); // 0..1 del paso de papel en este ciclo
   const dosis = suave(FASES.dosis[0], FASES.dosis[1], u);
   const baja = suave(FASES.pinzasBaja[0], FASES.pinzasBaja[1], u) * (1 - suave(FASES.pinzasSube[0], FASES.pinzasSube[1], u));
@@ -482,7 +584,8 @@ const SENALES = [
   { tag: "M30.1", txt: "arrastre de papel", on: (u) => enVentana(u, FASES.arrastre[0], FASES.arrastre[1]) },
   { tag: "B30.10", txt: "lectura de muesca", on: (u) => enVentana(u, 0.57, 0.6) },
   { tag: "M34.1", txt: "dosificación (estrella)", on: (u) => enVentana(u, FASES.dosis[0], FASES.dosis[1]) },
-  { tag: "B52.x", txt: "expulsión: sobre en la cinta", on: () => sobreEnExpulsion },
+  { tag: "Pinzas", txt: "toma de sobres: baja y suelta", on: (u) => enVentana(u, FASES.pinzasBaja[0], FASES.pinzasSube[1]) },
+  { tag: "B52.x", txt: "expulsión: sobre bajo el láser", on: () => sobreEnExpulsion },
 ];
 let sobreEnExpulsion = false;
 
@@ -506,10 +609,18 @@ function reglaAnim(m) {
   if (/^dosificacion\.(estrella|eje-estrella|polea)$/.test(n)) return { rot: [0, 1, 0], p: [0, 0, 368], f: (e) => e.estrella };
   if (/^dosificacion\.(polea-motor|eje-motor)$/.test(n)) return { rot: [0, 1, 0], p: [48, 0, 412], f: (e) => e.estrella * 1.5 };
   if (n === "salida.tambor") return { rot: [0, 1, 0], p: [c[0], 0, 94], f: (e) => -e.cinta / 5 };
-  if (/^soldadura\.(placa-soldante|aislante|porta-mordaza|tirante|codificador|pomo-lote|resistencia|pt100)/.test(n)) return { mov: (e) => [-lado * 3 * (1 - e.fCierre), 0, 0] };
-  if (/^soldadura\.muelle/.test(n)) return { muelle: lado };
-  if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|vastago|biela|rotula)/.test(n)) return { mov: (e) => [0, 0, -24 * e.baja] };
-  if (n === "pinzas.dedo") return { mov: (e) => [-lado * 1.4 * (1 - e.agarre), 0, -24 * e.baja] };
+  // la plancha abierta se aleja del papel 3 unidades (12 mm); cerrada aprieta
+  const abre = (e) => [lado * 3 * (1 - e.fCierre), 0, 0];
+  if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|porta-mordaza|casquillo|ret|horquilla|lamina|poste-muelle|codificador|pomo-lote|sensor\.B41)/.test(n)) return { mov: abre };
+  // fuelle del cilindro: fijo al bloque (x = ±58), se estira cuando el vastago cierra la plancha
+  if (n === "soldadura.fuelle") return { escala: { ancla: [58 * lado, 0, 0], k: (e) => (20 - 3 * (1 - e.fCierre)) / 20, mov: () => [0, 0, 0] } };
+  // resortes de la lamina: viajan con la plancha y se estiran un poco al apretar
+  if (/^soldadura\.muelle-lamina/.test(n)) return { escala: { ancla: [9.1 * lado, 0, 0], k: (e) => 1 + 0.08 * e.fCierre, mov: abre } };
+  // manivelas de la pared: giran con el eje de levas
+  if (/^motor\.(disco-manivela|manivela|rodamiento-manivela)/.test(n)) return { rot: [0, 1, 0], p: [c[0], 0, 317], f: (e) => e.theta };
+  if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|vastago|biela|rotula)/.test(n)) return { mov: (e) => [0, 0, -BAJADA * e.baja] };
+  // los dedos se abren hacia afuera (lejos del papel) y cierran sobre la fila
+  if (/^pinzas\.(dedo|goma)/.test(n)) return { mov: (e) => [lado * 1.4 * (1 - e.agarre), 0, -BAJADA * e.baja] };
   if (n === "film.sobre") return { sobre: true };
   if (n === "salida.sobre") return { oculto: true };
   if (/^desbobinado\.(balancin)/.test(n)) return { rot: [1, 0, 0], p: [0, -150, 300], f: (e) => Math.sin(e.theta * 1) * 0.03 };
@@ -517,7 +628,7 @@ function reglaAnim(m) {
 }
 const animadas = [];
 function prepararAnim() {
-  for (const m of mallas) {
+  for (const m of [...mallas, ...instancias.filter((i) => i.userData.perno)]) {
     const r = reglaAnim(m);
     if (!r) continue;
     if (r.sobre || r.oculto) m.userData.sim = true;
@@ -547,6 +658,12 @@ function aplicarAnim(e, activa) {
     } else if (r.mov) {
       const [x, y, z] = r.mov(e);
       m.matrix.makeTranslation(x, z, y);
+    } else if (r.escala) {
+      const [mx, my, mz] = r.escala.mov(e);
+      const a = T(r.escala.ancla);
+      _t1.makeTranslation(-a.x, 0, 0);
+      _t2.makeTranslation(a.x + mx, mz, my);
+      m.matrix.copy(_t2).multiply(_m.makeScale(r.escala.k(e), 1, 1)).multiply(_t1);
     } else if (r.muelle) {
       // el muelle se estira entre el bloque fijo (x = ±58) y el porta-mordaza
       const ancla = 58 * r.muelle;
@@ -555,11 +672,12 @@ function aplicarAnim(e, activa) {
       _t2.makeTranslation(ancla, 0, 0);
       m.matrix.copy(_t2).multiply(_m.makeScale(k, 1, 1)).multiply(_t1);
     } else if (r.sobre) {
-      // sobres colgando: bajan con el papel durante el arrastre, siguen a las pinzas y se sueltan
+      // fila colgando bajo la cuchilla: baja con el papel durante el arrastre, sigue a las pinzas
+      // y al soltarla pasa a ser cuerpos con fisica
       const u = e.u;
-      m.visible = m.userData.visibleBase !== false && (u > FASES.arrastre[0] || u < FASES.suelta);
+      m.visible = m.userData.visibleBase !== false && (u >= FASES.arrastre[0] || u < FASES.suelta);
       const subida = u >= FASES.arrastre[0] && u <= FASES.arrastre[1] ? (1 - e.avance) * PASO_SOBRE : 0;
-      m.matrix.makeTranslation(0, subida - 24 * e.baja, 0);
+      m.matrix.makeTranslation(0, subida - BAJADA * e.baja, 0);
     } else if (r.oculto) m.visible = false;
     m.updateMatrixWorld(true);
   }
@@ -585,7 +703,9 @@ function iniciarFisica() {
   mundo.allowSleep = false;
   const matSobre = new CANNON.Material("sobre");
   const matCinta = new CANNON.Material("cinta");
-  mundo.addContactMaterial(new CANNON.ContactMaterial(matSobre, matCinta, { friction: 0.6, restitution: 0.05 }));
+  // la banda arrastra imponiendo su velocidad (pasoFisica): su contacto no debe frenar. Con la masa
+  // de un sobre (4 g) y la gravedad en unidades de 4 mm, cannon frena de mas aun con mu = 0,03.
+  mundo.addContactMaterial(new CANNON.ContactMaterial(matSobre, matCinta, { friction: 0, restitution: 0.05 }));
   mundo.addContactMaterial(new CANNON.ContactMaterial(matSobre, matSobre, { friction: 0.4, restitution: 0.05 }));
   const estatico = (centroMundo, medio) => {
     const b = new CANNON.Body({ mass: 0, material: matCinta, shape: new CANNON.Box(new CANNON.Vec3(medio[0], medio[2], medio[1])) });
@@ -593,22 +713,37 @@ function iniciarFisica() {
     b.position.set(c.x, c.y, c.z);
     mundo.addBody(b);
   };
-  // cinta (x -46..330, y 20..140, arriba en z 100), guias de carril, suelo y largueros
-  estatico([142, 80, 99], [188, 60, 1]);
-  for (let i = 1; i < 6; i++) estatico([170, 20 + 20 * i, 103.5], [130, 0.6, 2.5]);
-  estatico([142, 17, 98], [190, 3, 8]);
-  estatico([142, 143, 98], [190, 3, 8]);
+  // cinta bajo el corte hasta el costado (x -46..459, y 16..128, arriba en z 100), guias y largueros
+  estatico([206.5, 72, 99], [252.5, 56, 1]);
+  const [p0, p1] = [ESC.cotas.tira.y0, ESC.cotas.tira.y1];
+  for (let i = 1; i < 6; i++) estatico([240, p0 + ((p1 - p0) / 6) * i, 104], [200, 0.6, 2]);
+  estatico([207.5, 13, 96], [255.5, 3, 8]);
+  estatico([207.5, 131, 96], [255.5, 3, 8]);
+  // deslizadero de expulsion bajo las pinzas: rampa de (-16, z 112) a (16, z 101.5) con sus bordes
+  {
+    const ang = Math.atan2(-9.5, 28);
+    // inox liso: los sobres resbalan hasta la banda (la goma de la banda si los arrastra)
+    const matRampa = new CANNON.Material("rampa");
+    mundo.addContactMaterial(new CANNON.ContactMaterial(matSobre, matRampa, { friction: 0, restitution: 0.02 }));
+    const rampa = new CANNON.Body({ mass: 0, material: matRampa, shape: new CANNON.Box(new CANNON.Vec3(14.8, 0.5, 56)) });
+    const c = T([-2, 72, 108.75]);
+    rampa.position.set(c.x, c.y, c.z);
+    rampa.quaternion.setFromEuler(0, 0, ang);
+    mundo.addBody(rampa);
+    for (const y of [14, 130]) estatico([0, y, 110], [16, 2, 6]);
+  }
   const suelo = new CANNON.Body({ mass: 0, material: matCinta, shape: new CANNON.Plane() });
   suelo.quaternion.setFromEuler(-Math.PI / 2, 0, 0);
   mundo.addBody(suelo);
   mundo.matSobre = matSobre;
-  const geo = new THREE.BoxGeometry(1.4, 28, 15);
+  const geo = new THREE.BoxGeometry(1.4, 28, 13.6);
   mallaSobres = new THREE.InstancedMesh(geo, MAT.papel, MAX_SOBRES);
   mallaSobres.count = 0;
   mallaSobres.castShadow = true;
   mallaSobres.frustumCulled = false;
-  scene.add(mallaSobres);
+  raiz.add(mallaSobres);
 }
+// Al soltar las pinzas, la fila pasa a ser cuerpos con fisica que caen al deslizadero.
 function soltarSobres() {
   if (!mundo) return;
   for (const yc of ESC.carriles) {
@@ -617,11 +752,11 @@ function soltarSobres() {
       mundo.removeBody(viejo.b);
     }
     // sobre colgando: fino en x, ancho en y (carril), largo en z
-    const b = new CANNON.Body({ mass: 0.004, material: mundo.matSobre, shape: new CANNON.Box(new CANNON.Vec3(0.7, 14, 7.5)), linearDamping: 0.05, angularDamping: 0.3 });
-    const c = T([0, yc, 150 - 24]);
+    const b = new CANNON.Body({ mass: 0.004, material: mundo.matSobre, shape: new CANNON.Box(new CANNON.Vec3(0.7, 14, 6.8)), linearDamping: 0.05, angularDamping: 0.6 });
+    const c = T([0, yc, 150 - BAJADA]);
     b.position.set(c.x, c.y, c.z);
-    b.velocity.set((Math.random() - 0.5) * 6, -20, 0);
-    b.angularVelocity.set(0, 0, (Math.random() - 0.4) * 2);
+    b.velocity.set((Math.random() - 0.5) * 3, -12, 0);
+    b.angularVelocity.set(0, 0, -1.2 - Math.random() * 0.6);
     mundo.addBody(b);
     cuerpos.push({ b, t: 0 });
   }
@@ -635,13 +770,13 @@ function pasoFisica(dt) {
   for (let i = cuerpos.length - 1; i >= 0; i--) {
     const { b } = cuerpos[i];
     cuerpos[i].t += dt;
-    const sobreCinta = b.position.y < 106 && b.position.y > 96 && b.position.x > -46 && b.position.x < 330 && b.position.z > 20 && b.position.z < 140;
+    const sobreCinta = b.position.y < 104 && b.position.y > 96 && b.position.x > 13 && b.position.x < 459 && b.position.z > 16 && b.position.z < 128;
     if (sobreCinta) {
       b.velocity.x += (vCinta - b.velocity.x) * Math.min(1, dt * 12);
       b.velocity.z *= 1 - Math.min(1, dt * 4);
     }
-    if (b.position.x > 238 && b.position.x < 266 && sobreCinta) sobreEnExpulsion = true;
-    if (b.position.y < 3 || cuerpos[i].t > 30) {
+    if (b.position.x > 194 && b.position.x < 210 && sobreCinta) sobreEnExpulsion = true;
+    if (b.position.y < 3 || b.position.x > 470 || cuerpos[i].t > 30) {
       mundo.removeBody(b);
       cuerpos.splice(i, 1);
     }
@@ -783,12 +918,14 @@ const ocultas = new Set(); // conjuntos apagados en el arbol
 function aspecto() {
   for (const m of [...mallas, ...instancias]) {
     const { pieza, parte, base } = m.userData;
-    const visible = !ocultas.has(pieza) && !(pieza === "resguardos" && sinResguardos);
+    // el boton de resguardos quita puertas, acrilicos y su marco; la caja con mirilla y los Euchner quedan
+    const enMarco = /^resguardos\.(puerta|perfil|bisagra|tirador|lateral|techo|poste|travesano|larguero|actuador)/.test(parte) || (/^resguardos\.(euchner|rfid|conector)/.test(parte) && Math.abs(m.userData.centro?.[0] ?? 0) > 150);
+    const visible = !ocultas.has(pieza) && !(sinResguardos && enMarco);
     m.userData.visibleBase = visible;
     if (!sim.activa || !m.userData.sim) m.visible = visible;
     let mat = base;
     const sel = seleccion.pieza && pieza === seleccion.pieza;
-    const esParte = seleccion.parte && parte === seleccion.parte;
+    const esParte = (seleccion.parte && parte === seleccion.parte && (!seleccion.disp || m.userData.disp === seleccion.disp)) || (cableado.marcados.size && cableado.marcados.has(m.userData.disp));
     if (calor && base !== MAT.vidrio && pieza !== "film") mat = variante(base, `calor${nivelCalor(pieza) ?? 0}`);
     if (esParte) mat = variante(mat, "parte");
     else if (sel) mat = variante(mat, "sel");
@@ -804,13 +941,15 @@ function aspecto() {
   pedirCuadro();
 }
 
-function seleccionar_(pieza, { sensor = null, pestana, parte = null } = {}) {
+function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null } = {}) {
   const cambia = pieza !== seleccion.pieza;
   seleccion.pieza = pieza;
   seleccion.sensor = sensor;
   seleccion.parte = parte;
+  seleccion.disp = sensor ? null : disp;
   if (pestana) seleccion.pestana = pestana;
   else if (cambia) seleccion.pestana = sensor ? "sensores" : "resumen";
+  pintarCables();
   $$(".gm-parte").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.pieza === pieza)));
   marcarArbol();
   aspecto();
@@ -830,6 +969,138 @@ function mostrarSensor(s) {
   const i = PASOS.indexOf(s.pieza);
   if (i > 0 && paso < i && s.pieza !== "bastidor") irAPaso(i, { seleccionar: false });
   setTimeout(() => encuadrar(new THREE.Box3().setFromObject(m).expandByScalar(40)), 500);
+}
+
+// ───────────── Cableado del esquema ES4220003 ─────────────
+// Recorrido aproximado: del dispositivo a sus conectores, por la pared a la canaleta de la caja
+// de transmision, por la bandeja al armario y, dentro, a la regleta y al modulo o accionamiento.
+// Las puntas (dispositivo, conector, regleta, modulo) son las del esquema; el camino entre ellas
+// es orientativo: el esquema no dibuja canaletas.
+const CAB = D.cableado ?? { dispositivos: {}, modulos: {}, conectores: {} };
+const cableado = { vista: false, grupo: new THREE.Group(), marcados: new Set() };
+cableado.grupo.name = "cables";
+raiz.add(cableado.grupo);
+const COLOR_CABLE = { sensor: 0x1a7f37, motor: 0xd1491f, valvula: 0x0969da, seguridad: 0xbf8700 };
+const matCable = new Map();
+function materialCable(tipo, fuerte) {
+  const clave = `${tipo}|${fuerte}`;
+  // el cable seguido se ve a traves de la maquina (como rayos X); el resto, solo donde se ve
+  if (!matCable.has(clave)) matCable.set(clave, new THREE.MeshBasicMaterial({ color: COLOR_CABLE[tipo] ?? 0x8250df, transparent: true, opacity: fuerte ? 0.95 : 0.55, depthTest: !fuerte, depthWrite: !fuerte, clippingPlanes: planosCorte }));
+  return matCable.get(clave);
+}
+const tipoCable = (tag) => {
+  const t = CAB.dispositivos[tag]?.tipo ?? "";
+  if (/motor/.test(t)) return "motor";
+  if (/valv|electrov/.test(t) || /^Y/.test(tag)) return "valvula";
+  if (/^S08|seguridad/.test(tag + t)) return "seguridad";
+  return "sensor";
+};
+// centro de un dispositivo en coordenadas del modelo, con la puerta y el desarme como esten
+function centroModelo(tag) {
+  const ms = mallas.filter((m) => m.userData.disp === tag || m.userData.sensor === tag);
+  if (!ms.length) return null;
+  const b = new THREE.Box3();
+  for (const m of ms) b.expandByObject(m);
+  const c = raiz.worldToLocal(b.getCenter(new THREE.Vector3()));
+  return [c.x, c.z, c.y];
+}
+const enArmario = (tag) => mallas.some((m) => (m.userData.disp === tag || m.userData.sensor === tag) && (m.userData.it.o3 || m.userData.it.pu));
+function rutaDe(tag) {
+  const d = CAB.dispositivos[tag];
+  const p0 = centroModelo(tag);
+  if (!p0) return null;
+  const pts = [p0];
+  const vias = new Set([...(d?.conectores ?? []).map((c) => c.tag), ...(d?.ruta ?? []).filter((t) => /^X\d/.test(t) && !/^X0[0-9]$/.test(t))]);
+  for (const c of vias) {
+    const pc = centroModelo(c);
+    if (pc) pts.push(pc);
+  }
+  if (!enArmario(tag)) {
+    const [x, y, z] = pts[pts.length - 1];
+    if (y > 180 && x > 150) pts.push([x, y, 300], [198, -46, 300], [198, -96, 301], [214, -104, 301], [214, -112, 292]);
+    else if (x > 196 && y > -100) pts.push([x, y, 84], [204, y, 84], [204, -96, 84], [244, -96, 84], [244, -112, 84]);
+    else {
+      if (y > 0) pts.push([x, 3, z], [x, -10, z]);
+      else if (y < -100) pts.push([x, y, 26], [x, -96, 26]);
+      const xd = Math.max(-182, Math.min(182, x));
+      pts.push([xd, -52, pts[pts.length - 1][2]], [xd, -52, 292], [182, -52, 292], [194, -52, 301], [194, -104, 301], [214, -104, 301], [214, -112, 292]);
+    }
+  }
+  // dentro del armario, por la canaleta delante de la placa: regleta (X06, X01…) y modulo o accionamiento
+  const DX = 232;
+  const destinos = [...(d?.regletas ?? []).map((r) => r.r), d?.modulo?.tag].filter(Boolean);
+  for (const t of destinos) {
+    const pt = centroModelo(t);
+    if (!pt) continue;
+    const u = pts[pts.length - 1];
+    pts.push([DX, u[1], u[2]], [DX, u[1], pt[2]], [DX, pt[1], pt[2]], pt);
+  }
+  // quitar puntos repetidos
+  return pts.filter((p, i) => !i || Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1], p[2] - pts[i - 1][2]) > 0.5);
+}
+function tuboCable(pts, radio, mat) {
+  const camino = new THREE.CurvePath();
+  for (let i = 1; i < pts.length; i++) camino.add(new THREE.LineCurve3(T(pts[i - 1]), T(pts[i])));
+  const geo = new THREE.TubeGeometry(camino, Math.max(8, pts.length * 6), radio, 6, false);
+  const malla = new THREE.Mesh(geo, mat);
+  malla.raycast = () => {};
+  malla.renderOrder = mat.depthTest ? 2 : 20;
+  return malla;
+}
+function pintarCables() {
+  raiz.updateMatrixWorld(true);
+  const g = cableado.grupo;
+  for (const c of [...g.children]) {
+    g.remove(c);
+    c.geometry.dispose();
+  }
+  cableado.marcados.clear();
+  if (!ESC || paso !== 0) return pedirCuadro();
+  const elegido = seleccion.sensor ?? seleccion.disp;
+  if (cableado.vista)
+    for (const tag of Object.keys(CAB.dispositivos)) {
+      if (tag === elegido) continue;
+      const pts = rutaDe(tag);
+      if (pts && pts.length > 1) g.add(tuboCable(pts, 0.45, materialCable(tipoCable(tag), false)));
+    }
+  if (elegido && CAB.dispositivos[elegido]) {
+    const pts = rutaDe(elegido);
+    if (pts && pts.length > 1) g.add(tuboCable(pts, 1.1, materialCable(tipoCable(elegido), true)));
+    const d = CAB.dispositivos[elegido];
+    for (const t of [d.modulo?.tag, ...d.regletas.map((r) => r.r), ...d.conectores.map((c) => c.tag)].filter(Boolean)) cableado.marcados.add(t);
+  }
+  // un modulo o conector elegido: los cables de lo que tiene conectado
+  if (elegido && (CAB.modulos[elegido] || CAB.conectores[elegido] || /^A\d/.test(elegido))) {
+    for (const [tag, d] of Object.entries(CAB.dispositivos)) {
+      const usa = d.modulo?.tag === elegido || d.modulos.some((m) => m.tag === elegido) || d.conectores.some((c) => c.tag === elegido) || d.accion.startsWith(`${elegido} `);
+      if (!usa) continue;
+      const pts = rutaDe(tag);
+      if (pts && pts.length > 1) g.add(tuboCable(pts, 0.8, materialCable(tipoCable(tag), true)));
+      cableado.marcados.add(tag);
+    }
+  }
+  pedirCuadro();
+}
+// Ir a un dispositivo por su sigla (desde el panel o la URL): lo elige, abre el armario si
+// esta dentro y encuadra el recorrido de su cable.
+function enfocarDispositivo(tag, { abrir = true } = {}) {
+  const m = mallas.find((x) => x.userData.disp === tag || x.userData.sensor === tag);
+  const s = D.sensores.find((x) => x.sigla === tag);
+  if (paso !== 0) irAPaso(0, { seleccionar: false, inmediato: true });
+  if (s) seleccionar_(s.pieza, { sensor: tag, pestana: "sensores", parte: m?.userData.parte ?? null });
+  else seleccionar_(m?.userData.pieza ?? "armario", { parte: m?.userData.parte ?? null, disp: tag });
+  const d = CAB.dispositivos[tag];
+  const alArmario = enArmario(tag) || (d && [d.modulo?.tag, ...d.regletas.map((r) => r.r)].some((t) => t && enArmario(t)));
+  if (abrir && alArmario && puerta.meta === 0) abrirArmario(true);
+  setTimeout(() => {
+    const pts = rutaDe(tag);
+    const b = new THREE.Box3();
+    if (pts) for (const p of pts) b.expandByPoint(raiz.localToWorld(T(p)));
+    else if (m) b.setFromObject(m);
+    // si el cable llega al armario se mira desde atras y arriba, donde se ven armario y caja
+    if (!b.isEmpty()) encuadrar(b.expandByScalar(25), pts && alArmario ? [-0.42, 0.72, -0.56] : null);
+    pintarCables();
+  }, quieto3.matches ? 0 : 420);
 }
 
 // ───────────── Raton: seleccion, hover y medida ─────────────
@@ -859,8 +1130,10 @@ lienzo.addEventListener("pointerup", (e) => {
   const h = tocadoEn(e);
   if (medir.activo) return medirPunto(h);
   if (!h) return seleccionar_(null);
-  const { pieza, parte, sensor } = h.object.userData;
+  const { pieza, parte, sensor, disp } = h.object.userData;
   if (sensor) return seleccionar_(pieza, { sensor, pestana: "sensores", parte });
+  // los dispositivos del esquema (motores, conectores, modulos) se eligen con un clic
+  if (disp && CAB.dispositivos[disp] || disp && CAB.modulos[disp] || disp && CAB.conectores[disp] || disp && seleccion.pieza === pieza) return seleccionar_(pieza, { parte, disp });
   // primer clic: el conjunto; segundo clic sobre el mismo conjunto: la parte
   if (seleccion.pieza === pieza && seleccion.parte !== parte) seleccionar_(pieza, { parte, pestana: seleccion.pestana });
   else if (seleccion.pieza === pieza && seleccion.parte === parte) seleccionar_(null);
@@ -891,8 +1164,11 @@ lienzo.addEventListener("pointermove", (e) => {
   const s = u.sensor ? D.sensores.find((x) => x.sigla === u.sensor) : null;
   const n = fallasPorPieza[u.pieza] ?? 0;
   const parte = u.tornillos ? `tornillería · ${u.tornillos} cabezas` : legible(u.parte);
+  const dc = u.disp ? CAB.dispositivos[u.disp] ?? CAB.modulos[u.disp] ?? CAB.conectores[u.disp] : null;
   etiqueta.innerHTML = s
     ? `<b>${esc(s.sigla)}</b> · ${esc(s.f)}<small>${esc(s.marca)} ${esc(s.tipo)} · hilo ${esc(s.hilo)}</small>`
+    : dc
+    ? `<b>${esc(u.disp)}</b> · ${esc(dc.desc || dc.tipo || "")}<small>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}${dc.modulo ? ` · ${esc(dc.modulo.tag)}` : ""}</small>`
     : `<b>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}</b><small>${esc(parte)}${u.disp ? ` · ${esc(u.disp)}` : ""}${n ? ` · ${n} intervenciones` : ""}</small>`;
   const r = escena3.getBoundingClientRect();
   etiqueta.style.left = `${e.clientX - r.left}px`;
@@ -954,7 +1230,7 @@ function aplicarSeccion() {
     planoCorte.constant = seccion.invertir ? -v : v;
     planosCorte.push(planoCorte);
   }
-  for (const m of [...Object.values(MAT), ARISTA, ARISTA_SEL, ...variantes.values()]) m.needsUpdate = true;
+  for (const m of [...Object.values(MAT), ARISTA, ARISTA_SEL, ...variantes.values(), ...matCable.values()]) m.needsUpdate = true;
   pedirCuadro();
 }
 
@@ -1024,6 +1300,8 @@ function actualizarMandos() {
   $("[data-accion=orto]").setAttribute("aria-pressed", String(camara === camOrto));
   $("[data-accion=medir]").setAttribute("aria-pressed", String(medir.activo));
   $("[data-accion=seccion]").setAttribute("aria-pressed", String(seccion.activa));
+  $("[data-accion=cables]")?.setAttribute("aria-pressed", String(cableado.vista));
+  $("[data-accion=armario]")?.setAttribute("aria-pressed", String(puerta.meta > 0));
   const bs = $("[data-accion=simular]");
   bs.setAttribute("aria-pressed", String(sim.activa && !sim.pausa));
   bs.querySelector(".gm-btn__txt").textContent = sim.activa && !sim.pausa ? "Pausa" : "Simular";
@@ -1063,6 +1341,7 @@ function cajaDestino() {
     const meta = r ? (r.pending ? r.pending.value : r.target) : 0;
     const mb = new THREE.Box3().setFromObject(m);
     const desp = T(ESC.piezas[ride]?.mover ?? [0, 0, 0]).multiplyScalar(meta - (r?.x ?? 0));
+    desp.x *= raiz.scale.x;
     b.union(mb.translate(desp));
   }
   return b.isEmpty() ? caja3 : b;
@@ -1126,6 +1405,13 @@ const acciones = {
     sim.ciclos = 0;
     sim.sobres = 0;
   },
+  cables: () => {
+    cableado.vista = !cableado.vista;
+    if (cableado.vista && paso !== 0) irAPaso(0, { seleccionar: false });
+    pintarCables();
+    actualizarMandos();
+  },
+  armario: () => abrirArmario(),
   arbol: () => {
     const a = $(".g3-arbol");
     a.toggleAttribute("data-abierto");
@@ -1243,6 +1529,7 @@ function cuadro(t) {
   let sigue = false;
   if (ESC) {
     if (avanzarResortes(dt)) sigue = true;
+    if (moverPuerta(dt)) sigue = true;
     if (IDS.some((id) => resorte[id].pending)) sigue = true;
     colocarGrupos();
     if (sim.activa) {
@@ -1343,6 +1630,9 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
       actualizarMandos();
     } else if (Q.get("sim") === "1") iniciarSim();
     if (Q.get("arbol") === "1") acciones.arbol();
+    if (Q.get("armario") === "1") abrirArmario(true);
+    if (Q.get("cables") === "1") acciones.cables();
+    if (Q.has("disp")) enfocarDispositivo(Q.get("disp"), { abrir: Q.get("armario") !== "0" });
     pedirCuadro();
   })
   .catch((e) => {
@@ -1351,4 +1641,4 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
   });
 historialEnVivo();
 
-window.gemelo = { irAPaso, seleccionar: seleccionar_, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos }) };
+window.gemelo = { irAPaso, seleccionar: seleccionar_, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };

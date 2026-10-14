@@ -114,7 +114,7 @@ export const PIEZAS = {
     corto: "resguardos con interruptores Euchner",
     codigos: ["S4A11100110", "S4A11100420", "S4A11100610", "S4A11100720"],
     desc: "Marco de perfiles y puertas de policarbonato con interruptores de seguridad Euchner CTP. La asignación de los grupos A11 está por confirmar en el catálogo.",
-    mover: [0, 0, 320],
+    mover: [0, 140, 320],
   },
   film: {
     nombre: "Recorrido del papel",

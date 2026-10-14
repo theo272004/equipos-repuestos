@@ -143,6 +143,38 @@ const historial = MTTO.hist.registros
 const grupos = {};
 for (const [cod, g] of Object.entries(MEC.grupos)) grupos[cod] = { n: g.n, d: g.d, fuente: g.fuente, hojas: g.hojas, piezas: g.piezas, proc: g.proc ?? [], pieza: piezaDeCodigo[cod] ?? null };
 
+// Cableado del esquema ES4220003 (ver cableado-LEEME.md): lo que el panel y el trazado 3D necesitan.
+const CAB = JSON.parse(readFileSync(join(HERE, "cableado-ms235.json"), "utf8"));
+const cableado = {
+  dispositivos: Object.fromEntries(
+    CAB.dispositivos.map((d) => [
+      d.tag,
+      {
+        tipo: d.tipo,
+        desc: d.descripcion,
+        hilos: d.hilos ?? [],
+        regletas: (d.regleta_armario ?? []).map((r) => ({ r: r.regleta, b: (r.bornes ?? []).map((b) => [b.borne, b.potencial ?? ""]) })),
+        modulo: d.modulo ? { tag: d.modulo.tag, tipo: d.modulo.tipo, canal: d.modulo.canal ?? "", byte: d.modulo.byte, bit: d.modulo.bit, pin: d.modulo.pin } : null,
+        modulos: (d.modulos ?? []).map((m) => ({ tag: m.tag, canal: m.canal ?? "", byte: m.byte, bit: m.bit, funcion: m.funcion ?? "" })),
+        accion: d.accionamiento ? `${d.accionamiento.tag} · ${d.accionamiento.detalle ?? ""}` : "",
+        cable: d.cable ?? "",
+        conectores: (d.conectores ?? []).map((c) => (typeof c === "string" ? { tag: c, desc: "" } : { tag: c.tag ?? c.conector ?? "", desc: c.descripcion ?? "" })).filter((c) => c.tag),
+        pines: d.pines_dispositivo ?? "",
+        ruta: d.ruta ?? [],
+        paginas: d.paginas ?? [],
+        hojas: d.hojas ?? [],
+        material: (d.lista_materiales?.items ?? []).map((i) => [i.marca, i.tipo, i.codigo].filter(Boolean).join(" · ")),
+        confianza: d.confianza ?? "",
+        notas: d.notas ?? "",
+      },
+    ]),
+  ),
+  modulos: Object.fromEntries(Object.values(CAB.modulos_plc ?? {}).map((m) => [m.tag, { tipo: m.tipo, desc: m.descripcion ?? "" }])),
+  conectores: Object.fromEntries((CAB.cajas ?? []).map((c) => [c.tag, { desc: c.descripcion ?? "", clase: c.clase ?? "", dispositivos: c.dispositivos ?? [], conecta: c.conecta_a ?? "" }])),
+  avisos: CAB.avisos_verificacion ?? [],
+  notas: CAB.notas ?? [],
+};
+
 const datos = {
   generado: new Date().toISOString().slice(0, 16).replace("T", " "),
   ref: MEC.ref,
@@ -165,6 +197,7 @@ const datos = {
   repuestos,
   tareas,
   historial,
+  cableado,
 };
 mkdirSync(join(HERE, "salida"), { recursive: true });
 writeFileSync(join(HERE, "salida", "datos-ms235.json"), JSON.stringify(datos));
@@ -174,3 +207,4 @@ console.log("sensores", sensores.length, cuenta(sensores));
 console.log("repuestos", repuestos.length, cuenta(repuestos));
 console.log("tareas", tareas.length, cuenta(tareas));
 console.log("historial", historial.length, cuenta(historial));
+console.log("cableado", Object.keys(cableado.dispositivos).length, "dispositivos,", Object.keys(cableado.modulos).length, "modulos,", Object.keys(cableado.conectores).length, "conectores");

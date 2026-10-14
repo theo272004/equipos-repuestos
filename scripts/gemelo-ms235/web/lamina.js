@@ -440,11 +440,12 @@ let aislar = false;
 let sinResguardos = true;
 let calor = false;
 
-function seleccionar_(pieza, { sensor = null, pestana } = {}) {
+function seleccionar_(pieza, { sensor = null, pestana, disp = null } = {}) {
   if (pieza === "bastidor" && !sensor && seleccion.pieza === "bastidor") pieza = null;
   const cambia = pieza !== seleccion.pieza;
   seleccion.pieza = pieza;
   seleccion.sensor = sensor;
+  seleccion.disp = sensor ? null : disp;
   if (pestana) seleccion.pestana = pestana;
   else if (cambia) seleccion.pestana = sensor ? "sensores" : "resumen";
   if (pieza) svg.setAttribute("data-foco", "");

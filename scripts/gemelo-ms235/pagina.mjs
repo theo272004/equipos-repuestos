@@ -38,6 +38,7 @@ const D = {
   mtto: datos.mtto,
   grupos: datos.grupos,
   sensores: datos.sensores,
+  cableado: datos.cableado,
   fallas: datos.fallas,
   repuestos: datos.repuestos,
   tareas: datos.tareas,
@@ -74,6 +75,8 @@ const ico = {
   medir: '<path d="M3 17 17 3l4 4L7 21Z"/><path d="m7 13 2 2M10 10l2 2M13 7l2 2"/>',
   seccion: '<path d="M3 7 12 3l9 4-9 4Z"/><path d="M3 12l9 4 9-4" stroke-dasharray="2 2"/><path d="M3 17l9 4 9-4"/>',
   arbol: '<path d="M4 5h6M4 12h6M4 19h6M14 5h6M14 12h6M14 19h6"/>',
+  cables: '<path d="M4 20c0-6 4-6 4-11V4M12 20v-7c0-3 4-3 4-6V4M20 20c0-4-3-5-3-8"/><circle cx="8" cy="4" r="1.2"/><circle cx="16" cy="4" r="1.2"/>',
+  armario: '<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M12 3v18M10 12h0M14 12h0"/>',
 };
 const btn = (accion, texto, { pri = false, mostrarTexto = false, titulo } = {}) =>
   `<button type="button" class="gm-btn${pri ? " gm-btn--pri" : ""}" data-accion="${accion}" aria-label="${titulo ?? texto}" title="${titulo ?? texto}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[accion]}</svg>${mostrarTexto ? `<span class="gm-btn__txt">${texto}</span>` : ""}</button>`;
@@ -121,6 +124,7 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
       <div class="gm-grupo g3-vistas">${[["iso", "Iso"], ["frente", "Frente"], ["atras", "Atrás"], ["izquierda", "Izq."], ["derecha", "Der."], ["arriba", "Arriba"]].map(([k, t]) => `<button type="button" class="gm-btn" data-vista3="${k}" title="Vista ${t}">${t}</button>`).join("")}</div>
       <div class="gm-grupo">${btn("orto", "Proyección ortográfica")}${btn("aristas", "Aristas")}${btn("seccion", "Corte de sección")}${btn("medir", "Medir")}</div>
       <div class="gm-grupo">${btn("resguardos", "Resguardos y acrílicos")}${btn("calor", "Mapa de fallas")}${btn("aislar", "Aislar la pieza elegida")}</div>
+      <div class="gm-grupo">${btn("cables", "Cableado", { mostrarTexto: true, titulo: "Ver el recorrido de los cables del esquema" })}${btn("armario", "Abrir el armario eléctrico")}</div>
     </div>
     <div class="gm-escena g3-escena" tabindex="0" role="application" aria-label="MS235 en 3D. Clic izquierdo y arrastrar gira, clic derecho mueve, rueda acerca. Flechas giran, Mayúscula y flechas mueven, F enfoca la selección, espacio simula, D desarma, Escape quita la selección.">
       <canvas class="g3-lienzo" aria-hidden="true"></canvas>
@@ -139,7 +143,7 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
         <div class="gm-grupo">${btn("menos", "Alejar")}${btn("encuadrar", "Encuadrar")}${btn("mas", "Acercar")}</div>
       </div>
     </div>
-    <div class="g3-senales" hidden><canvas aria-label="Diagrama de fases y señales"></canvas><p>Ciclo simulado. Anclas reales: cierre de planchas a 30° (Calibrado p.20) y cuchilla rotativa de una vuelta por ciclo (p.23). Las demás ventanas son aproximadas; no son lecturas del PLC.</p></div>
+    <div class="g3-senales" hidden><canvas aria-label="Diagrama de fases y señales"></canvas><p>Ciclo simulado. Anclas reales: cierre de planchas a 30° (Calibrado p.20) y cuchilla rotativa de una vuelta por ciclo (p.23). Las pinzas van por leva (el esquema no les da válvula) y dejan la fila en el deslizadero de expulsión (S52.9) bajo los láser B52. Las demás ventanas son aproximadas; no son lecturas del PLC.</p></div>
     ${leyenda}
   </section>
   ${panel}

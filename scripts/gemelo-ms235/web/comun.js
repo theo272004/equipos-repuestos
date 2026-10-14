@@ -12,7 +12,7 @@ const panelCuerpo = $(".gm-panel__cuerpo");
 const IDS = Object.keys(D.piezas);
 const PASOS = D.desarme.filter((id) => id !== "bastidor");
 const NUM = Object.fromEntries(D.lectura.map((id, i) => [id, i + 1]));
-const seleccion = { pieza: null, sensor: null, parte: null, pestana: "resumen" };
+const seleccion = { pieza: null, sensor: null, parte: null, disp: null, pestana: "resumen" };
 
 // ───────────── Historial: snapshot del build, o en vivo desde mtto-data.js ─────────────
 const clasificar = __CLASIFICAR__;
@@ -120,6 +120,7 @@ function gruposDe(id) {
 
 function pintarPanel() {
   if (seleccion.sensor) return panelSensor(seleccion.sensor);
+  if (seleccion.disp) return panelDispositivo(seleccion.disp);
   if (seleccion.pieza) return panelPieza(seleccion.pieza);
   panelResumen();
 }
@@ -263,8 +264,71 @@ function panelSensor(sigla) {
     ${D.repuestos.filter((r) => r.ref.includes(s.cod) || r.ref.includes(s.tipo)).map(filaRepuesto).join("") ? `<h3 class="gm-sec">Repuesto</h3><ul class="gm-lista">${D.repuestos.filter((r) => r.ref.includes(s.cod) || r.ref.includes(s.tipo)).map(filaRepuesto).join("")}</ul>` : ""}
     ${fal.length ? `<h3 class="gm-sec">Aparece en el diagnóstico de</h3><ul class="gm-lista">${fal.map((f) => `<li><button type="button" class="gm-fila gm-fila--boton" data-ir-pieza="${f.piezas[0]}" data-pestana="fallas"><span class="gm-fila__tit">${esc(f.name)}</span></button></li>`).join("")}</ul>` : ""}
     ${his.length ? `<h3 class="gm-sec">En el chat</h3><ul class="gm-lista">${his.map((h) => `<li>${filaHistorial(h)}</li>`).join("")}</ul>` : ""}
+    ${bloqueCableado(sigla)}
     <h3 class="gm-sec">Otros sensores del conjunto</h3><ul class="gm-lista">${sensoresDe(s.pieza).filter((x) => x.sigla !== sigla).map(filaSensor).join("")}</ul>`;
   panelCuerpo.scrollTop = 0;
+}
+
+// ───────────── Cableado (esquema ES4220003) ─────────────
+const CABLES = D.cableado ?? { dispositivos: {}, modulos: {}, conectores: {}, avisos: [] };
+const botonSigla = (t) => `<button type="button" class="gm-sigla" data-disp="${esc(t)}">${esc(t)}</button>`;
+const direccion = (m) => (m && m.byte !== undefined && m.byte !== null ? `${m.byte}.${m.bit}` : "");
+function bloqueCableado(tag) {
+  const d = CABLES.dispositivos[tag];
+  if (!d) return "";
+  const avisos = (CABLES.avisos ?? []).filter((a) => JSON.stringify(a).includes(tag));
+  const ruta = d.ruta.length ? d.ruta.map((t) => (t === "ARMARIO" ? '<span class="gm-chip">armario</span>' : botonSigla(t))).join(' <span class="gm-flecha">→</span> ') : "";
+  const filas = [
+    d.modulo ? ["Módulo", `${botonSigla(d.modulo.tag)} ${esc(d.modulo.tipo ?? "")}${d.modulo.canal ? ` · ${esc(d.modulo.canal)}` : ""}${direccion(d.modulo) ? ` · dirección <b class="gm-mono">${direccion(d.modulo)}</b>` : ""}`] : null,
+    d.accion ? ["Accionamiento", esc(d.accion)] : null,
+    d.regletas.length ? ["Bornes", d.regletas.map((r) => `${botonSigla(r.r)} ${r.b.map(([b, pot]) => `<span class="gm-mono">${esc(b)}</span>${pot ? ` (${esc(pot)})` : ""}`).join(", ")}`).join("<br>")] : null,
+    d.hilos.length ? ["Hilos", `<span class="gm-mono">${d.hilos.map(esc).join(" · ")}</span>`] : null,
+    d.cable ? ["Cable", esc(d.cable)] : null,
+    d.conectores.length ? ["Conectores", d.conectores.map((c) => `${botonSigla(c.tag)}${c.desc ? ` ${esc(c.desc)}` : ""}`).join("<br>")] : null,
+    d.pines ? ["Pines", `<span class="gm-mono">${esc(d.pines)}</span>`] : null,
+    d.material.length ? ["Material", d.material.map((x) => esc(x)).join("<br>")] : null,
+    d.paginas.length ? ["Esquema", `páginas ${d.paginas.join(", ")} · hojas ${d.hojas.map(esc).join(", ")}`] : null,
+  ].filter(Boolean);
+  return `<h3 class="gm-sec">Cableado</h3>
+    ${ruta ? `<p class="gm-ruta">${ruta}</p>` : ""}
+    <dl class="gm-datos">${filas.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    ${d.notas ? `<p class="gm-nota">${esc(d.notas)}</p>` : ""}
+    ${d.confianza && d.confianza !== "alta" ? `<p class="gm-nota"><span class="gm-chip" data-tono="warn">confianza ${esc(d.confianza)}</span> leído del esquema con dudas: verificar en la máquina.</p>` : ""}
+    ${avisos.map((a) => `<p class="gm-nota"><span class="gm-chip" data-tono="warn">aviso</span> ${esc(typeof a === "string" ? a : a.texto ?? a.descripcion ?? JSON.stringify(a))}</p>`).join("")}
+    ${typeof enfocarDispositivo === "function" ? `<p style="margin-top:8px"><button type="button" class="gm-btn" data-trazar="${esc(tag)}">Seguir el cable en 3D</button></p>` : ""}`;
+}
+function panelDispositivo(tag) {
+  const d = CABLES.dispositivos[tag];
+  const mod = CABLES.modulos[tag];
+  const con = CABLES.conectores[tag];
+  const pieza = seleccion.pieza ?? "armario";
+  const titulo = d?.desc ?? mod?.desc ?? con?.desc ?? "";
+  // lo que cuelga de un modulo, accionamiento o conector
+  const conectados = Object.entries(CABLES.dispositivos).filter(([, x]) => x.modulo?.tag === tag || x.modulos.some((m) => m.tag === tag) || x.conectores.some((c) => c.tag === tag) || x.accion.startsWith(`${tag} `));
+  panelCab.innerHTML = `
+    <div class="gm-panel__migas"><button type="button" data-volver>MS235</button> › <button type="button" data-ir-pieza="${pieza}">${esc(D.piezas[pieza]?.nombre ?? pieza)}</button> › dispositivo</div>
+    <h2 class="gm-panel__tit"><span class="gm-mono" style="font-size:16px">${esc(tag)}</span>${titulo ? ` · ${esc(titulo)}` : ""}</h2>
+    <p class="gm-panel__sub">${esc(d?.tipo ?? mod?.tipo ?? con?.clase ?? "esquema eléctrico ES4220003")}</p>`;
+  const orden = ([a, x], [b, y]) => (x.modulo?.byte ?? 0) - (y.modulo?.byte ?? 0) || (x.modulo?.bit ?? 0) - (y.modulo?.bit ?? 0) || a.localeCompare(b);
+  panelCuerpo.innerHTML = `
+    ${d ? bloqueCableado(tag) : ""}
+    ${con?.conecta ? `<h3 class="gm-sec">Conecta</h3><p>${esc(con.conecta)}</p>` : ""}
+    ${conectados.length ? `<h3 class="gm-sec">Conectado aquí · ${conectados.length}</h3><ul class="gm-lista">${conectados
+      .sort(orden)
+      .map(([t, x]) => `<li><button type="button" class="gm-fila gm-fila--boton" data-disp="${esc(t)}"><div class="gm-fila__cab"><span class="gm-fila__tit"><span class="gm-mono">${esc(t)}</span> · ${esc(x.desc)}</span><span class="gm-fila__meta gm-mono">${x.modulo?.tag === tag ? esc([direccion(x.modulo), x.modulo.canal].filter(Boolean).join(" · ")) : ""}</span></div></button></li>`)
+      .join("")}</ul>${typeof enfocarDispositivo === "function" ? '<p class="gm-nota" style="margin-top:8px">En 3D se dibujan los cables de todo lo conectado.</p>' : ""}` : ""}
+    ${!d && !conectados.length && !con ? '<p class="gm-nota" style="margin-top:8px">Componente del armario según la disposición B00 del esquema. Sin cableado de campo propio.</p>' : ""}`;
+  panelCuerpo.scrollTop = 0;
+}
+function irADispositivo(tag) {
+  if (typeof enfocarDispositivo === "function") return enfocarDispositivo(tag);
+  const s = D.sensores.find((x) => x.sigla === tag);
+  if (s) {
+    seleccionar_(s.pieza, { sensor: tag, pestana: "sensores" });
+    if (D.sensoresDibujados.includes(tag)) mostrarSensor(s);
+    return;
+  }
+  seleccionar_(seleccion.pieza ?? "armario", { disp: tag });
 }
 
 // Clicks del panel
@@ -272,6 +336,10 @@ $(".gm-panel").addEventListener("click", (e) => {
   const t = e.target;
   const volver = t.closest("[data-volver]");
   if (volver) return seleccionar_(null);
+  const tr = t.closest("[data-trazar]");
+  if (tr) return enfocarDispositivo(tr.dataset.trazar);
+  const di = t.closest("[data-disp]");
+  if (di) return irADispositivo(di.dataset.disp);
   const ir = t.closest("[data-ir-pieza]");
   if (ir) return seleccionar_(ir.dataset.irPieza, { pestana: ir.dataset.pestana });
   const sig = t.closest("[data-sigla]");
