@@ -10,7 +10,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as k from "./kit/iso-kit.mjs";
 import * as A from "./kit/audit.mjs";
-import { construir } from "./modelo.mjs";
+import { construir, COTAS, CARRILES } from "./modelo.mjs";
 import { PIEZAS, DESARME, LECTURA } from "./piezas.mjs";
 import { esMs235, piezaDeIntervencion } from "./clasificar.mjs";
 
@@ -35,7 +35,8 @@ const reloj = () => `${((Date.now() - t0) / 1000).toFixed(1)} s`;
 function limites() {
   const P = k.fitProjection([[0, 0, 0], [1, 1, 1]], W, H, { azimuth: VISTAS[0], elevation: ELEVACION });
   const R = A.recorder(P, { order: DESARME, spring: SPRING });
-  construir(P, R);
+  const { pernos } = construir(P, R);
+  escena(R, pernos);
   const caja = { min: [Infinity, Infinity, Infinity], max: [-Infinity, -Infinity, -Infinity] };
   const armado = structuredClone(caja);
   const crecer = (c, p) => p.forEach((v, i) => ((c.min[i] = Math.min(c.min[i], v)), (c.max[i] = Math.max(c.max[i], v))));
@@ -53,6 +54,49 @@ function limites() {
     }
   }
   return { armado, todo, items: R.items.length };
+}
+
+// Escena para el visor 3D: cada pieza con sus formas exactas (las mismas que mide el
+// auditor de Anatomy), sus datos y la tornilleria.
+function escena(R, pernos) {
+  const n = (v) => +v.toFixed(2);
+  const v3 = (p) => p.map(n);
+  const forma = (sh) => {
+    if (sh.kind === "prism") return { k: "P", o: v3(sh.F.o), a: v3(sh.F.a), u: v3(sh.F.u), v: v3(sh.F.v), p: sh.poly.map(v3), s: [n(sh.s0), n(sh.s1)] };
+    if (sh.kind === "body") return { k: "L", o: v3(sh.F.o), a: v3(sh.F.a), u: v3(sh.F.u), v: v3(sh.F.v), p: sh.poly.map(v3) };
+    if (sh.kind === "ball") return { k: "B", o: v3(sh.o), r: n(sh.r) };
+    if (sh.kind === "tube") return { k: "T", p: sh.points.map(v3), r: sh.radii.map(n) };
+    if (sh.kind === "box") return { k: "X", o: v3(sh.o), ax: sh.axes.map(v3), h: v3(sh.half) };
+    return null;
+  };
+  const items = R.items.map((it) => {
+    const geo = it.geo3d ? it.geo3d.map((g) => ({ ...g, o: g.o && v3(g.o), a: g.a && v3(g.a) })) : it.shapes.map(forma).filter(Boolean);
+    const out = { n: it.name, p: it.piece, g: geo, m: v3(it.centro ?? [0, 0, 0]) };
+    if (it.ride !== it.piece) out.r = it.ride;
+    if (it.tono) out.t = it.tono;
+    if (it.clase) out.c = it.clase;
+    if (it.sensor) out.s = it.sensor;
+    if (it.disp) out.d = it.disp;
+    if (it.mat) out.ma = it.mat;
+    if (it.sub) out.su = it.sub;
+    if (it.e1) out.e1 = it.e1;
+    if (it.e2) out.e2 = it.e2;
+    if (it.cod) out.co = it.cod;
+    if (it.puerta) out.pu = 1;
+    if (it.solo3d) out.o3 = 1;
+    return out;
+  });
+  const datos = {
+    unidad_mm: 4,
+    piezas: Object.fromEntries(Object.entries(PIEZAS).map(([id, p]) => [id, { mover: id === "film" ? [0, 0, 0] : p.mover }])),
+    desarme: DESARME,
+    cotas: COTAS,
+    carriles: CARRILES,
+    items,
+    pernos,
+  };
+  writeFileSync(join(OUT, "escena.json"), JSON.stringify(datos));
+  console.log("escena:", items.length, "piezas,", pernos.reduce((a, p) => a + p.pts.length, 0), "tornillos,", (JSON.stringify(datos).length / 1024).toFixed(0), "KB");
 }
 
 const esquinas = ({ min, max }) => {
@@ -88,6 +132,8 @@ for (const [indice, az] of VISTAS.entries()) {
   const P = proyeccion(az);
   const R = A.recorder(P, { order: DESARME, spring: SPRING });
   construir(P, R);
+  // El interior del armario solo existe en el visor 3D: en la lamina el armario va cerrado.
+  for (let i = R.items.length - 1; i >= 0; i--) if (R.items[i].solo3d) R.items.splice(i, 1);
   for (const it of R.items) if (it.sensor) SENSORES.push(it.sensor);
   // Estados en que se mide quien tapa a quien: armada, desarmada, cada paso del
   // desarme (prefijos) y cuadros de los resortes reales al abrir y cerrar.
@@ -102,9 +148,9 @@ for (const [indice, az] of VISTAS.entries()) {
   const cicloDe = (item) => {
     const n = item.name.replace(/#\d+$/, "");
     const lado = Math.sign(item.centro?.[0] ?? 0) || 1;
-    if (/^soldadura\.(placa-soldante|aislante|porta-mordaza|tirante|codificador|pomo-lote)/.test(n)) return `mordaza,${-lado * 3},0,0`;
+    if (/^soldadura\.(placa-soldante|bloque-calefactor|tapa-ptfe|resistencia|caja-bornes|harting|aislante|lamina|poste-muelle|muelle-lamina|placa-formato|bloque-bisagra|pasador|biela-larga)/.test(n)) return `mordaza,${lado * 2.5},0,0`;
     if (/^corte\.(cuchilla-movil|carro|guia)/.test(n)) return "cuchilla,8,0,0";
-    if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|dedo|vastago|biela|rotula)/.test(n) || n === "film.sobre") return "pinzas,0,0,-24";
+    if (/^pinzas\.(patin|viga|placa-extremo|barra-derecha|brazo|dedo|goma|vastago|biela|rotula)/.test(n) || n === "film.sobre") return "pinzas,0,0,-20";
     if (n === "salida.sobre") return `cinta,${(item.centro[0] - 11).toFixed(0)}`;
     return null;
   };

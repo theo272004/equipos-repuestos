@@ -6,9 +6,13 @@ import { construir } from "./modelo.mjs";
 import { DESARME } from "./piezas.mjs";
 const az = Number(process.argv[2] ?? 58);
 const P = k.fitProjection([[-220, -492, 0], [518, 275, 656], [-220, 275, 656], [518, -492, 0]], 1400, 1000, { azimuth: az, elevation: 30, pad: 30 });
-const R = A.recorder(P, { order: DESARME, spring: {} });
+const R = A.recorder(P, { order: DESARME, spring: process.argv.includes("--resortes") ? { stagger: 0.045, stiffness: 64, damping: 14.2, substeps: 4 } : {} });
 construir(P, R);
-const estados = process.argv.includes("--desarme") ? [0, 1, ...A.prefixStates(DESARME, { shares: [0.35, 0.7, 1] })] : [0];
+for (let i = R.items.length - 1; i >= 0; i--) if (R.items[i].solo3d) R.items.splice(i, 1);
+const SPRING = { stagger: 0.045, stiffness: 64, damping: 14.2, substeps: 4 };
+const estados = process.argv.includes("--resortes")
+  ? [...A.uniformStates(4), ...A.springStates(DESARME, { ...SPRING, stride: 12 }), ...A.prefixStates(DESARME, { shares: [0.35, 0.7, 1] })]
+  : process.argv.includes("--desarme") ? [0, 1, ...A.prefixStates(DESARME, { shares: [0.35, 0.7, 1] })] : [0];
 const s = A.settle(R, P, { states: estados, step: 0.6, least: 0.6 });
 const c = s.solved.cycles ?? [];
 console.log("items", R.items.length, "estados", estados.length, "ciclos", c.length, "descartadas", s.solved.dropped?.length);
