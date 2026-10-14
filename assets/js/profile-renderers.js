@@ -1933,9 +1933,9 @@ function dt(machine, campo) {
         homeEscribiendo = setTimeout(() => {
           const antes = currentQuery;
           currentQuery = homeSearch.value.trim();
-          homeFiltro.limite = 60;
-          // Las fichas con foto solo se ven sin búsqueda: al empezar o borrar se repinta todo
-          if (!antes !== !currentQuery) renderHome(); else renderHomeLista();
+          homeFiltro.limite = Infinity;
+          // Al buscar o borrar se refresca la lista en una sola columna
+          renderHomeLista();
           saveUiState();
         }, 120);
       });

@@ -515,7 +515,7 @@ ${buildMachineContext(machine)}`;
       });
 
       // Filtros de la portada de Equipos (renderHome, más abajo, se llama antes de llegar a su código)
-      const homeFiltro = { sede: "", tipo: "", completa: false, limite: 60 };
+      const homeFiltro = { sede: "", tipo: "", completa: false, limite: Infinity };
 
       // ── State restore ─────────────────────────────────────────────────────────
       const restoredState = loadUiState();
@@ -799,7 +799,6 @@ ${buildMachineContext(machine)}`;
       }
 
       function planEsc(v) {
-        if (typeof window.planEsc === "function") return window.planEsc(v);
         return String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
       }
 
@@ -807,7 +806,7 @@ ${buildMachineContext(machine)}`;
         const box = document.getElementById("homeLista");
         if (!box) return;
         const lista = homeFiltrados().sort((a, b) => (a.fromRegistry ? 1 : 0) - (b.fromRegistry ? 1 : 0));
-        const ver = lista.slice(0, homeFiltro.limite);
+        const ver = Number.isFinite(homeFiltro.limite) ? lista.slice(0, homeFiltro.limite) : lista;
         const ic = (n, c) => (window.IC ? IC(n, c) : "");
         const cuenta = document.getElementById("homeCuenta");
         if (cuenta) cuenta.textContent = `${lista.length} ${lista.length === 1 ? "equipo" : "equipos"}`;
@@ -844,7 +843,7 @@ ${buildMachineContext(machine)}`;
       function homeVerMas() { homeFiltro.limite = Infinity; renderHomeLista(); }
       function homeFiltrar(k, v) {
         if (k === "completa") homeFiltro.completa = !homeFiltro.completa; else homeFiltro[k] = v;
-        homeFiltro.limite = 60;
+        homeFiltro.limite = Infinity;
         document.querySelectorAll("#homeDash [data-hf]").forEach((b) => {
           const [bk, bv] = b.dataset.hf.split(":");
           b.classList.toggle("is-on", bk === "completa" ? homeFiltro.completa : homeFiltro[bk] === bv);
