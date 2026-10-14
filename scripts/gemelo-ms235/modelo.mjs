@@ -81,12 +81,27 @@ export function construir(P, R) {
   }
 
   // Caja alineada con los ejes: [x0,y0,z0] a [x1,y1,z1].
-  function caja(pieza, [x0, y0, z0], [x1, y1, z1], { tone = "hi", r = 0.8, steps = 3, bevel = 0.5, inner = "", extra = "", name, bias, ride, crease, clase, lit, disp, sensor, tornillos } = {}) {
+  function caja(pieza, [x0, y0, z0], [x1, y1, z1], { tone = "hi", r = 0.8, steps = 3, bevel = 0.5, inner = "", extra = "", name, bias, ride, crease, clase, lit, disp, sensor, tornillos, sinTornillos } = {}) {
+    if (sinTornillos) tornillos = null;
     const plan = { x: x0, y: y0, w: x1 - x0, d: y1 - y0, r: Math.min(r, (x1 - x0) / 2, (y1 - y0) / 2) };
     const id = R.nameFor(name ?? `${pieza}.caja`);
     const paths = k.slabOf(plan, z0, z1 - z0, P, steps, bevel);
     const shape = R.solid(A.slab(plan, z0, z1 - z0, { name: id }, steps));
     let tor = "";
+    // Chapas y placas sin tornilleria declarada: cuatro o mas tornillos en la cara que mira
+    // hacia fuera de la maquina (centro aproximado en [0, -40, 200]).
+    if (tornillos === undefined && !clase && (tone === "mid" || tone === "lo")) {
+      const dims = [x1 - x0, y1 - y0, z1 - z0];
+      const t = dims.indexOf(Math.min(...dims));
+      const otras = dims.filter((_, i) => i !== t);
+      if (dims[t] <= 10 && Math.min(...otras) >= 18) {
+        const ejeT = "xyz"[t];
+        const centro = [(x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2][t];
+        const signo = centro >= [0, -40, 200][t] ? "+" : "-";
+        const grande = Math.max(...otras) > 70;
+        tornillos = grande ? { cara: signo + ejeT, paso: 36, margen: 4, r: 0.9 } : { cara: signo + ejeT, solo: "esquinas", margen: Math.min(4, Math.min(...otras) / 5), r: 0.8 };
+      }
+    }
     for (const t of [tornillos].flat().filter(Boolean)) tor += pernosCara(pieza, [x0, y0, z0], [x1, y1, z1], t.cara, { ...t, ride });
     put(pieza, [(x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2], S(paths, { tone, inner, crease, className: clase, lit }) + extra + tor, { name: id, shapes: [shape], bias, ride, clase, tono: tone, disp, sensor });
     return { plan, z0, z1, id };
@@ -469,9 +484,9 @@ export function construir(P, R) {
     rod(-150, 300);
     rod(-152, 346, 6, "desbobinado.rodillo-alto");
     // Rodillo motorizado de reenvio con su motor en escuadra (S4A75100610)
-    rod(-160, 330, 6, "desbobinado.rodillo-motorizado");
-    caja("desbobinado", [112, -170, 316], [118, -150, 344], { tone: "mid", r: 1, name: "desbobinado.escuadra-motor" });
-    motorElectrico("desbobinado", [118, -160, 330], X, 30, 10, { name: "desbobinado.motor-arrastre", disp: "M30.1" });
+    rod(-158, 330, 6, "desbobinado.rodillo-motorizado");
+    caja("desbobinado", [112, -168, 316], [118, -148, 344], { tone: "mid", r: 1, name: "desbobinado.escuadra-motor" });
+    motorElectrico("desbobinado", [118, -158, 330], X, 30, 10, { name: "desbobinado.motor-arrastre", disp: "M30.1" });
     // Balancin de tension
     for (const x of [-104, 101]) barra("desbobinado", [x + 1.5, -150, 300], [x + 1.5, -164, 250], 2, { tone: "mid", name: "desbobinado.balancin" });
     cil("desbobinado", [-100, -164, 250], X, 200, 4.5, { tone: "hi", name: "desbobinado.rodillo-balancin" });
@@ -503,8 +518,10 @@ export function construir(P, R) {
     vert(bob.y + bob.r, bob.z, -152.5, 200, "film.subida");
     vert(-152.5, 200, -168.5, 250, "film.balancin-a");
     vert(-168.5, 250, -155, 300, "film.balancin-b");
-    vert(-155, 300, -166, 330, "film.motorizado");
-    vert(-166, 330, -158, 346, "film.alto");
+    vert(-155, 300, -164.3, 330, "film.motorizado");
+    vert(-164.3, 330, -162.5, 334.5, "film.arco");
+    vert(-162.5, 334.5, -158, 336.3, "film.arco");
+    vert(-158, 336.3, -158, 346, "film.alto");
     lamina("film", [[-W, -152], [W, -152], [W, -146], [-W, -146]], zWeb, { name: "film.entera" });
   }
   // Cada media banda: barras A y B (2.a linea) detras, giro a 45° delante y bajada entre placas.
@@ -588,7 +605,7 @@ export function construir(P, R) {
 
   // ───────────────────────── 9. DOSIFICACION ─────────────────────────
   {
-    caja("dosificacion", [-12, 16, 340], [12, 124, 352], { tone: "mid", r: 1.2, bevel: 0.6, name: "dosificacion.cassette", tornillos: { cara: "+z", paso: 24, margen: 3, r: 0.8 } });
+    caja("dosificacion", [-12, 18, 340], [12, 122, 352], { tone: "mid", r: 1.2, bevel: 0.6, name: "dosificacion.cassette", tornillos: { cara: "+z", paso: 24, margen: 3, r: 0.8 } });
     for (const y of CARRILES) cil("dosificacion", [0, y, 312], Z, 28, 2, { tone: "hi", name: "dosificacion.boquilla" });
     // Rasador (pettine) y sus sensores B42.x a los lados del cassette
     caja("dosificacion", [12, 20, 342], [18, 120, 350], { tone: "hi", r: 0.5, name: "dosificacion.rasador" });
@@ -669,7 +686,7 @@ export function construir(P, R) {
     }
     barra("arrastre", [-26, 16, 226], [-26, 124, 226], 1.6, { tone: "mid", name: "arrastre.palanca" });
     caja("arrastre", [-30, 124, 210], [-22, 130, 228], { tone: "mid", r: 0.6, name: "arrastre.soporte-palanca" });
-    muelle("arrastre", [-26, 128, 228], [0, 0, 1], 0, 14, 2.6, 6, { name: "arrastre.muelle-presion" });
+    muelle("arrastre", [-26, 127, 196], [0, 0, 1], 0, 14, 2.6, 6, { name: "arrastre.muelle-presion" });
   }
 
   // ───────────────────────── 12. CORTE ─────────────────────────
@@ -680,11 +697,9 @@ export function construir(P, R) {
     cil("corte", [7, 16, 190], Y, 110, 6, { tone: "hi", name: "corte.contraste" });
     // Cuchilla horizontal ROTATIVA (Calibrado p.23): hoja sobre un eje que gira una vuelta por
     // ciclo contra la contracuchilla fija; leva y sensor B32.8 marcan el cero del motor M32.1.
-    for (const y of [10, 126]) caja("corte", [-24, y, 156], [18, y + 6, 184], { tone: "mid", r: 0.8, bevel: 0.5, name: "corte.lateral-caja", tornillos: { cara: y < 50 ? "-y" : "+y", solo: "esquinas", margen: 3, r: 0.8 } });
-    caja("corte", [-24, 16, 182], [-2.5, 126, 185], { tone: "mid", r: 0.6, name: "corte.tapa" });
-    caja("corte", [2.5, 16, 182], [18, 126, 185], { tone: "mid", r: 0.6, name: "corte.tapa" });
-    cil("corte", [-9, 16, 170], Y, 120, 3, { tone: "mid", name: "corte.eje-cuchilla" });
-    caja("corte", [-9, 18, 169], [-1.2, 124, 171], { tone: "hi", r: 0.2, bevel: 0.2, name: "corte.cuchilla-rotativa" });
+    for (const y of [10, 126]) caja("corte", [-24, y, 160], [18, y + 6, 176], { tone: "mid", r: 0.8, bevel: 0.5, name: "corte.lateral-caja", tornillos: { cara: y < 50 ? "-y" : "+y", solo: "esquinas", margen: 3, r: 0.8 } });
+    cil("corte", [-9, 16, 170], Y, 110, 3, { tone: "mid", name: "corte.eje-cuchilla" });
+    caja("corte", [-6, 18, 169], [-1.2, 124, 171], { tone: "hi", r: 0.2, bevel: 0.2, name: "corte.cuchilla-rotativa" });
     caja("corte", [1, 16, 166], [9, tira.y1 + 4, 174], { tone: "hi", r: 0.3, bevel: 0.4, name: "corte.cuchilla-fija" });
     caja("corte", [9, 16, 164], [18, tira.y1 + 4, 176], { tone: "mid", r: 0.6, name: "corte.porta-fija", tornillos: { cara: "+x", paso: 20, margen: 3, r: 0.8 } });
     cil("corte", [-9, 132, 170], Y, 4, 8, { tone: "hi", name: "corte.leva" });

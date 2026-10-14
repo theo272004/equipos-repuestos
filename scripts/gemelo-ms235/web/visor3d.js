@@ -328,7 +328,7 @@ function encuadrar(caja = caja3, dir = null, inmediato = false) {
   const c = caja.getCenter(new THREE.Vector3());
   const tam = caja.getSize(new THREE.Vector3()).length();
   const d = dir ? new THREE.Vector3(...dir).normalize() : camara.position.clone().sub(controles.target).normalize();
-  const dist = tam / (2 * Math.tan((camPersp.fov * Math.PI) / 360)) * 0.9;
+  const dist = (tam / (2 * Math.tan((camPersp.fov * Math.PI) / 360))) * 0.74;
   const destino = { pos: c.clone().addScaledVector(d, dist), target: c, zoom: (tam * 0.62) };
   if (inmediato || quieto3.matches) {
     camPersp.position.copy(destino.pos);
@@ -1052,8 +1052,26 @@ function cambiarCamara(orto) {
   controles.update();
   pedirCuadro();
 }
+// Caja de lo visible con cada conjunto ya en su destino del desarme (para encuadrar antes de que llegue).
+function cajaDestino() {
+  const b = new THREE.Box3();
+  for (const m of mallas) {
+    const { pieza, ride } = m.userData;
+    if (!m.userData.visibleBase && m.userData.visibleBase !== undefined) continue;
+    if (pieza === "film" || (pieza === "resguardos" && sinResguardos)) continue;
+    const r = resorte[ride];
+    const meta = r ? (r.pending ? r.pending.value : r.target) : 0;
+    const mb = new THREE.Box3().setFromObject(m);
+    const desp = T(ESC.piezas[ride]?.mover ?? [0, 0, 0]).multiplyScalar(meta - (r?.x ?? 0));
+    b.union(mb.translate(desp));
+  }
+  return b.isEmpty() ? caja3 : b;
+}
 const acciones = {
-  desarmar: () => irAPaso(paso === 0 ? PASOS.length : 0, { seleccionar: paso !== 0 }),
+  desarmar: () => {
+    irAPaso(paso === 0 ? PASOS.length : 0, { seleccionar: paso !== 0 });
+    encuadrar(cajaDestino());
+  },
   antes: () => irAPaso(paso - 1),
   despues: () => irAPaso(paso + 1),
   mas: () => zoom(1 / 1.3),
@@ -1298,7 +1316,11 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
     actualizarMandos();
     if (Q.get("resguardos") === "1") acciones.resguardos();
     if (Q.get("calor") === "1") acciones.calor();
-    if (Q.has("paso")) irAPaso(Number(Q.get("paso")) || 0, { seleccionar: !Q.has("pieza"), inmediato: true });
+    if (Q.has("paso")) {
+      irAPaso(Number(Q.get("paso")) || 0, { seleccionar: !Q.has("pieza"), inmediato: true });
+      colocarGrupos();
+      encuadrar(cajaVisible(), vistasFijas[Q.get("vista")] ?? vistasFijas.iso, true);
+    }
     if (Q.has("seccion")) {
       seccion.activa = true;
       seccion.eje = Q.get("seccion") || "x";

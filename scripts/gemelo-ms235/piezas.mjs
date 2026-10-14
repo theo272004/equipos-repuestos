@@ -23,7 +23,7 @@ export const PIEZAS = {
     corto: "guías a 45° · llevan cada banda al centro",
     codigos: ["S4M17100110", "S4A27100110"],
     desc: "Dos barras a 45° giran cada banda de papel hacia el centro, y los rodillos de desviación la bajan entre las placas de formado: las dos bandas quedan cara a cara para formar el sobre.",
-    mover: [0, 50, 105],
+    mover: [0, 0, 160],
   },
   fotocelula: {
     nombre: "Fotocélula de lectura de muesca",
@@ -37,7 +37,7 @@ export const PIEZAS = {
     corto: "dosificación volumétrica · estrella doble S4G722",
     codigos: ["S4G72200210", "S4G71500310", "S4G71500410", "S4A90100110"],
     desc: "La tolva alimenta la válvula estrella doble (S4G72200210), que entrega una dosis por puesto al cassette desmontable; el producto cae entre las dos bandas antes de cerrar el sobre.",
-    mover: [0, 30, 160],
+    mover: [0, 0, 170],
   },
   soldadura: {
     nombre: "Soldadura: placas, mordazas y membrana",
