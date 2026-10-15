@@ -85,6 +85,8 @@ const ico = {
   enfocar: '<circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
   plano: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>',
   almacen: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
+  callouts: '<circle cx="12" cy="9" r="6"/><path d="m12 15-3 6h6l-3-6Z"/><circle cx="12" cy="9" r="1.8"/>',
+  sop: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
 };
 const btn = (accion, texto, { pri = false, mostrarTexto = false, titulo } = {}) =>
   `<button type="button" class="gm-btn${pri ? " gm-btn--pri" : ""}" data-accion="${accion}" aria-label="${titulo ?? texto}" title="${titulo ?? texto}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[accion]}</svg>${mostrarTexto ? `<span class="gm-btn__txt">${texto}</span>` : ""}</button>`;
@@ -151,6 +153,7 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
       <div class="gm-grupo g3-vistas">${[["iso", "Iso"], ["frente", "Frente"], ["atras", "Atrás"], ["izquierda", "Izq."], ["derecha", "Der."], ["arriba", "Arriba"]].map(([k, t]) => `<button type="button" class="gm-btn" data-vista3="${k}" title="Vista ${t}">${t}</button>`).join("")}</div>
       <div class="gm-grupo">${btn("orto", "Proyección ortográfica")}${btn("aristas", "Aristas")}${btn("seccion", "Corte de sección")}${btn("medir", "Medir")}</div>
       <div class="gm-grupo">${btn("resguardos", "Resguardos y acrílicos")}${btn("calor", "Mapa de fallas")}${btn("aislar", "Aislar la pieza elegida")}${btn("colores", "Un color por conjunto")}</div>
+      <div class="gm-grupo">${btn("callouts", "Llamadas", { mostrarTexto: true, titulo: "Llamadas y códigos de plano en 3D" })}${btn("sop", "Guía SOP", { mostrarTexto: true, titulo: "Procedimiento guiado de calibración y mantenimiento" })}</div>
       <div class="gm-grupo">${btn("cables", "Cableado", { mostrarTexto: true, titulo: "Ver el recorrido de los cables del esquema" })}${btn("armario", "Abrir el armario eléctrico")}</div>
       <span class="gm-sep"></span>
       <div class="gm-grupo">
@@ -161,6 +164,36 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
     <div class="gm-escena g3-escena" tabindex="0" role="application" aria-label="MS235 en 3D. Clic izquierdo y arrastrar gira, clic derecho mueve, rueda acerca. Flechas giran, Mayúscula y flechas mueven, F enfoca la selección, espacio simula, D desarma, Escape quita la selección.">
       <canvas class="g3-lienzo" aria-hidden="true"></canvas>
       <div class="gm-cargando">Cargando la máquina en 3D…</div>
+      <!-- Capa de llamadas del plano 3D (Callouts) -->
+      <div class="g3-callouts" id="g3Callouts" aria-hidden="true"></div>
+      <!-- Guía interactiva paso a paso de calibración y mantenimiento (SOP Wizard) -->
+      <div class="g3-sop" id="g3Sop" hidden>
+        <div class="g3-sop__cab">
+          <div class="g3-sop__info">
+            <span class="g3-sop__badge"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> SOP 3D</span>
+            <h3 class="g3-sop__tit" data-sop-tit></h3>
+            <span class="g3-sop__tavola" data-sop-tavola></span>
+          </div>
+          <div class="g3-sop__acciones-top">
+            <select class="g3-sop__selector" data-sop-sel title="Cambiar procedimiento de calibración"></select>
+            <button type="button" class="g3-sop__cerrar" data-sop-act="cerrar" title="Cerrar guía interactiva (Esc)">✕</button>
+          </div>
+        </div>
+        <div class="g3-sop__pasos-track" data-sop-stepper></div>
+        <div class="g3-sop__cuerpo">
+          <div class="g3-sop__paso-header">
+            <span class="g3-sop__num" data-sop-paso-num></span>
+            <h4 class="g3-sop__paso-tit" data-sop-paso-tit></h4>
+          </div>
+          <p class="g3-sop__desc" data-sop-paso-desc></p>
+          <div class="g3-sop__herramientas" data-sop-tools></div>
+        </div>
+        <div class="g3-sop__footer">
+          <button type="button" class="g3-sop__btn" data-sop-act="ant">← Anterior</button>
+          <div class="g3-sop__puntos" data-sop-puntos></div>
+          <button type="button" class="g3-sop__btn g3-sop__btn--pri" data-sop-act="sig">Siguiente paso →</button>
+        </div>
+      </div>
       <!-- HUD de selección contextual directa -->
       <div class="g3-hud" id="g3Hud" hidden>
         <div class="g3-hud__top">
@@ -188,6 +221,9 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
           </button>
           <button type="button" class="g3-hud__btn" data-hud-act="almacen" data-hud-btn-almacen hidden title="Consultar stock en Almacén interno">
             <svg viewBox="0 0 24 24" aria-hidden="true">${ico.almacen}</svg><span>Almacén ERP</span>
+          </button>
+          <button type="button" class="g3-hud__btn" data-hud-act="sop" data-hud-btn-sop hidden title="Iniciar procedimiento guiado de calibración (SOP)">
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.sop}</svg><span>Guía SOP</span>
           </button>
           <button type="button" class="g3-hud__btn g3-hud__btn--pri" data-hud-act="panel" title="Ver ficha técnica, láminas y repuestos">
             <svg viewBox="0 0 24 24" aria-hidden="true">${ico.panel}</svg><span>Ficha y despiece</span>

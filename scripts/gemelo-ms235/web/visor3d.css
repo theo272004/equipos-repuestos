@@ -275,4 +275,393 @@ body[data-solo] .g3-despiece { display: none !important; }
     width: auto;
     max-width: none;
   }
+  .g3-sop {
+    bottom: 64px;
+    left: 8px;
+    right: 8px;
+    transform: none;
+    width: auto;
+    max-width: none;
+  }
 }
+
+/* ───────────── Llamadas del plano en 3D (Callouts) ───────────── */
+.g3-callouts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 6;
+}
+.g3-callout {
+  position: absolute;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.12s ease-out, filter 0.15s ease;
+  font-family: inherit;
+}
+.g3-callout:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+  z-index: 10;
+}
+.g3-callout__pin {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--gm-card);
+  border: 2px solid var(--gm-accent);
+  color: var(--gm-accent);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), 0 0 10px color-mix(in srgb, var(--gm-accent) 40%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 750;
+  font-family: var(--gm-mono, monospace);
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.g3-callout:hover .g3-callout__pin {
+  background: var(--gm-accent);
+  color: #fff;
+  box-shadow: 0 0 14px var(--gm-accent);
+}
+.g3-callout.es-activo .g3-callout__pin {
+  background: #f59e0b;
+  border-color: #d97706;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
+}
+.g3-callout__card {
+  background: color-mix(in srgb, var(--gm-card) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--gm-line);
+  padding: 5px 9px;
+  border-radius: 8px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 210px;
+  white-space: nowrap;
+}
+.g3-callout__top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: space-between;
+}
+.g3-callout__nom {
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--gm-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.g3-callout__tavola {
+  font-size: 9.5px;
+  font-family: var(--gm-mono, monospace);
+  color: #723bcf;
+  background: color-mix(in srgb, #8957e5 14%, transparent);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+:root[data-theme="dark"] .g3-callout__tavola {
+  color: #c297ff;
+}
+.g3-callout__codigos {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+}
+.g3-callout__oem {
+  font-family: var(--gm-mono, monospace);
+  color: var(--gm-muted);
+}
+.g3-callout__erp {
+  font-family: var(--gm-mono, monospace);
+  color: #0c7a4b;
+  background: color-mix(in srgb, #0fa968 15%, transparent);
+  padding: 1px 4px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+:root[data-theme="dark"] .g3-callout__erp {
+  color: #2ed587;
+}
+
+/* ───────────── Guía SOP Interactiva 3D ───────────── */
+.g3-sop {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, calc(100% - 28px));
+  background: color-mix(in srgb, var(--gm-card) 95%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--gm-line);
+  border-radius: 14px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), 0 0 0 1px color-mix(in srgb, var(--gm-accent) 25%, transparent);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: g3SopEntrada 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes g3SopEntrada {
+  from { opacity: 0; transform: translate(-50%, 20px) scale(0.97); }
+  to { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+.g3-sop__cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--gm-soft) 85%, transparent);
+  border-bottom: 1px solid var(--gm-line);
+}
+.g3-sop__info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.g3-sop__badge {
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  padding: 2px 7px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.g3-sop__tit {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 650;
+  color: var(--gm-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.g3-sop__tavola {
+  font-size: 10.5px;
+  font-family: var(--gm-mono, monospace);
+  color: var(--gm-muted);
+}
+.g3-sop__acciones-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.g3-sop__selector {
+  font: inherit;
+  font-size: 11.5px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--gm-card);
+  color: var(--gm-ink);
+  border: 1px solid var(--gm-line);
+  cursor: pointer;
+}
+.g3-sop__cerrar {
+  border: 0;
+  background: var(--gm-soft);
+  color: var(--gm-muted);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  transition: all .12s;
+}
+.g3-sop__cerrar:hover {
+  background: var(--gm-line);
+  color: var(--gm-ink);
+}
+.g3-sop__pasos-track {
+  display: flex;
+  gap: 4px;
+  padding: 8px 14px;
+  background: color-mix(in srgb, var(--gm-soft) 40%, transparent);
+  border-bottom: 1px solid var(--gm-line);
+  overflow-x: auto;
+}
+.g3-sop__paso-chip {
+  flex: 1;
+  min-width: 90px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--gm-card);
+  border: 1px solid var(--gm-line);
+  color: var(--gm-muted);
+  font-size: 11px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+.g3-sop__paso-chip:hover {
+  border-color: var(--gm-accent);
+  color: var(--gm-ink);
+}
+.g3-sop__paso-chip.es-activo {
+  background: color-mix(in srgb, var(--gm-accent) 12%, transparent);
+  border-color: var(--gm-accent);
+  color: var(--gm-accent);
+  font-weight: 650;
+}
+.g3-sop__paso-chip.es-completado {
+  color: #0c7a4b;
+  border-color: color-mix(in srgb, #0fa968 40%, transparent);
+}
+:root[data-theme="dark"] .g3-sop__paso-chip.es-completado {
+  color: #2ed587;
+}
+.g3-sop__paso-chip-num {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--gm-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+.g3-sop__paso-chip.es-activo .g3-sop__paso-chip-num {
+  background: var(--gm-accent);
+  color: #fff;
+}
+.g3-sop__paso-chip.es-completado .g3-sop__paso-chip-num {
+  background: #0fa968;
+  color: #fff;
+}
+.g3-sop__cuerpo {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.g3-sop__paso-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.g3-sop__num {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--gm-accent);
+  letter-spacing: 0.04em;
+}
+.g3-sop__paso-tit {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--gm-ink);
+}
+.g3-sop__desc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--gm-ink);
+  line-height: 1.45;
+}
+.g3-sop__herramientas {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.g3-sop__tool-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2.5px 8px;
+  border-radius: 6px;
+  background: var(--gm-soft);
+  border: 1px solid var(--gm-line);
+  font-size: 11.5px;
+  color: var(--gm-ink);
+  font-weight: 500;
+}
+.g3-sop__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 9px 16px;
+  border-top: 1px solid var(--gm-line);
+  background: color-mix(in srgb, var(--gm-soft) 40%, transparent);
+}
+.g3-sop__puntos {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.g3-sop__punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--gm-line);
+  transition: all 0.15s;
+}
+.g3-sop__punto.es-activo {
+  background: var(--gm-accent);
+  transform: scale(1.35);
+}
+.g3-sop__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--gm-line);
+  background: var(--gm-card);
+  color: var(--gm-ink);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .12s;
+}
+.g3-sop__btn:hover:not(:disabled) {
+  background: var(--gm-soft);
+  border-color: var(--gm-accent);
+  color: var(--gm-accent);
+}
+.g3-sop__btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.g3-sop__btn--pri {
+  background: var(--gm-accent);
+  color: #fff;
+  border-color: var(--gm-accent);
+}
+.g3-sop__btn--pri:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--gm-accent) 85%, #000);
+  color: #fff;
+}
+

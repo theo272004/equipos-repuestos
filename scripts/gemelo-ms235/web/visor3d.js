@@ -364,6 +364,167 @@ function grupoDe(ride) {
   return grupos[ride];
 }
 
+// Clasificación cinemática y jerárquica de subconjuntos según el manual S4220003
+function clasificarParte(it) {
+  if (!it) return null;
+  const n = (it.n || "").toLowerCase();
+  const p = it.p;
+  if (it.su) return { su: it.su, e1: it.e1, e2: it.e2 };
+
+  if (p === "armario") {
+    if (n.includes("puerta") || n.includes("manilla") || n.includes("cerradura")) return { su: "armario-puerta", e1: [-140, 0, 0], e2: [0, 0, 0] };
+    if (n.includes("modulo") || n.includes("plc") || n.includes("variador") || n.includes("driver")) return { su: "armario-modulos", e1: [0, 80, 0], e2: [0, 0, 0] };
+    if (n.includes("regleta") || n.includes("borne") || n.includes("conector")) return { su: "armario-regletas", e1: [0, 50, -40], e2: [0, 0, 0] };
+    return { su: "armario-bastidor", e1: [0, -50, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "carter") {
+    if (n.includes("compas") || n.includes("varilla")) return { su: "carter-compas", e1: [0, -60, 40], e2: [0, 0, 0] };
+    return { su: "carter-puertas", e1: [0, -120, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "corte") {
+    if (n.includes("rotativa") || n.includes("eje-cuchilla") || n.includes("servo") || n.includes("reductor-angulo")) {
+      return { su: "corte-rotativo", e1: [0, 140, 0], e2: n.includes("tapa") ? [0, 60, 0] : n.includes("rotativa") ? [0, 40, 0] : [0, 0, 0] };
+    }
+    if (n.includes("fija") || n.includes("porta-fija") || n.includes("fieltro")) {
+      return { su: "corte-fijo", e1: [0, -100, 0], e2: n.includes("fija") ? [0, -35, 0] : [0, 0, 0] };
+    }
+    if (n.includes("cartucho") || n.includes("viga-cartuchos") || n.includes("disco") || n.includes("horquilla-cartucho") || n.includes("muelle-cartucho")) {
+      return { su: "corte-longitudinal", e1: [0, 90, 110], e2: n.includes("disco") ? [0, 30, 20] : n.includes("muelle") ? [0, 15, 40] : [0, 0, 0] };
+    }
+    if (n.includes("contraste")) {
+      return { su: "corte-contraste", e1: [0, -70, -60], e2: n.includes("anillo") ? [20, 0, 0] : [0, 0, 0] };
+    }
+    return { su: "corte-sensores", e1: [-100, 20, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "arrastre") {
+    if (n.includes("cajon") || n.includes("frontal") || n.includes("pomo") || n.includes("maneta")) {
+      return { su: "arrastre-cajon", e1: [0, 160, 0], e2: n.includes("pomo") ? [0, 40, 0] : [0, 0, 0] };
+    }
+    if (n.includes("rodillo")) {
+      return { su: "arrastre-rodillos", e1: [0, 80, 50], e2: n.includes("anillo") ? [25, 0, 0] : [0, 0, 0] };
+    }
+    return { su: "arrastre-transmision", e1: [0, -90, 0], e2: n.includes("tapa") ? [0, -40, 0] : [0, 0, 0] };
+  }
+
+  if (p === "dosificacion") {
+    if (n.includes("tolva") || n.includes("conducto") || n.includes("tubo-a90") || n.includes("brida") || n.includes("sensor.b35")) {
+      return { su: "dosif-tolva", e1: [0, 0, 180], e2: n.includes("brida") ? [0, 0, 40] : [0, 0, 0] };
+    }
+    if (n.includes("estrella") || n.includes("cassette") || n.includes("boquilla") || n.includes("rasador")) {
+      return { su: "dosif-valvulas", e1: [0, 140, 0], e2: n.includes("boquilla") ? [0, 40, -30] : [0, 0, 0] };
+    }
+    if (n.includes("motor") || n.includes("reductor") || n.includes("placa-motores")) {
+      return { su: "dosif-motores", e1: [0, -120, 0], e2: n.includes("motor") ? [0, -40, 0] : [0, 0, 0] };
+    }
+    return { su: "dosif-vibrador", e1: [-100, 40, 60], e2: [0, 0, 0] };
+  }
+
+  if (p === "pinzas") {
+    if (n.includes("dedo") || n.includes("goma") || n.includes("barra-derecha") || (n.includes("brazo") && !n.includes("hmi"))) {
+      return { su: "pinzas-dedos", e1: [0, 140, 0], e2: n.includes("goma") ? [0, 30, 0] : [0, 0, 0] };
+    }
+    if (n.includes("guia") || n.includes("patin") || n.includes("viga") || n.includes("placa-extremo")) {
+      return { su: "pinzas-carro", e1: [0, 0, 100], e2: n.includes("patin") ? [0, 25, 0] : [0, 0, 0] };
+    }
+    return { su: "pinzas-cilindro", e1: [0, -100, -60], e2: n.includes("vastago") ? [0, -30, 0] : [0, 0, 0] };
+  }
+
+  if (p === "salida") {
+    if (n.includes("expulsion") || n.includes("deslizadero") || n.includes("borde") || n.includes("sensor.s52") || n.includes("sensor.b52") || n.includes("puente")) {
+      return { su: "salida-expulsion", e1: [0, 120, 80], e2: n.includes("borde") ? [20, 20, 0] : [0, 0, 0] };
+    }
+    if (n.includes("motor") || n.includes("reductor")) {
+      return { su: "salida-motor", e1: [120, 0, 0], e2: [0, 0, 0] };
+    }
+    return { su: "salida-cinta", e1: [0, 60, -80], e2: n.includes("tambor") ? [0, 0, -30] : [0, 0, 0] };
+  }
+
+  if (p === "motor") {
+    if (n.includes("cadena") || n.includes("pinon") || n.includes("corona") || n.includes("tensor") || n.includes("carter-aceite")) {
+      return { su: "motor-transmision", e1: [140, 0, 0], e2: n.includes("carter") ? [40, 0, 0] : [0, 0, 0] };
+    }
+    if (n.includes("dropsa") || n.includes("volante")) {
+      return { su: "motor-lubricacion", e1: [0, 100, -80], e2: n.includes("volante") ? [0, 40, 0] : [0, 0, 0] };
+    }
+    if (n.includes("leva") || n.includes("manivela") || n.includes("b18") || n.includes("b25")) {
+      return { su: "motor-levas", e1: [0, 120, 60], e2: n.includes("manivela") ? [0, 40, 0] : [0, 0, 0] };
+    }
+    return { su: "motor-principal", e1: [0, -130, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "bobina") {
+    if (n.includes("centrado") || n.includes("caja-cadena") || n.includes("tensor-cadena") || n.includes("sensor.b31")) {
+      return { su: "bobina-centrado", e1: [-110, 0, 60], e2: [0, 0, 0] };
+    }
+    if (n.includes("freno") || n.includes("polea") || n.includes("correa")) {
+      return { su: "bobina-freno", e1: [0, -110, 0], e2: [0, 0, 0] };
+    }
+    if (n.includes("resorte") || n.includes("corredera") || n.includes("muelle") || n.includes("sensor.b29") || n.includes("fibra")) {
+      return { su: "bobina-tension", e1: [0, 110, -60], e2: [0, 0, 0] };
+    }
+    return { su: "bobina-eje", e1: [130, 0, 0], e2: n.includes("reserva") ? [0, 50, 0] : [0, 0, 0] };
+  }
+
+  if (p === "desbobinado") {
+    if (n.includes("traccion") || (n.includes("motor") && !n.includes("cuchilla")) || n.includes("reenvio")) {
+      return { su: "desbob-traccion", e1: [110, 40, 0], e2: [0, 0, 0] };
+    }
+    if (n.includes("empalme") || n.includes("cuchilla") || n.includes("balancin")) {
+      return { su: "desbob-empalme", e1: [0, 130, 60], e2: n.includes("cuchilla") ? [0, 40, 0] : [0, 0, 0] };
+    }
+    if (n.includes("sick") || n.includes("sensor") || n.includes("contraste")) {
+      return { su: "desbob-sensores", e1: [-90, 60, -40], e2: [0, 0, 0] };
+    }
+    return { su: "desbob-bastidor", e1: [0, -90, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "guias") {
+    if (n.includes("rodillo") || n.includes("horquilla") || n.includes("giro") || n.includes("placa-guia") || n.includes("placa-rodillo")) {
+      return { su: "guias-rodillos", e1: [0, 110, 0], e2: [0, 0, 0] };
+    }
+    if (n.includes("conector") || n.includes("regleta")) {
+      return { su: "guias-conectores", e1: [-90, -60, 40], e2: [0, 0, 0] };
+    }
+    return { su: "guias-puente", e1: [0, 0, 110], e2: [0, 0, 0] };
+  }
+
+  if (p === "fotocelula") {
+    return { su: "foto-lector", e1: [0, 90, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "hmi") {
+    if (n.includes("panel") || n.includes("pantalla") || n.includes("pulsador") || n.includes("seta") || n.includes("selector")) {
+      return { su: "hmi-consola", e1: [0, 120, 0], e2: n.includes("seta") ? [0, 30, 0] : [0, 0, 0] };
+    }
+    return { su: "hmi-brazo", e1: [-110, 40, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "resguardos") {
+    if (n.includes("puerta") || n.includes("vidrio") || n.includes("tirador") || n.includes("mirilla")) {
+      return { su: "resg-puertas", e1: [0, 150, 0], e2: n.includes("tirador") ? [0, 40, 0] : [0, 0, 0] };
+    }
+    if (n.includes("euchner") || n.includes("rfid") || n.includes("conector")) {
+      return { su: "resg-enclavamiento", e1: [0, 110, 80], e2: [0, 0, 0] };
+    }
+    return { su: "resg-bastidor", e1: [0, -110, 0], e2: [0, 0, 0] };
+  }
+
+  if (p === "bastidor") {
+    if (n.includes("bote") || n.includes("presostato") || n.includes("racor")) {
+      return { su: "bast-neumatica", e1: [110, 0, 0], e2: [0, 0, 0] };
+    }
+    if (n.includes("pared") || n.includes("placa-ce") || n.includes("inspeccion")) {
+      return { su: "bast-paneles", e1: [-110, 0, 0], e2: [0, 0, 0] };
+    }
+    return { su: "bast-base", e1: [0, 0, -90], e2: [0, 0, 0] };
+  }
+
+  return null;
+}
+
 function construirMaquina(esc) {
   ESC = esc;
   for (const it of esc.items) {
@@ -381,7 +542,11 @@ function construirMaquina(esc) {
     malla.castShadow = base !== MAT.vidrio && it.c !== "papel";
     malla.receiveShadow = true;
     malla.matrixAutoUpdate = false;
-    malla.userData = { it, base, pieza: it.p, ride: it.r ?? it.p, parte: it.n.replace(/[#:].*$/, ""), sensor: it.s, disp: it.d, centro: it.m, co: it.co, su: it.su };
+    const cl = clasificarParte(it);
+    const su = it.su || cl?.su || null;
+    const e1 = it.e1 || cl?.e1 || null;
+    const e2 = it.e2 || cl?.e2 || null;
+    malla.userData = { it, base, pieza: it.p, ride: it.r ?? it.p, parte: it.n.replace(/[#:].*$/, ""), sensor: it.s, disp: it.d, centro: it.m, co: it.co, su, e1, e2 };
     if (base !== MAT.vidrio && it.c !== "papel" && it.c !== "cable" && it.c !== "correa" && it.c !== "cadena" && !/muelle/.test(it.n)) {
       const aristas = new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), ARISTA);
       aristas.matrixAutoUpdate = false;
@@ -435,7 +600,11 @@ function construirMaquina(esc) {
     im.receiveShadow = true;
     im.matrixAutoUpdate = false;
     const centro = g.centros.reduce((a, c) => a.map((v, i) => v + c[i] / g.centros.length), [0, 0, 0]);
-    im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: g.parteMov ?? `${g.pieza}.tornilleria`, centro, tornillos: g.lista.length, perno: true, e1: g.e1, e2: g.e2 };
+    const clPerno = clasificarParte({ n: g.parteMov || g.pieza, p: g.pieza });
+    const suPerno = clPerno?.su || `${g.pieza}.tornilleria`;
+    const e1Perno = g.e1 || clPerno?.e1 || null;
+    const e2Perno = g.e2 || clPerno?.e2 || (e1Perno ? [e1Perno[0] * 0.4, e1Perno[1] * 0.4, e1Perno[2] * 0.4] : null);
+    im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: g.parteMov ?? `${g.pieza}.tornilleria`, centro, tornillos: g.lista.length, perno: true, su: suPerno, e1: e1Perno, e2: e2Perno };
     grupoDe(g.ride).add(im);
     instancias.push(im);
     (porPiezaMallas[g.pieza] ??= []).push(im);
@@ -725,22 +894,140 @@ function reglaAnim(m) {
 // t = 0 armado, 1 subconjuntos separados (e1), 2 cada pieza separada (e2).
 const despiece = { pieza: null, t: 0, meta: 0 };
 const SUBCONJUNTOS = {
+  // Soldadura (Tavola S4A21100230, S4M14100110, S4M15100110)
   "plancha-izq": ["Placa calefactora izquierda", "S4A21100230", "S4A21100231"],
   "plancha-der": ["Placa calefactora derecha", "S4A21100230", "S4A21100231"],
-  "mordaza-izq": ["Mordaza izquierda: cuerpo, paralelogramo y capota", "S4M14100110", "M2M14100346"],
-  "mordaza-der": ["Mordaza derecha: cuerpo, paralelogramo y bandeja", "S4M14100110", "M2M14100354"],
+  "mordaza-izq": ["Mordaza izquierda: cuerpo y paralelogramo", "S4M14100110", "M2M14100346"],
+  "mordaza-der": ["Mordaza derecha: cuerpo y bandeja", "S4M14100110", "M2M14100354"],
   "cilindro-izq": ["Cilindro con fuelle izquierdo", "S4M14100110", "2M14100317"],
   "cilindro-der": ["Cilindro con fuelle derecho", "S4M14100110", "2M14100317"],
   levas: ["Bastidor de levas y tirantes con resorte", "S4M14100110", "M2M14100351"],
   puente: ["Puente entre las cunas", "S4M14100110", "2M14100313"],
   formado: ["Placas de formado (molde)", "S4M14100110", "S4M14100110"],
   anclaje: ["Placa de anclaje", "S4M15100110", "S4M15100110"],
-  marco: ["Marco frontal", "S4M15100110", "S4M15100110"],
+  marco: ["Marco frontal de soporte", "S4M15100110", "S4M15100110"],
   codificador: ["Codificador de lote", "S4M14100110", "S4M14100110"],
   sensores: ["Sensores del sellado", "S4M14100110", "S4M14100110"],
+
+  // Corte (Tavola S4A19100110 / A920000001)
+  "corte-rotativo": ["Cuchilla rotativa transversal y eje", "S4A19100110", "A920000001"],
+  "corte-fijo": ["Contracuchilla fija y soporte", "S4A19100110", "A920000001"],
+  "corte-longitudinal": ["Batería de cuchillas longitudinales", "S4A19100110", "A920000001"],
+  "corte-contraste": ["Rodillo de contraste ranurado", "S4A19100110", "A920000001"],
+  "corte-sensores": ["Caja lateral y leva sincronizadora", "S4A19100110", "A920000001"],
+
+  // Arrastre (Tavola S4A19100110 / A920000001)
+  "arrastre-cajon": ["Cajón frontal extraíble con pomos", "S4A19100110", "A920000001"],
+  "arrastre-rodillos": ["Rodillos de tracción vulcanizados", "S4A19100110", "A920000001"],
+  "arrastre-transmision": ["Engranajes de arrastre y servomotor", "S4A19100110", "A920000001"],
+
+  // Dosificación (Tavola S4G72200210 / 00721R007)
+  "dosif-tolva": ["Tolva de producto y bridas Tri-Clamp", "S4G72200210", "00721R007"],
+  "dosif-valvulas": ["Válvula estrella doble y cassette", "S4G72200210", "00721R007"],
+  "dosif-motores": ["Servomotores y reductores de dosificación", "S4G72200210", "00721R007"],
+  "dosif-vibrador": ["Vibrador neumático de tolva y sensores", "S4G72200210", "00721R007"],
+
+  // Pinzas (Tavola S4A19100110 / A920000001)
+  "pinzas-dedos": ["Pinzas de sujeción y almohadillas", "S4A19100110", "A920000001"],
+  "pinzas-carro": ["Carro guía lineal y patines", "S4A19100110", "A920000001"],
+  "pinzas-cilindro": ["Cilindro neumático y bielas articuladas", "S4A19100110", "A920000001"],
+
+  // Salida (Tavola S4G52200210)
+  "salida-expulsion": ["Puente de expulsión y tobogán de sobres", "S4G52200210", "S4G52200210"],
+  "salida-cinta": ["Banda transportadora y rodillos", "S4G52200210", "S4G52200210"],
+  "salida-motor": ["Motorreductor de cinta de salida", "S4G52200210", "S4G52200210"],
+
+  // Motor principal (Tavola S4M02100110 / 2M02100321)
+  "motor-principal": ["Motor principal y reductor", "S4M02100110", "2M02100321"],
+  "motor-transmision": ["Cadena en baño de aceite y tensor", "S4M02100110", "2M02100321"],
+  "motor-levas": ["Árbol de levas principal y manivela", "S4M02100110", "2M02100321"],
+  "motor-lubricacion": ["Sistema de lubricación automática Dropsa", "S4M02100110", "2M02100321"],
+
+  // Bobina (Tavola S4M01100110)
+  "bobina-eje": ["Eje neumático expansible y soporte", "S4M01100110", "S4M01100110"],
+  "bobina-centrado": ["Motor y mecanismo de centrado automático", "S4M01100110", "S4M01100110"],
+  "bobina-freno": ["Motor de freno y poleas sincronizadoras", "S4M01100110", "S4M01100110"],
+  "bobina-tension": ["Balancín compensador de tensión y resortes", "S4M01100110", "S4M01100110"],
+
+  // Desbobinado (Tavola S4M01100110)
+  "desbob-bastidor": ["Bastidor vertical y rodillos de guía", "S4M01100110", "S4M01100110"],
+  "desbob-traccion": ["Rodillo motorizado de arrastre de film", "S4M01100110", "S4M01100110"],
+  "desbob-empalme": ["Mesa de empalme y cuchilla manual", "S4M01100110", "S4M01100110"],
+  "desbob-sensores": ["Sensores de marca de corte y fotocélulas", "S4M01100110", "S4M01100110"],
+
+  // Guías y doblado (Tavola S4M08100110)
+  "guias-puente": ["Estructura portante superior", "S4M08100110", "S4M08100110"],
+  "guias-rodillos": ["Horquillas y rodillos conformadores", "S4M08100110", "S4M08100110"],
+  "guias-conectores": ["Caja de distribución y conectores X44-X49", "S4M08100110", "S4M08100110"],
+
+  // Fotocélula (Tavola S4M08100110)
+  "foto-lector": ["Lector de contraste y soporte articulado", "S4M08100110", "S4M08100110"],
+
+  // Panel HMI (Esquema ES4220003)
+  "hmi-brazo": ["Brazo articulado orientable", "ES4220003", "ES4220003"],
+  "hmi-consola": ["Pantalla táctil y botonera de control", "ES4220003", "ES4220003"],
+
+  // Resguardos de seguridad (Tavola S4M18100110)
+  "resg-puertas": ["Puertas batientes frontales con acrílico", "S4M18100110", "S4M18100110"],
+  "resg-bastidor": ["Estructura de perfiles de aluminio y paneles", "S4M18100110", "S4M18100110"],
+  "resg-enclavamiento": ["Cerraduras de seguridad Euchner RFID", "S4M18100110", "S4M18100110"],
+
+  // Bastidor (Tavola S4M15100110)
+  "bast-base": ["Chasis de bancada y apoyos antivibratorios", "S4M15100110", "S4M15100110"],
+  "bast-neumatica": ["Acumulador neumático y presostatos", "S4M15100110", "S4M15100110"],
+  "bast-paneles": ["Paredes de protección y placas CE", "S4M15100110", "S4M15100110"],
+
+  // Cárter (Tavola S4M02100110 / 2M02100321)
+  "carter-puertas": ["Puertas de acceso a transmisión", "S4M02100110", "2M02100321"],
+  "carter-compas": ["Compás de retención y bisagras", "S4M02100110", "2M02100321"],
+
+  // Armario eléctrico (Esquema ES4220003)
+  "armario-puerta": ["Puerta batiente y cerradura", "ES4220003", "ES4220003"],
+  "armario-modulos": ["Controlador PLC y variadores", "ES4220003", "ES4220003"],
+  "armario-regletas": ["Regletas de bornes de potencia y control", "ES4220003", "ES4220003"],
+  "armario-bastidor": ["Envolvente y placa de montaje", "ES4220003", "ES4220003"],
 };
 const tieneDespiece = (pieza) => !!pieza && mallas.some((m) => m.userData.pieza === pieza);
-const despieceCurado = (pieza) => mallas.some((m) => m.userData.pieza === pieza && m.userData.it.e1);
+const despieceCurado = (pieza) => mallas.some((m) => m.userData.pieza === pieza && (m.userData.e1 || m.userData.it?.e1));
+
+// Líneas de explosión / trazas 3D que conectan las piezas desplazadas a su posición de montaje
+const geoTrazas = new THREE.BufferGeometry();
+const matTrazas = new THREE.LineBasicMaterial({
+  color: 0x5b9dff,
+  transparent: true,
+  opacity: 0.55,
+  depthTest: true,
+});
+const lineasTrazas = new THREE.LineSegments(geoTrazas, matTrazas);
+lineasTrazas.frustumCulled = false;
+lineasTrazas.renderOrder = 3;
+raiz.add(lineasTrazas);
+
+function actualizarTrazasDespiece(t) {
+  if (t < 0.05 || !despiece.pieza) {
+    lineasTrazas.visible = false;
+    return;
+  }
+  const pts = [];
+  const pz = despiece.pieza;
+  for (const m of mallas) {
+    const u = m.userData;
+    if (u.pieza !== pz || !m.visible || !u.centro) continue;
+    const d = desplazamientoDespiece(u, t);
+    if (!d || d.lengthSq() < 25) continue;
+    const pBase = T(u.centro);
+    const pExpl = pBase.clone().add(d);
+    pts.push(pBase.x, pBase.y, pBase.z, pExpl.x, pExpl.y, pExpl.z);
+  }
+  if (pts.length) {
+    geoTrazas.setAttribute("position", new THREE.Float32BufferAttribute(pts, 3));
+    matTrazas.opacity = Math.min(0.65, t * 0.45);
+    lineasTrazas.visible = true;
+  } else {
+    lineasTrazas.visible = false;
+  }
+}
+
 // despiece automatico: cada pieza se aleja del centro del conjunto (nivel 1 poco, nivel 2 mas)
 function prepararDespieceAuto(pieza) {
   const propias = [...mallas, ...instancias].filter((m) => m.userData.pieza === pieza);
@@ -785,6 +1072,7 @@ function pintarDespiece() {
       m.updateMatrixWorld(true);
     } else if (u.it?.o3 && /^(soldadura\.(manguera|cable-calefaccion))/.test(u.parte)) m.visible = t < 0.02 && u.visibleBase !== false;
   }
+  actualizarTrazasDespiece(t);
 }
 function despiezar(nivel) {
   const pieza = seleccion.pieza;
@@ -872,31 +1160,611 @@ function moverDespiece(dt) {
 // datos para el panel: subconjuntos con sus piezas y codigos
 function despieceDe(pieza) {
   if (!tieneDespiece(pieza)) return null;
-  if (!despieceCurado(pieza)) {
+  const subs = new Map();
+  for (const m of mallas) {
+    const su = m.userData.su || m.userData.it?.su;
+    if (m.userData.pieza !== pieza || !su) continue;
+    if (!subs.has(su)) subs.set(su, new Map());
+    const nombre = legible(m.userData.parte);
+    const lista = subs.get(su);
+    const co = m.userData.co ?? m.userData.it?.co ?? "";
+    const clave = `${nombre}|${co}`;
+    lista.set(clave, (lista.get(clave) ?? 0) + 1);
+  }
+  if (!subs.size) {
     const piezas = new Map();
     for (const m of mallas) if (m.userData.pieza === pieza) piezas.set(legible(m.userData.parte), (piezas.get(legible(m.userData.parte)) ?? 0) + 1);
     return { nivel: despiece.pieza === pieza ? despiece.meta : 0, auto: true, subs: [{ id: "", nombre: "Piezas del conjunto", piezas: [...piezas.entries()].map(([nm, n]) => [nm, "", n]) }] };
   }
-  const subs = new Map();
-  for (const m of mallas) {
-    const it = m.userData.it;
-    if (m.userData.pieza !== pieza || !it.su) continue;
-    if (!subs.has(it.su)) subs.set(it.su, new Map());
-    const nombre = legible(m.userData.parte);
-    const lista = subs.get(it.su);
-    const clave = `${nombre}|${it.co ?? ""}`;
-    lista.set(clave, (lista.get(clave) ?? 0) + 1);
-  }
+  const dPz = D.piezas[pieza];
+  const tavDef = dPz?.plano?.tavola || "S4220003";
   return {
     nivel: despiece.pieza === pieza ? despiece.meta : 0,
-    subs: [...subs.entries()].map(([id, piezas]) => ({ id, nombre: SUBCONJUNTOS[id]?.[0] ?? id, grupo: SUBCONJUNTOS[id]?.[1], lamina: SUBCONJUNTOS[id]?.[2], piezas: [...piezas.entries()].map(([k, n]) => [...k.split("|"), n]) })),
+    subs: [...subs.entries()].map(([id, piezas]) => {
+      const info = SUBCONJUNTOS[id] || [];
+      return {
+        id,
+        nombre: info[0] ?? id,
+        grupo: info[1] ?? tavDef,
+        lamina: info[2] ?? info[1] ?? tavDef,
+        piezas: [...piezas.entries()].map(([k, n]) => [...k.split("|"), n]),
+      };
+    }),
   };
 }
 function elegirSubconjunto(id) {
   seleccion.sub = seleccion.sub === id ? null : id;
   aspecto();
   pintarPanel();
+  actualizarCallouts();
 }
+
+// ───────────── Subconjuntos 3D: Resaltado y Encuadre ─────────────
+let subResaltado = null;
+function resaltarSubconjunto(suId) {
+  subResaltado = suId;
+  for (const m of mallas) {
+    if ((m.userData.su || m.userData.it?.su) === suId) {
+      m.material = MAT.hover || m.userData.base;
+    }
+  }
+  pedirCuadro();
+}
+function desresaltarSubconjunto() {
+  if (!subResaltado) return;
+  subResaltado = null;
+  aspecto();
+  pedirCuadro();
+}
+function encuadrarSubconjunto(suId) {
+  const caja = new THREE.Box3();
+  for (const m of mallas) {
+    if ((m.userData.su || m.userData.it?.su) === suId && m.visible) {
+      caja.union(new THREE.Box3().setFromObject(m));
+    }
+  }
+  if (!caja.isEmpty()) encuadrar(caja.expandByScalar(15));
+}
+
+// ───────────── Llamadas del plano en 3D (Callouts / Balloons) ─────────────
+let calloutsActivas = true;
+const elCallouts = document.getElementById("g3Callouts");
+
+function calcularCentroSubconjunto(pz, suId) {
+  const caja = new THREE.Box3();
+  for (const m of mallas) {
+    if (m.userData.pieza !== pz || !m.visible) continue;
+    const su = m.userData.su || m.userData.it?.su || "";
+    if (su !== suId) continue;
+    caja.union(new THREE.Box3().setFromObject(m));
+  }
+  if (caja.isEmpty()) return null;
+  return caja.getCenter(new THREE.Vector3());
+}
+
+function actualizarCallouts() {
+  if (!elCallouts) return;
+  if (!calloutsActivas || !seleccion.pieza) {
+    if (elCallouts.children.length) elCallouts.innerHTML = "";
+    return;
+  }
+  const pz = seleccion.pieza;
+  const dp = despieceDe(pz);
+  if (!dp || !dp.subs || !dp.subs.length) {
+    if (elCallouts.children.length) elCallouts.innerHTML = "";
+    return;
+  }
+
+  const rect = lienzo.getBoundingClientRect();
+  const w = rect.width;
+  const h = rect.height;
+  if (!w || !h) return;
+
+  const fragment = document.createDocumentFragment();
+  dp.subs.forEach((sub, idx) => {
+    const c3d = calcularCentroSubconjunto(pz, sub.id);
+    if (!c3d) return;
+
+    const pProj = c3d.clone().project(camara);
+    if (pProj.z > 1 || pProj.x < -1.05 || pProj.x > 1.05 || pProj.y < -1.05 || pProj.y > 1.05) return;
+
+    const x = (pProj.x * 0.5 + 0.5) * w;
+    const y = (-pProj.y * 0.5 + 0.5) * h;
+
+    const resTec = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(sub.id) : {};
+    const codOem = sub.piezas[0]?.[1] || resTec.oem || "";
+    const erpCod = resTec.interno;
+    const stock = resTec.stock ?? 0;
+    const esActivo = seleccion.sub === sub.id;
+
+    const el = document.createElement("div");
+    el.className = `g3-callout${esActivo ? " es-activo" : ""}`;
+    el.style.left = `${Math.round(x)}px`;
+    el.style.top = `${Math.round(y)}px`;
+    el.innerHTML = `
+      <div class="g3-callout__pin" title="Posición ${idx + 1} · Tavola ${esc(sub.lamina || sub.grupo)}">
+        <span class="g3-callout__num">${idx + 1}</span>
+      </div>
+      <div class="g3-callout__card">
+        <div class="g3-callout__top">
+          <span class="g3-callout__nom" title="${esc(sub.nombre)}">${esc(sub.nombre)}</span>
+          <span class="g3-callout__tavola">${esc(sub.lamina || sub.grupo)}</span>
+        </div>
+        <div class="g3-callout__codigos">
+          ${codOem ? `<span class="g3-callout__oem">${esc(codOem)}</span>` : ""}
+          ${erpCod ? `<span class="g3-callout__erp">ERP ${esc(erpCod)} (${stock} ud)</span>` : ""}
+        </div>
+      </div>
+    `;
+
+    el.addEventListener("mouseenter", () => resaltarSubconjunto(sub.id));
+    el.addEventListener("mouseleave", () => desresaltarSubconjunto());
+    el.addEventListener("click", (e) => {
+      e.stopPropagation();
+      elegirSubconjunto(sub.id);
+      encuadrarSubconjunto(sub.id);
+    });
+
+    fragment.appendChild(el);
+  });
+
+  elCallouts.innerHTML = "";
+  elCallouts.appendChild(fragment);
+}
+
+// ───────────── Guía Interactiva Paso a Paso SOP en 3D ─────────────
+const PROCEDIMIENTOS_SOP = {
+  corte: {
+    id: "corte",
+    tit: "Reglaje de Luz y Calibración de Cuchilla Rotativa Transversal",
+    tavola: "Tavola S4A19100110 · Grupo A920000001 (p.23)",
+    pasos: [
+      {
+        tit: "Protocolo LOTO y Paro Seguro a 180°",
+        desc: "Parar la máquina en ángulo de 180° con cuchilla orientada hacia el frente. Desconectar y enclavar el seccionador principal Q01 con candado LOTO personal. Confirmar presión 0 bar en manómetro B18.2.",
+        tools: ["Candado LOTO", "Guantes anticorte Kevlar", "Gafas de seguridad"],
+        ejecutar: () => {
+          centrarEn("armario");
+          puerta.meta = 1;
+        },
+      },
+      {
+        tit: "Apertura de Resguardos y Extracción de Cajón",
+        desc: "Aflojar los dos pomos moleteados del frontal de arrastre y extraer el cajón hacia el frente sobre sus guías telescópicas (70 mm) para despejar completamente la zona de corte.",
+        tools: ["Manual sin herramientas"],
+        ejecutar: () => {
+          puerta.meta = 0;
+          manualMeta.cajon = 1;
+          centrarEn("arrastre");
+        },
+      },
+      {
+        tit: "Inspección de Filo y Limpieza Técnica",
+        desc: "Limpiar restos de film y polvo adherido con hisopo de precisión y alcohol isopropílico. Inspeccionar con lupa técnica x10 el filo de carburo de tungsteno en busca de micro-mellas o astillamiento.",
+        tools: ["Lupa técnica 10x", "Alcohol isopropílico", "Paño estéril sin pelusa"],
+        ejecutar: () => {
+          despiezar(1);
+          encuadrarSubconjunto("corte-rotativo");
+        },
+      },
+      {
+        tit: "Reglaje Centesimal con Galga de Espesores (0.03 mm)",
+        desc: "Con llave Allen de 5 mm aflojar los tornillos de retención del porta-cuchillas. Introducir galga calibrada de 0.03 mm entre la cuchilla rotativa y la contracuchilla fija. Ajustar tornillos micrométricos hasta sentir deslizamiento suave sin holgura (tolerancia: 0.02 a 0.04 mm). Apretar a 14 Nm con dinamométrica.",
+        tools: ["Llave Allen 5 mm", "Galga de espesores 0.03 mm", "Torquímetro 14 Nm"],
+        ejecutar: () => {
+          despiezar(2);
+          encuadrarSubconjunto("corte-fijo");
+        },
+      },
+      {
+        tit: "Verificación de Corte y Giro Libre a 360°",
+        desc: "Girar el volante manual 360° comprobando rotación suave y ausencia de roce metálico directo. Insertar tira de papel patrón MS235 y verificar corte transversal neto en las 4 pistas. Empujar el cajón de arrastre y rearmar resguardos.",
+        tools: ["Papel muestra MS235", "Dinamométrica"],
+        ejecutar: () => {
+          despiezar(0);
+          manualMeta.cajon = 0;
+          centrarEn("corte");
+        },
+      },
+    ],
+  },
+  soldadura: {
+    id: "soldadura",
+    tit: "Calibración de Paralelismo y Presión de Placas Calefactoras",
+    tavola: "Tavola S4A21100230 · Grupo S4M14100110 (p.20)",
+    pasos: [
+      {
+        tit: "Bloqueo LOTO y Enfriamiento Térmico",
+        desc: "Bloquear seccionador general Q01 en armario eléctrico. Desconectar salidas de resistencias calefactoras y aguardar a que la temperatura baje de 160 °C a < 40 °C antes de iniciar cualquier manipulación.",
+        tools: ["Candado LOTO", "Pirómetro digital infrarrojo", "Guantes térmicos"],
+        ejecutar: () => {
+          centrarEn("armario");
+          puerta.meta = 1;
+        },
+      },
+      {
+        tit: "Apertura Neumática de Mordazas y Resguardos",
+        desc: "Abrir las puertas frontales de protección acrílica y actuar la electroválvula manual para abrir neumáticamente las placas calefactoras a su máxima separación de mantenimiento.",
+        tools: ["Llave de servicio"],
+        ejecutar: () => {
+          puerta.meta = 0;
+          manualMeta.puertas = 1;
+          manualMeta.mordazas = 1;
+          centrarEn("soldadura");
+        },
+      },
+      {
+        tit: "Inspección de Recubrimiento PTFE y Resistencias Cartucho",
+        desc: "Revisar la lámina de teflón antiadherente PTFE (libre de quemaduras, fisuras o arrugas). Con multímetro en modo resistencia comprobar continuidad de los cartuchos calefactores (38 Ω ± 5%).",
+        tools: ["Multímetro digital Fluke", "Cinta PTFE teflonada grado alimentario"],
+        ejecutar: () => {
+          encuadrarSubconjunto("plancha-izq");
+        },
+      },
+      {
+        tit: "Alineación y Paralelismo con Papel Carbón Térmico",
+        desc: "Colocar hoja de papel carbón entre las caras de las mordazas. Accionar el cierre manual y ajustar los 4 tirantes con resorte del paralelogramo con llave fija 17 mm hasta que la huella de sellado sea uniforme y simétrica en todas las cavidades (tolerancia < 0.05 mm).",
+        tools: ["Llaves fijas 13/17 mm", "Papel carbón térmico", "Grasa Klüber Paraliq GTE 703"],
+        ejecutar: () => {
+          despiezar(1);
+          encuadrarSubconjunto("levas");
+        },
+      },
+      {
+        tit: "Prueba de Presión Neumática y Tarado a 5.5 bar",
+        desc: "Reconectar circuito neumático y tarar regulador a 5.5 bar. Comprobar disparo de conmutador de presión B42.1 en la ventana de 0.02 a 0.14 del ciclo. Cerrar resguardos de seguridad.",
+        tools: ["Manómetro patrón", "Torquímetro 25 Nm"],
+        ejecutar: () => {
+          despiezar(0);
+          manualMeta.mordazas = 0;
+          manualMeta.puertas = 0;
+          centrarEn("soldadura");
+        },
+      },
+    ],
+  },
+  arrastre: {
+    id: "arrastre",
+    tit: "Ajuste de Presión y Sincronismo de Rodillos de Tracción",
+    tavola: "Tavola S4A19100110 · Grupo A920000001",
+    pasos: [
+      {
+        tit: "Seguridad y Bloqueo de Servomotor M30.1",
+        desc: "Pulsar parada de emergencia y bloquear el servoaccionamiento M30.1 en armario para evitar arrastre accidental de film.",
+        tools: ["Candado LOTO", "EPP de seguridad"],
+        ejecutar: () => {
+          centrarEn("armario");
+        },
+      },
+      {
+        tit: "Extracción del Cajón y Limpieza de Rodillos",
+        desc: "Extraer el cajón frontal de arrastre. Limpiar las bandas de goma vulcanizada con solvente no agresivo para elastómeros para retirar ceras o polvo acumulado.",
+        tools: ["Limpiador especial elastómeros", "Paño microfibra"],
+        ejecutar: () => {
+          manualMeta.cajon = 1;
+          centrarEn("arrastre");
+        },
+      },
+      {
+        tit: "Reglaje de Pomos Micrométricos de Tensión",
+        desc: "Llevar ambos pomos moleteados a tope cero a derecha y retroceder exactamente 3.5 vueltas en ambos lados para obtener una presión simétrica de 1.2 N/mm.",
+        tools: ["Manual de galgado"],
+        ejecutar: () => {
+          despiezar(1);
+          encuadrarSubconjunto("arrastre-rodillos");
+        },
+      },
+      {
+        tit: "Alineación de Sensor de Muesca B30.10",
+        desc: "Alinear el spot del sensor óptico B30.10 a 5 mm del borde de la muesca de referencia en el papel. Ajustar umbral con potenciómetro hasta obtener conmutación nítida.",
+        tools: ["Destornillador perillero 2.5 mm", "Film de calibrado"],
+        ejecutar: () => {
+          encuadrarSubconjunto("desbob-sensores");
+        },
+      },
+      {
+        tit: "Prueba de Repetibilidad de Paso (112 mm)",
+        desc: "Ejecutar 5 avances manuales de prueba. Medir la longitud del paso con regla de precisión: cota nominal 112 mm ± 0.5 mm sin deriva angular.",
+        tools: ["Regla graduada de acero 300 mm"],
+        ejecutar: () => {
+          despiezar(0);
+          manualMeta.cajon = 0;
+          centrarEn("arrastre");
+        },
+      },
+    ],
+  },
+  dosificacion: {
+    id: "dosificacion",
+    tit: "Calibración de Válvula Estrella Doble y Cassette",
+    tavola: "Tavola S4G72200210 · Grupo 00721R007",
+    pasos: [
+      {
+        tit: "Aislamiento Sanitario y Descarga de Tolva",
+        desc: "Cerrar válvula de paso de producto en tolva superior. Vaciar completamente cualquier residuo y desconectar el motor M34.1.",
+        tools: ["Guantes sanitarios de nitrilo", "Recipiente colector"],
+        ejecutar: () => {
+          centrarEn("dosificacion");
+        },
+      },
+      {
+        tit: "Desacople de Bridas Higiénicas Tri-Clamp",
+        desc: "Retirar las abrazaderas rápidas Tri-Clamp de acero inoxidable AISI 316L y desmontar las boquillas de dosificación.",
+        tools: ["Llave para clamps higiénicos"],
+        ejecutar: () => {
+          despiezar(1);
+          encuadrarSubconjunto("dosif-tolva");
+        },
+      },
+      {
+        tit: "Desmontaje e Inspección de Rascadores PTFE",
+        desc: "Extraer el cassette de la válvula estrella doble. Verificar estado de los labios rascadores de teflón virgen; sustituir si el juego excede 0.2 mm.",
+        tools: ["Llave Allen 4 mm", "Galga de espesores 0.10 mm"],
+        ejecutar: () => {
+          despiezar(2);
+          encuadrarSubconjunto("dosif-valvulas");
+        },
+      },
+      {
+        tit: "Sincronización de Apertura a 180° de Ciclo",
+        desc: "Comprobar que en el ángulo de 180° de máquina la estrella complete su paso de alvéolo en fase exacta con la apertura de pinzas y sellado inferior.",
+        tools: ["Reloj comparador centesimal", "Torquímetro 18 Nm"],
+        ejecutar: () => {
+          encuadrarSubconjunto("dosif-motores");
+        },
+      },
+      {
+        tit: "Prueba de Dosificación y Pesaje Estadístico",
+        desc: "Montar boquillas con juntas sanitarias nuevas. Efectuar 10 dosificaciones y comprobar en balanza analítica: dispersión < 1.0%.",
+        tools: ["Balanza de precisión 0.01 g", "Juntas sanitarias EPDM"],
+        ejecutar: () => {
+          despiezar(0);
+          centrarEn("dosificacion");
+        },
+      },
+    ],
+  },
+  motor: {
+    id: "motor",
+    tit: "Tensado de Cadena de Distribución Principal y Lubricación",
+    tavola: "Tavola S4M02100110 · Grupo 2M02100321",
+    pasos: [
+      {
+        tit: "Bloqueo Eléctrico y Apertura de Cárter Lateral",
+        desc: "Desconectar seccionador Q01 y señalizar. Abrir puertas inferiores del cárter de transmisión y fijar con compás de retención.",
+        tools: ["Candado LOTO", "Llave de cuadro"],
+        ejecutar: () => {
+          centrarEn("carter");
+          manualMeta.puertas = 1;
+        },
+      },
+      {
+        tit: "Inspección de Cadena Triplex y Dientes de Corona",
+        desc: "Inspeccionar los eslabones de la cadena triplex en baño de grasa, rodillos y dientes de corona en busca de picaduras o fatiga.",
+        tools: ["Calibre medidor de desgaste de cadena", "Linterna LED"],
+        ejecutar: () => {
+          despiezar(1);
+          encuadrarSubconjunto("motor-transmision");
+        },
+      },
+      {
+        tit: "Medición y Reglaje de Flecha de Tensión (8-10 mm)",
+        desc: "Medir la flecha en el punto medio del ramal más largo. Debe estar comprendida entre 8 y 10 mm. Ajustar la placa base del tensor excéntrico.",
+        tools: ["Regla milimetrada", "Llave fija 19 mm", "Allen 8 mm"],
+        ejecutar: () => {
+          encuadrarSubconjunto("motor-transmision");
+        },
+      },
+      {
+        tit: "Purga y Lubricación Centralizada Dropsa",
+        desc: "Verificar nivel en el depósito centralizado de lubricación. Purgar aire de los distribuidores progresivos hasta comprobar salida limpia de grasa en casquillos.",
+        tools: ["Grasa Klüber Klübersynth UH1 14-151", "Bomba manual de purga"],
+        ejecutar: () => {
+          encuadrarSubconjunto("motor-lubricacion");
+        },
+      },
+      {
+        tit: "Prueba Dinámica de Marcha a 35 cpm",
+        desc: "Cerrar cárter, desbloquear seccionador y hacer girar a 35 ciclos/min durante 2 minutos verificando nivel acústico (< 72 dB) y ausencia de vibraciones.",
+        tools: ["Sonómetro digital"],
+        ejecutar: () => {
+          despiezar(0);
+          manualMeta.puertas = 0;
+          centrarEn("motor");
+        },
+      },
+    ],
+  },
+  pinzas: {
+    id: "pinzas",
+    tit: "Reglaje de Carrera y Sincronismo de Pinzas de Traslación",
+    tavola: "Tavola S4A19100110 · Grupo A920000001",
+    pasos: [
+      {
+        tit: "Paro en Punto Muerto Superior y Bloqueo",
+        desc: "Detener la máquina cuando las pinzas alcancen su punto más alto (PMS). Bloquear seccionador general Q01.",
+        tools: ["Candado LOTO"],
+        ejecutar: () => {
+          centrarEn("pinzas");
+        },
+      },
+      {
+        tit: "Inspección de Almohadillas de Agarre",
+        desc: "Comprobar que las almohadillas de elastómero de las pinzas no presenten desgaste irregular ni residuos de sellado que provoquen deslizamiento.",
+        tools: ["Juego de almohadillas de recambio"],
+        ejecutar: () => {
+          despiezar(1);
+          encuadrarSubconjunto("pinzas-dedos");
+        },
+      },
+      {
+        tit: "Ajuste de Carrera de Descenso (20 mm)",
+        desc: "Verificar con calibre que la carrera de descenso vertical sea de exactamente 20 mm. Ajustar la biela articulada con la leva si la cota difiere.",
+        tools: ["Calibre pie de rey", "Llave fija 13 mm"],
+        ejecutar: () => {
+          encuadrarSubconjunto("pinzas-cilindro");
+        },
+      },
+      {
+        tit: "Sincronismo de Suelta con Deslizadero de Salida",
+        desc: "Comprobar que la apertura de pinzas se produce exactamente en el momento en que el fondo del sobre apoya en las guías de salida bajo los sensores láser B52.",
+        tools: ["Regla de alineación"],
+        ejecutar: () => {
+          encuadrarSubconjunto("salida-expulsion");
+        },
+      },
+      {
+        tit: "Prueba de Traslación sin Daño de Envase",
+        desc: "Ejecutar ciclos completos con sobres llenos y validar que no existan arrugas, desalineaciones ni pellizcos en las pestañas termoselladas.",
+        tools: ["Muestras de sobres MS235"],
+        ejecutar: () => {
+          despiezar(0);
+          centrarEn("pinzas");
+        },
+      },
+    ],
+  },
+};
+
+const sopState = {
+  activo: false,
+  id: "corte",
+  paso: 0,
+};
+
+const elSop = document.getElementById("g3Sop");
+
+function iniciarSop(id, paso = 0) {
+  const pz = id && PROCEDIMIENTOS_SOP[id] ? id : (PROCEDIMIENTOS_SOP[seleccion.pieza] ? seleccion.pieza : "corte");
+  sopState.id = pz;
+  sopState.paso = Math.max(0, Math.min(paso, (PROCEDIMIENTOS_SOP[pz]?.pasos.length || 1) - 1));
+  sopState.activo = true;
+
+  if (sim.activa) pararSim();
+  seleccionar_(pz);
+
+  const sel = elSop?.querySelector("[data-sop-sel]");
+  if (sel) {
+    sel.innerHTML = Object.keys(PROCEDIMIENTOS_SOP)
+      .map((k) => `<option value="${k}"${k === pz ? " selected" : ""}>${PROCEDIMIENTOS_SOP[k].tit.slice(0, 36)}…</option>`)
+      .join("");
+  }
+
+  if (elSop) elSop.hidden = false;
+  actualizarSopUI();
+  ejecutarPasoSop();
+  actualizarMandos();
+  pedirCuadro();
+}
+
+function cerrarSop() {
+  sopState.activo = false;
+  if (elSop) elSop.hidden = true;
+  despiezar(0);
+  for (const k of Object.keys(manualMeta)) manualMeta[k] = manual[k] = 0;
+  actualizarMandos();
+  pedirCuadro();
+}
+
+function irAPasoSop(n) {
+  const proc = PROCEDIMIENTOS_SOP[sopState.id];
+  if (!proc) return;
+  sopState.paso = Math.max(0, Math.min(n, proc.pasos.length - 1));
+  actualizarSopUI();
+  ejecutarPasoSop();
+  pedirCuadro();
+}
+
+function ejecutarPasoSop() {
+  const proc = PROCEDIMIENTOS_SOP[sopState.id];
+  if (!proc) return;
+  const paso = proc.pasos[sopState.paso];
+  if (paso && typeof paso.ejecutar === "function") {
+    paso.ejecutar();
+  }
+}
+
+function actualizarSopUI() {
+  if (!elSop || !sopState.activo) return;
+  const proc = PROCEDIMIENTOS_SOP[sopState.id];
+  if (!proc) return;
+
+  const titEl = elSop.querySelector("[data-sop-tit]");
+  if (titEl) titEl.textContent = proc.tit;
+
+  const tavEl = elSop.querySelector("[data-sop-tavola]");
+  if (tavEl) tavEl.textContent = proc.tavola;
+
+  const track = elSop.querySelector("[data-sop-stepper]");
+  if (track) {
+    track.innerHTML = proc.pasos
+      .map((p, i) => {
+        const activo = i === sopState.paso;
+        const completado = i < sopState.paso;
+        return `<button type="button" class="g3-sop__paso-chip${activo ? " es-activo" : ""}${completado ? " es-completado" : ""}" data-sop-ir-paso="${i}">
+          <span class="g3-sop__paso-chip-num">${completado ? "✓" : i + 1}</span>
+          <span>${esc(p.tit.split(":")[0].slice(0, 22))}</span>
+        </button>`;
+      })
+      .join("");
+  }
+
+  const paso = proc.pasos[sopState.paso];
+  const numEl = elSop.querySelector("[data-sop-paso-num]");
+  if (numEl) numEl.textContent = `Paso ${sopState.paso + 1} de ${proc.pasos.length}`;
+
+  const pasoTitEl = elSop.querySelector("[data-sop-paso-tit]");
+  if (pasoTitEl) pasoTitEl.textContent = paso?.tit || "";
+
+  const descEl = elSop.querySelector("[data-sop-paso-desc]");
+  if (descEl) descEl.textContent = paso?.desc || "";
+
+  const toolsEl = elSop.querySelector("[data-sop-tools]");
+  if (toolsEl) {
+    const icoMap = { Allen: "🔧", Torquímetro: "⚙️", Dinamométrica: "⚙️", Lupa: "🔍", Multímetro: "⚡", Grasa: "🧴", Klüber: "🧴", Papel: "📄", Candado: "🔒", Guantes: "🧤", Balanza: "⚖️" };
+    toolsEl.innerHTML = (paso?.tools || [])
+      .map((t) => {
+        const icono = Object.keys(icoMap).find((k) => t.includes(k)) ? icoMap[Object.keys(icoMap).find((k) => t.includes(k))] : "🛠️";
+        return `<span class="g3-sop__tool-tag"><span>${icono}</span><span>${esc(t)}</span></span>`;
+      })
+      .join("");
+  }
+
+  const btnAnt = elSop.querySelector('[data-sop-act="ant"]');
+  if (btnAnt) btnAnt.disabled = sopState.paso === 0;
+
+  const btnSig = elSop.querySelector('[data-sop-act="sig"]');
+  if (btnSig) {
+    btnSig.textContent = sopState.paso === proc.pasos.length - 1 ? "Finalizar guía ✓" : "Siguiente paso →";
+  }
+
+  const puntosEl = elSop.querySelector("[data-sop-puntos]");
+  if (puntosEl) {
+    puntosEl.innerHTML = proc.pasos
+      .map((_, i) => `<span class="g3-sop__punto${i === sopState.paso ? " es-activo" : ""}"></span>`)
+      .join("");
+  }
+}
+
+elSop?.addEventListener("click", (e) => {
+  const bIr = e.target.closest("[data-sop-ir-paso]");
+  if (bIr) return irAPasoSop(Number(bIr.dataset.sopIrPaso));
+
+  const bAct = e.target.closest("[data-sop-act]");
+  if (!bAct) return;
+  const act = bAct.dataset.sopAct;
+  if (act === "cerrar") cerrarSop();
+  else if (act === "ant") irAPasoSop(sopState.paso - 1);
+  else if (act === "sig") {
+    const proc = PROCEDIMIENTOS_SOP[sopState.id];
+    if (sopState.paso >= (proc?.pasos.length || 1) - 1) cerrarSop();
+    else irAPasoSop(sopState.paso + 1);
+  }
+});
+
+elSop?.querySelector("[data-sop-sel]")?.addEventListener("change", (e) => {
+  iniciarSop(e.target.value, 0);
+});
 
 // ───────────── Movimientos a mano (mantenimiento) y simular un solo conjunto ─────────────
 // Cada uno va de 0 (como esta dibujado) a 1 (abierto) con un resorte suave.
@@ -1418,6 +2286,16 @@ function pintarHud() {
     }
   }
 
+  // Botón SOP 3D
+  const btnSop = hud.querySelector("[data-hud-btn-sop]");
+  if (btnSop) {
+    const haySop = !!PROCEDIMIENTOS_SOP[seleccion.pieza];
+    btnSop.hidden = !haySop;
+    if (haySop) {
+      btnSop.title = `Iniciar guía interactiva 3D: ${PROCEDIMIENTOS_SOP[seleccion.pieza].tit}`;
+    }
+  }
+
   hud.hidden = false;
 }
 
@@ -1500,6 +2378,8 @@ document.getElementById("g3Hud")?.addEventListener("click", (e) => {
     const res = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(seleccion.pieza) : {};
     const q = res.interno || res.oem || seleccion.co || seleccion.pieza;
     window.open(`${D.app}?v=almacen&q=${encodeURIComponent(q)}`, "_blank");
+  } else if (act === "sop") {
+    iniciarSop(seleccion.pieza);
   } else if (act === "panel") {
     abrirPanelDatos();
   }
@@ -1528,6 +2408,7 @@ function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null
   pintarPanel();
   pintarBarraDespiece();
   pintarHud();
+  actualizarCallouts();
   decir();
 }
 function resaltarPieza(pieza) {
@@ -1745,12 +2626,16 @@ lienzo.addEventListener("pointermove", (e) => {
   const s = u.sensor ? D.sensores.find((x) => x.sigla === u.sensor) : null;
   const n = fallasPorPieza[u.pieza] ?? 0;
   const parte = u.tornillos ? `tornillería · ${u.tornillos} cabezas` : legible(u.parte);
-  const dc = u.disp ? CAB.dispositivos[u.disp] ?? CAB.modulos[u.disp] ?? CAB.conectores[u.disp] : null;
+  const codOem = u.it?.co || u.co;
+  const cat = D.catalogoPiezas || {};
+  const catItem = codOem && cat[codOem] ? cat[codOem] : null;
+  const codInt = catItem?.interno;
+  const nomSub = u.su && SUBCONJUNTOS[u.su] ? SUBCONJUNTOS[u.su][0] : null;
   etiqueta.innerHTML = s
     ? `<b>${esc(s.sigla)}</b> · ${esc(s.f)}<small>${esc(s.marca)} ${esc(s.tipo)} · hilo ${esc(s.hilo)}</small>`
     : dc
     ? `<b>${esc(u.disp)}</b> · ${esc(dc.desc || dc.tipo || "")}<small>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}${dc.modulo ? ` · ${esc(dc.modulo.tag)}` : ""}</small>`
-    : `<b>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}</b><small>${esc(parte)}${u.it?.co ? ` · <span class="gm-mono">${esc(u.it.co)}</span>` : ""}${u.disp ? ` · ${esc(u.disp)}` : ""}${n ? ` · ${n} intervenciones` : ""}</small>`;
+    : `<b>${esc(D.piezas[u.pieza]?.nombre ?? u.pieza)}</b>${nomSub ? `<small style="display:block;color:var(--gm-accent);font-weight:600">${esc(nomSub)}</small>` : ""}<small>${esc(parte)}${codOem ? ` · <span class="gm-mono">${esc(codOem)}</span>` : ""}${codInt ? ` · <span class="gm-mono" style="color:#0fa968;font-weight:600">ERP: ${esc(codInt)}</span>` : ""}${n ? ` · ${n} intervenciones` : ""}</small>`;
   const r = escena3.getBoundingClientRect();
   etiqueta.style.left = `${e.clientX - r.left}px`;
   etiqueta.style.top = `${e.clientY - r.top}px`;
@@ -1884,6 +2769,8 @@ function actualizarMandos() {
   $("[data-accion=cables]")?.setAttribute("aria-pressed", String(cableado.vista));
   $("[data-accion=colores]")?.setAttribute("aria-pressed", String(porConjunto));
   $("[data-accion=armario]")?.setAttribute("aria-pressed", String(puerta.meta > 0));
+  $("[data-accion=callouts]")?.setAttribute("aria-pressed", String(calloutsActivas));
+  $("[data-accion=sop]")?.setAttribute("aria-pressed", String(sopState.activo));
   const bs = $("[data-accion=simular]");
   bs.setAttribute("aria-pressed", String(sim.activa && !sim.pausa));
   bs.querySelector(".gm-btn__txt").textContent = sim.activa && !sim.pausa ? "Pausa" : "Simular";
@@ -2004,6 +2891,15 @@ const acciones = {
     aspecto();
     actualizarMandos();
   },
+  callouts: () => {
+    calloutsActivas = !calloutsActivas;
+    actualizarMandos();
+    actualizarCallouts();
+  },
+  sop: () => {
+    if (sopState.activo) cerrarSop();
+    else iniciarSop(seleccion.pieza || "corte");
+  },
   cables: () => {
     cableado.vista = !cableado.vista;
     if (cableado.vista && paso !== 0) irAPaso(0, { seleccionar: false });
@@ -2029,6 +2925,8 @@ const acciones = {
   },
 };
 document.addEventListener("click", (e) => {
+  const bSop = e.target.closest("[data-iniciar-sop]");
+  if (bSop) return iniciarSop(bSop.dataset.iniciarSop);
   const b = e.target.closest("[data-accion]");
   if (b && acciones[b.dataset.accion]) return acciones[b.dataset.accion]();
   const v = e.target.closest("[data-vista3]");
@@ -2092,6 +2990,24 @@ function desplazar(dx, dy) {
 }
 escena3.addEventListener("keydown", (e) => {
   const k = e.key;
+  if (sopState.activo) {
+    if (k === "Escape") {
+      cerrarSop();
+      e.preventDefault();
+      return;
+    }
+    if ((k === "ArrowRight" || k === "PageDown") && !e.shiftKey) {
+      const proc = PROCEDIMIENTOS_SOP[sopState.id];
+      if (sopState.paso < (proc?.pasos.length || 1) - 1) irAPasoSop(sopState.paso + 1);
+      e.preventDefault();
+      return;
+    }
+    if ((k === "ArrowLeft" || k === "PageUp") && !e.shiftKey) {
+      if (sopState.paso > 0) irAPasoSop(sopState.paso - 1);
+      e.preventDefault();
+      return;
+    }
+  }
   const giro = (5 * Math.PI) / 180;
   if (k === "ArrowLeft") e.shiftKey ? desplazar(-1, 0) : orbitar(-giro, 0);
   else if (k === "ArrowRight") e.shiftKey ? desplazar(1, 0) : orbitar(giro, 0);
@@ -2169,6 +3085,7 @@ function cuadro(t) {
     ayudaVista.update(dt);
     sigue = true;
   }
+  if (calloutsActivas) actualizarCallouts();
   renderer.clear();
   renderer.render(scene, camara);
   renderer.autoClear = false;
@@ -2184,6 +3101,7 @@ function redimensionar() {
   camPersp.updateProjectionMatrix();
   const alto = camOrto.top - camOrto.bottom || 600;
   ajustarOrto(alto);
+  if (calloutsActivas) actualizarCallouts();
   pedirCuadro();
 }
 new ResizeObserver(redimensionar).observe(lienzo);

@@ -305,7 +305,10 @@ function bloqueCadInspector(id) {
         <div class="gm-cad-cell">
           <span class="gm-cad-lbl">Manual &amp; Calibrado</span>
           <strong class="gm-cad-val" title="${esc(procPri ? procPri.t : "Ajustes de mantenimiento")}">${esc(procPri ? procPri.t : "Ajustes de mantenimiento")}</strong>
-          ${procPri ? `<button type="button" class="gm-cad-btn" data-cad-proc="${esc(procPri.img || "")}|${procPri.pg || ""}|${esc(procPri.t || "")}|${esc(procPri.cod || "")}">Ver procedimiento (p.${procPri.pg})</button>` : `<button type="button" class="gm-cad-btn" data-pestana="proc">Ver procedimientos</button>`}
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:2px">
+            ${procPri ? `<button type="button" class="gm-cad-btn" data-cad-proc="${esc(procPri.img || "")}|${procPri.pg || ""}|${esc(procPri.t || "")}|${esc(procPri.cod || "")}">Lámina p.${procPri.pg}</button>` : `<button type="button" class="gm-cad-btn" data-pestana="proc">Procedimientos</button>`}
+            <button type="button" class="gm-cad-btn gm-cad-btn--pri" data-iniciar-sop="${esc(id)}" title="Abrir guía interactiva 3D paso a paso">🛠️ Guía 3D</button>
+          </div>
         </div>
       </div>
     </div>`;
@@ -363,7 +366,8 @@ function panelPieza(id) {
         <div class="gm-hojas">${g.hojas.map((h, i) => `<button type="button" class="gm-hoja" data-hoja="${esc(cod)}|${i}"><img loading="lazy" src="${url(h.img)}" alt="Lámina ${esc(h.tav)} página ${h.pg}"><span>${esc(h.tav)} · p.${h.pg}</span></button>`).join("")}</div>`)
       .join("");
   } else if (pest === "proc") {
-    cuerpo = `<ul class="gm-lista" style="margin-top:12px">${procs.map((pr, i) => `<li><button type="button" class="gm-fila gm-fila--boton" data-proc="${i}"><div class="gm-fila__cab"><span class="gm-fila__tit">${esc(pr.t)}</span><span class="gm-fila__meta">p.${pr.pg}</span></div><div class="gm-fila__meta">${esc(pr.cod)} · Manual de Calibrado</div></button></li>`).join("")}</ul>`;
+    cuerpo = `<div style="margin-top:12px;margin-bottom:10px"><button type="button" class="gm-btn gm-btn--pri" data-iniciar-sop="${esc(id)}" style="width:100%;justify-content:center;gap:6px">🛠️ Iniciar Guía SOP 3D Interactiva</button></div>
+      <ul class="gm-lista">${procs.map((pr, i) => `<li><button type="button" class="gm-fila gm-fila--boton" data-proc="${i}"><div class="gm-fila__cab"><span class="gm-fila__tit">${esc(pr.t)}</span><span class="gm-fila__meta">p.${pr.pg}</span></div><div class="gm-fila__meta">${esc(pr.cod)} · Manual de Calibrado</div></button></li>`).join("")}</ul>`;
   } else if (pest === "sensores") {
     cuerpo = `<ul class="gm-lista" style="margin-top:12px">${sens.map(filaSensor).join("")}</ul><p class="gm-nota" style="margin-top:10px">Toca un sensor para encontrarlo en la máquina. Siglas y cables del esquema ES4220003.</p>`;
   } else if (pest === "repuestos") {
@@ -384,7 +388,11 @@ function panelPieza(id) {
         .map((sb) => {
           const l = lamina(sb.lamina);
           return `<li><div class="gm-fila${sb.id && seleccion.sub === sb.id ? " gm-fila--activa" : ""}"><button type="button" class="gm-fila__boton-sub" ${sb.id ? `data-sub="${esc(sb.id)}"` : ""}><span class="gm-fila__tit">${esc(sb.nombre)}</span> <span class="gm-mono gm-fila__meta">${esc(sb.lamina ?? "")}</span></button>${l ? ` <button type="button" class="gm-sigla" data-hoja="${esc(l[0])}|${l[1]}">ver lámina</button>` : ""}
-            <div class="gm-fila__meta" style="margin-top:4px">${sb.piezas.map(([nombre, cod, n]) => `${esc(nombre)}${n > 1 ? ` ×${n}` : ""}${cod ? ` <a class="gm-mono" href="${app({ v: "almacen", q: cod })}" target="_top" title="Buscar en almacén">${esc(cod)}</a>` : ""}`).join(" · ")}</div></div></li>`;
+            <div class="gm-fila__meta" style="margin-top:4px">${sb.piezas.map(([nombre, cod, n]) => {
+              const pTec = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(cod || nombre) : {};
+              const tagErp = pTec.interno ? ` · <span class="gm-chip gm-chip--mono" style="font-size:10px;background:rgba(15,169,104,0.14);color:#0c7a4b;border:1px solid rgba(15,169,104,0.3)">ERP ${esc(pTec.interno)} (${pTec.stock ?? 0} ud)</span>` : "";
+              return `${esc(nombre)}${n > 1 ? ` ×${n}` : ""}${cod ? ` <a class="gm-mono" href="${app({ v: "almacen", q: pTec.interno || cod })}" target="_top" title="Buscar en almacén">${esc(cod)}</a>` : ""}${tagErp}`;
+            }).join(" · ")}</div></div></li>`;
         })
         .join("")}</ul>`;
   }
