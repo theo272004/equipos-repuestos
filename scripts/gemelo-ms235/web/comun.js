@@ -571,7 +571,10 @@ $(".gm-panel").addEventListener("click", (e) => {
     return;
   }
   const ac = t.closest("[data-accion-panel]");
-  if (ac && ac.dataset.accionPanel === "centrar" && seleccion.pieza) centrarEn(seleccion.pieza);
+  if (ac) {
+    if (ac.dataset.accionPanel === "centrar" && seleccion.pieza) centrarEn(seleccion.pieza);
+    else if (ac.dataset.accionPanel === "cerrar" && typeof togglePanel === "function") togglePanel();
+  }
 });
 
 // Visor de laminas

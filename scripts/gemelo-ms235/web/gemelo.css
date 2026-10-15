@@ -104,6 +104,8 @@ a:hover { text-decoration: underline; }
 button { font: inherit; color: inherit; }
 .gm-oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
+[hidden] { display: none !important; }
+
 /* Cabecera */
 .gm-cab {
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
@@ -131,10 +133,10 @@ button { font: inherit; color: inherit; }
 @media (max-width: 1100px) { .gm { grid-template-columns: minmax(0, 1fr); padding: 12px 16px 24px; } }
 
 /* Ocultar panel en modo normal para aprovechar todo el ancho */
-.gm.is-sin-panel {
+.gm.is-sin-panel:not(.is-maximizada):not(:fullscreen) {
   grid-template-columns: minmax(0, 1fr) !important;
 }
-.gm.is-sin-panel .gm-panel {
+.gm.is-sin-panel:not(.is-maximizada):not(:fullscreen) .gm-panel {
   display: none !important;
 }
 
@@ -243,6 +245,7 @@ button { font: inherit; color: inherit; }
 .gm-mandos {
   position: absolute; left: 12px; right: 12px; bottom: 12px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
   pointer-events: none;
+  z-index: 8;
 }
 .gm-grupo {
   display: inline-flex; align-items: center; gap: 2px; padding: 3px; border-radius: 11px; pointer-events: auto;
@@ -545,7 +548,16 @@ button { font: inherit; color: inherit; }
   display: flex; flex-direction: column; max-height: calc(min(76vh, 860px) + 150px); position: sticky; top: 12px;
 }
 @media (max-width: 1100px) { .gm-panel { position: static; max-height: none; } }
-.gm-panel__cab { padding: 16px 18px 12px; border-bottom: 1px solid var(--gm-line); }
+.gm-panel__cab { padding: 16px 18px 12px; border-bottom: 1px solid var(--gm-line); position: relative; }
+.gm-panel__cerrar-btn {
+  display: none; border: 0; background: var(--gm-soft); color: var(--gm-ink);
+  width: 28px; height: 28px; border-radius: 8px; cursor: pointer; font-size: 14px;
+  font-weight: 700; align-items: center; justify-content: center; position: absolute;
+  top: 14px; right: 14px; transition: background 0.15s;
+}
+.gm-panel__cerrar-btn:hover { background: var(--gm-line); }
+.gm.is-maximizada .gm-panel__cerrar-btn,
+.gm:fullscreen .gm-panel__cerrar-btn { display: inline-flex; }
 .gm-panel__migas { display: flex; gap: 6px; align-items: center; font-size: 12px; color: var(--gm-muted); margin-bottom: 6px; }
 .gm-panel__migas button { border: 0; background: none; padding: 0; color: var(--gm-accent); cursor: pointer; font-size: 12px; }
 .gm-panel__tit { margin: 0; font-size: 18px; line-height: 1.25; color: var(--gm-ink); font-weight: 650; letter-spacing: -.01em; }

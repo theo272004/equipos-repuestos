@@ -76,6 +76,7 @@ body[data-solo] .g3-escena { height: 100vh; }
 .g3-despiece button { border: 1px solid var(--gm-line); background: var(--gm-card); border-radius: 8px; padding: 4px 10px; cursor: pointer; font: inherit; color: var(--gm-text); }
 .g3-despiece button[aria-pressed="true"] { background: var(--gm-ink); color: var(--gm-card); border-color: var(--gm-ink); }
 .g3-despiece input[type="range"] { width: 140px; }
+.g3-seccion:not([hidden]) ~ .g3-despiece { top: 56px; }
 body[data-solo] .g3-despiece { display: none !important; }
 
 /* HUD de Selección Directa en el 3D */
@@ -97,6 +98,10 @@ body[data-solo] .g3-despiece { display: none !important; }
   gap: 10px;
   animation: g3HudIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: auto;
+  transition: left 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.g3-arbol[data-abierto] ~ .g3-hud {
+  left: 270px;
 }
 @keyframes g3HudIn {
   from { opacity: 0; transform: translateY(-6px) scale(0.98); }
@@ -268,15 +273,19 @@ body[data-solo] .g3-despiece { display: none !important; }
 }
 @media (max-width: 700px) {
   .g3-hud {
-    top: auto;
-    bottom: 64px;
+    top: 10px;
+    bottom: auto;
     left: 8px;
     right: 8px;
     width: auto;
     max-width: none;
   }
+  .g3-arbol[data-abierto] ~ .g3-hud {
+    left: 8px;
+    top: 50%;
+  }
   .g3-sop {
-    bottom: 64px;
+    bottom: 60px;
     left: 8px;
     right: 8px;
     transform: none;
@@ -295,19 +304,31 @@ body[data-solo] .g3-despiece { display: none !important; }
 }
 .g3-callout {
   position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(var(--cx, 0px), var(--cy, 0px), 0) translate(-50%, -50%);
   pointer-events: auto;
   display: flex;
   align-items: center;
   gap: 8px;
-  transform: translate(-50%, -50%);
   cursor: pointer;
   user-select: none;
-  transition: transform 0.12s ease-out, filter 0.15s ease;
+  transition: filter 0.15s ease;
   font-family: inherit;
+  will-change: transform;
 }
 .g3-callout:hover {
-  transform: translate(-50%, -50%) scale(1.06);
+  transform: translate3d(var(--cx, 0px), var(--cy, 0px), 0) translate(-50%, -50%) scale(1.06);
   z-index: 10;
+}
+.g3-callout--conjunto .g3-callout__pin {
+  border-color: #5b9dff;
+  color: #5b9dff;
+  background: var(--gm-card);
+}
+.g3-callout--conjunto:hover .g3-callout__pin {
+  background: #1f6feb;
+  color: #fff;
 }
 .g3-callout__pin {
   width: 26px;

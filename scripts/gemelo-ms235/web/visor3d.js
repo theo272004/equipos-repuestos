@@ -1229,6 +1229,22 @@ function encuadrarSubconjunto(suId) {
 // ───────────── Llamadas del plano en 3D (Callouts / Balloons) ─────────────
 let calloutsActivas = true;
 const elCallouts = document.getElementById("g3Callouts");
+let calloutsCacheKey = null;
+let calloutsItems = [];
+
+const CONJUNTOS_LLAMADAS = [
+  { id: "bobina", nom: "Desbobinador", tav: "Tavola S4A19100020", oem: "A920000002" },
+  { id: "fotocelula", nom: "Fotocélula Mácula", tav: "Tavola S4A19100030", oem: "B33" },
+  { id: "dosificador", nom: "Dosificador", tav: "Tavola S4A19100060", oem: "A920000006" },
+  { id: "arrastre", nom: "Arrastre Film", tav: "Tavola S4A19100070", oem: "A920000007" },
+  { id: "tubo", nom: "Tubo Formador", tav: "Tavola S4A19100080", oem: "A920000008" },
+  { id: "soldadura_v", nom: "Soldadura Vertical", tav: "Tavola S4A19100090", oem: "A920000009" },
+  { id: "soldadura_h", nom: "Soldadura Horizontal", tav: "Tavola S4A19100100", oem: "A920000010" },
+  { id: "corte", nom: "Corte Transversal", tav: "Tavola S4A19100110", oem: "A920000011" },
+  { id: "pinzas", nom: "Pinzas Evacuación", tav: "Tavola S4A19100120", oem: "A920000012" },
+  { id: "cinta", nom: "Cinta de Salida", tav: "Tavola S4A19100130", oem: "A920000013" },
+  { id: "armario", nom: "Armario Eléctrico", tav: "Tavola S4A19100160", oem: "A920000016" },
+];
 
 function calcularCentroSubconjunto(pz, suId) {
   const caja = new THREE.Box3();
@@ -1242,74 +1258,162 @@ function calcularCentroSubconjunto(pz, suId) {
   return caja.getCenter(new THREE.Vector3());
 }
 
+function calcularCentroConjunto(pz) {
+  const caja = new THREE.Box3();
+  for (const m of mallas) {
+    if (m.userData.pieza !== pz || !m.visible) continue;
+    caja.union(new THREE.Box3().setFromObject(m));
+  }
+  if (caja.isEmpty()) return null;
+  return caja.getCenter(new THREE.Vector3());
+}
+
+function reconstruirCalloutsDOM() {
+  if (!elCallouts) return;
+  elCallouts.innerHTML = "";
+  calloutsItems = [];
+  if (!calloutsActivas) return;
+
+  const pz = seleccion.pieza;
+  if (pz) {
+    // Modo A: Subconjuntos de la pieza seleccionada
+    const dp = despieceDe(pz);
+    if (!dp || !dp.subs || !dp.subs.length) return;
+
+    dp.subs.forEach((sub, idx) => {
+      const resTec = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(sub.id) : {};
+      const codOem = sub.piezas[0]?.[1] || resTec.oem || "";
+      const erpCod = resTec.interno;
+      const stock = resTec.stock ?? 0;
+
+      const el = document.createElement("div");
+      el.className = "g3-callout";
+      el.innerHTML = `
+        <div class="g3-callout__pin" title="Posición ${idx + 1} · Tavola ${esc(sub.lamina || sub.grupo)}">
+          <span class="g3-callout__num">${idx + 1}</span>
+        </div>
+        <div class="g3-callout__card">
+          <div class="g3-callout__top">
+            <span class="g3-callout__nom" title="${esc(sub.nombre)}">${esc(sub.nombre)}</span>
+            <span class="g3-callout__tavola">${esc(sub.lamina || sub.grupo)}</span>
+          </div>
+          <div class="g3-callout__codigos">
+            ${codOem ? `<span class="g3-callout__oem">${esc(codOem)}</span>` : ""}
+            ${erpCod ? `<span class="g3-callout__erp">ERP ${esc(erpCod)} (${stock} ud)</span>` : ""}
+          </div>
+        </div>
+      `;
+
+      el.addEventListener("mouseenter", () => resaltarSubconjunto(sub.id));
+      el.addEventListener("mouseleave", () => desresaltarSubconjunto());
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        elegirSubconjunto(sub.id);
+        encuadrarSubconjunto(sub.id);
+      });
+
+      elCallouts.appendChild(el);
+      calloutsItems.push({
+        id: sub.id,
+        tipo: "sub",
+        el,
+        get3DPos: () => calcularCentroSubconjunto(pz, sub.id),
+      });
+    });
+  } else {
+    // Modo B: Conjuntos principales de la máquina
+    CONJUNTOS_LLAMADAS.forEach((conj, idx) => {
+      const p = D.piezas[conj.id];
+      const resTec = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(conj.id) : {};
+      const erpCod = resTec.interno;
+
+      const el = document.createElement("div");
+      el.className = "g3-callout g3-callout--conjunto";
+      el.innerHTML = `
+        <div class="g3-callout__pin" title="Conjunto ${idx + 1}: ${esc(p?.nombre || conj.nom)} · ${esc(conj.tav)}">
+          <span class="g3-callout__num">${idx + 1}</span>
+        </div>
+        <div class="g3-callout__card">
+          <div class="g3-callout__top">
+            <span class="g3-callout__nom" title="${esc(p?.nombre || conj.nom)}">${esc(p?.nombre || conj.nom)}</span>
+            <span class="g3-callout__tavola">${esc(conj.tav)}</span>
+          </div>
+          <div class="g3-callout__codigos">
+            <span class="g3-callout__oem">${esc(conj.oem)}</span>
+            ${erpCod ? `<span class="g3-callout__erp">ERP ${esc(erpCod)}</span>` : ""}
+          </div>
+        </div>
+      `;
+
+      el.addEventListener("mouseenter", () => resaltarPieza(conj.id));
+      el.addEventListener("mouseleave", () => resaltarPieza(null));
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        seleccionar_(conj.id);
+        centrarEn(conj.id);
+      });
+
+      elCallouts.appendChild(el);
+      calloutsItems.push({
+        id: conj.id,
+        tipo: "conjunto",
+        el,
+        get3DPos: () => calcularCentroConjunto(conj.id),
+      });
+    });
+  }
+}
+
 function actualizarCallouts() {
   if (!elCallouts) return;
-  if (!calloutsActivas || !seleccion.pieza) {
-    if (elCallouts.children.length) elCallouts.innerHTML = "";
+  if (!calloutsActivas) {
+    if (elCallouts.style.display !== "none") elCallouts.style.display = "none";
     return;
   }
-  const pz = seleccion.pieza;
-  const dp = despieceDe(pz);
-  if (!dp || !dp.subs || !dp.subs.length) {
-    if (elCallouts.children.length) elCallouts.innerHTML = "";
-    return;
-  }
+  if (elCallouts.style.display === "none") elCallouts.style.display = "";
 
   const rect = lienzo.getBoundingClientRect();
   const w = rect.width;
   const h = rect.height;
   if (!w || !h) return;
 
-  const fragment = document.createDocumentFragment();
-  dp.subs.forEach((sub, idx) => {
-    const c3d = calcularCentroSubconjunto(pz, sub.id);
-    if (!c3d) return;
+  const key = `${calloutsActivas ? 1 : 0}:${seleccion.pieza || ""}`;
+  if (key !== calloutsCacheKey) {
+    calloutsCacheKey = key;
+    reconstruirCalloutsDOM();
+  }
+
+  const total = calloutsItems.length;
+  for (let idx = 0; idx < total; idx++) {
+    const it = calloutsItems[idx];
+    const c3d = it.get3DPos();
+    if (!c3d) {
+      it.el.style.display = "none";
+      continue;
+    }
 
     const pProj = c3d.clone().project(camara);
-    if (pProj.z > 1 || pProj.x < -1.05 || pProj.x > 1.05 || pProj.y < -1.05 || pProj.y > 1.05) return;
+    if (pProj.z > 1 || pProj.x < -1.1 || pProj.x > 1.1 || pProj.y < -1.1 || pProj.y > 1.1) {
+      it.el.style.display = "none";
+      continue;
+    }
 
-    const x = (pProj.x * 0.5 + 0.5) * w;
-    const y = (-pProj.y * 0.5 + 0.5) * h;
+    it.el.style.display = "";
+    let x = (pProj.x * 0.5 + 0.5) * w;
+    let y = (-pProj.y * 0.5 + 0.5) * h;
 
-    const resTec = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(sub.id) : {};
-    const codOem = sub.piezas[0]?.[1] || resTec.oem || "";
-    const erpCod = resTec.interno;
-    const stock = resTec.stock ?? 0;
-    const esActivo = seleccion.sub === sub.id;
+    if (it.tipo === "sub" && (!despiece.t || despiece.t < 0.25) && total > 1) {
+      const ang = (idx / total) * 2 * Math.PI - Math.PI / 2;
+      x += Math.cos(ang) * 44;
+      y += Math.sin(ang) * 44;
+    }
 
-    const el = document.createElement("div");
-    el.className = `g3-callout${esActivo ? " es-activo" : ""}`;
-    el.style.left = `${Math.round(x)}px`;
-    el.style.top = `${Math.round(y)}px`;
-    el.innerHTML = `
-      <div class="g3-callout__pin" title="Posición ${idx + 1} · Tavola ${esc(sub.lamina || sub.grupo)}">
-        <span class="g3-callout__num">${idx + 1}</span>
-      </div>
-      <div class="g3-callout__card">
-        <div class="g3-callout__top">
-          <span class="g3-callout__nom" title="${esc(sub.nombre)}">${esc(sub.nombre)}</span>
-          <span class="g3-callout__tavola">${esc(sub.lamina || sub.grupo)}</span>
-        </div>
-        <div class="g3-callout__codigos">
-          ${codOem ? `<span class="g3-callout__oem">${esc(codOem)}</span>` : ""}
-          ${erpCod ? `<span class="g3-callout__erp">ERP ${esc(erpCod)} (${stock} ud)</span>` : ""}
-        </div>
-      </div>
-    `;
+    it.el.style.setProperty("--cx", `${Math.round(x)}px`);
+    it.el.style.setProperty("--cy", `${Math.round(y)}px`);
 
-    el.addEventListener("mouseenter", () => resaltarSubconjunto(sub.id));
-    el.addEventListener("mouseleave", () => desresaltarSubconjunto());
-    el.addEventListener("click", (e) => {
-      e.stopPropagation();
-      elegirSubconjunto(sub.id);
-      encuadrarSubconjunto(sub.id);
-    });
-
-    fragment.appendChild(el);
-  });
-
-  elCallouts.innerHTML = "";
-  elCallouts.appendChild(fragment);
+    const esActivo = it.tipo === "sub" ? seleccion.sub === it.id : seleccion.pieza === it.id;
+    it.el.classList.toggle("es-activo", esActivo);
+  }
 }
 
 // ───────────── Guía Interactiva Paso a Paso SOP en 3D ─────────────
@@ -2079,7 +2183,9 @@ function pasoSim(dt) {
 function iniciarSim() {
   if (despiece.pieza) {
     despiece.meta = despiece.t = 0;
+    pintarDespiece();
     despiece.pieza = null;
+    barraDespiece.hidden = true;
     aislar = false;
     aplicarAnim(null, false);
   }
@@ -2192,7 +2298,7 @@ function aspecto() {
 function pintarHud() {
   const hud = document.getElementById("g3Hud");
   if (!hud) return;
-  if (!seleccion.pieza) {
+  if (!seleccion.pieza || sopState.activo) {
     hud.hidden = true;
     return;
   }
@@ -2243,9 +2349,10 @@ function pintarHud() {
     }
   }
 
+  const nomSub = seleccion.sub && SUBCONJUNTOS[seleccion.sub] ? SUBCONJUNTOS[seleccion.sub][0] : null;
   const tit = hud.querySelector("[data-hud-titulo]");
   if (tit) {
-    tit.textContent = s ? `${s.sigla} · ${s.f}` : dc ? `${seleccion.disp} · ${dc.desc || dc.tipo || ""}` : (uParte || p?.nombre || seleccion.pieza);
+    tit.textContent = nomSub || (s ? `${s.sigla} · ${s.f}` : dc ? `${seleccion.disp} · ${dc.desc || dc.tipo || ""}` : (uParte || p?.nombre || seleccion.pieza));
   }
 
   const sub = hud.querySelector("[data-hud-sub]");
@@ -2320,6 +2427,7 @@ function togglePanel() {
   if (!gm) return;
   const esFs = document.fullscreenElement || gm.classList.contains("is-maximizada");
   if (esFs) {
+    gm.classList.remove("is-sin-panel");
     gm.classList.toggle("has-panel-abierto");
   } else {
     gm.classList.toggle("is-sin-panel");
@@ -2329,14 +2437,11 @@ function togglePanel() {
 }
 
 function togglePantallaCompleta() {
-  const tarjeta = document.querySelector(".gm-tarjeta");
   const gm = document.querySelector(".gm");
-  if (!tarjeta) return;
-
   if (document.fullscreenElement) {
     document.exitFullscreen().catch(() => {});
-  } else if (tarjeta.requestFullscreen) {
-    tarjeta.requestFullscreen().catch(() => {
+  } else if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen().catch(() => {
       gm?.classList.toggle("is-maximizada");
       redimensionar();
       actualizarMandos();
@@ -2392,7 +2497,10 @@ function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null
   seleccion.parte = parte;
   seleccion.co = co;
   seleccion.su = su;
-  if (cambia) seleccion.sub = null;
+  if (cambia) {
+    seleccion.sub = null;
+    calloutsCacheKey = null;
+  }
   seleccion.disp = sensor ? null : disp;
   if (pestana) seleccion.pestana = pestana;
   else if (cambia) seleccion.pestana = sensor ? "sensores" : "resumen";
@@ -2624,6 +2732,7 @@ lienzo.addEventListener("pointermove", (e) => {
   if (!h) return etiqueta.removeAttribute("data-on");
   const u = h.object.userData;
   const s = u.sensor ? D.sensores.find((x) => x.sigla === u.sensor) : null;
+  const dc = u.disp ? (CAB.dispositivos[u.disp] ?? CAB.modulos[u.disp] ?? CAB.conectores[u.disp]) : null;
   const n = fallasPorPieza[u.pieza] ?? 0;
   const parte = u.tornillos ? `tornillería · ${u.tornillos} cabezas` : legible(u.parte);
   const codOem = u.it?.co || u.co;
@@ -2781,6 +2890,8 @@ function actualizarMandos() {
   if (btnFs) {
     btnFs.setAttribute("aria-pressed", String(esFs));
     btnFs.title = esFs ? "Salir de pantalla completa (F / Esc)" : "Pantalla completa (F)";
+    const svg = btnFs.querySelector("svg");
+    if (svg) svg.innerHTML = esFs ? '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>' : '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>';
   }
   const gm = document.querySelector(".gm");
   const panelOn = gm && (!gm.classList.contains("is-sin-panel") || gm.classList.contains("has-panel-abierto"));
@@ -2883,6 +2994,14 @@ const acciones = {
     sim.angulo = 0;
     sim.ciclos = 0;
     sim.sobres = 0;
+    const txt = $("[data-angulo]");
+    if (txt) txt.textContent = "  0°";
+    const rango = $("[data-rango-angulo]");
+    if (rango) rango.value = 0;
+    const cont = $("[data-contador]");
+    if (cont) cont.textContent = "";
+    pasoSim(0);
+    pedirCuadro();
   },
   colores: () => {
     porConjunto = !porConjunto;
@@ -2893,8 +3012,10 @@ const acciones = {
   },
   callouts: () => {
     calloutsActivas = !calloutsActivas;
+    calloutsCacheKey = null;
     actualizarMandos();
     actualizarCallouts();
+    pedirCuadro();
   },
   sop: () => {
     if (sopState.activo) cerrarSop();
@@ -2930,7 +3051,11 @@ document.addEventListener("click", (e) => {
   const b = e.target.closest("[data-accion]");
   if (b && acciones[b.dataset.accion]) return acciones[b.dataset.accion]();
   const v = e.target.closest("[data-vista3]");
-  if (v) encuadrar(cajaVisible(), vistasFijas[v.dataset.vista3]);
+  if (v) {
+    $$("[data-vista3]").forEach((x) => x.setAttribute("aria-pressed", String(x === v)));
+    encuadrar(cajaVisible(), vistasFijas[v.dataset.vista3]);
+    return;
+  }
   const ej = e.target.closest("[data-eje]");
   if (ej) {
     seccion.eje = ej.dataset.eje;
@@ -3028,6 +3153,9 @@ escena3.addEventListener("keydown", (e) => {
   else if ((k === "e" || k === "E") && seleccion.pieza) despiezar(despiece.pieza === seleccion.pieza && despiece.meta > 0 ? 0 : despieceCurado(seleccion.pieza) ? 2 : 2);
   else if (k === "Escape") {
     if (medir.activo) acciones.medir();
+    else if (sopState.activo) cerrarSop();
+    else if ($(".g3-arbol")?.hasAttribute("data-abierto")) acciones.arbol();
+    else if (seccion.activa) acciones.seccion();
     else if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
     else if (document.querySelector(".gm")?.classList.contains("is-maximizada")) {
       document.querySelector(".gm")?.classList.remove("is-maximizada");
@@ -3062,9 +3190,11 @@ function cuadro(t) {
     if (moverDespiece(dt)) sigue = true;
     if (IDS.some((id) => resorte[id].pending)) sigue = true;
     colocarGrupos();
-    if (sim.activa) {
+    if (sim.activa && !sim.pausa) {
       pasoSim(dt);
       sigue = true;
+    } else if (sim.activa && sim.pausa) {
+      pasoSim(0);
     }
   }
   if (reticulaMesh && reticulaMesh.visible) {
@@ -3132,7 +3262,9 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
     construirMaquina(esc);
     prepararAnim();
     cargando.hidden = true;
-    encuadrar(caja3, vistasFijas[Q.get("vista")] ?? vistasFijas.iso, true);
+    const vistaIni = Q.get("vista") || "iso";
+    $$("[data-vista3]").forEach((x) => x.setAttribute("aria-pressed", String(x.dataset.vista3 === vistaIni)));
+    encuadrar(caja3, vistasFijas[vistaIni] ?? vistasFijas.iso, true);
     if (Q.get("orto") === "1") cambiarCamara(true);
     aspecto();
     pintarArbol();

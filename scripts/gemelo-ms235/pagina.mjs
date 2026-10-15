@@ -132,6 +132,7 @@ const leyenda = `
     </div>`;
 const panel = `
   <aside class="gm-panel" aria-label="Datos de la pieza">
+    <button type="button" class="gm-panel__cerrar-btn" data-accion-panel="cerrar" title="Cerrar panel (Esc)">✕</button>
     <div class="gm-panel__cab"></div>
     <div class="gm-panel__cuerpo"></div>
   </aside>`;
