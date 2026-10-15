@@ -241,6 +241,8 @@
         const falta = dif(hoy, proximo);
         estado = falta < 0 ? "vencida" : falta <= Math.max(14, Math.round((vida || 365) * 0.2)) ? "pronto" : "al-dia";
       } else if (ultimo) estado = "sin-frecuencia";
+      // Si según el Excel venció hace más de 3 meses, casi seguro ya se cambió y no se anotó: no es una alarma
+      if (estado === "vencida" && dif(proximo, hoy) > 90) estado = "excel-viejo";
       res.push({
         familia: f.familia, eventos: unicos.slice().reverse(), todos: f.eventos.length,
         plan: partes, masP, vencidas, mas: medidaPrimero ? null : mas, baseExcel, ultimo, vida, base, proximo, estado, freqPlan, fq,
@@ -248,14 +250,14 @@
         deExcel: !!(baseExcel && ultimo === baseExcel && baseExcel > ultimoReal), vidaMedida: !!(medida && (!freqPlan || antes)), nCambios: unicos.length,
       });
     });
-    const peso = { vencida: 0, pronto: 1, "sin-frecuencia": 2, "al-dia": 3, "sin-dato": 4 };
+    const peso = { vencida: 0, pronto: 1, "sin-frecuencia": 2, "excel-viejo": 2.5, "al-dia": 3, "sin-dato": 4 };
     return res.sort((a, b) => peso[a.estado] - peso[b.estado] || (a.proximo || "9").localeCompare(b.proximo || "9") || (b.ultimo || "").localeCompare(a.ultimo || ""));
   }
 
   // ------------------------------------------------------------ pantalla
   const ESTADOS = {
     vencida: ["Ya toca", "bad"], pronto: ["Cambiar pronto", "warn"], "al-dia": ["Al día", "ok"],
-    "sin-frecuencia": ["Sin frecuencia", ""], "sin-dato": ["Sin cambios", ""],
+    "sin-frecuencia": ["Sin frecuencia", ""], "excel-viejo": ["¿Excel sin actualizar?", ""], "sin-dato": ["Sin cambios", ""],
   };
   const FUENTE = { reporte: "Reporte de turno", anotado: "Anotado en la ficha" };
 
@@ -268,7 +270,7 @@
   // Bajo el próximo cambio: si ya está pedida o cuándo hay que pedir
   function lineaPedir(p) {
     const q = p.masP, hoy = N ? N.hoy() : new Date().toISOString().slice(0, 10);
-    if (!q || !q.pedir) return "";
+    if (!q || !q.pedir || p.estado === "excel-viejo") return "";
     if (q.compra && q.compra.abierta) return `<small class="cp-pedir is-ok" title="${esc(q.compra.texto)}">ya pedida · ${esc(q.compra.corto)}</small>`;
     if (q.hay >= (q.q || 1)) return `<small class="cp-pedir is-ok" title="Hay ${q.hay} en almacén y el plan pide ${q.q || 1}">hay en almacén (${q.hay})</small>`;
     if (q.pedir.fecha <= hoy) return `<small class="cp-pedir is-bad" title="Tarda unos ${q.pedir.plazo} días en llegar (plazo prometido por los proveedores).${q.compra && q.compra.k === "llego" ? " Una compra anterior de este código ya llegó." : ""}">hay que pedirla ya</small>`;
@@ -305,7 +307,7 @@
         <td class="cp-n" data-l="Cambios">${p.nCambios || "—"}</td>
         <td class="cp-f" data-l="Dura">${p.vida ? `<b>${esc(fmtDias(p.vida))}</b><small>${p.vidaMedida ? "medido" : "plan"}${p.vidaMedida && p.freqPlan ? ` · plan ${esc(p.fq)}` : ""}</small>` : '<span class="cp-mute">—</span>'}</td>
         <td class="cp-f" data-l="Próximo cambio">${proxTxt}</td>
-        <td class="cp-e" data-l="Estado"><span class="cp-chip cp-chip--${tono || "n"}"${p.estado === "sin-frecuencia" ? ' title="Con un segundo cambio se calcula cuánto dura y cuándo toca el siguiente"' : ""}>${esc(txt)}${p.vencidas && p.plan.length > 1 ? ` (${p.vencidas} de ${p.plan.length})` : ""}</span></td>
+        <td class="cp-e" data-l="Estado"><span class="cp-chip cp-chip--${tono || "n"}"${p.estado === "sin-frecuencia" ? ' title="Con un segundo cambio se calcula cuánto dura y cuándo toca el siguiente"' : p.estado === "excel-viejo" ? ' title="Según el Excel venció hace más de 3 meses. Casi seguro ya se cambió y no se anotó: regístralo en la ficha si es así."' : ""}>${esc(txt)}${p.vencidas && p.plan.length > 1 ? ` (${p.vencidas} de ${p.plan.length})` : ""}</span></td>
       </tr>`;
     }).join("");
 
