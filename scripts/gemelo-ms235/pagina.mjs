@@ -43,6 +43,7 @@ const D = {
   repuestos: datos.repuestos,
   tareas: datos.tareas,
   historial: datos.historial,
+  catalogoPiezas: datos.catalogoPiezas || {},
   base: REPO ? "" : null,
   remoto: REMOTO,
   app: REPO ? "index.html" : `${REMOTO}index.html`,
@@ -82,6 +83,8 @@ const ico = {
   pantallaSalir: '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>',
   panel: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M15 3v18"/>',
   enfocar: '<circle cx="12" cy="12" r="8"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/>',
+  plano: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>',
+  almacen: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
 };
 const btn = (accion, texto, { pri = false, mostrarTexto = false, titulo } = {}) =>
   `<button type="button" class="gm-btn${pri ? " gm-btn--pri" : ""}" data-accion="${accion}" aria-label="${titulo ?? texto}" title="${titulo ?? texto}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[accion]}</svg>${mostrarTexto ? `<span class="gm-btn__txt">${texto}</span>` : ""}</button>`;
@@ -165,6 +168,8 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
             <div class="g3-hud__etiquetas">
               <span class="g3-hud__badge" data-hud-conjunto></span>
               <span class="g3-hud__chip" data-hud-codigo hidden></span>
+              <span class="g3-hud__chip g3-hud__chip--almacen" data-hud-almacen hidden></span>
+              <span class="g3-hud__chip g3-hud__chip--tavola" data-hud-tavola hidden></span>
             </div>
             <h3 class="g3-hud__tit" data-hud-titulo></h3>
             <p class="g3-hud__sub" data-hud-sub></p>
@@ -178,8 +183,14 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
           <button type="button" class="g3-hud__btn" data-hud-act="aislar" title="Aislar esta pieza">
             <svg viewBox="0 0 24 24" aria-hidden="true">${ico.aislar}</svg><span data-hud-aislar-txt>Aislar</span>
           </button>
+          <button type="button" class="g3-hud__btn" data-hud-act="plano" data-hud-btn-plano hidden title="Abrir lámina del plano técnico S4220003">
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.plano}</svg><span>Ver lámina</span>
+          </button>
+          <button type="button" class="g3-hud__btn" data-hud-act="almacen" data-hud-btn-almacen hidden title="Consultar stock en Almacén interno">
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.almacen}</svg><span>Almacén ERP</span>
+          </button>
           <button type="button" class="g3-hud__btn g3-hud__btn--pri" data-hud-act="panel" title="Ver ficha técnica, láminas y repuestos">
-            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.panel}</svg><span>Ver ficha y repuestos</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">${ico.panel}</svg><span>Ficha y despiece</span>
           </button>
         </div>
       </div>

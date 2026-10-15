@@ -150,6 +150,28 @@ body[data-solo] .g3-despiece { display: none !important; }
   background: var(--gm-accent-soft);
   color: var(--gm-accent);
 }
+.g3-hud__chip--almacen {
+  background: color-mix(in srgb, #0fa968 15%, transparent);
+  color: #0c7a4b;
+  border: 1px solid color-mix(in srgb, #0fa968 35%, transparent);
+  font-weight: 600;
+}
+:root[data-theme="dark"] .g3-hud__chip--almacen {
+  background: color-mix(in srgb, #2ed587 22%, transparent);
+  color: #2ed587;
+  border-color: color-mix(in srgb, #2ed587 40%, transparent);
+}
+.g3-hud__chip--tavola {
+  background: color-mix(in srgb, #8957e5 15%, transparent);
+  color: #723bcf;
+  border: 1px solid color-mix(in srgb, #8957e5 35%, transparent);
+  font-weight: 600;
+}
+:root[data-theme="dark"] .g3-hud__chip--tavola {
+  background: color-mix(in srgb, #a371f7 22%, transparent);
+  color: #c297ff;
+  border-color: color-mix(in srgb, #a371f7 40%, transparent);
+}
 .g3-hud__tit {
   margin: 3px 0 0;
   font-size: 15px;
@@ -217,6 +239,22 @@ body[data-solo] .g3-despiece { display: none !important; }
   background: var(--gm-soft);
   border-color: var(--gm-accent);
   color: var(--gm-accent);
+}
+.g3-hud__btn[data-hud-act="plano"] {
+  border-color: color-mix(in srgb, #8957e5 45%, var(--gm-line));
+}
+.g3-hud__btn[data-hud-act="plano"]:hover {
+  background: color-mix(in srgb, #8957e5 14%, transparent);
+  border-color: #8957e5;
+  color: #8957e5;
+}
+.g3-hud__btn[data-hud-act="almacen"] {
+  border-color: color-mix(in srgb, #0fa968 45%, var(--gm-line));
+}
+.g3-hud__btn[data-hud-act="almacen"]:hover {
+  background: color-mix(in srgb, #0fa968 14%, transparent);
+  border-color: #0fa968;
+  color: #0fa968;
 }
 .g3-hud__btn--pri {
   background: var(--gm-accent);

@@ -661,3 +661,132 @@ button { font: inherit; color: inherit; }
 .gm-fila__boton-sub:hover .gm-fila__tit { color: var(--gm-accent); }
 .gm-fila--activa { border-color: var(--gm-accent) !important; box-shadow: 0 0 0 1px var(--gm-accent) inset; }
 .gm-mover .gm-btn[aria-pressed="true"] { background: var(--gm-ink); color: var(--gm-card); }
+
+/* ───────────── Inspector Técnico CAD / Identificación Multi-código ───────────── */
+.gm-cad-inspector {
+  margin: 12px 0 16px;
+  background: var(--gm-card);
+  border: 1px solid var(--gm-line);
+  border-radius: var(--gm-radius);
+  padding: 12px 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.gm-cad-inspector__cab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gm-line);
+}
+.gm-cad-inspector__tit {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--gm-ink);
+  letter-spacing: -0.01em;
+}
+.gm-cad-inspector__tit svg {
+  color: var(--gm-accent);
+}
+.gm-cad-badge {
+  font: 10.5px/1 var(--gm-mono);
+  font-weight: 600;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: var(--gm-soft);
+  color: var(--gm-muted);
+  border: 1px solid var(--gm-line);
+}
+.gm-cad-badge--ok {
+  background: color-mix(in srgb, #0fa968 15%, transparent);
+  color: #0c7a4b;
+  border-color: color-mix(in srgb, #0fa968 35%, transparent);
+}
+:root[data-theme="dark"] .gm-cad-badge--ok {
+  background: color-mix(in srgb, #2ed587 22%, transparent);
+  color: #2ed587;
+  border-color: color-mix(in srgb, #2ed587 40%, transparent);
+}
+.gm-cad-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.gm-cad-cell {
+  background: var(--gm-soft);
+  border: 1px solid var(--gm-line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.gm-cad-lbl {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--gm-muted);
+}
+.gm-cad-val {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gm-ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gm-cad-val--erp {
+  color: #0c7a4b;
+}
+:root[data-theme="dark"] .gm-cad-val--erp {
+  color: #2ed587;
+}
+.gm-cad-sub {
+  font-size: 11px;
+  color: var(--gm-muted);
+}
+.gm-cad-btn {
+  margin-top: 5px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 550;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--gm-line);
+  background: var(--gm-card);
+  color: var(--gm-ink);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.12s ease;
+}
+.gm-cad-btn:hover {
+  background: var(--gm-soft);
+  border-color: var(--gm-accent);
+  color: var(--gm-accent);
+}
+.gm-cad-btn--erp {
+  border-color: color-mix(in srgb, #0fa968 40%, var(--gm-line));
+  color: #0c7a4b;
+}
+:root[data-theme="dark"] .gm-cad-btn--erp {
+  color: #2ed587;
+}
+.gm-cad-btn--erp:hover {
+  background: color-mix(in srgb, #0fa968 15%, transparent);
+  border-color: #0fa968;
+}
+@media (max-width: 500px) {
+  .gm-cad-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

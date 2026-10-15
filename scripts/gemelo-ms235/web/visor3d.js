@@ -381,7 +381,7 @@ function construirMaquina(esc) {
     malla.castShadow = base !== MAT.vidrio && it.c !== "papel";
     malla.receiveShadow = true;
     malla.matrixAutoUpdate = false;
-    malla.userData = { it, base, pieza: it.p, ride: it.r ?? it.p, parte: it.n.replace(/[#:].*$/, ""), sensor: it.s, disp: it.d, centro: it.m };
+    malla.userData = { it, base, pieza: it.p, ride: it.r ?? it.p, parte: it.n.replace(/[#:].*$/, ""), sensor: it.s, disp: it.d, centro: it.m, co: it.co, su: it.su };
     if (base !== MAT.vidrio && it.c !== "papel" && it.c !== "cable" && it.c !== "correa" && it.c !== "cadena" && !/muelle/.test(it.n)) {
       const aristas = new THREE.LineSegments(new THREE.EdgesGeometry(geo, 28), ARISTA);
       aristas.matrixAutoUpdate = false;
@@ -1334,18 +1334,44 @@ function pintarHud() {
   const dc = seleccion.disp ? (CAB.dispositivos[seleccion.disp] ?? CAB.modulos[seleccion.disp] ?? CAB.conectores[seleccion.disp]) : null;
   const colHex = COLOR_CONJUNTO[seleccion.pieza] ? `#${new THREE.Color(COLOR_CONJUNTO[seleccion.pieza]).getHexString()}` : "#1f6feb";
 
+  const { oem, interno, tavola, pg, img, descAlmacen } = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(seleccion.pieza) : {};
+
   hud.style.setProperty("--hud-conj-color", colHex);
   const badge = hud.querySelector("[data-hud-conjunto]");
   if (badge) badge.textContent = `${String(NUM[seleccion.pieza] || "").padStart(2, "0")} ${p?.nombre || seleccion.pieza}`;
 
+  // Chip OEM
   const chipCod = hud.querySelector("[data-hud-codigo]");
-  const cod = s ? s.sigla : dc ? seleccion.disp : p?.codigos?.[0];
+  const cod = s ? s.sigla : dc ? seleccion.disp : oem;
   if (chipCod) {
     if (cod) {
       chipCod.textContent = cod;
       chipCod.hidden = false;
     } else {
       chipCod.hidden = true;
+    }
+  }
+
+  // Chip Almacén ERP
+  const chipAlm = hud.querySelector("[data-hud-almacen]");
+  if (chipAlm) {
+    if (interno) {
+      chipAlm.textContent = `ERP: ${interno}`;
+      chipAlm.title = descAlmacen || `Código almacén ${interno}`;
+      chipAlm.hidden = false;
+    } else {
+      chipAlm.hidden = true;
+    }
+  }
+
+  // Chip Tavola / Lámina
+  const chipTav = hud.querySelector("[data-hud-tavola]");
+  if (chipTav) {
+    if (tavola) {
+      chipTav.textContent = `Tavola ${tavola}${pg ? ` · p.${pg}` : ""}`;
+      chipTav.hidden = false;
+    } else {
+      chipTav.hidden = true;
     }
   }
 
@@ -1360,13 +1386,36 @@ function pintarHud() {
     const txts = [];
     if (uParte && p) txts.push(p.corto || p.nombre);
     if (s) txts.push(`${s.marca} ${s.tipo} · hilo ${s.hilo}`);
-    if (n) txts.push(`${n} ${n === 1 ? "intervención" : "intervenciones"}`);
+    if (descAlmacen) txts.push(descAlmacen);
+    else if (n) txts.push(`${n} ${n === 1 ? "intervención" : "intervenciones"}`);
     sub.textContent = txts.join(" · ") || p?.desc || "";
   }
 
   const aislarTxt = hud.querySelector("[data-hud-aislar-txt]");
   if (aislarTxt) {
     aislarTxt.textContent = aislar ? "Ver todo" : "Aislar";
+  }
+
+  // Botón Ver Lámina
+  const btnPlano = hud.querySelector("[data-hud-btn-plano]");
+  if (btnPlano) {
+    if (img || tavola) {
+      btnPlano.hidden = false;
+      btnPlano.title = `Abrir plano técnico S4220003 (Tavola ${tavola || ""} pág. ${pg || ""})`;
+    } else {
+      btnPlano.hidden = true;
+    }
+  }
+
+  // Botón Stock Almacén
+  const btnAlmacen = hud.querySelector("[data-hud-btn-almacen]");
+  if (btnAlmacen) {
+    if (interno || cod) {
+      btnAlmacen.hidden = false;
+      btnAlmacen.title = `Consultar stock de ${interno || cod} en Almacén`;
+    } else {
+      btnAlmacen.hidden = true;
+    }
   }
 
   hud.hidden = false;
@@ -1439,16 +1488,30 @@ document.getElementById("g3Hud")?.addEventListener("click", (e) => {
     aspecto();
     actualizarMandos();
     pintarHud();
+  } else if (act === "plano") {
+    const res = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(seleccion.pieza) : {};
+    if (res.img && typeof abrirVisor === "function") {
+      abrirVisor({ img: res.img, pg: Number(res.pg) || null, tav: res.tavola, p: [] }, { n: res.info?.grupoNom || res.p?.nombre || res.tavola }, res.tavola || seleccion.pieza);
+    } else {
+      seleccionar_(seleccion.pieza, { pestana: "despiece", parte: seleccion.parte, co: seleccion.co });
+      abrirPanelDatos();
+    }
+  } else if (act === "almacen") {
+    const res = typeof resolverPiezaTecnica === "function" ? resolverPiezaTecnica(seleccion.pieza) : {};
+    const q = res.interno || res.oem || seleccion.co || seleccion.pieza;
+    window.open(`${D.app}?v=almacen&q=${encodeURIComponent(q)}`, "_blank");
   } else if (act === "panel") {
     abrirPanelDatos();
   }
 });
 
-function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null } = {}) {
+function seleccionar_(pieza, { sensor = null, pestana, parte = null, disp = null, co = null, su = null } = {}) {
   const cambia = pieza !== seleccion.pieza;
   seleccion.pieza = pieza;
   seleccion.sensor = sensor;
   seleccion.parte = parte;
+  seleccion.co = co;
+  seleccion.su = su;
   if (cambia) seleccion.sub = null;
   seleccion.disp = sensor ? null : disp;
   if (pestana) seleccion.pestana = pestana;
@@ -1645,23 +1708,23 @@ lienzo.addEventListener("pointerup", (e) => {
     return;
   }
   mostrarReticula(h.point);
-  const { pieza, parte, sensor, disp } = h.object.userData;
-  if (sensor) return seleccionar_(pieza, { sensor, pestana: "sensores", parte });
-  if (disp && (CAB.dispositivos[disp] || CAB.modulos[disp] || CAB.conectores[disp])) return seleccionar_(pieza, { parte, disp });
+  const { pieza, parte, sensor, disp, co, su } = h.object.userData;
+  if (sensor) return seleccionar_(pieza, { sensor, pestana: "sensores", parte, co: co || sensor, su });
+  if (disp && (CAB.dispositivos[disp] || CAB.modulos[disp] || CAB.conectores[disp])) return seleccionar_(pieza, { parte, disp, co: co || disp, su });
 
   if (seleccion.pieza === pieza && seleccion.parte === parte) {
     seleccionar_(null);
   } else {
     // Selección directa de la pieza y componente al primer toque
-    seleccionar_(pieza, { parte, pestana: seleccion.pestana || "resumen" });
+    seleccionar_(pieza, { parte, pestana: seleccion.pestana || "resumen", co, su });
   }
 });
 lienzo.addEventListener("dblclick", (e) => {
   const h = tocadoEn(e);
   if (h) {
-    const { pieza, parte } = h.object.userData;
+    const { pieza, parte, co, su } = h.object.userData;
     mostrarReticula(h.point);
-    seleccionar_(pieza, { parte });
+    seleccionar_(pieza, { parte, co, su });
     enfocarSeleccion();
   } else encuadrar(cajaVisible());
 });

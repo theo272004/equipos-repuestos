@@ -13,7 +13,7 @@ const panelCuerpo = $(".gm-panel__cuerpo");
 const IDS = Object.keys(D.piezas);
 const PASOS = D.desarme.filter((id) => id !== "bastidor");
 const NUM = Object.fromEntries(D.lectura.map((id, i) => [id, i + 1]));
-const seleccion = { pieza: null, sensor: null, parte: null, disp: null, sub: null, pestana: "resumen" };
+const seleccion = { pieza: null, sensor: null, parte: null, disp: null, sub: null, pestana: "resumen", co: null, su: null };
 
 // ───────────── Historial: snapshot del build, o en vivo desde mtto-data.js ─────────────
 const clasificar = __CLASIFICAR__;
@@ -223,6 +223,94 @@ function panelResumen() {
     <p class="gm-nota" style="margin-top:14px">Modelo 3D dibujado a partir del catálogo de piezas y el plano de disposición del esquema eléctrico: es fiel a los conjuntos y a su función, no a la cota exacta. Hecho con el kit <a href="https://github.com/wheresryan22/anatomy" target="_blank" rel="noopener">Anatomy</a> (MIT).</p>`;
 }
 
+function resolverPiezaTecnica(id = seleccion.pieza) {
+  const p = id ? D.piezas[id] : null;
+  const co = seleccion.co;
+  const sens = seleccion.sensor;
+  const parte = seleccion.parte;
+  const cat = D.catalogoPiezas || {};
+
+  let info = null;
+  if (co && cat[co]) info = cat[co];
+  else if (sens && cat[sens]) info = cat[sens];
+  else if (co) {
+    info = Object.values(cat).find((x) => x.tavola === co || x.grupoCod === co);
+  }
+
+  // Si aún no hay info y tenemos conjunto, buscar en sus láminas y grupos
+  if (!info && id) {
+    const grupos = gruposDe(id);
+    if (grupos && grupos.length) {
+      const [gCod, g0] = grupos[0];
+      const h0 = g0.hojas?.[0];
+      info = {
+        cod: gCod,
+        tavola: h0?.tav || gCod,
+        pg: h0?.pg,
+        img: h0?.img,
+        grupoCod: gCod,
+        grupoNom: g0.n,
+        procs: (g0.proc || []).map((pr) => ({ pg: pr.pg, t: pr.t, img: pr.img, cod: gCod })),
+      };
+    }
+  }
+
+  const childMatch = co ? Object.values(cat).find((x) => (x.tavola === co || x.grupoCod === co) && x.interno) : null;
+  const oem = co || (info?.cod && info.cod !== id ? info.cod : null) || childMatch?.cod || p?.codigos?.[0] || id;
+  const interno = info?.interno || childMatch?.interno || (p?.codigos?.find((c) => /^\d{9}$/.test(c)) ?? null);
+  const tavola = info?.tavola || childMatch?.tavola || null;
+  const pg = info?.pg || childMatch?.pg || null;
+  const img = info?.img || childMatch?.img || null;
+  const descAlmacen = info?.descAlmacen || childMatch?.descAlmacen || null;
+  const um = info?.um || childMatch?.um || "UN";
+  const procs = info?.procs?.length ? info.procs : (childMatch?.procs || []);
+
+  return { p, info, oem, interno, tavola, pg, img, descAlmacen, um, procs };
+}
+
+function bloqueCadInspector(id) {
+  const { p, info, oem, interno, tavola, pg, img, descAlmacen, procs } = resolverPiezaTecnica(id);
+  const uParte = seleccion.parte ? legible(seleccion.parte) : null;
+  const procPri = procs[0] || (gruposDe(id).flatMap(([c, g]) => g.proc.map((x) => ({ ...x, cod: c })))[0]);
+  const totalHojas = gruposDe(id).reduce((a, [, g]) => a + g.hojas.length, 0);
+
+  return `
+    <div class="gm-cad-inspector" role="region" aria-label="Identificación técnica">
+      <div class="gm-cad-inspector__cab">
+        <div class="gm-cad-inspector__tit">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span>Identificación Técnica &amp; Trazabilidad</span>
+        </div>
+        <span class="gm-cad-badge ${interno ? "gm-cad-badge--ok" : ""}">${interno ? "ERP Sincronizado" : "Catálogo OEM"}</span>
+      </div>
+      <div class="gm-cad-grid">
+        <div class="gm-cad-cell">
+          <span class="gm-cad-lbl">Plano / Tavola S4220003</span>
+          <strong class="gm-cad-val" title="${tavola || "Ensamblaje general"}">${tavola ? `${esc(tavola)}${pg ? ` · p.${pg}` : ""}` : "Ensamblaje general"}</strong>
+          ${img ? `<button type="button" class="gm-cad-btn" data-cad-plano="${esc(img)}|${esc(tavola || "")}|${pg || ""}">Abrir lámina técnica</button>` : `<button type="button" class="gm-cad-btn" data-pestana="despiece">Ver ${totalHojas} láminas</button>`}
+        </div>
+        <div class="gm-cad-cell">
+          <span class="gm-cad-lbl">Código OEM Schmucker</span>
+          <strong class="gm-cad-val gm-mono" title="${esc(oem || "N/D")}">${esc(oem || "N/D")}</strong>
+          <span class="gm-cad-sub">${esc(uParte ? `Componente: ${uParte}` : (p?.corto || "Equipo original"))}</span>
+        </div>
+        <div class="gm-cad-cell">
+          <span class="gm-cad-lbl">Código Interno Almacén</span>
+          <strong class="gm-cad-val gm-mono ${interno ? "gm-cad-val--erp" : ""}" title="${esc(descAlmacen || interno || "Consultar")}" style="display:flex;align-items:center;gap:6px">
+            <span>${esc(interno || "Consultar codificación")}</span>
+            ${interno ? `<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>` : ""}
+          </strong>
+          ${interno ? `<a class="gm-cad-btn gm-cad-btn--erp" href="${app({ v: "almacen", q: interno })}" target="_top">Stock en almacén →</a>` : `<a class="gm-cad-btn" href="${app({ v: "almacen", q: oem })}" target="_top">Buscar en almacén →</a>`}
+        </div>
+        <div class="gm-cad-cell">
+          <span class="gm-cad-lbl">Manual &amp; Calibrado</span>
+          <strong class="gm-cad-val" title="${esc(procPri ? procPri.t : "Ajustes de mantenimiento")}">${esc(procPri ? procPri.t : "Ajustes de mantenimiento")}</strong>
+          ${procPri ? `<button type="button" class="gm-cad-btn" data-cad-proc="${esc(procPri.img || "")}|${procPri.pg || ""}|${esc(procPri.t || "")}|${esc(procPri.cod || "")}">Ver procedimiento (p.${procPri.pg})</button>` : `<button type="button" class="gm-cad-btn" data-pestana="proc">Ver procedimientos</button>`}
+        </div>
+      </div>
+    </div>`;
+}
+
 function panelPieza(id) {
   const p = D.piezas[id];
   const grupos = gruposDe(id);
@@ -300,7 +388,7 @@ function panelPieza(id) {
         })
         .join("")}</ul>`;
   }
-  panelCuerpo.innerHTML = barra + cuerpo;
+  panelCuerpo.innerHTML = bloqueCadInspector(id) + barra + cuerpo;
   panelCuerpo.scrollTop = 0;
 }
 
@@ -455,11 +543,23 @@ $(".gm-panel").addEventListener("click", (e) => {
     if (g) abrirVisor(g.hojas[Number(i)], g, cod);
     return;
   }
+  const cadPlano = t.closest("[data-cad-plano]");
+  if (cadPlano) {
+    const [img, tav, pg] = cadPlano.dataset.cadPlano.split("|");
+    abrirVisor({ img, pg: Number(pg) || null, tav, p: [] }, { n: D.piezas[seleccion.pieza]?.nombre || tav }, tav);
+    return;
+  }
   const pr = t.closest("[data-proc]");
   if (pr) {
     const procs = gruposDe(seleccion.pieza).flatMap(([cod, g]) => g.proc.map((x) => ({ ...x, cod })));
     const x = procs[Number(pr.dataset.proc)];
     if (x) abrirVisor({ img: x.img, pg: x.pg, tav: x.cod, p: [] }, { n: x.t }, x.cod, true);
+    return;
+  }
+  const cadProc = t.closest("[data-cad-proc]");
+  if (cadProc) {
+    const [img, pg, tNom, cod] = cadProc.dataset.cadProc.split("|");
+    abrirVisor({ img, pg: Number(pg) || null, tav: cod, p: [] }, { n: tNom }, cod, true);
     return;
   }
   const ac = t.closest("[data-accion-panel]");
