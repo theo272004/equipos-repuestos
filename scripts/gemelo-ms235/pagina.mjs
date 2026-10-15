@@ -87,7 +87,14 @@ const ico = {
   almacen: '<path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/>',
   callouts: '<circle cx="12" cy="9" r="6"/><path d="m12 15-3 6h6l-3-6Z"/><circle cx="12" cy="9" r="1.8"/>',
   sop: '<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',
+  vista: '<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 16 9 5 9-5"/><path d="M3 8v8M21 8v8M12 13v8"/>',
+  capas: '<path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/>',
+  herramientas: '<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4Z"/>',
 };
+// Menu desplegable de la barra: agrupa botones que antes estaban sueltos
+const menu = (titulo, icono, items) =>
+  `<details class="g3-menu"><summary class="gm-btn" title="${titulo}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[icono]}</svg><span class="gm-btn__txt">${titulo}</span><svg class="g3-menu__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><div class="g3-menu__lista">${items}</div></details>`;
+const opcion = (accion, texto) => btn(accion, texto, { mostrarTexto: true });
 const btn = (accion, texto, { pri = false, mostrarTexto = false, titulo } = {}) =>
   `<button type="button" class="gm-btn${pri ? " gm-btn--pri" : ""}" data-accion="${accion}" aria-label="${titulo ?? texto}" title="${titulo ?? texto}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[accion]}</svg>${mostrarTexto ? `<span class="gm-btn__txt">${texto}</span>` : ""}</button>`;
 
@@ -147,20 +154,17 @@ const leyCalor = `<div class="gm-calor-ley" aria-hidden="true">menos <i style="b
 
 // ───────── Pagina 3D ─────────
 const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
-<main class="gm">
+<main class="gm gm--cajon">
   <section class="gm-tarjeta" aria-label="Modelo 3D de la máquina">
     <div class="g3-barra" role="toolbar" aria-label="Herramientas">
-      <div class="gm-grupo">${btn("arbol", "Árbol de piezas", { mostrarTexto: true })}</div>
-      <div class="gm-grupo g3-vistas">${[["iso", "Iso"], ["frente", "Frente"], ["atras", "Atrás"], ["izquierda", "Izq."], ["derecha", "Der."], ["arriba", "Arriba"]].map(([k, t]) => `<button type="button" class="gm-btn" data-vista3="${k}" title="Vista ${t}">${t}</button>`).join("")}</div>
-      <div class="gm-grupo">${btn("orto", "Proyección ortográfica")}${btn("aristas", "Aristas")}${btn("seccion", "Corte de sección")}${btn("medir", "Medir")}</div>
-      <div class="gm-grupo">${btn("resguardos", "Resguardos y acrílicos")}${btn("calor", "Mapa de fallas")}${btn("aislar", "Aislar la pieza elegida")}${btn("colores", "Un color por conjunto")}</div>
-      <div class="gm-grupo">${btn("callouts", "Llamadas", { mostrarTexto: true, titulo: "Llamadas y códigos de plano en 3D" })}${btn("sop", "Guía SOP", { mostrarTexto: true, titulo: "Procedimiento guiado de calibración y mantenimiento" })}</div>
-      <div class="gm-grupo">${btn("cables", "Cableado", { mostrarTexto: true, titulo: "Ver el recorrido de los cables del esquema" })}${btn("armario", "Abrir el armario eléctrico")}</div>
+      ${btn("arbol", "Piezas", { mostrarTexto: true, titulo: "Árbol de piezas" })}
+      ${menu("Vista", "vista", [["iso", "Isométrica"], ["frente", "Frente"], ["atras", "Atrás"], ["izquierda", "Izquierda"], ["derecha", "Derecha"], ["arriba", "Arriba"]].map(([k, t]) => `<button type="button" class="gm-btn" data-vista3="${k}"><span class="gm-btn__txt">${t}</span></button>`).join("") + '<span class="g3-menu__sep"></span>' + opcion("orto", "Ortográfica"))}
+      ${menu("Mostrar", "capas", opcion("resguardos", "Resguardos y acrílicos") + opcion("aristas", "Aristas") + opcion("colores", "Un color por conjunto") + opcion("calor", "Mapa de fallas") + '<span class="g3-menu__sep"></span>' + opcion("callouts", "Llamadas con códigos") + opcion("cables", "Cableado del esquema"))}
+      ${menu("Herramientas", "herramientas", opcion("seccion", "Corte de sección") + opcion("medir", "Medir") + opcion("aislar", "Aislar lo elegido") + opcion("armario", "Abrir el armario"))}
       <span class="gm-sep"></span>
-      <div class="gm-grupo">
-        ${btn("panel", "Ficha técnica", { mostrarTexto: true, titulo: "Ver u ocultar panel de repuestos y datos" })}
-        ${btn("pantallaCompleta", "Pantalla completa", { titulo: "Pantalla completa (F)" })}
-      </div>
+      ${btn("sop", "Guía SOP", { mostrarTexto: true, titulo: "Procedimiento guiado de calibración y mantenimiento" })}
+      ${btn("panel", "Ficha", { mostrarTexto: true, titulo: "Ficha técnica, repuestos y documentos" })}
+      ${btn("pantallaCompleta", "Pantalla completa", { titulo: "Pantalla completa (F)" })}
     </div>
     <div class="gm-escena g3-escena" tabindex="0" role="application" aria-label="MS235 en 3D. Clic izquierdo y arrastrar gira, clic derecho mueve, rueda acerca. Flechas giran, Mayúscula y flechas mueven, F enfoca la selección, espacio simula, D desarma, Escape quita la selección.">
       <canvas class="g3-lienzo" aria-hidden="true"></canvas>
@@ -238,15 +242,15 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
       <span class="gm-esq gm-esq--pista" data-pista></span>
       <span class="gm-esq gm-esq--lec" data-lectura></span>
       <div class="gm-etiqueta" role="tooltip"></div>
+      <div class="g3-resumen" aria-label="Dónde falla la máquina"></div>
       <div class="gm-mandos">
         <div class="gm-grupo g3-sim">${btn("simular", "Simular", { mostrarTexto: true, titulo: "Simular el ciclo de la máquina" })}${btn("detener", "Detener simulación")}<input type="range" min="0" max="359" value="0" data-rango-angulo aria-label="Ángulo de máquina"><span class="g3-angulo" data-angulo>  0°</span><select data-cpm aria-label="Velocidad">${[10, 20, 35, 50, 65, 75].map((v) => `<option value="${v}"${v === 50 ? " selected" : ""}>${v} c/min</option>`).join("")}</select><span class="g3-contador" data-contador></span></div>
         <div class="gm-grupo">${btn("desarmar", "Desarmar", { pri: true, mostrarTexto: true })}${btn("antes", "Paso anterior (armar)")}<span class="gm-paso" data-paso>0/0</span>${btn("despues", "Siguiente paso (desarmar)")}</div>
         <span class="gm-sep"></span>
-        <div class="gm-grupo">${btn("menos", "Alejar")}${btn("encuadrar", "Encuadrar")}${btn("mas", "Acercar")}</div>
+        <div class="gm-grupo">${btn("encuadrar", "Encuadrar toda la máquina")}</div>
       </div>
     </div>
     <div class="g3-senales" hidden><canvas aria-label="Diagrama de fases y señales"></canvas><p>Ciclo simulado. Anclas reales: cierre de planchas a 30° (Calibrado p.20) y cuchilla rotativa de una vuelta por ciclo (p.23). Las pinzas van por leva (el esquema no les da válvula) y dejan la fila en el deslizadero de expulsión (S52.9) bajo los láser B52. Las demás ventanas son aproximadas; no son lecturas del PLC.</p></div>
-    ${leyenda}
   </section>
   ${panel}
 </main>${visor}`;

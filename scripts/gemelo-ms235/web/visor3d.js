@@ -12,6 +12,25 @@ const cargando = $(".gm-cargando");
 const etiqueta = $(".gm-etiqueta");
 const lectura = $("[data-lectura]");
 const pista = $("[data-pista]");
+// la ayuda de raton se va en cuanto el usuario mueve la maquina
+let yaMovio = false;
+$(".g3-escena")?.addEventListener("pointerdown", () => {
+  if (yaMovio) return;
+  yaMovio = true;
+  if (!medir?.activo) pista.textContent = "";
+}, { once: false });
+// menus de la barra: se cierran al elegir una vista, al abrir otro o al tocar fuera
+document.addEventListener("click", (e) => {
+  const abierto = e.target.closest(".g3-menu");
+  for (const d of document.querySelectorAll(".g3-menu[open]")) if (d !== abierto) d.open = false;
+  if (abierto && e.target.closest("[data-vista3], [data-accion=orto]")) abierto.open = false;
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape") return;
+  for (const d of document.querySelectorAll(".g3-menu[open]")) d.open = false;
+  const gm = document.querySelector(".gm.gm--cajon.has-panel-abierto");
+  if (gm && !seleccion?.pieza) togglePanel();
+});
 const pasoTxt = $("[data-paso]");
 const quieto3 = quieto;
 
@@ -1306,7 +1325,7 @@ function encuadrarSubconjunto(suId) {
 }
 
 // ───────────── Llamadas del plano en 3D (Callouts / Balloons) ─────────────
-let calloutsActivas = true;
+let calloutsActivas = false; // a pedido: el 3D abre limpio, las llamadas estan en "Mostrar"
 const elCallouts = document.getElementById("g3Callouts");
 let calloutsCacheKey = null;
 let calloutsItems = [];
@@ -2506,6 +2525,13 @@ function pintarHud() {
 
 function abrirPanelDatos() {
   const gm = document.querySelector(".gm");
+  if (gm?.classList.contains("gm--cajon")) {
+    // la ficha es un cajon sobre el simulador: se abre encima, sin mover la pagina
+    gm.classList.remove("is-sin-panel");
+    gm.classList.add("has-panel-abierto");
+    actualizarMandos();
+    return;
+  }
   if (gm) {
     gm.classList.remove("is-sin-panel");
     if (document.fullscreenElement || gm.classList.contains("is-maximizada")) {
@@ -2523,7 +2549,7 @@ function abrirPanelDatos() {
 function togglePanel() {
   const gm = document.querySelector(".gm");
   if (!gm) return;
-  const esFs = document.fullscreenElement || gm.classList.contains("is-maximizada");
+  const esFs = document.fullscreenElement || gm.classList.contains("is-maximizada") || gm.classList.contains("gm--cajon");
   if (esFs) {
     gm.classList.remove("is-sin-panel");
     gm.classList.toggle("has-panel-abierto");
@@ -2959,7 +2985,7 @@ function decir() {
   const estado = sim.activa ? `simulación · ${sim.cpm} ciclos/min` : paso === 0 ? "armada" : paso === PASOS.length ? "desarmada" : `paso ${paso} de ${PASOS.length}`;
   const sel = seleccion.parte ? ` · ${legible(seleccion.parte)}` : "";
   lectura.textContent = `${camara === camOrto ? "ortográfica" : "perspectiva"} · ${estado}${sel}`;
-  pista.textContent = medir.activo ? "toca dos puntos para medir" : "clic izq. gira · der. mueve · rueda acerca · doble clic enfoca";
+  pista.textContent = medir.activo ? "toca dos puntos para medir" : yaMovio ? "" : "arrastra para girar · rueda para acercar · doble clic enfoca";
 }
 function actualizarMandos() {
   pasoTxt.textContent = `${paso}/${PASOS.length}`;
@@ -2992,7 +3018,7 @@ function actualizarMandos() {
     if (svg) svg.innerHTML = esFs ? '<path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/>' : '<path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>';
   }
   const gm = document.querySelector(".gm");
-  const panelOn = gm && (!gm.classList.contains("is-sin-panel") || gm.classList.contains("has-panel-abierto"));
+  const panelOn = gm && (gm.classList.contains("gm--cajon") ? gm.classList.contains("has-panel-abierto") : !gm.classList.contains("is-sin-panel") || gm.classList.contains("has-panel-abierto"));
   $("[data-accion=panel]")?.setAttribute("aria-pressed", String(panelOn));
   decir();
 }

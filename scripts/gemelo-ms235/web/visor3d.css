@@ -690,3 +690,84 @@ body[data-solo] .g3-despiece { display: none !important; }
   color: #fff;
 }
 
+
+/* ───── Interfaz limpia (2026-10-15): una barra corta con menus, ficha en cajon, resumen en la escena ───── */
+.g3-barra { gap: 4px; padding: 7px 10px; }
+.g3-barra > .gm-btn, .g3-menu > summary {
+  height: 32px; border-radius: 9px; padding: 0 10px; font-size: 12.5px; font-weight: 550; color: var(--gm-ink);
+}
+.g3-barra > .gm-btn:hover, .g3-menu > summary:hover { background: var(--gm-soft); }
+.g3-menu { position: relative; }
+.g3-menu > summary { list-style: none; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; user-select: none; }
+.g3-menu > summary::-webkit-details-marker { display: none; }
+.g3-menu[open] > summary { background: var(--gm-soft); }
+.g3-menu > summary .g3-menu__chev { width: 12px; height: 12px; opacity: .55; transition: transform .15s; }
+.g3-menu[open] > summary .g3-menu__chev { transform: rotate(180deg); }
+.g3-menu__lista {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 40; min-width: 220px; padding: 6px;
+  display: flex; flex-direction: column; gap: 1px; background: var(--gm-card); border: 1px solid var(--gm-line);
+  border-radius: 12px; box-shadow: 0 14px 34px rgba(0, 0, 0, .16); animation: g3MenuIn .14s ease-out;
+}
+@keyframes g3MenuIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.g3-menu__lista .gm-btn { justify-content: flex-start; width: 100%; height: 34px; border-radius: 8px; font-weight: 500; }
+.g3-menu__lista .gm-btn__txt { display: inline !important; }
+.g3-menu__lista .gm-btn[aria-pressed="true"] { background: var(--gm-accent-soft); color: var(--gm-accent); }
+.g3-menu__lista .gm-btn[aria-pressed="true"]::after { content: "✓"; margin-left: auto; font-weight: 700; }
+.g3-menu__sep { height: 1px; background: var(--gm-line); margin: 4px 6px; }
+@media (max-width: 700px) { .g3-menu__lista { position: fixed; left: 12px; right: 12px; top: auto; } }
+
+/* la lectura de camara sobra; la ayuda de raton solo hasta el primer arrastre */
+.g3-escena .gm-esq--lec { display: none; }
+.g3-escena .gm-esq--pista:empty { display: none; }
+
+/* Ficha como cajon dentro del simulador (no columna aparte) */
+.gm.gm--cajon { grid-template-columns: minmax(0, 1fr) !important; position: relative; }
+.gm.gm--cajon:not(.is-maximizada):not(:fullscreen) .gm-panel {
+  display: flex !important; position: absolute; top: 72px; right: 32px; bottom: 40px; width: min(400px, calc(100% - 64px));
+  max-height: none; z-index: 20; box-shadow: 0 18px 48px rgba(0, 0, 0, .2);
+  transform: translateX(24px); opacity: 0; visibility: hidden; pointer-events: none;
+  transition: transform .26s cubic-bezier(.16, 1, .3, 1), opacity .18s, visibility 0s .26s;
+}
+.gm.gm--cajon.has-panel-abierto:not(.is-maximizada):not(:fullscreen) .gm-panel {
+  transform: none; opacity: 1; visibility: visible; pointer-events: auto; transition: transform .26s cubic-bezier(.16, 1, .3, 1), opacity .18s;
+}
+.gm.gm--cajon .gm-panel__cerrar-btn { display: inline-flex; }
+.gm.gm--cajon .gm-panel__cab { padding-right: 52px; }
+
+/* Resumen "Donde falla" dentro de la escena */
+.g3-resumen {
+  position: absolute; top: 14px; right: 14px; z-index: 6; width: 240px; padding: 10px 10px 8px;
+  background: color-mix(in srgb, var(--gm-card) 90%, transparent); border: 1px solid var(--gm-line); border-radius: 14px;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 8px 24px rgba(0, 0, 0, .08); font-size: 12px;
+}
+.g3-resumen[hidden] { display: none; }
+.g3-resumen__cab {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; padding: 0 4px;
+  border: 0; background: none; cursor: pointer; color: var(--gm-ink); font: inherit;
+}
+.g3-resumen__tit { font-weight: 650; font-size: 12.5px; }
+.g3-resumen__n { min-width: 22px; padding: 1px 7px; border-radius: 999px; background: var(--gm-warn-soft); color: var(--gm-warn); font-weight: 650; font-variant-numeric: tabular-nums; }
+.g3-resumen__lista { list-style: none; margin: 8px 0 0; padding: 0; }
+.g3-resumen__fila {
+  display: grid; grid-template-columns: minmax(0, 1fr) 56px 18px; gap: 8px; align-items: center; width: 100%;
+  padding: 5px 4px; border: 0; border-radius: 7px; background: none; cursor: pointer; text-align: left; color: var(--gm-text); font: inherit;
+}
+.g3-resumen__fila:hover { background: var(--gm-soft); color: var(--gm-ink); }
+.g3-resumen__nom { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.g3-resumen__barra { height: 5px; border-radius: 3px; background: var(--gm-soft); overflow: hidden; }
+.g3-resumen__barra i { display: block; height: 100%; border-radius: 3px; background: var(--gm-warn); }
+.g3-resumen__v { text-align: right; font-variant-numeric: tabular-nums; color: var(--gm-muted); }
+.g3-resumen__pie { display: flex; justify-content: space-between; align-items: center; margin-top: 6px; padding: 6px 4px 0; border-top: 1px solid var(--gm-line); color: var(--gm-muted); font-size: 11.5px; }
+.g3-resumen__pie button { border: 0; background: none; padding: 0; color: var(--gm-accent); cursor: pointer; font: inherit; font-weight: 550; }
+.g3-resumen.is-plegado { width: auto; padding: 7px 8px; }
+.g3-resumen.is-plegado .g3-resumen__lista, .g3-resumen.is-plegado .g3-resumen__pie { display: none; }
+.g3-escena[data-sim] .g3-resumen, .gm.has-panel-abierto .g3-resumen { display: none; }
+@media (max-width: 700px) { .g3-resumen { display: none; } }
+/* el simulador ocupa la pantalla: sin hueco debajo */
+.gm.gm--cajon:not(.is-maximizada):not(:fullscreen) .g3-escena { flex: none; height: calc(100vh - 150px); min-height: 460px; max-height: none; }
+/* los botones encendidos de la barra conservan su contraste */
+.g3-barra > .gm-btn[aria-pressed="true"] { background: var(--gm-ink); color: var(--gm-card); }
+/* con la ficha abierta, la tarjeta flotante repetiria lo mismo: se oculta */
+.gm.gm--cajon.has-panel-abierto .g3-hud { display: none !important; }
+/* la barra de desarmar va abajo, encima de los mandos, lejos de la tarjeta de la pieza */
+.gm--cajon .g3-despiece { top: auto; bottom: 64px; }
