@@ -170,6 +170,8 @@ function historialDe(id) {
 function gruposDe(id) {
   const p = D.piezas[id];
   const out = [];
+  // las llamadas de conjunto pueden traer ids que no son conjuntos del modelo: sin grupos
+  if (!p) return out;
   for (const cod of p.codigos) {
     if (D.grupos[cod]) out.push([cod, D.grupos[cod]]);
     else {

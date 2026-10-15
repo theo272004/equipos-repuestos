@@ -196,7 +196,78 @@ const MAT = {
   hiloRojo: M({ color: 0xdc2626, metalness: 0, roughness: 0.6 }),
   amarillo: M({ color: 0xeab308, metalness: 0.05, roughness: 0.5 }),
   maneta: M({ color: 0xdc2626, metalness: 0.05, roughness: 0.40 }),
+  // de las fotos del 2026-10-15
+  verde: M({ color: 0x0fa968, metalness: 0.15, roughness: 0.38 }),
+  blanco: M({ color: 0xf2f3f0, metalness: 0, roughness: 0.5 }),
+  azul: M({ color: 0x1f62c4, metalness: 0.05, roughness: 0.4 }),
+  gris: M({ color: 0xb6bcc0, metalness: 0.12, roughness: 0.55 }),
+  tela: M({ color: 0xe6e2d0, metalness: 0, roughness: 0.95 }),
+  mirilla: M({ color: 0x4a5560, metalness: 0.1, roughness: 0.1 }),
+  luzRoja: M({ color: 0xc62828, metalness: 0, roughness: 0.3, emissive: 0x6a0d0d, emissiveIntensity: 0.4 }),
+  luzAmbar: M({ color: 0xef8f00, metalness: 0, roughness: 0.3, emissive: 0x6a3a00, emissiveIntensity: 0.4 }),
+  luzVerde: M({ color: 0x2fbf4a, metalness: 0, roughness: 0.3, emissive: 0x2fd65a, emissiveIntensity: 1.1 }),
+  logo: M({ color: 0xf4f2ee, metalness: 0.1, roughness: 0.5 }),
+  chapa: M({ color: 0xc8ced3, metalness: 0.45, roughness: 0.4 }),
 };
+// Placa del fabricante pintada en un lienzo (la placa de inox de la foto)
+let texLogo = null;
+function texturaLogo() {
+  if (texLogo) return texLogo;
+  const c = document.createElement("canvas");
+  c.width = 256;
+  c.height = 256;
+  const x = c.getContext("2d");
+  x.fillStyle = "#f4f2ee";
+  x.fillRect(0, 0, 256, 256);
+  x.fillStyle = "#b3262e";
+  x.beginPath();
+  x.arc(128, 78, 46, Math.PI * 0.5, Math.PI * 1.5);
+  x.lineTo(128, 78);
+  x.fill();
+  x.beginPath();
+  x.moveTo(140, 34);
+  x.arc(140, 78, 44, -Math.PI * 0.5, Math.PI * 0.12);
+  x.lineTo(150, 92);
+  x.lineTo(140, 74);
+  x.fill();
+  x.fillStyle = "#1f4fa8";
+  x.font = "600 34px sans-serif";
+  x.textAlign = "center";
+  x.fillText("Schmucker", 128, 168);
+  x.fillStyle = "#b3262e";
+  x.font = "600 24px serif";
+  x.fillText("MARCHESINI", 128, 204);
+  x.fillText("GROUP", 128, 230);
+  texLogo = new THREE.CanvasTexture(c);
+  texLogo.colorSpace = THREE.SRGBColorSpace;
+  // la raiz va en espejo (scale.x = -1): se invierte la textura para que el texto se lea bien
+  texLogo.wrapS = THREE.RepeatWrapping;
+  texLogo.repeat.x = -1;
+  return texLogo;
+}
+// Lamina con la placa sobre la cara de fuera de una pieza fina (la que mira lejos del centro)
+function ponerPlacaLogo(malla) {
+  const g = malla.geometry;
+  g.computeBoundingBox();
+  const b = g.boundingBox;
+  const t = b.getSize(new THREE.Vector3());
+  const c = b.getCenter(new THREE.Vector3());
+  const eje = t.x <= t.y && t.x <= t.z ? "x" : t.z <= t.y ? "z" : "y";
+  const centroMaquina = T([0, -40, 200]);
+  const signo = c[eje] >= centroMaquina[eje] ? 1 : -1;
+  const lado = eje === "x" ? [t.z, t.y] : eje === "z" ? [t.x, t.y] : [t.x, t.z];
+  const plano = new THREE.Mesh(new THREE.PlaneGeometry(lado[0] * 0.96, lado[1] * 0.96), new THREE.MeshStandardMaterial({ map: texturaLogo(), roughness: 0.5, metalness: 0.1, side: THREE.DoubleSide, clippingPlanes: planosCorte }));
+  plano.position.copy(c);
+  plano.position[eje] += signo * (t[eje] / 2 + 0.05);
+  if (eje === "x") plano.rotation.y = (signo * Math.PI) / 2;
+  else if (eje === "y") plano.rotation.x = (-signo * Math.PI) / 2;
+  else if (signo < 0) plano.rotation.y = Math.PI;
+  plano.updateMatrix();
+  plano.matrixAutoUpdate = false;
+  plano.raycast = () => {};
+  malla.add(plano);
+}
+
 const ARISTA = new THREE.LineBasicMaterial({ color: 0x1f2328, transparent: true, opacity: 0.32, clippingPlanes: planosCorte });
 const ARISTA_SEL = new THREE.LineBasicMaterial({ color: 0x1f6feb, transparent: true, opacity: 0.9, clippingPlanes: planosCorte });
 
@@ -372,6 +443,7 @@ function clasificarParte(it) {
   if (it.su) return { su: it.su, e1: it.e1, e2: it.e2 };
 
   if (p === "armario") {
+    if (n.includes("gabinete") || n.includes("manometro") || n.includes("chapa-manometros")) return { su: "armario-neumatica", e1: [90, 0, 0], e2: n.includes("puerta") || n.includes("vidrio") || n.includes("asa") ? [40, 0, 0] : [0, 0, 0] };
     if (n.includes("puerta") || n.includes("manilla") || n.includes("cerradura")) return { su: "armario-puerta", e1: [-140, 0, 0], e2: [0, 0, 0] };
     if (n.includes("modulo") || n.includes("plc") || n.includes("variador") || n.includes("driver")) return { su: "armario-modulos", e1: [0, 80, 0], e2: [0, 0, 0] };
     if (n.includes("regleta") || n.includes("borne") || n.includes("conector")) return { su: "armario-regletas", e1: [0, 50, -40], e2: [0, 0, 0] };
@@ -410,7 +482,10 @@ function clasificarParte(it) {
   }
 
   if (p === "dosificacion") {
-    if (n.includes("tolva") || n.includes("conducto") || n.includes("tubo-a90") || n.includes("brida") || n.includes("sensor.b35")) {
+    if (n.includes("cubierta") || n.includes("placa-logo") || n.includes("harting") || /conector-x4/.test(n)) {
+      return { su: "dosif-cubierta", e1: [0, 60, 120], e2: n.includes("cubierta") ? [0, 0, 0] : [0, 30, 0] };
+    }
+    if (n.includes("tolva") || n.includes("mirilla") || n.includes("manga") || n.includes("conducto") || n.includes("tubo-a90") || n.includes("brida") || n.includes("sensor.b35")) {
       return { su: "dosif-tolva", e1: [0, 0, 180], e2: n.includes("brida") ? [0, 0, 40] : [0, 0, 0] };
     }
     if (n.includes("estrella") || n.includes("cassette") || n.includes("boquilla") || n.includes("rasador")) {
@@ -496,6 +571,7 @@ function clasificarParte(it) {
   }
 
   if (p === "hmi") {
+    if (n.includes("columna") || n.includes("avisador")) return { su: "hmi-columna", e1: [0, 0, 90], e2: n.includes("luz") ? [0, 0, 20] : [0, 0, 0] };
     if (n.includes("panel") || n.includes("pantalla") || n.includes("pulsador") || n.includes("seta") || n.includes("selector")) {
       return { su: "hmi-consola", e1: [0, 120, 0], e2: n.includes("seta") ? [0, 30, 0] : [0, 0, 0] };
     }
@@ -566,6 +642,7 @@ function construirMaquina(esc) {
       malla.add(led);
       malla.userData.led = led;
     }
+    if (it.ma === "logo") ponerPlacaLogo(malla);
     grupoDe(malla.userData.ride).add(malla);
     mallas.push(malla);
     (porPiezaMallas[it.p] ??= []).push(malla);
@@ -922,6 +999,7 @@ const SUBCONJUNTOS = {
   "arrastre-transmision": ["Engranajes de arrastre y servomotor", "S4A19100110", "A920000001"],
 
   // Dosificación (Tavola S4G72200210 / 00721R007)
+  "dosif-cubierta": ["Cubierta del cabezal, placa Schmucker y conectores X44-X49", "S4G72200210", "S4G72200210"],
   "dosif-tolva": ["Tolva de producto y bridas Tri-Clamp", "S4G72200210", "00721R007"],
   "dosif-valvulas": ["Válvula estrella doble y cassette", "S4G72200210", "00721R007"],
   "dosif-motores": ["Servomotores y reductores de dosificación", "S4G72200210", "00721R007"],
@@ -958,12 +1036,13 @@ const SUBCONJUNTOS = {
   // Guías y doblado (Tavola S4M08100110)
   "guias-puente": ["Estructura portante superior", "S4M08100110", "S4M08100110"],
   "guias-rodillos": ["Horquillas y rodillos conformadores", "S4M08100110", "S4M08100110"],
-  "guias-conectores": ["Caja de distribución y conectores X44-X49", "S4M08100110", "S4M08100110"],
+  "guias-conectores": ["Conectores de las guías", "S4M08100110", "S4M08100110"],
 
   // Fotocélula (Tavola S4M08100110)
   "foto-lector": ["Lector de contraste y soporte articulado", "S4M08100110", "S4M08100110"],
 
   // Panel HMI (Esquema ES4220003)
+  "hmi-columna": ["Columna luminosa H16 (roja, naranja, verde) y avisador", "ES4220003", "ES4220003"],
   "hmi-brazo": ["Brazo articulado orientable", "ES4220003", "ES4220003"],
   "hmi-consola": ["Pantalla táctil y botonera de control", "ES4220003", "ES4220003"],
 
@@ -2072,7 +2151,7 @@ function iniciarFisica() {
   // cinta bajo el corte hasta el costado (x -46..459, y 16..128, arriba en z 100), guias y largueros
   estatico([206.5, 72, 99], [252.5, 56, 1]);
   const [p0, p1] = [ESC.cotas.tira.y0, ESC.cotas.tira.y1];
-  for (let i = 1; i < 6; i++) estatico([240, p0 + ((p1 - p0) / 6) * i, 104], [200, 0.6, 2]);
+  void p0, p1; // la banda real es lisa: sin guias de carril (fotos 2026-10-15)
   estatico([207.5, 13, 96], [255.5, 3, 8]);
   estatico([207.5, 131, 96], [255.5, 3, 8]);
   // deslizadero de expulsion bajo las pinzas: rampa de (-16, z 112) a (16, z 101.5) con sus bordes
@@ -2289,7 +2368,7 @@ function aspecto() {
   for (const m of [...mallas, ...instancias]) {
     const { pieza, parte, base } = m.userData;
     // el boton de resguardos quita puertas, acrilicos y su marco; la caja con mirilla y los Euchner quedan
-    const enMarco = /^resguardos\.(puerta|perfil|bisagra|tirador|lateral|techo|poste|travesano|larguero|actuador|panel)/.test(parte) || (/^resguardos\.(euchner|rfid|conector)/.test(parte) && Math.abs(m.userData.centro?.[0] ?? 0) > 150);
+    const enMarco = /^resguardos\.(puerta|perfil|bisagra|tirador|lateral|techo|poste|travesano|larguero|actuador|panel|zocalo|franja)|^dosificacion\.(cubierta|placa-logo)|^armario\.gabinete-(puerta|vidrio|asa|techo)/.test(parte) || (/^resguardos\.(euchner|rfid|conector)/.test(parte) && Math.abs(m.userData.centro?.[0] ?? 0) > 150);
     const visible = !ocultas.has(pieza) && !(sinResguardos && enMarco);
     m.userData.visibleBase = visible;
     if (!sim.activa || !m.userData.sim) m.visible = visible;

@@ -63,6 +63,29 @@ asiento, y `node ciclos.mjs <azimut> --desarme` 0 ciclos.
 `?disp=M30.1` (sigue el cable y abre el armario), `?armario=1`, `?cables=1`,
 `?vista=atras`, `?paso=16` (desarmada), `?calor=1`, `?angulo=200`, `?sim=1`.
 
+## Lo que salió de las fotos del 2026-10-15
+
+- Cabezal del dosificador: cubierta de inox escalonada que asoma por encima del techo del
+  resguardo, con cuatro Harting delante (dos con clavija y cable, dos tapados) y la placa
+  Schmucker. Encima, la tolva rectangular con mirilla, tapa con cierres, sensores de nivel B35 y la
+  manga de tela de la carga de polvo. Antes era una tolva cónica dentro del resguardo.
+- Columna luminosa H16.2 / H16.3 / H16.4 con el avisador H16.6 (hoja B04) sobre el brazo del
+  panel; pulsadores negro, blanco y azul.
+- Capota de la mordaza con dos columnas de cinco lamas y tirador en T verde; tiradores verdes en
+  las puertas del resguardo.
+- Lateral izquierdo: gabinete gris con ventanas sobre la isla de válvulas y el regulador, y la
+  ventanilla de los tres manómetros. El interruptor general Q01.3 es una maneta negra en la cara
+  delantera del armario, con la etiqueta de la máquina.
+- Lateral derecho: puerta de inox con asa, juntas negras y porta-documentos.
+- La cinta de salida es lisa (sin guías de carril) y el resguardo lleva franja amarilla y negra
+  sobre la salida.
+- Al desarmar, los resguardos salen hacia el operador (por debajo de la tolva).
+
+Dudas que dejan las fotos: el tambor de inox con la etiqueta "horario / antihorario" en lo alto
+del lado izquierdo (probable soporte del dosificador S4A71100310), la rueda negra de radios bajo
+la soldadura, la toma de aire con dos válvulas rojas junto al portabobinas, y si el portabobinas
+de abajo es solo una cuna en V. Las fotos se guardan fuera del repo (`fotos-reales/`).
+
 ## Pendiente (según la auditoría contra el catálogo)
 
 - Correa del motor principal (S4A12100110): servo, correa dentada vertical y grupo motriz junto al volante (Calibrado p.83).
