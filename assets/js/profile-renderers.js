@@ -1578,6 +1578,7 @@ function dt(machine, campo) {
         const resto = lista.filter((i) => !enTrabajo.has(i.id));
         return `${trabajos.length ? `<div class="panel-header-clean"><h3>Trabajo de mantenimiento abierto</h3><p>Lo que dijo la inspección, lo que ya se cambió y lo que falta.</p></div>
             <div class="sg-lista">${trabajos.map((t) => SG.htmlTrabajo(t, { cuadro: false, sinEquipo: true })).join("")}</div><div class="panel-split"></div>` : ""}
+          ${window.CAMBIOS_PIEZAS ? window.CAMBIOS_PIEZAS.htmlFicha(machine, cod) : ""}
           ${cod ? compBloques(cod) : ""}
           <div class="panel-header-clean">
             <h3>Historial de inspecciones</h3>

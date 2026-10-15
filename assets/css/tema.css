@@ -1727,3 +1727,52 @@ body.app .hy-pesa .hy-chip { justify-self: start; min-height: 22px; background: 
   body.app .hy-tres, body.app .hy-pesan__grid { grid-template-columns: 1fr; }
   body.app .hy-barra { grid-template-columns: 96px minmax(0, 1fr) 44px; }
 }
+
+/* ------------------------- 19. ficha: cambios de piezas y próximo cambio -- */
+body.app .cp-card { margin-bottom: 4px; }
+body.app .cp-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 18px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); overflow: hidden; }
+body.app .cp-kpis > div { display: grid; gap: 2px; padding: 12px 16px; border-left: 1px solid var(--line); }
+body.app .cp-kpis > div:first-child { border-left: 0; }
+body.app .cp-kpis b { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+body.app .cp-kpis span { color: var(--mute); font-size: 12.5px; }
+body.app .cp-kpis .is-bad b { color: var(--bad-d); }
+body.app .cp-h4 { margin: 18px 0 8px; font-size: 14px; font-weight: 650; }
+body.app .cp-ult { display: grid; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--panel); }
+body.app .cp-ult li { display: grid; grid-template-columns: 92px 190px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 9px 14px; font-size: 13px; }
+body.app .cp-ult li + li { border-top: 1px solid var(--line); }
+body.app .cp-ult time { color: var(--mute); font-variant-numeric: tabular-nums; }
+body.app .cp-ult span { color: var(--ink-2); overflow-wrap: anywhere; }
+body.app .cp-tabla { width: 100%; border-collapse: collapse; font-size: 13px; }
+body.app .cp-tabla th { padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--mute); font-size: 12px; font-weight: 600; text-align: left; white-space: nowrap; }
+body.app .cp-tabla td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+body.app .cp-fila--bad td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
+body.app .cp-fila--warn td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
+body.app .cp-pieza summary { display: grid; gap: 2px; cursor: pointer; list-style: none; }
+body.app .cp-pieza summary::-webkit-details-marker { display: none; }
+body.app .cp-pieza summary b::before { content: "▸"; display: inline-block; width: 14px; color: var(--mute-2); }
+body.app .cp-pieza details[open] summary b::before { content: "▾"; }
+body.app .cp-pieza small, body.app .cp-f small { display: block; color: var(--mute); font-size: 11.5px; }
+body.app .cp-f b { font-weight: 650; white-space: nowrap; font-variant-numeric: tabular-nums; }
+body.app .cp-n { font-variant-numeric: tabular-nums; text-align: center; }
+body.app .cp-mute { color: var(--mute-2); }
+body.app .cp-det { margin: 8px 0 2px 14px; }
+body.app .cp-hist { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+body.app .cp-hist li { display: grid; gap: 1px; padding-left: 10px; border-left: 2px solid var(--line-2); }
+body.app .cp-hist li span { color: var(--ink-2); }
+body.app .cp-base, body.app .cp-vacio { margin: 8px 0 0; color: var(--mute); font-size: 12px; }
+body.app .cp-chip { display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 12px; font-weight: 600; white-space: nowrap; }
+body.app .cp-chip--bad { background: var(--bad-t); color: var(--bad-d); }
+body.app .cp-chip--warn { background: var(--warn-t); color: var(--warn-d); }
+body.app .cp-chip--ok { background: var(--ok-t); color: var(--ok-d); }
+body.app .cp-pie { margin: 10px 0 0; color: var(--mute); font-size: 12px; }
+@media (max-width: 760px) {
+  body.app .cp-kpis { grid-template-columns: 1fr; }
+  body.app .cp-kpis > div { border-left: 0; border-top: 1px solid var(--line); }
+  body.app .cp-kpis > div:first-child { border-top: 0; }
+  body.app .cp-ult li { grid-template-columns: 1fr; gap: 2px; }
+  body.app .cp-tabla thead { display: none; }
+  body.app .cp-tabla tr { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  body.app .cp-tabla td { padding: 2px 0; border: 0; }
+  body.app .cp-tabla td:first-child { grid-column: 1 / -1; }
+  body.app .cp-tabla td[data-l]::before { content: attr(data-l); display: block; color: var(--mute-2); font-size: 11px; }
+}
