@@ -69,7 +69,8 @@ function leerChat(ruta) {
 
 // ------------------------------------------------------------------ mensajes
 // "29/9/2026, 9:05 p. m. - Autor: texto" o "29/9/2026, 21:05 - Autor: texto"
-const RE_ENCABEZADO = /^(\d{1,2})\/(\d{1,2})\/(\d{4}),\s*(\d{1,2}):(\d{2})\s*(?:([ap])\.?\s*m\.?)?\s+-\s+([\s\S]*)$/i;
+// (el año puede venir de 2 dígitos: "11/10/26, 8:34 p. m.")
+const RE_ENCABEZADO = /^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4}),\s*(\d{1,2}):(\d{2})\s*(?:([ap])\.?\s*m\.?)?\s+-\s+([\s\S]*)$/i;
 
 function parseMensajes(texto) {
   const msgs = [];
@@ -85,7 +86,7 @@ function parseMensajes(texto) {
       const i = resto.indexOf(": ");
       const conAutor = i > 0 && i < 60;
       actual = {
-        fecha: `${anio}-${String(mes).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
+        fecha: `${anio.length === 2 ? "20" + anio : anio}-${String(mes).padStart(2, "0")}-${String(d).padStart(2, "0")}`,
         hora: `${String(h).padStart(2, "0")}:${mm}`,
         autor: conAutor ? resto.slice(0, i).trim() : "",
         cuerpo: [conAutor ? resto.slice(i + 2) : resto],
@@ -300,6 +301,8 @@ const sinTilde = (t) => String(t || "").normalize("NFD").replace(/[\u0300-\u036f
 function esRuido(r) {
   const de = sinTilde(r.de);
   if (/^[^\n:]{1,40}(:|\n)\s*(montaje|limpieza|stand ?by|disponible|inspeccion|mtto|mantenimiento)\b[^\n]{0,45}$/.test(de) && !/\bse\s/.test(de)) return true;
+  if (/^[^\n:]{1,40}:\s*area (limpia|disponible)\b/.test(de) && !/\bse\s/.test(de.replace(/\n[\s\S]*$/, ""))) return true;
+  if (/^(lucho|don|ing)\b[^\n]{0,25}(buen[oa]s?|saludos)[^\n]{0,20}\n\s*el reporte de lo que se hizo/.test(de)) return true;
   if (/viejo querido|se nos escapan|^ya se soluciono|^gracias\b|^buen(os|as)? (dias|tardes|noches)\b[^\n]{0,30}$/.test(de)) return true;
   return /no identificado/i.test(r.eq || "") && de.length < 25;
 }

@@ -1619,3 +1619,165 @@ body.app .alm-sug-btn:hover {
     display: none;
   }
 }
+
+/* ------------------------------------- 17. inicio: estado de los equipos -- */
+/* El ranking de equipos es lo primero que se mira: cuál atacar. Las filas son
+   botones (abren el detalle del equipo); los tres primeros llevan el número en
+   negro. Rojo, ámbar y verde solo para el estado, como en el resto de la app. */
+body.app .hy-estado { align-self: start; }
+body.app .hy-eq__lista { display: grid; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--panel); }
+body.app .hy-eq__lista li + li { border-top: 1px solid var(--line); }
+body.app .hy-eq {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr) 54px 62px 128px;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+body.app .hy-eq:hover { background: var(--panel-2); }
+body.app .hy-eq__rank { display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--well); color: var(--mute); font-size: 12px; font-weight: 700; font-variant-numeric: tabular-nums; }
+body.app .hy-eq.is-top .hy-eq__rank { background: var(--ink); color: var(--panel); }
+body.app .hy-eq__txt { display: grid; gap: 3px; min-width: 0; }
+body.app .hy-eq__txt b { overflow: hidden; font-size: 14px; font-weight: 650; white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-eq__txt small { overflow: hidden; color: var(--mute); font-size: 12px; white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-eq__bar { display: block; height: 4px; border-radius: 999px; background: var(--well); overflow: hidden; }
+body.app .hy-eq__bar i { display: block; height: 100%; border-radius: 999px; background: var(--line-2); }
+body.app .hy-eq__bar i.is-bad { background: var(--bad); }
+body.app .hy-eq__num { display: grid; justify-items: end; gap: 1px; font-variant-numeric: tabular-nums; }
+body.app .hy-eq__num b { font-size: 15px; font-weight: 700; }
+body.app .hy-eq__num small { color: var(--mute-2); font-size: 11px; }
+body.app .hy-chip { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 26px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap; background: var(--well); color: var(--ink-2); }
+body.app .hy-chip i { width: 7px; height: 7px; border-radius: 50%; background: var(--mute-2); flex-shrink: 0; }
+body.app .hy-chip--bad { background: var(--bad-t); color: var(--bad-d); }
+body.app .hy-chip--bad i { background: var(--bad); }
+body.app .hy-chip--warn { background: var(--warn-t); color: var(--warn-d); }
+body.app .hy-chip--warn i { background: var(--warn); }
+body.app .hy-chip--ok { background: var(--ok-t); color: var(--ok-d); }
+body.app .hy-chip--ok i { background: var(--ok); }
+body.app .hy-eq__pie { display: flex; justify-content: center; padding-top: 10px; }
+
+/* Fallas por día */
+body.app .hy-dias { display: flex; align-items: flex-end; gap: 4px; height: 118px; }
+body.app .hy-dias > div { display: flex; flex: 1; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; min-width: 0; }
+body.app .hy-dias b { min-height: 14px; margin-bottom: 3px; font-size: 11px; font-weight: 650; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+body.app .hy-dias i { display: block; width: 100%; border-radius: 3px 3px 0 0; background: var(--line-2); }
+body.app .hy-dias i.is-pico { background: var(--bad); }
+body.app .hy-dias small { margin-top: 4px; color: var(--mute-2); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+
+/* Tipo de falla */
+body.app .hy-tipos { display: grid; gap: 10px; }
+body.app .hy-tipo { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; }
+body.app .hy-tipo span { overflow: hidden; font-size: 13px; font-weight: 550; white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-tipo b { font-size: 13px; font-variant-numeric: tabular-nums; }
+body.app .hy-tipo i { grid-column: 1 / -1; display: block; height: 4px; border-radius: 999px; background: var(--well); overflow: hidden; }
+body.app .hy-tipo u { display: block; height: 100%; border-radius: 999px; background: var(--line-2); text-decoration: none; }
+
+body.app .hy-abajo { margin-top: 16px; }
+
+@media (max-width: 760px) {
+  body.app .hy-eq { grid-template-columns: 24px minmax(0, 1fr) auto; gap: 4px 10px; padding: 12px; }
+  body.app .hy-eq__num { display: none; }
+  body.app .hy-eq .hy-chip { grid-column: 3; grid-row: 1; }
+  body.app .hy-eq__txt small { white-space: normal; }
+}
+
+/* ----------------------- 18. inicio: barras por equipo y "los que más pesan" -- */
+body.app .hy-tres { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 16px; align-items: start; }
+body.app .hy-leg { display: flex; flex-wrap: wrap; gap: 4px 16px; margin: -4px 0 10px; color: var(--mute); font-size: 12px; }
+body.app .hy-leg s { display: inline-block; width: 10px; height: 10px; margin-right: 6px; border-radius: 3px; background: var(--line-2); vertical-align: -1px; text-decoration: none; }
+body.app .hy-leg s.is-hot { background: var(--bad); }
+body.app .hy-barras { display: grid; gap: 2px; }
+body.app .hy-barra { display: grid; grid-template-columns: 112px minmax(0, 1fr) 46px; align-items: center; gap: 10px; width: 100%; min-height: 32px; padding: 0; border: 0; background: none; color: var(--ink); font: inherit; text-align: left; cursor: pointer; }
+body.app .hy-barra:hover .hy-barra__t { color: var(--accent-2); }
+body.app .hy-barra__t { overflow: hidden; color: var(--ink-2); font-size: 13px; white-space: nowrap; text-overflow: ellipsis; }
+body.app .hy-barra__b { display: block; height: 16px; }
+body.app .hy-barra__b i { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--line-2); }
+body.app .hy-barra__b i.is-hot { background: var(--bad); }
+body.app .hy-barra b { font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; }
+
+body.app .hy-sem { display: flex; gap: 10px; margin-top: 14px; }
+body.app .hy-sem > div { display: grid; flex: 1; gap: 1px; padding-top: 7px; border-top: 2px solid var(--line); color: var(--mute); font-size: 12px; }
+body.app .hy-sem b { color: var(--ink); font-size: 18px; font-variant-numeric: tabular-nums; }
+body.app .hy-sem small { color: var(--mute-2); font-size: 11.5px; }
+
+body.app .hy-pesan__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
+body.app .hy-pesa { display: grid; gap: 6px; padding: 12px 14px; border: 0; border-left: 4px solid var(--warn); border-radius: var(--r-sm); background: var(--warn-t); color: var(--ink); font: inherit; text-align: left; cursor: pointer; transition: filter 0.15s; }
+body.app .hy-pesa.is-bad { border-left-color: var(--bad); background: var(--bad-t); }
+body.app .hy-pesa:hover { filter: brightness(0.98); }
+body.app .hy-pesa__top { display: flex; align-items: baseline; gap: 10px; }
+body.app .hy-pesa__top b { font-size: 14.5px; font-weight: 700; }
+body.app .hy-pesa__top small { flex: 1; color: var(--mute); font-size: 12px; }
+body.app .hy-pesa__top em { font-style: normal; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
+body.app .hy-pesa__p { color: var(--ink-2); font-size: 13px; line-height: 1.4; }
+body.app .hy-pesa .hy-chip { justify-self: start; min-height: 22px; background: var(--panel); }
+
+@media (max-width: 1100px) {
+  body.app .hy-tres { grid-template-columns: 1fr 1fr; }
+  body.app .hy-tres > :last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 760px) {
+  body.app .hy-tres, body.app .hy-pesan__grid { grid-template-columns: 1fr; }
+  body.app .hy-barra { grid-template-columns: 96px minmax(0, 1fr) 44px; }
+}
+
+/* ------------------------- 19. ficha: cambios de piezas y próximo cambio -- */
+body.app .cp-card { margin-bottom: 4px; }
+body.app .cp-kpis { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 0 0 18px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--panel); overflow: hidden; }
+body.app .cp-kpis > div { display: grid; gap: 2px; padding: 12px 16px; border-left: 1px solid var(--line); }
+body.app .cp-kpis > div:first-child { border-left: 0; }
+body.app .cp-kpis b { font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+body.app .cp-kpis span { color: var(--mute); font-size: 12.5px; }
+body.app .cp-kpis .is-bad b { color: var(--bad-d); }
+body.app .cp-h4 { margin: 18px 0 8px; font-size: 14px; font-weight: 650; }
+body.app .cp-ult { display: grid; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; background: var(--panel); }
+body.app .cp-ult li { display: grid; grid-template-columns: 92px 190px minmax(0, 1fr); gap: 12px; align-items: baseline; padding: 9px 14px; font-size: 13px; }
+body.app .cp-ult li + li { border-top: 1px solid var(--line); }
+body.app .cp-ult time { color: var(--mute); font-variant-numeric: tabular-nums; }
+body.app .cp-ult span { color: var(--ink-2); overflow-wrap: anywhere; }
+body.app .cp-tabla { width: 100%; border-collapse: collapse; font-size: 13px; }
+body.app .cp-tabla th { padding: 8px 12px; border-bottom: 1px solid var(--line); color: var(--mute); font-size: 12px; font-weight: 600; text-align: left; white-space: nowrap; }
+body.app .cp-tabla td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+body.app .cp-fila--bad td:first-child { box-shadow: inset 3px 0 0 var(--bad); }
+body.app .cp-fila--warn td:first-child { box-shadow: inset 3px 0 0 var(--warn); }
+body.app .cp-pieza summary { display: grid; gap: 2px; cursor: pointer; list-style: none; }
+body.app .cp-pieza summary::-webkit-details-marker { display: none; }
+body.app .cp-pieza summary b::before { content: "▸"; display: inline-block; width: 14px; color: var(--mute-2); }
+body.app .cp-pieza details[open] summary b::before { content: "▾"; }
+body.app .cp-pieza small, body.app .cp-f small { display: block; color: var(--mute); font-size: 11.5px; }
+body.app .cp-f b { font-weight: 650; white-space: nowrap; font-variant-numeric: tabular-nums; }
+body.app .cp-n { font-variant-numeric: tabular-nums; text-align: center; }
+body.app .cp-mute { color: var(--mute-2); }
+body.app .cp-det { margin: 8px 0 2px 14px; }
+body.app .cp-hist { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+body.app .cp-hist li { display: grid; gap: 1px; padding-left: 10px; border-left: 2px solid var(--line-2); }
+body.app .cp-hist li span { color: var(--ink-2); }
+body.app .cp-base, body.app .cp-vacio { margin: 8px 0 0; color: var(--mute); font-size: 12px; }
+body.app .cp-chip { display: inline-flex; align-items: center; min-height: 24px; padding: 0 10px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 12px; font-weight: 600; white-space: nowrap; }
+body.app .cp-chip--bad { background: var(--bad-t); color: var(--bad-d); }
+body.app .cp-chip--warn { background: var(--warn-t); color: var(--warn-d); }
+body.app .cp-chip--ok { background: var(--ok-t); color: var(--ok-d); }
+body.app .cp-pie { margin: 10px 0 0; color: var(--mute); font-size: 12px; }
+@media (max-width: 760px) {
+  body.app .cp-kpis { grid-template-columns: 1fr; }
+  body.app .cp-kpis > div { border-left: 0; border-top: 1px solid var(--line); }
+  body.app .cp-kpis > div:first-child { border-top: 0; }
+  body.app .cp-ult li { grid-template-columns: 1fr; gap: 2px; }
+  body.app .cp-tabla thead { display: none; }
+  body.app .cp-tabla tr { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  body.app .cp-tabla td { padding: 2px 0; border: 0; }
+  body.app .cp-tabla td:first-child { grid-column: 1 / -1; }
+  body.app .cp-tabla td[data-l]::before { content: attr(data-l); display: block; color: var(--mute-2); font-size: 11px; }
+}
+body.app .cp-partes { width: 100%; margin: 10px 0 2px; border-collapse: collapse; font-size: 12px; }
+body.app .cp-partes th { padding: 4px 8px; color: var(--mute-2); font-size: 11px; font-weight: 600; text-align: left; border-bottom: 1px solid var(--line); }
+body.app .cp-partes td { padding: 5px 8px; border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+body.app .cp-partes td:first-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+body.app .cp-partes .cp-chip { min-height: 20px; padding: 0 8px; font-size: 11px; }

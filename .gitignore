@@ -29,3 +29,7 @@ scripts/portal-bridge/salida/
 # Reportes de MiPortal bajados a mano (RE356R, RE356...): traen precios y el
 # repositorio es publico. scripts/gen-maestro-almacen.py los lee de aqui.
 manuales/_almacen/
+
+# Python
+__pycache__/
+*.pyc
