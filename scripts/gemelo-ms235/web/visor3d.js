@@ -346,6 +346,9 @@ function variante(base, tipo) {
   else if (tipo === "sel") Object.assign(m, { emissive: new THREE.Color(0x1f6feb), emissiveIntensity: 0.38 });
   else if (tipo === "parte") Object.assign(m, { emissive: new THREE.Color(0x4f9bff), emissiveIntensity: 0.9 });
   else if (tipo === "fantasma") Object.assign(m, { transparent: true, opacity: 0.07, depthWrite: false });
+  else if (tipo === "plano") {
+    m = new THREE.MeshStandardMaterial({ color: 0xffffff, metalness: 0, roughness: 1, emissive: 0x9a9a9a, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: 1, polygonOffsetUnits: 1, clippingPlanes: planosCorte });
+  }
   else if (tipo.startsWith("conj:")) Object.assign(m, { color: new THREE.Color(COLOR_CONJUNTO[tipo.slice(5)] ?? 0xb2bec3), metalness: 0.25, roughness: 0.48, map: null });
   else if (tipo.startsWith("calor")) {
     const nivel = Number(tipo.slice(5));
@@ -680,7 +683,7 @@ function construirMaquina(esc) {
     const clave = `${pr.ride}|${pr.pieza}|${pr.tipo}|${mueve}${exp}`;
     if (!porClave.has(clave)) porClave.set(clave, { ...pr, parteMov: mueve ? parte : null, centros: [], lista: [] });
     porClave.get(clave).centros.push(centro);
-    for (const p of pr.pts) porClave.get(clave).lista.push({ p, n: pr.n, r: pr.r });
+    for (const p of pr.pts) porClave.get(clave).lista.push({ p, n: pr.n, r: pr.r, parteId: pr.parte });
   }
   for (const [, g] of porClave) {
     const im = new THREE.InstancedMesh(g.tipo === "allen" ? geoAllen : geoHex, MAT.perno, g.lista.length);
@@ -701,6 +704,8 @@ function construirMaquina(esc) {
     const e1Perno = g.e1 || clPerno?.e1 || null;
     const e2Perno = g.e2 || clPerno?.e2 || (e1Perno ? [e1Perno[0] * 0.4, e1Perno[1] * 0.4, e1Perno[2] * 0.4] : null);
     im.userData = { pieza: g.pieza, ride: g.ride, base: MAT.perno, parte: g.parteMov ?? `${g.pieza}.tornilleria`, centro, tornillos: g.lista.length, perno: true, su: suPerno, e1: e1Perno, e2: e2Perno };
+    im.userData.lista = g.lista;
+    im.userData.baseMatrices = im.instanceMatrix.array.slice();
     grupoDe(g.ride).add(im);
     instancias.push(im);
     (porPiezaMallas[g.pieza] ??= []).push(im);
@@ -1102,7 +1107,7 @@ lineasTrazas.renderOrder = 3;
 raiz.add(lineasTrazas);
 
 function actualizarTrazasDespiece(t) {
-  if (t < 0.05 || !despiece.pieza) {
+  if (t < 0.05 || !despiece.pieza || tecnico.plan) {
     lineasTrazas.visible = false;
     return;
   }
@@ -1150,7 +1155,335 @@ function prepararDespieceAuto(pieza) {
     m.userData.autoExp = d.multiplyScalar(Math.min(1.2, 120 / tam));
   }
 }
+// ───────────── Despiece tecnico (lamina de despiece, como un plano de patente) ─────────────
+// Cada subconjunto se abre sobre su propio eje: las piezas se separan en fila y en orden de
+// montaje (solo se empujan las que se tapan), primero salen los tornillos de sus agujeros y luego
+// las piezas, escalonadas desde la central. En modo "plano": fondo blanco, trazo negro, linea de
+// centro de punto y raya, globos numerados con su linea guia y la lista de piezas con su codigo.
+const tecnico = { plan: null, pieza: null, plano: true, lista: true, grupos: [], globos: [], pernos: [] };
+const _bb = new THREE.Box3();
+const _v1 = new THREE.Vector3();
+const EJES = ["x", "y", "z"];
+const suaveT = (x) => (x <= 0 ? 0 : x >= 1 ? 1 : x * x * (3 - 2 * x));
+function cajaMalla(m) {
+  m.geometry.computeBoundingBox();
+  return m.geometry.boundingBox.clone();
+}
+function prepararTecnico(pieza) {
+  const propias = mallas.filter((m) => m.userData.pieza === pieza);
+  const plan = new Map();
+  const porGrupo = new Map();
+  for (const m of propias) {
+    if (/manguera|cable-calefaccion|cable-harting/.test(m.userData.parte)) continue;
+    const su = m.userData.su || m.userData.it?.su || "";
+    if (!porGrupo.has(su)) porGrupo.set(su, []);
+    porGrupo.get(su).push(m);
+  }
+  tecnico.grupos = [];
+  for (const [su, lista] of porGrupo) {
+    const cajas = lista.map(cajaMalla);
+    const total = new THREE.Box3();
+    cajas.forEach((c) => total.union(c));
+    const tam = total.getSize(new THREE.Vector3());
+    // eje del despiece: se apila en los tres ejes y se queda el que separa con menos recorrido
+    // (la direccion natural de desmontaje: las capas salen hacia donde son delgadas)
+    const apilar = (eje) => {
+      const otros = EJES.filter((k) => k !== eje);
+      const items = lista.map((m, i) => {
+        const c = cajas[i];
+        const vol = (c.max.x - c.min.x + 0.1) * (c.max.y - c.min.y + 0.1) * (c.max.z - c.min.z + 0.1);
+        return { m, c, vol, min: c.min[eje], max: c.max[eje], centro: (c.min[eje] + c.max[eje]) / 2 };
+      });
+      items.sort((a, b) => a.centro - b.centro);
+      const iPivote = items.reduce((b, it, i) => (it.vol > items[b].vol ? i : b), 0);
+      const solapan = (a, b) => otros.every((k) => a.c.min[k] < b.c.max[k] + 1.5 && b.c.min[k] < a.c.max[k] + 1.5);
+      const hueco = (it) => Math.min(18, Math.max(5, (it.max - it.min) * 0.5));
+      const pivote = items[iPivote];
+      pivote.nMin = pivote.min;
+      pivote.nMax = pivote.max;
+      const puestos = [pivote];
+      for (let i = iPivote + 1; i < items.length; i++) {
+        const it = items[i];
+        let nMin = it.min;
+        for (const q of puestos) if (solapan(it, q) && q.nMax + hueco(it) > nMin && q.centro <= it.centro) nMin = q.nMax + hueco(it);
+        it.nMin = nMin;
+        it.nMax = nMin + (it.max - it.min);
+        puestos.push(it);
+      }
+      for (let i = iPivote - 1; i >= 0; i--) {
+        const it = items[i];
+        let nMax = it.max;
+        for (const q of puestos) if (solapan(it, q) && q.nMin - hueco(it) < nMax && q.centro >= it.centro) nMax = q.nMin - hueco(it);
+        it.nMax = nMax;
+        it.nMin = nMax - (it.max - it.min);
+        puestos.push(it);
+      }
+      const recorrido = items.reduce((a, it) => a + Math.abs(it.nMin - it.min), 0);
+      return { eje, items, iPivote, recorrido };
+    };
+    const opciones = EJES.map(apilar).sort((a, b) => a.recorrido - b.recorrido);
+    const { eje, items, iPivote } = opciones[0];
+    const nPasos = Math.max(1, ...items.map((it, i) => Math.abs(i - iPivote)));
+    // desplazamiento del subconjunto entero (nivel 1): el de la clasificacion, si lo hay
+    const u0 = lista[0].userData;
+    const e1 = u0.e1 ?? u0.it?.e1;
+    const d1 = e1 && su ? T(e1) : new THREE.Vector3();
+    for (const [i, it] of items.entries()) {
+      const eje3 = new THREE.Vector3();
+      eje3[eje] = it.nMin - it.min;
+      plan.set(it.m.userData, { d1, d2: eje3, retraso: (Math.abs(i - iPivote) / nPasos) * 0.45 });
+    }
+    const centroG = total.getCenter(new THREE.Vector3());
+    const lo = Math.min(...items.map((it) => it.nMin));
+    const hi = Math.max(...items.map((it) => it.nMax));
+    tecnico.grupos.push({ su, eje, centro: centroG, lo, hi, d1, items });
+  }
+  // tornillos: cada uno sale de su agujero (por su normal) y luego va con su pieza
+  const porNombre = new Map(propias.map((m) => [m.userData.it.n, m]));
+  tecnico.pernos = [];
+  for (const im of instancias) {
+    if (im.userData.pieza !== pieza || !im.userData.lista) continue;
+    const base = im.userData.baseMatrices;
+    const dueños = im.userData.lista.map(({ p, parteId }) => {
+      if (parteId && porNombre.has(parteId)) return porNombre.get(parteId);
+      // si no trae su pieza, la mas chica cuya caja lo contiene
+      const q = T(p);
+      let mejor = null;
+      let vol = Infinity;
+      for (const m of propias) {
+        _bb.copy(cajaMalla(m)).expandByScalar(2.5);
+        if (!_bb.containsPoint(q)) continue;
+        const s = _bb.getSize(_v1);
+        const v = s.x * s.y * s.z;
+        if (v < vol) (vol = v), (mejor = m);
+      }
+      return mejor;
+    });
+    tecnico.pernos.push({ im, base, dueños });
+  }
+  tecnico.plan = plan;
+  tecnico.pieza = pieza;
+  armarGlobos(pieza);
+}
+// desplazamiento de una pieza en el despiece tecnico: t 0..1 subconjuntos, 1..2 pieza por pieza
+function offsetTecnico(tp, t) {
+  const a = Math.min(1, t);
+  const b = Math.max(0, t - 1);
+  const k = suaveT((b - tp.retraso) / (1 - 0.45));
+  return tp.d1.clone().multiplyScalar(a).addScaledVector(tp.d2, k);
+}
+const _m4 = new THREE.Matrix4();
+const _m4b = new THREE.Matrix4();
+function pintarPernosTecnico(t) {
+  const b = Math.max(0, t - 1);
+  const sale = suaveT(b * 3.5); // los tornillos salen primero
+  for (const { im, base, dueños } of tecnico.pernos) {
+    im.matrix.identity();
+    const lista = im.userData.lista;
+    for (let i = 0; i < lista.length; i++) {
+      const dueño = dueños[i];
+      const tp = dueño ? tecnico.plan.get(dueño.userData) : null;
+      const d = tp ? offsetTecnico(tp, t) : new THREE.Vector3();
+      const n = T(lista[i].n).normalize();
+      d.addScaledVector(n, sale * (7 + lista[i].r * 5));
+      _m4b.fromArray(base, i * 16);
+      _m4.makeTranslation(d.x, d.y, d.z).multiply(_m4b);
+      im.setMatrixAt(i, _m4);
+    }
+    im.instanceMatrix.needsUpdate = true;
+    im.updateMatrixWorld(true);
+  }
+}
+function soltarPernosTecnico() {
+  for (const { im, base } of tecnico.pernos) {
+    for (let i = 0; i < im.count; i++) im.setMatrixAt(i, _m4.fromArray(base, i * 16));
+    im.instanceMatrix.needsUpdate = true;
+  }
+  tecnico.pernos = [];
+}
+
+// lineas de centro (punto y raya) de cada subconjunto
+const matEje = new THREE.LineDashedMaterial({ color: 0x2a2f36, dashSize: 9, gapSize: 3, transparent: true, opacity: 0.75 });
+const grupoEjes = new THREE.Group();
+grupoEjes.visible = false;
+raiz.add(grupoEjes);
+function pintarEjesTecnico(t) {
+  const b = Math.max(0, t - 1);
+  grupoEjes.visible = b > 0.05 && tecnico.grupos.length > 0;
+  if (!grupoEjes.visible) return;
+  grupoEjes.clear();
+  matEje.color.set(tecnico.plano ? 0x2a2f36 : 0x5b9dff);
+  matEje.opacity = Math.min(0.8, b * 1.4);
+  for (const g of tecnico.grupos) {
+    if (g.items.length < 2) continue;
+    const pv = g.items.reduce((a, it) => (it.vol > a.vol ? it : a), g.items[0]);
+    const c = pv.c.getCenter(new THREE.Vector3()).add(g.d1.clone().multiplyScalar(Math.min(1, t)));
+    const a = c.clone();
+    const z = c.clone();
+    const ext = 14;
+    a[g.eje] = Math.min(...g.items.map((it) => it.min + (it.nMin - it.min) * suaveT(b))) - ext + g.d1[g.eje] * Math.min(1, t);
+    z[g.eje] = Math.max(...g.items.map((it) => it.max + (it.nMin - it.min) * suaveT(b))) + ext + g.d1[g.eje] * Math.min(1, t);
+    const geo = new THREE.BufferGeometry().setFromPoints([a, z]);
+    const l = new THREE.Line(geo, matEje);
+    l.computeLineDistances();
+    l.renderOrder = 4;
+    grupoEjes.add(l);
+  }
+}
+
+// globos numerados (posicion de la lista) con su linea guia, y la lista de piezas
+const capaGlobos = document.createElement("div");
+capaGlobos.className = "g3-globos";
+capaGlobos.hidden = true;
+capaGlobos.innerHTML = '<svg class="g3-globos__lineas"></svg>';
+escena3.appendChild(capaGlobos);
+const listaPiezas = document.createElement("div");
+listaPiezas.className = "g3-lista-piezas";
+listaPiezas.hidden = true;
+escena3.appendChild(listaPiezas);
+function armarGlobos(pieza) {
+  const porParte = new Map();
+  for (const g of tecnico.grupos) {
+    for (const it of g.items) {
+      const u = it.m.userData;
+      const nombre = legible(u.parte);
+      const co = u.co ?? u.it?.co ?? "";
+      const clave = `${nombre}|${co}`;
+      if (!porParte.has(clave)) porParte.set(clave, { nombre, co, n: 0, mallas: [], su: g.su });
+      const e = porParte.get(clave);
+      e.n++;
+      e.mallas.push(it.m);
+    }
+  }
+  const nPernos = instancias.filter((im) => im.userData.pieza === pieza).reduce((a, im) => a + im.count, 0);
+  tecnico.globos = [...porParte.values()].map((e, i) => ({ ...e, pos: i + 1 }));
+  capaGlobos.querySelectorAll(".g3-globo").forEach((x) => x.remove());
+  for (const g of tecnico.globos) {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "g3-globo";
+    b.textContent = g.pos;
+    b.title = `${g.pos} · ${g.nombre}${g.co ? ` · ${g.co}` : ""}${g.n > 1 ? ` · ×${g.n}` : ""}`;
+    b.dataset.globo = g.pos;
+    capaGlobos.appendChild(b);
+    g.el = b;
+  }
+  const subNombre = (su) => SUBCONJUNTOS[su]?.[0] ?? (su || "Piezas");
+  let ultimoSu = null;
+  listaPiezas.innerHTML = `<div class="g3-lista-piezas__cab"><b>Lista de piezas</b><span>${tecnico.globos.length} posiciones · ${nPernos} tornillos</span><button type="button" data-lista-plegar aria-label="Plegar la lista">–</button></div>
+    <table><thead><tr><th>Pos</th><th>Pieza</th><th>Código</th><th>Cant.</th></tr></thead><tbody>${tecnico.globos
+      .map((g) => {
+        const fila = `${g.su !== ultimoSu ? `<tr class="g3-lista-piezas__sub"><td colspan="4">${esc(subNombre(g.su))}</td></tr>` : ""}<tr data-globo="${g.pos}"><td>${g.pos}</td><td>${esc(g.nombre)}</td><td class="gm-mono">${esc(g.co || "—")}</td><td>${g.n}</td></tr>`;
+        ultimoSu = g.su;
+        return fila;
+      })
+      .join("")}</tbody></table>`;
+}
+function resaltarGlobo(pos) {
+  const g = tecnico.globos.find((x) => x.pos === Number(pos));
+  capaGlobos.querySelectorAll(".g3-globo").forEach((x) => x.classList.toggle("es-activo", x.dataset.globo === String(pos)));
+  listaPiezas.querySelectorAll("tr[data-globo]").forEach((x) => x.classList.toggle("es-activo", x.dataset.globo === String(pos)));
+  seleccion.parte = g ? g.mallas[0].userData.parte : null;
+  aspecto();
+}
+capaGlobos.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-globo]");
+  if (b) resaltarGlobo(b.dataset.globo);
+});
+listaPiezas.addEventListener("click", (e) => {
+  if (e.target.closest("[data-lista-plegar]")) {
+    listaPiezas.classList.toggle("is-plegada");
+    return;
+  }
+  const f = e.target.closest("[data-globo]");
+  if (f) resaltarGlobo(f.dataset.globo);
+});
+const _p = new THREE.Vector3();
+function pintarGlobos() {
+  const t = despiece.t;
+  const b = Math.max(0, t - 1);
+  const ver = tecnico.pieza && despiece.pieza === tecnico.pieza && b > 0.6 && tecnico.lista;
+  capaGlobos.hidden = !ver;
+  listaPiezas.hidden = !ver;
+  if (!ver) return;
+  const w = lienzo.clientWidth;
+  const h = lienzo.clientHeight;
+  // centro de la pantalla del conjunto: los globos se abren hacia fuera desde ahi
+  const centros = tecnico.globos.map((g) => {
+    const m = g.mallas[0];
+    const c = cajaMalla(m).getCenter(_p.clone()).applyMatrix4(m.matrixWorld).project(camara);
+    return { x: (c.x * 0.5 + 0.5) * w, y: (-c.y * 0.5 + 0.5) * h, z: c.z };
+  });
+  // globos en dos columnas a los lados del dibujo, ordenados de arriba abajo, como en un catalogo
+  const vis = centros.map((c, i) => ({ c, g: tecnico.globos[i] })).filter(({ c }) => c.z < 1 && c.x > -50 && c.x < w + 50);
+  const xs = vis.map(({ c }) => c.x);
+  const cx = (Math.min(...xs) + Math.max(...xs)) / 2;
+  const izqMin = listaPiezas.hidden || listaPiezas.classList.contains("is-plegada") ? 24 : listaPiezas.offsetLeft + listaPiezas.offsetWidth + 26;
+  const colIzq = Math.max(izqMin, Math.min(...xs) - 70);
+  const colDer = Math.min(w - 26, Math.max(...xs) + 70);
+  const lineas = [];
+  for (const g of tecnico.globos) g.el.style.display = "none";
+  for (const lado of [-1, 1]) {
+    const col = vis.filter(({ c }) => (lado < 0 ? c.x < cx : c.x >= cx)).sort((a, b) => a.c.y - b.c.y);
+    const paso = 25;
+    const arriba = 64;
+    const abajo = h - 92;
+    let y = arriba;
+    const ys = col.map(({ c }) => (y = Math.max(y + (y === arriba ? 0 : paso), Math.max(arriba, c.y))));
+    // si se pasa de abajo, se reparte de nuevo comprimido
+    const sobra = (ys[ys.length - 1] ?? 0) - abajo;
+    if (sobra > 0) for (let k = ys.length - 1, lim = abajo; k >= 0; k--, lim -= paso) ys[k] = Math.min(ys[k], lim);
+    const gx = lado < 0 ? colIzq : colDer;
+    col.forEach(({ c, g }, k) => {
+      const gy = ys[k];
+      g.el.style.display = "";
+      g.el.style.transform = `translate(${gx - 11}px, ${gy - 11}px)`;
+      const bx = gx - lado * 11;
+      lineas.push(`<polyline points="${c.x.toFixed(1)},${c.y.toFixed(1)} ${(bx - lado * 14).toFixed(1)},${gy.toFixed(1)} ${bx.toFixed(1)},${gy.toFixed(1)}"/><circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="1.6"/>`);
+    });
+  }
+  const svg = capaGlobos.querySelector("svg");
+  svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
+  svg.innerHTML = lineas.join("");
+}
+
+// estilo de plano: fondo blanco, piezas blancas sombreadas suave y aristas negras
+const ARISTA_PLANO = new THREE.LineBasicMaterial({ color: 0x15181c, transparent: true, opacity: 0.95, clippingPlanes: planosCorte });
+function planoActivo() {
+  return tecnico.plano && !!despiece.pieza && despiece.meta > 0;
+}
+function estiloPlano() {
+  const on = planoActivo();
+  document.body.toggleAttribute("data-plano", on);
+  if (on) {
+    scene.background = new THREE.Color(0xffffff);
+    rejilla.visible = false;
+    suelo.visible = false;
+  } else {
+    rejilla.visible = true;
+    suelo.visible = true;
+    tema3d();
+  }
+}
+function despieceTecnicoT(t) {
+  if (!tecnico.plan) return;
+  pintarPernosTecnico(t);
+  pintarEjesTecnico(t);
+}
+function terminarTecnico() {
+  soltarPernosTecnico();
+  tecnico.plan = null;
+  tecnico.pieza = null;
+  tecnico.grupos = [];
+  grupoEjes.visible = false;
+  capaGlobos.hidden = true;
+  listaPiezas.hidden = true;
+  estiloPlano();
+}
+
 function desplazamientoDespiece(u, t) {
+  const tp = tecnico.plan?.get(u);
+  if (tp) return offsetTecnico(tp, t);
   const e1 = u.e1 ?? u.it?.e1;
   const e2 = u.e2 ?? u.it?.e2;
   if (!e1 && !e2) return u.autoExp && !despiece.curado ? u.autoExp.clone().multiplyScalar(t * 0.6) : null;
@@ -1164,6 +1497,7 @@ function pintarDespiece() {
   for (const m of [...mallas, ...instancias]) {
     const u = m.userData;
     if (u.pieza !== despiece.pieza) continue;
+    if (m.isInstancedMesh && tecnico.plan) continue;
     const d = desplazamientoDespiece(u, t);
     if (d) {
       m.matrix.makeTranslation(d.x, d.y, d.z);
@@ -1171,6 +1505,7 @@ function pintarDespiece() {
     } else if (u.it?.o3 && /^(soldadura\.(manguera|cable-calefaccion))/.test(u.parte)) m.visible = t < 0.02 && u.visibleBase !== false;
   }
   actualizarTrazasDespiece(t);
+  despieceTecnicoT(t);
 }
 function despiezar(nivel) {
   const pieza = seleccion.pieza;
@@ -1182,6 +1517,8 @@ function despiezar(nivel) {
   }
   despiece.curado = despieceCurado(pieza);
   if (!despiece.curado) prepararDespieceAuto(pieza);
+  if (tecnico.pieza && tecnico.pieza !== pieza) terminarTecnico();
+  if (nivel > 0 && tecnico.pieza !== pieza) prepararTecnico(pieza);
   if (sim.activa) pararSim();
   for (const k of Object.keys(manualMeta)) manualMeta[k] = manual[k] = 0;
   if (paso !== 0) irAPaso(0, { seleccionar: false, inmediato: true });
@@ -1191,6 +1528,7 @@ function despiezar(nivel) {
   if (quieto3.matches) despiece.t = nivel;
   aislar = nivel > 0;
   aspecto();
+  estiloPlano();
   // encuadre del grupo ya desarmado
   const b = new THREE.Box3();
   for (const m of mallas) {
@@ -1200,7 +1538,7 @@ function despiezar(nivel) {
     if (d) caja.translate(d.multiply(raiz.scale));
     b.union(caja);
   }
-  if (!b.isEmpty()) encuadrar(b.expandByScalar(15));
+  if (!b.isEmpty()) encuadrar(b.expandByScalar(nivel > 1 ? 45 : 15));
   pintarPanel();
   pintarBarraDespiece();
   pedirCuadro();
@@ -1220,11 +1558,21 @@ function pintarBarraDespiece() {
   const nivel = despiece.pieza === pieza ? despiece.meta : 0;
   const curado = despieceCurado(pieza);
   barraDespiece.innerHTML = `<span class="g3-despiece__tit">${esc(D.piezas[pieza]?.nombre ?? pieza)}</span>
-    <button type="button" data-despiece="${nivel > 0 ? 0 : curado ? 1 : 2}" aria-pressed="${nivel > 0}">${nivel > 0 ? "Armar" : "Desarmar"}</button>
+    <button type="button" data-despiece="${nivel > 0 ? 0 : 2}" aria-pressed="${nivel > 0}">${nivel > 0 ? "Armar" : "Desarmar"}</button>
     ${curado ? `<button type="button" data-despiece="1" aria-pressed="${nivel === 1}">Subconjuntos</button><button type="button" data-despiece="2" aria-pressed="${nivel === 2}">Pieza por pieza</button>` : ""}
-    <input type="range" min="0" max="200" value="${Math.round(nivel * 100)}" data-rango-despiece aria-label="Cuánto se desarma">`;
+    <input type="range" min="0" max="200" value="${Math.round(nivel * 100)}" data-rango-despiece aria-label="Cuánto se desarma">
+    ${nivel > 0 ? `<span class="g3-despiece__sep"></span><button type="button" data-tec="plano" aria-pressed="${tecnico.plano}" title="Lámina de despiece: fondo blanco, trazo negro y línea de centro">Plano</button><button type="button" data-tec="lista" aria-pressed="${tecnico.lista}" title="Globos numerados y lista de piezas">Lista</button>` : ""}`;
 }
 barraDespiece.addEventListener("click", (e) => {
+  const tb = e.target.closest("[data-tec]");
+  if (tb) {
+    tecnico[tb.dataset.tec] = !tecnico[tb.dataset.tec];
+    estiloPlano();
+    aspecto();
+    pintarBarraDespiece();
+    pedirCuadro();
+    return;
+  }
   const b = e.target.closest("[data-despiece]");
   if (b) despiezar(Number(b.dataset.despiece));
 });
@@ -1247,6 +1595,8 @@ function moverDespiece(dt) {
     }
     if (despiece.t === 0) {
       despiece.pieza = null;
+      terminarTecnico();
+      aspecto();
       aplicarAnim(null, false);
     }
     return false;
@@ -2402,11 +2752,15 @@ function aspecto() {
     else if (sel && !enDespiece) mat = variante(mat, "sel");
     else if (seleccion.pieza && aislar && !sel) mat = variante(base, "fantasma");
     else if (hover && hover.pieza === pieza && !seleccion.pieza) mat = variante(mat, "hover");
+    // lamina de despiece: solo el conjunto, en blanco con trazo negro
+    const plano = planoActivo();
+    if (plano && pieza === despiece.pieza) mat = esParte ? variante(variante(base, "plano"), "parte") : variante(base, "plano");
+    else if (plano) m.visible = false;
     if (m.material !== mat) m.material = mat;
     const ar = m.userData.aristas;
     if (ar) {
       ar.visible = aristasOn && !(seleccion.pieza && aislar && !sel);
-      ar.material = (esParte || (sel && !seleccion.parte)) && !enDespiece ? ARISTA_SEL : ARISTA;
+      ar.material = plano ? ARISTA_PLANO : (esParte || (sel && !seleccion.parte)) && !enDespiece ? ARISTA_SEL : ARISTA;
     }
   }
   pedirCuadro();
@@ -3346,6 +3700,7 @@ function cuadro(t) {
     sigue = true;
   }
   if (calloutsActivas) actualizarCallouts();
+  if (tecnico.pieza) pintarGlobos();
   renderer.clear();
   renderer.render(scene, camara);
   renderer.autoClear = false;
@@ -3447,4 +3802,4 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
   });
 historialEnVivo();
 
-window.gemelo = { irAPaso, seleccionar: seleccionar_, despiezar, despiece, barraDespiece, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
+window.gemelo = { irAPaso, seleccionar: seleccionar_, despiezar, despiece, tecnico, barraDespiece, moverPieza, simularSolo, manual, enfocarDispositivo, abrirArmario, rutaDe, avanzar: (seg) => { if (!sim.activa) iniciarSim(); for (let i = 0; i < seg * 60; i++) pasoSim(1 / 60); pedirCuadro(); return { ...sim, cuerpos: cuerpos.length, sobreCinta: cuerpos.filter(({ b }) => b.position.y < 106 && b.position.y > 96).length, enX: cuerpos.map(({ b }) => [b.position.x, b.position.y, b.position.z].map(Math.round).join(",")) }; }, fisica: () => ({ mundo, cuerpos }), render: () => { try { cuadro(performance.now()); return "ok " + JSON.stringify(renderer.info.render) + " cam " + camara.position.toArray().map(Math.round) + " obj " + controles.target.toArray().map(Math.round) + " mallas " + mallas.length + " visibles " + mallas.filter((m) => m.visible).length + " raiz " + raiz.children.length + " caja " + JSON.stringify(caja3) + " mat0 " + (mallas[0] && mallas[0].material.type) + " grupos " + Object.values(grupos).filter((g) => g.visible).length; } catch (e) { return "ERR " + e.message + " " + String(e.stack).slice(0, 300); } }, centrar: centrarEn, mirar: (pos, obj) => { animCam = null; camara.position.set(...pos); controles.target.set(...obj); controles.update(); pedirCuadro(); }, encuadrar: (v) => encuadrar(cajaVisible(), vistasFijas[v]), sim, iniciarSim, pararSim, estado: () => ({ paso, seleccion, sim: { ...sim }, mallas: mallas.length, tornillos: totalTornillos, camara: camara.position.toArray().map(Math.round), objetivo: controles.target.toArray().map(Math.round), puerta: puerta.ang }) };
