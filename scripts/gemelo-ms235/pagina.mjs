@@ -168,7 +168,7 @@ const cuerpo3d = `${cabecera(PAG_LAMINA, "Ver como lámina")}
       <!-- Capa de llamadas del plano 3D (Callouts) -->
       <div class="g3-callouts" id="g3Callouts" aria-hidden="true"></div>
       <!-- Guía interactiva paso a paso de calibración y mantenimiento (SOP Wizard) -->
-      <div class="g3-sop" id="g3Sop" hidden>
+      <div class="g3-sop" id="g3Sop" hidden style="display:none">
         <div class="g3-sop__cab">
           <div class="g3-sop__info">
             <span class="g3-sop__badge"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> SOP 3D</span>

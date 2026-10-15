@@ -419,6 +419,10 @@ body[data-solo] .g3-despiece { display: none !important; }
 }
 
 /* ───────────── Guía SOP Interactiva 3D ───────────── */
+.g3-sop[hidden],
+.g3-sop:not([data-activo]) {
+  display: none !important;
+}
 .g3-sop {
   position: absolute;
   bottom: 60px;

@@ -1737,6 +1737,11 @@ const sopState = {
 };
 
 const elSop = document.getElementById("g3Sop");
+if (elSop) {
+  elSop.hidden = true;
+  elSop.style.display = "none";
+  elSop.removeAttribute("data-activo");
+}
 
 function iniciarSop(id, paso = 0) {
   const pz = id && PROCEDIMIENTOS_SOP[id] ? id : (PROCEDIMIENTOS_SOP[seleccion.pieza] ? seleccion.pieza : "corte");
@@ -1754,7 +1759,11 @@ function iniciarSop(id, paso = 0) {
       .join("");
   }
 
-  if (elSop) elSop.hidden = false;
+  if (elSop) {
+    elSop.hidden = false;
+    elSop.style.display = "flex";
+    elSop.setAttribute("data-activo", "");
+  }
   actualizarSopUI();
   ejecutarPasoSop();
   actualizarMandos();
@@ -1763,7 +1772,11 @@ function iniciarSop(id, paso = 0) {
 
 function cerrarSop() {
   sopState.activo = false;
-  if (elSop) elSop.hidden = true;
+  if (elSop) {
+    elSop.hidden = true;
+    elSop.style.display = "none";
+    elSop.removeAttribute("data-activo");
+  }
   despiezar(0);
   for (const k of Object.keys(manualMeta)) manualMeta[k] = manual[k] = 0;
   actualizarMandos();
@@ -1851,14 +1864,20 @@ function actualizarSopUI() {
 }
 
 elSop?.addEventListener("click", (e) => {
+  const bCerrar = e.target.closest("[data-sop-act=cerrar]");
+  if (bCerrar) {
+    e.preventDefault();
+    e.stopPropagation();
+    return cerrarSop();
+  }
+
   const bIr = e.target.closest("[data-sop-ir-paso]");
   if (bIr) return irAPasoSop(Number(bIr.dataset.sopIrPaso));
 
   const bAct = e.target.closest("[data-sop-act]");
   if (!bAct) return;
   const act = bAct.dataset.sopAct;
-  if (act === "cerrar") cerrarSop();
-  else if (act === "ant") irAPasoSop(sopState.paso - 1);
+  if (act === "ant") irAPasoSop(sopState.paso - 1);
   else if (act === "sig") {
     const proc = PROCEDIMIENTOS_SOP[sopState.id];
     if (sopState.paso >= (proc?.pasos.length || 1) - 1) cerrarSop();
@@ -3046,6 +3065,12 @@ const acciones = {
   },
 };
 document.addEventListener("click", (e) => {
+  const bSopCerrar = e.target.closest("[data-sop-act=cerrar]");
+  if (bSopCerrar) {
+    e.preventDefault();
+    e.stopPropagation();
+    return cerrarSop();
+  }
   const bSop = e.target.closest("[data-iniciar-sop]");
   if (bSop) return iniciarSop(bSop.dataset.iniciarSop);
   const b = e.target.closest("[data-accion]");
