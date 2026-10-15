@@ -181,7 +181,7 @@
       if (!r.cod) return;
       const fam = familiaDe(r.d) || nombrePieza(r.d) || `Pieza ${r.cod}`;
       const f = fila(fam);
-      f.plan.push({ cod: r.cod, d: r.d, q: r.q, freq: freqDias((r.xls || {}).f), fq: (r.xls || {}).f || "", ej: (r.xls || {}).ej || "", px: (r.xls || {}).px || "" });
+      f.plan.push({ cod: r.cod, d: r.d, q: r.q, e: r.e, freq: freqDias((r.xls || {}).f), fq: (r.xls || {}).f || "", ej: (r.xls || {}).ej || "", px: (r.xls || {}).px || "" });
     });
 
     const res = [];
@@ -224,7 +224,8 @@
         const prox = q.ej && q.freq ? suma(q.ej, q.freq) : "";
         const falta = prox ? dif(hoy, prox) : null;
         const est = !q.ej ? "sin-dato" : !prox ? "sin-frecuencia" : falta < 0 ? "vencida" : falta <= Math.max(14, Math.round(q.freq * 0.2)) ? "pronto" : "al-dia";
-        return { ...q, prox, falta, estado: est };
+        const C = window.COMPRAS;
+        return { ...q, prox, falta, estado: est, hay: C ? C.existencia(q.cod, q.e) : Number(q.e) || 0, compra: C ? C.estadoDe(q.cod) : null, pedir: C && prox ? C.pedirAntes(prox, q.cod) : null };
       });
       const cand = partes.filter((q) => q.prox).map((q) => ({ prox: q.prox, d: q.d, cod: q.cod }));
       // Lo medido solo manda cuando la pieza se cambia mucho antes que el plan, o cuando no hay plan
@@ -232,6 +233,7 @@
       cand.sort((x, y) => x.prox.localeCompare(y.prox));
       const proximo = cand.length ? cand[0].prox : "";
       const mas = cand.length ? cand[0] : null;
+      const masP = mas && mas.cod ? partes.find((q) => q.cod === mas.cod && q.prox === mas.prox) || null : null;
       const vencidas = partes.filter((q) => q.estado === "vencida").length;
       const medidaPrimero = !!(mas && mas.d === "lo medido");
       let estado = "sin-dato";
@@ -241,7 +243,7 @@
       } else if (ultimo) estado = "sin-frecuencia";
       res.push({
         familia: f.familia, eventos: unicos.slice().reverse(), todos: f.eventos.length,
-        plan: partes, vencidas, mas: medidaPrimero ? null : mas, baseExcel, ultimo, vida, base, proximo, estado, freqPlan, fq,
+        plan: partes, masP, vencidas, mas: medidaPrimero ? null : mas, baseExcel, ultimo, vida, base, proximo, estado, freqPlan, fq,
         dias: ultimo ? dif(ultimo, hoy) : null, falta: proximo ? dif(hoy, proximo) : null,
         deExcel: !!(baseExcel && ultimo === baseExcel && baseExcel > ultimoReal), vidaMedida: !!(medida && (!freqPlan || antes)), nCambios: unicos.length,
       });
@@ -256,6 +258,23 @@
     "sin-frecuencia": ["Sin frecuencia", ""], "sin-dato": ["Sin cambios", ""],
   };
   const FUENTE = { reporte: "Reporte de turno", anotado: "Anotado en la ficha" };
+
+  // Estado de compra de una pieza (módulo compras.js): chip corto con el texto completo al pasar el cursor
+  function compraChip(c) {
+    if (!c) return "";
+    const tono = c.tono || "n";
+    return `<span class="cp-chip cp-chip--${tono}" title="${esc(c.texto)}">${esc(c.corto)}</span>`;
+  }
+  // Bajo el próximo cambio: si ya está pedida o cuándo hay que pedir
+  function lineaPedir(p) {
+    const q = p.masP, hoy = N ? N.hoy() : new Date().toISOString().slice(0, 10);
+    if (!q || !q.pedir) return "";
+    if (q.compra && q.compra.abierta) return `<small class="cp-pedir is-ok" title="${esc(q.compra.texto)}">ya pedida · ${esc(q.compra.corto)}</small>`;
+    if (q.hay >= (q.q || 1)) return `<small class="cp-pedir is-ok" title="Hay ${q.hay} en almacén y el plan pide ${q.q || 1}">hay en almacén (${q.hay})</small>`;
+    if (q.pedir.fecha <= hoy) return `<small class="cp-pedir is-bad" title="Tarda unos ${q.pedir.plazo} días en llegar (plazo prometido por los proveedores).${q.compra && q.compra.k === "llego" ? " Una compra anterior de este código ya llegó." : ""}">hay que pedirla ya</small>`;
+    if (dif(hoy, q.pedir.fecha) <= 45) return `<small class="cp-pedir" title="Tarda unos ${q.pedir.plazo} días en llegar">pedir antes del ${esc(fechaTxt(q.pedir.fecha))}</small>`;
+    return "";
+  }
 
   function htmlFicha(m, eqCod) {
     const hoy = N ? N.hoy() : new Date().toISOString().slice(0, 10);
@@ -272,12 +291,12 @@
       const codigos = p.plan.length ? `<small>${p.plan.length} ${p.plan.length === 1 ? "código" : "códigos"} del plan</small>` : "";
       const hist = p.eventos.length ? `<ul class="cp-hist">${p.eventos.map((e) => `<li><b>${esc(fechaTxt(e.fecha))}</b><span>${esc(corto(e.detalle))}${e.otros ? ` <small>(+${e.otros} reporte${e.otros > 1 ? "s" : ""} del mismo arreglo)</small>` : ""}</span><small>${esc(FUENTE[e.fuente] || "")}${e.quien ? " · " + esc(e.quien) : ""}</small></li>`).join("")}</ul>` : `<p class="cp-vacio">Todavía no hay un cambio real de esta pieza en los reportes${p.baseExcel ? `. El Excel dice que se hizo el ${esc(fechaTxt(p.baseExcel))}` : ""}.</p>`;
       const [, tonoP] = ESTADOS[p.estado];
-      const partesHtml = p.plan.length ? `<table class="cp-partes"><thead><tr><th>Código</th><th>Pieza del plan</th><th>Último (Excel)</th><th>Frecuencia</th><th>Próximo</th><th></th></tr></thead><tbody>${p.plan.slice().sort((x, y) => (x.prox || "9").localeCompare(y.prox || "9")).map((q) => {
+      const partesHtml = p.plan.length ? `<table class="cp-partes"><thead><tr><th>Código</th><th>Pieza del plan</th><th>Último (Excel)</th><th>Frecuencia</th><th>Próximo</th><th>Pedir antes</th><th>Compra</th><th></th></tr></thead><tbody>${p.plan.slice().sort((x, y) => (x.prox || "9").localeCompare(y.prox || "9")).map((q) => {
         const [t2, tono2] = ESTADOS[q.estado];
-        return `<tr><td>${esc(q.cod)}</td><td>${esc(corto(q.d || "—"))}${q.q > 1 ? ` <small>× ${q.q}</small>` : ""}</td><td>${q.ej ? esc(fechaTxt(q.ej)) : "—"}</td><td>${esc(q.fq || "—")}</td><td>${q.prox ? esc(fechaTxt(q.prox)) : "—"}</td><td><span class="cp-chip cp-chip--${tono2 || "n"}">${esc(t2)}</span></td></tr>`;
+        return `<tr><td>${esc(q.cod)}</td><td>${esc(corto(q.d || "—"))}${q.q > 1 ? ` <small>× ${q.q}</small>` : ""}</td><td>${q.ej ? esc(fechaTxt(q.ej)) : "—"}</td><td>${esc(q.fq || "—")}</td><td>${q.prox ? esc(fechaTxt(q.prox)) : "—"}</td><td>${q.pedir ? esc(fechaTxt(q.pedir.fecha)) : "—"}</td><td>${compraChip(q.compra)}</td><td><span class="cp-chip cp-chip--${tono2 || "n"}">${esc(t2)}</span></td></tr>`;
       }).join("")}</tbody></table>` : "";
       const proxTxt = p.proximo
-        ? `<b>${esc(fechaTxt(p.proximo))}</b><small>${p.falta < 0 ? `venció hace ${esc(fmtDias(-p.falta))}` : `en ${esc(fmtDias(p.falta))}`}</small>${p.mas && p.plan.length > 1 && p.mas.d ? `<small>${esc(corto(p.mas.d).slice(0, 34))}</small>` : ""}`
+        ? `<b>${esc(fechaTxt(p.proximo))}</b><small>${p.falta < 0 ? `venció hace ${esc(fmtDias(-p.falta))}` : `en ${esc(fmtDias(p.falta))}`}</small>${lineaPedir(p)}${p.mas && p.plan.length > 1 && p.mas.d ? `<small>${esc(corto(p.mas.d).slice(0, 34))}</small>` : ""}`
         : `<span class="cp-mute">—</span>`;
       return `<tr class="cp-fila cp-fila--${tono || "n"}">
         <td class="cp-pieza"><details><summary><b>${esc(p.familia)}</b>${codigos}</summary>

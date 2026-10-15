@@ -212,6 +212,8 @@
       p.antiguo = p.estado !== "cerrado" && p.edad > DIAS_ANTIGUO && !s;
       p.origenTxt = ORIGEN[p.origen].t;
       if (!p.fichaId) p.fichaId = p.eq && !sinFicha.test(p.eq) ? fichaDe(p.eqTxt || p.eq, p.sede) : "";
+      // Estado de compra de sus repuestos (assets/js/compras.js), si se sabe el código
+      p.compras = window.COMPRAS && p.repuesto ? window.COMPRAS.deCodigos(p.repuesto) : [];
     });
     cache = todos;
     return todos;
@@ -305,6 +307,14 @@
     }).sort((a, b) => ({ alta: 0, media: 1, baja: 2 }[a.prioridad] - { alta: 0, media: 1, baja: 2 }[b.prioridad]) || String(b.fecha).localeCompare(String(a.fecha)));
   }
 
+  // Lo más importante de la compra de sus repuestos, en una línea
+  function compraChip(p) {
+    if (!p.compras || !p.compras.length || p.estado === "cerrado") return "";
+    const c = p.compras.find((x) => x.estado.abierta) || p.compras[0];
+    const e = c.estado;
+    return `<span class="pd-compra pd-compra--${e.tono || "n"}" title="${esc(e.texto)}">${ic("caja", "ic--sm")}${esc(e.corto)}${p.compras.length > 1 ? ` · ${p.compras.length} códigos` : ""}</span>`;
+  }
+
   function tarjeta(p) {
     const o = ORIGEN[p.origen];
     const pr = PRIORIDAD[p.prioridad] || PRIORIDAD.media;
@@ -317,6 +327,7 @@
       <p class="ux-tcard__t">${esc(p.titulo)}</p>
       ${p.detalle && p.detalle !== p.titulo ? `<p class="ux-tcard__d">${esc(p.detalle)}</p>` : ""}
       ${p.posibleCierre && p.estado === "cerrado" ? `<span class="pd-quiza pd-quiza--ok">${ic("check", "ic--sm")}Resuelto: ${esc(N.fmt.corta(p.posibleCierre.fecha))}</span>` : p.posibleCierre ? `<span class="pd-quiza">${ic("check", "ic--sm")}¿Ya se resolvió? ${esc(N.fmt.corta(p.posibleCierre.fecha))}</span>` : ""}
+      ${compraChip(p)}
       <span class="ux-tcard__foot">
         <span>${ic("fabrica")}${esc(p.eq || "General")}${p.sede ? ` · ${esc(p.sede.replace("Sede ", "S"))}` : ""}</span>
         <span>${p.responsable ? `<span class="ux-av ux-av--${N.tono(p.responsable)}" title="${esc(p.responsable)}" style="width:22px;height:22px;font-size:9.5px;border:0">${esc(N.iniciales(p.responsable).toUpperCase())}</span>` : ""}<i class="pd-dot pd-dot--${p.prioridad}" title="Prioridad ${esc(pr.t)}"></i></span>
@@ -413,7 +424,7 @@
           </label>
         </div>
         ${p.detalle ? `<div class="ux-field"><span>Lo que se reportó</span><div class="pd-texto">${esc(p.detalle)}</div></div>` : ""}
-        ${p.repuesto ? `<div class="ux-field"><span>Repuestos</span><div class="ux-small">${esc(p.repuesto)}</div></div>` : ""}
+        ${p.compras && p.compras.length ? `<div class="ux-field"><span>Repuestos y su compra</span><ul class="pd-compras">${p.compras.map((c) => `<li><b>${esc(c.cod)}</b><span class="pd-compra pd-compra--${c.estado.tono || "n"}">${esc(c.estado.t)}</span><span class="ux-small">${esc(c.estado.texto)}</span></li>`).join("")}</ul></div>${p.estado === "espera" && p.compras.every((c) => c.estado.k === "llego") ? `<div class="ux-note ux-note--ok">${ic("check")}<span><b>¿Ya llegó el repuesto?</b> Las compras de estos códigos figuran como recibidas. Si ya lo tienen, pasa el pendiente a «Por atender» o «En curso».</span></div>` : ""}` : p.repuesto ? `<div class="ux-field"><span>Repuestos</span><div class="ux-small">${esc(p.repuesto)}</div></div>` : ""}
         <div class="ux-field"><span>Agregar una nota al seguimiento</span>
           <textarea class="ux-textarea" data-pd-nota rows="3" placeholder="Qué se hizo, qué falta, a quién se le pidió…"></textarea>
         </div>
