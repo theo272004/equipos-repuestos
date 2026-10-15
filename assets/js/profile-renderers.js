@@ -1465,7 +1465,7 @@ function dt(machine, campo) {
         const clave = planPlain(titulo || "").replace(/s$/, "");
         const i = inspDeEquipo(eqCod).find((x) => {
           const txt = planPlain([x.revisado, x.hallazgos, ...(x.piezas || []).map((p) => p.cod + " " + p.d)].join(" "));
-          return txt.includes(it.cod) || (clave && txt.includes(clave));
+          return (it.cod && txt.includes(it.cod)) || (clave && txt.includes(clave));
         });
         return i ? i.fecha : "";
       }

@@ -82,4 +82,54 @@ window.COMPONENTES_SEGUIDOS = [
       }
     ]
   }
+  ,
+  // Pendientes del 15 de octubre de 2026: bandas por cambiar. Los códigos del maestro
+  // que aparecen en las notas son solo una pista; falta confirmar la referencia exacta.
+  {
+    eq: "17332003", nombre: "Blister 3", titulo: "Bandas",
+    items: [
+      {
+        id: "b3-banda-troquel",
+        ubicacion: "Banda transportadora del troquel",
+        cod: "", d: "Banda transportadora sin fin (troquel)",
+        cambios: [],
+        pendiente: { desde: "2026-10-15", nota: "Cambiar la banda transportadora del troquel. Ya se le cambió la lona el 4 de octubre (reporte de turno)." },
+        nota: "Falta el código. En el maestro hay 724001300 (banda MAT-02H 3.600×200 sin fin B1240) y la lona 724001280; confirmar cuál es."
+      },
+      {
+        id: "b3-banda-transferencia",
+        ubicacion: "Banda de transferencia",
+        cod: "", d: "Banda de transferencia",
+        cambios: [],
+        pendiente: { desde: "2026-10-15", nota: "Cambiar la banda de transferencia." },
+        nota: "Falta el código y la referencia."
+      }
+    ]
+  },
+  {
+    eq: "17332005", nombre: "Blister 5", titulo: "Bandas",
+    items: [
+      {
+        id: "b5-banda-troquel",
+        ubicacion: "Banda del troquel",
+        cod: "", d: "Banda del troquel",
+        cambios: [],
+        pendiente: { desde: "2026-10-15", nota: "Cambiar la banda del troquel." },
+        nota: "Falta el código y la referencia."
+      }
+    ]
+  },
+  {
+    eq: "17332002", nombre: "Blister 2", titulo: "Bandas",
+    items: [
+      {
+        id: "b2-banda-transportadora",
+        ubicacion: "Banda transportadora",
+        cod: "", d: "Banda transportadora",
+        cambios: [],
+        pendiente: { desde: "2026-10-15", nota: "Cambiar la banda transportadora." },
+        nota: "Falta el código. En el maestro hay 724001299 (banda MAT-02H 1.400×160 sin fin UPS300) y 741201010 (banda del troquel B2); confirmar cuál aplica."
+      }
+    ]
+  }
 ];
