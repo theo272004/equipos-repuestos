@@ -552,6 +552,11 @@ const acciones = {
   },
 };
 document.addEventListener("click", (e) => {
+  const bSop = e.target.closest("[data-iniciar-sop]");
+  if (bSop) {
+    location.href = `${PAG_3D}?pieza=${encodeURIComponent(bSop.dataset.iniciarSop)}&sop=1`;
+    return;
+  }
   const b = e.target.closest("[data-accion]");
   if (b && acciones[b.dataset.accion]) {
     acciones[b.dataset.accion]();

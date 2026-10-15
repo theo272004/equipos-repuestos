@@ -3160,6 +3160,13 @@ fetch(`${D.dirVistas}escena.json?v=${D.version}`)
       seleccionar_(Q.get("pieza"), { pestana: Q.get("pestana") ?? undefined });
       if (Q.get("acercar") === "1") centrarEn(Q.get("pieza"));
     }
+    if (Q.has("despiece") && Q.get("pieza")) {
+      despiezar(Number(Q.get("despiece")) || 1);
+    }
+    if (Q.has("sop")) {
+      const sopId = Q.get("sop") === "1" ? (Q.get("pieza") || "corte") : Q.get("sop");
+      iniciarSop(sopId, Number(Q.get("pasoSop")) || 0);
+    }
     if (Q.has("angulo")) {
       iniciarSim();
       sim.pausa = true;
