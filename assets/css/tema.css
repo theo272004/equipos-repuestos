@@ -1776,3 +1776,8 @@ body.app .cp-pie { margin: 10px 0 0; color: var(--mute); font-size: 12px; }
   body.app .cp-tabla td:first-child { grid-column: 1 / -1; }
   body.app .cp-tabla td[data-l]::before { content: attr(data-l); display: block; color: var(--mute-2); font-size: 11px; }
 }
+body.app .cp-partes { width: 100%; margin: 10px 0 2px; border-collapse: collapse; font-size: 12px; }
+body.app .cp-partes th { padding: 4px 8px; color: var(--mute-2); font-size: 11px; font-weight: 600; text-align: left; border-bottom: 1px solid var(--line); }
+body.app .cp-partes td { padding: 5px 8px; border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
+body.app .cp-partes td:first-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
+body.app .cp-partes .cp-chip { min-height: 20px; padding: 0 8px; font-size: 11px; }

@@ -198,32 +198,51 @@
       const freqPlan = f.plan.map((p) => p.freq).filter(Boolean).sort((a, b) => a - b)[0] || 0;
       const fq = (f.plan.find((p) => p.freq && p.freq === freqPlan) || {}).fq || "";
 
-      let ultimo = "", vida = 0, base = "";
+      // Lo medido: promedio entre los cambios reales (el Excel no cuenta, es una fecha de plan)
+      let medida = 0;
       if (unicos.length >= 2) {
         const gaps = []; for (let i = 1; i < unicos.length; i++) gaps.push(dif(unicos[i - 1].fecha, unicos[i].fecha));
-        vida = Math.round(gaps.reduce((a, b) => a + b, 0) / gaps.length);
-        ultimo = unicos[unicos.length - 1].fecha;
-        base = unicos.length === 2 ? `lo que duró la anterior (${fmtDias(vida)})` : `el promedio de ${unicos.length - 1} cambios anteriores (${fmtDias(vida)})`;
-      } else if (unicos.length === 1) {
-        ultimo = unicos[0].fecha;
-        if (freqPlan) { vida = freqPlan; base = `la frecuencia del plan (${fq})`; }
-      } else if (baseExcel) {
-        ultimo = baseExcel;
-        if (freqPlan) { vida = freqPlan; base = `la última ejecución del Excel + su frecuencia (${fq})`; }
+        medida = Math.round(gaps.reduce((a, b) => a + b, 0) / gaps.length);
       }
-      // Si el Excel tiene una fecha más reciente que el último cambio real, manda el Excel
-      if (baseExcel && ultimo && baseExcel > ultimo) { ultimo = baseExcel; }
-      const proximo = ultimo && vida ? suma(ultimo, vida) : "";
+      // Manda el plan; solo si la pieza se está cambiando mucho antes (menos del 60 %) manda lo medido
+      const antes = medida && freqPlan && medida < freqPlan * 0.6;
+      let vida = 0, base = "";
+      if (medida && (!freqPlan || antes)) {
+        vida = medida;
+        base = unicos.length === 2 ? `lo que duró la anterior (${fmtDias(medida)})` : `el promedio de ${unicos.length - 1} cambios anteriores (${fmtDias(medida)})`;
+        if (antes) base += `, mucho menos de lo que dice el plan (${fq})`;
+      } else if (freqPlan) {
+        vida = freqPlan;
+        base = `la frecuencia del plan (${fq}) desde ${unicos.length ? "el último cambio" : "la última ejecución del Excel"}`;
+      }
+      // Último cambio: el más reciente entre los reportes y la fecha del Excel
+      const ultimoReal = unicos.length ? unicos[unicos.length - 1].fecha : "";
+      const ultimo = [ultimoReal, baseExcel].filter(Boolean).sort().pop() || "";
+      // Cada código del plan con su propia fecha del Excel: el grupo se juzga por el más urgente
+      const partes = f.plan.map((q) => {
+        const prox = q.ej && q.freq ? suma(q.ej, q.freq) : "";
+        const falta = prox ? dif(hoy, prox) : null;
+        const est = !q.ej ? "sin-dato" : !prox ? "sin-frecuencia" : falta < 0 ? "vencida" : falta <= Math.max(14, Math.round(q.freq * 0.2)) ? "pronto" : "al-dia";
+        return { ...q, prox, falta, estado: est };
+      });
+      const cand = partes.filter((q) => q.prox).map((q) => ({ prox: q.prox, d: q.d, cod: q.cod }));
+      // Lo medido solo manda cuando la pieza se cambia mucho antes que el plan, o cuando no hay plan
+      if (ultimo && vida && (antes || !partes.some((q) => q.prox))) cand.push({ prox: suma(ultimo, vida), d: antes ? "lo medido" : "", cod: "" });
+      cand.sort((x, y) => x.prox.localeCompare(y.prox));
+      const proximo = cand.length ? cand[0].prox : "";
+      const mas = cand.length ? cand[0] : null;
+      const vencidas = partes.filter((q) => q.estado === "vencida").length;
+      const medidaPrimero = !!(mas && mas.d === "lo medido");
       let estado = "sin-dato";
-      if (ultimo && proximo) {
+      if (proximo) {
         const falta = dif(hoy, proximo);
-        estado = falta < 0 ? "vencida" : falta <= Math.max(14, Math.round(vida * 0.2)) ? "pronto" : "al-dia";
+        estado = falta < 0 ? "vencida" : falta <= Math.max(14, Math.round((vida || 365) * 0.2)) ? "pronto" : "al-dia";
       } else if (ultimo) estado = "sin-frecuencia";
       res.push({
         familia: f.familia, eventos: unicos.slice().reverse(), todos: f.eventos.length,
-        plan: f.plan, baseExcel, ultimo, vida, base, proximo, estado, freqPlan, fq,
+        plan: partes, vencidas, mas: medidaPrimero ? null : mas, baseExcel, ultimo, vida, base, proximo, estado, freqPlan, fq,
         dias: ultimo ? dif(ultimo, hoy) : null, falta: proximo ? dif(hoy, proximo) : null,
-        medida: unicos.length >= 2, nCambios: unicos.length,
+        deExcel: !!(baseExcel && ultimo === baseExcel && baseExcel > ultimoReal), vidaMedida: !!(medida && (!freqPlan || antes)), nCambios: unicos.length,
       });
     });
     const peso = { vencida: 0, pronto: 1, "sin-frecuencia": 2, "al-dia": 3, "sin-dato": 4 };
@@ -251,17 +270,22 @@
       const [txt, tono] = ESTADOS[p.estado];
       const codigos = p.plan.length ? `<small>${p.plan.length} ${p.plan.length === 1 ? "código" : "códigos"} del plan</small>` : "";
       const hist = p.eventos.length ? `<ul class="cp-hist">${p.eventos.map((e) => `<li><b>${esc(fechaTxt(e.fecha))}</b><span>${esc(corto(e.detalle))}${e.otros ? ` <small>(+${e.otros} reporte${e.otros > 1 ? "s" : ""} del mismo arreglo)</small>` : ""}</span><small>${esc(FUENTE[e.fuente] || "")}${e.quien ? " · " + esc(e.quien) : ""}</small></li>`).join("")}</ul>` : `<p class="cp-vacio">Todavía no hay un cambio real de esta pieza en los reportes${p.baseExcel ? `. El Excel dice que se hizo el ${esc(fechaTxt(p.baseExcel))}` : ""}.</p>`;
+      const [, tonoP] = ESTADOS[p.estado];
+      const partesHtml = p.plan.length ? `<table class="cp-partes"><thead><tr><th>Código</th><th>Pieza del plan</th><th>Último (Excel)</th><th>Frecuencia</th><th>Próximo</th><th></th></tr></thead><tbody>${p.plan.slice().sort((x, y) => (x.prox || "9").localeCompare(y.prox || "9")).map((q) => {
+        const [t2, tono2] = ESTADOS[q.estado];
+        return `<tr><td>${esc(q.cod)}</td><td>${esc(corto(q.d || "—"))}${q.q > 1 ? ` <small>× ${q.q}</small>` : ""}</td><td>${q.ej ? esc(fechaTxt(q.ej)) : "—"}</td><td>${esc(q.fq || "—")}</td><td>${q.prox ? esc(fechaTxt(q.prox)) : "—"}</td><td><span class="cp-chip cp-chip--${tono2 || "n"}">${esc(t2)}</span></td></tr>`;
+      }).join("")}</tbody></table>` : "";
       const proxTxt = p.proximo
-        ? `<b>${esc(fechaTxt(p.proximo))}</b><small>${p.falta < 0 ? `venció hace ${esc(fmtDias(-p.falta))}` : `en ${esc(fmtDias(p.falta))}`}</small>`
+        ? `<b>${esc(fechaTxt(p.proximo))}</b><small>${p.falta < 0 ? `venció hace ${esc(fmtDias(-p.falta))}` : `en ${esc(fmtDias(p.falta))}`}</small>${p.mas && p.plan.length > 1 && p.mas.d ? `<small>${esc(corto(p.mas.d).slice(0, 34))}</small>` : ""}`
         : `<span class="cp-mute">—</span>`;
       return `<tr class="cp-fila cp-fila--${tono || "n"}">
         <td class="cp-pieza"><details><summary><b>${esc(p.familia)}</b>${codigos}</summary>
-          <div class="cp-det">${hist}${p.base ? `<p class="cp-base">Próximo cambio estimado con ${esc(p.base)}.</p>` : ""}</div></details></td>
-        <td class="cp-f" data-l="Último cambio">${p.ultimo ? `<b>${esc(fechaTxt(p.ultimo))}</b><small>${esc(haceTxt(p.ultimo, hoy))}${p.nCambios === 0 ? " · según el Excel" : ""}</small>` : '<span class="cp-mute">sin registro</span>'}</td>
+          <div class="cp-det">${hist}${partesHtml}${p.base ? `<p class="cp-base">Lo medido: ${esc(p.base)}.</p>` : ""}</div></details></td>
+        <td class="cp-f" data-l="Último cambio">${p.ultimo ? `<b>${esc(fechaTxt(p.ultimo))}</b><small>${esc(haceTxt(p.ultimo, hoy))}${p.deExcel ? " · según el Excel" : ""}</small>` : '<span class="cp-mute">sin registro</span>'}</td>
         <td class="cp-n" data-l="Cambios">${p.nCambios || "—"}</td>
-        <td class="cp-f" data-l="Dura">${p.vida ? `<b>${esc(fmtDias(p.vida))}</b><small>${p.medida ? "medido" : "plan"}</small>` : '<span class="cp-mute">—</span>'}</td>
+        <td class="cp-f" data-l="Dura">${p.vida ? `<b>${esc(fmtDias(p.vida))}</b><small>${p.vidaMedida ? "medido" : "plan"}${p.vidaMedida && p.freqPlan ? ` · plan ${esc(p.fq)}` : ""}</small>` : '<span class="cp-mute">—</span>'}</td>
         <td class="cp-f" data-l="Próximo cambio">${proxTxt}</td>
-        <td class="cp-e" data-l="Estado"><span class="cp-chip cp-chip--${tono || "n"}"${p.estado === "sin-frecuencia" ? ' title="Con un segundo cambio se calcula cuánto dura y cuándo toca el siguiente"' : ""}>${esc(txt)}</span></td>
+        <td class="cp-e" data-l="Estado"><span class="cp-chip cp-chip--${tono || "n"}"${p.estado === "sin-frecuencia" ? ' title="Con un segundo cambio se calcula cuánto dura y cuándo toca el siguiente"' : ""}>${esc(txt)}${p.vencidas && p.plan.length > 1 ? ` (${p.vencidas} de ${p.plan.length})` : ""}</span></td>
       </tr>`;
     }).join("");
 
