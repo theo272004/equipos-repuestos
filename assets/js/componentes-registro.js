@@ -70,15 +70,15 @@ window.COMPONENTES_SEGUIDOS = [
     items: [
       {
         id: "b3-correa-corta-atras",
-        ubicacion: "Parte de atrás (correa corta)",
+        ubicacion: "Sistema motriz · accionamiento principal (correa corta de atrás)",
         cod: "741203124",
         d: "Correa dentada T20/1460",
         cambios: [{
           fecha: "2026-09-25",
-          nota: "Cambio de la correa corta de la parte de atrás",
+          nota: "Cambiada en el mantenimiento grande del 25 de septiembre, el mismo en que se cambiaron los rodamientos (6007 ZZ y de rodillo cilíndrico)",
           fuente: "Excel de mantenimiento (8 oct), sistema motriz"
         }],
-        nota: "Falta confirmar en qué punto va: este código sirve en 4 puntos de la Blíster 3 (accionamiento principal, estación de sellado, perforación y troqueladora, PN Uhlmann 901172). La fecha es la del Excel (25 sep 2026)."
+        nota: "Ubicación por deducción, sin confirmar a la vista: el Excel de mantenimiento archiva este código en «Sistema motriz» (accionamiento principal; catálogo B1240, pág. 33, PN Uhlmann 901172) y la T20/1460 es la correa corta (la larga, de moldeo, es la T20/1880). El mismo código también sirve en sellado, perforación y troqueladora; si resultara ser una de ésas, se mueve esta posición. El manual (9.5.2, pág. 9-33) dice que esta correa la cambia el Servicio Técnico de Uhlmann."
       }
     ]
   }
