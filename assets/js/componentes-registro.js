@@ -61,5 +61,25 @@ window.COMPONENTES_SEGUIDOS = [
         pendiente: { desde: "2026-09-03", nota: "Quedó marcada en rojo en el mantenimiento del 3 de septiembre para cambiarla en la próxima intervención." }
       }
     ]
+  },
+  {
+    eq: "17332003",
+    titulo: "Correas",
+    // Cambio de septiembre de 2026 en la Blíster 3. La fecha sale del Excel de
+    // mantenimiento del 8 de octubre (sistema motriz, ejecutado el 25-sep-2026).
+    items: [
+      {
+        id: "b3-correa-corta-atras",
+        ubicacion: "Parte de atrás (correa corta)",
+        cod: "741203124",
+        d: "Correa dentada T20/1460",
+        cambios: [{
+          fecha: "2026-09-25",
+          nota: "Cambio de la correa corta de la parte de atrás",
+          fuente: "Excel de mantenimiento (8 oct), sistema motriz"
+        }],
+        nota: "Falta confirmar en qué punto va: este código sirve en 4 puntos de la Blíster 3 (accionamiento principal, estación de sellado, perforación y troqueladora, PN Uhlmann 901172). La fecha es la del Excel (25 sep 2026)."
+      }
+    ]
   }
 ];

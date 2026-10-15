@@ -166,7 +166,8 @@
     });
 
     // 2. Cambios anotados en la ficha (colección "cambios")
-    const registrados = typeof cambios !== "undefined" ? cambios : [];
+    // Los anotados en la ficha y los del registro del repositorio (componentes-registro.js)
+    const registrados = typeof cambiosEventos === "function" ? cambiosEventos() : (typeof cambios !== "undefined" ? cambios : []);
     const plan = eqCod ? planDe(eqCod) : null;
     registrados.filter((c) => c && c.eq === eqCod && c.cod && !c.marca).forEach((c) => {
       const row = plan && plan.r.find((r) => r.cod === c.cod);
