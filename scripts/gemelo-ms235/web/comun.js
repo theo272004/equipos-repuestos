@@ -58,7 +58,57 @@ function nivelCalor(pieza) {
   return Math.max(1, Math.min(4, Math.ceil((n / max) * 4)));
 }
 // ───────────── Dock de Conjuntos ─────────────
+// Tarjeta "Donde falla" dentro del simulador: lo esencial del resumen, a un clic de cada conjunto
+function pintarResumenEscena() {
+  const caja = $(".g3-resumen");
+  if (!caja) return;
+  const ranking = Object.entries(fallasPorPieza).filter(([p]) => D.piezas[p] && p !== "film").sort((a, b) => b[1] - a[1]);
+  const total = ranking.reduce((a, [, n]) => a + n, 0);
+  if (!total) {
+    caja.hidden = true;
+    return;
+  }
+  const max = ranking[0][1];
+  const corto = (nom) => nom.split(/[:(]/)[0].trim();
+  caja.hidden = false;
+  caja.innerHTML = `<button type="button" class="g3-resumen__cab" data-resumen-plegar aria-expanded="${!caja.classList.contains("is-plegado")}">
+      <span class="g3-resumen__tit">Dónde falla</span><span class="g3-resumen__n">${total}</span>
+    </button>
+    <ol class="g3-resumen__lista">${ranking
+      .slice(0, 5)
+      .map(([p, n]) => `<li><button type="button" class="g3-resumen__fila" data-resumen-pieza="${p}" title="${esc(D.piezas[p].nombre)}"><span class="g3-resumen__nom">${esc(corto(D.piezas[p].nombre))}</span><span class="g3-resumen__barra"><i style="width:${((n / max) * 100).toFixed(0)}%"></i></span><span class="g3-resumen__v">${n}</span></button></li>`)
+      .join("")}</ol>
+    <div class="g3-resumen__pie"><span>chat ${fecha(D.mtto.desde)}–${fecha(D.mtto.hasta)}</span><button type="button" data-accion="panel">Ficha completa</button></div>`;
+}
+{
+  const caja = $(".g3-resumen");
+  if (caja) {
+    try {
+      if (localStorage.getItem("gemelo-resumen-plegado") === "1") caja.classList.add("is-plegado");
+    } catch {
+      /* sin almacenamiento: se ve desplegada */
+    }
+    caja.addEventListener("click", (e) => {
+      if (e.target.closest("[data-resumen-plegar]")) {
+        const plegado = caja.classList.toggle("is-plegado");
+        e.target.closest("[data-resumen-plegar]").setAttribute("aria-expanded", String(!plegado));
+        try {
+          localStorage.setItem("gemelo-resumen-plegado", plegado ? "1" : "0");
+        } catch {
+          /* nada */
+        }
+        return;
+      }
+      const f = e.target.closest("[data-resumen-pieza]");
+      if (!f) return;
+      seleccionar_(f.dataset.resumenPieza);
+      if (typeof centrarEn === "function") centrarEn(f.dataset.resumenPieza);
+    });
+  }
+}
+
 function pintarLeyenda() {
+  pintarResumenEscena();
   const lista = $(".gm-partes");
   if (!lista) return;
   lista.innerHTML = D.lectura
@@ -170,6 +220,8 @@ function historialDe(id) {
 function gruposDe(id) {
   const p = D.piezas[id];
   const out = [];
+  // las llamadas de conjunto pueden traer ids que no son conjuntos del modelo: sin grupos
+  if (!p) return out;
   for (const cod of p.codigos) {
     if (D.grupos[cod]) out.push([cod, D.grupos[cod]]);
     else {
@@ -198,26 +250,17 @@ function panelResumen() {
   const m = D.maquina;
   const totalPiezas = Object.values(D.grupos).reduce((a, g) => a + (g.piezas?.length ?? 0), 0);
   panelCab.innerHTML = `
-    <div class="gm-panel__migas">Gemelo virtual · ${esc(D.ref)}</div>
-    <h2 class="gm-panel__tit">${esc(m.nombre)}</h2>
-    <p class="gm-panel__sub">${esc(m.area)} · ${esc(m.sede)} · equipo ${esc(m.equipoCod)} · causa ${esc(m.causaCod)}</p>
+    <h2 class="gm-panel__tit">Ficha de la máquina</h2>
+    <p class="gm-panel__sub">equipo ${esc(m.equipoCod)} · causa ${esc(m.causaCod)} · ${Object.keys(D.grupos).length} grupos del catálogo · ${totalPiezas.toLocaleString("es-CO")} números de pieza · ${D.sensores.length} sensores</p>
     <div class="gm-panel__chips">${(m.resumen ?? []).map((s) => `<span class="gm-chip">${esc(s.label)} <b>${esc(s.value)}</b></span>`).join("")}</div>`;
   const ranking = Object.entries(fallasPorPieza).filter(([p]) => D.piezas[p]).sort((a, b) => b[1] - a[1]);
   const max = Math.max(1, ...ranking.map(([, n]) => n));
   panelCuerpo.innerHTML = `
-    ${cifras([
-      [Object.keys(D.grupos).length, "grupos del catálogo"],
-      [totalPiezas.toLocaleString("es-CO"), "números de pieza"],
-      [D.sensores.length, "sensores"],
-      [historial.length, "intervenciones", null, "warn"],
-    ])}
-    <p class="gm-nota">Toca una pieza de la máquina o un conjunto de la lista para ver sus láminas, sensores, repuestos y el historial del chat. Desármala paso a paso con <b>▼</b> o toda de una con <b>Desarmar</b>.</p>
-    <h3 class="gm-sec">Dónde falla · chat ${fecha(D.mtto.desde)}–${fecha(D.mtto.hasta)}</h3>
+    <p class="gm-nota">Toca una pieza en el 3D para ver sus láminas, repuestos y su historial.</p>
+    <h3 class="gm-sec">Dónde falla · ${historial.length} intervenciones · chat ${fecha(D.mtto.desde)}–${fecha(D.mtto.hasta)}</h3>
     <div class="gm-barras">${ranking
       .map(([p, n]) => `<button type="button" class="gm-barra" data-pieza="${p}"><span class="gm-barra__nom">${esc(D.piezas[p].nombre)}</span><span class="gm-barra__pista"><span class="gm-barra__llena" style="width:${((n / max) * 100).toFixed(0)}%"></span></span><span class="gm-barra__n">${n}</span></button>`)
       .join("")}</div>
-    <h3 class="gm-sec">El recorrido del papel</h3>
-    <ol class="gm-pasos">${["bobina", "desbobinado", "guias", "fotocelula", "dosificacion", "soldadura", "arrastre", "corte", "pinzas", "salida"].map((id) => `<li><a href="#" data-pieza="${id}">${esc(D.piezas[id].nombre)}</a> — ${esc(D.piezas[id].corto)}</li>`).join("")}</ol>
     <h3 class="gm-sec">Documentos</h3>
     <ul class="gm-lista">${(m.documentos ?? []).map((d) => `<li><a class="gm-fila gm-fila--boton" href="${url(d.file)}" target="_blank" rel="noopener"><span class="gm-fila__tit">${esc(d.name)}</span></a></li>`).join("")}</ul>
     <p class="gm-nota" style="margin-top:14px">Modelo 3D dibujado a partir del catálogo de piezas y el plano de disposición del esquema eléctrico: es fiel a los conjuntos y a su función, no a la cota exacta. Hecho con el kit <a href="https://github.com/wheresryan22/anatomy" target="_blank" rel="noopener">Anatomy</a> (MIT).</p>`;

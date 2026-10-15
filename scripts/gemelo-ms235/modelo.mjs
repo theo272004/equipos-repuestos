@@ -363,6 +363,15 @@ export function construir(P, R) {
     }
     caja("bastidor", [x0, cj.y0, pared.z0], [x0 + 6, cj.y1, cj.z1], { tone: "mid", r: 0.6, bevel: 0.6, extra: vent.join(""), name: "bastidor.lateral", tornillos: { cara: s < 0 ? "-x" : "+x", paso: 40, margen: 5, r: 1.2 } });
   }
+  // Lateral derecho real (x− del modelo, foto 2026-10-15): puerta de inox con asa vertical, juntas
+  // negras arriba y abajo y un porta-documentos
+  {
+    const xs = pared.x0;
+    for (const [z0, z1] of [[pared.z0, pared.z0 + 4], [cj.z1 - 4, cj.z1]]) caja("bastidor", [xs - 1, cj.y0, z0], [xs, cj.y1, z1], { tone: "lo", r: 0.3, bevel: 0, steps: 1, name: "bastidor.junta-puerta", mat: "caucho", sinTornillos: true });
+    tubo("bastidor", [[xs, -92, 150], [xs - 5, -92, 152], [xs - 5, -92, 190], [xs, -92, 192]], 1.1, { tone: "hi", name: "bastidor.asa-puerta", curva: 2, mat: "cromo" });
+    caja("bastidor", [xs - 0.6, -70, 168], [xs, -38, 214], { tone: "hi", r: 0.3, bevel: 0, steps: 1, name: "bastidor.porta-documentos", mat: "blanco", sinTornillos: true });
+    caja("bastidor", [xs - 0.8, -70, 210], [xs - 0.6, -38, 214], { tone: "mid", r: 0, bevel: 0, steps: 1, name: "bastidor.porta-documentos", mat: "azul", sinTornillos: true });
+  }
   // Placa CE en el lateral izquierdo
   caja("bastidor", [pared.x0 - 1, -40, 230], [pared.x0, -16, 248], {
     tone: "hi",
@@ -708,14 +717,29 @@ export function construir(P, R) {
       caja("dosificacion", [x - 7, y - 7, 388], [x + 7, y + 7, 398], { tone: "mid", r: 1, name: "dosificacion.reductor" });
       motorElectrico("dosificacion", [x, y, 398], Z, 26, 7, { name: "dosificacion.motor", disp: tag, tone: "mid" });
     }
-    // Tolva conica con sus sensores de nivel (B35 de un lado, B35A del otro) y conducto a la estrella
-    const [hx, hy0] = pl("B35.1", [57.5, 42.5]);
-    const hy = hy0 + 5.5;
-    const T = G.frameOf([hx, hy, 400], Z, X, Y);
-    torno("dosificacion", T, [[0, 10], [6, 10], [46, 50], [52, 50], [52, 48]], { tone: "hi", name: "dosificacion.tolva", inner: G.arcOf(T, 30, 34, P, { slope: 1 }) });
-    tubo("dosificacion", [[hx, hy, 400], [hx, hy, 394], [10, hy, 388], [4, hy, 385]], 5, { tone: "hi", name: "dosificacion.conducto", curva: 8 });
-    const rT = (s) => 10 + (40 * (s - 6)) / 40 + 3.4;
-    for (const [tag, s, ang] of [["B35.1", 12, -Math.PI / 2], ["B35.4", 40, -Math.PI / 2], ["B35A.1", 12, Math.PI / 2], ["B35A.4", 40, Math.PI / 2]]) sensor("dosificacion", tag, G.pointOf(T, s, rT(s), ang), G.radialOf(T, ang), { largo: 8, radio: 3 });
+    // Cubierta del cabezal (fotos 2026-10-15): caja de inox escalonada apoyada en los travesaños
+    // delanteros, que asoma por encima del techo del resguardo. Tapa la placa de motores; delante
+    // lleva los Harting y la placa Schmucker. Sobre el escalon bajo, la tolva rectangular.
+    const CB = { x0: -26, xs: 24, x1: 124, y0: 8, y1: 134, z0: 386, zBajo: 490, zAlto: 530 };
+    caja("dosificacion", [CB.x0, CB.y0, CB.z0], [CB.xs, CB.y1, CB.zBajo], { tone: "mid", r: 1, bevel: 0.6, name: "dosificacion.cubierta", mat: "chapa", solo3d: true, sinTornillos: true });
+    caja("dosificacion", [CB.xs, CB.y0, CB.z0], [CB.x1, CB.y1, CB.zAlto], { tone: "mid", r: 1, bevel: 0.6, name: "dosificacion.cubierta", mat: "chapa", solo3d: true, sinTornillos: true });
+    pernos("dosificacion", [[CB.xs + 4, CB.y1 + 0.05, CB.z0 + 4], [CB.x1 - 4, CB.y1 + 0.05, CB.z0 + 4], [CB.xs + 4, CB.y1 + 0.05, CB.zAlto - 4], [CB.x1 - 4, CB.y1 + 0.05, CB.zAlto - 4], [CB.x0 + 4, CB.y1 + 0.05, CB.zBajo - 4], [CB.x0 + 4, CB.y1 + 0.05, CB.z0 + 4]], [0, 1, 0], { r: 0.8, parte: "dosificacion.cubierta" });
+    caja("dosificacion", [70, CB.y1, 398], [112, CB.y1 + 0.6, 440], { tone: "hi", r: 0.3, bevel: 0, steps: 1, name: "dosificacion.placa-logo", mat: "logo", solo3d: true, sinTornillos: true });
+    // Tolva rectangular de inox con mirilla, tapa con cierres, sensores de nivel y manga de carga
+    const TV = { x0: -22, x1: 20, y0: 36, y1: 78, z0: CB.zBajo, z1: 562 };
+    const tx = (TV.x0 + TV.x1) / 2;
+    const ty = (TV.y0 + TV.y1) / 2;
+    caja("dosificacion", [TV.x0, TV.y0, TV.z0], [TV.x1, TV.y1, TV.z1], { tone: "hi", r: 1, bevel: 0.6, name: "dosificacion.tolva", mat: "chapa", sinTornillos: true });
+    caja("dosificacion", [tx - 6, TV.y1, 500], [tx + 6, TV.y1 + 1, 554], { tone: "mid", r: 0.4, name: "dosificacion.marco-mirilla", mat: "inox", tornillos: { cara: "+y", solo: "esquinas", margen: 1.2, r: 0.5 } });
+    caja("dosificacion", [tx - 3.6, TV.y1 + 1, 504], [tx + 3.6, TV.y1 + 1.4, 550], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "dosificacion.mirilla", mat: "mirilla", sinTornillos: true });
+    caja("dosificacion", [TV.x0 - 1, TV.y0 - 1, TV.z1], [TV.x1 + 1, TV.y1 + 1, TV.z1 + 3], { tone: "mid", r: 0.6, name: "dosificacion.tapa-tolva", mat: "chapa", sinTornillos: true });
+    for (const x of [TV.x0 - 3.4, TV.x1 + 1]) caja("dosificacion", [x, ty - 4, TV.z1 - 9], [x + 2.4, ty + 4, TV.z1 + 2], { tone: "hi", r: 0.4, name: "dosificacion.cierre-tapa", mat: "cromo" });
+    for (const [tag, y, z, d] of [["B35.1", TV.y1, 552, 1], ["B35.4", TV.y1, 512, 1], ["B35A.1", TV.y0, 552, -1], ["B35A.4", TV.y0, 512, -1]]) sensor("dosificacion", tag, [TV.x0 + 7, y, z], [0, d, 0], { largo: 8, radio: 3 });
+    // manga de tela hasta la carga de polvo de la planta (la valvula de mariposa ya no es de la maquina)
+    torno("dosificacion", G.frameAlong([tx, ty, TV.z1 + 3], Z), [[0, 0], [0, 9], [3, 11], [26, 13], [48, 10], [56, 9], [56, 0]], { tone: "hi", name: "dosificacion.manga", mat: "tela" });
+    cil("dosificacion", [tx, ty, TV.z1 + 5], Z, 2.4, 11.6, { tone: "mid", name: "dosificacion.abrazadera-manga", mat: "inox", solo3d: true });
+    // conducto de la tolva a la estrella, por dentro de la cubierta
+    cil("dosificacion", [tx, ty, 384], Z, TV.z0 - 384, 5, { tone: "hi", name: "dosificacion.conducto", mat: "inox", solo3d: true });
     // Vibrador M37.1 al lado del cassette
     const [vx, vy] = pl("M37.1", [-22, 112]);
     caja("dosificacion", [vx - 6, vy - 6, 340], [vx + 6, vy + 6, 352], { tone: "hi", r: 1.5, name: "dosificacion.vibrador", disp: "M37.1" });
@@ -818,7 +842,7 @@ export function construir(P, R) {
       if (s > 0) {
         con({ ...MO, e2: [s * 18, 0, 0], cod: "235.21.366" }, () => {
           chapaXZ("soldadura", [[42, 268], [48, 271.5], [48, 286], [42, 286]], Y0 + 2, Y1 - 12, { tone: "mid", name: "soldadura.capota", mat: "inox" });
-          for (let i = 0; i < 4; i++) caja("soldadura", [48, Y0 + 14, 273.5 + i * 3], [48.8, Y1 - 24, 274.7 + i * 3], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.lama", mat: "oscuro" });
+          for (const [ya, yb] of [[Y0 + 12, Y0 + 42], [Y0 + 50, Y0 + 80]]) for (let i = 0; i < 5; i++) caja("soldadura", [48, ya, 273 + i * 2.6], [48.8, yb, 274.2 + i * 2.6], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.lama", mat: "oscuro" });
         });
       } else {
         con({ ...MO, e2: [s * 18, 0, 0], cod: "235_21_266" }, () => {
@@ -826,7 +850,11 @@ export function construir(P, R) {
           caja("soldadura", [-46.6, Y0 + 20, 276], [-46, Y1 - 30, 278], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "soldadura.ranura-bandeja", mat: "oscuro" });
         });
       }
-      con({ ...MO, e2: [s * 18, 8, 0], cod: "C652100840" }, () => cil("soldadura", [s * (s > 0 ? 45 : 44), Y1 - 12, 279], Y, 3, 1.8, { tone: "lo", name: "soldadura.pomo-capota", mat: "negro" }));
+      // tirador en T verde (foto): vastago que sale de la capota y travesaño vertical
+      con({ ...MO, e2: [s * 18, 8, 0], cod: "C652100840" }, () => {
+        cil("soldadura", [s * (s > 0 ? 45 : 44), Y1 - 12, 279], Y, 5, 0.9, { tone: "lo", name: "soldadura.pomo-capota", mat: "verde" });
+        cil("soldadura", [s * (s > 0 ? 45 : 44), Y1 - 6.2, 273.5], Z, 11, 1.3, { tone: "lo", name: "soldadura.pomo-capota", mat: "verde" });
+      });
 
       // ── cilindro con fuelle 2M14100317: separa la placa con aire ──
       const CI = { sub: `cilindro-${L}`, e1: [s * 100, 20, 30] };
@@ -1009,13 +1037,8 @@ export function construir(P, R) {
     const [mx2] = pl("M96A.1", [411, 130]);
     caja("salida", [mx2 - 10, yb + 6, zt - 30], [mx2 + 10, yb + 14, zt - 6], { tone: "mid", r: 1, name: "salida.reductor" });
     motorElectrico("salida", [mx2, yb + 14, zt - 18], Y, 22, 8, { name: "salida.motor", disp: "M96A.1", tone: "mid" });
-    // guias alineadas con los carriles del papel: cada sobre cae en su pista
+    // la banda es lisa, verde y sin guias (fotos 2026-10-15): los sobres salen sueltos
     const carrilesCinta = CARRILES;
-    for (let i = 1; i < 6; i++) {
-      const y = tira.y0 + ((tira.y1 - tira.y0) / 6) * i;
-      caja("salida", [30, y - 0.6, zt + 1], [440, y + 0.6, zt + 6], { tone: "mid", r: 0.3, bevel: 0, name: "salida.guia-carril", mat: "inox" });
-    }
-    for (const x of [26, 436]) caja("salida", [x, ya, zt + 6], [x + 4, yb, zt + 8], { tone: "mid", r: 0.4, name: "salida.puente-guias", mat: "inox" });
     for (const x of [70, 112, 250, 300, 360]) for (const y of carrilesCinta) caja("salida", [x, y - 7, zt], [x + 28, y + 7, zt + 1.4], { tone: "hi", r: 0.6, bevel: 0, name: "salida.sobre", clase: "papel" });
     // Deslizadero de expulsion bajo las pinzas, con sus bordes apoyados en los largueros
     chapaXZ("salida", [[-16, 114], [12, 104.5], [12, 103.5], [-16, 113]], ya, yb, { tone: "hi", name: "salida.deslizadero", mat: "inox" });
@@ -1045,11 +1068,21 @@ export function construir(P, R) {
     cil("hmi", [fin[0], fin[1], 316], Z, 1.2, 7, { tone: "mid", name: "hmi.brida", mat: "inox", extra: pernosCirculo("hmi", G.frameAlong([fin[0], fin[1], 317.2], Z), 0, 5.6, 6, { rCabeza: 0.5 }) });
     caja("hmi", [204, 190, 238], [284, 211, 316], { tone: "hi", r: 2, bevel: 0.8, name: "hmi.panel", disp: "A15.4", tornillos: { cara: "+y", solo: "esquinas", margen: 2, r: 0.6 } });
     caja("hmi", [210, 211, 276], [278, 211.4, 310], { tone: "lo", r: 0, bevel: 0, steps: 1, name: "hmi.pantalla", clase: "pantalla" });
-    for (const [x, mat] of [[216, "negro"], [227, "m12"], [238, "negro"]]) cil("hmi", [x, 211, 256], Y, 1.6, 3.4, { tone: "hi", name: "hmi.pulsador", mat });
+    for (const [x, mat] of [[216, "negro"], [227, "blanco"], [238, "azul"]]) cil("hmi", [x, 211, 256], Y, 1.6, 3.4, { tone: "hi", name: "hmi.pulsador", mat });
     cil("hmi", [249, 211, 256], Y, 0.8, 3.2, { tone: "mid", name: "hmi.tapon", mat: "inox" });
     cil("hmi", [270, 211, 252], Y, 0.6, 7, { tone: "hi", name: "hmi.aro-seta", mat: "amarillo" });
     cil("hmi", [270, 211.6, 252], Y, 4, 4.8, { tone: "hi", name: "hmi.seta", clase: "seta" });
     cil("hmi", [284, 200, 262], X, 2, 2.6, { tone: "hi", name: "hmi.selector-llave", mat: "harting" });
+    // Columna luminosa (esquema hoja B04: H16.2 roja, H16.3 naranja, H16.4 verde, H16.6 avisador),
+    // de pie sobre el brazo encima del panel (foto 2026-10-15)
+    {
+      const [bx, by] = [fin[0] - 22 * d[0], fin[1] - 22 * d[1]];
+      cil("hmi", [bx, by, 326], Z, 3, 4.6, { tone: "lo", name: "hmi.base-columna", mat: "negro", extra: pernosCirculo("hmi", G.frameAlong([bx, by, 329], Z), 0, 3.4, 3, { rCabeza: 0.4 }) });
+      cil("hmi", [bx, by, 329], Z, 14, 1.6, { tone: "hi", name: "hmi.tubo-columna", mat: "alu" });
+      cil("hmi", [bx, by, 343], Z, 3, 4.2, { tone: "lo", name: "hmi.base-columna", mat: "negro" });
+      [["H16.4", "luzVerde"], ["H16.3", "luzAmbar"], ["H16.2", "luzRoja"]].forEach(([tag, mat], i) => cil("hmi", [bx, by, 346 + i * 8], Z, 8, 4, { tone: "hi", name: "hmi.luz-columna", mat, disp: tag }));
+      cil("hmi", [bx, by, 370], Z, 5, 4, { tone: "lo", name: "hmi.avisador", mat: "negro", disp: "H16.6" });
+    }
   }
 
   // ───────────────────────── 16. ARMARIO ─────────────────────────
@@ -1070,9 +1103,13 @@ export function construir(P, R) {
     }
     caja("armario", [AR.x1 - 3, AR.y0 + 2, AR.z0 + 4], [AR.x1, AR.y1 - 2, AR.z1 - 4], { tone: "mid", r: 0.8, bevel: 0.6, name: "armario.puerta", extra: rejilla.join(""), puerta: true, sinTornillos: true });
     for (const z of [40, 150, 260]) cil("armario", [AR.x1 + 1, AR.y0 + 3, z], Z, 16, 2, { tone: "hi", name: "armario.bisagra" });
-    caja("armario", [AR.x1, -140, 220], [AR.x1 + 1, -120, 240], { tone: "hi", r: 0.6, name: "armario.q013-placa", disp: "Q01.3", puerta: true, mat: "amarillo", sinTornillos: true });
-    cil("armario", [AR.x1 + 1, -130, 230], X, 4, 7, { tone: "hi", name: "armario.q013", disp: "Q01.3", puerta: true, mat: "maneta" });
-    caja("armario", [AR.x1 + 5, -138, 228], [AR.x1 + 8, -122, 232], { tone: "hi", r: 0.8, name: "armario.q013", disp: "Q01.3", puerta: true, mat: "maneta" });
+    // Interruptor general Q01.3 (foto 2026-10-15): maneta giratoria negra en la cara delantera del
+    // armario, al lado del gabinete gris, con la etiqueta de la maquina debajo
+    caja("armario", [240, AR.y1, 220], [258, AR.y1 + 1.4, 240], { tone: "lo", r: 0.8, name: "armario.q013-placa", disp: "Q01.3", mat: "negro", sinTornillos: true });
+    cil("armario", [249, AR.y1 + 1.4, 230], Y, 3, 6.4, { tone: "lo", name: "armario.q013", disp: "Q01.3", mat: "negro" });
+    caja("armario", [246.6, AR.y1 + 4.4, 222], [251.4, AR.y1 + 8, 238], { tone: "lo", r: 1, name: "armario.q013", disp: "Q01.3", mat: "negro" });
+    caja("armario", [239, AR.y1, 208], [259, AR.y1 + 0.4, 215], { tone: "hi", r: 0.2, bevel: 0, steps: 1, name: "armario.etiqueta", mat: "blanco", sinTornillos: true });
+    caja("armario", [AR.x1, -250, 232], [AR.x1 + 0.6, -210, 272], { tone: "hi", r: 0.3, bevel: 0, steps: 1, name: "armario.placa-logo", mat: "logo", puerta: true, solo3d: true, sinTornillos: true });
     caja("armario", [AR.x1, -126, 120], [AR.x1 + 4, -120, 170], { tone: "hi", r: 1, name: "armario.manilla", puerta: true });
     caja("armario", [190, -112, 298], [232, -96, 304], { tone: "lo", r: 0.6, name: "armario.bandeja" });
     for (const [z, tag] of [[230, "M02.4"], [60, "M02.5"]]) cil("armario", [218, AR.y0, z], [0, -1, 0], 3, 12, { tone: "hi", name: "armario.ventilador", disp: tag });
@@ -1233,6 +1270,40 @@ export function construir(P, R) {
     caja("armario", [x0 + 4, -60, 140], [x0 + 16, -48, 152], { tone: "hi", r: 1, name: "armario.regulador", ride: "bastidor" });
     torno("armario", G.frameAlong([x0 + 10, -54, 140], [0, 0, -1]), [[0, 5], [16, 4.2, 1], [20, 2.4, 1], [22, 0]], { tone: "hi", name: "armario.vaso-filtro", ride: "bastidor", clase: "vidrio-vaso" });
     cil("armario", [x0 + 10, -54, 152], Z, 4, 3.2, { tone: "mid", name: "armario.mano-regulador", ride: "bastidor" });
+    // Gabinete de chapa gris que la encierra (fotos): dos puertas con asas cromadas; la de arriba
+    // con dos ventanas (valvulas y regulador a la vista), la de abajo con la ventanilla de los tres
+    // manometros. Se quita con el boton de resguardos.
+    const GB = { x0: x0, x1: x0 + 22, y0: -100, y1: -6, z0: zPlaca, z1: 286 };
+    const g = { tone: "mid", r: 0.5, bevel: 0.3, ride: "bastidor", mat: "gris", sinTornillos: true };
+    for (const [y0, y1] of [[GB.y0, GB.y0 + 2], [GB.y1 - 2, GB.y1]]) caja("armario", [x0, y0, GB.z0], [GB.x1 - 2, y1, GB.z1], { ...g, name: "armario.gabinete-lado" });
+    caja("armario", [x0, GB.y0, GB.z1 - 2], [GB.x1, GB.y1, GB.z1], { ...g, name: "armario.gabinete-techo" });
+    const xp = [GB.x1 - 2, GB.x1];
+    const tira = (nm, y0, y1, z0, z1) => caja("armario", [xp[0], y0, z0], [xp[1], y1, z1], { ...g, name: `armario.gabinete-${nm}` });
+    // puerta de arriba (z 150..284): marco y dos ventanas
+    tira("puerta", GB.y0, GB.y1, 272, GB.z1 - 2);
+    tira("puerta", GB.y0, GB.y1, 150, 162);
+    tira("puerta", GB.y0, GB.y0 + 12, 162, 272);
+    tira("puerta", GB.y1 - 12, GB.y1, 162, 272);
+    tira("puerta", GB.y0 + 12, GB.y1 - 12, 214, 218);
+    for (const [z0, z1] of [[162, 214], [218, 272]]) caja("armario", [xp[0] + 0.6, GB.y0 + 12, z0], [xp[0] + 1.2, GB.y1 - 12, z1], { tone: "faint", r: 0, bevel: 0, steps: 1, ride: "bastidor", name: "armario.gabinete-vidrio", clase: "vidrio", sinTornillos: true });
+    // puerta de abajo (z 22..148) con la ventanilla de los manometros
+    tira("puerta", GB.y0, GB.y1, GB.z0, 60);
+    tira("puerta", GB.y0, GB.y1, 136, 148);
+    tira("puerta", GB.y0, GB.y0 + 10, 60, 136);
+    tira("puerta", GB.y0 + 26, GB.y1, 60, 136);
+    tira("puerta", GB.y0 + 10, GB.y0 + 26, 60, 64);
+    tira("puerta", GB.y0 + 10, GB.y0 + 26, 132, 136);
+    caja("armario", [xp[0] + 0.6, GB.y0 + 10, 64], [xp[0] + 1.2, GB.y0 + 26, 132], { tone: "faint", r: 0, bevel: 0, steps: 1, ride: "bastidor", name: "armario.gabinete-vidrio", clase: "vidrio", sinTornillos: true });
+    // manometros en su chapa, detras de la ventanilla
+    caja("armario", [x0, GB.y0 + 2, 66], [GB.x1 - 4, GB.y0 + 4, 118], { tone: "mid", r: 0.3, ride: "bastidor", name: "armario.chapa-manometros", mat: "gris", sinTornillos: true });
+    caja("armario", [GB.x1 - 6, GB.y0 + 4, 66], [GB.x1 - 4, GB.y0 + 32, 130], { tone: "mid", r: 0.3, ride: "bastidor", name: "armario.chapa-manometros", mat: "gris", sinTornillos: true });
+    for (const z of [76, 98, 120]) {
+      cil("armario", [GB.x1 - 4, GB.y0 + 18, z], X, 1.2, 5.4, { tone: "hi", name: "armario.manometro", ride: "bastidor", mat: "cromo" });
+      cil("armario", [GB.x1 - 2.8, GB.y0 + 18, z], X, 0.3, 4.6, { tone: "hi", name: "armario.esfera-manometro", ride: "bastidor", mat: "blanco" });
+    }
+    // asas cromadas (dos por puerta) y tornillos de las esquinas
+    for (const z of [278, 156, 142, 30]) tubo("armario", [[GB.x1, -66, z], [GB.x1 + 4, -64, z], [GB.x1 + 4, -40, z], [GB.x1, -38, z]], 0.9, { tone: "hi", name: "armario.gabinete-asa", ride: "bastidor", curva: 1.5, mat: "cromo" });
+    for (const [z0, z1] of [[150, GB.z1 - 2], [GB.z0, 148]]) pernos("armario", [[GB.x1 + 0.05, GB.y0 + 4, z0 + 4], [GB.x1 + 0.05, GB.y1 - 4, z0 + 4], [GB.x1 + 0.05, GB.y0 + 4, z1 - 4], [GB.x1 + 0.05, GB.y1 - 4, z1 - 4]], [1, 0, 0], { r: 0.8, ride: "bastidor", parte: "armario.gabinete-puerta" });
   }
 
   // ───────────────────────── 17. RESGUARDOS ─────────────────────────
@@ -1251,10 +1322,18 @@ export function construir(P, R) {
       const xBis = xa < 0 ? xa + 0.6 : xb - 0.6;
       for (const z of [170, 420]) cil("resguardos", [xBis, 175.2, z], Z, 14, 1.6, { tone: "hi", name: "resguardos.bisagra" });
       const xt = xa < 0 ? xb - 9 : xa + 9;
-      tubo("resguardos", [[xt, 174, 346], [xt, 179, 348], [xt, 179, 392], [xt, 174, 394]], 1.2, { tone: "hi", name: "resguardos.tirador", curva: 2, mat: "inox" });
+      // tirador en U de las puertas (foto): barra clara y extremos verdes
+      tubo("resguardos", [[xt, 179, 352], [xt, 179, 388]], 1.2, { tone: "hi", name: "resguardos.tirador", curva: 0, mat: "alu" });
+      for (const z of [346, 388]) caja("resguardos", [xt - 1.6, 174, z], [xt + 1.6, 181, z + 6], { tone: "hi", r: 0.8, name: "resguardos.tirador", mat: "verde", sinTornillos: true });
     }
     for (const x of [-195, 191]) caja("resguardos", [x, 8, 130], [x + 4, 170, 464], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.lateral", clase: "vidrio" });
     caja("resguardos", [-190, 8, 468], [190, 170, 470], { tone: "faint", r: 0, bevel: 0, steps: 1, name: "resguardos.techo", clase: "vidrio" });
+    // Zocalo del lateral sobre la salida de la cinta, con la franja amarilla y negra (foto)
+    caja("resguardos", [191, 8, 122], [195, 170, 130], { tone: "mid", r: 0.4, name: "resguardos.zocalo-cinta", mat: "champan", sinTornillos: true });
+    for (let i = 0; i < 16; i++) {
+      const y = 8 + i * 10;
+      chapaYZ("resguardos", [[y, 122.5], [Math.min(170, y + 5), 122.5], [Math.min(170, y + 8.5), 129.5], [Math.min(170, y + 3.5), 129.5]], 195, 195.3, { tone: "hi", name: "resguardos.franja", mat: i % 2 ? "negro" : "amarillo" });
+    }
     // Resguardo lateral alto del desbobinado (S4A95100110): placa base, dos paneles con dos ventanas
     // cada uno, pomos moleteados en las esquinas y tapa de arriba inclinada
     {
@@ -1344,12 +1423,17 @@ export function construir(P, R) {
       const [, y] = pl(tag, [-176, -40]);
       conector(tag, [-184, y - 6, z], [-176, y + 6, z + 12]);
     }
-    caja("guias", [-60, 134, 366], [104, 137, 380], { tone: "mid", r: 0.5, name: "guias.regleta-conectores", ride: "guias", mat: "alu" });
-    for (const x of [-60, 101]) caja("guias", [x, 134, 380], [x + 3, 137, 386], { tone: "mid", r: 0.4, name: "guias.colgante-regleta", ride: "guias" });
-    for (const tag of ["X44", "X45", "X47", "X48", "X49"]) {
-      const [x] = pl(tag, [0, 142]);
-      conector(tag, [x - 6, 137, 370], [x + 6, 145, 378], "guias", "guias");
-    }
+    // Cuatro Harting verticales en la cara delantera de la cubierta del cabezal (fotos 2026-10-15):
+    // dos con su clavija y su cable, dos con la tapa cerrada. El quinto (X49) va en el costado.
+    [["X44", 34, true], ["X45", 52, true], ["X47", 84, false], ["X48", 102, false]].forEach(([tag, x, enchufado]) => {
+      conector(tag, [x - 5, 134, 488], [x + 5, 141, 508], "dosificacion", "dosificacion");
+      caja("dosificacion", [x - 6, 134, 484], [x + 6, 143, 488], { tone: "hi", r: 0.4, name: "dosificacion.palanca-harting", mat: "inox", sinTornillos: true });
+      if (enchufado) {
+        caja("dosificacion", [x - 4.5, 134.5, 470], [x + 4.5, 140.5, 484], { tone: "hi", r: 1, name: "dosificacion.clavija-harting", mat: "harting", sinTornillos: true });
+        tubo("dosificacion", [[x, 137.5, 470], [x, 139, 460], [x + 5, 137.5, 452], [x + 9, 134.2, 449]], 1.4, { tone: "lo", name: "dosificacion.cable-harting", clase: "cable", curva: 6, solo3d: true });
+      } else caja("dosificacion", [x - 4, 141, 490], [x + 4, 142.5, 506], { tone: "mid", r: 0.6, name: "dosificacion.tapa-harting", mat: "harting", sinTornillos: true });
+    });
+    conector("X49", [124, 96, 488], [131, 106, 508], "dosificacion", "dosificacion");
     {
       const [x, y] = pl("X53", [4, 102]);
       conector("X53", [x - 7, y - 4, 330], [x + 7, y + 4, 340], "dosificacion", "dosificacion");
