@@ -2,7 +2,7 @@
 // Generado a partir de los PDF oficiales DMM-179B (Sede 4) y DMM-179 (Planta 2) + MANTENIMIENTO POR SISTEMAS.xlsm.
 window.EQUIPOS_PLAN = {
   "fuente": "Listados oficiales de equipos FARMACAPSULAS (Sede 4: DMM-179B V02-2026, Planta 2: DMM-179 V05-2025) + MANTENIMIENTO POR SISTEMAS",
-  "corte": "2026-08-25",
+  "corte": "2026-10-08",
   "equipos": [
     {
       "c": "17303018",
@@ -1144,7 +1144,7 @@ window.EQUIPOS_PLAN = {
             "f": "3M",
             "ej": "2026-08-16",
             "px": "2026-11-14",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -2065,7 +2065,7 @@ window.EQUIPOS_PLAN = {
             "f": "3M",
             "ej": "2026-08-16",
             "px": "2026-11-14",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -4488,7 +4488,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-11-12",
             "px": "2026-11-02",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -4511,7 +4511,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-11-12",
             "px": "2026-11-02",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -4534,7 +4534,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-11-12",
             "px": "2026-11-02",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -4557,7 +4557,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-11-12",
             "px": "2026-11-02",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -4580,7 +4580,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-11-12",
             "px": "2026-11-02",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -4603,7 +4603,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-11-12",
             "px": "2026-11-02",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         }
       ]
@@ -4740,7 +4740,7 @@ window.EQUIPOS_PLAN = {
             "f": "3M",
             "ej": "2026-07-06",
             "px": "2026-10-04",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -5787,7 +5787,7 @@ window.EQUIPOS_PLAN = {
             "f": "3M",
             "ej": "2026-08-16",
             "px": "2026-11-14",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -6015,10 +6015,10 @@ window.EQUIPOS_PLAN = {
           "ub": "",
           "pu": 0,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2026-02-01",
-            "px": "2027-01-27",
-            "st": "EN TIEMPO"
+            "px": "2026-07-31",
+            "st": "RETRASADO"
           }
         },
         {
@@ -6038,10 +6038,10 @@ window.EQUIPOS_PLAN = {
           "ub": "R04/E0104",
           "pu": 56611,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2026-02-01",
-            "px": "2027-01-27",
-            "st": "EN TIEMPO"
+            "px": "2026-07-31",
+            "st": "RETRASADO"
           }
         },
         {
@@ -6061,9 +6061,9 @@ window.EQUIPOS_PLAN = {
           "ub": "R04/D0103",
           "pu": 20357,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2025-07-16",
-            "px": "2026-07-11",
+            "px": "2026-01-12",
             "st": "RETRASADO"
           }
         },
@@ -6107,9 +6107,9 @@ window.EQUIPOS_PLAN = {
           "ub": "R04/E0104",
           "pu": 2757724,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2025-02-01",
-            "px": "2026-01-27",
+            "px": "2025-07-31",
             "st": "RETRASADO"
           }
         },
@@ -6130,9 +6130,9 @@ window.EQUIPOS_PLAN = {
           "ub": "",
           "pu": 0,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2025-02-01",
-            "px": "2026-01-27",
+            "px": "2025-07-31",
             "st": "RETRASADO"
           }
         },
@@ -6153,9 +6153,9 @@ window.EQUIPOS_PLAN = {
           "ub": "",
           "pu": 0,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2025-07-16",
-            "px": "2026-07-11",
+            "px": "2026-01-12",
             "st": "RETRASADO"
           }
         },
@@ -6176,9 +6176,9 @@ window.EQUIPOS_PLAN = {
           "ub": "",
           "pu": 0,
           "xls": {
-            "f": "1A",
+            "f": "6M",
             "ej": "2025-07-16",
-            "px": "2026-07-11",
+            "px": "2026-01-12",
             "st": "RETRASADO"
           }
         },
@@ -6478,7 +6478,7 @@ window.EQUIPOS_PLAN = {
             "f": "3M",
             "ej": "2026-06-30",
             "px": "2026-09-28",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -6886,10 +6886,10 @@ window.EQUIPOS_PLAN = {
           "ub": "",
           "pu": 0,
           "xls": {
-            "f": "1A",
+            "f": "1a",
             "ej": "2024-01-19",
             "px": "2025-01-13",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -7783,7 +7783,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7806,7 +7806,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7829,7 +7829,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7852,7 +7852,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7875,7 +7875,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7898,7 +7898,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7921,7 +7921,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7944,7 +7944,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7967,7 +7967,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -7990,7 +7990,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -8013,7 +8013,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -8036,7 +8036,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -8059,7 +8059,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -8128,7 +8128,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -8197,7 +8197,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -8220,7 +8220,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2025-09-08",
             "px": "2026-09-03",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -12666,9 +12666,9 @@ window.EQUIPOS_PLAN = {
           "pu": 0,
           "xls": {
             "f": "6M",
-            "ej": "2025-04-28",
-            "px": "2025-10-25",
-            "st": "RETRASADO"
+            "ej": "2026-09-10",
+            "px": "2027-03-09",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -12689,9 +12689,9 @@ window.EQUIPOS_PLAN = {
           "pu": 0,
           "xls": {
             "f": "6M",
-            "ej": "2025-04-28",
-            "px": "2025-10-25",
-            "st": "RETRASADO"
+            "ej": "2026-09-10",
+            "px": "2027-03-09",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -12712,9 +12712,9 @@ window.EQUIPOS_PLAN = {
           "pu": 266760,
           "xls": {
             "f": "3M",
-            "ej": "2025-04-28",
-            "px": "2025-07-27",
-            "st": "RETRASADO"
+            "ej": "2026-09-26",
+            "px": "2026-12-25",
+            "st": "EN TIEMPO"
           }
         }
       ]
@@ -13000,9 +13000,9 @@ window.EQUIPOS_PLAN = {
           "pu": 266760,
           "xls": {
             "f": "3M",
-            "ej": "2026-07-03",
-            "px": "2026-10-01",
-            "st": "ALERTA"
+            "ej": "2026-09-29",
+            "px": "2026-12-28",
+            "st": "EN TIEMPO"
           }
         }
       ]
@@ -14063,9 +14063,9 @@ window.EQUIPOS_PLAN = {
           "pu": 0,
           "xls": {
             "f": "9M",
-            "ej": "2025-07-21",
-            "px": "2026-04-17",
-            "st": "RETRASADO"
+            "ej": "2026-09-25",
+            "px": "2027-06-22",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -14132,9 +14132,9 @@ window.EQUIPOS_PLAN = {
           "pu": 0,
           "xls": {
             "f": "1A",
-            "ej": "2025-07-21",
-            "px": "2026-07-16",
-            "st": "RETRASADO"
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -14155,9 +14155,9 @@ window.EQUIPOS_PLAN = {
           "pu": 0,
           "xls": {
             "f": "1A",
-            "ej": "2025-07-21",
-            "px": "2026-07-16",
-            "st": "RETRASADO"
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -14201,9 +14201,9 @@ window.EQUIPOS_PLAN = {
           "pu": 1988200,
           "xls": {
             "f": "1A",
-            "ej": "2025-07-21",
-            "px": "2026-07-16",
-            "st": "RETRASADO"
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -14224,9 +14224,9 @@ window.EQUIPOS_PLAN = {
           "pu": 92000,
           "xls": {
             "f": "1A",
-            "ej": "2025-07-21",
-            "px": "2026-07-16",
-            "st": "RETRASADO"
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -14362,9 +14362,9 @@ window.EQUIPOS_PLAN = {
           "pu": 39500,
           "xls": {
             "f": "1A",
-            "ej": "2025-07-21",
-            "px": "2026-07-16",
-            "st": "RETRASADO"
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
           }
         },
         {
@@ -14710,6 +14710,98 @@ window.EQUIPOS_PLAN = {
             "ej": "2023-01-30",
             "px": "",
             "st": ""
+          }
+        },
+        {
+          "s": "ESTACION DE FORMADO",
+          "a": "MECANICA",
+          "cod": "741908035",
+          "d": "RODAMIENTO RODILLO CILINDR BLISTERS REF SL045007PP",
+          "q": 1,
+          "e": 2,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
+          }
+        },
+        {
+          "s": "ESTACION DE SELLADO",
+          "a": "MECANICA",
+          "cod": "741908035",
+          "d": "RODAMIENTO RODILLO CILINDR BLISTERS REF SL045007PP",
+          "q": 1,
+          "e": 2,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
+          }
+        },
+        {
+          "s": "ESTACION DE FORMADO",
+          "a": "MECANICA",
+          "cod": "741901231",
+          "d": "RODAMIENTO DE BOLA REF 6007 ZZ",
+          "q": 2,
+          "e": 11,
+          "w": [
+            0,
+            7,
+            4,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203 · R04/E0104",
+          "pu": 17736,
+          "xls": {
+            "f": "1A",
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
+          }
+        },
+        {
+          "s": "ESTACION DE SELLADO",
+          "a": "MECANICA",
+          "cod": "741901231",
+          "d": "RODAMIENTO DE BOLA REF 6007 ZZ",
+          "q": 2,
+          "e": 11,
+          "w": [
+            0,
+            7,
+            4,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203 · R04/E0104",
+          "pu": 17736,
+          "xls": {
+            "f": "1A",
+            "ej": "2026-09-25",
+            "px": "2027-09-20",
+            "st": "EN TIEMPO"
           }
         }
       ]
@@ -19383,7 +19475,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-12-10",
             "px": "2026-11-30",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -19406,7 +19498,7 @@ window.EQUIPOS_PLAN = {
             "f": "1B",
             "ej": "2024-12-10",
             "px": "2026-11-30",
-            "st": "EN TIEMPO"
+            "st": "ALERTA"
           }
         },
         {
@@ -19728,7 +19820,7 @@ window.EQUIPOS_PLAN = {
             "f": "9M",
             "ej": "2024-05-05",
             "px": "2025-01-30",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -20614,7 +20706,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-29",
             "px": "2025-01-23",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21316,7 +21408,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21339,7 +21431,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21362,7 +21454,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21385,7 +21477,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21431,7 +21523,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21454,7 +21546,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21477,7 +21569,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21500,7 +21592,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21523,7 +21615,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21546,7 +21638,7 @@ window.EQUIPOS_PLAN = {
             "f": "1A",
             "ej": "2024-01-24",
             "px": "2025-01-18",
-            "st": "RETRASADO"
+            "st": ""
           }
         },
         {
@@ -21742,7 +21834,7 @@ window.EQUIPOS_PLAN = {
             "f": "4A",
             "ej": "2022-10-19",
             "px": "2026-09-28",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -21765,7 +21857,7 @@ window.EQUIPOS_PLAN = {
             "f": "4A",
             "ej": "2022-10-19",
             "px": "2026-09-28",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -21788,7 +21880,7 @@ window.EQUIPOS_PLAN = {
             "f": "4A",
             "ej": "2022-10-19",
             "px": "2026-09-28",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {
@@ -21811,7 +21903,7 @@ window.EQUIPOS_PLAN = {
             "f": "4A",
             "ej": "2022-10-19",
             "px": "2026-09-28",
-            "st": "ALERTA"
+            "st": "RETRASADO"
           }
         },
         {

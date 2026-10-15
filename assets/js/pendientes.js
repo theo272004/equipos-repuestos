@@ -37,6 +37,7 @@
     tarea: { t: "Tarea", ico: "tareas", tono: "vio" },
     inspeccion: { t: "Inspección", ico: "insp", tono: "info" },
     solicitud: { t: "Almacén", ico: "almacen", tono: "ok" },
+    pieza: { t: "Pieza por cambiar", ico: "repuesto", tono: "warn" },
     manual: { t: "Anotado aquí", ico: "editar", tono: "acc" },
   };
   const PRIORIDAD = { alta: { t: "Alta", tono: "bad" }, media: { t: "Media", tono: "warn" }, baja: { t: "Baja", tono: "" } };
@@ -133,6 +134,43 @@
     });
   }
 
+  // Piezas que quedaron marcadas para cambiar en una posición de la máquina
+  // (assets/js/componentes-registro.js). Se cierran solas cuando se registra un
+  // cambio de esa posición después de la fecha en que quedó pendiente.
+  function desdeComponentes() {
+    const grupos = window.COMPONENTES_SEGUIDOS || [];
+    const eventos = typeof cambiosEventos === "function" ? cambiosEventos() : [];
+    const plan = (window.EQUIPOS_PLAN && window.EQUIPOS_PLAN.equipos) || [];
+    const out = [];
+    grupos.forEach((g) => (g.items || []).forEach((it) => {
+      // Los de un informe de mantenimiento ya llegan por su inspección (desdeInspecciones)
+      if (!it.pendiente || g.informe) return;
+      const desde = it.pendiente.desde || "";
+      const cambio = [...(it.cambios || []).map((c) => c.fecha), ...eventos.filter((c) => c.ubic === it.id).map((c) => c.fecha)]
+        .filter((f) => f && f >= desde).sort()[0] || "";
+      const e = plan.find((x) => x.c === g.eq);
+      const nombre = g.nombre || (e && e.n) || g.eq;
+      out.push({
+        id: `pza:${it.id}`,
+        origen: "pieza",
+        ref: it.id,
+        titulo: `Cambiar ${(it.ubicacion || it.d || "pieza").toLowerCase()} · ${nombre}`,
+        detalle: [it.pendiente.nota, it.nota].filter(Boolean).join(" "),
+        eq: nombre,
+        planCod: g.eq,
+        sede: "",
+        fecha: desde,
+        por: "",
+        prioridad: "media",
+        estadoBase: cambio ? "cerrado" : "abierto",
+        cerradoEn: cambio,
+        confianza: "alta",
+        repuesto: it.cod || "",
+      });
+    }));
+    return out;
+  }
+
   function desdeManuales() {
     return SEG.lista().filter((d) => d.origen === "manual").map((d) => ({
       id: d.id,
@@ -155,7 +193,7 @@
   function calcular() {
     const hoy = N.hoy();
     const segs = new Map(SEG.lista().map((d) => [d.id, d]));
-    const todos = [...desdeRegistro(), ...desdeTareas(), ...desdeInspecciones(), ...desdeSolicitudes(), ...desdeManuales()];
+    const todos = [...desdeRegistro(), ...desdeTareas(), ...desdeInspecciones(), ...desdeSolicitudes(), ...desdeComponentes(), ...desdeManuales()];
     todos.forEach((p) => {
       const s = segs.get(p.id) || (p.origen === "manual" ? segs.get(p.id) : null);
       p.seg = s || null;
