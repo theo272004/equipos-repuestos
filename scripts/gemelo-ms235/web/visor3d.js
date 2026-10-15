@@ -180,7 +180,8 @@ const MAT = {
   manguera: M({ color: 0x0284c7, metalness: 0.08, roughness: 0.34 }),
   conduit: M({ color: 0x8d949b, metalness: 0.25, roughness: 0.55 }),
   reten: M({ color: 0x2563eb, metalness: 0.1, roughness: 0.45 }),
-  champan: M({ color: 0xb99f68, metalness: 0.65, roughness: 0.32 }),
+  champan: M({ color: 0xa6906f, metalness: 0.72, roughness: 0.34 }),
+  manillaVerde: M({ color: 0x0fa968, metalness: 0.15, roughness: 0.38 }),
   riel: M({ color: 0xc4c9ce, metalness: 0.82, roughness: 0.25 }),
   canaleta: M({ color: 0x9aa3ab, metalness: 0, roughness: 0.65 }),
   breaker: M({ color: 0xf4f4f0, metalness: 0, roughness: 0.5 }),
@@ -216,6 +217,7 @@ function materialDe(it) {
   if (/armario\.(cuerpo|zocalo)|hmi\.panel|carter\.(trasera|tapa)/.test(n)) return MAT.pintado;
   // Piezas de acero inoxidable pulido / cepillado
   if (/^bastidor\.(pared|base|lateral|tapa-inspeccion|bandeja|viga)|^salida\.(larguero|pata|travesano|deslizadero|borde-deslizadero|bandeja)|^dosificacion\.tolva/.test(n)) return MAT.inox;
+  if (/^resguardos\.tirador/.test(n)) return MAT.manillaVerde;
   if (/^resguardos\.(poste|travesano|larguero|perfil)/.test(n)) return MAT.champan;
   if (/^guias\.rodillo|^desbobinado\.rodillo(?!-motorizado)/.test(n)) return MAT.crema;
   // Acero templado rectificado cromo / guías / cuchillas de corte
