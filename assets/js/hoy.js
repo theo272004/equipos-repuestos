@@ -194,7 +194,16 @@
     maq.forEach((r) => { if (!r.fa || r.fa === "Sin clasificar" || r.fa === "Otra") sinClas++; else tipos.set(r.fa, (tipos.get(r.fa) || 0) + 1); });
 
     const diasConDatos = new Set(regs.map((r) => r.f)).size || 1;
+    // Promedio de fallas por día en cada semana (lunes a domingo), solo con días que traen reportes
+    const sem = new Map();
+    maq.forEach((r) => { const d = new Date(r.f + "T12:00:00Z"); const lun = N.sumaDias(r.f, -((d.getUTCDay() + 6) % 7)); sem.set(lun, (sem.get(lun) || 0) + 1); });
+    const semanas = [...new Set([...porDia.keys()].map((f) => { const d = new Date(f + "T12:00:00Z"); return N.sumaDias(f, -((d.getUTCDay() + 6) % 7)); }))].sort().map((lun) => {
+      const fs = [...porDia.keys()].filter((f) => f >= lun && f <= N.sumaDias(lun, 6)).filter((f) => regs.some((r) => r.f === f));
+      const ini = fs[0] || lun, fin = fs[fs.length - 1] || lun;
+      return { ini, fin, n: sem.get(lun) || 0, prom: (sem.get(lun) || 0) / Math.max(1, fs.length) };
+    }).filter((w) => w.ini);
     return {
+      semanas,
       desde, hasta, dias, equipos, maq, regs,
       fallas: maq.length, porDia: [...porDia.entries()],
       tipos: [...tipos.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6), sinClas,
@@ -237,6 +246,56 @@
     </section>`;
   }
 
+
+  const nomCorto = (n) => String(n || "").replace(/\s+Marchesini$/i, "").replace(/^Recubridor\s+/i, "").replace(/^Preparacion de liquidos$/i, "Prep. de líquidos").replace(/^Fabricacion liquidos/i, "Fabric. líquidos").replace(/^Centro liquidos\s*/i, "Centro líquido ");
+  // Los tres equipos con más fallas van en rojo en las dos gráficas de barras
+  function barrasEquipos(A, { titulo, sub, clave, fmt, max }) {
+    const top3 = new Set(A.equipos.slice().sort((a, b) => b.n - a.n || b.min - a.min).slice(0, 3).map((e) => e.eq));
+    const lista = A.equipos.filter((e) => e[clave] > 0).sort((a, b) => b[clave] - a[clave] || b.n - a.n).slice(0, max);
+    const mx = Math.max(1, ...lista.map((e) => e[clave]));
+    return `<section class="ux-card hy-barras-card">
+      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic(clave === "n" ? "falla" : "reloj")}${titulo}</h2><p class="ux-card__sub">${sub}</p></div></div>
+      <div class="hy-leg"><span><s class="is-hot"></s>Los tres con más fallas</span><span><s></s>Otros</span></div>
+      ${lista.length ? `<div class="hy-barras">${lista.map((e) => `<button class="hy-barra" type="button" data-hy="ver-fallas-eq" data-v="${esc(e.eq)}" title="Ver el detalle de ${esc(e.eq)}">
+        <span class="hy-barra__t">${esc(nomCorto(e.eq))}</span><span class="hy-barra__b"><i class="${top3.has(e.eq) ? "is-hot" : ""}" style="width:${Math.round((e[clave] / mx) * 100)}%"></i></span><b>${fmt(e[clave])}</b></button>`).join("")}</div>`
+        : `<div class="ux-empty"><p>Sin datos en este periodo.</p></div>`}
+    </section>`;
+  }
+
+  // "Los equipos que más pesan, y por qué": una tarjeta por equipo, ordenada por horas de paro,
+  // con el paro más largo del periodo contado con las palabras del reporte.
+  function tarjetasPesan(A) {
+    const orden = A.equipos.slice().sort((a, b) => b.min - a.min || b.n - a.n).filter((e) => e.min > 0 || e.n >= 4).slice(0, 6);
+    // Del reporte se deja lo que pasó: sin el nombre de la máquina del principio y cortado en una palabra entera
+    const corto = (t) => {
+      let x = String(t || "").replace(/\s+/g, " ").trim();
+      const i = x.search(/\b(se|llam\w*|problemas?|fuerte|alarma|equipo)\b/i);
+      if (i > 0 && i <= 40) x = x.slice(i);
+      x = x.split(/(?<=[.;])\s/)[0].replace(/[.;,\s]+$/, "");
+      if (x.length > 120) x = x.slice(0, 118).replace(/[\s,]+\S*$/, "") + "…";
+      return x.charAt(0).toUpperCase() + x.slice(1);
+    };
+    const tarjeta = (e) => {
+      const propios = A.regs.filter((r) => r.eq === e.eq && r.s === e.s);
+      const mayor = propios.filter((r) => r.min > 0).sort((a, b) => b.min - a.min)[0];
+      const pend = e.estado.k === "pend" || e.estado.k === "conpend" ? 1 : 0;
+      const tono = e.estado.tono === "bad" || e.n >= 10 ? "bad" : "warn";
+      const frase = [
+        e.tipo ? `Sobre todo ${e.tipo.toLowerCase()}.` : "",
+        mayor ? `Paro más largo: ${horasTxt(mayor.min)} el ${N.fmt.corta(mayor.f)}. ${corto(mayor.de)}${/…$/.test(corto(mayor.de)) ? "" : "."}` : "",
+      ].filter(Boolean).join(" ");
+      return `<button class="hy-pesa is-${tono}" type="button" data-hy="ver-fallas-eq" data-v="${esc(e.eq)}">
+        <span class="hy-pesa__top"><b>${esc(e.eq)}</b><small>${e.n} ${e.n === 1 ? "falla" : "fallas"}${pend ? " · pendiente" : ""}</small><em>${e.min ? horasTxt(e.min) : "—"}</em></span>
+        <span class="hy-pesa__p">${esc(frase || "Sin detalle de duración en los reportes.")}</span>
+        <span class="hy-chip hy-chip--${e.estado.tono || "neutro"}"><i></i>${esc(e.estado.t)}</span>
+      </button>`;
+    };
+    return `<section class="ux-card hy-pesan">
+      <div class="ux-card__head"><div><h2 class="ux-card__title">${ic("llave")}Los equipos que más pesan, y por qué</h2><p class="ux-card__sub">Ordenados por horas de paro · toca uno para ver todo lo que le pasó</p></div></div>
+      ${orden.length ? `<div class="hy-pesan__grid">${orden.map(tarjeta).join("")}</div>` : `<div class="ux-empty"><p>Sin paros registrados en este periodo.</p></div>`}
+    </section>`;
+  }
+
   function tarjetaDias(A) {
     const mx = Math.max(1, ...A.porDia.map(([, n]) => n));
     const pico = Math.max(...A.porDia.map(([, n]) => n));
@@ -247,6 +306,7 @@
       </div>
       <div class="hy-dias" role="img" aria-label="Fallas de máquina por día">${A.porDia.map(([d, n]) => `<div title="${esc(N.fmt.corta(d))}: ${n} ${n === 1 ? "falla" : "fallas"}">
         <b>${n || ""}</b><i class="${n && n === pico && pico > 1 ? "is-pico" : ""}" style="height:${n ? Math.max(4, Math.round((n / mx) * 84)) : 2}px"></i><small>${Number(d.slice(8))}</small></div>`).join("")}</div>
+      ${A.semanas.length > 1 ? `<div class="hy-sem">${A.semanas.map((w) => `<div><b>≈${w.prom.toLocaleString("es-CO", { maximumFractionDigits: 0 })}</b><span>por día</span><small>${Number(w.ini.slice(8))} al ${Number(w.fin.slice(8))}</small></div>`).join("")}</div>` : ""}
     </section>`;
   }
 
@@ -751,9 +811,16 @@
         <div class="ux-stack">
           ${tarjetaTurno()}
           ${tarjetaDias(A)}
-          ${tarjetaTipos(A)}
         </div>
       </div>
+
+      <div class="hy-tres">
+        ${barrasEquipos(A, { titulo: "Fallas por equipo", sub: `Fallas correctivas de máquina · ${esc(nombrePeriodo())}`, clave: "n", fmt: String, max: 10 })}
+        ${barrasEquipos(A, { titulo: "Horas de paro por equipo", sub: "Solo reportes que traen duración", clave: "min", fmt: horasTxt, max: 8 })}
+        ${tarjetaTipos(A)}
+      </div>
+
+      <div class="hy-abajo">${tarjetasPesan(A)}</div>
 
       <div class="hy-abajo">${tarjetaAgenda()}</div>
     </div>
