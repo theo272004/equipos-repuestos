@@ -71,16 +71,21 @@ function leerChat(ruta) {
 // "29/9/2026, 9:05 p. m. - Autor: texto" o "29/9/2026, 21:05 - Autor: texto"
 // (el año puede venir de 2 dígitos: "11/10/26, 8:34 p. m.")
 const RE_ENCABEZADO = /^(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4}),\s*(\d{1,2}):(\d{2})\s*(?:([ap])\.?\s*m\.?)?\s+-\s+([\s\S]*)$/i;
+// Export de iPhone / WhatsApp en inglés: "[10/16/26, 10:04:42 AM] Autor: texto" (mes/día, con segundos)
+const RE_ENCABEZADO_IOS = /^\[(\d{1,2})\/(\d{1,2})\/(\d{2}|\d{4}),\s*(\d{1,2}):(\d{2})(?::\d{2})?\s*(?:([ap])\.?\s*m\.?)?\]\s+([\s\S]*)$/i;
 
 function parseMensajes(texto) {
   const msgs = [];
   let actual = null;
   for (const cruda of texto.split("\n")) {
     const linea = cruda.replace(/[  ]/g, " ");
-    const m = linea.match(RE_ENCABEZADO);
+    const ios = linea.replace(/^[‎‏]+/, "").match(RE_ENCABEZADO_IOS);
+    const m = ios ?? linea.match(RE_ENCABEZADO);
     if (m) {
       if (actual) msgs.push(actual);
-      const [, d, mes, anio, hh, mm, ap, resto] = m;
+      // en el formato de iPhone la fecha va mes/día (salvo que el primero no pueda ser mes)
+      const [, a1, a2, anio, hh, mm, ap, resto] = m;
+      const [d, mes] = ios && Number(a1) <= 12 ? [a2, a1] : [a1, a2];
       let h = Number(hh);
       if (ap) h = (h % 12) + (ap.toLowerCase() === "p" ? 12 : 0);
       const i = resto.indexOf(": ");
@@ -117,6 +122,11 @@ const limpiarCuerpo = (c) => c
   .replace(/<Se edit[óo] este mensaje\.?>/gi, "")
   .replace(/Se elimin[oó] este mensaje\.?/gi, "")
   .replace(/<Multimedia omitido>/gi, "")
+  // export de iPhone: adjuntos y reenvios vienen marcados en el texto
+  .replace(/[‎‏]/g, "")
+  .replace(/<Mensaje de [^>\n]*>/gi, "")
+  .replace(/<(imagen omitida|video omitido|audio omitido|sticker omitido|GIF omitido|documento omitido)>/gi, "")
+  .replace(/\[Reenviado\]\s*/gi, "")
   .replace(/ /g, " ")
   .trim();
 
@@ -135,7 +145,8 @@ function cargarLector() {
 // ------------------------------------------------ reporte (para Reportes)
 function cabeceraDeReporte(cuerpo) {
   const cab = cuerpo.replace(/[*_]/g, "").split("\n").map((l) => l.trim()).filter(Boolean).slice(0, 4).join(" ").toLowerCase();
-  return /\breporte\b/.test(cab) || (/\bturno\b/.test(cab) && /(sede|grupo|d[ií]a|noche|\bsd\s*\d)/.test(cab));
+  // Sergio (Sede 2) abre el reporte con la fecha: "2026-10-07" o "2026/10/01 Grupo día sede 2"
+  return /\breporte\b/.test(cab) || (/\bturno\b/.test(cab) && /(sede|grupo|d[ií]a|noche|\bsd\s*\d)/.test(cab)) || /^\d{4}[-/]\d{1,2}[-/]\d{1,2}\b/.test(cab);
 }
 
 // La sede la dice el encabezado ("Reporte turno sede 2"); si no la dice, es
@@ -337,8 +348,14 @@ for (const m of msgs) {
 // 1. Reportes de turno
 const reportes = [];
 const ids = new Set();
+// lo de antes del ultimo reporte ya importado solo entra si es un reporte con encabezado: un export
+// distinto (p. ej. de iPhone) parte los reenvios en trozos que repetirian reportes ya cargados
+const previos = Array.isArray(W.REPORTES_TURNO) ? W.REPORTES_TURNO : [];
+const idsPreviosRep = new Set(previos.map((r) => r.id));
+const ultimoPrevio = previos.reduce((max, r) => (r.id > max ? r.id : max), "");
 for (const { msg, lectura } of entradas) {
   if (!cabeceraDeReporte(msg.cuerpo) && lectura.estados.length < 2) continue;
+  if (idDe(msg) <= ultimoPrevio && !idsPreviosRep.has(idDe(msg)) && !cabeceraDeReporte(msg.cuerpo)) continue;
   const r = reporteDe(msg);
   let id = r.id, n = 2;
   while (ids.has(id)) id = `${r.id}-${n++}`;
@@ -359,7 +376,13 @@ console.log(`Reportes de turno: ${reportes.length} (Sede 4: ${x4}, Sede 2: ${rep
 if (!soloReportes) {
   const H = MTTO.hist;
   const ultimoLeido = H.registros.reduce((max, r) => (r.rid > max ? r.rid : max), "");
-  const nuevas = entradas.filter(({ msg }) => idDe(msg) > ultimoLeido);
+  // tambien entran los reportes que un export anterior no reconocia (p. ej. los que llegan como pie
+  // de foto en el export de iPhone) y que todavia no tienen novedades en el registro
+  const ridsRegistro = new Set(H.registros.map((r) => r.rid).filter(Boolean));
+  const idsPrevios = new Set((Array.isArray(W.REPORTES_TURNO) ? W.REPORTES_TURNO : []).map((r) => r.id));
+  const rescatados = entradas.filter(({ msg }) => idDe(msg) <= ultimoLeido && !ridsRegistro.has(idDe(msg)) && !idsPrevios.has(idDe(msg)) && cabeceraDeReporte(msg.cuerpo));
+  if (rescatados.length) console.log(`Registro diario: ${rescatados.length} reportes que antes no se leian (${rescatados.map(({ msg }) => idDe(msg)).join(", ")})`);
+  const nuevas = [...rescatados, ...entradas.filter(({ msg }) => idDe(msg) > ultimoLeido)];
   let seq = H.registros.reduce((max, r) => Math.max(max, Number(r.id.split("-")[1]) || 0), 0);
   let agregadas = 0;
   let hasta = MTTO.hasta;
