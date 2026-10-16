@@ -1781,3 +1781,39 @@ body.app .cp-partes th { padding: 4px 8px; color: var(--mute-2); font-size: 11px
 body.app .cp-partes td { padding: 5px 8px; border-bottom: 1px solid var(--line); color: var(--ink-2); vertical-align: top; }
 body.app .cp-partes td:first-child { font-variant-numeric: tabular-nums; white-space: nowrap; }
 body.app .cp-partes .cp-chip { min-height: 20px; padding: 0 8px; font-size: 11px; }
+
+/* ------------------------------------- 20. compras: por llegar y por pedir -- */
+body.app .cm-nota { display: flex; gap: 6px; align-items: flex-start; margin: 12px 0 0; line-height: 1.45; }
+body.app .cm-nota .ic { margin-top: 2px; flex-shrink: 0; }
+body.app .cm-barra { display: flex; margin: 14px 0 12px; }
+body.app .cm-buscar { flex: 1; max-width: 520px; }
+body.app .cm-chips { margin-bottom: 12px; }
+body.app .cm-tabla td { vertical-align: top; }
+body.app .cm-tabla tr[data-cm] { cursor: pointer; }
+body.app .cm-prov { margin-top: 18px; max-width: 640px; }
+body.app .hy-barra__b i.is-hot { background: var(--bad); }
+body.app .hy-pesa__compra { margin: 2px 0 0; color: var(--ink-2); font-size: 12px; }
+@media (max-width: 760px) { body.app .cm-tabla { font-size: 12.5px; } }
+body.app .cm-buscar { width: 100%; max-width: 520px; }
+body.app .cm-f { white-space: nowrap; }
+body.app .cp-pedir { margin-top: 2px; font-weight: 600; color: var(--warn-d); }
+body.app .cp-pedir.is-bad { color: var(--bad-d); }
+body.app .cp-pedir.is-ok { color: var(--ok-d); }
+body.app .cp-partes .cp-chip { max-width: 190px; overflow: hidden; text-overflow: ellipsis; }
+body.app .pd-compra { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; padding: 2px 9px; border-radius: 999px; background: var(--well); color: var(--ink-2); font-size: 11.5px; font-weight: 600; }
+body.app .pd-compra .ic { width: 13px; height: 13px; }
+body.app .pd-compra--bad { background: var(--bad-t); color: var(--bad-d); }
+body.app .pd-compra--warn { background: var(--warn-t); color: var(--warn-d); }
+body.app .pd-compra--ok { background: var(--ok-t); color: var(--ok-d); }
+body.app .pd-compras { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+body.app .pd-compras li { display: grid; grid-template-columns: auto auto; gap: 2px 8px; justify-content: start; align-items: center; }
+body.app .pd-compras li .ux-small { grid-column: 1 / -1; color: var(--mute); }
+body.app .pd-compras .pd-compra { margin-top: 0; }
+@media (max-width: 760px) {
+  body.app .cm-tabla thead { display: none; }
+  body.app .cm-tabla, body.app .cm-tabla tbody { display: block; }
+  body.app .cm-tabla tr { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  body.app .cm-tabla td { padding: 0; border: 0; max-width: none !important; text-align: left !important; }
+  body.app .cm-tabla td:first-child { grid-column: 1 / -1; }
+  body.app .cm-tabla td[data-l]::before { content: attr(data-l); display: block; color: var(--mute-2); font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+}
