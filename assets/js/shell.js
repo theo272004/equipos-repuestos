@@ -95,6 +95,7 @@
     pendientes: { t: "Pendientes", pt: "Pendientes", g: "Mantenimiento", ico: "pendientes", badge: "sbPendientes", go: (o) => window.goPendientes?.(o) },
     tasks: { t: "Tareas", pt: "Tareas", g: "Mantenimiento", ico: "tareas", badge: "sbTareas", go: () => window.goTasks?.() },
     almacen: { t: "Almacén", pt: "Repuestos y solicitudes", g: "Almacén", ico: "almacen", go: (o) => window.goAlmacen?.(o) },
+    compras: { t: "Repuestos por llegar", pt: "Por llegar", g: "Almacén", ico: "caja", go: (o) => window.goCompras?.(o) },
     presupuesto: { t: "Presupuesto", pt: "Presupuesto", g: "Almacén", ico: "presupuesto", go: (o) => window.goPresupuesto?.(o) },
     solicitudes: { t: "Historial de solicitudes", pt: "Historial", g: "Almacén", ico: "reloj", badge: "sbSolic", go: (o) => window.goSolicitudes?.(o) },
     indicadores: { t: "Indicadores", g: "Indicadores", ico: "indicadores", go: (o) => window.goIndicadores?.(o) },

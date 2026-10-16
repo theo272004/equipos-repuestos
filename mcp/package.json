@@ -1,0 +1,16 @@
+{
+  "name": "mantenimiento-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Servidor MCP de la app de mantenimiento de Farmacápsulas: consulta y anota por conversación.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test test/mcp.test.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.1",
+    "zod": "^3.25.0"
+  }
+}

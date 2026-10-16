@@ -335,6 +335,13 @@
     const a = inv.de(inv.norm(cod));
     return a ? Number(a.exist) || 0 : 0;
   }
+  // Estado de compra de una pieza (assets/js/compras.js)
+  const compraTxt = (cod) => {
+    const C = window.COMPRAS;
+    if (!cod || !C) return "";
+    const e = C.estadoDe(cod);
+    return e.k === "sin-pedido" ? "sin pedido" : e.k === "llego" ? "compra recibida" : e.corto;
+  };
   const hayTxt = (n) => (n === null ? "" : n > 0 ? `hay ${N.fmt.num(n)} en almacén` : "no hay en almacén");
 
   // Siempre 3 equipos recomendados para inspeccionar basados en fallas recientes (14 días)
@@ -460,7 +467,7 @@
       items.push({
         tono: e.estado === "pronto" ? "warn" : "bad", ico: "repuesto",
         t: `Cambiar ${it.ubicacion || it.d} · ${nombreEq(g.eq)}`,
-        s: [e.estado === "pendiente" ? "Quedó pendiente" : `Toca el ${N.fmt.corta(e.proximo)}`, hayTxt(n)].filter(Boolean).join(" · "),
+        s: [e.estado === "pendiente" ? "Quedó pendiente" : `Toca el ${N.fmt.corta(e.proximo)}`, hayTxt(n), compraTxt(it.cod)].filter(Boolean).join(" · "),
         falta: n === 0, acc: n === 0 ? "Pedir" : "Ver", hy: n === 0 ? "pedir" : "ficha", v: g.eq, cod: it.cod,
       });
     }));
@@ -474,7 +481,7 @@
       items.push({
         tono: p.urgencia === "alta" ? "bad" : p.urgencia === "baja" ? "" : "warn", ico: "insp",
         t: `${p.d || p.cod || "Pieza"} · ${nombreEq(i.eq)}`,
-        s: [`Inspección del ${N.fmt.corta(i.fecha)}`, hayTxt(n)].filter(Boolean).join(" · "),
+        s: [`Inspección del ${N.fmt.corta(i.fecha)}`, hayTxt(n), compraTxt(p.cod)].filter(Boolean).join(" · "),
         falta: n === 0, acc: n === 0 ? "Pedir" : "Ver", hy: n === 0 ? "pedir" : "seg", v: i.eq, cod: p.cod, id: i.id,
       });
     }));

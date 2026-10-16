@@ -33,3 +33,6 @@ manuales/_almacen/
 # Python
 __pycache__/
 *.pyc
+
+mcp/node_modules/
+node_modules/
