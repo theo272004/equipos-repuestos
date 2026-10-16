@@ -45,7 +45,7 @@
   // Quien no está aquí (supervisores, electricistas de apoyo) se ubica por la hora.
   const TN_CHAT = {
     "alexander algarin": "Grupo Sede 4-1", "jhon": "Grupo Sede 4-1", "jair mesa": "Grupo Sede 4-1", "mesari37": "Grupo Sede 4-1", "3481": "Grupo Sede 4-1", "4066": "Grupo Sede 4-1",
-    "3014": "Grupo Sede 4-2", "bladimir": "Grupo Sede 4-2", "brayan": "Grupo Sede 4-2", "1867": "Grupo Sede 4-2",
+    "3014": "Grupo Sede 4-2", "miguel": "Grupo Sede 4-2", "bladimir": "Grupo Sede 4-2", "brayan": "Grupo Sede 4-2", "1867": "Grupo Sede 4-2",
     "lucho": "Grupo Sede 4-3", "diego temporal": "Grupo Sede 4-3", "heiner": "Grupo Sede 4-3", "2880": "Grupo Sede 4-3",
     "alfonsoorozco10": "Grupo Vía 40-1", "sergio vergara electricista": "Grupo Vía 40-1", "2941": "Grupo Vía 40-2", "0864": "Grupo Vía 40-3",
   };
