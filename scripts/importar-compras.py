@@ -11,12 +11,12 @@ tabla HTML con extensión .xls que entrega MiPortal):
 y deja assets/js/compras-data.js (window.COMPRAS_DATA) para la pantalla «Por llegar», el
 estado de compra de cada pieza y el cálculo de cuándo pedir.
 
-Los reportes son de TODA la empresa. Aquí solo se queda lo de mantenimiento:
+Los reportes son de TODA la empresa. Aquí solo se queda lo que piden los usuarios de
+mantenimiento (SOLICITANTES: FNEGRETE, SFUENTES y MCASTRO) y, de eso:
   - las líneas del RE355 que van a las bodegas de repuestos (R01, R02, R04) o cuyo código
     está en el plan de mantenimiento;
   - su orden de compra (se cruzan por número de orden + línea);
-  - las órdenes de compra de esas bodegas que no tienen requisición, solo si el código es
-    un repuesto del maestro de almacén (así quedan fuera fletes, aduana, impuestos…).
+  Las órdenes de compra que no traen requisición no dicen quién las pidió, así que no entran.
 
 Qué dicen las fechas (importa para no engañarse): «FEC ENTREGA» del RE355 y «VENCE» de la
 orden son la fecha PROMETIDA de entrega, no cuándo llegó. Los reportes no traen fecha de
@@ -28,6 +28,7 @@ reemplaza a la vieja (misma orden y línea) y las que no trae se conservan.
 Uso:
   python3 scripts/importar-compras.py "Datos_64.xls" "Datos_63.xls"
   python3 scripts/importar-compras.py "Datos_64.xls" --probar        (no escribe, solo cuenta)
+  python3 scripts/importar-compras.py --filtrar                      (re-aplica el filtro de solicitantes a lo ya guardado)
 
 Para leer un .xls binario hace falta `xlrd` (pip install xlrd) o LibreOffice; si no hay
 ninguno, guárdalo como .xlsx desde Excel. No ejecuta macros ni abre enlaces del archivo.
@@ -148,6 +149,10 @@ def num(v):
     return int(x) if x.is_integer() else round(x, 3)
 
 
+# Quién pide por mantenimiento: lo de los demás usuarios de la empresa no entra
+SOLICITANTES = {"FNEGRETE", "SFUENTES", "MCASTRO"}
+
+
 def cod(v):
     s = str(v or "").strip().upper().replace("\t", "").replace(" ", "")
     return re.sub(r"\.0+$", "", s)
@@ -177,7 +182,7 @@ def codigos_conocidos():
 # --------------------------------------------------------------------- main
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
-    if not args:
+    if not args and "--filtrar" not in sys.argv:
         sys.exit(__doc__)
     probar = "--probar" in sys.argv
 
@@ -205,6 +210,8 @@ def main():
         alm = str(r.get("ALMAC", "")).strip()
         if not c or not (alm in BODEGAS or c in plan):
             continue
+        if str(r.get("USUARIO", "")).strip().upper() not in SOLICITANTES:
+            continue
         # «PLANEADA EN FIRME» y similares no son una orden de compra: solo cuentan los números
         ocn = str(r.get("ORD COMPRA", "")).strip()
         ocn = ocn if re.fullmatch(r"\d+", ocn) else ""
@@ -227,6 +234,8 @@ def main():
     sueltas = 0
     for (ocn, ln), o in oc_idx.items() if oc else []:
         c = cod(o.get("CODIGO"))
+        if True:  # sin requisición no se sabe quién la pidió: no entra
+            continue
         if (ocn, ln) in usadas or o.get("BOD", "").strip() not in BODEGAS or o.get("ESTADO LINEA") != "ACTIVA":
             continue
         if not (c in maestro or c in plan):
@@ -252,7 +261,8 @@ def main():
             previo = json.loads(t[t.index("window.COMPRAS_DATA = ") + len("window.COMPRAS_DATA = "):].rstrip().rstrip(";"))
         except Exception:
             previo = {}
-    por_clave = {clave(l): l for l in previo.get("lineas", [])}
+    por_clave = {clave(l): l for l in previo.get("lineas", []) if str(l.get("us", "")).upper() in SOLICITANTES}
+    quitadas = len(previo.get("lineas", [])) - len(por_clave)
     nuevas = sum(1 for l in lineas if clave(l) not in por_clave)
     for l in lineas:
         por_clave[clave(l)] = l
@@ -262,10 +272,10 @@ def main():
     datos = {
         "generado": hoy, "desde": min(fps) if fps else "", "hasta": max(fps) if fps else "",
         "fuentes": {**previo.get("fuentes", {}), **nombres},
-        "alcance": "Mantenimiento: líneas a las bodegas de repuestos R01, R02 y R04 o con código del plan, y sus órdenes de compra.",
+        "alcance": "Pedidos de FNEGRETE, SFUENTES y MCASTRO a las bodegas de repuestos R01, R02 y R04 o con código del plan, y su orden de compra.",
         "lineas": todas,
     }
-    print(f"Líneas de mantenimiento en este import: {len(lineas)} (de las cuales {sueltas} son órdenes sin requisición) · nuevas: {nuevas} · total guardado: {len(todas)}")
+    print(f"Líneas de mantenimiento en este import: {len(lineas)} (de las cuales {sueltas} son órdenes sin requisición) · nuevas: {nuevas} · quitadas por no ser de mantenimiento: {quitadas} · total guardado: {len(todas)}")
     if probar:
         print("(--probar: no se escribió nada)")
         return
