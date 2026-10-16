@@ -16,7 +16,10 @@ mantenimiento (SOLICITANTES: FNEGRETE, SFUENTES y MCASTRO) y, de eso:
   - las líneas del RE355 que van a las bodegas de repuestos (R01, R02, R04) o cuyo código
     está en el plan de mantenimiento;
   - su orden de compra (se cruzan por número de orden + línea);
-  Las órdenes de compra que no traen requisición no dicen quién las pidió, así que no entran.
+  Las órdenes de compra sueltas (sin requisición) no dicen quién las pidió: entran solo si su
+  centro de costo es de un equipo o área que esos usuarios ya piden (p. ej. «GU. ENVASADO
+  SOBRES 8 MARCHESINI»). Lo que otro usuario pidió (NGALVIS, BDOMINGUEZ…) no entra aunque
+  el centro de costo sea el mismo.
 
 Qué dicen las fechas (importa para no engañarse): «FEC ENTREGA» del RE355 y «VENCE» de la
 orden son la fecha PROMETIDA de entrega, no cuándo llegó. Los reportes no traen fecha de
@@ -153,6 +156,11 @@ def num(v):
 SOLICITANTES = {"FNEGRETE", "SFUENTES", "MCASTRO"}
 
 
+def cc_codigo(cc):
+    """«GU - ENVASADO SOBRES 8 MARCHESINI» y «GU. ENVASADO…» (así lo escribe la orden) → «GU»."""
+    return re.split(r"\s*[-.]\s", str(cc or "").strip(), maxsplit=1)[0].strip().upper()
+
+
 def cod(v):
     s = str(v or "").strip().upper().replace("\t", "").replace(" ", "")
     return re.sub(r"\.0+$", "", s)
@@ -231,10 +239,20 @@ def main():
             "ve": fecha(o.get("VENCE")) if o else "", "fa": fecha(o.get("FEC APROBAC")) if o else "",
             "eo": o.get("ESTADO LINEA", "").strip() if o else "", "s": "r",
         }))
+    previo = {}
+    if DESTINO.exists():
+        try:
+            t = DESTINO.read_text(encoding="utf-8")
+            previo = json.loads(t[t.index("window.COMPRAS_DATA = ") + len("window.COMPRAS_DATA = "):].rstrip().rstrip(";"))
+        except Exception:
+            previo = {}
+    es_mio = lambda l: str(l.get("us", "")).upper() in SOLICITANTES
+    ccs_mios = {cc_codigo(l.get("cc")) for l in [*lineas, *previo.get("lineas", [])] if es_mio(l) and l.get("cc")}
+    cod_cc = lambda o: cc_codigo(o.get("CENTRO COSTO"))
     sueltas = 0
     for (ocn, ln), o in oc_idx.items() if oc else []:
         c = cod(o.get("CODIGO"))
-        if True:  # sin requisición no se sabe quién la pidió: no entra
+        if cod_cc(o) not in ccs_mios:  # sin requisición no hay solicitante: vale el centro de costo
             continue
         if (ocn, ln) in usadas or o.get("BOD", "").strip() not in BODEGAS or o.get("ESTADO LINEA") != "ACTIVA":
             continue
@@ -254,14 +272,8 @@ def main():
             return f"{l['oc']}-{l.get('ln', '')}-{l.get('rq', '')}"
         return f"rq:{l.get('rq', '')}:{l['c']}:{l.get('fp', '')}:{l.get('q', 0)}:{l.get('us', '')}:{l.get('a', '')}"
 
-    previo = {}
-    if DESTINO.exists():
-        try:
-            t = DESTINO.read_text(encoding="utf-8")
-            previo = json.loads(t[t.index("window.COMPRAS_DATA = ") + len("window.COMPRAS_DATA = "):].rstrip().rstrip(";"))
-        except Exception:
-            previo = {}
-    por_clave = {clave(l): l for l in previo.get("lineas", []) if str(l.get("us", "")).upper() in SOLICITANTES}
+    # Lo ya guardado: de los tres usuarios, o una orden suelta de un centro de costo que ellos piden
+    por_clave = {clave(l): l for l in previo.get("lineas", []) if es_mio(l) or (not l.get("us") and cc_codigo(l.get("cc")) in ccs_mios)}
     quitadas = len(previo.get("lineas", [])) - len(por_clave)
     nuevas = sum(1 for l in lineas if clave(l) not in por_clave)
     for l in lineas:
@@ -275,7 +287,7 @@ def main():
         "alcance": "Pedidos de FNEGRETE, SFUENTES y MCASTRO a las bodegas de repuestos R01, R02 y R04 o con código del plan, y su orden de compra.",
         "lineas": todas,
     }
-    print(f"Líneas de mantenimiento en este import: {len(lineas)} (de las cuales {sueltas} son órdenes sin requisición) · nuevas: {nuevas} · quitadas por no ser de mantenimiento: {quitadas} · total guardado: {len(todas)}")
+    print(f"Líneas de mantenimiento en este import: {len(lineas)} (de las cuales {sueltas} son órdenes sin requisición) · nuevas: {nuevas} · quitadas por no ser de ustedes: {quitadas} · total guardado: {len(todas)}")
     if probar:
         print("(--probar: no se escribió nada)")
         return

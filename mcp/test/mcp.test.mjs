@@ -63,11 +63,11 @@ test("lista las herramientas con sus anotaciones", async () => {
   await c.close();
 });
 
-test("lectura: compras igual que la app (217 abiertas, 21 atrasadas)", async () => {
+test("lectura: compras igual que la app (223 abiertas, 25 atrasadas)", async () => {
   const c = await conectar();
   const r = await c.callTool({ name: "repuestos_por_llegar", arguments: { filtro: "atrasada", limite: 2 } });
-  assert.match(texto(r), /"abiertas": 217/);
-  assert.match(texto(r), /"atrasadas": 21/);
+  assert.match(texto(r), /"abiertas": 223/);
+  assert.match(texto(r), /"atrasadas": 25/);
   const p = await c.callTool({ name: "por_pedir", arguments: { incluir_viejas: true, limite: 1 } });
   assert.match(texto(p), /"vigentes": \d+,\n "viejasSinActualizar": \d+/); // las cifras dependen del inventario falso
   await c.close();
