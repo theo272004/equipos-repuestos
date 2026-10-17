@@ -583,12 +583,13 @@ ${buildMachineContext(machine)}`;
       function homeFichaTiene(m) {
         return [
           { k: "Manual", ok: (m.documents ?? []).some((d) => d.file) },
+          { k: "Gemelo 3D", ok: !!(m.gemelo || (window.GEMELO_3D && window.GEMELO_3D.hasGemelo3D(m))) },
           { k: "Sistemas", ok: !!(m.systemAtlas || (m.systems ?? []).length) },
           { k: "Repuestos", ok: !!(m.spareParts ?? []).length || !!(equipoDeMachine(m)?.r.length) },
           { k: "Mantenimiento", ok: !!(m.maintenanceTasks ?? []).length },
           { k: "Fallas", ok: !!(m.failureModes ?? []).length || !!m.alarms },
           { k: "Despiece", ok: !!(typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[m.id]) || !!(typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[m.id]) },
-          { k: "Plano", ok: !!m.schematic }
+          { k: "Plano", ok: !!(m.schematic || m.schematicIndex) }
         ];
       }
 

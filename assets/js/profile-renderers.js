@@ -32,8 +32,13 @@ function dt(machine, campo) {
         const hayDespiece = hayMec
           || (typeof MACHINE_PARTS !== "undefined" && MACHINE_PARTS[machine.id])
           || (typeof MACHINE_TABLES !== "undefined" && MACHINE_TABLES[machine.id]);
+        const hayGemelo3D = typeof window.GEMELO_3D !== "undefined" && window.GEMELO_3D.hasGemelo3D(machine);
+        if (typeof window.GEMELO_3D !== "undefined") {
+          window.GEMELO_3D.disposeActiveTwin();
+        }
         const tabs = [
           ["summary", "Resumen"],
+          ...(hayGemelo3D ? [["gemelo3d", "🧊 Gemelo 3D"]] : []),
           ...(((machine.systems ?? []).length || machine.systemAtlas) ? [["systems", "Sistemas"]] : []),
           ["spares", "Repuestos"],
           ["maintenance", "Mantenimiento"],
@@ -54,10 +59,17 @@ function dt(machine, campo) {
           <section class="profile-panel is-active" data-profile-panel="summary">
             <div class="summary-hero">
               <div class="summary-left-col">
-                <div class="summary-hero__image${machine.gemelo ? " summary-hero__image--gemelo" : ""}">
+                <div class="summary-hero__image${(machine.gemelo || hayGemelo3D) ? " summary-hero__image--gemelo" : ""}">
                   ${machine.gemelo ? `<a href="${machine.gemelo}" class="gemelo-cta" title="Ver la máquina pieza por pieza: girarla, desarmarla y ver láminas, sensores, repuestos e historial de cada conjunto">` : ""}
                   ${machine.image ? `<img src="${machine.image}" alt="${machine.name}" />` : ""}
                   ${machine.gemelo ? `<span class="gemelo-cta__boton"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="m3 16 9 5 9-5M3 12l9 5 9-5"/></svg>Abrir gemelo 3D</span></a>` : ""}
+                  ${(!machine.gemelo && hayGemelo3D) ? `
+                    <div class="g3d-hero-launch">
+                      <button type="button" class="g3d-hero-launch__btn" onclick="window.g3dJumpToTab && window.g3dJumpToTab('gemelo3d')">
+                        <span>🧊</span> Abrir Gemelo Digital y Simulación 3D Interactiva
+                      </button>
+                    </div>
+                  ` : ""}
                 </div>
                 <div class="summary-card-under-img">
                   <h4>Datos técnicos clave</h4>
@@ -103,6 +115,7 @@ function dt(machine, campo) {
               </div>
             </div>
           </section>
+          ${hayGemelo3D ? `<section class="profile-panel" data-profile-panel="gemelo3d">${window.GEMELO_3D.renderGemelo3DPanel(machine)}</section>` : ""}
           <section class="profile-panel" data-profile-panel="systems">${renderSystemsPanel(machine)}</section>
           <section class="profile-panel" data-profile-panel="spares">${renderSparesPanel(machine)}</section>
 
@@ -1989,6 +2002,16 @@ function dt(machine, campo) {
           const tabId = tab.dataset.profileTab;
           guideTabs.querySelectorAll(".profile-tab").forEach((button) => { button.classList.toggle("is-active", button === tab); });
           guidePanels.querySelectorAll(".profile-panel").forEach((panel) => { panel.classList.toggle("is-active", panel.dataset.profilePanel === tabId); });
+          if (typeof window.GEMELO_3D !== "undefined") {
+            if (tabId === "gemelo3d") {
+              const curMachine = machines.find((m) => m.id === selectedId);
+              if (curMachine) {
+                requestAnimationFrame(() => window.GEMELO_3D.initGemelo3DForMachine(curMachine));
+              }
+            } else {
+              window.GEMELO_3D.disposeActiveTwin();
+            }
+          }
         }
       });
 

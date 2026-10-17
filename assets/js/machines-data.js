@@ -4803,6 +4803,1579 @@ const initialMachines = [
             { name: "Calibrado y regulaciones / cambio de formato", status: "Pendiente" },
             { name: "Piezas de recambio (M6210005, 195 págs., ITA/SPA)", status: "Disponible", file: "manuales/ml642/ML642-piezas-de-recambio-M6210005.pdf" }
           ]
+        },
+        {
+          "id": "eq-17333006",
+          "equipoCod": "17333006",
+          "name": "Encapsuladora Automática NJP-1200C",
+          "model": "NJP-1200C",
+          "current": "Código 17333006 · 1200 cáps/min",
+          "area": "Sólidos · Encapsulado",
+          "location": "Sede 4",
+          "status": "Operativo",
+          "criticality": "Alta",
+          "manual": "NJP-1200C Manual de usuario (ES, 40 págs.)",
+          "maintenance": "26 repuestos en el plan + guía de mantenimiento por estaciones",
+          "completion": 90,
+          "image": "assets/njp3500/p05_vista-general.png",
+          "notes": "Manual NJP-1200C integrado con gemelo digital 3D interactivo de 10 estaciones y 9 orificios por segmento.",
+          "causaCod": "DZ",
+          "causaDesc": "Encapsuladora NJP-1200 #1 (Sede 4)",
+          "searchAliases": [
+            "17333006",
+            "njp1200",
+            "njp-1200",
+            "njp1200c",
+            "njp-1200c",
+            "DZ",
+            "encapsuladora",
+            "llenadora de capsulas",
+            "tamping",
+            "dosificador",
+            "741901010",
+            "741901135",
+            "741901255",
+            "741903127",
+            "741903128",
+            "741903130",
+            "741903133",
+            "741903134",
+            "741903138",
+            "741903139",
+            "741909008",
+            "MNP380053",
+            "741902200",
+            "741901030",
+            "MNP380054",
+            "MNP380057",
+            "732801001",
+            "742301113",
+            "741901079",
+            "732402023",
+            "741204018",
+            "724002315",
+            "741903161"
+          ],
+          "description": "Encapsuladora automática intermitente NJP-1200C de 10 estaciones y 9 orificios por molde (hasta 1200 cápsulas/min). Equipada con separación por vacío, unidad de pellets de liberación lenta (estación 3), anillo dosificador con 5 apisonamientos (estación 4), succión de cápsulas defectuosas (estación 6), cierre por pasador superior (estación 8), expulsión (estación 9) y limpieza por vacío (estación 10).",
+          "technicalData": {
+            "function": "Alimentar, orientar, abrir por vacío, dosificar polvo/pellets en 5 etapas de compactación (tamping), rechazar cápsulas no abiertas, cerrar, expulsar y limpiar moldes de 9 alojamientos en ciclo indexado de 10 estaciones.",
+            "capacity": "1200 cápsulas/min (72.000 cáps/h)",
+            "capsuleSizes": "00, 0, 1, 2, 3, 4, 5 y cápsulas de seguridad A-E",
+            "dosingSystem": "Disco dosificador con 5 estaciones de apisonado (tamping) + unidad de pellets en Est. 3",
+            "power": "5.75 kW (motor principal 1.5 kW + bomba vacío 2.2 kW + colector polvo 2.05 kW)",
+            "voltage": "380 V / 220 V · 3 fases · 50/60 Hz",
+            "weight": "900 kg",
+            "dimensions": "1020 × 860 × 1970 mm",
+            "manufacturer": "Ruian / Canaan Pharmaceutical Machinery",
+            "brand": "NJP Series",
+            "serialNumber": "NJP-1200C-01",
+            "year": "2020"
+          },
+          "summarySpecs": [
+            {
+              "label": "Capacidad",
+              "value": "1200 cáps/min (9 agujeros/molde)"
+            },
+            {
+              "label": "Estaciones",
+              "value": "10 estaciones indexadas"
+            },
+            {
+              "label": "Formatos",
+              "value": "Cápsulas #00 a #5"
+            },
+            {
+              "label": "Vacío separación",
+              "value": "-0.02 a -0.06 MPa"
+            },
+            {
+              "label": "Potencia total",
+              "value": "5.75 kW"
+            },
+            {
+              "label": "Dimensiones / Peso",
+              "value": "1020×860×1970 mm · 900 kg"
+            }
+          ],
+          "systems": [
+            {
+              "name": "Estación 1 · Alimentación y separación por vacío",
+              "function": "Orienta las cápsulas con horquillas verticales/horizontales y separa cuerpo y tapa mediante zapata de vacío inferior (-0.02 a -0.06 MPa).",
+              "components": [
+                "Tolva de cápsulas",
+                "Tubos guía (9 vías)",
+                "Horquilla vertical y horizontal",
+                "Zapata de vacío"
+              ],
+              "status": "Manual p.6-14"
+            },
+            {
+              "name": "Estación 2 y 7 · Leva de descenso y retorno de molde inferior",
+              "function": "En Est. 2 baja y desplaza hacia afuera el segmento inferior; en Est. 7 lo retrae y alinea con el molde superior tras la dosificación.",
+              "components": [
+                "Eje guía de segmento",
+                "Rodamientos seguidor de leva",
+                "Bujes lineales",
+                "Muelles de retorno"
+              ],
+              "status": "Manual p.6-15"
+            },
+            {
+              "name": "Estación 3 · Unidad de pellets / microgránulos",
+              "function": "Dosificación opcional de pellets de liberación lenta directamente al cuerpo de la cápsula antes o en lugar del polvo.",
+              "components": [
+                "Tolva de pellets",
+                "Corredera dosificadora",
+                "Actuador solenoide/mecánico"
+              ],
+              "status": "Manual p.6"
+            },
+            {
+              "name": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "function": "Forma el taco (slug) en el disco dosificador mediante 5 punzones ajustables y lo transfiere al cuerpo de la cápsula en la 5ª carrera.",
+              "components": [
+                "Disco dosificador",
+                "5 soportes y punzones de tamping",
+                "Anillo retenedor de polvo",
+                "Rascador (wiper)",
+                "Sensor capacitivo de nivel"
+              ],
+              "status": "Manual p.16-22"
+            },
+            {
+              "name": "Estación 6 · Rechazo de cápsulas no separadas",
+              "function": "Varillas inferiores empujan hacia arriba las cápsulas que no abrieron en Est. 1 y el cabezal de vacío las aspira al depósito de rechazo.",
+              "components": [
+                "Peine de 9 pines de rechazo",
+                "Cabezal de succión superior",
+                "Manguera a depósito de rechazo"
+              ],
+              "status": "Manual p.23"
+            },
+            {
+              "name": "Estación 8 · Cierre y bloqueo de cápsulas",
+              "function": "Une cuerpo y tapa mediante pasadores inferiores de empuje y placa superior de contrapresión ajustable según longitud cerrada.",
+              "components": [
+                "Placa superior de contrapresión",
+                "Pines inferiores de cierre",
+                "Tornillo micrométrico de longitud cerrada"
+              ],
+              "status": "Manual p.24-25"
+            },
+            {
+              "name": "Estación 9 y 10 · Expulsión y limpieza de moldes",
+              "function": "Est. 9 empuja las cápsulas terminadas hacia la rampa de descarga; Est. 10 sopla y aspira residuos de los 9 orificios del molde.",
+              "components": [
+                "Peine expulsor (9 dedos)",
+                "Rampa de salida",
+                "Boquilla de soplado/aspiración Est. 10"
+              ],
+              "status": "Manual p.26-28"
+            },
+            {
+              "name": "Transmisión e indexador de levas",
+              "function": "Caja indexadora central bañada en aceite e impulsada por motor de 1.5 kW con variador de frecuencia.",
+              "components": [
+                "Motor principal 1.5 kW",
+                "Variador VFD",
+                "Indexador de levas RU100",
+                "Árbol de levas principal"
+              ],
+              "status": "Manual p.29-35"
+            }
+          ],
+          "spareParts": [
+            {
+              "name": "Juego de moldes superior e inferior (9 agujeros)",
+              "system": "Estación 1 · Alimentación y separación por vacío",
+              "type": "Formato",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Alojar tapa y cuerpo de cápsula con concentricidad ±0.02 mm."
+            },
+            {
+              "name": "Horquilla de orientación y peine alimentador",
+              "system": "Estación 1 · Alimentación y separación por vacío",
+              "type": "Mecánico",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Orientar cápsulas siempre con el cuerpo hacia abajo."
+            },
+            {
+              "name": "Sello de zapata de vacío",
+              "system": "Estación 1 · Alimentación y separación por vacío",
+              "type": "Desgaste",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Garantizar vacío de -0.04 MPa bajo el segmento inferior."
+            },
+            {
+              "name": "Disco dosificador y rascador de bronce",
+              "system": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "type": "Formato",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Formar el taco de polvo con holgura inferior de 0.05–0.10 mm."
+            },
+            {
+              "name": "Juego de 9×5 punzones de apisonado (tamping pins)",
+              "system": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "type": "Formato",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Compactar polvo en 5 etapas y transferir al cuerpo."
+            },
+            {
+              "name": "Rodamiento seguidor de leva KR / CF",
+              "system": "Estación 2 y 7 · Leva de descenso y retorno de molde inferior",
+              "type": "Mecánico",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Guiar apertura y cierre radial de los segmentos."
+            }
+          ],
+          "maintenanceTasks": [
+            {
+              "name": "Limpieza de moldes de 9 alojamientos y boquillas de vacío",
+              "system": "Estación 9 y 10 · Expulsión y limpieza de moldes",
+              "frequency": "Diario",
+              "type": "Limpieza",
+              "status": "Manual p.30",
+              "acceptance": "Alojamientos libres de polvo adherido; cápsula desliza por su propio peso."
+            },
+            {
+              "name": "Verificación de holgura entre disco dosificador y anillo sellador",
+              "system": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "frequency": "Semanal",
+              "type": "Ajuste",
+              "status": "Manual p.19",
+              "acceptance": "Holgura medida con galga entre 0.05 y 0.10 mm."
+            },
+            {
+              "name": "Verificación de concentricidad de moldes y pines con galga",
+              "system": "Estación 1 · Alimentación y separación por vacío",
+              "frequency": "Mensual",
+              "type": "Calibración",
+              "status": "Manual p.14",
+              "acceptance": "Calibre patrón entra suave sin roce en las 10 estaciones."
+            },
+            {
+              "name": "Revisión de nivel de aceite en caja indexadora y engrase de levas",
+              "system": "Transmisión e indexador de levas",
+              "frequency": "Mensual",
+              "type": "Lubricación",
+              "status": "Manual p.32",
+              "acceptance": "Nivel en mitad de mirilla; pistas de leva con película uniforme de grasa."
+            }
+          ],
+          "failureModes": [
+            {
+              "name": "Cápsulas no se separan en Estación 1",
+              "probableSystem": "Estación 1 · Alimentación y separación por vacío",
+              "status": "Manual p.36",
+              "symptoms": [
+                "Cápsulas enteras pasan a Estación 6",
+                "Aumento de rechazo",
+                "Vacío inferior a -0.02 MPa"
+              ],
+              "checks": [
+                "Vacío en manómetro (-0.02 a -0.06 MPa)",
+                "Filtro de vacío limpio",
+                "Holgura de zapata de vacío",
+                "Alineación de moldes superior e inferior"
+              ],
+              "steps": [
+                {
+                  "title": "Verificar presión de vacío y filtro",
+                  "where": "Manómetro de vacío en panel frontal y filtro de línea bajo la mesa.",
+                  "how": "Comprueba que el manómetro marque entre -0.02 y -0.06 MPa. Si es menor, desmonta el vaso del filtro de vacío y limpia el cartucho de polvo acumulado.",
+                  "spec": "-0.02 a -0.06 MPa",
+                  "tool": "Llave de vaso del filtro",
+                  "ifFail": "Si el filtro está limpio y el vacío sigue bajo, revisar nivel de agua en bomba de anillo líquido o fugas en manguera."
+                },
+                {
+                  "title": "Ajustar altura de zapata de separación por vacío",
+                  "where": "Estación 1, bajo el segmento inferior de la torreta.",
+                  "how": "Gira con volante manual hasta el PMI de separación en Est. 1. Verifica que la zapata roce suavemente la cara inferior del molde sin frenar la torreta.",
+                  "spec": "Holgura ≤ 0.05 mm (contacto hermético sin arrastre)",
+                  "tool": "Galga de espesores y llave Allen",
+                  "ifFail": "Reemplazar cara de desgaste de la zapata si presenta surcos."
+                }
+              ]
+            },
+            {
+              "name": "Variación de peso de llenado fuera de rango",
+              "probableSystem": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "status": "Manual p.37",
+              "symptoms": [
+                "Peso neto inestable (> ±3%)",
+                "Fuga de polvo bajo el disco dosificador"
+              ],
+              "checks": [
+                "Holgura disco dosificador (0.05–0.10 mm)",
+                "Nivel de polvo en tolva constante",
+                "Profundidad de punzones 1 a 5"
+              ],
+              "steps": [
+                {
+                  "title": "Medir holgura inferior del disco dosificador",
+                  "where": "Estación 4, base de la cámara de polvo.",
+                  "how": "Introduce galga entre el disco dosificador y la placa de sellado inferior en 4 puntos a 90°.",
+                  "spec": "0.05 a 0.10 mm",
+                  "tool": "Juego de galgas milimétricas",
+                  "ifFail": "Reajustar los tornillos de soporte de la placa inferior."
+                },
+                {
+                  "title": "Calibrar penetración de punzones de apisonado 1–5",
+                  "where": "Columnas graduadas de los 5 brazos de tamping.",
+                  "how": "Ajusta progresivamente las escalas de los 5 soportes (ej. Est.1: 12 mm → Est.5: 4 mm) según fluidez del polvo.",
+                  "spec": "Compactación progresiva sin bloqueo de punzón",
+                  "tool": "Llave de contratuerca",
+                  "ifFail": "Limpiar extremos de punzones si tienen polvo adherido."
+                }
+              ]
+            }
+          ],
+          "documents": [
+            {
+              "name": "Manual de instrucciones NJP-1200C (Español, 40 págs.)",
+              "status": "Disponible",
+              "file": "NJP-1200C Manual (español).en.es.pdf"
+            }
+          ]
+        },
+        {
+          "id": "eq-17333007",
+          "equipoCod": "17333007",
+          "name": "Encapsuladora Automática NJP-1200C #2",
+          "model": "NJP-1200C #2",
+          "current": "Código 17333007 · 1200 cáps/min",
+          "area": "Sólidos · Encapsulado",
+          "location": "Sede 4",
+          "status": "Operativo",
+          "criticality": "Alta",
+          "manual": "NJP-1200C Manual de usuario (ES, 40 págs.)",
+          "maintenance": "29 repuestos en el plan + guía de mantenimiento por estaciones",
+          "completion": 90,
+          "image": "assets/njp3500/p05_vista-general.png",
+          "notes": "Segunda unidad NJP-1200C en Sede 4 (Causa EN). Comparte manual y gemelo digital 3D con NJP-1200 #1.",
+          "causaCod": "EN",
+          "causaDesc": "Encapsuladora NJP 1200-2 (Sede 4)",
+          "searchAliases": [
+            "17333007",
+            "njp1200",
+            "njp-1200",
+            "njp 1200-2",
+            "njp1200-2",
+            "EN",
+            "encapsuladora",
+            "741204018",
+            "MNP380053",
+            "MNP380057",
+            "732801001",
+            "MNP380054",
+            "742301113",
+            "741901079",
+            "741901030",
+            "741901135",
+            "741901002",
+            "741901010",
+            "741903127",
+            "741903130",
+            "741903128",
+            "741903138",
+            "741903139",
+            "741903134",
+            "741903133",
+            "741909008",
+            "741902200",
+            "732402023",
+            "741902047",
+            "741902044",
+            "741902048",
+            "724002315",
+            "741903161"
+          ],
+          "description": "Segunda unidad encapsuladora automática intermitente NJP-1200C de 10 estaciones y 9 orificios por molde (1200 cápsulas/min) instalada en Sede 4.",
+          "technicalData": {
+            "function": "Alimentar, orientar, abrir por vacío, dosificar polvo/pellets en 5 etapas de compactación (tamping), rechazar cápsulas no abiertas, cerrar, expulsar y limpiar moldes de 9 alojamientos en ciclo indexado de 10 estaciones.",
+            "capacity": "1200 cápsulas/min (72.000 cáps/h)",
+            "capsuleSizes": "00, 0, 1, 2, 3, 4, 5",
+            "dosingSystem": "Disco dosificador con 5 estaciones de apisonado (tamping)",
+            "power": "5.75 kW",
+            "voltage": "380 V / 220 V · 3 fases · 50/60 Hz",
+            "weight": "900 kg",
+            "dimensions": "1020 × 860 × 1970 mm",
+            "manufacturer": "Ruian / Canaan Pharmaceutical Machinery",
+            "brand": "NJP Series",
+            "serialNumber": "NJP-1200C-02",
+            "year": "2020"
+          },
+          "summarySpecs": [
+            {
+              "label": "Capacidad",
+              "value": "1200 cáps/min (9 agujeros/molde)"
+            },
+            {
+              "label": "Estaciones",
+              "value": "10 estaciones indexadas"
+            },
+            {
+              "label": "Formatos",
+              "value": "Cápsulas #00 a #5"
+            },
+            {
+              "label": "Vacío separación",
+              "value": "-0.02 a -0.06 MPa"
+            },
+            {
+              "label": "Potencia total",
+              "value": "5.75 kW"
+            },
+            {
+              "label": "Dimensiones / Peso",
+              "value": "1020×860×1970 mm · 900 kg"
+            }
+          ],
+          "systems": [
+            {
+              "name": "Estación 1 · Alimentación y separación por vacío",
+              "function": "Orienta las cápsulas y separa cuerpo y tapa mediante zapata de vacío inferior (-0.02 a -0.06 MPa).",
+              "components": [
+                "Tolva de cápsulas",
+                "Tubos guía (9 vías)",
+                "Horquillas",
+                "Zapata de vacío"
+              ],
+              "status": "Manual p.6-14"
+            },
+            {
+              "name": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "function": "Forma el taco en el disco dosificador mediante 5 punzones ajustables y lo transfiere al cuerpo en la 5ª carrera.",
+              "components": [
+                "Disco dosificador",
+                "5 punzones de tamping",
+                "Anillo retenedor",
+                "Sensor de nivel"
+              ],
+              "status": "Manual p.16-22"
+            },
+            {
+              "name": "Estación 6, 8, 9 y 10 · Rechazo, cierre, expulsión y limpieza",
+              "function": "Aspira cápsulas no separadas (Est. 6), bloquea tapa y cuerpo (Est. 8), expulsa cápsula llena (Est. 9) y limpia alojamientos (Est. 10).",
+              "components": [
+                "Pines de rechazo",
+                "Placa de cierre",
+                "Peine expulsor",
+                "Boquilla limpieza"
+              ],
+              "status": "Manual p.23-28"
+            }
+          ],
+          "spareParts": [
+            {
+              "name": "Juego de moldes superior e inferior (9 agujeros)",
+              "system": "Estación 1 · Alimentación y separación por vacío",
+              "type": "Formato",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Alojar tapa y cuerpo de cápsula."
+            },
+            {
+              "name": "Disco dosificador y punzones de tamping",
+              "system": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "type": "Formato",
+              "criticality": "Alta",
+              "status": "Manual NJP-1200C",
+              "function": "Compactación y transferencia de polvo."
+            }
+          ],
+          "maintenanceTasks": [
+            {
+              "name": "Limpieza de moldes de 9 alojamientos y boquillas de vacío",
+              "system": "Estación 6, 8, 9 y 10 · Rechazo, cierre, expulsión y limpieza",
+              "frequency": "Diario",
+              "type": "Limpieza",
+              "status": "Manual p.30",
+              "acceptance": "Alojamientos limpios sin residuos de polvo."
+            },
+            {
+              "name": "Verificación de holgura entre disco dosificador y placa base",
+              "system": "Estación 4 · Dosificación de polvo por tamping (5 compresiones)",
+              "frequency": "Semanal",
+              "type": "Ajuste",
+              "status": "Manual p.19",
+              "acceptance": "Holgura 0.05–0.10 mm."
+            }
+          ],
+          "failureModes": [
+            {
+              "name": "Cápsulas no se separan en Estación 1",
+              "probableSystem": "Estación 1 · Alimentación y separación por vacío",
+              "status": "Manual p.36",
+              "symptoms": [
+                "Cápsulas sin abrir llegan a rechazo",
+                "Vacío bajo"
+              ],
+              "checks": [
+                "Vacío -0.02 a -0.06 MPa",
+                "Filtro de vacío",
+                "Ajuste de zapata de succión"
+              ],
+              "steps": [
+                {
+                  "title": "Verificar vacío y limpiar filtro",
+                  "where": "Manómetro frontal y filtro de vacío.",
+                  "how": "Comprobar lectura entre -0.02 y -0.06 MPa y limpiar cartucho filtrante.",
+                  "spec": "-0.02 a -0.06 MPa",
+                  "tool": "Llave de filtro",
+                  "ifFail": "Revisar bomba de vacío y mangueras."
+                }
+              ]
+            }
+          ],
+          "documents": [
+            {
+              "name": "Manual de instrucciones NJP-1200C (Español, 40 págs.)",
+              "status": "Disponible",
+              "file": "NJP-1200C Manual (español).en.es.pdf"
+            }
+          ]
+        },
+        {
+          "id": "eq-16336008",
+          "equipoCod": "16336008",
+          "name": "Impresora Flexográfica Tecnomaco FX30 PRO STEP",
+          "model": "Tecnomaco FX30 PRO STEP",
+          "current": "Código 16336008 · Matrícula 19021",
+          "area": "Empaque · Impresión Flexográfica de Aluminio",
+          "location": "Sede 4",
+          "status": "Operativo",
+          "criticality": "Alta",
+          "manual": "Manual de uso y mantenimiento FX30 PRO STEP (116 págs.) + Planos eléctricos",
+          "maintenance": "27 repuestos en el plan + mantenimiento de grupo entintador y anilox",
+          "completion": 92,
+          "image": "",
+          "notes": "Manual original Tecnomaco matrícula 19021 (C.I. Farmacápsulas) y planos eléctricos integrados.",
+          "causaCod": "CC",
+          "causaDesc": "Impresora Flexográfica FX30 PRO STEP (Sede 4)",
+          "searchAliases": [
+            "16336008",
+            "fx30",
+            "fx30prostep",
+            "tecnomaco",
+            "19021",
+            "flexografica",
+            "anilox",
+            "cirel",
+            "cliche",
+            "impresora",
+            "CC",
+            "741901292",
+            "741901039",
+            "741901259",
+            "741901283",
+            "741901209",
+            "741901295",
+            "741901028",
+            "741901063",
+            "741901053",
+            "741901238",
+            "741907039",
+            "741901231",
+            "741901001",
+            "721501115",
+            "721501225",
+            "741203249",
+            "732503107",
+            "732503108",
+            "741901030",
+            "741901009",
+            "732503137",
+            "741901294",
+            "741901293",
+            "741902200",
+            "741901078",
+            "741901080"
+          ],
+          "description": "Impresora flexográfica rotativa fuera de línea Tecnomaco FX30 PRO STEP (matrícula 19021, año 2019) para impresión de bobinas de aluminio, papel y film plástico de blíster (ancho máx. 280 mm, hasta 30 m/min). Equipada con desbobinador E1 con freno P6, bandeja de tinta B1, rodillo engomado R1, rodillo anilox cerámico R2 con racla B3, cilindro portacliché servoaccionado R3 (M3 Cirel), termoventilador de secado V1 (2 kW), rebobinador brushless E2 (M2) y pantalla táctil Q1.",
+          "technicalData": {
+            "function": "Desbobinar folia de aluminio virgen, transferir tinta UV/base solvente mediante rodillo fuente R1 y anilox cerámico R2 dosificado por racla B3 al cliché fotopolímero R3 (Cirel), imprimir el aluminio contra el rodillo de contraste R4, secar con aire caliente V1 (2 kW) y rebobinar en eje E2.",
+            "capacity": "Hasta 30 m/min · Ancho máx. bobina 280 mm (Ø máx. 300 mm)",
+            "capsuleSizes": "Cilindros portacliché Ø 47 mm, Ø 60 mm y Ø 47.9 mm (paso 150 mm)",
+            "dosingSystem": "Entintado flexográfico: cubeta B1 + rodillo goma R1 + anilox cerámico R2 + racla bronce B3",
+            "power": "3.0 kW (Termoventilador V1: 2.0 kW + motores brushless M1/M2 y servo M3)",
+            "voltage": "220 V AC monofásico · 50/60 Hz + Aire comprimido 6 bar",
+            "weight": "170 kg",
+            "dimensions": "820 × 900 × 950 mm",
+            "manufacturer": "Tecnomaco S.r.l. · Montale (PT), Italia",
+            "brand": "Tecnomaco",
+            "serialNumber": "19021",
+            "year": "2019"
+          },
+          "summarySpecs": [
+            {
+              "label": "Velocidad máx.",
+              "value": "30 m/min"
+            },
+            {
+              "label": "Ancho máx. bobina",
+              "value": "280 mm · Ø máx. 300 mm"
+            },
+            {
+              "label": "Cilindros cliché R3",
+              "value": "Ø 47 / 60 / 47.9 mm"
+            },
+            {
+              "label": "Secado V1",
+              "value": "Termoventilador 2.0 kW"
+            },
+            {
+              "label": "Alimentación",
+              "value": "220 V · 60 Hz · 3 kW · 6 bar"
+            },
+            {
+              "label": "Dimensiones / Peso",
+              "value": "820×900×950 mm · 170 kg"
+            }
+          ],
+          "systems": [
+            {
+              "name": "Desbobinador E1 y freno mecánico P6",
+              "function": "Soporta la bobina virgen de aluminio (núcleo Ø 70–76 mm) y mantiene la tensión constante del film mediante el freno regulable P6 y los rodillos guía R6.",
+              "components": [
+                "Eje portabobina desbobinador E1",
+                "Freno mecánico regulable P6",
+                "Rodillos guía y desvío R6"
+              ],
+              "status": "Manual p.44-52"
+            },
+            {
+              "name": "Grupo entintador: Cubeta B1, Rodillo goma R1 y Anilox R2",
+              "function": "Recoge tinta de la cubeta B1 con el rodillo engomado R1, transfiere una película micrométrica al rodillo cerámico inciso (anilox) R2 y retira el exceso mediante la cuchilla racla B3 con tornillos de bronce.",
+              "components": [
+                "Bandeja de tinta B1",
+                "Rodillo engomado fuente R1",
+                "Rodillo cerámico anilox R2",
+                "Cuchilla racla B3 con pomos de bronce",
+                "Pomos micrométricos P1 y P5"
+              ],
+              "status": "Manual p.53-68"
+            },
+            {
+              "name": "Grupo de impresión: Cilindro portacliché R3 (Cirel) y contraste R4",
+              "function": "El servomotor paso a paso M3 acciona el cilindro portacliché R3 (Cirel) en sincronía electrónica con el avance del film sobre el rodillo de contraste R4.",
+              "components": [
+                "Cilindro portacliché R3 (Ø47 / Ø60 / Ø47.9 mm)",
+                "Servomotor M3 del Cirel",
+                "Rodillo de contraste R4",
+                "Pomos de presión de impresión P2 y P3"
+              ],
+              "status": "Manual p.60-72"
+            },
+            {
+              "name": "Secado por aire caliente V1 (2 kW)",
+              "function": "Seca instantáneamente la tinta impresa sobre la banda de aluminio antes del rebobinado mediante flujo de aire caliente a temperatura controlada.",
+              "components": [
+                "Termoventilador V1 (2 kW)",
+                "Campana de soplado sobre banda",
+                "Control térmico en PLC/HMI"
+              ],
+              "status": "Manual p.46, Plano eléctrico"
+            },
+            {
+              "name": "Tracción principal R5 (M1), Rebobinador E2 (M2) y HMI Q1",
+              "function": "El motor brushless M1 arrastra la banda mediante el rodillo tractor R5 con pomo de presión P4, mientras el motor brushless M2 rebobina el rollo impreso en el eje E2 gobernado desde el panel táctil Q1.",
+              "components": [
+                "Rodillo tractor R5 y pomo P4",
+                "Motor brushless principal M1",
+                "Eje rebobinador E2 y motor brushless M2",
+                "Pantalla táctil HMI Q1",
+                "Paro de emergencia Q2"
+              ],
+              "status": "Manual p.45-51, Plano eléctrico"
+            }
+          ],
+          "spareParts": [
+            {
+              "name": "Cuchilla racla dosificadora B3",
+              "system": "Grupo entintador: Cubeta B1, Rodillo goma R1 y Anilox R2",
+              "type": "Desgaste",
+              "criticality": "Alta",
+              "status": "Manual FX30",
+              "function": "Raspar exceso de tinta del rodillo cerámico anilox R2."
+            },
+            {
+              "name": "Rodillo cerámico anilox R2",
+              "system": "Grupo entintador: Cubeta B1, Rodillo goma R1 y Anilox R2",
+              "type": "Mecánico",
+              "criticality": "Alta",
+              "status": "Manual FX30",
+              "function": "Transferir volumen exacto de tinta por alveolos grabados."
+            },
+            {
+              "name": "Rodillo engomado fuente R1",
+              "system": "Grupo entintador: Cubeta B1, Rodillo goma R1 y Anilox R2",
+              "type": "Desgaste",
+              "criticality": "Alta",
+              "status": "Manual FX30",
+              "function": "Alimentar tinta desde la cubeta B1 al anilox R2."
+            },
+            {
+              "name": "Cilindro portacliché R3 (Ø47 / Ø60 / Ø47.9 mm)",
+              "system": "Grupo de impresión: Cilindro portacliché R3 (Cirel) y contraste R4",
+              "type": "Formato",
+              "criticality": "Alta",
+              "status": "Manual FX30",
+              "function": "Portar el cliché fotopolímero Cirel según el paso de impresión."
+            },
+            {
+              "name": "Resistencia / soplador termoventilador V1 (2 kW)",
+              "system": "Secado por aire caliente V1 (2 kW)",
+              "type": "Eléctrico",
+              "criticality": "Media",
+              "status": "Plano eléctrico 19021",
+              "function": "Generar aire caliente para secado de tinta en línea."
+            }
+          ],
+          "maintenanceTasks": [
+            {
+              "name": "Limpieza inmediata de cubeta B1, rodillo goma R1, anilox R2 y cliché R3 tras cada lote",
+              "system": "Grupo entintador: Cubeta B1, Rodillo goma R1 y Anilox R2",
+              "frequency": "Diario",
+              "type": "Limpieza",
+              "status": "Manual p.82",
+              "acceptance": "Celdas del anilox R2 libres de tinta seca; usar solvente compatible sin cepillos de acero."
+            },
+            {
+              "name": "Inspección de filo de cuchilla racla B3 y tornillos de bronce",
+              "system": "Grupo entintador: Cubeta B1, Rodillo goma R1 y Anilox R2",
+              "frequency": "Semanal",
+              "type": "Inspección",
+              "status": "Manual p.84",
+              "acceptance": "Filo recto sin melladuras que dejen velos de tinta en el aluminio."
+            },
+            {
+              "name": "Verificación de paralelismo de rodillos R1–R2–R3–R4 con pomos P1, P2, P3, P5",
+              "system": "Grupo de impresión: Cilindro portacliché R3 (Cirel) y contraste R4",
+              "frequency": "Mensual",
+              "type": "Calibración",
+              "status": "Manual p.62",
+              "acceptance": "Transferencia de tinta uniforme en ambos extremos del ancho de 280 mm."
+            }
+          ],
+          "failureModes": [
+            {
+              "name": "Impresión borrosa, con velos o falta de tinta en un borde",
+              "probableSystem": "Grupo de impresión: Cilindro portacliché R3 (Cirel) y contraste R4",
+              "status": "Manual p.78",
+              "symptoms": [
+                "Texto incompleto en un lado de la bobina",
+                "Exceso de tinta o repinte"
+              ],
+              "checks": [
+                "Paralelismo de pomos P2 y P3 (cliché R3 contra contraste R4)",
+                "Presión de pomos P1 y P5 (goma R1 contra anilox R2)",
+                "Estado de cuchilla racla B3"
+              ],
+              "steps": [
+                {
+                  "title": "Ajustar presión entre cliché R3 y contraste R4 (pomos P2 y P3)",
+                  "where": "Cabezal de impresión, pomos superiores P2 y P3.",
+                  "how": "Acerca gradualmente los pomos P2 y P3 hasta obtener contacto ligero ('beso' flexográfico) uniforme a izquierda y derecha. Exceso de presión deforma la letra.",
+                  "spec": "Contacto tangencial uniforme en todo el ancho",
+                  "tool": "Ajuste manual por escala en pomos P2/P3",
+                  "ifFail": "Verificar montaje de cinta doble faz del cliché Cirel en R3."
+                },
+                {
+                  "title": "Revisar racla B3 y limpieza del anilox R2",
+                  "where": "Soporte de racla B3 sobre rodillo cerámico R2.",
+                  "how": "Si aparecen rayas longitudinales de tinta, limpia el filo de la racla B3 con paño y solvente y ajusta los tornillos de bronce.",
+                  "spec": "Superficie de anilox dosificada sin bandas de exceso",
+                  "tool": "Paño sin pelusa y solvente flexo",
+                  "ifFail": "Reemplazar lámina de racla B3 si presenta desgaste."
+                }
+              ]
+            },
+            {
+              "name": "Rotura o arrugas en la banda de aluminio",
+              "probableSystem": "Desbobinador E1 y freno mecánico P6",
+              "status": "Manual p.79",
+              "symptoms": [
+                "Folia de aluminio se rompe al arrancar",
+                "Pliegues diagonales en el rebobinado E2"
+              ],
+              "checks": [
+                "Tensión del freno mecánico P6 en E1",
+                "Presión del rodillo tractor R5 (pomo P4)",
+                "Alineación de conos portabobina en E1 y E2"
+              ],
+              "steps": [
+                {
+                  "title": "Regular freno mecánico P6 del desbobinador E1",
+                  "where": "Eje desbobinador E1, pomo de freno P6.",
+                  "how": "Disminuye la tensión del freno P6 para folias delgadas (20 µm) de modo que no supere el límite elástico del aluminio durante la aceleración.",
+                  "spec": "Banda tensa sin estiramiento ni rotura",
+                  "tool": "Regulación manual en P6",
+                  "ifFail": "Revisar desgaste de pastilla de fricción del freno P6."
+                }
+              ]
+            }
+          ],
+          "documents": [
+            {
+              "name": "Manual de uso y mantenimiento FX30 PRO STEP — Matrícula 19021 (116 págs.)",
+              "status": "Disponible",
+              "file": "manual_19021 - FARMACAPSULAS (FX30PROSTEP).pdf"
+            },
+            {
+              "name": "Planos eléctricos FX30 PRO STEP — Matrícula 19021",
+              "status": "Disponible",
+              "file": "planos electricos_19021 - FARMACAPSULAS (FX30PROSTEP).pdf"
+            }
+          ]
+        },
+        {
+          "id": "eq-16336009",
+          "equipoCod": "16336009",
+          "name": "Impresora Flexográfica Tecnomaco FX30 PRO STEP #2",
+          "model": "Tecnomaco FX30 PRO STEP #2",
+          "current": "Código 16336009 · 30 m/min",
+          "area": "Empaque · Impresión Flexográfica de Aluminio",
+          "location": "Sede 4",
+          "status": "Operativo",
+          "criticality": "Alta",
+          "manual": "Manual de uso y mantenimiento FX30 PRO STEP (116 págs.) + Planos eléctricos",
+          "maintenance": "26 repuestos en el plan + mantenimiento de grupo entintador y anilox",
+          "completion": 92,
+          "image": "",
+          "notes": "Segunda impresora flexográfica Tecnomaco FX30 PRO STEP en Sede 4.",
+          "causaCod": "CC",
+          "causaDesc": "Impresora Flexográfica 2 (Sede 4)",
+          "searchAliases": [
+            "16336009",
+            "fx30",
+            "fx30prostep",
+            "tecnomaco",
+            "flexografica 2",
+            "anilox",
+            "cirel",
+            "721501115",
+            "721501225",
+            "741901001",
+            "741901209",
+            "741901295",
+            "741901063",
+            "741901053",
+            "741901292",
+            "741901039",
+            "741901238",
+            "741907039",
+            "741901259",
+            "741902200",
+            "741901283",
+            "741901030",
+            "741901028",
+            "741901009",
+            "732503107",
+            "732503108",
+            "741901231",
+            "732503137",
+            "741901294",
+            "741901293",
+            "741901078"
+          ],
+          "description": "Segunda unidad impresora flexográfica rotativa Tecnomaco FX30 PRO STEP instalada en Sede 4 para impresión de bobinas de aluminio de blíster.",
+          "technicalData": {
+            "function": "Impresión flexográfica fuera de línea de bobinas de aluminio para blíster con secado por aire caliente V1 (2 kW).",
+            "capacity": "Hasta 30 m/min · Ancho máx. bobina 280 mm",
+            "capsuleSizes": "Cilindros portacliché Ø 47 / 60 / 47.9 mm",
+            "dosingSystem": "Cubeta B1 + rodillo goma R1 + anilox cerámico R2 + racla B3",
+            "power": "3.0 kW",
+            "voltage": "220 V AC · 50/60 Hz + 6 bar",
+            "weight": "170 kg",
+            "dimensions": "820 × 900 × 950 mm",
+            "manufacturer": "Tecnomaco S.r.l. · Italia",
+            "brand": "Tecnomaco",
+            "serialNumber": "19021-2",
+            "year": "2019"
+          },
+          "summarySpecs": [
+            {
+              "label": "Velocidad máx.",
+              "value": "30 m/min"
+            },
+            {
+              "label": "Ancho máx. bobina",
+              "value": "280 mm · Ø máx. 300 mm"
+            },
+            {
+              "label": "Cilindros cliché R3",
+              "value": "Ø 47 / 60 / 47.9 mm"
+            },
+            {
+              "label": "Secado V1",
+              "value": "Termoventilador 2.0 kW"
+            },
+            {
+              "label": "Alimentación",
+              "value": "220 V · 60 Hz · 3 kW"
+            },
+            {
+              "label": "Dimensiones / Peso",
+              "value": "820×900×950 mm · 170 kg"
+            }
+          ],
+          "systems": [
+            {
+              "name": "Desbobinador E1 y freno P6",
+              "function": "Soporte y control de tensión de bobina virgen.",
+              "components": [
+                "Eje E1",
+                "Freno P6",
+                "Rodillos R6"
+              ],
+              "status": "Manual p.44-52"
+            },
+            {
+              "name": "Grupo entintador B1, R1, Anilox R2 y Racla B3",
+              "function": "Dosificación y transferencia de tinta al cliché.",
+              "components": [
+                "Cubeta B1",
+                "Rodillo R1",
+                "Anilox R2",
+                "Racla B3"
+              ],
+              "status": "Manual p.53-68"
+            },
+            {
+              "name": "Impresión R3/R4, Secado V1 y Rebobinado E2",
+              "function": "Impresión sincronizada por servo M3, secado térmico V1 y rebobinado brushless M2.",
+              "components": [
+                "Cilindro R3",
+                "Contraste R4",
+                "Secador V1",
+                "Rebobinador E2"
+              ],
+              "status": "Manual p.60-72"
+            }
+          ],
+          "spareParts": [
+            {
+              "name": "Cuchilla racla dosificadora B3",
+              "system": "Grupo entintador B1, R1, Anilox R2 y Racla B3",
+              "type": "Desgaste",
+              "criticality": "Alta",
+              "status": "Manual FX30",
+              "function": "Dosificar tinta en anilox R2."
+            },
+            {
+              "name": "Rodillo cerámico anilox R2",
+              "system": "Grupo entintador B1, R1, Anilox R2 y Racla B3",
+              "type": "Mecánico",
+              "criticality": "Alta",
+              "status": "Manual FX30",
+              "function": "Transferencia celular de tinta."
+            }
+          ],
+          "maintenanceTasks": [
+            {
+              "name": "Limpieza de cubeta B1, rodillo R1, anilox R2 y cliché R3",
+              "system": "Grupo entintador B1, R1, Anilox R2 y Racla B3",
+              "frequency": "Diario",
+              "type": "Limpieza",
+              "status": "Manual p.82",
+              "acceptance": "Sin residuos de tinta seca en celdas del anilox."
+            }
+          ],
+          "failureModes": [
+            {
+              "name": "Impresión con velos o falta de transferencia",
+              "probableSystem": "Grupo entintador B1, R1, Anilox R2 y Racla B3",
+              "status": "Manual p.78",
+              "symptoms": [
+                "Velo de fondo en el aluminio",
+                "Falta de nitidez"
+              ],
+              "checks": [
+                "Ajuste de pomos P1, P2, P3, P5",
+                "Estado de racla B3"
+              ],
+              "steps": [
+                {
+                  "title": "Nivelar presión de impresión y racla",
+                  "where": "Pomos P2/P3 y tornillos de bronce en B3.",
+                  "how": "Ajustar paralelismo de R3 contra R4 y limpiar filo de racla B3.",
+                  "spec": "Transferencia nítida sin deformar el fotopolímero",
+                  "tool": "Ajuste manual",
+                  "ifFail": "Cambiar lámina de racla B3."
+                }
+              ]
+            }
+          ],
+          "documents": [
+            {
+              "name": "Manual de uso y mantenimiento FX30 PRO STEP (116 págs.)",
+              "status": "Disponible",
+              "file": "manual_19021 - FARMACAPSULAS (FX30PROSTEP).pdf"
+            },
+            {
+              "name": "Planos eléctricos FX30 PRO STEP",
+              "status": "Disponible",
+              "file": "planos electricos_19021 - FARMACAPSULAS (FX30PROSTEP).pdf"
+            }
+          ]
+        },
+        {
+          "id": "eq-17334008",
+          "equipoCod": "17334008",
+          "name": "Envasadora Stick Pack Líquidos Schmucker S3240005",
+          "model": "Schmucker Stickpacker S3240005",
+          "current": "Código 17334008 · Matrícula S3240005",
+          "area": "Líquidos · Envasado en Sobre Tubular Stick Pack",
+          "location": "Planta 2",
+          "status": "Operativo",
+          "criticality": "Alta",
+          "manual": "Manual Calibrado y Regulaciones S3240005 (118 págs.) + Catálogo Piezas de Recambio (262 págs.)",
+          "maintenance": "Plan preventivo Schmucker por grupos S3M/S3A + repuestos en plan",
+          "completion": 92,
+          "image": "",
+          "notes": "Documentación oficial Schmucker / Marchesini Group S3240005 (pedido M2524006684) integrada con gemelo 3D multipista.",
+          "causaCod": "DI",
+          "causaDesc": "Encelofanadora para Líquidos en Sobre Stick Pack",
+          "searchAliases": [
+            "17334008",
+            "17334015",
+            "17334016",
+            "stickpack",
+            "stick pack",
+            "s3240005",
+            "schmucker",
+            "marchesini",
+            "orugas",
+            "tubos formadores",
+            "DI",
+            "724001185",
+            "724001187",
+            "724001184"
+          ],
+          "description": "Envasadora vertical multipista de sobres tubulares (Stick Pack) para líquidos Schmucker / Marchesini Group (matrícula S3240005). Integra desbobinador motorizado con alineación de film (S3A26100420), corte longitudinal multipista (S3A26101910), cuellos y tubos formadores con barras de soldadura vertical (S3M14100320) y enfriamiento (S3A92300310), cabezales de dosificación de líquidos con mangueras de silicona y cilindros de pinzado/cierre (S3A92301220), orugas de arrastre de sticks (S3A19100330), mordazas de soldadura horizontal (S3M14200320), grupo de cuchillas de corte transversal (S3M11100110) y sensores ópticos de presencia de stick (S3A92400910).",
+          "technicalData": {
+            "function": "Desbobinar film termosellable, cortarlo en tiras individuales, conformar tubos alrededor de los tubos formadores, sellar longitudinalmente, dosificar líquido por bombas con boquillas antigoteo, arrastrar con orugas, sellar transversalmente y cortar los sticks individuales.",
+            "capacity": "Multipista continuo/intermitente para sobres tubulares Stick Pack de líquidos",
+            "capsuleSizes": "Formato tubular Stick Pack multipista",
+            "dosingSystem": "Bombas volumétricas/peristálticas de líquidos con cabezales de silicona y cilindros de cierre de boquilla (S3A92301220)",
+            "power": "Servomotores y actuadores neumáticos FESTO / SMC",
+            "voltage": "3×220/380 V + N + PE · 60 Hz · Mando 24 V DC",
+            "weight": "1450 kg",
+            "dimensions": "1850 × 1400 × 2450 mm",
+            "manufacturer": "Schmucker S.r.l. (Marchesini Group) · Gorizia, Italia",
+            "brand": "Schmucker / Marchesini Group",
+            "serialNumber": "S3240005",
+            "year": "2025"
+          },
+          "summarySpecs": [
+            {
+              "label": "Matrícula",
+              "value": "S3240005 (Pedido M2524006684)"
+            },
+            {
+              "label": "Soldadura vertical",
+              "value": "Grupo S3M14100320 + Enfriamiento S3A92300310"
+            },
+            {
+              "label": "Soldadura horizontal",
+              "value": "Mordazas S3M14200320"
+            },
+            {
+              "label": "Arrastre",
+              "value": "Orugas multipista S3A19100330"
+            },
+            {
+              "label": "Corte transversal",
+              "value": "Grupo cuchillas S3M11100110"
+            },
+            {
+              "label": "Dosificación",
+              "value": "Líquidos con cabezal silicona S3A92301220"
+            }
+          ],
+          "systems": [
+            {
+              "name": "Desbobinado, guía banda y corte longitudinal (S3A26100420 / S3A26101910)",
+              "function": "Desbobina el rollo madre con control de tensión por balancín, centra la banda por fotocélula y la divide en tiras individuales mediante cuchillas circulares/fijas.",
+              "components": [
+                "Portabobina neumático S3A26100420",
+                "Rodillos de tensión y balancín",
+                "Grupo cuchillas corte longitudinal S3A26101910"
+              ],
+              "status": "Manual Calibrado p.87-109"
+            },
+            {
+              "name": "Tubos formadores, soldadura vertical y enfriamiento (S3M14100320 / S3A92300310)",
+              "function": "Los cuellos conformadores envuelven cada tira de film alrededor de su tubo formador; la barra calefactora S3M14100320 sella la costura longitudinal y los tubos S3A92300310 enfrían la soldadura.",
+              "components": [
+                "Cuellos y tubos formadores",
+                "Barras de soldadura vertical S3M14100320",
+                "Tubos de enfriamiento de stick S3A92300310",
+                "Resistencias y termopares"
+              ],
+              "status": "Manual Calibrado p.69-77, 110"
+            },
+            {
+              "name": "Dosificación de líquidos y cierre de boquillas (S3A92301220)",
+              "function": "Dosifica el volumen exacto de líquido por el interior de cada tubo formador mediante cabezales de bomba con tubo de silicona y válvulas neumáticas antigoteo en punta de lanza.",
+              "components": [
+                "Cabezales de bomba con tubo de silicona",
+                "Lanzas de llenado multipista",
+                "Cilindros neumáticos de cierre S3A92301220"
+              ],
+              "status": "Manual Calibrado p.111-114"
+            },
+            {
+              "name": "Orugas de arrastre y soldadura horizontal (S3A19100330 / S3M14200320)",
+              "function": "Las correas tipo oruga S3A19100330 arrastran el tubo de film hacia abajo con paso preciso mientras las mordazas horizontales S3M14200320 sellan el fondo y el tope del stick.",
+              "components": [
+                "Correas de arrastre (orugas) S3A19100330",
+                "Mordazas de soldadura horizontal S3M14200320",
+                "Levas y bielas de cierre de mordazas"
+              ],
+              "status": "Manual Calibrado p.26, 78-86"
+            },
+            {
+              "name": "Cuchillas de corte transversal y control de presencia (S3M11100110 / S3A92400910)",
+              "function": "Separa los sticks individuales mediante las cuchillas S3M11100110 (en fase con las mordazas) y verifica la caída de cada sobre con las fotocélulas S3A92400910.",
+              "components": [
+                "Cuchillas y contracuchillas S3M11100110",
+                "Sensores ópticos presencia stick S3A92400910",
+                "Rampa de descarga multipista"
+              ],
+              "status": "Manual Calibrado p.25, 62-68, 115"
+            }
+          ],
+          "spareParts": [
+            {
+              "name": "Cuchillas de corte transversal y longitudinal",
+              "system": "Cuchillas de corte transversal y control de presencia (S3M11100110 / S3A92400910)",
+              "type": "Desgaste",
+              "criticality": "Alta",
+              "status": "Catálogo 01M05",
+              "function": "Corte limpio de sticks (S3M11100110) y división de pistas (S3A26101910)."
+            },
+            {
+              "name": "Correas dentadas de orugas de arrastre",
+              "system": "Orugas de arrastre y soldadura horizontal (S3A19100330 / S3M14200320)",
+              "type": "Desgaste",
+              "criticality": "Alta",
+              "status": "Catálogo 01M05",
+              "function": "Tracción simétrica de los tubos de stick pack (S3A19100330)."
+            },
+            {
+              "name": "Mangueras de silicona y sellos de cilindros dosificadores",
+              "system": "Dosificación de líquidos y cierre de boquillas (S3A92301220)",
+              "type": "Consumible",
+              "criticality": "Alta",
+              "status": "Manual p.111-114",
+              "function": "Bombeo sanitario y cierre antigoteo de líquido."
+            },
+            {
+              "name": "Resistencias y sondas térmicas de barras verticales y mordazas",
+              "system": "Tubos formadores, soldadura vertical y enfriamiento (S3M14100320 / S3A92300310)",
+              "type": "Eléctrico",
+              "criticality": "Alta",
+              "status": "Catálogo 01M05",
+              "function": "Calentamiento controlado de sellado vertical y horizontal."
+            }
+          ],
+          "maintenanceTasks": [
+            {
+              "name": "Limpieza y engrase de mordazas horizontales (S3M14200320) y barras verticales (S3M14100320)",
+              "system": "Orugas de arrastre y soldadura horizontal (S3A19100330 / S3M14200320)",
+              "frequency": "Diario",
+              "type": "Limpieza",
+              "status": "Manual p.69-83",
+              "acceptance": "Estriado de mordazas libre de residuos carbonizados o restos de líquido."
+            },
+            {
+              "name": "Sustitución y calibración de mangueras de silicona en cabezal de bomba",
+              "system": "Dosificación de líquidos y cierre de boquillas (S3A92301220)",
+              "frequency": "Semanal",
+              "type": "Preventivo",
+              "status": "Manual p.111-113",
+              "acceptance": "Sin fatiga elástica ni goteo por boquilla al cerrar cilindro S3A92301220."
+            },
+            {
+              "name": "Verificación de sincronización (fasatura) entre cuchillas S3M11100110 y mordazas S3M14200320",
+              "system": "Cuchillas de corte transversal y control de presencia (S3M11100110 / S3A92400910)",
+              "frequency": "Mensual",
+              "type": "Calibración",
+              "status": "Manual p.21-26",
+              "acceptance": "Corte centrado exactamente en la franja de sellado horizontal."
+            },
+            {
+              "name": "Regulación de presión y alineación de orugas de arrastre S3A19100330",
+              "system": "Orugas de arrastre y soldadura horizontal (S3A19100330 / S3M14200320)",
+              "frequency": "Mensual",
+              "type": "Ajuste",
+              "status": "Manual p.85-86",
+              "acceptance": "Longitud de stick uniforme en todas las pistas sin patinaje."
+            }
+          ],
+          "failureModes": [
+            {
+              "name": "Fuga de líquido en soldadura horizontal (contaminación de sellado)",
+              "probableSystem": "Dosificación de líquidos y cierre de boquillas (S3A92301220)",
+              "status": "Manual p.26, 111",
+              "symptoms": [
+                "Sellado transversal débil o abierto",
+                "Goteo de producto en zona de mordazas S3M14200320"
+              ],
+              "checks": [
+                "Sincronización (fasatura) de fin de dosificación antes del cierre de mordazas",
+                "Sellos del cilindro de cierre de boquilla S3A92301220",
+                "Estado del tubo de silicona en cabezal de bomba"
+              ],
+              "steps": [
+                {
+                  "title": "Verificar cierre estanco de boquilla y sellos S3A92301220",
+                  "where": "Lanzas de llenado superiores, cilindros neumáticos S3A92301220.",
+                  "how": "Comprueba que al terminar la embolada el cilindro neumático corte instantáneamente el goteo. Si gotea, sustituye las juntas del cilindro según pág. 114 del manual.",
+                  "spec": "Cero goteo tras cierre de válvula",
+                  "tool": "Llaves Allen y kit de juntas S3A92301220",
+                  "ifFail": "Adelantar 5°–10° la fase de fin de dosificación respecto al cierre de mordazas S3M14200320."
+                }
+              ]
+            },
+            {
+              "name": "Corte transversal incompleto o descentrado en los sticks",
+              "probableSystem": "Cuchillas de corte transversal y control de presencia (S3M11100110 / S3A92400910)",
+              "status": "Manual p.25, 62-68",
+              "symptoms": [
+                "Sticks quedan unidos por un hilo de film",
+                "Corte invade la cámara de líquido"
+              ],
+              "checks": [
+                "Puesta en fase de grupo cuchillas S3M11100110 (pág. 25)",
+                "Precarga y filo de cuchillas/contracuchillas (pág. 65-68)",
+                "Tensión de orugas S3A19100330"
+              ],
+              "steps": [
+                {
+                  "title": "Ajustar contacto y fase del grupo cuchillas S3M11100110",
+                  "where": "Estación inferior bajo las mordazas horizontales.",
+                  "how": "Con máquina en bloqueo LOTO, verifica el cruce entre cuchilla móvil y fija según procedimiento S3M11100110 (págs. 62-68) y comprueba la fase en pág. 25.",
+                  "spec": "Corte limpio de papel testigo en todas las pistas",
+                  "tool": "Llave dinamométrica y galgas",
+                  "ifFail": "Sustituir juego de cuchillas S3M11100110."
+                }
+              ]
+            }
+          ],
+          "documents": [
+            {
+              "name": "Manual 4 — Calibrado y Regulaciones S3240005 (ITA/SPA, 118 págs.)",
+              "status": "Disponible",
+              "file": "4-Calibrado regulaciones_001_90_01M04_ITA_SPA.pdf"
+            },
+            {
+              "name": "Manual 5 — Catálogo de Piezas de Recambio S3240005 (ITA/SPA, 262 págs.)",
+              "status": "Disponible",
+              "file": "5-Piezas de recambio_001_90_01M05_ITA_SPA.pdf"
+            }
+          ]
+        },
+        {
+          "id": "eq-130378001",
+          "equipoCod": "130378001",
+          "name": "Equipo de Lecho Fluido Hüttlin HDGC 400",
+          "model": "Hüttlin HDGC 400",
+          "current": "Código 130378001 · P&ID 15-19552-V-06",
+          "area": "Sólidos · Granulación, Secado y Recubrimiento en Lecho Fluido",
+          "location": "Sede 4",
+          "status": "Operativo",
+          "criticality": "Alta",
+          "manual": "Diagramas P&ID Hüttlin HDGC 400 (15-19552-V-06 y C0-08-17309-V-05) + lista de repuestos",
+          "maintenance": "22 repuestos en el plan + inspección de sellos inflables, filtros Herding y bombas ATEX",
+          "completion": 91,
+          "image": "",
+          "notes": "Planos P&ID oficiales Hüttlin / Bosch Packaging y referencias reales del plan (sellos inflables D00T019028/D00T019236, filtros Herding D00T030185, bombas Watson-Marlow 313X2A ATEX, posicionadores Siemens Sipart PS2).",
+          "causaCod": "DM",
+          "causaDesc": "Equipo Lecho Fluido Hüttlin HDGC 400 (Sede 4)",
+          "searchAliases": [
+            "130378001",
+            "16372001",
+            "huttlin",
+            "hdgc400",
+            "hdgc 400",
+            "lecho fluido",
+            "diskjet",
+            "herding",
+            "sipart",
+            "watson marlow",
+            "DM",
+            "741301341",
+            "741301092",
+            "711202158",
+            "724005072",
+            "724005057",
+            "724005059",
+            "724005058",
+            "724005056",
+            "724005040",
+            "742101189",
+            "724005070",
+            "724005116",
+            "733001173",
+            "724005052",
+            "514515000",
+            "742101213",
+            "724005121",
+            "742209163",
+            "724005122",
+            "724005120"
+          ],
+          "description": "Procesador de lecho fluido farmacéutico Hüttlin HDGC 400 (Bosch Packaging Technology) para granulación húmeda, secado y recubrimiento de pellets/gránulos. Cuenta con Unidad Manejadora de Aire de proceso (AHU con prefiltro, deshumidificador, batería de calentamiento y posicionadores electropneumáticos Siemens Sipart PS2), fondo toroidal patentado Diskjet, recipiente de producto con 3 sellos neumáticos inflables (Bowl seal D00T019028, Diskjet seal D00T019236 y Filter housing seal D00T017051), sistema de atomización tangencial con bombas peristálticas Watson-Marlow 313X2A ATEX, y cámara superior con cartuchos filtrantes rígidos Herding (D00T030185) con limpieza por pulsos de aire a contracorriente (blowback) y captador de polvo.",
+          "technicalData": {
+            "function": "Suspender y hacer circular el lote de polvo/pellets mediante corriente de aire caliente y acondicionado a través del plato toroidal Diskjet, atomizar solución aglutinante o de recubrimiento con boquillas tangenciales de tres componentes, secar el granulado y retener los finos mediante filtros sinterizados Herding con autolimpieza por pulsos.",
+            "capacity": "Lote nominal serie HDGC 400 (granulación y recubrimiento en lecho fluido)",
+            "capsuleSizes": "Polvos, gránulos y pellets (microesferas)",
+            "dosingSystem": "Atomización tangencial inferior con bombas peristálticas Watson-Marlow 313X2A ATEX",
+            "power": "Soplador principal + UMA térmica + control PLC / posicionadores Sipart PS2",
+            "voltage": "3×380/440 V · 60 Hz + Vapor + Aire comprimido 6–8 bar",
+            "weight": "3200 kg (torre de proceso + plataforma técnica)",
+            "dimensions": "Torre vertical de 3 cuerpos con bridas selladas neumáticamente",
+            "manufacturer": "Hüttlin GmbH (Bosch Packaging Technology / Syntegon) · Schopfheim, Alemania",
+            "brand": "Hüttlin / Bosch",
+            "serialNumber": "15-19552 / C0-08-17309",
+            "year": "2016"
+          },
+          "summarySpecs": [
+            {
+              "label": "Diagramas P&ID",
+              "value": "15-19552-V-06 · C0-08-17309-V-05"
+            },
+            {
+              "label": "Distribución aire",
+              "value": "Plato toroidal Diskjet (Sello D00T019236)"
+            },
+            {
+              "label": "Sellos neumáticos",
+              "value": "Bowl D00T019028 · Filtro D00T017051"
+            },
+            {
+              "label": "Filtración proceso",
+              "value": "Filtros sinterizados Herding D00T030185"
+            },
+            {
+              "label": "Atomización",
+              "value": "Cabezales Watson-Marlow 313X2A ATEX"
+            },
+            {
+              "label": "Válvulas aire/vapor",
+              "value": "Posicionadores Siemens Sipart PS2"
+            }
+          ],
+          "systems": [
+            {
+              "name": "UMA de proceso y control de caudal/temperatura (P&ID 15-19552)",
+              "function": "Filtra, deshumidifica y calienta el aire de entrada con baterías de vapor/agua reguladas por posicionadores inteligentes Siemens Sipart PS2 (6DR5010) y mide caudal/presión diferencial.",
+              "components": [
+                "Prefiltros y filtros HEPA de entrada",
+                "Batería de calentamiento y enfriamiento",
+                "Posicionadores Siemens Sipart PS2 (6DR5010-0NG00-0AA0)",
+                "Sensores de punto de rocío, temperatura PT100 y ΔP"
+              ],
+              "status": "P&ID 15-19552-V-06"
+            },
+            {
+              "name": "Plato Diskjet y recipiente de producto con sellos inflables",
+              "function": "El plato inferior Diskjet introduce el aire con vector tangencial para crear un movimiento toroidal homogéneo sin zonas muertas; los sellos neumáticos inflables hermetizan el recipiente de producto (Bowl).",
+              "components": [
+                "Plato distribuidor Diskjet",
+                "Sello inflable de Bowl (D00T019028 / cód. 741840)",
+                "Sello inflable de Diskjet (D00T019236 / cód. 741841)",
+                "Sello de carcasa de filtro (D00T017051 / cód. 741838)",
+                "Mirilla iluminada con limpiador"
+              ],
+              "status": "Plan 130378001 + P&ID"
+            },
+            {
+              "name": "Sistema de atomización y bombas Watson-Marlow ATEX",
+              "function": "Bombea la solución aglutinante o de recubrimiento desde el agitador de soluciones hacia las boquillas dinámicas del fondo Diskjet, atomizando con aire comprimido y microclima.",
+              "components": [
+                "Cabezales peristálticos Watson-Marlow 313X2A ATEX (cód. 741848)",
+                "Boquillas de pulverización tangencial Hüttlin",
+                "Reguladores de presión de aire de atomización y microclima"
+              ],
+              "status": "Plan 130378001 + P&ID"
+            },
+            {
+              "name": "Cámara de filtros Herding y limpieza por pulsos (Blowback)",
+              "function": "Retiene el producto dentro de la cámara de expansión mediante elementos filtrantes rígidos de placas sinterizadas Herding y los limpia cíclicamente con pulsos de aire comprimido sin interrumpir la fluidización.",
+              "components": [
+                "Elementos filtrantes Herding (D00T030185 / cód. 741856)",
+                "Sello O-ring vitón de filtros (D00T017635)",
+                "Válvulas de pulso rápido (blowback)",
+                "Transmisor de presión diferencial de filtros ΔP"
+              ],
+              "status": "Plan 130378001 + P&ID"
+            },
+            {
+              "name": "Extracción, captador de polvo y seguridad ATEX",
+              "function": "El ventilador de tiro inducido mantiene la torre en depresión controlada y conduce el aire de salida hacia el captador de polvo secundario (eq-130310001).",
+              "components": [
+                "Captador de polvo secundario HDGC 400 (eq-130310001)",
+                "Compuertas de aislamiento y alivio de sobrepresión",
+                "Turbina de extracción"
+              ],
+              "status": "P&ID C0-08-17309-V-05"
+            }
+          ],
+          "spareParts": [
+            {
+              "name": "Sello inflable del recipiente (Seal for Bowl) D00T019028",
+              "system": "Plato Diskjet y recipiente de producto con sellos inflables",
+              "type": "Neumático",
+              "criticality": "Alta",
+              "status": "Cód. interno 741840",
+              "function": "Hermetizar la brida del recipiente de producto durante el proceso."
+            },
+            {
+              "name": "Sello inflable de Diskjet (Seal for Diskjet) D00T019236",
+              "system": "Plato Diskjet y recipiente de producto con sellos inflables",
+              "type": "Neumático",
+              "criticality": "Alta",
+              "status": "Cód. interno 741841",
+              "function": "Sellar el plato distribuidor de aire Diskjet."
+            },
+            {
+              "name": "Sello carcasa de filtro (Seal for Filter Housing) D00T017051",
+              "system": "Plato Diskjet y recipiente de producto con sellos inflables",
+              "type": "Neumático",
+              "criticality": "Alta",
+              "status": "Cód. interno 741838",
+              "function": "Hermetizar el cuerpo superior de filtros."
+            },
+            {
+              "name": "Elemento filtrante Herding (Filter Element) D00T030185",
+              "system": "Cámara de filtros Herding y limpieza por pulsos (Blowback)",
+              "type": "Filtración",
+              "criticality": "Alta",
+              "status": "Cód. interno 741856 (18 uds.)",
+              "function": "Retención de partículas finas en la cámara de expansión."
+            },
+            {
+              "name": "Cabezal bomba peristáltica Watson-Marlow 313X2A ATEX",
+              "system": "Sistema de atomización y bombas Watson-Marlow ATEX",
+              "type": "Mecánico",
+              "criticality": "Alta",
+              "status": "Cód. interno 741848",
+              "function": "Dosificación de solución de granulación/recubrimiento."
+            },
+            {
+              "name": "Posicionador electroneumático Siemens Sipart PS2 6DR5010",
+              "system": "UMA de proceso y control de caudal/temperatura (P&ID 15-19552)",
+              "type": "Instrumentación",
+              "criticality": "Alta",
+              "status": "Cód. interno 740678",
+              "function": "Control proporcional de válvulas de proceso y vapor."
+            }
+          ],
+          "maintenanceTasks": [
+            {
+              "name": "Inspección de presión e integridad de los 3 sellos neumáticos inflables (Bowl, Diskjet, Filtro)",
+              "system": "Plato Diskjet y recipiente de producto con sellos inflables",
+              "frequency": "Semanal",
+              "type": "Inspección",
+              "status": "Plan 130378001",
+              "acceptance": "Sellos D00T019028, D00T019236 y D00T017051 mantienen presión sin caída ni grietas."
+            },
+            {
+              "name": "Limpieza e inspección de boquillas de atomización y cabezales Watson-Marlow 313X2A",
+              "system": "Sistema de atomización y bombas Watson-Marlow ATEX",
+              "frequency": "Diario",
+              "type": "Limpieza",
+              "status": "Plan 130378001",
+              "acceptance": "Cono de pulverización simétrico sin obstrucción; rodillos del cabezal giran libres."
+            },
+            {
+              "name": "Control de presión diferencial ΔP e inspección de los 18 filtros Herding D00T030185",
+              "system": "Cámara de filtros Herding y limpieza por pulsos (Blowback)",
+              "frequency": "Mensual",
+              "type": "Preventivo",
+              "status": "Plan 130378001",
+              "acceptance": "ΔP estable tras pulsos de limpieza; sin paso de polvo al ducto limpio."
+            },
+            {
+              "name": "Autocalibración de posicionadores Siemens Sipart PS2 en válvulas de UMA",
+              "system": "UMA de proceso y control de caudal/temperatura (P&ID 15-19552)",
+              "frequency": "Semestral",
+              "type": "Calibración",
+              "status": "P&ID 15-19552-V-06",
+              "acceptance": "Respuesta lineal 4–20 mA (0–100% carrera) sin histéresis."
+            }
+          ],
+          "failureModes": [
+            {
+              "name": "Alarma de pérdida de presión en sellos inflables de la torre",
+              "probableSystem": "Plato Diskjet y recipiente de producto con sellos inflables",
+              "status": "P&ID + Plan 130378001",
+              "symptoms": [
+                "Fuga de polvo o aire por brida del Bowl",
+                "Interlock impide arrancar el ventilador"
+              ],
+              "checks": [
+                "Presión de inflado en sellos D00T019028 (Bowl), D00T019236 (Diskjet) y D00T017051 (Filtro)",
+                "Presencia de producto incrustado en el canal de la brida"
+              ],
+              "steps": [
+                {
+                  "title": "Aislar qué sello pierde presión",
+                  "where": "Bridas inferior (Diskjet), media (Bowl) y superior (Carcasa de filtros).",
+                  "how": "Revisa los manómetros/presostatos del circuito neumático de sellado en el P&ID. Inspecciona el labio de silicona/EPDM buscando cortes o polvo endurecido que impida el asiento.",
+                  "spec": "Presión de sellado nominal estable sin fugas audibles",
+                  "tool": "Agua jabonosa / detector ultrasónico",
+                  "ifFail": "Reemplazar el sello afectado (cód. 741840 Bowl, 741841 Diskjet o 741838 Filtro)."
+                }
+              ]
+            },
+            {
+              "name": "Alta presión diferencial (ΔP) en filtros Herding y caída de caudal de fluidización",
+              "probableSystem": "Cámara de filtros Herding y limpieza por pulsos (Blowback)",
+              "status": "P&ID 15-19552-V-06",
+              "symptoms": [
+                "El lecho fluido colapsa o no se suspende bien",
+                "Alarma de ΔP alto en cámara de filtros"
+              ],
+              "checks": [
+                "Funcionamiento de electroválvulas de pulso (blowback)",
+                "Humedad excesiva en el lecho por exceso de spray",
+                "Saturación de los 18 elementos Herding D00T030185"
+              ],
+              "steps": [
+                {
+                  "title": "Verificar disparo de pulsos de limpieza (blowback)",
+                  "where": "Cabezal superior de la torre HDGC 400, colector de aire comprimido.",
+                  "how": "Comprueba que las válvulas de soplado disparen secuencialmente con presión de tanque de 5–6 bar. Si la humedad de entrada o el caudal de las bombas Watson-Marlow es excesivo, el polvo húmedo ciega el filtro.",
+                  "spec": "Caída de ΔP tras cada ciclo de pulsos",
+                  "tool": "Lectura en HMI y manómetro de cabezal",
+                  "ifFail": "Desmontar y lavar por ultrasonidos/agua a presión o reemplazar los elementos Herding D00T030185 (cód. 741856)."
+                }
+              ]
+            }
+          ],
+          "documents": [
+            {
+              "name": "Diagrama P&ID Hüttlin HDGC 400 — 15-19552-V-06",
+              "status": "Disponible",
+              "file": "P & I  diagram  HDGC 400  15-19552-V-06.pdf"
+            },
+            {
+              "name": "Diagrama P&ID Hüttlin — C0-08-17309-V-05",
+              "status": "Disponible",
+              "file": "P & I C0-08-17309-V-05.pdf"
+            }
+          ]
         }
       ];
 
