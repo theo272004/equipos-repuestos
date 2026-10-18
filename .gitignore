@@ -24,6 +24,7 @@ scripts/portal-bridge/salida/
 # El repo ignora *.md (texto crudo de OCR), pero la guia del puente si va
 !scripts/portal-bridge/README.md
 !scripts/gemelo-ms235/README.md
+!scripts/gemelo-njp3500/README.md
 !scripts/gemelo-ms235/cableado-LEEME.md
 
 # Reportes de MiPortal bajados a mano (RE356R, RE356...): traen precios y el
