@@ -86,18 +86,20 @@ del lado izquierdo (probable soporte del dosificador S4A71100310), la rueda negr
 la soldadura, la toma de aire con dos válvulas rojas junto al portabobinas, y si el portabobinas
 de abajo es solo una cuna en V. Las fotos se guardan fuera del repo (`fotos-reales/`).
 
-## Incorporado tras auditoría contra las láminas de despiece (2026-10-17)
+## Incorporado tras la auditoría contra el catálogo (2026-10-17)
 
-- **Correa del motor principal (`S4A12100110`, lám. `t103` / `c091`)**: servo `M25.1`, reductor, polea inferior, correa dentada vertical `01686705`, polea superior y árbol motriz junto al volante de maniobra.
-- **Estrella doble de dosificación (`S4G72200210`, lám. `t178` / `c147`)**: bastidor de chapa `S4G72200211`, dos ejes de estrella con sus poleas conducidas y correas dentadas desde los motorreductores `M35.1`/`M35.2`.
-- **Soporte y mando mecánico del dosificador (`S4A71100310`, lám. `t136`)**: columna soporte `235.71.001`, manivela de elevación `V751016025`, brazo giratorio `235.71.003` y biela de juntas esféricas `235.71.106` desde la leva del árbol principal.
-- **Cajón del corte horizontal (`S4A19100720`, lám. `t109` / `c102`)**: bloques macizos mecanizados `03520R037`/`03520R038`, puente frontal `07P00029`, tornillos excéntricos de regulación de interferencia `235.15.329`/`235.15.330` y colectores laterales `09321R077`/`03521R077`.
-- **Marcos de rodillos de guía (`S4A27100110`, lám. `t132` / `c118`) y escuadra graduada de fotocélula (`S4M95100110`, lám. `t084`)**: marcos color crema `2M17100212`/`2M17100213` con pomos moleteados, y disco graduado `035050315` con escuadra `32940121` en `B31.1`.
-- **Auditoría física (`contactos.mjs`)**: **1.846 piezas · 0 flotantes · 841 tornillos · 0 tornillos sin asiento**.
+Solo se citan códigos que están en `ms235-mecanico.js`.
+
+- **Correa del motor principal (`S4A12100110`)**: brida `07920036`, polea inferior `07910121`, correa dentada `C262360100` y polea superior `09319R053`, coaxial con el volante.
+- **Estrella doble de dosificación (`S4G72200210`)**: cuerpo `S4G72200211`, dos árboles `M2G72200264` con poleas y correas `C26Q050700` / `C26Q051270` desde los motorreductores `M34.1` / `M34A.1`.
+- **Soporte y mando mecánico del dosificador (`S4A71100310`)**: columna, brazo, excéntrica `2A71100141` y bielas con rótulas `M2A71102712` (`0703R003`). **La posición en la máquina no se conoce: está puesta a ojo.**
+- **Cajón del corte horizontal (`S4A19100720`)**: bloques `03520R037` / `03520R038`, puente frontal `07P00029` y colectores `09321R077` / `03521R077`. Las excéntricas de regulación entre cuchillas están dibujadas, pero su código no está confirmado en el catálogo.
+- **Marcos de rodillos color crema (`S4A27100110`: `2M17100212` / `2M17100213`)** y escuadra graduada de la fotocélula (`M2M95100511`: disco `035050315`, escuadra `32940121`).
+- `node contactos.mjs`: 1.846 piezas, 0 flotantes, 841 tornillos, 0 sin asiento.
 
 ## Pendiente
 
-- Esquema neumático completo: las mangueras dibujadas son las de los cilindros de cierre (`Y40.6`/`Y40.7`), y el resto de válvulas lleva su señal eléctrica.
+- Esquema neumático (el usuario lo va a conseguir): las mangueras dibujadas son las de los cilindros de cierre (`Y40.6`/`Y40.7`), y el resto de válvulas solo lleva su señal eléctrica.
 
 ## Lo que es y lo que no
 
@@ -106,4 +108,3 @@ esquema eléctrico y de fotos de la máquina. Es fiel a los conjuntos, a su posi
 función, pero no a la cota exacta. Falta el esquema neumático: las mangueras dibujadas son
 las de los cilindros de cierre, y el resto de válvulas solo tiene su señal. La asignación de
 los grupos A11, A90 y A92 está por confirmar en el catálogo.
-

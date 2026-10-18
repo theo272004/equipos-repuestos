@@ -42,39 +42,31 @@
     "eq-17334008": "stickpack",
     "eq-17334015": "stickpack",
     "eq-17334016": "stickpack",
-    "eq-17334018": "stickpack",
     stickpack: "stickpack",
     "eq-130378001": "hdgc400",
-    "eq-16372001": "hdgc400",
-    "eq-130378002": "hdgc400",
     hdgc400: "hdgc400",
     "eq-125334003": "ml642",
     ml642: "ml642"
   };
 
+  // Solo por id o código de equipo. Antes también se adivinaba por el nombre y una
+  // aspiradora o una bomba de vacío "BOSCH" salía con el modelo de la GKF 2600.
   function getTwinArchetype(machine) {
     if (!machine) return null;
     if (ARCHETYPE_BY_ID[machine.id]) return ARCHETYPE_BY_ID[machine.id];
     if (machine.equipoCod && ARCHETYPE_BY_ID["eq-" + machine.equipoCod]) {
       return ARCHETYPE_BY_ID["eq-" + machine.equipoCod];
     }
-    const text = [machine.id, machine.name, machine.model].join(" ").toLowerCase();
-    if (text.includes("njp-3500") || text.includes("njp3500")) return "njp3500";
-    if (text.includes("njp-1200") || text.includes("njp 1200") || text.includes("njp1200")) return "njp1200";
-    if (text.includes("gkf") || text.includes("bosch")) return "gkf2600";
-    if (text.includes("ms235") || text.includes("bustinatrice")) return "ms235";
-    if (text.includes("integra") || text.includes("mb432") || text.includes("mb451")) return "integra320";
-    if (text.includes("b 1240") || text.includes("b1240") || text.includes("ups300") || text.includes("blister")) return "blister3";
-    if (text.includes("controlsa") || text.includes("114 rl") || text.includes("114rl")) return "controlsa114rl";
-    if (text.includes("flexografica") || text.includes("fx30") || text.includes("tecnomaco")) return "fx30prostep";
-    if (text.includes("stick pack") || text.includes("stickpack") || text.includes("s3240005")) return "stickpack";
-    if (text.includes("huttlin") || text.includes("hüttlin") || text.includes("hdgc") || text.includes("lecho fluido")) return "hdgc400";
-    if (text.includes("ml642") || text.includes("ml 642") || text.includes("m6210005") || text.includes("125334003")) return "ml642";
     return null;
   }
 
+  // Modelos 3D que se muestran en la app. Un modelo entra aquí solo cuando se parece a la
+  // máquina real, sale de su propio manual y no tiene piezas flotando. Los demás arquetipos
+  // siguen en este archivo pero no se enseñan hasta rehacerlos.
+  const MODELOS_VERIFICADOS = new Set(["ms235"]);
+
   function hasGemelo3D(machine) {
-    return !!getTwinArchetype(machine);
+    return MODELOS_VERIFICADOS.has(getTwinArchetype(machine));
   }
 
   // --------------------------------------------------------------------------
