@@ -447,14 +447,22 @@ export function construir(P, R) {
   cil("motor", [62, -80, zPlaca], Z, 26, 7, { tone: "hi", name: "motor.dropsa-bomba" });
   cil("motor", [80, -80, zPlaca], Z, 20, 5, { tone: "mid", name: "motor.dropsa-filtro" });
   tubo("motor", [[62, -80, 48], [62, -80, 62], [40, -80, 62], [30, -60, 62], [30, -60, 56]], 0.9, { name: "motor.dropsa-tubo", tone: "mid" });
-  // Volante manual DENTRO de la caja de transmision, junto a la correa del motor (Calibrado p.83):
-  // se usa con la puerta trasera abierta. B18.3 lee su borde desde arriba y B25.8 va en el lateral.
+  // Volante manual DENTRO de la caja de transmision, junto a la correa del motor (Calibrado p.83, t103):
+  // el servo M25.1 va abajo en su brida ranurada (07920036) y sube por la correa dentada vertical
+  // (C262360100) al grupo motriz superior (09319R053) coaxial con el volante.
   {
     const vy = -73;
     const F = G.frameAlong([pared.x0 + 6, vy, 236], [1, 0, 0]);
     torno("motor", F, [[0, 5], [10, 5], [10, 26], [16, 26], [16, 8], [19, 8]], { tone: "hi", name: "motor.volante", mat: "inox", extra: pernosCirculo("motor", F, 16, 18, 6, { parte: "motor.volante" }) });
     const mango = G.pointOf(F, 16, 20, 0.6);
     cil("motor", mango, [1, 0, 0], 14, 2.4, { tone: "mid", name: "motor.volante-mango", mat: "negro" });
+    // Grupo S4A12100110 (M2A12100531): polea superior 09319R053, polea inferior 07910121, correa C262360100 y brida 07920036
+    const zm0 = 148;
+    caja("motor", [pared.x0 + 6, vy - 14, zm0 - 16], [-174, vy + 14, zm0 + 16], { tone: "mid", r: 2, bevel: 0.5, name: "motor.brida-correa", mat: "inox", tornillos: { cara: "+x", solo: "esquinas", margen: 3, r: 0.7 } });
+    cil("motor", [-174, vy, zm0], [1, 0, 0], 8, 9, { tone: "hi", name: "motor.polea-inferior", mat: "alu" });
+    cil("motor", [-174, vy, 236], [1, 0, 0], 8, 12, { tone: "hi", name: "motor.polea-superior", mat: "alu", extra: pernosCirculo("motor", G.frameAlong([-166, vy, 236], [1, 0, 0]), 0, 7, 4, { rCabeza: 0.6, parte: "motor.polea-superior" }) });
+    tubo("motor", lazo([vy, zm0], 9.8, [vy, 236], 12.8, (y, z) => [-170, y, z], 16), 1.1, { tone: "lo", name: "motor.correa-principal", curva: 0, maxLength: 7, clase: "correa", mat: "caucho" });
+    caja("motor", [-184, vy - 10, zm0 - 10], [-174, vy + 10, zm0 + 10], { tone: "lo", r: 1, bevel: 0.4, name: "motor.servo-correa", mat: "oscuro" });
     const [, sy] = pl("B18.3", [-173, -79]);
     void sy;
     caja("motor", [pared.x0 + 6, vy - 4, 201], [-168, vy + 4, 205], { tone: "mid", r: 0.4, name: "motor.escuadra-sensor", mat: "inox" });
@@ -680,6 +688,13 @@ export function construir(P, R) {
       const xr = s * 14;
       cil("guias", [xr, 14, 325.5], Y, 112, 4, { tone: "hi", name: "guias.rodillo" });
       for (const y of [8, 126]) caja("guias", [xr - 3, y, 321], [xr + 3, y + 6, zF], { tone: "mid", r: 0.5, name: "guias.placa-rodillo" });
+      // Bastidores de rodillos color crema (S4A27100110: 2M17100212 / 2M17100213, t132 / c118)
+      const xc = s * 124;
+      caja("guias", [xc - 2.5, 14, 336], [xc + 2.5, 126, 339], { tone: "hi", r: 0.4, name: "guias.bastidor-crema", mat: "crema" });
+      caja("guias", [xc - 2.5, 14, 324], [xc + 2.5, 126, 327], { tone: "hi", r: 0.4, name: "guias.bastidor-crema", mat: "crema" });
+      for (const y of [14, 122]) caja("guias", [xc - 2.5, y, 324], [xc + 2.5, y + 4, 344], { tone: "hi", r: 0.4, name: "guias.bastidor-crema", mat: "crema" });
+      for (const z of [328.5, 334.5]) cil("guias", [xc, 18, z], Y, 104, 1.8, { tone: "hi", name: "guias.rodillo-crema", mat: "inox" });
+      for (const y of [38, 102]) cil("guias", [xc, y, 339], Z, 3.2, 2.2, { tone: "lo", name: "guias.pomo-crema", mat: "negro" });
     }
   }
 
@@ -687,6 +702,9 @@ export function construir(P, R) {
   {
     const [fx, fy] = pl("B30.10", [148, 21]);
     caja("fotocelula", [fx + 6, fy - 3, 374], [164, fy + 3, 380], { tone: "mid", r: 0.5, name: "fotocelula.brazo" });
+    // Escuadra graduada M2M95100511 (t084 / t085): disco graduado 035050315 y escuadra en L 32940121
+    cil("fotocelula", [fx + 6, fy, 366], X, 2.2, 8.5, { tone: "hi", name: "fotocelula.disco-graduado", mat: "inox", extra: pernosCirculo("fotocelula", G.frameAlong([fx + 8.2, fy, 366], X), 0, 6.2, 8, { rCabeza: 0.4, parte: "fotocelula.disco-graduado" }) });
+    caja("fotocelula", [fx + 4, fy - 4, 356], [fx + 8.2, fy + 4, 374], { tone: "mid", r: 0.5, name: "fotocelula.escuadra-graduada", mat: "inox" });
     caja("fotocelula", [fx - 6, fy - 6, 350], [fx + 6, fy + 6, 374], {
       tone: "hi",
       r: 1.2,
@@ -700,22 +718,45 @@ export function construir(P, R) {
   }
 
   // ───────────────────────── 9. DOSIFICACION ─────────────────────────
-  // Tolva desplazada (sensores de nivel B35 en la planta), conducto a la valvula estrella,
-  // cassette con boquillas por carril, rasador, motores M34.1 / M34A.1 y vibrador M37.1.
+  // Tolva desplazada (sensores de nivel B35 en la planta), conducto a la valvula estrella doble
+  // (S4G72200210), soporte giratorio y mando de juntas esfericas (S4A71100310), cassette con
+  // boquillas por carril, rasador, motores M34.1 / M34A.1 y vibrador M37.1.
   {
     caja("dosificacion", [-12, 18, 340], [12, 122, 352], { tone: "mid", r: 1.2, bevel: 0.6, name: "dosificacion.cassette", tornillos: { cara: "+z", paso: 24, margen: 3, r: 0.8 } });
     for (const y of CARRILES) cil("dosificacion", [0, y, 312], Z, 28, 2, { tone: "hi", name: "dosificacion.boquilla" });
     caja("dosificacion", [12, 20, 342], [18, 120, 350], { tone: "hi", r: 0.5, name: "dosificacion.rasador" });
-    const F = G.frameAlong([0, 18, 368], Y);
-    torno("dosificacion", F, [[0, 10], [2, 16], [102, 16], [104, 10]], { tone: "hi", name: "dosificacion.estrella", inner: [26, 52, 78].map((s) => G.arcOf(F, s, 16, P)).join("") });
-    for (const y of [14, 122]) cil("dosificacion", [0, y, 368], Y, 4, 18, { tone: "mid", name: "dosificacion.tapa-estrella", extra: pernosCirculo("dosificacion", G.frameAlong([0, y, 368], y < 50 ? [0, -1, 0] : Y), y < 50 ? 0 : 4, 14, 6, { rCabeza: 0.7 }) });
-    caja("dosificacion", [-1, 126, 364], [1, 128, 372], { tone: "lo", r: 0.2, bevel: 0, name: "dosificacion.marca-estrella" });
-    // Placa de motores sobre la estrella, con los dos motorreductores de la planta
-    caja("dosificacion", [-14, 70, 384], [74, 94, 388], { tone: "mid", r: 0.8, name: "dosificacion.placa-motores", tornillos: { cara: "+z", solo: "esquinas", margen: 3, r: 0.8 } });
-    for (const [tag, def] of [["M34.1", [5, 82]], ["M34A.1", [61, 82]]]) {
+    // Valvula estrella DOBLE S4G72200210 (t178 / c147): dos arboles M2G72200264 en su cuerpo S4G72200211
+    caja("dosificacion", [-18, 16, 352], [18, 124, 384], { tone: "mid", r: 1.2, bevel: 0.6, name: "dosificacion.cuerpo-estrella", mat: "inox", tornillos: { cara: "+x", paso: 28, margen: 4, r: 0.7 } });
+    for (const sx of [-7, 7]) {
+      const F = G.frameAlong([sx, 18, 368], Y);
+      torno("dosificacion", F, [[0, 5], [2, 7.5], [102, 7.5], [104, 5]], { tone: "hi", name: "dosificacion.estrella", mat: "inox", inner: [26, 52, 78].map((s) => G.arcOf(F, s, 7.5, P)).join("") });
+      for (const y of [14, 122]) cil("dosificacion", [sx, y, 368], Y, 4, 8.5, { tone: "mid", name: "dosificacion.tapa-estrella", mat: "inox", extra: pernosCirculo("dosificacion", G.frameAlong([sx, y, 368], y < 50 ? [0, -1, 0] : Y), y < 50 ? 0 : 4, 6.8, 6, { rCabeza: 0.5, parte: "dosificacion.tapa-estrella" }) });
+      // poleas dentadas en el extremo trasero (y = 11..14) y correas dentadas C26Q050700 / C26Q051270
+      cil("dosificacion", [sx, 11, 368], Y, 3, 5.5, { tone: "hi", name: "dosificacion.polea-estrella", mat: "alu" });
+    }
+    caja("dosificacion", [-1, 124, 364], [1, 126, 372], { tone: "lo", r: 0.2, bevel: 0, name: "dosificacion.marca-estrella" });
+    // Placa de motores y correas dentadas S4G72200212 / S4G72200213 (t178 / t188 / t189)
+    caja("dosificacion", [-18, 14, 384], [74, 94, 388], { tone: "mid", r: 0.8, name: "dosificacion.placa-motores", tornillos: { cara: "+z", solo: "esquinas", margen: 3, r: 0.8 } });
+    for (const [tag, def, sx] of [["M34.1", [5, 82], -7], ["M34A.1", [61, 82], 7]]) {
       const [x, y] = pl(tag, def);
       caja("dosificacion", [x - 7, y - 7, 388], [x + 7, y + 7, 398], { tone: "mid", r: 1, name: "dosificacion.reductor" });
       motorElectrico("dosificacion", [x, y, 398], Z, 26, 7, { name: "dosificacion.motor", disp: tag, tone: "mid" });
+      cil("dosificacion", [x, 11, 393], Y, 3, 4.5, { tone: "hi", name: "dosificacion.polea-motor", mat: "alu" });
+      caja("dosificacion", [Math.min(x, sx) - 2, 14, 368], [Math.max(x, sx) + 2, 18, 394], { tone: "mid", r: 0.5, name: "dosificacion.soporte-correa", mat: "inox" });
+      tubo("dosificacion", lazo([sx, 368], 5.8, [x, 393], 4.8, (px, pz) => [px, 12.5, pz], 14), 0.7, { tone: "lo", name: "dosificacion.correa-estrella", curva: 0, maxLength: 6, clase: "correa", mat: "caucho" });
+    }
+    // Soporte columna y mando de juntas esfericas S4A71100310 (t136..t154, c124)
+    {
+      const xc = -58, yc = 8;
+      caja("dosificacion", [xc - 10, yc - 8, 300], [xc + 10, yc + 8, 326], { tone: "mid", r: 1, bevel: 0.6, name: "dosificacion.base-columna", mat: "fundicion", tornillos: { cara: "+z", solo: "esquinas", margen: 2.5, r: 0.7 } });
+      cil("dosificacion", [xc, yc, 326], Z, 34, 5.5, { tone: "hi", name: "dosificacion.columna-soporte", mat: "cromo" });
+      cil("dosificacion", [xc, yc + 8, 310], Y, 6, 1.8, { tone: "hi", name: "dosificacion.manivela-altura", mat: "inox" });
+      caja("dosificacion", [xc - 8, yc - 6, 356], [-12, yc + 6, 368], { tone: "mid", r: 0.8, bevel: 0.5, name: "dosificacion.brazo-oscilante", mat: "alu", tornillos: { cara: "+z", paso: 18, margen: 3, r: 0.6 } });
+      // Mando mecanico de excentrica 2A71100141 y bielas con rotulas M2A71102712 (0703R003 / 0703R004)
+      cil("dosificacion", [-36, yc, 336], Y, 8, 9, { tone: "hi", name: "dosificacion.excentrica-mando", mat: "inox" });
+      caja("dosificacion", [-42, yc - 4, 334], [-12, yc + 4, 348], { tone: "mid", r: 0.6, name: "dosificacion.placa-mando", mat: "inox" });
+      biela("dosificacion", [-36, yc + 8, 342], 2.2, [-14, 20, 346], 2.2, 1.1, { tone: "hi", name: "dosificacion.biela-esferica", mat: "cromo" });
+      for (const z of [342, 358]) cil("dosificacion", [-24, yc + 6, z], Y, 4, 1.4, { tone: "lo", name: "dosificacion.maneta-bloqueo", mat: "negro" });
     }
     // Cubierta del cabezal (fotos 2026-10-15): caja de inox escalonada apoyada en los travesaños
     // delanteros, que asoma por encima del techo del resguardo. Tapa la placa de motores; delante
@@ -980,18 +1021,29 @@ export function construir(P, R) {
     }
     eje("corte", [7, 16, 190], Y, 110, 3, LIMITES.map((y) => [y - 16 - 1, y - 16 + 1]), { tone: "mid", name: "corte.eje-contraste", mat: "cromo" });
     for (const y of LIMITES) cil("corte", [7, y - 1, 190], Y, 2, 6, { tone: "hi", name: "corte.anillo-contraste", mat: "inox" });
-    // Cuchilla horizontal ROTATIVA (Calibrado p.23): hoja sobre un eje que gira una vuelta por
-    // ciclo contra la contracuchilla fija; leva y sensor B32.8 marcan el cero del motor M32.1.
+    // Cuchilla horizontal ROTATIVA (S4A19100720, lam. t109 / c102): dos bloques macizos mecanizados
+    // (03520R037 izq + 03520R038 der) cerrados por las placas laterales y el puente frontal (07P00029)
+    // con tornillos excentricos de regulacion de interferencia de cuchilla (235.15.329 + 235.15.330).
     for (const y of [10, 126]) caja("corte", [-24, y, 160], [18, y + 6, 176], { tone: "mid", r: 0.8, bevel: 0.5, name: "corte.lateral-caja", tornillos: { cara: y < 50 ? "-y" : "+y", solo: "esquinas", margen: 3, r: 0.8 } });
+    caja("corte", [-22, 16, 161], [-9, 126, 175], { tone: "mid", r: 0.6, bevel: 0.4, name: "corte.bloque-rotativo-03520R037", mat: "inox", tornillos: { cara: "-x", paso: 22, margen: 4, r: 0.7 } });
     cil("corte", [-9, 16, 170], Y, 110, 3, { tone: "mid", name: "corte.eje-cuchilla" });
     caja("corte", [-6, 18, 169], [-1.2, 124, 171], { tone: "hi", r: 0.2, bevel: 0.2, name: "corte.cuchilla-rotativa" });
     caja("corte", [1, 16, 166], [9, tira.y1 + 4, 174], { tone: "hi", r: 0.3, bevel: 0.4, name: "corte.cuchilla-fija" });
-    caja("corte", [9, 16, 164], [18, tira.y1 + 4, 176], { tone: "mid", r: 0.6, name: "corte.porta-fija", tornillos: { cara: "+x", paso: 20, margen: 3, r: 0.8 } });
-    cil("corte", [-9, 132, 170], Y, 4, 8, { tone: "hi", name: "corte.leva" });
-    caja("corte", [-9, 132, 177], [-5, 136, 179], { tone: "mid", r: 0.3, bevel: 0, name: "corte.leva-marca" });
+    caja("corte", [9, 16, 162], [18, 126, 176], { tone: "mid", r: 0.6, name: "corte.porta-fija", mat: "inox", tornillos: { cara: "+x", paso: 20, margen: 3, r: 0.8 } });
+    // Puente frontal de regulacion excentrica (07P00029 + 235.15.329/330)
+    caja("corte", [-22, 132, 162], [16, 136, 174], { tone: "hi", r: 0.6, bevel: 0.4, name: "corte.puente-frontal-07P00029", mat: "inox", tornillos: { cara: "+y", solo: "esquinas", margen: 2.2, r: 0.65 } });
+    for (const x of [-15, 11]) {
+      cil("corte", [x, 136, 168], Y, 3.2, 2.4, { tone: "hi", name: "corte.excentrica-235-15-329", mat: "cromo" });
+      cil("corte", [x, 139.2, 168], Y, 2.0, 1.4, { tone: "mid", name: "corte.tuerca-excentrica-235-15-330", mat: "inox" });
+    }
+    // Colectores laterales de refrigeracion/soplado (09321R077 + 03521R077)
+    caja("corte", [-26, 16, 164], [-22, 34, 172], { tone: "mid", r: 0.4, name: "corte.colector-09321R077", mat: "alu" });
+    caja("corte", [18, 16, 164], [22, 34, 172], { tone: "mid", r: 0.4, name: "corte.colector-03521R077", mat: "alu" });
+    cil("corte", [-9, 136, 170], Y, 4, 8, { tone: "hi", name: "corte.leva" });
+    caja("corte", [-9, 136, 177], [-5, 140, 179], { tone: "mid", r: 0.3, bevel: 0, name: "corte.leva-marca" });
     caja("corte", [9, tira.y1 + 4, 166], [16, tira.y1 + 6, 174], { tone: "lo", r: 0.5, name: "corte.fieltro" });
 
-    sensor("corte", "B32.8", [Math.max(4, pl("B32.8", [19, 124])[0]), 134, 170], [-1, 0, 0], { largo: 8 });
+    sensor("corte", "B32.8", [Math.max(4, pl("B32.8", [19, 124])[0]), 138, 170], [-1, 0, 0], { largo: 8 });
   }
 
   // ───────────────────────── 13. PINZAS ─────────────────────────

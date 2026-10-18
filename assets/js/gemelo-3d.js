@@ -1490,6 +1490,139 @@
   }
 
   // --------------------------------------------------------------------------
+  //  LÁMINAS DE DESPIECE OFICIALES DEL MANUAL POR ESTACIÓN (COMPARACIÓN CAD <-> MANUAL)
+  // --------------------------------------------------------------------------
+  const MANUAL_DESPIECES_BY_STATION = {
+    // Canaan NJP-3500 / NJP-1200C
+    "est1-2": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p027.jpg", code: "Manual p.27 · Fig. Alimentación", title: "Despiece del alimentador de cápsulas vacías, horquilla orientadora y zapata de vacío" },
+      { img: "assets/njp3500_manual_es/pages/pagina 23.png", code: "Manual p.23 · Torreta 10 Est.", title: "Planta general de la torreta de 10 estaciones y distribución de moldes de 25 orificios" }
+    ],
+    "est3-5": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p030.jpg", code: "Manual p.30 · Disco y 5 Punzones", title: "Despiece de la cámara dosificadora, disco de bronce y 5 soportes de apisonado (Tamping 1–5)" }
+    ],
+    "est6-7": [
+      { img: "assets/njp3500_manual_es/pages/pagina 23.png", code: "Manual p.23 · Est. 6 y 7", title: "Ubicación del peine de varillas de rechazo y succión de cápsulas no abiertas" }
+    ],
+    "est8": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p065.jpg", code: "Manual p.65 · Est. 8 Cierre", title: "Mecanismo de cierre (Locking), placa superior de contrapresión y pines inferiores" }
+    ],
+    "est9-10": [
+      { img: "assets/njp3500_manual_es/pages/vista general njp3500.png", code: "Manual · Vista General NJP-3500", title: "Vista general con descarga de cápsulas terminadas (Est. 9) y aspiración (Est. 10)" }
+    ],
+    "drive-cam": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p050.jpg", code: "Manual p.50 · Levas e Indexador", title: "Cinemática interior: caja indexadora 83DS y árbol de levas de ranura bajo la mesa" }
+    ],
+    "n12-est1": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p027.jpg", code: "Manual · Est. 1–2 Alimentación", title: "Mecanismo de caída de cápsulas, horquilla vertical/horizontal y separador por vacío" }
+    ],
+    "n12-est3": [
+      { img: "assets/njp3500_manual_es/pages/pagina 23.png", code: "Manual · Est. 3 Pellets", title: "Disposición en torreta de la estación dosificadora de pellets" }
+    ],
+    "n12-est4": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p030.jpg", code: "Manual · Est. 4–5 Tamping", title: "Disco dosificador y 5 brazos de compactación progresiva" }
+    ],
+    "n12-est6-8": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p065.jpg", code: "Manual · Est. 6–8 Cierre", title: "Retorno radial de segmento inferior y cabezal de cierre micrométrico" }
+    ],
+    "n12-est9-10": [
+      { img: "assets/njp3500_manual_es/pages/vista general njp3500.png", code: "Manual · Est. 9–10 Descarga", title: "Expulsión de cápsulas cerradas y soplado/aspiración de moldes" }
+    ],
+    "n12-cam": [
+      { img: "assets/njp3500_manual_es/pages/njp3500-manual-es-p050.jpg", code: "Manual · Indexador RU100", title: "Transmisión inferior, caja indexadora e interiores de levas" }
+    ],
+
+    // Bosch GKF 2600 (Catálogo de despiece alemán/español)
+    "gkf-est1-2": [
+      { img: "assets/gkf2600/despiece/p025.jpg", code: "Catálogo Bosch · Lám. p025", title: "Despiece de tolva y tubos de alimentación de cápsulas en doble hilera (2×9)" },
+      { img: "assets/gkf2600/despiece/p030.jpg", code: "Catálogo Bosch · Lám. p030", title: "Rectificador, bloque de separación por vacío y despeje automático ASB" }
+    ],
+    "gkf-est5": [
+      { img: "assets/gkf2600/despiece/p051.jpg", code: "Catálogo Bosch · Lám. p051", title: "Estación 5: Cámara de producto, disco dosificador y columnas de soporte" },
+      { img: "assets/gkf2600/despiece/p074.jpg", code: "Catálogo Bosch · Lám. p074", title: "Cabezal de 5 campanas neumáticas de compactación y portapunzones 2×9" }
+    ],
+    "gkf-est6-8": [
+      { img: "assets/gkf2600/despiece/p100.jpg", code: "Catálogo Bosch · Lám. p100", title: "Módulo dosificador de pellets / microcomprimidos en estaciones 6 y 8" },
+      { img: "assets/gkf2600/estaciones.jpg", code: "Esquema Bosch · 12 Estaciones", title: "Distribución circular de las 12 estaciones del carrusel GKF 2600" }
+    ],
+    "gkf-est9": [
+      { img: "assets/gkf2600/despiece/p130.jpg", code: "Catálogo Bosch · Lám. p130", title: "Estación 9: Cabezal de cierre con contrasoporte y sensores inductivos IFS 5036" }
+    ],
+    "gkf-est10-12": [
+      { img: "assets/gkf2600/vista-general.jpg", code: "Manual Bosch · Vista General", title: "Arquitectura general GKF 2600 con salida monocápsula, KKE y brazo HMI" }
+    ],
+    "gkf-servo": [
+      { img: "assets/gkf2600/despiece/p013.jpg", code: "Catálogo Bosch · Lám. p013", title: "Bancada inferior, accionamiento principal, ejes de levas y soportes" }
+    ],
+
+    // Marchesini Integra 320
+    "int-pvc": [
+      { img: "assets/integra320/mec/c034.jpg", code: "Catálogo Integra · Lám. c034", title: "Alzado general de la línea blíster robotizada Marchesini Integra 320" },
+      { img: "assets/integra320/mec/c090.jpg", code: "Grupo M4M25100930 · Lám. c090", title: "Desbobinador de PVC y mesa de empalme por vacío M4A223" }
+    ],
+    "int-formado": [
+      { img: "assets/integra320/mec/c043.jpg", code: "Grupo M4M30101640 · Lám. c043", title: "Placas de precalentamiento con apertura neumática" },
+      { img: "assets/integra320/mec/c050.jpg", code: "Grupo M4M35101810 · Lám. c050", title: "Prensa de termoformado por aire comprimido y enfriamiento Chiller" }
+    ],
+    "int-carga": [
+      { img: "assets/integra320/mec/c036.jpg", code: "Grupo M4G12101050 · Lám. c036", title: "Alimentador vibratorio y cajonera de cepillos planetarios de carga" }
+    ],
+    "int-vision-sellado": [
+      { img: "assets/integra320/mec/c057.jpg", code: "Grupo M4M60101840 · Lám. c057", title: "Estación de sellado térmico de aluminio y cámara SEA Vision Harlequin" }
+    ],
+    "int-corte": [
+      { img: "assets/integra320/mec/c066.jpg", code: "Grupo M4M65100380 · Lám. c066", title: "Estación de perforación, codificado en frío y troquelado de blísters" }
+    ],
+    "int-tambor": [
+      { img: "assets/integra320/mec/c038.jpg", code: "Grupo M4M18200910 · Lám. c038", title: "Tambor cicloidal de transferencia por vacío hacia cinta Robocombi" }
+    ],
+
+    // Uhlmann B 1240 (Blister 3)
+    "b3-unwind": [
+      { img: "assets/blister3/vista-general.jpg", code: "Plano Uhlmann B 1240 · Pos. 9–16", title: "Esquema general de las 31 estaciones: desbobinado (+053) y precalentamiento (+062)" }
+    ],
+    "b3-forming": [
+      { img: "assets/blister3/vista-general.jpg", code: "Plano Uhlmann B 1240 · Pos. 6–8", title: "Estación de moldeo por levas (+070), pinza servo (+080) y bucle compensador" }
+    ],
+    "b3-feeding": [
+      { img: "assets/blister3/vista-general.jpg", code: "Plano Uhlmann B 1240 · Pos. 2–5 / 29", title: "Canal vibrador (+520), caja de cepillos (+530), cepillo inclinado (+590) y VisioChrom (+302)" }
+    ],
+    "b3-hapa": [
+      { img: "assets/blister3/vista-general.jpg", code: "Plano Uhlmann B 1240 · Pos. 26–28", title: "Desbobinadora de aluminio (+090) e impresora UV en línea HAPA easyFLEX (+095)" }
+    ],
+    "b3-sealing": [
+      { img: "assets/blister3/vista-general.jpg", code: "Plano Uhlmann B 1240 · Pos. 23–25", title: "Prensa de sellado por levas (+100), placas refrigeradas (+110) y pinza (+082)" }
+    ],
+    "b3-punching": [
+      { img: "assets/blister3/vista-general.jpg", code: "Plano Uhlmann B 1240 · Pos. 18–22", title: "Perforación, troquelado (+140), bobinadora de recorte (+170) y transferencia (+160)" }
+    ],
+
+    // Controlsa 114 RL
+    "ctrl-lona": [
+      { img: "assets/controlsa/p020.jpg", code: "Manual Controlsa · Lám. p020", title: "Estructura de montantes laterales, lona con mirilla y botones de guiado" }
+    ],
+    "ctrl-recuperador": [
+      { img: "assets/controlsa/p021.jpg", code: "Manual Controlsa · Lám. p021", title: "Recuperadores superiores blancos de autorreparación y encauzado de lona" }
+    ],
+    "ctrl-seguridad": [
+      { img: "assets/controlsa/p029.jpg", code: "Manual Controlsa · Lám. p029", title: "Barrera fotoeléctrica inferior y célula fotoeléctrica de vigilancia de tambor" }
+    ],
+    "ctrl-motor": [
+      { img: "assets/controlsa/p038.jpg", code: "Manual Controlsa · Lám. p038", title: "Tambor superior de enrollado, transmisión por correa y desbloqueo de freno" }
+    ],
+    "ctrl-cuadro": [
+      { img: "assets/controlsa/p046.jpg", code: "Manual Controlsa · Lám. p046", title: "Cuadro electrónico Controlsa y diagnóstico binario de entradas S1–S5" }
+    ]
+  };
+
+  window.g3dNavMs235Iframe = function (query) {
+    const iframe = document.getElementById("g3dMs235Iframe");
+    if (iframe) {
+      iframe.src = query.startsWith("gemelo-") ? query : `gemelo-ms235.html?modo=3d${query ? "&" + query : ""}`;
+    }
+  };
+
+  // --------------------------------------------------------------------------
   //  RENDERIZADO DEL PANEL HTML DE LA PESTAÑA "GEMELO 3D"
   // --------------------------------------------------------------------------
   function renderGemelo3DPanel(machine) {
@@ -1497,6 +1630,37 @@
     if (!arch || !TWIN_SPECS[arch]) {
       return `<div class="empty-state"><div><h3>Gemelo 3D en preparación</h3><p>Este equipo aún no tiene modelo cinemático 3D asignado.</p></div></div>`;
     }
+
+    // Para la Schmucker MS235 (S4220003) embebemos directamente el visor CAD completo de 1.846 piezas y 841 tornillos
+    if (arch === "ms235") {
+      return `
+        <div class="g3d-shell" id="g3dShell" data-g3d-machine="${machine.id}" data-g3d-arch="ms235">
+          <div class="g3d-ms235-wrap">
+            <div class="g3d-ms235-bar">
+              <div class="g3d-badge-row">
+                <span class="g3d-live-pill"><span class="g3d-live-dot"></span> VISOR CAD INDUSTRIAL SCHMUCKER MS235 · 1.846 PIEZAS · 841 TORNILLOS</span>
+                <span class="g3d-arch-tag">149 láminas de despiece · Esquema eléctrico ES4220003 · 0 piezas flotantes</span>
+              </div>
+              <div class="g3d-tool-group">
+                <button type="button" class="g3d-btn g3d-btn--primary" onclick="window.g3dNavMs235Iframe('')">🧊 Vista 3D Completa</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('pieza=dosificacion&pestana=catalogo')">⚗️ Dosificador + Estrella S4G722</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('pieza=soldadura&pestana=catalogo')">🔥 Planchas S4M141</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('pieza=corte&pestana=catalogo')">✂️ Corte Horizontal S4A19100720</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('pieza=motor&pestana=catalogo')">⚙️ Motor y Correa S4A12100110</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('armario=1&cables=1')">⚡ Armario y Cableado PLC</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('paso=16')">🧩 Desarmar (16/16)</button>
+                <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('gemelo-ms235-lamina.html')">📐 Lámina SVG</button>
+                <a class="g3d-btn g3d-btn--accent" href="gemelo-ms235.html?modo=3d" target="_blank" rel="noopener">⛶ Abrir Pantalla Completa</a>
+              </div>
+            </div>
+            <div class="g3d-ms235-frame-box">
+              <iframe id="g3dMs235Iframe" src="gemelo-ms235.html?modo=3d" title="Gemelo Digital 3D Schmucker MS235" loading="eager"></iframe>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
     const spec = TWIN_SPECS[arch];
     const failures = machine.failureModes ?? [];
     const timingZones = getCamTimingZones(arch, spec);
@@ -1507,8 +1671,8 @@
         <div class="g3d-header">
           <div class="g3d-header__titles">
             <div class="g3d-badge-row">
-              <span class="g3d-live-pill"><span class="g3d-live-dot"></span> GEMELO DIGITAL CAD / SCADA EN TIEMPO REAL</span>
-              <span class="g3d-arch-tag">Manual integrado · ${spec.stations.length} estaciones cinemáticas · Telemetría PLC</span>
+              <span class="g3d-live-pill"><span class="g3d-live-dot"></span> VISOR CAD 3D · DESPIECE DE MANUAL Y SIMULACIÓN CINEMÁTICA</span>
+              <span class="g3d-arch-tag">Aristas técnicas CAD · ${spec.stations.length} conjuntos desarmables · Láminas del manual</span>
             </div>
             <h3>${spec.title}</h3>
             <p>${spec.subtitle}</p>
@@ -1524,7 +1688,7 @@
           </div>
         </div>
 
-        <!-- Barra de herramientas del simulador 3D -->
+        <!-- Barra de herramientas del visor CAD 3D -->
         <div class="g3d-toolbar">
           <div class="g3d-tool-group">
             <button type="button" class="g3d-btn g3d-btn--primary" id="g3dPlayBtn" onclick="window.g3dTogglePlay()">
@@ -1544,21 +1708,29 @@
 
           <div class="g3d-tool-group g3d-phase-group">
             <label for="g3dPhaseRange" class="g3d-phase-lbl">
-              <span>Volante manual / Fase:</span>
+              <span>Volante / Fase:</span>
               <strong id="g3dPhaseVal">0°</strong>
             </label>
             <input type="range" id="g3dPhaseRange" min="0" max="360" value="0" step="1" oninput="window.g3dScrubPhase(this.value)" title="${spec.cycleLabel}">
           </div>
 
+          <div class="g3d-tool-group g3d-phase-group">
+            <label for="g3dExplodeRange" class="g3d-phase-lbl">
+              <span>Desarmar:</span>
+              <strong id="g3dExplodeVal">0%</strong>
+            </label>
+            <input type="range" id="g3dExplodeRange" min="0" max="100" value="0" step="1" oninput="window.g3dSetExplodeRatio(this.value)" title="Separar gradualmente los conjuntos mecánicos según ejes de despiece">
+          </div>
+
           <div class="g3d-tool-group">
+            <button type="button" class="g3d-btn" id="g3dExplodeBtn" onclick="window.g3dToggleExplode()" title="Separar conjuntos mecánicos en vista explotada con líneas guía">
+              🧩 Vista Explotada
+            </button>
             <button type="button" class="g3d-btn" id="g3dXrayBtn" onclick="window.g3dToggleXray()" title="Transparentar carcasas y ver levas/mecanismos internos">
               🔍 Rayos X
             </button>
             <button type="button" class="g3d-btn" id="g3dCutBtn" onclick="window.g3dToggleCutaway()" title="Plano de corte seccional CAD para inspeccionar el interior">
               🔪 Corte Seccional
-            </button>
-            <button type="button" class="g3d-btn" id="g3dExplodeBtn" onclick="window.g3dToggleExplode()" title="Separar conjuntos mecánicos en vista explotada">
-              🧩 Vista Explotada
             </button>
             <button type="button" class="g3d-btn" onclick="window.g3dResetCamera()" title="Restablecer cámara orbital">
               🎯 Centrar 3D
@@ -1575,9 +1747,9 @@
 
           <div class="g3d-tool-group g3d-fault-group">
             <label class="g3d-fault-lbl">
-              ⚠️ Simular falla del manual:
+              ⚠️ Simular falla:
               <select id="g3dFaultSel" onchange="window.g3dSelectFault(this.value)">
-                <option value="">✓ Operación normal (Sin fallas activas)</option>
+                <option value="">✓ Operación normal (Sin fallas)</option>
                 ${failures.map((f, i) => `<option value="${i}">⚡ ${f.name} (${f.probableSystem})</option>`).join("")}
               </select>
             </label>
@@ -1587,7 +1759,7 @@
         <!-- Selector rápido de estaciones -->
         <div class="g3d-station-bar" id="g3dStationBar">
           <button type="button" class="g3d-st-chip is-active" data-st-chip="all" onclick="window.g3dFocusStation('all')">
-            Vista General (${spec.stations.length} estaciones)
+            Vista General (${spec.stations.length} conjuntos)
           </button>
           ${spec.stations.map((st) => `
             <button type="button" class="g3d-st-chip" data-st-chip="${st.id}" onclick="window.g3dFocusStation('${st.id}')">
@@ -1596,7 +1768,7 @@
           `).join("")}
         </div>
 
-        <!-- Área principal: Lienzo WebGL 3D + Inspector Técnico Lateral -->
+        <!-- Área principal: Lienzo WebGL 3D CAD + Inspector Técnico Lateral con Láminas del Manual -->
         <div class="g3d-workspace">
           <div class="g3d-left-col">
             <div class="g3d-viewport" id="g3dViewport">
@@ -1606,13 +1778,13 @@
                   <span class="g3d-andon-lamp is-green" id="g3dLampG"></span>
                   <span class="g3d-andon-lamp" id="g3dLampA"></span>
                   <span class="g3d-andon-lamp" id="g3dLampR"></span>
-                  <strong id="g3dAndonText">TORRETA ANDON: RUN AUTOMÁTICO</strong>
+                  <strong id="g3dAndonText">ESTUDIO CAD · CICLO AUTOMÁTICO</strong>
                 </span>
                 <span class="g3d-cycle-readout" id="g3dCycleReadout">Ángulo maestro: 0° · Ciclo 100%</span>
               </div>
               <div class="g3d-pins" id="g3dPinsOverlay"></div>
               <div class="g3d-hud-bottom">
-                <span>🖱️ Arrastra: rotar 360° · Rueda: zoom CAD · Clic der./Shift: desplazar · Clic en pieza 3D o pin: inspeccionar estación</span>
+                <span>🖱️ Arrastra: rotar 360° · Rueda: zoom CAD · Clic der./Shift: desplazar · Clic en pieza 3D o etiqueta: ver despiece del manual</span>
                 <span class="g3d-hud-cam-btns">
                   <button type="button" onclick="window.g3dSetCameraPreset('iso')">Isométrica</button>
                   <button type="button" onclick="window.g3dSetCameraPreset('front')">Frente</button>
@@ -1693,6 +1865,7 @@
     const sparesCount = (machine.spareParts ?? []).length + (typeof equipoDeMachine === "function" && equipoDeMachine(machine) ? equipoDeMachine(machine).r.length : 0);
     const maintCount = (machine.maintenanceTasks ?? []).length;
     const stationSpares = getStationSpareParts(machine, st);
+    const stationPlates = st.plates || MANUAL_DESPIECES_BY_STATION[st.id] || [];
 
     let faultBanner = "";
     if (activeFault) {
@@ -1722,6 +1895,28 @@
       `;
     }
 
+    const platesHtml = stationPlates.length ? `
+      <div class="g3d-insp-section">
+        <h5>📖 Lámina de despiece oficial del manual (Clic para ampliar)</h5>
+        <div class="g3d-plates-grid">
+          ${stationPlates.map((p) => {
+            const safeSrc = encodeURI(p.img);
+            const safeCap = (p.code + " — " + p.title).replace(/'/g, "\\'");
+            return `
+              <figure class="g3d-plate-fig" onclick="if(window.openImgZoom) window.openImgZoom('${safeSrc}', '${safeCap}'); else window.open('${safeSrc}', '_blank');">
+                <div class="g3d-plate-fig__bar">
+                  <span>🔍 Comparación Despiece Manual</span>
+                  <span class="g3d-plate-fig__code">${p.code}</span>
+                </div>
+                <img src="${safeSrc}" alt="${p.title}" loading="lazy">
+                <figcaption>${p.title}</figcaption>
+              </figure>
+            `;
+          }).join("")}
+        </div>
+      </div>
+    ` : "";
+
     return `
       ${faultBanner}
       <div class="g3d-insp-card">
@@ -1729,10 +1924,12 @@
           <span class="g3d-insp-badge">${st.num}</span>
           <div>
             <h4>${st.name}</h4>
-            <span class="g3d-insp-sub">Subconjunto mecánico seleccionado · Sistema: <b>${st.systemMatch || "General"}</b></span>
+            <span class="g3d-insp-sub">Subconjunto mecánico CAD · Sistema: <b>${st.systemMatch || "General"}</b></span>
           </div>
         </div>
         <p class="g3d-insp-desc">${st.summary}</p>
+
+        ${platesHtml}
 
         <div class="g3d-insp-section">
           <h5>📐 Parámetros de diseño y cotas del manual</h5>
@@ -1787,32 +1984,125 @@
   }
 
   // --------------------------------------------------------------------------
-  //  MATERIALES INDUSTRIALES ESTÁNDAR (THREE.JS)
+  //  MATERIALES CAD DE ESTUDIO INDUSTRIAL Y ENTORNO PBR (ESTÁNDAR MS235)
   // --------------------------------------------------------------------------
   function createIndustrialMaterials(THREE) {
     return {
-      steel: new THREE.MeshStandardMaterial({ color: 0xd4dbe2, metalness: 0.72, roughness: 0.26 }),
-      darkSteel: new THREE.MeshStandardMaterial({ color: 0x3b444f, metalness: 0.65, roughness: 0.36 }),
-      brushedAlu: new THREE.MeshStandardMaterial({ color: 0xe6ebf0, metalness: 0.55, roughness: 0.32 }),
-      brass: new THREE.MeshStandardMaterial({ color: 0xd4a238, metalness: 0.78, roughness: 0.24 }),
-      copper: new THREE.MeshStandardMaterial({ color: 0xc86d44, metalness: 0.75, roughness: 0.28 }),
-      bluePaint: new THREE.MeshStandardMaterial({ color: 0x1d5fa7, metalness: 0.28, roughness: 0.42 }),
-      whitePlastic: new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.05, roughness: 0.32 }),
-      blackRubber: new THREE.MeshStandardMaterial({ color: 0x1e242b, metalness: 0.08, roughness: 0.78 }),
-      greenBelt: new THREE.MeshStandardMaterial({ color: 0x16805c, metalness: 0.1, roughness: 0.58 }),
-      capsuleRed: new THREE.MeshStandardMaterial({ color: 0xd93829, metalness: 0.15, roughness: 0.28 }),
-      capsuleWhite: new THREE.MeshStandardMaterial({ color: 0xf4f6f8, metalness: 0.1, roughness: 0.28 }),
-      pvcFilm: new THREE.MeshPhysicalMaterial({ color: 0xcce8ff, transparent: true, opacity: 0.58, roughness: 0.2, metalness: 0.05 }),
-      aluFoil: new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.85, roughness: 0.2, side: THREE.DoubleSide }),
-      thermalHot: new THREE.MeshStandardMaterial({ color: 0xe04f26, emissive: 0x8a1c00, emissiveIntensity: 0.55, metalness: 0.4, roughness: 0.35 }),
-      glassGuard: new THREE.MeshPhysicalMaterial({ color: 0xdcf0ff, transparent: true, opacity: 0.24, roughness: 0.12, metalness: 0.05, depthWrite: false }),
-      casingMat: new THREE.MeshStandardMaterial({ color: 0xdfe5ec, metalness: 0.5, roughness: 0.36, transparent: true, opacity: 1.0, side: THREE.DoubleSide }),
-      laserBeam: new THREE.MeshBasicMaterial({ color: 0xff2222, transparent: true, opacity: 0.8 }),
+      steel: new THREE.MeshStandardMaterial({ color: 0xdde3ea, metalness: 0.86, roughness: 0.22 }),
+      darkSteel: new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.72, roughness: 0.34 }),
+      brushedAlu: new THREE.MeshStandardMaterial({ color: 0xe6ecf2, metalness: 0.78, roughness: 0.26 }),
+      brass: new THREE.MeshStandardMaterial({ color: 0xd4a238, metalness: 0.85, roughness: 0.22 }),
+      copper: new THREE.MeshStandardMaterial({ color: 0xc86d44, metalness: 0.82, roughness: 0.25 }),
+      bluePaint: new THREE.MeshStandardMaterial({ color: 0x1d5fa7, metalness: 0.32, roughness: 0.36 }),
+      whitePlastic: new THREE.MeshStandardMaterial({ color: 0xf8fafc, metalness: 0.06, roughness: 0.28 }),
+      blackRubber: new THREE.MeshStandardMaterial({ color: 0x1e242b, metalness: 0.08, roughness: 0.76 }),
+      greenBelt: new THREE.MeshStandardMaterial({ color: 0x0f766e, metalness: 0.12, roughness: 0.52 }),
+      capsuleRed: new THREE.MeshStandardMaterial({ color: 0xd93829, metalness: 0.18, roughness: 0.24 }),
+      capsuleWhite: new THREE.MeshStandardMaterial({ color: 0xf4f6f8, metalness: 0.1, roughness: 0.25 }),
+      pvcFilm: new THREE.MeshPhysicalMaterial({ color: 0xdbeafe, transparent: true, opacity: 0.52, roughness: 0.16, metalness: 0.05 }),
+      aluFoil: new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.9, roughness: 0.18, side: THREE.DoubleSide }),
+      thermalHot: new THREE.MeshStandardMaterial({ color: 0xea580c, emissive: 0x9a3412, emissiveIntensity: 0.38, metalness: 0.55, roughness: 0.32 }),
+      glassGuard: new THREE.MeshPhysicalMaterial({ color: 0xe0f2fe, transparent: true, opacity: 0.22, roughness: 0.1, metalness: 0.05, depthWrite: false }),
+      casingMat: new THREE.MeshStandardMaterial({ color: 0xe2e8f0, metalness: 0.62, roughness: 0.32, transparent: true, opacity: 1.0, side: THREE.DoubleSide }),
+      laserBeam: new THREE.MeshBasicMaterial({ color: 0xff2222, transparent: true, opacity: 0.85 }),
       ledGreen: new THREE.MeshStandardMaterial({ color: 0x16c76a, emissive: 0x16c76a, emissiveIntensity: 0.9 }),
       ledAmber: new THREE.MeshStandardMaterial({ color: 0xf59e0b, emissive: 0xf59e0b, emissiveIntensity: 0.15 }),
       ledRed: new THREE.MeshStandardMaterial({ color: 0xef4444, emissive: 0xef4444, emissiveIntensity: 0.1 }),
-      hazardYellow: new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.15, roughness: 0.5 })
+      hazardYellow: new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.2, roughness: 0.45 }),
+      boltChrome: new THREE.MeshStandardMaterial({ color: 0xf1f5f9, metalness: 0.92, roughness: 0.16 }),
+      cadEdge: new THREE.LineBasicMaterial({ color: 0x1e293b, transparent: true, opacity: 0.36 }),
+      explodeLine: new THREE.LineBasicMaterial({ color: 0x2563eb, transparent: true, opacity: 0.65 })
     };
+  }
+
+  // Genera un mapa de entorno PBR de estudio (como visor3d.js de gemelo-ms235)
+  // para que el acero inoxidable, bronce y aluminio reflejen luz realista de taller
+  function buildStudioEnvMap(THREE, renderer) {
+    try {
+      const pmrem = new THREE.PMREMGenerator(renderer);
+      const envScene = new THREE.Scene();
+      envScene.background = new THREE.Color(0xdbe3ec);
+
+      const panelGeo = new THREE.PlaneGeometry(20, 20);
+      const topLight = new THREE.Mesh(panelGeo, new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide }));
+      topLight.position.set(0, 12, 0);
+      topLight.rotation.x = Math.PI / 2;
+      envScene.add(topLight);
+
+      const keyLight = new THREE.Mesh(panelGeo, new THREE.MeshBasicMaterial({ color: 0xfff7ed, side: THREE.DoubleSide }));
+      keyLight.position.set(12, 6, 12);
+      keyLight.lookAt(0, 0, 0);
+      envScene.add(keyLight);
+
+      const rimLight = new THREE.Mesh(panelGeo, new THREE.MeshBasicMaterial({ color: 0xe0f2fe, side: THREE.DoubleSide }));
+      rimLight.position.set(-12, 5, -10);
+      rimLight.lookAt(0, 0, 0);
+      envScene.add(rimLight);
+
+      const floorBounce = new THREE.Mesh(panelGeo, new THREE.MeshBasicMaterial({ color: 0x94a3b8, side: THREE.DoubleSide }));
+      floorBounce.position.set(0, -10, 0);
+      floorBounce.rotation.x = -Math.PI / 2;
+      envScene.add(floorBounce);
+
+      const rt = pmrem.fromScene(envScene, 0.04);
+      pmrem.dispose();
+      return rt.texture;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // Realza cualquier modelo 3D con aristas técnicas CAD (EdgesGeometry),
+  // tornillería Allen en placas/bridas y líneas guía de desarme explosivo
+  function enhanceCadHierarchy(THREE, root, mats) {
+    const meshes = [];
+    root.traverse((obj) => {
+      if (obj.isMesh && obj.geometry && !obj.userData.isCadDecor) {
+        meshes.push(obj);
+      }
+    });
+
+    const boltGeo = new THREE.CylinderGeometry(0.024, 0.024, 0.018, 6);
+    meshes.forEach((mesh) => {
+      if (mesh.material === mats.glassGuard || mesh.material === mats.pvcFilm || mesh.material === mats.laserBeam) {
+        return;
+      }
+      // 1. Aristas técnicas CAD nítidas (SolidWorks / MS235 style)
+      try {
+        const edgesGeo = new THREE.EdgesGeometry(mesh.geometry, 24);
+        const edgeLines = new THREE.LineSegments(edgesGeo, mats.cadEdge);
+        edgeLines.userData.isCadDecor = true;
+        edgeLines.raycast = () => {};
+        mesh.add(edgeLines);
+      } catch (_) {}
+
+      // 2. Tornillería hexagonal/Allen en placas, tapas y bloques prismáticos
+      mesh.geometry.computeBoundingBox();
+      const bb = mesh.geometry.boundingBox;
+      if (!bb) return;
+      const sx = bb.max.x - bb.min.x;
+      const sy = bb.max.y - bb.min.y;
+      const sz = bb.max.z - bb.min.z;
+
+      if (sx >= 0.35 && sz >= 0.35 && sy <= 0.65 && !mesh.userData.isCasing) {
+        const mx = Math.min(0.08, sx * 0.16);
+        const mz = Math.min(0.08, sz * 0.16);
+        const yTop = bb.max.y + 0.008;
+        const corners = [
+          [bb.min.x + mx, yTop, bb.min.z + mz],
+          [bb.max.x - mx, yTop, bb.min.z + mz],
+          [bb.min.x + mx, yTop, bb.max.z - mz],
+          [bb.max.x - mx, yTop, bb.max.z - mz]
+        ];
+        corners.forEach(([bx, by, bz]) => {
+          const bolt = new THREE.Mesh(boltGeo, mats.boltChrome);
+          bolt.position.set(bx, by, bz);
+          bolt.userData.isCadDecor = true;
+          bolt.raycast = () => {};
+          mesh.add(bolt);
+        });
+      }
+    });
   }
 
   function tagStation(obj, stId, explodeVec) {
@@ -1831,97 +2121,168 @@
   //  CONSTRUCTORES PROCEDURALES DE CADA MÁQUINA 3D
   // --------------------------------------------------------------------------
 
-  // 1 & 2. NJP-3500 y NJP-1200C (Encapsuladoras rotativas de 10 estaciones)
+  // 1 & 2. NJP-3500 y NJP-1200C (Encapsuladoras rotativas de 10 estaciones según despiece p.23, p.27, p.30, p.50, p.65)
   function buildNjpTwin(THREE, mats, is1200) {
     const root = new THREE.Group();
-    const anim = { tampingPins: [], capsuleSegs: [], camShaft: null, ejectedCaps: [], powderAuger: null };
+    const anim = { tampingPins: [], capsuleSegs: [], camShaft: null, ejectedCaps: [], forkArm: null };
     const scaleR = is1200 ? 0.86 : 1.0;
 
-    // Pedestal inferior (contiene caja indexadora y árbol de levas)
+    // 1. Bancada inferior octogonal con bastidor de fundición, patas niveladoras y puertas de inspección
     const baseGroup = new THREE.Group();
-    const plinth = new THREE.Mesh(new THREE.BoxGeometry(5.2 * scaleR, 0.22, 5.2 * scaleR), mats.darkSteel);
-    plinth.position.y = 0.11;
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(5.3 * scaleR, 0.2, 5.3 * scaleR), mats.darkSteel);
+    plinth.position.y = 0.1;
     baseGroup.add(plinth);
 
-    const cabinet = new THREE.Mesh(new THREE.CylinderGeometry(2.55 * scaleR, 2.65 * scaleR, 1.35, 8), mats.casingMat);
+    for (const sx of [-1, 1]) {
+      for (const sz of [-1, 1]) {
+        const footPad = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.22, 0.08, 16), mats.darkSteel);
+        footPad.position.set(sx * 2.35 * scaleR, 0.04, sz * 2.35 * scaleR);
+        baseGroup.add(footPad);
+        const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.22, 1.4, 0.22), mats.steel);
+        pillar.position.set(sx * 2.25 * scaleR, 0.85, sz * 2.25 * scaleR);
+        baseGroup.add(pillar);
+      }
+    }
+
+    const cabinet = new THREE.Mesh(new THREE.CylinderGeometry(2.55 * scaleR, 2.62 * scaleR, 1.32, 8), mats.casingMat);
     cabinet.position.y = 0.88;
     cabinet.userData.isCasing = true;
     baseGroup.add(cabinet);
 
-    // Mecanismo interno bajo la mesa (visible en Rayos X / Explotado)
+    // Volante manual frontal de puesta en fase (0°-360°) con maneta giratoria
+    const handwheelGrp = new THREE.Group();
+    handwheelGrp.position.set(0, 0.78, 2.48 * scaleR);
+    const hwRim = new THREE.Mesh(new THREE.TorusGeometry(0.28, 0.032, 12, 24), mats.boltChrome);
+    hwRim.userData.isCadDecor = true;
+    const hwHub = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.18, 14), mats.darkSteel);
+    hwHub.rotation.x = Math.PI / 2;
+    const hwGrip = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.14, 10), mats.blackRubber);
+    hwGrip.rotation.x = Math.PI / 2;
+    hwGrip.position.set(0.26, 0, 0.09);
+    handwheelGrp.add(hwRim, hwHub, hwGrip);
+    baseGroup.add(handwheelGrp);
+
+    // 2. Cinemática interior bajo la mesa (Despiece p.50: Indexador 83DS/RU100 + árbol de levas de ranura + bielas)
     const camSystem = new THREE.Group();
     camSystem.position.y = 0.78;
-    const indexBox = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.85, 1.4), mats.bluePaint);
+    const indexBox = new THREE.Mesh(new THREE.BoxGeometry(1.45, 0.88, 1.45), mats.bluePaint);
     camSystem.add(indexBox);
+    const sightGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.04, 16), mats.brass);
+    sightGlass.rotation.x = Math.PI / 2;
+    sightGlass.position.set(0.35, -0.1, 0.74);
+    camSystem.add(sightGlass);
 
-    const mainMotor = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.32, 0.75, 16), mats.darkSteel);
+    const mainMotor = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.82, 18), mats.darkSteel);
     mainMotor.rotation.z = Math.PI / 2;
-    mainMotor.position.set(-1.25, -0.15, 0.6);
+    mainMotor.position.set(-1.35 * scaleR, -0.18, 0.65);
     camSystem.add(mainMotor);
+    const reducerBox = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.52, 0.48), mats.bluePaint);
+    reducerBox.position.set(-0.82 * scaleR, -0.15, 0.65);
+    camSystem.add(reducerBox);
 
     const camShaft = new THREE.Group();
-    const shaftBar = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 3.4 * scaleR, 16), mats.steel);
+    const shaftBar = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 3.8 * scaleR, 18), mats.boltChrome);
     shaftBar.rotation.z = Math.PI / 2;
     camShaft.add(shaftBar);
-    for (let i = -2; i <= 2; i++) {
-      const camDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.12, 24), mats.brass);
+    for (let i = -3; i <= 3; i++) {
+      if (i === 0) continue;
+      const camDisc = new THREE.Mesh(new THREE.CylinderGeometry(0.44, 0.44, 0.11, 24), mats.brass);
       camDisc.rotation.z = Math.PI / 2;
-      camDisc.position.set(i * 0.62 * scaleR, (i % 2) * 0.06, 0);
+      camDisc.position.set(i * 0.52 * scaleR, (i % 2) * 0.05, (i % 3) * 0.03);
       camShaft.add(camDisc);
+      const followerCol = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.65, 12), mats.steel);
+      followerCol.position.set(i * 0.52 * scaleR, 0.42, 0);
+      camSystem.add(followerCol);
     }
     camSystem.add(camShaft);
     anim.camShaft = camShaft;
-    tagStation(camSystem, is1200 ? "n12-cam" : "drive-cam", new THREE.Vector3(0, -0.9, 0));
+    anim.handwheel = handwheelGrp;
+    tagStation(camSystem, is1200 ? "n12-cam" : "drive-cam", new THREE.Vector3(0, -1.05, 0));
     root.add(camSystem);
 
-    // Mesa principal inoxidable
-    const tableTop = new THREE.Mesh(new THREE.BoxGeometry(5.1 * scaleR, 0.16, 5.1 * scaleR), mats.steel);
+    // Mesa principal rectificada de acero inoxidable (espesor 32 mm)
+    const tableTop = new THREE.Mesh(new THREE.BoxGeometry(5.15 * scaleR, 0.16, 5.15 * scaleR), mats.steel);
     tableTop.position.y = 1.62;
     baseGroup.add(tableTop);
     root.add(baseGroup);
 
-    // Cabina acrílica superior con columnas inoxidables
+    // 3. Cabina de resguardo superior con 8 montantes de inox, puertas de policarbonato y micros Euchner
     const guardGroup = new THREE.Group();
     guardGroup.position.y = 2.85;
     const acrylic = new THREE.Mesh(new THREE.CylinderGeometry(2.55 * scaleR, 2.55 * scaleR, 2.3, 8, 1, true), mats.glassGuard);
     guardGroup.add(acrylic);
-    const roofCap = new THREE.Mesh(new THREE.CylinderGeometry(2.6 * scaleR, 2.6 * scaleR, 0.12, 8), mats.steel);
+    for (let k = 0; k < 8; k++) {
+      const a = (k / 8) * Math.PI * 2 + Math.PI / 8;
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.08, 2.32, 0.08), mats.steel);
+      post.position.set(Math.cos(a) * 2.52 * scaleR, 0, Math.sin(a) * 2.52 * scaleR);
+      post.rotation.y = -a;
+      guardGroup.add(post);
+      if (k % 2 === 0) {
+        const handle = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.28, 0.09), mats.darkSteel);
+        handle.position.set(Math.cos(a - 0.18) * 2.56 * scaleR, -0.2, Math.sin(a - 0.18) * 2.56 * scaleR);
+        guardGroup.add(handle);
+      }
+    }
+    const roofCap = new THREE.Mesh(new THREE.CylinderGeometry(2.62 * scaleR, 2.62 * scaleR, 0.12, 8), mats.steel);
     roofCap.position.y = 1.2;
     guardGroup.add(roofCap);
     guardGroup.userData.basePos = guardGroup.position.clone();
-    guardGroup.userData.explodeVec = new THREE.Vector3(0, 1.5, 0);
+    guardGroup.userData.explodeVec = new THREE.Vector3(0, 1.65, 0);
     root.add(guardGroup);
 
-    // Torreta rotativa central de 10 estaciones
+    // 4. Torreta rotativa central de 10 estaciones (Despiece p.23: 10 portamoldes con guías radiales y seguidores)
     const turretGroup = new THREE.Group();
     turretGroup.position.y = 1.95;
-    const turretHub = new THREE.Mesh(new THREE.CylinderGeometry(1.15 * scaleR, 1.25 * scaleR, 0.52, 20), mats.brushedAlu);
+    const turretBaseFlange = new THREE.Mesh(new THREE.CylinderGeometry(1.38 * scaleR, 1.44 * scaleR, 0.12, 24), mats.darkSteel);
+    turretBaseFlange.position.y = -0.2;
+    turretGroup.add(turretBaseFlange);
+    const turretHub = new THREE.Mesh(new THREE.CylinderGeometry(1.18 * scaleR, 1.26 * scaleR, 0.48, 20), mats.brushedAlu);
     turretGroup.add(turretHub);
-    const turretCap = new THREE.Mesh(new THREE.CylinderGeometry(0.85 * scaleR, 0.85 * scaleR, 0.18, 20), mats.brass);
-    turretCap.position.y = 0.32;
+    const turretCap = new THREE.Mesh(new THREE.CylinderGeometry(0.92 * scaleR, 0.96 * scaleR, 0.16, 20), mats.brass);
+    turretCap.position.y = 0.31;
     turretGroup.add(turretCap);
 
-    // 10 segmentos superiores e inferiores
     const segRadius = 1.62 * scaleR;
+    const holesPerRow = is1200 ? 3 : 5;
     for (let i = 0; i < 10; i++) {
       const ang = (i / 10) * Math.PI * 2;
       const segHolder = new THREE.Group();
       segHolder.rotation.y = -ang;
 
-      const upperSeg = new THREE.Mesh(new THREE.BoxGeometry(0.44 * scaleR, 0.1, 0.56 * scaleR), mats.steel);
-      upperSeg.position.set(segRadius, 0.18, 0);
+      // Vástagos guía radiales del segmento inferior
+      for (const dz of [-0.18, 0.18]) {
+        const guideRod = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.52 * scaleR, 8), mats.boltChrome);
+        guideRod.rotation.z = Math.PI / 2;
+        guideRod.position.set(segRadius - 0.18 * scaleR, 0.02, dz * scaleR);
+        segHolder.add(guideRod);
+      }
+
+      // Segmento superior (tapa de cápsula) y segmento inferior (cuerpo de cápsula)
+      const upperSeg = new THREE.Mesh(new THREE.BoxGeometry(0.46 * scaleR, 0.095, 0.58 * scaleR), mats.steel);
+      upperSeg.position.set(segRadius, 0.17, 0);
       segHolder.add(upperSeg);
 
-      const lowerSeg = new THREE.Mesh(new THREE.BoxGeometry(0.44 * scaleR, 0.1, 0.56 * scaleR), mats.brass);
+      const lowerSeg = new THREE.Mesh(new THREE.BoxGeometry(0.46 * scaleR, 0.095, 0.58 * scaleR), mats.brass);
       lowerSeg.position.set(segRadius, 0.02, 0);
       segHolder.add(lowerSeg);
 
-      // Cápsulas representativas en el segmento
+      // Bujes guía de precisión en los extremos del molde
+      for (const dz of [-0.22, 0.22]) {
+        const bush = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.12, 10), mats.darkSteel);
+        bush.position.set(segRadius - 0.14 * scaleR, 0.17, dz * scaleR);
+        segHolder.add(bush);
+      }
+
+      // Matriz de cápsulas en doble arco (representando los 25 o 9 alojamientos)
       const capRow = new THREE.Group();
-      for (let c = -1; c <= 1; c++) {
-        const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.032, 0.032, 0.14, 8), mats.capsuleRed);
-        cap.position.set(segRadius, 0.24, c * 0.14);
-        capRow.add(cap);
+      for (let r = 0; r < 2; r++) {
+        for (let c = 0; c < holesPerRow; c++) {
+          const zOff = (c - (holesPerRow - 1) / 2) * (0.095 * scaleR);
+          const xOff = segRadius + (r - 0.5) * 0.12 * scaleR;
+          const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.13, 8), r === 0 ? mats.capsuleRed : mats.capsuleWhite);
+          cap.position.set(xOff, 0.23, zOff);
+          capRow.add(cap);
+        }
       }
       segHolder.add(capRow);
 
@@ -1931,133 +2292,216 @@
     root.add(turretGroup);
     anim.turret = turretGroup;
 
-    // Estación 1–2: Tolva de cápsulas, tubos de caída y zapata de vacío
+    // 5. Estación 1–2: Tolva cónica, peine de 25 tubos verticales, horquilla rectificadora y zapata de vacío (Despiece p.27)
     const st1Group = new THREE.Group();
     st1Group.position.set(-1.75 * scaleR, 2.2, 1.25 * scaleR);
-    const capHopper = new THREE.Mesh(new THREE.ConeGeometry(0.65 * scaleR, 0.95, 20), mats.steel);
-    capHopper.rotation.x = Math.PI;
-    capHopper.position.y = 1.05;
+    const capHopper = new THREE.Mesh(new THREE.CylinderGeometry(0.62 * scaleR, 0.24 * scaleR, 0.88, 24), mats.steel);
+    capHopper.position.y = 1.15;
     st1Group.add(capHopper);
-    const feedBlock = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.75, 0.55), mats.brushedAlu);
-    feedBlock.position.y = 0.3;
+    const hopperLid = new THREE.Mesh(new THREE.CylinderGeometry(0.65 * scaleR, 0.65 * scaleR, 0.06, 24), mats.brushedAlu);
+    hopperLid.position.y = 1.61;
+    st1Group.add(hopperLid);
+    const levelSensor = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.22, 12), mats.bluePaint);
+    levelSensor.position.set(0.38 * scaleR, 1.68, 0);
+    st1Group.add(levelSensor);
+
+    // Peine de tubos de bajada de cápsulas
+    for (let t = -3; t <= 3; t++) {
+      const dropTube = new THREE.Mesh(new THREE.CylinderGeometry(0.022, 0.022, 0.62, 8), mats.boltChrome);
+      dropTube.position.set((t % 2) * 0.06, 0.58, t * 0.065 * scaleR);
+      st1Group.add(dropTube);
+    }
+
+    const feedBlock = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.52, 0.62), mats.brushedAlu);
+    feedBlock.position.y = 0.16;
     st1Group.add(feedBlock);
-    const vacShoe = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.18, 0.5), mats.copper);
-    vacShoe.position.y = -0.32;
+
+    // Horquilla orientadora oscilante (leva rectificadora)
+    const forkArm = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.09, 0.48), mats.brass);
+    forkArm.position.set(0.18, 0.15, 0);
+    st1Group.add(forkArm);
+    anim.forkArm = forkArm;
+
+    // Zapata inferior de vacío (-0.02 a -0.06 MPa) con manguera
+    const vacShoe = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.16, 0.54), mats.copper);
+    vacShoe.position.y = -0.34;
     st1Group.add(vacShoe);
-    tagStation(st1Group, is1200 ? "n12-est1" : "est1-2", new THREE.Vector3(-0.9, 0.6, 0.7));
+    const vacManifold = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.42, 12), mats.darkSteel);
+    vacManifold.rotation.z = Math.PI / 2;
+    vacManifold.position.set(-0.35, -0.34, 0);
+    st1Group.add(vacShoe, vacManifold);
+
+    tagStation(st1Group, is1200 ? "n12-est1" : "est1-2", new THREE.Vector3(-1.05, 0.65, 0.8));
     root.add(st1Group);
 
-    // Si es NJP-1200C: Estación 3 de Pellets
+    // Si es NJP-1200C: Estación 3 Dosificador de Pellets
     if (is1200) {
       const pelletGroup = new THREE.Group();
       pelletGroup.position.set(0.35, 2.4, 1.85);
-      const pHopper = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.18, 0.65, 16), mats.steel);
-      pHopper.position.y = 0.45;
+      const pHopper = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.16, 0.68, 18), mats.steel);
+      pHopper.position.y = 0.48;
       pelletGroup.add(pHopper);
-      const pSlide = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.22, 0.38), mats.brass);
+      const pSlide = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.24, 0.42), mats.brass);
       pelletGroup.add(pSlide);
       tagStation(pelletGroup, "n12-est3", new THREE.Vector3(0.3, 0.6, 0.9));
       root.add(pelletGroup);
     }
 
-    // Estación 3–5 (o 4 en 1200): Disco dosificador + Tolva de polvo + 5 punzones de apisonado (Tamping)
+    // 6. Estación 3–5 (o 4 en 1200): Cámara dosificadora, disco de bronce y 5 columnas graduadas de Tamping (Despiece p.30)
     const tampGroup = new THREE.Group();
     tampGroup.position.set(2.05 * scaleR, 2.0, 0.15);
-    const dosingBowl = new THREE.Mesh(new THREE.CylinderGeometry(0.92 * scaleR, 0.92 * scaleR, 0.32, 24), mats.copper);
-    dosingBowl.position.y = -0.1;
+
+    // Anillo contenedor de polvo y disco dosificador de bronce inferior
+    const dosingRing = new THREE.Mesh(new THREE.CylinderGeometry(0.96 * scaleR, 0.96 * scaleR, 0.12, 28), mats.brass);
+    dosingRing.position.y = -0.22;
+    tampGroup.add(dosingRing);
+    const dosingBowl = new THREE.Mesh(new THREE.CylinderGeometry(0.92 * scaleR, 0.92 * scaleR, 0.34, 28), mats.steel);
+    dosingBowl.position.y = -0.02;
     tampGroup.add(dosingBowl);
 
-    const powderHopper = new THREE.Mesh(new THREE.CylinderGeometry(0.45 * scaleR, 0.25 * scaleR, 0.95, 20), mats.steel);
-    powderHopper.position.set(0.35, 0.95, 0.35);
+    // Tolva lateral de alimentación de polvo con tubo sinfín inclinado y sensor capacitivo
+    const powderHopper = new THREE.Mesh(new THREE.CylinderGeometry(0.44 * scaleR, 0.22 * scaleR, 0.95, 20), mats.steel);
+    powderHopper.position.set(0.42, 1.02, 0.42);
     tampGroup.add(powderHopper);
+    const feedPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.72, 14), mats.brushedAlu);
+    feedPipe.position.set(0.24, 0.45, 0.24);
+    feedPipe.rotation.z = 0.42;
+    tampGroup.add(feedPipe);
 
-    const tampBridge = new THREE.Mesh(new THREE.CylinderGeometry(0.75 * scaleR, 0.75 * scaleR, 0.14, 20), mats.bluePaint);
-    tampBridge.position.y = 0.72;
+    // Columnas guía del puente de compactación + plato portapunzones superior
+    for (const cz of [-0.62, 0.62]) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 1.15, 14), mats.boltChrome);
+      col.position.set(0.15, 0.38, cz * scaleR);
+      tampGroup.add(col);
+    }
+    const tampBridge = new THREE.Mesh(new THREE.CylinderGeometry(0.82 * scaleR, 0.82 * scaleR, 0.16, 24), mats.bluePaint);
+    tampBridge.position.y = 0.74;
     tampGroup.add(tampBridge);
 
+    // 5 estaciones de apisonado (Tamping 1 a 5) con tambor micrométrico, resorte helicoidal y peine de punzones
     for (let p = 0; p < 5; p++) {
-      const a = ((p - 2) / 5) * Math.PI * 1.15;
+      const a = ((p - 2) / 5) * Math.PI * 1.18;
       const pinHolder = new THREE.Group();
       pinHolder.position.set(Math.cos(a) * 0.58 * scaleR, 0.45, Math.sin(a) * 0.58 * scaleR);
-      const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.65, 12), mats.steel);
+
+      const springCoil = new THREE.Mesh(new THREE.CylinderGeometry(0.095, 0.095, 0.36, 14), mats.brass);
+      springCoil.position.y = 0.12;
+      pinHolder.add(springCoil);
+
+      const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.68, 12), mats.boltChrome);
       pinHolder.add(rod);
-      const gauge = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.16, 12), mats.brass);
-      gauge.position.y = 0.28;
-      pinHolder.add(gauge);
+
+      // Tambor graduado con escala vernier superior (Tamping 1..5)
+      const vernierDrum = new THREE.Mesh(new THREE.CylinderGeometry(0.115, 0.115, 0.22, 16), mats.brushedAlu);
+      vernierDrum.position.y = 0.42;
+      pinHolder.add(vernierDrum);
+      const knobCap = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.08, 14), mats.darkSteel);
+      knobCap.position.y = 0.56;
+      pinHolder.add(knobCap);
+
+      // Bloque portapunzones inferior
+      const punchBlock = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.09, 0.28), mats.steel);
+      punchBlock.position.y = -0.22;
+      pinHolder.add(punchBlock);
+
       tampGroup.add(pinHolder);
       anim.tampingPins.push(pinHolder);
     }
-    tagStation(tampGroup, is1200 ? "n12-est4" : "est3-5", new THREE.Vector3(1.1, 0.6, 0.2));
+    tagStation(tampGroup, is1200 ? "n12-est4" : "est3-5", new THREE.Vector3(1.25, 0.65, 0.2));
     root.add(tampGroup);
     anim.tampGroup = tampGroup;
 
-    // Estación 6–7: Rechazo de cápsulas no abiertas
+    // 7. Estación 6–7: Rechazo de cápsulas no abiertas con tobera de succión y depósito ciclónico
     const rejGroup = new THREE.Group();
     rejGroup.position.set(0.2, 2.2, -1.95 * scaleR);
-    const rejHead = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.55, 0.45), mats.bluePaint);
+    const rejHead = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.52, 0.48), mats.bluePaint);
     rejGroup.add(rejHead);
-    const rejPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.9, 12), mats.steel);
-    rejPipe.position.set(0, 0.45, -0.25);
+    const rejPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.95, 14), mats.steel);
+    rejPipe.position.set(0, 0.48, -0.28);
     rejPipe.rotation.x = -0.5;
     rejGroup.add(rejPipe);
-    tagStation(rejGroup, is1200 ? "n12-est6-8" : "est6-7", new THREE.Vector3(0.2, 0.5, -1.0));
+    const rejJar = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.48, 16), mats.pvcFilm);
+    rejJar.position.set(0, 0.35, -0.68);
+    rejGroup.add(rejJar);
+    tagStation(rejGroup, is1200 ? "n12-est6-8" : "est6-7", new THREE.Vector3(0.2, 0.55, -1.05));
     root.add(rejGroup);
 
-    // Estación 8: Cierre de cápsulas (Locking)
+    // 8. Estación 8: Cierre de cápsulas (Locking — Despiece p.65: puente pivotante, placa de contrapresión y micrómetro)
     const lockGroup = new THREE.Group();
     lockGroup.position.set(-1.45 * scaleR, 2.35, -1.45 * scaleR);
-    const lockCol = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.85, 16), mats.steel);
-    lockGroup.add(lockCol);
-    const lockPlate = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.14, 0.52), mats.brass);
+    for (const dx of [-0.18, 0.18]) {
+      const post = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.82, 14), mats.boltChrome);
+      post.position.set(dx, 0.05, 0);
+      lockGroup.add(post);
+    }
+    const lockBridge = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.16, 0.44), mats.bluePaint);
+    lockBridge.position.y = 0.32;
+    lockGroup.add(lockBridge);
+    const lockPlate = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.12, 0.54), mats.brass);
     lockPlate.position.y = -0.18;
     lockGroup.add(lockPlate);
-    const lockKnob = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.12, 16), mats.darkSteel);
+    const lockKnob = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.16, 16), mats.darkSteel);
     lockKnob.position.y = 0.48;
     lockGroup.add(lockKnob);
-    tagStation(lockGroup, is1200 ? "n12-est6-8" : "est8", new THREE.Vector3(-0.8, 0.6, -0.8));
+    tagStation(lockGroup, is1200 ? "n12-est6-8" : "est8", new THREE.Vector3(-0.85, 0.65, -0.85));
     root.add(lockGroup);
     anim.lockPlate = lockPlate;
 
-    // Estación 9–10: Expulsión y limpieza + rampa de descarga
+    // 9. Estación 9–10: Expulsión de cápsulas cerradas, rampa inoxidable y cabezal de limpieza por aire/aspiración
     const outGroup = new THREE.Group();
     outGroup.position.set(-2.1 * scaleR, 2.1, 0.05);
-    const outHood = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.48, 0.85), mats.steel);
+    const outHood = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.5, 0.88), mats.steel);
     outGroup.add(outHood);
-    const chute = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.08, 0.36), mats.brushedAlu);
-    chute.position.set(-0.65, -0.22, 0.15);
-    chute.rotation.z = 0.38;
+    const blowManifold = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.22, 0.42), mats.bluePaint);
+    blowManifold.position.set(0.08, 0.26, -0.45);
+    outGroup.add(blowManifold);
+    const chute = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.09, 0.38), mats.brushedAlu);
+    chute.position.set(-0.72, -0.22, 0.18);
+    chute.rotation.z = 0.36;
     outGroup.add(chute);
 
-    for (let k = 0; k < 4; k++) {
-      const c = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.16, 10), mats.capsuleRed);
+    for (let k = 0; k < 5; k++) {
+      const c = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.15, 10), mats.capsuleRed);
       c.rotation.z = Math.PI / 2;
-      c.position.set(-0.35 - k * 0.2, -0.1 - k * 0.08, 0.15);
+      c.position.set(-0.32 - k * 0.19, -0.08 - k * 0.07, 0.18);
       outGroup.add(c);
-      anim.ejectedCaps.push({ mesh: c, offset: k * 0.25 });
+      anim.ejectedCaps.push({ mesh: c, offset: k * 0.2 });
     }
-    tagStation(outGroup, is1200 ? "n12-est9-10" : "est9-10", new THREE.Vector3(-1.1, 0.4, 0));
+    tagStation(outGroup, is1200 ? "n12-est9-10" : "est9-10", new THREE.Vector3(-1.15, 0.4, 0));
     root.add(outGroup);
 
-    // Auxiliares laterales: Bomba de vacío SK y Colector de polvo
+    // 10. Brazo articulado HMI con pantalla táctil PLC + Bomba de vacío SK y Colector ciclónico
     const auxGroup = new THREE.Group();
-    auxGroup.position.set(3.55 * scaleR, 0, -1.4);
-    const dustTower = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 2.3, 18), mats.steel);
-    dustTower.position.y = 1.15;
+    auxGroup.position.set(3.45 * scaleR, 0, -1.35);
+    const dustTower = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 2.35, 20), mats.steel);
+    dustTower.position.y = 1.18;
     auxGroup.add(dustTower);
-    const vacPump = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.85, 16), mats.bluePaint);
+    const dustCone = new THREE.Mesh(new THREE.ConeGeometry(0.48, 0.45, 20), mats.brushedAlu);
+    dustCone.position.y = 2.55;
+    auxGroup.add(dustCone);
+    const vacPump = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.88, 18), mats.bluePaint);
     vacPump.rotation.z = Math.PI / 2;
     vacPump.position.set(0, 0.42, 1.35);
     auxGroup.add(vacPump);
+
+    // Columna y pantalla HMI en esquina delantera derecha
+    const hmiBoom = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.58, 0.16), mats.steel);
+    hmiBoom.position.set(-1.15 * scaleR, 2.35, 3.2 * scaleR);
+    hmiBoom.rotation.y = -0.45;
+    const hmiScreen = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.38, 0.03), mats.bluePaint);
+    hmiScreen.position.z = 0.08;
+    hmiBoom.add(hmiScreen);
+    auxGroup.add(hmiBoom);
+
     tagStation(auxGroup, is1200 ? "n12-est1" : "est1-2", new THREE.Vector3(1.2, 0, -0.6));
     root.add(auxGroup);
 
     return {
       root,
-      update(phaseRad, dt, state) {
-        // Indexado intermitente de 10 estaciones (60% giro, 40% reposo por cada paso de 36°)
+      update(phaseRad) {
         const totalSteps = 10;
         const stepSpan = (Math.PI * 2) / totalSteps;
-        const rawStep = (phaseRad / stepSpan);
+        const rawStep = phaseRad / stepSpan;
         const stepIdx = Math.floor(rawStep);
         const frac = rawStep - stepIdx;
         const smoothFrac = frac < 0.55 ? 0.5 - 0.5 * Math.cos((frac / 0.55) * Math.PI) : 1.0;
@@ -2065,17 +2509,16 @@
 
         anim.turret.rotation.y = indexedAngle;
         if (anim.camShaft) anim.camShaft.rotation.x = phaseRad * 2;
+        if (anim.handwheel) anim.handwheel.rotation.z = -phaseRad;
+        if (anim.forkArm) anim.forkArm.position.x = 0.18 + Math.sin(phaseRad * 10) * 0.06;
 
-        // Movimiento vertical de los 5 punzones de apisonado (tamping) durante el reposo de la torreta
-        const stroke = Math.sin(phaseRad * 5);
         anim.tampingPins.forEach((pin, idx) => {
-          pin.position.y = 0.45 + Math.sin(phaseRad * 5 + idx * 0.35) * 0.16;
+          pin.position.y = 0.45 + Math.sin(phaseRad * 5 + idx * 0.35) * 0.15;
         });
         if (anim.lockPlate) {
           anim.lockPlate.position.y = -0.18 + Math.sin(phaseRad * 5) * 0.08;
         }
 
-        // Movimiento radial de los segmentos inferiores (salen en E2–E6 y vuelven en E7)
         anim.capsuleSegs.forEach((seg) => {
           const worldAng = (seg.index * stepSpan + indexedAngle) % (Math.PI * 2);
           const normA = (worldAng + Math.PI * 2) % (Math.PI * 2);
@@ -2084,7 +2527,6 @@
           seg.lowerSeg.position.x += (targetR - seg.lowerSeg.position.x) * 0.2;
         });
 
-        // Cápsulas saliendo por la rampa en Estación 9
         anim.ejectedCaps.forEach((c) => {
           const p = ((phaseRad / (Math.PI * 2)) * 2 + c.offset) % 1;
           c.mesh.position.x = -0.25 - p * 0.85;
@@ -2094,129 +2536,234 @@
     };
   }
 
-  // 3. BOSCH GKF 2600 (Encapsuladora modular 12 estaciones doble línea)
+  // 3. BOSCH GKF 2600 (Encapsuladora modular 12 estaciones doble línea según láminas p013, p025, p030, p051, p074, p100, p130)
   function buildGkf2600Twin(THREE, mats) {
     const root = new THREE.Group();
-    const anim = { turret: null, bells: [], closeHead: null, servoShaft: null };
+    const anim = { turret: null, bells: [], closeHead: null, servoShaft: null, segments: [], slideGate: null };
 
-    // Bancada Bosch inoxidable
-    const base = new THREE.Mesh(new THREE.BoxGeometry(6.0, 1.55, 4.8), mats.casingMat);
+    // 1. Bancada Bosch inoxidable con bastidor soldado, patas antivibratorias y armario lateral PacDrive
+    const base = new THREE.Mesh(new THREE.BoxGeometry(6.2, 1.52, 4.9), mats.casingMat);
     base.position.y = 0.78;
     base.userData.isCasing = true;
     root.add(base);
 
-    const table = new THREE.Mesh(new THREE.BoxGeometry(6.1, 0.16, 4.9), mats.steel);
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(6.3, 0.14, 5.0), mats.darkSteel);
+    plinth.position.y = 0.07;
+    root.add(plinth);
+
+    const table = new THREE.Mesh(new THREE.BoxGeometry(6.25, 0.18, 4.95), mats.steel);
     table.position.y = 1.62;
     root.add(table);
 
-    // Accionamiento servo PacDrive interno
+    // 2. Accionamiento servo ELAU/Schneider PacDrive + Reductores Neugart PLN + Levas inferiores (Lám. p013)
     const servoGroup = new THREE.Group();
-    servoGroup.position.set(0, 0.75, 0);
-    const servoBox = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.8, 1.6), mats.darkSteel);
+    servoGroup.position.set(0, 0.76, 0);
+    const servoBox = new THREE.Mesh(new THREE.BoxGeometry(1.95, 0.82, 1.75), mats.darkSteel);
     servoGroup.add(servoBox);
-    const mainShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 4.2, 18), mats.brass);
+    const mainShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 4.5, 20), mats.boltChrome);
     mainShaft.rotation.z = Math.PI / 2;
     servoGroup.add(mainShaft);
+    for (let c = -3; c <= 3; c++) {
+      if (c === 0) continue;
+      const camWheel = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.12, 24), mats.brass);
+      camWheel.rotation.z = Math.PI / 2;
+      camWheel.position.set(c * 0.56, 0, 0);
+      mainShaft.add(camWheel);
+    }
+    for (let s = -1; s <= 1; s += 2) {
+      const elauServo = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.34, 0.34), mats.bluePaint);
+      elauServo.position.set(s * 1.35, -0.1, 0.95);
+      const neugart = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.28, 16), mats.brushedAlu);
+      neugart.rotation.z = Math.PI / 2;
+      neugart.position.set(s * 1.02, -0.1, 0.95);
+      servoGroup.add(elauServo, neugart);
+    }
     anim.servoShaft = mainShaft;
-    tagStation(servoGroup, "gkf-servo", new THREE.Vector3(0, -0.95, 0));
+    tagStation(servoGroup, "gkf-servo", new THREE.Vector3(0, -1.05, 0));
     root.add(servoGroup);
 
-    // Cerramiento de seguridad con puertas PLUTO
-    const guard = new THREE.Mesh(new THREE.BoxGeometry(5.9, 2.35, 4.7), mats.glassGuard);
+    // 3. Cerramiento superior Bosch con perfiles de aluminio, puertas PLUTO y brazo HMI Bosch Rexroth
+    const guard = new THREE.Group();
     guard.position.y = 2.88;
+    const glassBox = new THREE.Mesh(new THREE.BoxGeometry(5.95, 2.32, 4.72), mats.glassGuard);
+    guard.add(glassBox);
+    const topCrown = new THREE.Mesh(new THREE.BoxGeometry(6.05, 0.14, 4.82), mats.steel);
+    topCrown.position.y = 1.22;
+    guard.add(topCrown);
+    for (const sx of [-2.95, 0, 2.95]) {
+      for (const sz of [-2.34, 2.34]) {
+        const pillar = new THREE.Mesh(new THREE.BoxGeometry(0.1, 2.34, 0.1), mats.brushedAlu);
+        pillar.position.set(sx, 0, sz);
+        guard.add(pillar);
+      }
+    }
     guard.userData.basePos = guard.position.clone();
-    guard.userData.explodeVec = new THREE.Vector3(0, 1.6, 0);
+    guard.userData.explodeVec = new THREE.Vector3(0, 1.65, 0);
     root.add(guard);
 
-    // Carrusel de 12 estaciones en doble hilera (2×9 orificios)
+    // 4. Carrusel central de 12 estaciones en doble hilera (2×9 = 18 orificios por segmento)
     const turret = new THREE.Group();
     turret.position.y = 1.95;
-    const hub = new THREE.Mesh(new THREE.CylinderGeometry(1.38, 1.45, 0.54, 24), mats.steel);
+    const hubBase = new THREE.Mesh(new THREE.CylinderGeometry(1.52, 1.58, 0.14, 28), mats.darkSteel);
+    hubBase.position.y = -0.22;
+    turret.add(hubBase);
+    const hub = new THREE.Mesh(new THREE.CylinderGeometry(1.38, 1.44, 0.52, 28), mats.steel);
     turret.add(hub);
+    const hubCap = new THREE.Mesh(new THREE.CylinderGeometry(1.05, 1.1, 0.14, 24), mats.brushedAlu);
+    hubCap.position.y = 0.31;
+    turret.add(hubCap);
 
     for (let i = 0; i < 12; i++) {
       const a = (i / 12) * Math.PI * 2;
       const seg = new THREE.Group();
       seg.rotation.y = -a;
-      const topBlock = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.11, 0.48), mats.brushedAlu);
-      topBlock.position.set(1.85, 0.18, 0);
+
+      // Vástagos guía de desplazamiento radial de cada estación
+      for (const dz of [-0.16, 0.16]) {
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.024, 0.024, 0.54, 10), mats.boltChrome);
+        shaft.rotation.z = Math.PI / 2;
+        shaft.position.set(1.65, 0.02, dz);
+        seg.add(shaft);
+      }
+
+      const topBlock = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.1, 0.48), mats.brushedAlu);
+      topBlock.position.set(1.88, 0.18, 0);
       seg.add(topBlock);
-      const botBlock = new THREE.Mesh(new THREE.BoxGeometry(0.52, 0.11, 0.48), mats.brass);
-      botBlock.position.set(1.85, 0.02, 0);
+
+      const botBlock = new THREE.Mesh(new THREE.BoxGeometry(0.54, 0.1, 0.48), mats.brass);
+      botBlock.position.set(1.88, 0.02, 0);
       seg.add(botBlock);
+
+      // Doble fila de 9 cápsulas (2×9)
+      for (const rowOff of [-0.09, 0.09]) {
+        for (let c = -2; c <= 2; c++) {
+          const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.12, 8), rowOff < 0 ? mats.capsuleRed : mats.capsuleWhite);
+          cap.position.set(1.88 + rowOff, 0.24, c * 0.085);
+          seg.add(cap);
+        }
+      }
+
       turret.add(seg);
+      anim.segments.push({ botBlock, index: i, baseR: 1.88 });
     }
     root.add(turret);
     anim.turret = turret;
 
-    // Estación 1 y 2: Doble tolva de cápsulas + ASB
+    // 5. Estaciones 1 y 2: Doble tolva paralela de cápsulas + peines 2×9 + bloque rectificador ASB (Lám. p025, p030)
     const st12 = new THREE.Group();
-    st12.position.set(-2.0, 2.35, 1.4);
+    st12.position.set(-2.0, 2.35, 1.45);
     for (let h = 0; h < 2; h++) {
-      const hop = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.25, 0.95, 18), mats.steel);
-      hop.position.set(h * 0.65 - 0.3, 0.85, h * 0.35);
+      const hop = new THREE.Mesh(new THREE.CylinderGeometry(0.44, 0.22, 0.92, 20), mats.steel);
+      hop.position.set(h * 0.68 - 0.32, 0.88, h * 0.34);
       st12.add(hop);
+      const sensor = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.18, 12), mats.bluePaint);
+      sensor.position.set(h * 0.68 - 0.32, 1.4, h * 0.34);
+      st12.add(sensor);
+      for (let t = -2; t <= 2; t++) {
+        const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.55, 8), mats.boltChrome);
+        tube.position.set(h * 0.68 - 0.32, 0.42, h * 0.34 + t * 0.06);
+        st12.add(tube);
+      }
     }
-    const asbBlock = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.65, 0.75), mats.bluePaint);
-    asbBlock.position.y = 0.15;
+    const asbBlock = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.58, 0.82), mats.bluePaint);
+    asbBlock.position.y = 0.08;
     st12.add(asbBlock);
-    tagStation(st12, "gkf-est1-2", new THREE.Vector3(-1.0, 0.6, 0.8));
+    const vacBlock = new THREE.Mesh(new THREE.BoxGeometry(0.88, 0.18, 0.72), mats.copper);
+    vacBlock.position.y = -0.34;
+    st12.add(vacBlock);
+    tagStation(st12, "gkf-est1-2", new THREE.Vector3(-1.1, 0.65, 0.85));
     root.add(st12);
 
-    // Estación 5: Cámara de compactación con 5 campanas neumáticas y manómetros WIKA
+    // 6. Estación 5: Cámara de compactación modular con disco dosificador, 5 campanas neumáticas y manómetros WIKA (Lám. p051, p074)
     const st5 = new THREE.Group();
-    st5.position.set(2.3, 2.25, 0.35);
-    const pot = new THREE.Mesh(new THREE.CylinderGeometry(1.02, 1.02, 0.42, 24), mats.steel);
+    st5.position.set(2.35, 2.25, 0.35);
+    const baseRing = new THREE.Mesh(new THREE.CylinderGeometry(1.08, 1.08, 0.12, 28), mats.brass);
+    baseRing.position.y = -0.24;
+    st5.add(baseRing);
+    const pot = new THREE.Mesh(new THREE.CylinderGeometry(1.02, 1.02, 0.4, 28), mats.steel);
     st5.add(pot);
+    const feedChute = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.2, 0.95, 18), mats.brushedAlu);
+    feedChute.position.set(0.45, 0.82, 0.45);
+    st5.add(feedChute);
+
+    const upperBridge = new THREE.Mesh(new THREE.CylinderGeometry(0.88, 0.88, 0.14, 24), mats.darkSteel);
+    upperBridge.position.y = 0.88;
+    st5.add(upperBridge);
+
     for (let b = 0; b < 5; b++) {
-      const ang = ((b - 2) / 5) * Math.PI * 1.1;
+      const ang = ((b - 2) / 5) * Math.PI * 1.15;
       const bell = new THREE.Group();
-      bell.position.set(Math.cos(ang) * 0.65, 0.55, Math.sin(ang) * 0.65);
-      const cyl = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.58, 16), mats.brushedAlu);
+      bell.position.set(Math.cos(ang) * 0.66, 0.52, Math.sin(ang) * 0.66);
+      const cyl = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 0.56, 18), mats.brushedAlu);
       bell.add(cyl);
+      const bellCap = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.08, 18), mats.bluePaint);
+      bellCap.position.y = 0.3;
+      bell.add(bellCap);
       const gauge = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.06, 16), mats.whitePlastic);
       gauge.rotation.x = Math.PI / 2;
-      gauge.position.set(0, 0.18, 0.15);
+      gauge.position.set(0, 0.16, 0.16);
       bell.add(gauge);
+      const dualHolder = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.1, 0.24), mats.brass);
+      dualHolder.position.y = -0.26;
+      bell.add(dualHolder);
       st5.add(bell);
       anim.bells.push(bell);
     }
-    tagStation(st5, "gkf-est5", new THREE.Vector3(1.2, 0.6, 0.2));
+    tagStation(st5, "gkf-est5", new THREE.Vector3(1.25, 0.65, 0.2));
     root.add(st5);
 
-    // Estaciones 6 y 8: Módulos de pellets / microtabletas
+    // 7. Estaciones 6 y 8: Módulos intercambiables de pellets / microtabletas (Lám. p100)
     const st68 = new THREE.Group();
-    st68.position.set(1.2, 2.3, -1.9);
-    const pelletUnit = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.75, 0.65), mats.steel);
+    st68.position.set(1.2, 2.3, -1.95);
+    const pelletUnit = new THREE.Mesh(new THREE.BoxGeometry(0.88, 0.62, 0.68), mats.steel);
     st68.add(pelletUnit);
-    tagStation(st68, "gkf-est6-8", new THREE.Vector3(0.7, 0.5, -1.0));
+    const pelletHopper = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.18, 0.65, 18), mats.brushedAlu);
+    pelletHopper.position.set(0, 0.62, 0);
+    st68.add(pelletHopper);
+    const slideGate = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.14, 0.45), mats.brass);
+    slideGate.position.set(-0.18, -0.28, 0.22);
+    st68.add(slideGate);
+    anim.slideGate = slideGate;
+    tagStation(st68, "gkf-est6-8", new THREE.Vector3(0.75, 0.55, -1.05));
     root.add(st68);
 
-    // Estación 9: Cierre con contrasoporte y sensores IFS 5036
+    // 8. Estación 9: Cabezal de cierre con contrasoporte y par de sensores inductivos ifm IFS 5036 (Lám. p130)
     const st9 = new THREE.Group();
     st9.position.set(-1.35, 2.35, -1.85);
-    const closeHead = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.45, 0.65), mats.brass);
+    for (const dx of [-0.24, 0.24]) {
+      const col = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.78, 14), mats.boltChrome);
+      col.position.set(dx, 0.05, 0);
+      st9.add(col);
+    }
+    const closeHead = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.38, 0.66), mats.brass);
     st9.add(closeHead);
-    const sensor1 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.22, 12), mats.bluePaint);
-    sensor1.position.set(-0.2, 0.3, 0);
+    const sensor1 = new THREE.Mesh(new THREE.CylinderGeometry(0.048, 0.048, 0.26, 12), mats.bluePaint);
+    sensor1.position.set(-0.18, 0.3, 0.12);
     st9.add(sensor1);
     const sensor2 = sensor1.clone();
-    sensor2.position.set(0.2, 0.3, 0);
+    sensor2.position.set(0.18, 0.3, -0.12);
     st9.add(sensor2);
     anim.closeHead = closeHead;
-    tagStation(st9, "gkf-est9", new THREE.Vector3(-0.8, 0.6, -0.9));
+    tagStation(st9, "gkf-est9", new THREE.Vector3(-0.85, 0.65, -0.95));
     root.add(st9);
 
-    // Estaciones 10–12: Expulsión monocápsula y limpieza + Brazo HMI Bosch
+    // 9. Estaciones 10–12: Expulsión monocápsula, clasificación KKE, limpieza Est. 12 y Brazo HMI Bosch
     const st10 = new THREE.Group();
     st10.position.set(-2.25, 2.15, -0.15);
-    const ejUnit = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.55, 0.9), mats.steel);
+    const ejUnit = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.56, 0.94), mats.steel);
     st10.add(ejUnit);
-    const dualChute = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.1, 0.45), mats.brushedAlu);
-    dualChute.position.set(-0.65, -0.18, 0);
+    const dualChute = new THREE.Mesh(new THREE.BoxGeometry(0.96, 0.1, 0.48), mats.brushedAlu);
+    dualChute.position.set(-0.68, -0.18, 0);
     dualChute.rotation.z = 0.32;
     st10.add(dualChute);
-    tagStation(st10, "gkf-est10-12", new THREE.Vector3(-1.2, 0.4, 0));
+    const kkeUnit = new THREE.Mesh(new THREE.BoxGeometry(0.62, 1.35, 0.62), mats.steel);
+    kkeUnit.position.set(-1.35, -0.82, 0.55);
+    st10.add(kkeUnit);
+    const hmiPanel = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.52, 0.14), mats.bluePaint);
+    hmiPanel.position.set(-0.85, 0.65, 1.55);
+    hmiPanel.rotation.y = 0.45;
+    st10.add(hmiPanel);
+    tagStation(st10, "gkf-est10-12", new THREE.Vector3(-1.25, 0.4, 0));
     root.add(st10);
 
     return {
@@ -2227,14 +2774,25 @@
         const idx = Math.floor(raw);
         const frac = raw - idx;
         const smooth = frac < 0.55 ? 0.5 - 0.5 * Math.cos((frac / 0.55) * Math.PI) : 1.0;
-        anim.turret.rotation.y = (idx + smooth) * stepSpan;
+        const indexedAngle = (idx + smooth) * stepSpan;
+        anim.turret.rotation.y = indexedAngle;
         if (anim.servoShaft) anim.servoShaft.rotation.x = phaseRad * 3;
         anim.bells.forEach((b, i) => {
-          b.position.y = 0.55 + Math.sin(phaseRad * 6 + i * 0.4) * 0.14;
+          b.position.y = 0.52 + Math.sin(phaseRad * 6 + i * 0.4) * 0.14;
         });
         if (anim.closeHead) {
           anim.closeHead.position.y = Math.sin(phaseRad * 6) * 0.1;
         }
+        if (anim.slideGate) {
+          anim.slideGate.position.x = -0.18 + Math.sin(phaseRad * 6) * 0.08;
+        }
+        anim.segments.forEach((seg) => {
+          const worldAng = (seg.index * stepSpan + indexedAngle) % (Math.PI * 2);
+          const normA = (worldAng + Math.PI * 2) % (Math.PI * 2);
+          const isOut = normA > 1.0 && normA < 3.8;
+          const targetR = seg.baseR + (isOut ? 0.24 : 0);
+          seg.botBlock.position.x += (targetR - seg.botBlock.position.x) * 0.2;
+        });
       }
     };
   }
@@ -2379,7 +2937,7 @@
   // 5 & 6. MARCHESINI INTEGRA 320 y UHLMANN B 1240 (Líneas de blíster termoformado)
   function buildBlisterLineTwin(THREE, mats, isB1240) {
     const root = new THREE.Group();
-    const anim = { pvcReel: null, aluReel: null, formPress: null, sealPress: null, punchPress: null, transferDrum: null, blisters: [], brushes: [] };
+    const anim = { pvcReel: null, aluReel: null, formPress: null, sealPress: null, punchPress: null, transferDrum: null, blisters: [], brushes: [], grippers: [] };
 
     const length = isB1240 ? 14.2 : 13.4;
     const balconyFrame = new THREE.Mesh(new THREE.BoxGeometry(length, 1.35, 1.5), mats.casingMat);
@@ -2387,52 +2945,105 @@
     balconyFrame.userData.isCasing = true;
     root.add(balconyFrame);
 
-    // Banda continua de film a lo largo de la máquina
-    const web = new THREE.Mesh(new THREE.BoxGeometry(length - 2.2, 0.025, 0.65), mats.pvcFilm);
+    // Patas niveladoras y zócalo inoxidable de balconada GMP
+    for (let lx = -length / 2 + 0.8; lx <= length / 2 - 0.8; lx += 2.4) {
+      for (let lz of [-0.95, 0.25]) {
+        const foot = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.1, 0.14, 14), mats.darkSteel);
+        foot.position.set(lx, 0.07, lz);
+        root.add(foot);
+      }
+    }
+
+    // Rieles longitudinales de guiado de banda y colector de agua enfriada (azul/rojo)
+    for (let rz of [0.02, 0.68]) {
+      const guideRail = new THREE.Mesh(new THREE.BoxGeometry(length - 2.0, 0.045, 0.045), mats.steel);
+      guideRail.position.set(-0.2, 1.44, rz);
+      root.add(guideRail);
+    }
+    const chillPipeIn = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, length - 2.6, 12), mats.bluePaint);
+    chillPipeIn.rotation.z = Math.PI / 2;
+    chillPipeIn.position.set(-0.2, 1.12, -0.18);
+    const chillPipeOut = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, length - 2.6, 12), mats.copper);
+    chillPipeOut.rotation.z = Math.PI / 2;
+    chillPipeOut.position.set(-0.2, 1.02, -0.18);
+    root.add(chillPipeIn, chillPipeOut);
+
+    // Banda continua de film termoformable a lo largo de la máquina con alvéolos formados
+    const web = new THREE.Mesh(new THREE.BoxGeometry(length - 2.2, 0.022, 0.64), mats.pvcFilm);
     web.position.set(-0.3, 1.42, 0.35);
     root.add(web);
 
-    // S1: Desbobinador PVC y mesa de empalme
+    // S1: Desbobinador PVC (c034 / b3-unwind), mandril neumático, brazo bailarín y mesa de empalme por vacío (c036)
     const s1 = new THREE.Group();
     s1.position.set(isB1240 ? -6.4 : -6.0, 1.05, 0.35);
-    const pvcReel = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.68, 28), mats.pvcFilm);
+    const pvcReel = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 0.66, 36), mats.pvcFilm);
     pvcReel.rotation.x = Math.PI / 2;
     s1.add(pvcReel);
-    const spliceTable = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.35, 0.78), mats.brass);
-    spliceTable.position.set(1.15, 0.35, 0);
-    s1.add(spliceTable);
+    const coreHub = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.76, 24), mats.bluePaint);
+    coreHub.rotation.x = Math.PI / 2;
+    s1.add(coreHub);
+    // Rodillos bailarines compensadores de bucle
+    for (let d = 0; d < 4; d++) {
+      const dRoll = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.7, 16), mats.brushedAlu);
+      dRoll.rotation.x = Math.PI / 2;
+      dRoll.position.set(0.75 + (d % 2) * 0.28, -0.25 + d * 0.18, 0);
+      s1.add(dRoll);
+    }
+    const spliceTable = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.32, 0.78), mats.brass);
+    spliceTable.position.set(1.18, 0.35, 0);
+    const spliceClamp = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.14, 0.82), mats.steel);
+    spliceClamp.position.set(1.18, 0.56, 0);
+    s1.add(spliceTable, spliceClamp);
     anim.pvcReel = pvcReel;
     tagStation(s1, isB1240 ? "b3-unwind" : "int-pvc", new THREE.Vector3(-1.3, 0, 0));
     root.add(s1);
 
-    // S2: Precalentamiento y estación de termoformado
+    // S2: Precalentamiento por placas de contacto y prensa de termoformado de 4 columnas (c038)
     const s2 = new THREE.Group();
     s2.position.set(isB1240 ? -3.5 : -3.4, 1.45, 0.35);
-    const heater = new THREE.Mesh(new THREE.BoxGeometry(1.05, 0.24, 0.8), mats.thermalHot);
-    heater.position.set(-0.9, 0.14, 0);
-    s2.add(heater);
-    const formUpper = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.36, 0.85), mats.bluePaint);
-    formUpper.position.set(0.35, 0.28, 0);
-    const formLower = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.36, 0.85), mats.steel);
+    const heaterUpper = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.16, 0.78), mats.thermalHot);
+    heaterUpper.position.set(-0.92, 0.16, 0);
+    const heaterLower = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.16, 0.78), mats.thermalHot);
+    heaterLower.position.set(-0.92, -0.14, 0);
+    s2.add(heaterUpper, heaterLower);
+
+    // Prensa de formado con 4 columnas cromadas y servomotor inferior de rodillera
+    const formUpper = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.32, 0.85), mats.bluePaint);
+    formUpper.position.set(0.35, 0.34, 0);
+    const formLower = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.32, 0.85), mats.steel);
     formLower.position.set(0.35, -0.28, 0);
     s2.add(formUpper, formLower);
+    for (let px of [-0.02, 0.72]) {
+      for (let pz of [-0.36, 0.36]) {
+        const pillar = new THREE.Mesh(new THREE.CylinderGeometry(0.042, 0.042, 1.05, 16), mats.steel);
+        pillar.position.set(px, 0.03, pz);
+        s2.add(pillar);
+      }
+    }
+    const formServo = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.48, 18), mats.darkSteel);
+    formServo.position.set(0.35, -0.68, 0);
+    s2.add(formServo);
     anim.formPress = formLower;
     tagStation(s2, isB1240 ? "b3-forming" : "int-formado", new THREE.Vector3(0, 0.7, 0.6));
     root.add(s2);
 
-    // S3: Alimentador vibratorio y cajonera de cepillos planetarios/inclinados
+    // S3: Tolva vibratoria y cajonera de cepillos planetarios/inclinados (c043 / p.87)
     const s3 = new THREE.Group();
     s3.position.set(-0.7, 1.85, 0.35);
-    const vibBowl = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.42, 0.55, 24), mats.steel);
-    vibBowl.position.set(-0.2, 0.72, -0.25);
-    s3.add(vibBowl);
-    const feederBox = new THREE.Mesh(new THREE.BoxGeometry(1.45, 0.32, 0.82), mats.brushedAlu);
+    const vibBowl = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.42, 0.55, 28), mats.steel);
+    vibBowl.position.set(-0.2, 0.74, -0.25);
+    const feedChute = new THREE.Mesh(new THREE.BoxGeometry(0.65, 0.48, 0.42), mats.steel);
+    feedChute.rotation.x = 0.45;
+    feedChute.position.set(-0.2, 0.32, -0.05);
+    s3.add(vibBowl, feedChute);
+
+    const feederBox = new THREE.Mesh(new THREE.BoxGeometry(1.52, 0.32, 0.82), mats.brushedAlu);
     feederBox.position.y = -0.18;
     s3.add(feederBox);
     for (let b = -1; b <= 1; b++) {
-      const brush = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.68, 16), mats.brass);
+      const brush = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.68, 20), mats.brass);
       brush.rotation.x = isB1240 ? Math.PI / 2 : 0;
-      brush.position.set(b * 0.38, -0.02, 0);
+      brush.position.set(b * 0.4, -0.02, 0);
       s3.add(brush);
       anim.brushes.push(brush);
     }
@@ -2443,69 +3054,108 @@
     if (isB1240) {
       const hapa = new THREE.Group();
       hapa.position.set(1.8, 2.55, 0.35);
-      const lidReel = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.68, 24), mats.aluFoil);
+      const lidReel = new THREE.Mesh(new THREE.CylinderGeometry(0.48, 0.48, 0.68, 28), mats.aluFoil);
       lidReel.rotation.x = Math.PI / 2;
       lidReel.position.set(-0.55, 0.35, 0);
       hapa.add(lidReel);
-      const hapaUnit = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.65, 0.82), mats.bluePaint);
-      hapa.add(hapaUnit);
+      const hapaUnit = new THREE.Mesh(new THREE.BoxGeometry(0.98, 0.68, 0.82), mats.bluePaint);
+      const uvLamp = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.28, 0.76), mats.thermalHot);
+      uvLamp.position.set(0.35, -0.38, 0);
+      hapa.add(hapaUnit, uvLamp);
       anim.aluReel = lidReel;
       tagStation(hapa, "b3-hapa", new THREE.Vector3(0, 1.3, 0));
       root.add(hapa);
     }
 
-    // S4: Cámara de visión (SEA Vision / VisioChrom) + Sellado con aluminio
+    // S4: Cámara de visión (SEA Vision / VisioChrom) + Sellado reticulado y pinza de arrastre (c050 / c057)
     const s4 = new THREE.Group();
     s4.position.set(isB1240 ? 3.1 : 1.7, 1.65, 0.35);
-    const camHood = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.68, 0.78), mats.darkSteel);
-    camHood.position.set(-0.85, 0.15, 0);
-    s4.add(camHood);
+    const camHood = new THREE.Mesh(new THREE.BoxGeometry(0.62, 0.72, 0.78), mats.darkSteel);
+    camHood.position.set(-0.88, 0.16, 0);
+    const camLens = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.18, 16), mats.bluePaint);
+    camLens.position.set(-0.88, 0.56, 0);
+    s4.add(camHood, camLens);
     if (!isB1240) {
-      const aluReel = new THREE.Mesh(new THREE.CylinderGeometry(0.46, 0.46, 0.68, 24), mats.aluFoil);
+      const aluReel = new THREE.Mesh(new THREE.CylinderGeometry(0.46, 0.46, 0.68, 28), mats.aluFoil);
       aluReel.rotation.x = Math.PI / 2;
-      aluReel.position.set(0.2, 0.88, 0);
-      s4.add(aluReel);
+      aluReel.position.set(0.2, 0.92, 0);
+      const aluCore = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.14, 0.76, 18), mats.bluePaint);
+      aluCore.rotation.x = Math.PI / 2;
+      aluCore.position.set(0.2, 0.92, 0);
+      s4.add(aluReel, aluCore);
       anim.aluReel = aluReel;
     }
-    const sealHead = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.38, 0.85), mats.thermalHot);
-    sealHead.position.set(0.35, 0.08, 0);
-    s4.add(sealHead);
+    const sealHead = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.36, 0.85), mats.thermalHot);
+    sealHead.position.set(0.35, 0.12, 0);
+    const sealAnvil = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.28, 0.85), mats.steel);
+    sealAnvil.position.set(0.35, -0.38, 0);
+    s4.add(sealHead, sealAnvil);
+    for (let px of [-0.02, 0.72]) {
+      for (let pz of [-0.36, 0.36]) {
+        const col = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.95, 14), mats.steel);
+        col.position.set(px, -0.12, pz);
+        s4.add(col);
+      }
+    }
+    // Pinza servo de arrastre e indexación (c057)
+    const gripperCarriage = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.22, 0.82), mats.brass);
+    gripperCarriage.position.set(1.18, -0.18, 0);
+    s4.add(gripperCarriage);
+    anim.grippers.push(gripperCarriage);
     anim.sealPress = sealHead;
     tagStation(s4, isB1240 ? "b3-sealing" : "int-vision-sellado", new THREE.Vector3(0, 0.8, 0.6));
     root.add(s4);
 
-    // S5: Perforación, codificado y prensa de troquelado
+    // S5: Perforación, codificado en frío y prensa de troquelado (c066)
     const s5 = new THREE.Group();
     s5.position.set(isB1240 ? 5.2 : 4.0, 1.5, 0.35);
-    const punchBridge = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.95, 0.9), mats.steel);
-    s5.add(punchBridge);
-    const punchRam = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.45, 0.78), mats.brass);
-    s5.add(punchRam);
-    const scrapWinder = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.68, 20), mats.aluFoil);
+    const codePress = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.68, 0.82), mats.bluePaint);
+    codePress.position.set(-0.72, 0.04, 0);
+    const punchBridge = new THREE.Mesh(new THREE.BoxGeometry(0.92, 0.95, 0.9), mats.steel);
+    const punchRam = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.45, 0.78), mats.brass);
+    const scrapWinder = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.68, 24), mats.aluFoil);
     scrapWinder.rotation.x = Math.PI / 2;
-    scrapWinder.position.set(0.3, 0.95, 0);
-    s5.add(scrapWinder);
+    scrapWinder.position.set(0.32, 0.98, 0);
+    s5.add(codePress, punchBridge, punchRam, scrapWinder);
     anim.punchPress = punchRam;
     tagStation(s5, isB1240 ? "b3-punching" : "int-corte", new THREE.Vector3(0.6, 0.8, 0));
     root.add(s5);
 
-    // S6: Tambor cicloidal / transferencia por vacío y cinta de salida
+    // S6: Tambor cicloidal con brazos de ventosas (c090) y cinta de salida
     const s6 = new THREE.Group();
     s6.position.set(6.0, 1.35, 0.35);
-    const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.38, 0.72, 16), mats.bluePaint);
+    const drumGroup = new THREE.Group();
+    drumGroup.position.set(-0.35, 0.16, 0);
+    const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.34, 0.34, 0.72, 24), mats.bluePaint);
     drum.rotation.x = Math.PI / 2;
-    drum.position.set(-0.35, 0.15, 0);
-    s6.add(drum);
-    anim.transferDrum = drum;
+    drumGroup.add(drum);
+    for (let armIdx = 0; armIdx < 4; armIdx++) {
+      const a = (armIdx / 4) * Math.PI * 2;
+      const vacBar = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.14, 0.68), mats.brass);
+      vacBar.position.set(Math.cos(a) * 0.38, Math.sin(a) * 0.38, 0);
+      vacBar.rotation.z = a;
+      drumGroup.add(vacBar);
+    }
+    s6.add(drumGroup);
+    anim.transferDrum = drumGroup;
 
-    const outBelt = new THREE.Mesh(new THREE.BoxGeometry(1.75, 0.14, 0.68), mats.greenBelt);
-    outBelt.position.set(0.65, -0.15, 0);
+    const outBelt = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.14, 0.68), mats.greenBelt);
+    outBelt.position.set(0.68, -0.15, 0);
     s6.add(outBelt);
-    for (let b = 0; b < 3; b++) {
-      const bl = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.04, 0.45), mats.aluFoil);
-      bl.position.set(0.1 + b * 0.45, -0.05, 0);
+    for (let b = 0; b < 4; b++) {
+      const bl = new THREE.Group();
+      const card = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.025, 0.42), mats.aluFoil);
+      bl.add(card);
+      for (let r = -1; r <= 1; r += 2) {
+        for (let c = -2; c <= 2; c++) {
+          const pill = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.022, 10), mats.copper);
+          pill.position.set(r * 0.06, 0.02, c * 0.07);
+          bl.add(pill);
+        }
+      }
+      bl.position.set(0.05 + b * 0.42, -0.05, 0);
       s6.add(bl);
-      anim.blisters.push({ mesh: bl, offset: b * 0.33 });
+      anim.blisters.push({ mesh: bl, offset: b * 0.25 });
     }
     tagStation(s6, isB1240 ? "b3-punching" : "int-tambor", new THREE.Vector3(1.2, 0, 0));
     root.add(s6);
@@ -2517,75 +3167,90 @@
         if (anim.aluReel) anim.aluReel.rotation.z = -phaseRad * 0.6;
         const pressWave = Math.sin(phaseRad * 2);
         if (anim.formPress) anim.formPress.position.y = -0.28 + Math.max(0, pressWave) * 0.14;
-        if (anim.sealPress) anim.sealPress.position.y = 0.08 - Math.max(0, pressWave) * 0.12;
+        if (anim.sealPress) anim.sealPress.position.y = 0.12 - Math.max(0, pressWave) * 0.12;
         if (anim.punchPress) anim.punchPress.position.y = Math.sin(phaseRad * 2 + 0.5) * 0.14;
         if (anim.transferDrum) anim.transferDrum.rotation.z = -phaseRad * 2;
+        anim.grippers.forEach((g) => {
+          g.position.x = 1.18 + Math.sin(phaseRad * 2) * 0.22;
+        });
         anim.brushes.forEach((b, i) => {
           b.rotation.y = phaseRad * (i % 2 === 0 ? 3 : -3);
         });
         anim.blisters.forEach((bl) => {
           const p = ((phaseRad / (Math.PI * 2)) + bl.offset) % 1;
-          bl.mesh.position.x = -0.1 + p * 1.45;
+          bl.mesh.position.x = -0.1 + p * 1.48;
         });
       }
     };
   }
 
-  // 7. CONTROLSA 114 RL (Puerta rápida autorreparable de laboratorio)
+  // 7. CONTROLSA 114 RL (Puerta rápida autorreparable de laboratorio - Manual p.20-46)
   function buildControlsaTwin(THREE, mats) {
     const root = new THREE.Group();
     const anim = { curtain: null, buttons: [], drum: null, beam: null, ledG: null, ledR: null };
 
-    // Pórtico y montantes laterales de aluminio con guías en C
+    // Pórtico y montantes laterales de aluminio con guías de polietileno de alta densidad (Manual p.21 / p.29)
     const frameGroup = new THREE.Group();
     for (let s = -1; s <= 1; s += 2) {
-      const post = new THREE.Mesh(new THREE.BoxGeometry(0.24, 3.5, 0.28), mats.brushedAlu);
-      post.position.set(s * 1.45, 1.75, 0);
-      frameGroup.add(post);
+      const post = new THREE.Mesh(new THREE.BoxGeometry(0.24, 3.55, 0.28), mats.brushedAlu);
+      post.position.set(s * 1.45, 1.77, 0);
+      const peGuide = new THREE.Mesh(new THREE.BoxGeometry(0.06, 3.45, 0.14), mats.whitePlastic);
+      peGuide.position.set(s * 1.32, 1.72, 0.04);
+      const basePlate = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.04, 0.42), mats.darkSteel);
+      basePlate.position.set(s * 1.45, 0.02, 0);
+      frameGroup.add(post, peGuide, basePlate);
     }
     root.add(frameGroup);
 
-    // S2: Recuperadores blancos en la parte superior de las guías (Manual p.17)
+    // S2: Recuperadores blancos biselados en la parte superior de las guías (Manual p.17 / p.21)
     const recGroup = new THREE.Group();
     for (let s = -1; s <= 1; s += 2) {
-      const rec = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.36, 0.22), mats.whitePlastic);
-      rec.position.set(s * 1.32, 3.15, 0.08);
-      recGroup.add(rec);
+      const rec = new THREE.Mesh(new THREE.BoxGeometry(0.18, 0.38, 0.24), mats.whitePlastic);
+      rec.position.set(s * 1.32, 3.16, 0.08);
+      const funnelMouth = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.06, 0.18, 12), mats.whitePlastic);
+      funnelMouth.position.set(s * 1.32, 2.95, 0.08);
+      recGroup.add(rec, funnelMouth);
     }
     tagStation(recGroup, "ctrl-recuperador", new THREE.Vector3(-0.8, 0.4, 0.5));
     root.add(recGroup);
 
-    // S4: Cajón superior, tambor de enrollado y motor con freno
+    // S4: Cajón superior dintel, tambor de enrollado, rodamientos y motorreductor con freno (Manual p.20 / p.38)
     const motorGroup = new THREE.Group();
     motorGroup.position.set(0, 3.55, 0);
-    const hood = new THREE.Mesh(new THREE.BoxGeometry(3.2, 0.52, 0.52), mats.casingMat);
+    const hood = new THREE.Mesh(new THREE.BoxGeometry(3.22, 0.54, 0.54), mats.casingMat);
     hood.userData.isCasing = true;
     motorGroup.add(hood);
-    const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 2.75, 20), mats.steel);
+    const drum = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 2.78, 24), mats.steel);
     drum.rotation.z = Math.PI / 2;
     motorGroup.add(drum);
-    const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.58, 16), mats.bluePaint);
-    motor.position.set(1.75, -0.1, 0);
-    motorGroup.add(motor);
+    const gearbox = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.34, 0.32), mats.darkSteel);
+    gearbox.position.set(1.58, 0, 0);
+    const motor = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.19, 0.56, 20), mats.bluePaint);
+    motor.position.set(1.82, -0.14, 0);
+    const handCrank = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 1.4, 10), mats.brass);
+    handCrank.position.set(1.92, -0.85, 0.12);
+    motorGroup.add(gearbox, motor, handCrank);
     anim.drum = drum;
     tagStation(motorGroup, "ctrl-motor", new THREE.Vector3(0, 0.9, 0));
     root.add(motorGroup);
 
-    // S1: Lona flexible de PVC con mirilla y botones laterales
+    // S1: Lona flexible de PVC azul con mirilla transparente, faldón inferior y botones guía (Manual p.29)
     const curtainGroup = new THREE.Group();
-    const curtainMat = new THREE.MeshStandardMaterial({ color: 0x1d5fa7, roughness: 0.45, metalness: 0.1, side: THREE.DoubleSide });
+    const curtainMat = new THREE.MeshStandardMaterial({ color: 0x1d5fa7, roughness: 0.42, metalness: 0.12, side: THREE.DoubleSide });
     const curtain = new THREE.Mesh(new THREE.BoxGeometry(2.68, 3.2, 0.04), curtainMat);
     curtain.position.y = 1.6;
     curtainGroup.add(curtain);
 
-    const windowStrip = new THREE.Mesh(new THREE.BoxGeometry(2.2, 0.55, 0.05), mats.pvcFilm);
+    const windowStrip = new THREE.Mesh(new THREE.BoxGeometry(2.24, 0.58, 0.05), mats.pvcFilm);
     windowStrip.position.y = 1.75;
-    curtainGroup.add(windowStrip);
+    const bottomEdge = new THREE.Mesh(new THREE.BoxGeometry(2.68, 0.18, 0.06), mats.brass);
+    bottomEdge.position.y = 0.09;
+    curtainGroup.add(windowStrip, bottomEdge);
 
-    // Botones laterales de guiado
-    for (let h = 0.25; h <= 3.0; h += 0.35) {
+    // Botones laterales de guiado y autorreparación
+    for (let h = 0.22; h <= 3.05; h += 0.32) {
       for (let s = -1; s <= 1; s += 2) {
-        const btn = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 10), mats.brass);
+        const btn = new THREE.Mesh(new THREE.SphereGeometry(0.046, 12, 12), mats.brass);
         btn.position.set(s * 1.36, h, 0);
         curtainGroup.add(btn);
         anim.buttons.push(btn);
@@ -2595,9 +3260,9 @@
     tagStation(curtainGroup, "ctrl-lona", new THREE.Vector3(0, 0, 0.8));
     root.add(curtainGroup);
 
-    // S3: Barrera fotoeléctrica inferior + célula de tambor
+    // S3: Barrera fotoeléctrica inferior + célula de presencia en tambor
     const secGroup = new THREE.Group();
-    const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 2.75, 8), mats.laserBeam);
+    const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.018, 0.018, 2.75, 10), mats.laserBeam);
     beam.rotation.z = Math.PI / 2;
     beam.position.set(0, 0.48, 0.12);
     secGroup.add(beam);
@@ -2610,18 +3275,18 @@
     tagStation(secGroup, "ctrl-seguridad", new THREE.Vector3(0, -0.4, 0.6));
     root.add(secGroup);
 
-    // S5: Cuadro eléctrico Controlsa y semáforos
+    // S5: Cuadro eléctrico Controlsa y semáforos LED (Manual p.46)
     const ctrlGroup = new THREE.Group();
     ctrlGroup.position.set(2.1, 1.5, 0.18);
     const box = new THREE.Mesh(new THREE.BoxGeometry(0.48, 0.68, 0.26), mats.steel);
     ctrlGroup.add(box);
-    const eStop = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.08, 12), mats.ledRed);
+    const eStop = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.08, 14), mats.ledRed);
     eStop.rotation.x = Math.PI / 2;
     eStop.position.set(0, -0.15, 0.15);
     ctrlGroup.add(eStop);
-    const ledG = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 10), mats.ledGreen);
+    const ledG = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 12), mats.ledGreen);
     ledG.position.set(-0.1, 0.2, 0.14);
-    const ledR = new THREE.Mesh(new THREE.SphereGeometry(0.045, 10, 10), mats.ledRed);
+    const ledR = new THREE.Mesh(new THREE.SphereGeometry(0.048, 12, 12), mats.ledRed);
     ledR.position.set(0.1, 0.2, 0.14);
     ctrlGroup.add(ledG, ledR);
     anim.ledG = ledG;
@@ -2632,24 +3297,20 @@
     return {
       root,
       update(phaseRad, dt, state) {
-        // Modo especial de simulación de impacto y reinserción por los recuperadores blancos
         if (state.doorImpactPhase > 0) {
           state.doorImpactPhase += dt * 0.35;
           const p = state.doorImpactPhase;
           if (p < 1.0) {
-            // 1. Impacto: la parte inferior de la lona se sale hacia adelante fuera de las guías
             anim.curtain.rotation.x = -Math.sin(p * Math.PI * 0.5) * 0.26;
             anim.curtain.scale.y = 0.85;
             anim.curtain.position.y = 3.35 * (1 - 0.85);
           } else if (p < 2.2) {
-            // 2. Subida en modo manual hasta los recuperadores blancos superiores
             const u = (p - 1.0) / 1.2;
             const openAmt = 0.15 + u * 0.78;
             anim.curtain.scale.y = 1 - openAmt;
             anim.curtain.position.y = 3.35 * openAmt;
             anim.curtain.rotation.x = -0.26 * (1 - u);
           } else if (p < 3.2) {
-            // 3. Descenso ya reinsertada dentro de ambas guías
             const d = (p - 2.2) / 1.0;
             const openAmt = 0.93 * (1 - d);
             anim.curtain.scale.y = 1 - openAmt;
@@ -2661,8 +3322,6 @@
           }
           return;
         }
-
-        // Ciclo automático normal: abrir -> esperar -> cerrar
         const openRatio = 0.45 + 0.42 * Math.sin(phaseRad);
         const hScale = Math.max(0.12, 1 - openRatio);
         anim.curtain.scale.y = hScale;
@@ -2678,39 +3337,60 @@
     const root = new THREE.Group();
     const anim = { e1: null, e2: null, r1: null, r2: null, r3: null, r4: null, r5: null };
 
-    // Bancada vertical en balconada inoxidable (820×900×950 mm)
+    // Bancada vertical en balconada inoxidable (820×900×950 mm) con patas regulables
     const cabinet = new THREE.Mesh(new THREE.BoxGeometry(5.2, 2.7, 1.3), mats.casingMat);
     cabinet.position.set(0, 1.35, -0.35);
     cabinet.userData.isCasing = true;
     root.add(cabinet);
+    for (let fx of [-2.2, 0, 2.2]) {
+      for (let fz of [-0.85, 0.15]) {
+        const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.08, 0.16, 14), mats.darkSteel);
+        leg.position.set(fx, 0.08, fz);
+        root.add(leg);
+      }
+    }
 
-    // E1: Eje desbobinador con freno P6 y rodillos R6
+    // Rodillos locos de reenvío R6 en el frontal de balconada
+    for (const [rx, ry] of [[-1.6, 1.45], [-0.35, 2.25], [0.85, 2.25], [1.85, 1.55]]) {
+      const r6 = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 0.68, 16), mats.brushedAlu);
+      r6.rotation.x = Math.PI / 2;
+      r6.position.set(rx, ry, 0.45);
+      root.add(r6);
+    }
+
+    // E1: Eje desbobinador neumático con freno de polvo magnético P6
     const e1Grp = new THREE.Group();
     e1Grp.position.set(-2.1, 0.85, 0.45);
-    const e1Reel = new THREE.Mesh(new THREE.CylinderGeometry(0.68, 0.68, 0.65, 28), mats.aluFoil);
+    const e1Reel = new THREE.Mesh(new THREE.CylinderGeometry(0.68, 0.68, 0.65, 32), mats.aluFoil);
     e1Reel.rotation.x = Math.PI / 2;
     e1Grp.add(e1Reel);
-    const brakeP6 = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.82, 16), mats.bluePaint);
+    const brakeP6 = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.84, 20), mats.bluePaint);
     brakeP6.rotation.x = Math.PI / 2;
     e1Grp.add(brakeP6);
     anim.e1 = e1Reel;
     tagStation(e1Grp, "fx-e1", new THREE.Vector3(-1.0, -0.3, 0.5));
     root.add(e1Grp);
 
-    // Grupo entintador: Cubeta B1, Rodillo goma R1, Anilox cerámico R2 y Racla B3
+    // Grupo entintador: Cubeta B1, Rodillo goma R1, Anilox cerámico R2 y Racla magnética B3
     const inkGrp = new THREE.Group();
     inkGrp.position.set(-0.85, 1.85, 0.45);
-    const trayB1 = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.26, 0.75), mats.steel);
+    const trayB1 = new THREE.Mesh(new THREE.BoxGeometry(0.88, 0.26, 0.76), mats.steel);
     trayB1.position.set(-0.2, -0.25, 0);
     inkGrp.add(trayB1);
-    const r1 = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.68, 20), mats.blackRubber);
+    const r1 = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.68, 24), mats.blackRubber);
     r1.rotation.x = Math.PI / 2;
     r1.position.set(-0.25, -0.05, 0);
-    const r2Anilox = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.68, 24), mats.darkSteel);
+    const r2Anilox = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.68, 28), mats.darkSteel);
     r2Anilox.rotation.x = Math.PI / 2;
     r2Anilox.position.set(0.15, 0.05, 0);
-    const doctorB3 = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.18, 0.72), mats.brass);
+    const doctorB3 = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.18, 0.72), mats.brass);
     doctorB3.position.set(0.05, 0.28, 0);
+    // Pomos micrométricos de presión de entintado
+    for (let kz of [-0.28, 0.28]) {
+      const knob = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.12, 14), mats.bluePaint);
+      knob.position.set(-0.25, 0.24, kz);
+      inkGrp.add(knob);
+    }
     inkGrp.add(r1, r2Anilox, doctorB3);
     anim.r1 = r1;
     anim.r2 = r2Anilox;
@@ -2720,13 +3400,16 @@
     // Grupo impresión: Cilindro portacliché Cirel R3 (M3) y contraste R4
     const printGrp = new THREE.Group();
     printGrp.position.set(0.2, 1.85, 0.45);
-    const r3Cirel = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.68, 24), mats.copper);
+    const r3Cirel = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.68, 28), mats.copper);
     r3Cirel.rotation.x = Math.PI / 2;
     r3Cirel.position.set(-0.18, 0.08, 0);
-    const r4Contrast = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.68, 24), mats.steel);
+    const r4Contrast = new THREE.Mesh(new THREE.CylinderGeometry(0.22, 0.22, 0.68, 28), mats.steel);
     r4Contrast.rotation.x = Math.PI / 2;
     r4Contrast.position.set(0.25, 0.08, 0);
-    printGrp.add(r3Cirel, r4Contrast);
+    const stepMotorM3 = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 0.38, 16), mats.bluePaint);
+    stepMotorM3.rotation.x = Math.PI / 2;
+    stepMotorM3.position.set(-0.18, 0.08, -0.52);
+    printGrp.add(r3Cirel, r4Contrast, stepMotorM3);
     anim.r3 = r3Cirel;
     anim.r4 = r4Contrast;
     tagStation(printGrp, "fx-cirel", new THREE.Vector3(0.2, 0.6, 0.7));
@@ -2735,12 +3418,14 @@
     // Secador por aire caliente V1 (2 kW) y rodillo tractor R5 (M1)
     const dryerGrp = new THREE.Group();
     dryerGrp.position.set(1.4, 2.05, 0.45);
-    const blowerV1 = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.48, 0.75), mats.thermalHot);
+    const blowerV1 = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.48, 0.76), mats.thermalHot);
     blowerV1.position.y = 0.22;
-    const r5Tractor = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.68, 20), mats.brass);
+    const airDuct = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, 0.55, 14), mats.steel);
+    airDuct.position.set(-0.2, 0.55, -0.15);
+    const r5Tractor = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.68, 24), mats.brass);
     r5Tractor.rotation.x = Math.PI / 2;
     r5Tractor.position.set(0.35, -0.25, 0);
-    dryerGrp.add(blowerV1, r5Tractor);
+    dryerGrp.add(blowerV1, airDuct, r5Tractor);
     anim.r5 = r5Tractor;
     tagStation(dryerGrp, "fx-dryer", new THREE.Vector3(0.7, 0.7, 0.5));
     root.add(dryerGrp);
@@ -2748,9 +3433,9 @@
     // E2: Rebobinador brushless (M2) y HMI Q1
     const e2Grp = new THREE.Group();
     e2Grp.position.set(2.05, 0.9, 0.45);
-    const e2Reel = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.65, 28), mats.aluFoil);
+    const e2Reel = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.62, 0.65, 32), mats.aluFoil);
     e2Reel.rotation.x = Math.PI / 2;
-    const hmiQ1 = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.42, 0.15), mats.bluePaint);
+    const hmiQ1 = new THREE.Mesh(new THREE.BoxGeometry(0.56, 0.44, 0.15), mats.bluePaint);
     hmiQ1.position.set(0.1, 1.35, 0.25);
     e2Grp.add(e2Reel, hmiQ1);
     anim.e2 = e2Reel;
@@ -2781,39 +3466,55 @@
     tower.userData.isCasing = true;
     root.add(tower);
 
-    // G1: Portabobina trasero S3A26100420 y corte longitudinal S3A26101910
+    // G1: Portabobina trasero S3A26100420 y cuchillas de corte longitudinal S3A26101910
     const g1 = new THREE.Group();
     g1.position.set(0, 2.35, -1.55);
-    const reel = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.78, 1.9, 28), mats.aluFoil);
+    const reel = new THREE.Mesh(new THREE.CylinderGeometry(0.78, 0.78, 1.9, 32), mats.aluFoil);
     reel.rotation.z = Math.PI / 2;
     g1.add(reel);
+    const slitterShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 2.2, 16), mats.steel);
+    slitterShaft.rotation.z = Math.PI / 2;
+    slitterShaft.position.set(0, 0.65, 0.45);
+    g1.add(slitterShaft);
+    for (let lane = -2.5; lane <= 2.5; lane += 1) {
+      const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.02, 16), mats.brass);
+      disc.rotation.z = Math.PI / 2;
+      disc.position.set(lane * 0.36, 0.65, 0.45);
+      g1.add(disc);
+    }
     anim.reel = reel;
     tagStation(g1, "sp-unwind", new THREE.Vector3(0, 0.3, -1.2));
     root.add(g1);
 
-    // G2: Cabezales de bombas de líquido y cilindros antigoteo S3A92301220
+    // G2: Tolva presurizada, bombas de líquido y cilindros antigoteo S3A92301220
     const g2 = new THREE.Group();
     g2.position.set(0, 3.55, 0.25);
-    const manifold = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.32, 0.55), mats.steel);
-    g2.add(manifold);
+    const hopper = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.38, 0.78, 24), mats.steel);
+    hopper.position.set(0, 0.55, -0.35);
+    const manifold = new THREE.Mesh(new THREE.BoxGeometry(2.42, 0.32, 0.55), mats.steel);
+    g2.add(hopper, manifold);
     for (let lane = -2.5; lane <= 2.5; lane += 1) {
-      const pumpHead = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.24, 14), mats.bluePaint);
+      const pumpHead = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.26, 16), mats.bluePaint);
       pumpHead.rotation.x = Math.PI / 2;
       pumpHead.position.set(lane * 0.36, 0.15, 0.25);
-      g2.add(pumpHead);
+      const shutoffCyl = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.32, 12), mats.brass);
+      shutoffCyl.position.set(lane * 0.36, 0.35, 0.28);
+      g2.add(pumpHead, shutoffCyl);
     }
     tagStation(g2, "sp-pumps", new THREE.Vector3(0, 1.1, 0.3));
     root.add(g2);
 
-    // G3: 6 Tubos formadores y barras de soldadura vertical S3M14100320
+    // G3: 6 Cuellos formadores (collarines) y barras de soldadura vertical S3M14100320
     const g3 = new THREE.Group();
     g3.position.set(0, 2.35, 0.55);
     for (let lane = -2.5; lane <= 2.5; lane += 1) {
-      const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 1.65, 14), mats.steel);
+      const collar = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.068, 0.22, 16), mats.brass);
+      collar.position.set(lane * 0.36, 0.78, 0);
+      const tube = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.065, 1.65, 16), mats.steel);
       tube.position.set(lane * 0.36, 0, 0);
-      g3.add(tube);
+      g3.add(collar, tube);
     }
-    const vertBar = new THREE.Mesh(new THREE.BoxGeometry(2.35, 0.85, 0.14), mats.thermalHot);
+    const vertBar = new THREE.Mesh(new THREE.BoxGeometry(2.36, 0.85, 0.14), mats.thermalHot);
     vertBar.position.z = 0.16;
     g3.add(vertBar);
     anim.vertBars = vertBar;
@@ -2847,7 +3548,7 @@
 
     const stickRow = new THREE.Group();
     for (let lane = -2.5; lane <= 2.5; lane += 1) {
-      const st = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.32, 10), mats.whitePlastic);
+      const st = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.32, 12), mats.whitePlastic);
       st.position.set(lane * 0.36, -0.28, 0.1);
       stickRow.add(st);
     }
@@ -2881,12 +3582,12 @@
     const root = new THREE.Group();
     const anim = { particles: [], filters: [], pumpRotor: null, seals: [] };
 
-    // P1: UMA de proceso + posicionadores Siemens Sipart PS2
+    // P1: UMA de proceso + posicionadores Siemens Sipart PS2 y válvulas mariposa
     const ahu = new THREE.Group();
     ahu.position.set(-3.2, 1.15, 0);
     const ahuBox = new THREE.Mesh(new THREE.BoxGeometry(2.1, 1.5, 1.4), mats.brushedAlu);
     ahu.add(ahuBox);
-    const duct = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 1.8, 16), mats.steel);
+    const duct = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 1.85, 20), mats.steel);
     duct.rotation.z = Math.PI / 2;
     duct.position.set(1.6, -0.35, 0);
     ahu.add(duct);
@@ -2899,12 +3600,19 @@
     // P2: Plenum inferior y plato toroidal Diskjet con sello inflable D00T019236
     const p2 = new THREE.Group();
     p2.position.set(0, 0.65, 0);
-    const plenum = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 0.85, 0.85, 28), mats.steel);
+    const plenum = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 0.85, 0.85, 32), mats.steel);
     p2.add(plenum);
-    const diskjet = new THREE.Mesh(new THREE.CylinderGeometry(0.98, 0.98, 0.12, 28), mats.brass);
+    const diskjet = new THREE.Mesh(new THREE.CylinderGeometry(0.98, 0.98, 0.12, 32), mats.brass);
     diskjet.position.y = 0.46;
     p2.add(diskjet);
-    const sealDisk = new THREE.Mesh(new THREE.TorusGeometry(0.98, 0.055, 12, 32), mats.bluePaint);
+    // Boquillas tangenciales de atomización en el plato Diskjet
+    for (let nz = 0; nz < 6; nz++) {
+      const a = (nz / 6) * Math.PI * 2;
+      const nozzle = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.06, 0.22, 12), mats.steel);
+      nozzle.position.set(Math.cos(a) * 0.58, 0.54, Math.sin(a) * 0.58);
+      p2.add(nozzle);
+    }
+    const sealDisk = new THREE.Mesh(new THREE.TorusGeometry(0.98, 0.055, 14, 36), mats.bluePaint);
     sealDisk.rotation.x = Math.PI / 2;
     sealDisk.position.y = 0.48;
     p2.add(sealDisk);
@@ -2915,25 +3623,24 @@
     // P3: Recipiente de producto (Bowl) + sello inflable D00T019028 + nube de partículas fluidizadas
     const p3 = new THREE.Group();
     p3.position.set(0, 1.75, 0);
-    const bowlShell = new THREE.Mesh(new THREE.CylinderGeometry(1.28, 0.98, 1.35, 28), mats.casingMat);
+    const bowlShell = new THREE.Mesh(new THREE.CylinderGeometry(1.28, 0.98, 1.35, 32), mats.casingMat);
     bowlShell.userData.isCasing = true;
     p3.add(bowlShell);
 
-    const sightGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.26, 0.12, 20), mats.pvcFilm);
+    const sightGlass = new THREE.Mesh(new THREE.CylinderGeometry(0.26, 0.26, 0.12, 24), mats.pvcFilm);
     sightGlass.rotation.x = Math.PI / 2;
     sightGlass.position.set(0, 0.05, 1.12);
     p3.add(sightGlass);
 
-    const sealBowl = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.06, 12, 32), mats.bluePaint);
+    const sealBowl = new THREE.Mesh(new THREE.TorusGeometry(1.28, 0.06, 14, 36), mats.bluePaint);
     sealBowl.rotation.x = Math.PI / 2;
     sealBowl.position.y = 0.68;
     p3.add(sealBowl);
     anim.seals.push(sealBowl);
 
-    // Nube toroidal de gránulos en suspensión dentro del Bowl
-    for (let i = 0; i < 42; i++) {
-      const pMesh = new THREE.Mesh(new THREE.SphereGeometry(0.055, 8, 8), mats.brass);
-      const a = (i / 42) * Math.PI * 2;
+    for (let i = 0; i < 48; i++) {
+      const pMesh = new THREE.Mesh(new THREE.SphereGeometry(0.055, 10, 10), mats.brass);
+      const a = (i / 48) * Math.PI * 2;
       const r = 0.35 + (i % 5) * 0.13;
       pMesh.position.set(Math.cos(a) * r, (i % 7) * 0.14 - 0.42, Math.sin(a) * r);
       p3.add(pMesh);
@@ -2945,12 +3652,14 @@
     // P4: Skid de bombas peristálticas Watson-Marlow 313X2A ATEX
     const p4 = new THREE.Group();
     p4.position.set(2.35, 0.85, 0.95);
-    const skid = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.95, 0.85), mats.steel);
+    const skid = new THREE.Mesh(new THREE.BoxGeometry(1.12, 0.95, 0.85), mats.steel);
     p4.add(skid);
-    const pumpHead = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.22, 18), mats.bluePaint);
+    const pumpHead = new THREE.Mesh(new THREE.CylinderGeometry(0.24, 0.24, 0.22, 20), mats.bluePaint);
     pumpHead.rotation.x = Math.PI / 2;
     pumpHead.position.set(-0.2, 0.25, 0.48);
-    p4.add(pumpHead);
+    const solutionDrum = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.28, 0.65, 20), mats.whitePlastic);
+    solutionDrum.position.set(0.28, 0.78, 0);
+    p4.add(pumpHead, solutionDrum);
     anim.pumpRotor = pumpHead;
     tagStation(p4, "hd-spray", new THREE.Vector3(1.1, 0, 0.7));
     root.add(p4);
@@ -2958,17 +3667,16 @@
     // P5: Cámara superior de filtros sinterizados Herding (D00T030185) + Blowback
     const p5 = new THREE.Group();
     p5.position.set(0, 3.25, 0);
-    const topHousing = new THREE.Mesh(new THREE.CylinderGeometry(1.32, 1.28, 1.65, 28), mats.casingMat);
+    const topHousing = new THREE.Mesh(new THREE.CylinderGeometry(1.32, 1.28, 1.65, 32), mats.casingMat);
     topHousing.userData.isCasing = true;
     p5.add(topHousing);
 
-    const sealFilter = new THREE.Mesh(new THREE.TorusGeometry(1.3, 0.055, 12, 32), mats.bluePaint);
+    const sealFilter = new THREE.Mesh(new THREE.TorusGeometry(1.3, 0.055, 14, 36), mats.bluePaint);
     sealFilter.rotation.x = Math.PI / 2;
     sealFilter.position.y = 0.82;
     p5.add(sealFilter);
     anim.seals.push(sealFilter);
 
-    // Corona de cartuchos Herding en el interior
     for (let f = 0; f < 8; f++) {
       const a = (f / 8) * Math.PI * 2;
       const cart = new THREE.Mesh(new THREE.BoxGeometry(0.18, 1.05, 0.36), mats.whitePlastic);
@@ -3005,11 +3713,18 @@
     const root = new THREE.Group();
     const anim = { bottles: [], syringes: null, nozzles: null, subCapHead: null, capChucks: [], mixer: null };
 
-    // Bancada monoblock inoxidable con guardas de policarbonato
+    // Bancada monoblock inoxidable con guardas de policarbonato y patas niveladoras
     const base = new THREE.Mesh(new THREE.BoxGeometry(9.6, 0.95, 2.3), mats.casingMat);
     base.position.set(0, 0.48, 0);
     base.userData.isCasing = true;
     root.add(base);
+    for (let lx = -4.2; lx <= 4.2; lx += 2.1) {
+      for (let lz of [-0.95, 0.95]) {
+        const foot = new THREE.Mesh(new THREE.CylinderGeometry(0.065, 0.095, 0.14, 14), mats.darkSteel);
+        foot.position.set(lx, 0.07, lz);
+        root.add(foot);
+      }
+    }
 
     const guard = new THREE.Mesh(new THREE.BoxGeometry(9.2, 1.85, 2.15), mats.glassGuard);
     guard.position.set(0, 1.88, 0);
@@ -3023,11 +3738,11 @@
     const conveyor = new THREE.Mesh(new THREE.BoxGeometry(8.8, 0.12, 0.38), mats.greenBelt);
     conveyor.position.set(3.9, -0.02, 0);
     s1.add(conveyor);
-    const auger = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 1.5, 16), mats.bluePaint);
+    const auger = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 1.5, 20), mats.bluePaint);
     auger.rotation.z = Math.PI / 2;
     auger.position.set(0.3, 0.12, 0.24);
     s1.add(auger);
-    const starIn = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.1, 18), mats.whitePlastic);
+    const starIn = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.1, 24), mats.whitePlastic);
     starIn.position.set(1.25, 0.12, -0.15);
     s1.add(starIn);
     tagStation(s1, "ml-infeed", new THREE.Vector3(-1.1, 0, 0.6));
@@ -3036,9 +3751,9 @@
     // Hilera de frascos farmacéuticos en tránsito por la línea
     for (let i = 0; i < 12; i++) {
       const btl = new THREE.Group();
-      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.32, 14), mats.copper);
+      const body = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.11, 0.32, 16), mats.copper);
       body.position.y = 0.16;
-      const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.1, 12), mats.whitePlastic);
+      const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.055, 0.055, 0.1, 14), mats.whitePlastic);
       neck.position.y = 0.36;
       btl.add(body, neck);
       btl.position.set(-4.2 + i * 0.72, 1.06, 0.35);
@@ -3049,17 +3764,17 @@
     // S2: Tina de producto con mezclador, jeringas M6G91401111 y válvulas cerámicas M6A71700810
     const s2 = new THREE.Group();
     s2.position.set(-1.6, 1.55, -0.15);
-    const tank = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.56, 0.95, 24), mats.steel);
+    const tank = new THREE.Mesh(new THREE.CylinderGeometry(0.62, 0.56, 0.95, 28), mats.steel);
     tank.position.set(0, 0.48, -0.45);
     s2.add(tank);
-    const mixerMotor = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.36, 14), mats.bluePaint);
+    const mixerMotor = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.36, 18), mats.bluePaint);
     mixerMotor.position.set(0, 1.12, -0.45);
     s2.add(mixerMotor);
     anim.mixer = mixerMotor;
 
     const syringeBank = new THREE.Group();
     for (let k = -1.5; k <= 1.5; k += 1) {
-      const syr = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.52, 14), mats.steel);
+      const syr = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.52, 16), mats.steel);
       syr.position.set(k * 0.28, -0.05, 0.1);
       const valve = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.14, 0.14), mats.whitePlastic);
       valve.position.set(k * 0.28, 0.24, 0.1);
@@ -3069,10 +3784,10 @@
     anim.syringes = syringeBank;
 
     const nozzleBar = new THREE.Group();
-    const barBeam = new THREE.Mesh(new THREE.BoxGeometry(1.15, 0.12, 0.18), mats.brass);
+    const barBeam = new THREE.Mesh(new THREE.BoxGeometry(1.18, 0.12, 0.18), mats.brass);
     nozzleBar.add(barBeam);
     for (let k = -1.5; k <= 1.5; k += 1) {
-      const canula = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.02, 0.42, 10), mats.steel);
+      const canula = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.02, 0.42, 12), mats.steel);
       canula.position.set(k * 0.28, -0.22, 0);
       nozzleBar.add(canula);
     }
@@ -3085,10 +3800,12 @@
     // S3: Alimentadores vibratorios REOVIB MFS 268 y cabezal preroscado / subtapa M6A17102244
     const s3 = new THREE.Group();
     s3.position.set(0.6, 1.55, -0.15);
-    const bowlSub = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.46, 0.34, 24), mats.brushedAlu);
+    const bowlSub = new THREE.Mesh(new THREE.CylinderGeometry(0.58, 0.46, 0.34, 28), mats.brushedAlu);
     bowlSub.position.set(-0.1, 0.55, -0.48);
-    s3.add(bowlSub);
-    const preCapHead = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.62, 18), mats.brass);
+    const trackSub = new THREE.Mesh(new THREE.BoxGeometry(0.14, 0.08, 0.85), mats.steel);
+    trackSub.position.set(0.15, 0.42, 0);
+    s3.add(bowlSub, trackSub);
+    const preCapHead = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.62, 20), mats.brass);
     preCapHead.position.set(0.15, 0.25, 0.45);
     s3.add(preCapHead);
     anim.subCapHead = preCapHead;
@@ -3098,16 +3815,16 @@
     // S4: Torreta de tapado roscado M6A29101161 y mandriles de 3 patas M6A19501012
     const s4 = new THREE.Group();
     s4.position.set(2.35, 1.65, 0.1);
-    const bowlCap = new THREE.Mesh(new THREE.CylinderGeometry(0.64, 0.5, 0.38, 24), mats.brushedAlu);
+    const bowlCap = new THREE.Mesh(new THREE.CylinderGeometry(0.64, 0.5, 0.38, 28), mats.brushedAlu);
     bowlCap.position.set(0.35, 0.52, -0.62);
     s4.add(bowlCap);
-    const turretCol = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.36, 0.95, 20), mats.steel);
+    const turretCol = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.36, 0.95, 24), mats.steel);
     turretCol.position.set(-0.1, 0.15, 0.1);
     s4.add(turretCol);
 
     for (let c = 0; c < 3; c++) {
       const a = (c / 3) * Math.PI * 2;
-      const chuck = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.08, 0.45, 14), mats.bluePaint);
+      const chuck = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.08, 0.45, 16), mats.bluePaint);
       chuck.position.set(-0.1 + Math.cos(a) * 0.35, 0.05, 0.1 + Math.sin(a) * 0.35);
       s4.add(chuck);
       anim.capChucks.push({ mesh: chuck, baseA: a });
@@ -3154,7 +3871,7 @@
   }
 
   // --------------------------------------------------------------------------
-  //  PERIFÉRICOS INDUSTRIALES 3D COMUNES (TORRETA ANDON, FRL NEUMÁTICO, PISO)
+  //  PERIFÉRICOS INDUSTRIALES 3D COMUNES (SOMBRA DE ESTUDIO CAD, TORRETA ANDON, FRL)
   // --------------------------------------------------------------------------
   function buildIndustrialPeripherals(THREE, mats, bbox) {
     const group = new THREE.Group();
@@ -3162,29 +3879,18 @@
     const maxY = Math.max(2.6, bbox.max.y);
     const minZ = Math.min(-1.2, bbox.min.z - 0.55);
 
-    // Losa de piso industrial epóxico + franja amarilla de demarcación de seguridad
-    const slabW = Math.max(8, (bbox.max.x - bbox.min.x) + 3.4);
-    const slabD = Math.max(5.6, (bbox.max.z - bbox.min.z) + 3.0);
-    const floorSlab = new THREE.Mesh(
-      new THREE.BoxGeometry(slabW, 0.06, slabD),
-      new THREE.MeshStandardMaterial({ color: 0x162032, metalness: 0.2, roughness: 0.75 })
+    // Plano receptor de sombra suave sobre el suelo de estudio CAD (idéntico a gemelo-ms235)
+    const slabW = Math.max(12, (bbox.max.x - bbox.min.x) + 6.0);
+    const slabD = Math.max(10, (bbox.max.z - bbox.min.z) + 6.0);
+    const shadowPlane = new THREE.Mesh(
+      new THREE.PlaneGeometry(slabW, slabD),
+      new THREE.ShadowMaterial({ opacity: 0.24 })
     );
-    floorSlab.position.y = -0.03;
-    floorSlab.receiveShadow = true;
-    group.add(floorSlab);
-
-    // Perímetro amarillo de seguridad industrial en el piso
-    const borderMat = mats.hazardYellow;
-    const bThick = 0.09;
-    const frontStrip = new THREE.Mesh(new THREE.BoxGeometry(slabW, 0.01, bThick), borderMat);
-    frontStrip.position.set(0, 0.005, slabD / 2 - bThick / 2);
-    const backStrip = new THREE.Mesh(new THREE.BoxGeometry(slabW, 0.01, bThick), borderMat);
-    backStrip.position.set(0, 0.005, -slabD / 2 + bThick / 2);
-    const leftStrip = new THREE.Mesh(new THREE.BoxGeometry(bThick, 0.01, slabD), borderMat);
-    leftStrip.position.set(-slabW / 2 + bThick / 2, 0.005, 0);
-    const rightStrip = new THREE.Mesh(new THREE.BoxGeometry(bThick, 0.01, slabD), borderMat);
-    rightStrip.position.set(slabW / 2 - bThick / 2, 0.005, 0);
-    group.add(frontStrip, backStrip, leftStrip, rightStrip);
+    shadowPlane.rotation.x = -Math.PI / 2;
+    shadowPlane.position.y = 0.002;
+    shadowPlane.receiveShadow = true;
+    shadowPlane.userData.isCadDecor = true;
+    group.add(shadowPlane);
 
     // Torreta luminosa Andon tricolor (Rojo / Ámbar / Verde) montada sobre mástil inoxidable
     const andonGroup = new THREE.Group();
@@ -3207,7 +3913,7 @@
     topCap.position.y = 1.29;
     andonGroup.add(greenLamp, amberLamp, redLamp, topCap);
 
-    const andonLight = new THREE.PointLight(0x16c76a, 0.9, 6);
+    const andonLight = new THREE.PointLight(0x16c76a, 0.65, 6);
     andonLight.position.set(0, 1.05, 0);
     andonGroup.add(andonLight);
     group.add(andonGroup);
@@ -3215,14 +3921,14 @@
     // Unidad neumática FRL (Filtro-Regulador-Lubricador + Manómetro + Isla de válvulas)
     const frlGroup = new THREE.Group();
     frlGroup.position.set(-maxX * 0.65, 1.05, minZ);
-    const manifoldPlate = new THREE.Mesh(new THREE.BoxGeometry(0.68, 0.48, 0.12), mats.brushedAlu);
+    const manifoldPlate = new THREE.Mesh(new THREE.BoxGeometry(0.72, 0.52, 0.12), mats.brushedAlu);
     frlGroup.add(manifoldPlate);
     for (let i = -1; i <= 1; i++) {
-      const bowl = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.065, 0.34, 14), mats.bluePaint);
-      bowl.position.set(i * 0.2, 0, 0.1);
+      const bowl = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.065, 0.36, 14), mats.bluePaint);
+      bowl.position.set(i * 0.21, 0, 0.11);
       frlGroup.add(bowl);
     }
-    const gauge = new THREE.Mesh(new THREE.CylinderGeometry(0.07, 0.07, 0.05, 16), mats.whitePlastic);
+    const gauge = new THREE.Mesh(new THREE.CylinderGeometry(0.075, 0.075, 0.05, 16), mats.whitePlastic);
     gauge.rotation.x = Math.PI / 2;
     gauge.position.set(0, 0.08, 0.19);
     frlGroup.add(gauge);
@@ -3238,58 +3944,66 @@
   }
 
   // --------------------------------------------------------------------------
-  //  INICIALIZADOR DE ESCENA WEBGL THREE.JS + CÁMARA ORBITAL + HOTSPOTS
+  //  INICIALIZADOR DE ESCENA WEBGL THREE.JS (ESTÁNDAR VISOR CAD MS235)
   // --------------------------------------------------------------------------
   function initGemelo3DForMachine(machine) {
     disposeActiveTwin();
     const arch = getTwinArchetype(machine);
-    const spec = arch && TWIN_SPECS[arch];
+    if (!arch || arch === "ms235") return; // MS235 usa el visor embebido de 1.846 piezas
+    const spec = TWIN_SPECS[arch];
     const canvas = document.getElementById("g3dCanvas");
     const viewport = document.getElementById("g3dViewport");
     const pinsOverlay = document.getElementById("g3dPinsOverlay");
     if (!spec || !canvas || !viewport || typeof window.THREE === "undefined") return;
 
     const THREE = window.THREE;
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.localClippingEnabled = true;
+    if (THREE.ACESFilmicToneMapping !== undefined) {
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.22;
+    }
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0b1220);
-    scene.fog = new THREE.FogExp2(0x0b1220, 0.015);
+    // Fondo claro de estudio CAD idéntico a gemelo-ms235.html (#f1f5f9)
+    scene.background = new THREE.Color(0xf1f5f9);
+    const envMap = buildStudioEnvMap(THREE, renderer);
+    if (envMap) scene.environment = envMap;
 
-    const camera = new THREE.PerspectiveCamera(40, 16 / 9, 0.1, 140);
+    const camera = new THREE.PerspectiveCamera(38, 16 / 9, 0.1, 140);
 
-    // Iluminación de estudio industrial con sombras suaves
-    const hemi = new THREE.HemisphereLight(0xe2f1ff, 0x1e293b, 0.92);
+    // Iluminación de estudio CAD de 3 puntos + hemisférica
+    const hemi = new THREE.HemisphereLight(0xffffff, 0xcbd5e1, 0.95);
     scene.add(hemi);
-    const dir1 = new THREE.DirectionalLight(0xffffff, 1.22);
-    dir1.position.set(11, 18, 13);
+    const dir1 = new THREE.DirectionalLight(0xfffcf5, 1.35);
+    dir1.position.set(12, 19, 14);
     dir1.castShadow = true;
-    dir1.shadow.mapSize.width = 1024;
-    dir1.shadow.mapSize.height = 1024;
+    dir1.shadow.mapSize.width = 2048;
+    dir1.shadow.mapSize.height = 2048;
     dir1.shadow.camera.near = 1;
-    dir1.shadow.camera.far = 45;
+    dir1.shadow.camera.far = 48;
     const dCam = 12;
     dir1.shadow.camera.left = -dCam;
     dir1.shadow.camera.right = dCam;
     dir1.shadow.camera.top = dCam;
     dir1.shadow.camera.bottom = -dCam;
+    dir1.shadow.bias = -0.0005;
     scene.add(dir1);
 
-    const dir2 = new THREE.DirectionalLight(0x60a5fa, 0.58);
-    dir2.position.set(-14, 9, -11);
+    const dir2 = new THREE.DirectionalLight(0xdbeafe, 0.65);
+    dir2.position.set(-14, 11, -11);
     scene.add(dir2);
 
-    const dir3 = new THREE.DirectionalLight(0xfde68a, 0.28);
-    dir3.position.set(0, 6, 14);
+    const dir3 = new THREE.DirectionalLight(0xfef3c7, 0.35);
+    dir3.position.set(0, 7, 15);
     scene.add(dir3);
 
-    // Piso técnico con retícula CAD
-    const grid = new THREE.GridHelper(28, 28, 0x334155, 0x1e293b);
-    grid.position.y = 0.01;
+    // Retícula CAD técnica de piso (#9aa2ab / #c9cfd5 igual que gemelo-ms235)
+    const grid = new THREE.GridHelper(28, 28, 0x9aa2ab, 0xc9cfd5);
+    grid.position.y = 0.001;
     scene.add(grid);
 
     const mats = createIndustrialMaterials(THREE);
@@ -3302,7 +4016,6 @@
     if (arch === "njp3500") modelBuilder = buildNjpTwin(THREE, mats, false);
     else if (arch === "njp1200") modelBuilder = buildNjpTwin(THREE, mats, true);
     else if (arch === "gkf2600") modelBuilder = buildGkf2600Twin(THREE, mats);
-    else if (arch === "ms235") modelBuilder = buildMs235Twin(THREE, mats);
     else if (arch === "integra320") modelBuilder = buildBlisterLineTwin(THREE, mats, false);
     else if (arch === "blister3") modelBuilder = buildBlisterLineTwin(THREE, mats, true);
     else if (arch === "controlsa114rl") modelBuilder = buildControlsaTwin(THREE, mats);
@@ -3311,9 +4024,12 @@
     else if (arch === "hdgc400") modelBuilder = buildHdgc400Twin(THREE, mats);
     else if (arch === "ml642") modelBuilder = buildMl642Twin(THREE, mats);
 
+    // Aplicar realce CAD (aristas técnicas EdgesGeometry + tornillería Allen en bridas/placas)
+    enhanceCadHierarchy(THREE, modelBuilder.root, mats);
+
     // Habilitar proyección y recepción de sombras en todas las piezas 3D
     modelBuilder.root.traverse((obj) => {
-      if (obj.isMesh) {
+      if (obj.isMesh && !obj.userData.isCadDecor) {
         obj.castShadow = !obj.userData.isCasing;
         obj.receiveShadow = true;
       }
@@ -3321,18 +4037,37 @@
 
     scene.add(modelBuilder.root);
 
-    // Calcular caja envolvente para posicionar periféricos industriales (Andon, FRL, losa)
+    // Crear líneas guía de despiece explosivo (conectan asiento original con conjunto explotado)
+    const explodeTraces = [];
+    const explodeLinesGroup = new THREE.Group();
+    scene.add(explodeLinesGroup);
+    modelBuilder.root.traverse((obj) => {
+      if (obj.userData.basePos && obj.userData.explodeVec) {
+        const pts = [obj.userData.basePos.clone(), obj.userData.basePos.clone()];
+        const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
+        const line = new THREE.Line(lineGeo, mats.explodeLine);
+        line.visible = false;
+        explodeLinesGroup.add(line);
+        explodeTraces.push({ obj, line, lineGeo });
+      }
+    });
+
+    // Calcular caja envolvente para posicionar periféricos industriales (Andon, FRL, sombra)
     const bbox = new THREE.Box3().setFromObject(modelBuilder.root);
     const peripherals = buildIndustrialPeripherals(THREE, mats, bbox);
+    enhanceCadHierarchy(THREE, peripherals.group, mats);
     scene.add(peripherals.group);
 
-    // Crear los pines flotantes 3D->2D en el overlay
-    pinsOverlay.innerHTML = spec.stations.map((st) => `
-      <button type="button" class="g3d-pin" data-pin-id="${st.id}" onclick="window.g3dFocusStation('${st.id}')">
-        <span class="g3d-pin__num">${st.num}</span>
-        <span class="g3d-pin__lbl">${st.name.split("·")[0].trim()}</span>
-      </button>
-    `).join("");
+    // Crear los pines flotantes 3D->2D en el overlay (etiqueta compacta para no tapar la geometría CAD)
+    pinsOverlay.innerHTML = spec.stations.map((st) => {
+      const shortLbl = st.systemMatch || st.name.split(/[·(,]/)[0].trim();
+      return `
+        <button type="button" class="g3d-pin" data-pin-id="${st.id}" title="${st.num} · ${st.name}" onclick="window.g3dFocusStation('${st.id}')">
+          <span class="g3d-pin__num">${st.num}</span>
+          <span class="g3d-pin__lbl">${shortLbl}</span>
+        </button>
+      `;
+    }).join("");
 
     const defCam = spec.defaultCam;
     const state = {
@@ -3347,12 +4082,14 @@
       clipPlane,
       peripherals,
       model: modelBuilder,
+      explodeTraces,
       playing: true,
       speed: 1.0,
       phaseDeg: 0,
       xray: false,
       cutaway: false,
       exploded: false,
+      explodeTarget: 0,
       explodeProgress: 0,
       selectedStationId: spec.stations[0].id,
       activeFault: null,
@@ -3421,7 +4158,7 @@
     const resize = () => {
       if (!viewport.clientWidth) return;
       const w = viewport.clientWidth;
-      const h = Math.max(440, viewport.clientHeight || 520);
+      const h = Math.max(460, viewport.clientHeight || 560);
       renderer.setSize(w, h, false);
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
@@ -3470,13 +4207,13 @@
       if (peripherals.andonLight) {
         if (hasFault) {
           peripherals.andonLight.color.setHex(0xef4444);
-          peripherals.andonLight.intensity = blink ? 1.5 : 0.25;
+          peripherals.andonLight.intensity = blink ? 1.2 : 0.2;
         } else if (state.playing) {
           peripherals.andonLight.color.setHex(0x16c76a);
-          peripherals.andonLight.intensity = 0.85;
+          peripherals.andonLight.intensity = 0.65;
         } else {
           peripherals.andonLight.color.setHex(0xf59e0b);
-          peripherals.andonLight.intensity = 0.75;
+          peripherals.andonLight.intensity = 0.6;
         }
       }
 
@@ -3491,18 +4228,28 @@
         if (hasFault) {
           andonTxt.textContent = `ALARMA ACTIVA: ${state.activeFault.name.toUpperCase()}`;
         } else if (state.playing) {
-          andonTxt.textContent = "TORRETA ANDON: RUN AUTOMÁTICO";
+          andonTxt.textContent = "ESTUDIO CAD · CICLO AUTOMÁTICO";
         } else {
           andonTxt.textContent = "MODO JOG / VOLANTE MANUAL";
         }
       }
 
-      // Interpolación suave de vista explotada
-      const targetExplode = state.exploded ? 1 : 0;
-      state.explodeProgress += (targetExplode - state.explodeProgress) * 0.12;
+      // Interpolación suave de vista explotada y líneas guía de desarme CAD
+      state.explodeProgress += (state.explodeTarget - state.explodeProgress) * 0.14;
       modelBuilder.root.traverse((obj) => {
         if (obj.userData.basePos && obj.userData.explodeVec) {
           obj.position.copy(obj.userData.basePos).addScaledVector(obj.userData.explodeVec, state.explodeProgress);
+        }
+      });
+      state.explodeTraces.forEach((tr) => {
+        if (state.explodeProgress > 0.02) {
+          tr.line.visible = true;
+          const posAttr = tr.lineGeo.attributes.position;
+          posAttr.setXYZ(0, tr.obj.userData.basePos.x, tr.obj.userData.basePos.y, tr.obj.userData.basePos.z);
+          posAttr.setXYZ(1, tr.obj.position.x, tr.obj.position.y, tr.obj.position.z);
+          posAttr.needsUpdate = true;
+        } else {
+          tr.line.visible = false;
         }
       });
 
@@ -3624,10 +4371,22 @@
     }
   };
 
+  window.g3dSetExplodeRatio = function (pct) {
+    if (!activeCtx) return;
+    const val = Math.max(0, Math.min(100, Number(pct) || 0));
+    activeCtx.explodeTarget = val / 100;
+    activeCtx.exploded = val >= 50;
+    const rangeEl = document.getElementById("g3dExplodeRange");
+    const valEl = document.getElementById("g3dExplodeVal");
+    if (rangeEl) rangeEl.value = String(val);
+    if (valEl) valEl.textContent = val + "%";
+    document.getElementById("g3dExplodeBtn")?.classList.toggle("is-active", val > 0);
+  };
+
   window.g3dToggleExplode = function () {
     if (!activeCtx) return;
-    activeCtx.exploded = !activeCtx.exploded;
-    document.getElementById("g3dExplodeBtn")?.classList.toggle("is-active", activeCtx.exploded);
+    const nextPct = activeCtx.explodeTarget > 0.1 ? 0 : 100;
+    window.g3dSetExplodeRatio(nextPct);
   };
 
   window.g3dResetCamera = function () {

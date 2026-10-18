@@ -532,10 +532,20 @@ ${buildMachineContext(machine)}`;
       // Lo usan tareas.html, turnos.html, el formulario de turno y los enlaces
       // que manda el bot de Telegram. shell.js sabe abrir cada vista por su nombre.
       const pedido = new URLSearchParams(window.location.search);
+      const eqPedido = pedido.get("eq");
+      const tabPedido = pedido.get("tab");
       const vistaPedida = pedido.get("v");
       const ultima = restoredState.activeView;
 
-      if (vistaPedida && window.SHELL && window.SHELL.puedeAbrir(vistaPedida, pedido)) {
+      if (eqPedido && machines.some((machine) => machine.id === eqPedido)) {
+        openDetail(eqPedido);
+        if (tabPedido) {
+          requestAnimationFrame(() => {
+            const tabBtn = guideTabs.querySelector(`[data-profile-tab="${tabPedido}"]`);
+            if (tabBtn) tabBtn.click();
+          });
+        }
+      } else if (vistaPedida && window.SHELL && window.SHELL.puedeAbrir(vistaPedida, pedido)) {
         window.SHELL.abrirDesdeUrl(pedido);
       } else if (ultima === "detail" && selectedId && machines.some((machine) => machine.id === selectedId)) {
         openDetail(selectedId);

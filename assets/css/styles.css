@@ -3270,4 +3270,160 @@
       .alm-sol-sub label { display: inline-flex; align-items: center; gap: 5px; margin-right: 12px; color: var(--muted); font-size: 0.7rem; font-weight: 700; }
       .alm-sol-sub input { width: 64px; min-width: 0; border-color: var(--line-strong); font-size: 0.8rem; }
 
+      /* ================================================================
+         GEMELO DIGITAL 3D (Visor CAD Industrial + Despiece de Manual)
+         ================================================================ */
+      #detailView:has([data-profile-tab="gemelo3d"].is-active) #fichaActividad { display: none; }
+      #detailView:has([data-profile-tab="gemelo3d"].is-active) .detail-header { margin-bottom: 4px; padding-bottom: 4px; }
+      #detailView:has([data-profile-tab="gemelo3d"].is-active) .detail-header .eyebrow,
+      #detailView:has([data-profile-tab="gemelo3d"].is-active) #detailSubtitle { display: none; }
+      .g3d-shell { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+      .g3d-shell.is-fullscreen { position: fixed; inset: 0; z-index: 9999; background: #f8fafc; padding: 14px; overflow-y: auto; margin: 0; }
+      .g3d-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); }
+      .g3d-header__titles { flex: 1 1 360px; min-width: 0; }
+      .g3d-header__titles h3 { margin: 4px 0 2px; font-size: 1.05rem; font-weight: 800; color: #0f172a; }
+      .g3d-header__titles p { margin: 0; font-size: 0.78rem; color: #475569; line-height: 1.3; }
+      .g3d-badge-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+      .g3d-live-pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 9px; border-radius: 999px; background: #0f172a; color: #f8fafc; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.04em; }
+      .g3d-live-dot { width: 7px; height: 7px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.28); }
+      .g3d-arch-tag { display: inline-flex; align-items: center; padding: 2px 9px; border-radius: 999px; background: #eef4ff; color: #1d4ed8; border: 1px solid #bfdbfe; font-size: 0.67rem; font-weight: 800; }
+
+      .g3d-telemetry { display: grid; grid-template-columns: repeat(4, minmax(115px, 1fr)); gap: 6px; flex: 0 1 auto; }
+      @media (max-width: 900px) { .g3d-telemetry { grid-template-columns: repeat(2, minmax(110px, 1fr)); width: 100%; } }
+      .g3d-tele-card { background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 8px; padding: 5px 9px; display: flex; flex-direction: column; gap: 1px; }
+      .g3d-tele-k { font-size: 0.61rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; color: #64748b; }
+      .g3d-tele-v { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.84rem; font-weight: 800; color: #0f172a; }
+      .g3d-tele-u { font-size: 0.64rem; color: #475569; font-weight: 600; }
+
+      /* Barra de herramientas estilo CAD (gemelo-ms235) */
+      .g3d-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 10px; }
+      .g3d-tool-group { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+      .g3d-btn { display: inline-flex; align-items: center; gap: 5px; height: 29px; padding: 0 10px; border: 1px solid #cbd5e1; border-radius: 7px; background: #ffffff; color: #0f172a; font: inherit; font-size: 0.75rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.12s ease; }
+      .g3d-btn:hover { background: #f1f5f9; border-color: #94a3b8; }
+      .g3d-btn.is-active { background: #1d4ed8; border-color: #1d4ed8; color: #ffffff; }
+      .g3d-btn--primary { background: #0f172a; border-color: #0f172a; color: #ffffff; }
+      .g3d-btn--primary:hover { background: #1e293b; color: #ffffff; }
+      .g3d-btn--accent { background: #d97706; border-color: #b45309; color: #ffffff; }
+      .g3d-btn--accent:hover { background: #b45309; color: #ffffff; }
+
+      .g3d-speed-lbl, .g3d-phase-lbl, .g3d-fault-lbl { display: inline-flex; align-items: center; gap: 5px; font-size: 0.74rem; font-weight: 700; color: #334155; }
+      .g3d-speed-lbl select, .g3d-fault-lbl select { height: 29px; border: 1px solid #cbd5e1; border-radius: 7px; padding: 0 7px; background: #ffffff; color: #0f172a; font: inherit; font-size: 0.74rem; font-weight: 700; }
+      .g3d-phase-group { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 7px; padding: 2px 8px; }
+      .g3d-phase-group input[type="range"] { width: 96px; accent-color: #1d4ed8; cursor: pointer; }
+
+      /* Selector rápido de estaciones / conjuntos mecánicos */
+      .g3d-station-bar { display: flex; flex-wrap: wrap; gap: 5px; padding: 2px 0; }
+      .g3d-st-chip { display: inline-flex; align-items: center; gap: 5px; height: 28px; padding: 0 10px; border-radius: 7px; border: 1px solid #cbd5e1; background: #ffffff; color: #1e293b; font: inherit; font-size: 0.73rem; font-weight: 700; cursor: pointer; transition: all 0.12s ease; }
+      .g3d-st-chip:hover { background: #f1f5f9; border-color: #94a3b8; }
+      .g3d-st-chip.is-active { background: #0f172a; border-color: #0f172a; color: #ffffff; }
+      .g3d-st-chip__num { display: inline-grid; place-items: center; padding: 1px 5px; border-radius: 4px; background: #e2e8f0; color: #0f172a; font-family: ui-monospace, monospace; font-size: 0.64rem; font-weight: 900; }
+      .g3d-st-chip.is-active .g3d-st-chip__num { background: #38bdf8; color: #0f172a; }
+
+      /* Área de trabajo principal: Lienzo 3D CAD + Inspector Lateral con Despieces */
+      .g3d-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 410px; gap: 12px; align-items: start; }
+      @media (max-width: 1160px) { .g3d-workspace { grid-template-columns: 1fr; } }
+      .g3d-left-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+
+      .g3d-viewport { position: relative; width: 100%; height: 560px; border-radius: 14px; overflow: hidden; border: 1px solid #cbd5e1; background: #f1f5f9; box-shadow: inset 0 1px 0 rgba(255,255,255,0.85), 0 8px 24px rgba(15, 23, 42, 0.07); }
+      #g3dCanvas { width: 100%; height: 100%; display: block; cursor: grab; }
+      #g3dCanvas:active { cursor: grabbing; }
+
+      .g3d-hud-top { position: absolute; top: 10px; left: 12px; right: 12px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; pointer-events: none; z-index: 4; }
+      .g3d-andon-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 8px; background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(8px); border: 1px solid #cbd5e1; color: #0f172a; font-size: 0.72rem; box-shadow: 0 2px 6px rgba(15,23,42,0.06); }
+      .g3d-andon-lamp { width: 9px; height: 9px; border-radius: 50%; background: #cbd5e1; display: inline-block; }
+      .g3d-andon-lamp.is-green { background: #10b981; box-shadow: 0 0 6px #10b981; }
+      .g3d-andon-lamp.is-amber { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+      .g3d-andon-lamp.is-red { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+      .g3d-cycle-readout { padding: 5px 11px; border-radius: 8px; background: rgba(15, 23, 42, 0.88); color: #f8fafc; font-family: ui-monospace, monospace; font-size: 0.74rem; font-weight: 800; }
+
+      .g3d-hud-bottom { position: absolute; left: 12px; right: 12px; bottom: 10px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; border-radius: 9px; background: rgba(255, 255, 255, 0.94); backdrop-filter: blur(8px); border: 1px solid #cbd5e1; font-size: 0.72rem; color: #334155; font-weight: 600; z-index: 4; }
+      .g3d-hud-cam-btns { display: inline-flex; flex-wrap: wrap; gap: 4px; }
+      .g3d-hud-cam-btns button { height: 24px; padding: 0 8px; border-radius: 5px; border: 1px solid #cbd5e1; background: #f8fafc; color: #0f172a; font: inherit; font-size: 0.7rem; font-weight: 700; cursor: pointer; }
+      .g3d-hud-cam-btns button:hover { background: #e2e8f0; }
+
+      /* Pines flotantes 3D -> 2D sobre las estaciones */
+      .g3d-pins { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 3; }
+      .g3d-pin { position: absolute; left: 0; top: 0; pointer-events: auto; display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.92); color: #0f172a; border: 1px solid #64748b; font-family: inherit; font-size: 0.69rem; font-weight: 700; white-space: nowrap; cursor: pointer; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14); transition: background 0.12s, border-color 0.12s; }
+      .g3d-pin:hover, .g3d-pin.is-selected { background: #0f172a; color: #ffffff; border-color: #0f172a; z-index: 5; }
+      .g3d-pin.is-fault { background: #dc2626; color: #ffffff; border-color: #991b1b; z-index: 6; }
+      .g3d-pin__num { display: inline-grid; place-items: center; padding: 0 4px; height: 16px; border-radius: 4px; background: #0f172a; color: #ffffff; font-family: ui-monospace, monospace; font-size: 0.63rem; font-weight: 900; }
+      .g3d-pin.is-selected .g3d-pin__num { background: #38bdf8; color: #0f172a; }
+
+      /* Diagrama de levas (0°-360°) + Matriz PLC I/O */
+      .g3d-scada-deck { display: grid; grid-template-columns: 1.15fr 1fr; gap: 12px; }
+      @media (max-width: 960px) { .g3d-scada-deck { grid-template-columns: 1fr; } }
+      .g3d-timing-card, .g3d-plc-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; padding: 12px 14px; }
+      .g3d-timing-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+      .g3d-timing-head strong { display: block; font-size: 0.84rem; color: #0f172a; }
+      .g3d-timing-head span { font-size: 0.72rem; color: #64748b; }
+      .g3d-timing-angle, .g3d-plc-scan { padding: 2px 8px; border-radius: 6px; background: #f1f5f9; border: 1px solid #cbd5e1; font-family: ui-monospace, monospace; font-size: 0.7rem; font-weight: 800; color: #0f172a !important; white-space: nowrap; }
+      .g3d-timing-ruler { display: flex; justify-content: space-between; font-family: ui-monospace, monospace; font-size: 0.65rem; color: #64748b; padding: 0 2px 4px; border-bottom: 1px solid #e2e8f0; }
+      .g3d-timing-tracks { position: relative; display: grid; gap: 5px; padding-top: 6px; cursor: pointer; }
+      .g3d-timing-cursor { position: absolute; top: 0; bottom: 0; width: 2px; background: #dc2626; z-index: 3; pointer-events: none; }
+      .g3d-timing-row { display: grid; grid-template-columns: 145px 1fr; align-items: center; gap: 8px; font-size: 0.71rem; }
+      .g3d-timing-lbl { font-weight: 700; color: #334155; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+      .g3d-timing-bar-bg { position: relative; height: 18px; background: #f1f5f9; border-radius: 4px; overflow: hidden; border: 1px solid #e2e8f0; }
+      .g3d-timing-bar-fill { position: absolute; top: 0; bottom: 0; border-radius: 3px; display: flex; align-items: center; padding: 0 5px; color: #ffffff; font-family: ui-monospace, monospace; font-size: 0.62rem; font-weight: 800; white-space: nowrap; }
+
+      .g3d-plc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+      .g3d-plc-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 6px 8px; font-size: 0.72rem; }
+      .g3d-plc-top { display: flex; align-items: center; gap: 5px; margin-bottom: 2px; }
+      .g3d-plc-led { width: 8px; height: 8px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
+      .g3d-plc-led.is-on { background: #10b981; box-shadow: 0 0 5px #10b981; }
+      .g3d-plc-led.is-fault { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+      .g3d-plc-tag { font-family: ui-monospace, monospace; font-weight: 800; color: #0f172a; }
+      .g3d-plc-addr { margin-left: auto; font-size: 0.64rem; background: #e2e8f0; padding: 1px 5px; border-radius: 4px; color: #334155; }
+      .g3d-plc-desc { color: #475569; font-size: 0.68rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .g3d-plc-val { font-family: ui-monospace, monospace; font-weight: 800; color: #1d4ed8; font-size: 0.72rem; margin-top: 2px; }
+
+      /* Inspector técnico lateral + Lámina de Despiece oficial del Manual */
+      .g3d-inspector { position: sticky; top: 14px; display: flex; flex-direction: column; gap: 10px; max-height: 860px; overflow-y: auto; padding-right: 2px; }
+      .g3d-insp-card { background: #ffffff; border: 1px solid #cbd5e1; border-radius: 14px; padding: 14px; box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04); }
+      .g3d-insp-head { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+      .g3d-insp-badge { display: inline-grid; place-items: center; min-width: 42px; height: 32px; padding: 0 8px; border-radius: 8px; background: #0f172a; color: #ffffff; font-family: ui-monospace, monospace; font-size: 0.78rem; font-weight: 900; flex-shrink: 0; }
+      .g3d-insp-head h4 { margin: 0 0 2px; font-size: 0.96rem; font-weight: 800; color: #0f172a; line-height: 1.25; }
+      .g3d-insp-sub { font-size: 0.73rem; color: #64748b; }
+      .g3d-insp-desc { margin: 8px 0 12px; font-size: 0.81rem; color: #334155; line-height: 1.46; }
+      .g3d-insp-section { margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0; }
+      .g3d-insp-section h5 { margin: 0 0 7px; font-size: 0.76rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: #0f172a; }
+
+      /* Galería de láminas de despiece del manual dentro del inspector 3D */
+      .g3d-plates-grid { display: grid; gap: 8px; }
+      .g3d-plate-fig { margin: 0; border: 1px solid #cbd5e1; border-radius: 10px; overflow: hidden; background: #ffffff; cursor: zoom-in; transition: border-color 0.14s, box-shadow 0.14s; }
+      .g3d-plate-fig:hover { border-color: #1d4ed8; box-shadow: 0 4px 12px rgba(29, 78, 216, 0.12); }
+      .g3d-plate-fig__bar { display: flex; align-items: center; justify-content: space-between; gap: 6px; padding: 5px 9px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0; font-size: 0.7rem; font-weight: 800; color: #0f172a; }
+      .g3d-plate-fig__code { font-family: ui-monospace, monospace; background: #0f172a; color: #ffffff; padding: 1px 6px; border-radius: 4px; font-size: 0.65rem; }
+      .g3d-plate-fig img { width: 100%; max-height: 225px; object-fit: contain; display: block; background: #ffffff; }
+      .g3d-plate-fig figcaption { padding: 5px 9px; font-size: 0.72rem; color: #475569; background: #f8fafc; border-top: 1px solid #e2e8f0; font-weight: 600; }
+
+      .g3d-param-list { display: grid; gap: 5px; }
+      .g3d-param-row { display: flex; justify-content: space-between; gap: 8px; padding: 5px 8px; border-radius: 6px; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 0.75rem; }
+      .g3d-param-row span { color: #475569; font-weight: 600; }
+      .g3d-param-row strong { color: #0f172a; font-family: ui-monospace, monospace; text-align: right; }
+
+      .g3d-adj-list { margin: 0; padding-left: 16px; display: grid; gap: 5px; font-size: 0.77rem; color: #334155; line-height: 1.4; }
+      .g3d-spare-mini-list { display: grid; gap: 5px; }
+      .g3d-spare-mini-item { display: flex; align-items: center; gap: 7px; padding: 5px 8px; border-radius: 6px; background: #f8fafc; border: 1px solid #e2e8f0; font-size: 0.74rem; }
+      .g3d-spare-mini-item code { font-family: ui-monospace, monospace; font-weight: 800; color: #1d4ed8; white-space: nowrap; }
+      .g3d-spare-mini-item span { flex: 1; color: #1e293b; font-weight: 600; }
+      .g3d-spare-mini-item b { font-family: ui-monospace, monospace; font-size: 0.68rem; background: #fef3c7; color: #92400e; padding: 1px 6px; border-radius: 4px; }
+
+      .g3d-insp-actions { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; padding-top: 10px; border-top: 1px solid #e2e8f0; }
+      .g3d-insp-actions .button { min-height: 30px; padding: 0 10px; font-size: 0.74rem; }
+
+      .g3d-fault-box { background: #fef2f2; border: 1px solid #fecaca; border-left: 4px solid #dc2626; border-radius: 12px; padding: 12px; }
+      .g3d-fault-box__head { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 800; color: #b91c1c; margin-bottom: 6px; }
+      .g3d-fault-box__head button { border: 1px solid #fca5a5; background: #ffffff; color: #b91c1c; border-radius: 6px; padding: 2px 8px; font-size: 0.7rem; font-weight: 700; cursor: pointer; }
+      .g3d-fault-box h4 { margin: 0 0 4px; font-size: 0.9rem; color: #7f1d1d; }
+      .g3d-fault-sys, .g3d-fault-sym { margin: 3px 0; font-size: 0.76rem; color: #991b1b; }
+      .g3d-fault-steps { margin: 8px 0 0; padding-left: 18px; display: grid; gap: 6px; font-size: 0.75rem; color: #7f1d1d; }
+
+      /* Visor embebido directo de gemelo-ms235.html (1.846 piezas CAD) */
+      .g3d-ms235-wrap { display: flex; flex-direction: column; gap: 10px; }
+      .g3d-ms235-bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 12px; }
+      .g3d-ms235-frame-box { width: 100%; height: 760px; border-radius: 14px; overflow: hidden; border: 1px solid #cbd5e1; background: #f1f5f9; box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08); }
+      .g3d-ms235-frame-box iframe { width: 100%; height: 100%; border: 0; display: block; background: #f1f5f9; }
+
+
+
 
