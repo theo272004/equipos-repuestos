@@ -2,7 +2,8 @@
 //  PESTAÑA "GEMELO 3D" DE LA FICHA
 //  Solo se muestra en las máquinas con un gemelo verificado: que se parece a la
 //  máquina real, sale de su propio manual y no tiene piezas flotando (auditoría
-//  de contactos en 0). Hoy: Schmucker MS235 (scripts/gemelo-ms235, gemelo-ms235.html).
+//  de contactos en 0). Hoy: Schmucker MS235 (scripts/gemelo-ms235, gemelo-ms235.html)
+//  y encapsuladora NJP-3500 (scripts/gemelo-njp3500, gemelo-njp3500.html).
 // ============================================================================
 
 (function () {
@@ -11,7 +12,9 @@
   // Por id o código de equipo; nunca por el nombre.
   const GEMELO_POR_ID = {
     ms235: "ms235",
-    "eq-17334017": "ms235"
+    "eq-17334017": "ms235",
+    njp3500: "njp3500",
+    "eq-17333009": "njp3500"
   };
 
   const GEMELOS = {
@@ -27,6 +30,21 @@
         ["Motor y correa S4A12100110", "pieza=motor&pestana=despiece"],
         ["Armario y cableado", "armario=1&cables=1"],
         ["Desarmar", "paso=16"]
+      ]
+    },
+    njp3500: {
+      pagina: "gemelo-njp3500.html",
+      titulo: "Gemelo 3D NJP-3500",
+      resumen: "364 piezas · 196 tornillos · 0 piezas flotantes · láminas del manual del fabricante",
+      // el visor de la NJP recibe los atajos por mensaje: no recarga la máquina
+      mensajes: true,
+      atajos: [
+        ["Carga de cápsulas", "pieza=carga"],
+        ["Plato y moldes", "pieza=torreta"],
+        ["Llenado", "pieza=dosificacion"],
+        ["Tolva de polvo", "pieza=polvo"],
+        ["Transmisión", "pieza=transmision&dentro=1"],
+        ["Desarmar", "paso=14"]
       ]
     }
   };
@@ -48,6 +66,10 @@
     const iframe = document.getElementById("g3dMs235Iframe");
     const g = GEMELOS[iframe && iframe.dataset.gemelo];
     if (!iframe || !g) return;
+    if (g.mensajes && query !== "lamina" && iframe.contentWindow) {
+      iframe.contentWindow.postMessage({ gemelo: iframe.dataset.gemelo, query }, location.origin);
+      return;
+    }
     iframe.src = query === "lamina" ? g.lamina : `${g.pagina}?modo=3d${query ? "&" + query : ""}`;
   };
 
@@ -66,7 +88,7 @@
             <div class="g3d-tool-group">
               <button type="button" class="g3d-btn g3d-btn--primary" onclick="window.g3dNavMs235Iframe('')">Vista 3D completa</button>
               ${g.atajos.map(([t, q]) => `<button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('${q}')">${esc(t)}</button>`).join("")}
-              <button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('lamina')">Lámina</button>
+              ${g.lamina ? `<button type="button" class="g3d-btn" onclick="window.g3dNavMs235Iframe('lamina')">Lámina</button>` : ""}
               <a class="g3d-btn g3d-btn--accent" href="${g.pagina}?modo=3d" target="_blank" rel="noopener">Pantalla completa</a>
             </div>
           </div>
