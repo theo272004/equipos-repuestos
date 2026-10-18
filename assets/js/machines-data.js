@@ -6879,7 +6879,7 @@ const initialMachines = [
                 ${detailRow("Ubicación", machine.location, "location")}
                 ${detailRow("Estado del equipo", machine.status, "status", { dot: true })}
                 ${detailRow("Criticidad", machine.criticality, "alert", { alert: true })}
-                ${detailRow("Manual", machine.id === "njp3500" ? `<a href="manual%20njp3500.pdf" download="manual njp-350.pdf" class="download-link" style="color: #000000; text-decoration: underline; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">${rowIcon('download')} manual njp-350</a>` : machine.manual, "manual", { alert: true })}
+                ${detailRow("Manual", machine.id === "njp3500" ? `<a href="manuales/njp3500/NJP3500-manual-fabricante.pdf" download="NJP3500-manual-fabricante.pdf" class="download-link" style="color: #000000; text-decoration: underline; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;">${rowIcon('download')} manual njp-350</a>` : machine.manual, "manual", { alert: true })}
                 ${detailRow("Mantenimiento", machine.maintenance, "maintenance")}
               </div>
             </div>

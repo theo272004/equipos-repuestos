@@ -661,22 +661,11 @@ ${buildMachineContext(machine)}`;
         return [];
       }
 
+      // Solo el fabricante que está escrito en la ficha. Antes se adivinaba por el nombre
+      // y un detector de metal "NJP-1200" salía como Canaan o un chiller "Integra" como Marchesini.
       function homeFabricanteDe(m) {
         if (!m) return "Por registrar";
-        let f = (m.technicalData && (m.technicalData.manufacturer || m.technicalData.brand)) || m.manufacturer;
-        if (f) return f;
-        const txt = `${m.name || ""} ${m.model || ""}`.toUpperCase();
-        if (/BOSCH|GKF/.test(txt)) return "Bosch Packaging";
-        if (/FETTE/.test(txt)) return "Fette Compacting";
-        if (/HUTTLIN|HÜTTLIN/.test(txt)) return "Bosch / Hüttlin";
-        if (/NJP|CANAAN/.test(txt)) return "Canaan Kaixinlong";
-        if (/SCHMUCKER|SCHMUKER/.test(txt)) return "Schmucker";
-        if (/MARZIO|MARCHESINI/.test(txt)) return "Marchesini Group";
-        if (/CONTROLSA/.test(txt)) return "Controlsa";
-        if (/INTEGRA/.test(txt)) return "Marchesini / Integra";
-        if (/CB550|RIMEK|R200|R400/.test(txt)) return "Rimek / Carnitech";
-        if (/BLISTER/.test(txt)) return "Blisteadora";
-        return m.fromRegistry ? "Por registrar" : "Industrial";
+        return (m.technicalData && (m.technicalData.manufacturer || m.technicalData.brand)) || m.manufacturer || "Por registrar";
       }
 
       function homeSeleccionar(id) {
@@ -704,8 +693,8 @@ ${buildMachineContext(machine)}`;
         const reps = homeRepuestosDe(m);
         const isCompleta = !m.fromRegistry;
         const desc = m.description || m.notes || (m.technicalData && m.technicalData.function) || "Equipo registrado en el sistema de mantenimiento de planta.";
-        const crit = m.criticality || (isCompleta ? "Alta" : "Estándar");
-        const est = m.status || "Operativo";
+        const crit = m.criticality || "Por registrar";
+        const est = m.status || "Por registrar";
         const ubic = m.location || sede || "Planta";
         const area = m.area || "General";
 
