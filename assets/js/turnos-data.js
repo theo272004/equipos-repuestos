@@ -13,7 +13,7 @@
     sede4: {
       label: "Sede 4",
       groups: [
-        { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "José Luis Vargas Buitrago", "Donicel"] },
+        { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", { n: "José Luis Vargas Buitrago", hasta: "2026-10-18" }, "Donicel"] },
         { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak"] },
         { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
       ]
@@ -21,10 +21,11 @@
     sede2: {
       label: "Sede 2 (Vía 40)",
       groups: [
+        // José Luis Vargas pasa de Sede 4-1 a Vía 40-3 el lunes 19 de octubre de 2026 (mismo turno de día).
         // Sergio rota con Alfonso desde el lunes 21 de septiembre de 2026 (antes, turno fijo en Sede 4).
         { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-09-21" }] },
         { name: "Grupo Vía 40-2", phase: "noche", members: ["Samith Arick Sanjuán Otálora"] },
-        { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia"] }
+        { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia", { n: "José Luis Vargas Buitrago", desde: "2026-10-19" }] }
       ]
     }
   };
