@@ -13,7 +13,7 @@
     sede4: {
       label: "Sede 4",
       groups: [
-        { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "José Luis Vargas Buitrago"] },
+        { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", "José Luis Vargas Buitrago", "Donicel"] },
         { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak"] },
         { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
       ]
@@ -32,7 +32,11 @@
   // En el cuadro se le marca con "2" todos los días en vez de D/N/L.
   const TN_FIJOS = {
     sede4: [
-      { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", hasta: "2026-09-20", nota: "Desde el 21/09/2026 rota en Sede 2 (Grupo Vía 40-1)." }
+      { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", hasta: "2026-09-20", nota: "Desde el 21/09/2026 rota en Sede 2 (Grupo Vía 40-1)." },
+      // Ingresaron el 1 de octubre de 2026 (reemplazos aprobados por RQ), todos de día.
+      { nombre: "Jean Carlos Orellano Ebratt", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", nota: "Técnico mecánico de mantenimiento general." },
+      { nombre: "Quelbys Alberto Sandoval Villarreal", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", nota: "Técnico mecánico de mantenimiento general." },
+      { nombre: "Jesús Ángel Ortiz Zarate", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", nota: "Técnico electricista." }
     ],
     sede2: []
   };
@@ -106,7 +110,7 @@
   }
 
   // Especialidad de cada técnico en planta:
-  // - Electricistas: yesid, heiner, bladimir, brayan, oscar, sergio, leo
+  // - Electricistas: yesid, heiner, bladimir, brayan, oscar, sergio, leo, jesús ángel ortiz
   // - Locativo: nestor
   // - Refrigeración: juan
   // - El resto son mecánicos (leiner, alexander, jhon, jose luis, miguel, etc.)
@@ -114,7 +118,7 @@
     const s = String(nombre || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (/nestor/i.test(s)) return { rol: "Locativo", slug: "loc" };
     if (/juan\s*carlos|estupi[nñ]an|refrigeraci/i.test(s)) return { rol: "Refrigeración", slug: "ref" };
-    if (/yesid|heiner|bladimir|brayan|oscar|sergio|leonardo\s+santos|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
+    if (/yesid|heiner|bladimir|brayan|oscar|sergio|leonardo\s+santos|ortiz\s+zarate|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
     return { rol: "Mecánico", slug: "mec" };
   }
 
