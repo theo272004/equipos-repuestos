@@ -111,7 +111,7 @@
   }
 
   // Especialidad de cada técnico en planta:
-  // - Electricistas: yesid, heiner, bladimir, brayan, oscar, sergio, leo, jesús ángel ortiz
+  // - Electricistas: yesid, heiner, bladimir, brayan, oscar, sergio, leo, jesús ángel ortiz, donicel
   // - Locativo: nestor
   // - Refrigeración: juan
   // - El resto son mecánicos (leiner, alexander, jhon, jose luis, miguel, etc.)
@@ -119,7 +119,7 @@
     const s = String(nombre || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (/nestor/i.test(s)) return { rol: "Locativo", slug: "loc" };
     if (/juan\s*carlos|estupi[nñ]an|refrigeraci/i.test(s)) return { rol: "Refrigeración", slug: "ref" };
-    if (/yesid|heiner|bladimir|brayan|oscar|sergio|leonardo\s+santos|ortiz\s+zarate|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
+    if (/yesid|heiner|bladimir|brayan|oscar|sergio|leonardo\s+santos|ortiz\s+zarate|donicel|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
     return { rol: "Mecánico", slug: "mec" };
   }
 
