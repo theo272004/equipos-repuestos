@@ -13,19 +13,22 @@
     sede4: {
       label: "Sede 4",
       groups: [
-        { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", { n: "José Luis Vargas Buitrago", hasta: "2026-10-18" }, "Donicel"] },
-        { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak"] },
-        { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera"] }
+        { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", { n: "José Luis Vargas Buitrago", hasta: "2026-10-18" }, "Donicel", { n: "José Luis Vargas Buitrago", desde: "2026-11-01" }, { n: "Quelbys Alberto Sandoval Villarreal", desde: "2026-11-04" }] },
+        { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-11-01", hasta: "2026-11-03" }, { n: "Oscar de Jesús Martínez Martínez", desde: "2026-11-04" }, { n: "Jean Carlos Orellano Ebratt", desde: "2026-11-04" }] },
+        { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-11-04" }, { n: "Jesús Ángel Ortiz Zarate", desde: "2026-11-04" }] }
       ]
     },
     sede2: {
       label: "Sede 2 (Vía 40)",
       groups: [
+        // Cuadro de noviembre de 2026: José Luis Vargas vuelve a Sede 4-1 el 1 de
+        // noviembre y Sergio pasa a Sede 4-3 (del 1 al 3 sigue el turno de Sede 4-2,
+        // desde el 4 rota con Sede 4-3). Vía 40 queda con un técnico por grupo.
         // José Luis Vargas pasa de Sede 4-1 a Vía 40-3 el lunes 19 de octubre de 2026 (mismo turno de día).
         // Sergio rota con Alfonso desde el lunes 21 de septiembre de 2026 (antes, turno fijo en Sede 4).
-        { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-09-21" }] },
+        { name: "Grupo Vía 40-1", phase: "descanso", members: ["Alfonso Enrique Orozco Murillo", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-09-21", hasta: "2026-10-31" }] },
         { name: "Grupo Vía 40-2", phase: "noche", members: ["Samith Arick Sanjuán Otálora"] },
-        { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia", { n: "José Luis Vargas Buitrago", desde: "2026-10-19" }] }
+        { name: "Grupo Vía 40-3", phase: "dia", members: ["Oscar Antonio Hernández Sarabia", { n: "José Luis Vargas Buitrago", desde: "2026-10-19", hasta: "2026-10-31" }] }
       ]
     }
   };
@@ -35,9 +38,13 @@
     sede4: [
       { nombre: "Sergio Alexander Vergara Aguirre", grupo: "Grupo Sede 4-2", horario: "8:00 a 20:00", hasta: "2026-09-20", nota: "Desde el 21/09/2026 rota en Sede 2 (Grupo Vía 40-1)." },
       // Ingresaron el 1 de octubre de 2026 (reemplazos aprobados por RQ), todos de día.
-      { nombre: "Jean Carlos Orellano Ebratt", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", nota: "Técnico mecánico de mantenimiento general." },
-      { nombre: "Quelbys Alberto Sandoval Villarreal", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", nota: "Técnico mecánico de mantenimiento general." },
-      { nombre: "Jesús Ángel Ortiz Zarate", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", nota: "Técnico electricista." }
+      // Desde el 4 de noviembre rotan: Quelbys en Sede 4-1, Jean Carlos en Sede 4-2
+      // y Jesús Ángel en Sede 4-3 (Quelbys descansa el 3 de noviembre).
+      { nombre: "Jean Carlos Orellano Ebratt", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", hasta: "2026-11-03", nota: "Técnico mecánico de mantenimiento general." },
+      { nombre: "Quelbys Alberto Sandoval Villarreal", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", hasta: "2026-11-02", nota: "Técnico mecánico de mantenimiento general." },
+      { nombre: "Jesús Ángel Ortiz Zarate", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-10-01", hasta: "2026-11-03", nota: "Técnico electricista." },
+      // Nuevo en el cuadro de noviembre: fijo de día el 2 y 3, desde el 4 rota en Sede 4-2.
+      { nombre: "Oscar de Jesús Martínez Martínez", grupo: "Turno fijo de día", horario: "8:00 a 20:00", desde: "2026-11-02", hasta: "2026-11-03" }
     ],
     sede2: []
   };
@@ -111,7 +118,7 @@
   }
 
   // Especialidad de cada técnico en planta:
-  // - Electricistas: yesid, heiner, bladimir, brayan, oscar, sergio, leo, jesús ángel ortiz, donicel
+  // - Electricistas: yesid, heiner, bladimir, brayan, oscar antonio, sergio, leo, jesús ángel ortiz, donicel
   // - Locativo: nestor
   // - Refrigeración: juan
   // - El resto son mecánicos (leiner, alexander, jhon, jose luis, miguel, etc.)
@@ -119,7 +126,7 @@
     const s = String(nombre || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     if (/nestor/i.test(s)) return { rol: "Locativo", slug: "loc" };
     if (/juan\s*carlos|estupi[nñ]an|refrigeraci/i.test(s)) return { rol: "Refrigeración", slug: "ref" };
-    if (/yesid|heiner|bladimir|brayan|oscar|sergio|leonardo\s+santos|ortiz\s+zarate|donicel|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
+    if (/yesid|heiner|bladimir|brayan|oscar\s+antonio|sergio|leonardo\s+santos|ortiz\s+zarate|donicel|\bleo\b/i.test(s)) return { rol: "Electricista", slug: "elec" };
     return { rol: "Mecánico", slug: "mec" };
   }
 
