@@ -49,10 +49,9 @@ window.REPORTES_TURNO = [
       "BLISTER 5: Se corrige tuerca, desplazamiento de foil, para evitar pestañas en blíster, equipo operativo.",
       "BLÍSTER 8: Se cambia espárrago partido en estación de sellado.",
       "BLISTER 9: Se habilita listón de calentamiento, estación de codificado, equipo operativo.",
-      "ESTUCHADORA EVO: Se corrige tiempo de banda, para doble inserción y toma de blíster en robot, equipo operativo.",
-      "Mezclador nuevo SÓLIDOS"
+      "ESTUCHADORA EVO: Se corrige tiempo de banda, para doble inserción y toma de blíster en robot, equipo operativo."
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 SEDE 4\nNOVEDADES:\nSÓLIDOS: Se deja en área mezclador nuevo.\nNJP2: Equipo atascado por exceso de producto en estación de llenado, se desmonta la misma y se verifican formatos y tiempos mecánicos, se calibra disco de bronce equipo en montaje.\nFETTE 1010: OGA presenta fuga en válvula, se cambia racor, equipo operativo\nBLISTER 5: Se corrige tuerca, desplazamiento de foil, para evitar pestañas en blíster, equipo operativo.\nBLÍSTER 8: Se cambia espárrago partido en estación de sellado.\nBLISTER 9: Se habilita listón de calentamiento, estación de codificado, equipo operativo.\nESTUCHADORA EVO: Se corrige tiempo de banda, para doble inserción y toma de blíster en robot, equipo operativo.\n Mezclador nuevo SÓLIDOS"
+    "texto": "*REPORTE DE TURNO GRUPO 1 SEDE 4*\n*NOVEDADES:*\nSÓLIDOS: Se deja en área mezclador nuevo.\nNJP2: Equipo atascado por exceso de producto en estación de llenado, se desmonta la misma y se verifican formatos y tiempos mecánicos, se calibra disco de bronce equipo en montaje.\nFETTE 1010: OGA presenta fuga en válvula, se cambia racor, equipo operativo\nBLISTER 5: Se corrige tuerca, desplazamiento de foil, para evitar pestañas en blíster, equipo operativo.\nBLÍSTER 8: Se cambia espárrago partido en estación de sellado.\nBLISTER 9: Se habilita listón de calentamiento, estación de codificado, equipo operativo.\nESTUCHADORA EVO: Se corrige tiempo de banda, para doble inserción y toma de blíster en robot, equipo operativo."
   },
   {
     "id": "rt-20260801-1940",
@@ -248,9 +247,9 @@ window.REPORTES_TURNO = [
       "Marzio 1 Se atiende llamado por problemas de paso se cuadra y se deja operativa, después nos vuelve a llamar por resistencia dañada , se cambia y se deja operativa, tenemos un tercer llamado por qué se parte espárrago de la pinza de arrastre se cambia y se cuadra sobre y queda operativa",
       "Evo Se atiende llamado por problemas de empujador se cuadra y también se cuadra estuche  se deja operativa",
       "Integra Se cambia cambia diafragma en los dos  cargadores del equipo se entrega y se deja operativa",
-      "NOTA Njp3 estos plásticos están en mal estado en todos los turnos hay que pegarlos están en la salida de cápsulas"
+      "*NOTA* Njp3 estos plásticos están en mal estado en todos los turnos hay que pegarlos están en la salida de cápsulas"
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T . De día \n\n*•BIN: disponible \n*•BOSCH: disponible \n*•NJP2: vitamina A \n *NJP2: multivitamínico \nNJP3 Omeprazol \n*•PILOT LAB HUTTLIN 40: disponible \n*•FETTE 2020/2: propanolor \n*•MS 235 SCHMUCKER: flextril c + msm \n*•MB 432 MARCHESINI: ferrimed \n*•INTEGRA 320: pramaten \n*•BLISTER #8: Dimoflax \n*•MB 451 EVO: omeprazol \n*•RC 200: disponible \n*RC 400: limpieza \n*•CB550: disponible \n*•HUTTLIN 600: FLEXTRIL C \n*•HUTTLIN 400:  Nifedipino \n*•RIMEK: naproxeno \n*•MARZIO 4: airomed\n*•MARZIO 1: esomed \n*•FETTE 1010: Losartan  \n*•FETTE 2020/1: propranolol \n*•ENVASADORA #2: ziped \n*•ML 642 ENVASADORA #3: ziped  muestra médica \n*•CLIQUIDOS 2: dolorsin fem\n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: disponible\n*BLISTER 2: flectador \n*BLISTER 5: dolorsim fem \n_________\n        NOVEDADES\n\nSe instala lámpara en el área de mezclador nuevo \n\n njp2\nSe da  apoyar en el montaje de la corona.\nDespués otro llamado por ruido extraño se lubrica equipo \nOtro llamado por deficiencia de vacío de limpia filtros de bomba \n\nMa235\n se cambian tornillo de la plancha del lote después un segundo lado operador parte 2 tornillos más ya está plancha hay que llevarla a mecanizado\n\nMarzio 1 \nSe atiende llamado por problemas de paso se cuadra y se deja operativa, después nos vuelve a llamar por resistencia dañada , se cambia y se deja operativa, tenemos un tercer llamado por qué se parte espárrago de la pinza de arrastre se cambia y se cuadra sobre y queda operativa \n\nEvo \nSe atiende llamado por problemas de empujador se cuadra y también se cuadra estuche  se deja operativa \n\nIntegra \nSe cambia cambia diafragma en los dos  cargadores del equipo se entrega y se deja operativa\n\nNOTA\nNjp3 \nestos plásticos están en mal estado en todos los turnos hay que pegarlos están en la salida de cápsulas"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T . De día \n\n*•BIN: disponible \n*•BOSCH: disponible \n*•NJP2: vitamina A \n *NJP2: multivitamínico \nNJP3 Omeprazol \n*•PILOT LAB HUTTLIN 40: disponible \n*•FETTE 2020/2: propanolor \n*•MS 235 SCHMUCKER: flextril c + msm \n*•MB 432 MARCHESINI: ferrimed \n*•INTEGRA 320: pramaten \n*•BLISTER #8: Dimoflax \n*•MB 451 EVO: omeprazol \n*•RC 200: disponible \n*RC 400: limpieza \n*•CB550: disponible \n*•HUTTLIN 600: FLEXTRIL C \n*•HUTTLIN 400:  Nifedipino \n*•RIMEK: naproxeno \n*•MARZIO 4: airomed\n*•MARZIO 1: esomed \n*•FETTE 1010: Losartan  \n*•FETTE 2020/1: propranolol \n*•ENVASADORA #2: ziped \n*•ML 642 ENVASADORA #3: ziped  muestra médica \n*•CLIQUIDOS 2: dolorsin fem\n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: disponible\n*BLISTER 2: flectador \n*BLISTER 5: dolorsim fem \n_________________________\n        *NOVEDADES*\n\nSe instala lámpara en el área de mezclador nuevo \n\n njp2\nSe da  apoyar en el montaje de la corona.\nDespués otro llamado por ruido extraño se lubrica equipo \nOtro llamado por deficiencia de vacío de limpia filtros de bomba \n\nMa235\n se cambian tornillo de la plancha del lote después un segundo lado operador parte 2 tornillos más ya está plancha hay que llevarla a mecanizado\n\nMarzio 1 \nSe atiende llamado por problemas de paso se cuadra y se deja operativa, después nos vuelve a llamar por resistencia dañada , se cambia y se deja operativa, tenemos un tercer llamado por qué se parte espárrago de la pinza de arrastre se cambia y se cuadra sobre y queda operativa \n\nEvo \nSe atiende llamado por problemas de empujador se cuadra y también se cuadra estuche  se deja operativa \n\nIntegra \nSe cambia cambia diafragma en los dos  cargadores del equipo se entrega y se deja operativa\n\n*NOTA*\nNjp3 \nestos plásticos están en mal estado en todos los turnos hay que pegarlos están en la salida de cápsulas"
   },
   {
     "id": "rt-20260802-1952",
@@ -311,7 +310,7 @@ window.REPORTES_TURNO = [
       "Ronchy: desempolvador presenta falla eléctrica, se revisa y se encuentra interruptor principal en mal estado, se conecta directo queda operativa mientras se cambia switch",
       "Marzio 2 : se apoya en cuadre de peso y coloca manguera de aire comprimido en área y se entrega pistola de aire comprimido"
     ],
-    "texto": "Reporte turno 09\n2026/08/02\n\nBlister 3 :  naproflas \nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1: muxol\nEtiqueteadora 1: muxol \nCD-40: stand by\nCl1: limpieza\nRonchy: naproxeno \nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\nNOVEDADES\n\nBlíster 3: presenta filtración se calibra estación de sellado quedamaquina operativa.\n\nRonchy: desempolvador presenta falla eléctrica, se revisa y se encuentra interruptor principal en mal estado, se conecta directo queda operativa mientras se cambia switch\n\nMarzio 2 : se apoya en cuadre de peso y coloca manguera de aire comprimido en área y se entrega pistola de aire comprimido"
+    "texto": "Reporte turno 09\n2026/08/02\n\nBlister 3 :  naproflas \nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1: muxol\nEtiqueteadora 1: muxol \nCD-40: stand by\nCl1: limpieza\nRonchy: naproxeno \nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3: presenta filtración se calibra estación de sellado quedamaquina operativa.\n\nRonchy: desempolvador presenta falla eléctrica, se revisa y se encuentra interruptor principal en mal estado, se conecta directo queda operativa mientras se cambia switch\n\nMarzio 2 : se apoya en cuadre de peso y coloca manguera de aire comprimido en área y se entrega pistola de aire comprimido"
   },
   {
     "id": "rt-20260802-2312",
@@ -457,9 +456,9 @@ window.REPORTES_TURNO = [
       "MB432 se atiende llamado por qué estaba saliendo pliegue se cambia de suministro de agua fría se coloca el que viene de los chiller grandes de las bombas también se cuadra sensibilidad al sensor de llenado del cargador",
       "MEZCLADOR Se trabaja colocando bajantes del mezclador nuevo pendiente aplicar silicona a las mediacañas porque tocó quitarlas",
       "MARZIO #1 se cuadra tiempo del brazo dosificador",
-      "BIN se realiza ajuste de altura del sensor de límite inferior debido a que el equipo estaba muy abajo. Se cuadran sensores que hacen el cierre neumático del seguro del equipo. Bin"
+      "BIN se realiza ajuste de altura del sensor de límite inferior debido a que el equipo estaba muy abajo. Se cuadran sensores que hacen el cierre neumático del seguro del equipo."
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 \nTURNO #1\n\n*•BIN: acetaminofén \n*•BOSCH: disponible \n*•NJP #2: vitamina A\n*•NJP #1: multivitaminico\n*•NJP #3: disponible \n*•PILOT LAB HUTTLIN 40: esomeprazol \n*•MS 235 SCHMUCKER: flextril c\n*•BLISTER #9: disponible \n*•MB 432 MARCHESINI: ferrimed plus\n*•INTEGRA 320: pragmaten\n*•BLISTER #8: dimoflax\n*•MB 451 EVO: omeprazol \n*•RC 200: disponible \n*RC 400: dimoflax\n*•CB550: disponible \n*•HUTTLIN 600: limpieza \n*•HUTTLIN 400: nifedipino\n*•RIMEK: naproxeno \n*•MARZIO 4: airomed\n*•MARZIO 1: esomed\n*•FETTE 1010: Losartan potasico\n*•FETTE 2020/1: mtto\n*•FETTE 2020/2: propranolol \n*•ENVASADORA #2: ziped\n*•ML 642 ENVASADORA #3: ziped\n*•CLIQUIDOS 2: disponible \n*•CLIQUIDOS 3: Disponible \n*•CLIQUIDOS 4: disponible \n*•MT1100 MARCHESINI: disponible \n*•BLISTER 2: flectadol\n*•BLISTER 5: disponible \n___________________\n        NOVEDADES\nHUTTLIN 600\nSe atiende llamado por alarma de presión de micro clima de equipo. Falso contacto en señal de módulo. Kf27\n\nPLANTA DE AGUA SOLIDO\nSe ajusta BOP y se cierra puerta de tablero eléctrico.\nSe desacopla impulsor de bomba de presión. Se corrige y se hace seguimiento. S/N\n\nENVASADO #2\nse recibe llamado  por maltrato en entrega de frascos  Se encuentra tiempo perdido de disco.\nSe ajusta altura de grafadora por perdida de presinto.\n\nNJP #2 \nSe realiza cambio de paletas de grafito a bomba de vacío.\n\nBLÍSTER #8 \nse realiza cambio de espárrago partido a estación de formado y se ayuda a operador a tomar el paso del equipo.\n\nBLÍSTER #2 \nse atiende llamado porque el brazo desembobinador no tensionaba el laminado, se encuentra brazo del rodillo tensor si un pin pasador, se monta pin pasador y queda el equipo operativo.\n\nMB432 \nse atiende llamado por qué estaba saliendo pliegue se cambia de suministro de agua fría se coloca el que viene de los chiller grandes de las bombas también se cuadra sensibilidad al sensor de llenado del cargador \n\nMEZCLADOR \nSe trabaja colocando bajantes del mezclador nuevo pendiente aplicar silicona a las mediacañas porque tocó quitarlas \n\nMARZIO #1 \nse cuadra tiempo del brazo dosificador\n\nBIN\nse realiza ajuste de altura del sensor de límite inferior debido a que el equipo estaba muy abajo.\nSe cuadran sensores que hacen el cierre neumático del seguro del equipo.\nBin"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 \nTURNO #1\n\n*•BIN: acetaminofén \n*•BOSCH: disponible \n*•NJP #2: vitamina A\n*•NJP #1: multivitaminico\n*•NJP #3: disponible \n*•PILOT LAB HUTTLIN 40: esomeprazol \n*•MS 235 SCHMUCKER: flextril c\n*•BLISTER #9: disponible \n*•MB 432 MARCHESINI: ferrimed plus\n*•INTEGRA 320: pragmaten\n*•BLISTER #8: dimoflax\n*•MB 451 EVO: omeprazol \n*•RC 200: disponible \n*RC 400: dimoflax\n*•CB550: disponible \n*•HUTTLIN 600: limpieza \n*•HUTTLIN 400: nifedipino\n*•RIMEK: naproxeno \n*•MARZIO 4: airomed\n*•MARZIO 1: esomed\n*•FETTE 1010: Losartan potasico\n*•FETTE 2020/1: mtto\n*•FETTE 2020/2: propranolol \n*•ENVASADORA #2: ziped\n*•ML 642 ENVASADORA #3: ziped\n*•CLIQUIDOS 2: disponible \n*•CLIQUIDOS 3: Disponible \n*•CLIQUIDOS 4: disponible \n*•MT1100 MARCHESINI: disponible \n*•BLISTER 2: flectadol\n*•BLISTER 5: disponible \n_________________________________________________________\n        *NOVEDADES*\nHUTTLIN 600\nSe atiende llamado por alarma de presión de micro clima de equipo. Falso contacto en señal de módulo. Kf27\n\nPLANTA DE AGUA SOLIDO\nSe ajusta BOP y se cierra puerta de tablero eléctrico.\nSe desacopla impulsor de bomba de presión. Se corrige y se hace seguimiento. S/N\n\nENVASADO #2\nse recibe llamado  por maltrato en entrega de frascos  Se encuentra tiempo perdido de disco.\nSe ajusta altura de grafadora por perdida de presinto.\n\nNJP #2 \nSe realiza cambio de paletas de grafito a bomba de vacío.\n\nBLÍSTER #8 \nse realiza cambio de espárrago partido a estación de formado y se ayuda a operador a tomar el paso del equipo.\n\nBLÍSTER #2 \nse atiende llamado porque el brazo desembobinador no tensionaba el laminado, se encuentra brazo del rodillo tensor si un pin pasador, se monta pin pasador y queda el equipo operativo.\n\nMB432 \nse atiende llamado por qué estaba saliendo pliegue se cambia de suministro de agua fría se coloca el que viene de los chiller grandes de las bombas también se cuadra sensibilidad al sensor de llenado del cargador \n\nMEZCLADOR \nSe trabaja colocando bajantes del mezclador nuevo pendiente aplicar silicona a las mediacañas porque tocó quitarlas \n\nMARZIO #1 \nse cuadra tiempo del brazo dosificador\n\nBIN\nse realiza ajuste de altura del sensor de límite inferior debido a que el equipo estaba muy abajo.\nSe cuadran sensores que hacen el cierre neumático del seguro del equipo."
   },
   {
     "id": "rt-20260803-0745",
@@ -615,7 +614,7 @@ window.REPORTES_TURNO = [
       "INTEGRA 320: Equipo montando Pragmaten, cargadores HSS (capsulas), acrílicos partidos y falta un sensor.",
       "NJP 3: Llamado por roce en el magazines, se alinea bloque orientador, equipo operativo"
     ],
-    "texto": "[REPORTE DE TURNO SEDE 4 ]         \n*2026/08/03\n******\n[ÁREA DE SÓLIDOS]\n>Bin: Acetaminofén \n>Bosch: Disponible \n>NJP2: Vitamina A\n>NJP1: Ferrimed culmina\n>NJP3: Omeprazol \n>MB 432: Ferrimed \n>Blíster #8: Dimoflax \n>Integra 320: Pragmaten \n>Blíster #9: Disponible \n>MB 451: Omeprazol \n>Schmucker: Flextril C\n>Marzio#4: Airomed \n>Marzio#1:Esomed \n>R400:Dimoflax \n>R200: Disponible \n>CB 550: Disponible \n>Fette 1010: Losartan \n>fette 2020#1: Disponible \n>Fette 2020#2: Acetaminofén \n>Rimex: Naproxeno \n>Pilot lab: Limpieza \n>Huttlin 400:Nifedipino \n>Huttlin 600: Esomeprazol           \n[ÁREA DE LÍQUIDOS:]\n>CL #2: Limpieza \n>CL #3: Disponible \n>CL #4: Disponible \n>Blíster #2: Flectadol culmina.\n>Envasadora #2:Ziped\n>Envasadora#3:Ziped \n>Marchesine MT1100: Disponible \n>Blíster #5:Dolorsin Fem.\nNOVEDADES:\nBLISTER#5: Montaje y cuadre de dolor sin fen , se colocar racor  al vibrador de la tolva, se apoya en montaje y ajustes del alimentador por rose con la guia principal.\nR400: Dimoflax llamado porque el equipo dejo de pulverizar , se revisa de encuentra que habían movido un parámetro, se corrige se entrega a producción.\nBLISTER#8: Dimoflax llamado porque el PVC se estaba moviendo se ajusta guía de rodillos se  calibra estación de formación y se corrige temperatura de formado.\nMARZIO#4: Airomed  llamado porque el sobre tenía mucho grafilado superior se ajustan guías se hacen pruebas ok.\nRIMECK: Naproxeno equipo está quedando frenado en  unas estaciones se evidencia punzones duros muy llenos de polvo , se va proceder a desmontar y realizar limpieza y lubricación.\nNJP#2: Vitamina A llamado porque dejo de destapar las cápsulas se revisa se encuentra que la bomba de vacío no  arrancaba.\nSe realiza revisión se encuentra paletas de grafito partidas  se realiza desarme, limpieza y cambio Se rectifican roscas M6 se cambian tornillos, llamado nuevamente por fuerte ruido en estación de polvo, se desmonta se revisa, prueba en vacío y no presenta ruido, inicia con producto y presenta nuevamente, están desmontando para revisar a fondo, se entrega a turno entrante para que revisen las columnas elevadoras.\nENVASE 2: Equipo presenta falla durante el turno con frascos maltratados, se cambian bases de sufrideras, se realiza mantenimiento a cabezal y persiste falla aleatoria.\nINTEGRA 320: Equipo montando Pragmaten, cargadores HSS (capsulas), acrílicos partidos y falta un sensor.\nNJP 3: Llamado por roce en el magazines, se alinea bloque orientador, equipo operativo"
+    "texto": "[REPORTE DE TURNO SEDE 4 ]         \n*2026/08/03\n******************\n[ÁREA DE SÓLIDOS]\n>Bin: Acetaminofén \n>Bosch: Disponible \n>NJP2: Vitamina A\n>NJP1: Ferrimed culmina\n>NJP3: Omeprazol \n>MB 432: Ferrimed \n>Blíster #8: Dimoflax \n>Integra 320: Pragmaten \n>Blíster #9: Disponible \n>MB 451: Omeprazol \n>Schmucker: Flextril C\n>Marzio#4: Airomed \n>Marzio#1:Esomed \n>R400:Dimoflax \n>R200: Disponible \n>CB 550: Disponible \n>Fette 1010: Losartan \n>fette 2020#1: Disponible \n>Fette 2020#2: Acetaminofén \n>Rimex: Naproxeno \n>Pilot lab: Limpieza \n>Huttlin 400:Nifedipino \n>Huttlin 600: Esomeprazol           \n[ÁREA DE LÍQUIDOS:]\n>CL #2: Limpieza \n>CL #3: Disponible \n>CL #4: Disponible \n>Blíster #2: Flectadol culmina.\n>Envasadora #2:Ziped\n>Envasadora#3:Ziped \n>Marchesine MT1100: Disponible \n>Blíster #5:Dolorsin Fem.\nNOVEDADES:\nBLISTER#5: Montaje y cuadre de dolor sin fen , se colocar racor  al vibrador de la tolva, se apoya en montaje y ajustes del alimentador por rose con la guia principal.\nR400: Dimoflax llamado porque el equipo dejo de pulverizar , se revisa de encuentra que habían movido un parámetro, se corrige se entrega a producción.\nBLISTER#8: Dimoflax llamado porque el PVC se estaba moviendo se ajusta guía de rodillos se  calibra estación de formación y se corrige temperatura de formado.\nMARZIO#4: Airomed  llamado porque el sobre tenía mucho grafilado superior se ajustan guías se hacen pruebas ok.\nRIMECK: Naproxeno equipo está quedando frenado en  unas estaciones se evidencia punzones duros muy llenos de polvo , se va proceder a desmontar y realizar limpieza y lubricación.\nNJP#2: Vitamina A llamado porque dejo de destapar las cápsulas se revisa se encuentra que la bomba de vacío no  arrancaba.\nSe realiza revisión se encuentra paletas de grafito partidas  se realiza desarme, limpieza y cambio Se rectifican roscas M6 se cambian tornillos, llamado nuevamente por fuerte ruido en estación de polvo, se desmonta se revisa, prueba en vacío y no presenta ruido, inicia con producto y presenta nuevamente, están desmontando para revisar a fondo, se entrega a turno entrante para que revisen las columnas elevadoras.\nENVASE 2: Equipo presenta falla durante el turno con frascos maltratados, se cambian bases de sufrideras, se realiza mantenimiento a cabezal y persiste falla aleatoria.\nINTEGRA 320: Equipo montando Pragmaten, cargadores HSS (capsulas), acrílicos partidos y falta un sensor.\nNJP 3: Llamado por roce en el magazines, se alinea bloque orientador, equipo operativo"
   },
   {
     "id": "rt-20260803-0906",
@@ -674,7 +673,7 @@ window.REPORTES_TURNO = [
       "Calentador se configura controlador , se necesita un bloque de resistencia, para darle más temperatura, está deficiente .",
       "Se necesitan: 2 pulsadores Star 1 pulsador stop 1 micro suiche Para tablero eléctrico del micronizador."
     ],
-    "texto": "Reporte turno sede 2 \n2026/08/03\n\nBlister 3 :  tiamina\nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1: montaje pepred\nEtiqueteadora 1 montaje preped\nCD-40: stand by\nCl1: limpieza\nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\nNOVEDADES\n\nBlíster 3:  se recibe llamado porque el resorte de la estación de corte estaba en mal estado , se busca uno en sede 4 y se instala , dejando el equipo en funcionamiento.\n\nCd- 40 \nSe limpia bomba de vacío y trampa .\n\nTamizadora de fitoterapeutico se recibe llamado porque se disparaba el guardamotor , se encontró motor en 2 fases , queda ok.\n\nCalentador se configura controlador , se necesita un bloque de resistencia, para darle más temperatura, está deficiente .\n\nSe necesitan:\n2 pulsadores Star \n1 pulsador stop \n1 micro suiche \nPara tablero eléctrico del micronizador."
+    "texto": "Reporte turno sede 2 \n2026/08/03\n\nBlister 3 :  tiamina\nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1: montaje pepred\nEtiqueteadora 1 montaje preped\nCD-40: stand by\nCl1: limpieza\nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3:  se recibe llamado porque el resorte de la estación de corte estaba en mal estado , se busca uno en sede 4 y se instala , dejando el equipo en funcionamiento.\n\nCd- 40 \nSe limpia bomba de vacío y trampa .\n\nTamizadora de fitoterapeutico se recibe llamado porque se disparaba el guardamotor , se encontró motor en 2 fases , queda ok.\n\nCalentador se configura controlador , se necesita un bloque de resistencia, para darle más temperatura, está deficiente .\n\nSe necesitan:\n2 pulsadores Star \n1 pulsador stop \n1 micro suiche \nPara tablero eléctrico del micronizador."
   },
   {
     "id": "rt-20260803-2004",
@@ -740,7 +739,7 @@ window.REPORTES_TURNO = [
       "*Se aprietan bisagra de la puerta de personal  del horno",
       "*agitador portátil, se realizó mantenimiento al mandril, se encontraba pegado tenía producto ok"
     ],
-    "texto": "Reporte turno 09\n2026/08/03\n\nBlister 3 :  tiamina\nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1: montaje pepred\nEtiqueteadora 1: montaje pepred \nCD-40: flectadol\nCl1: stand by\nRonchy: vildagliptina \nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\nNOVEDADES\n\nBlíster 3: llamado por bloqueo de pantalla, se resetea computadora en dos ocaciones, luego llamado porque sale mal formacion se ajusta temperatura a tunel de calefaccion, de pues llamado porque corta mal el blister, luego sale pesraña, se ajustan parametros de maquina avances queda maquina operativa, hacer seguimiento. \n\nFabricacion de soluciones Cl: se coloca valvula con manómetro y regulador a tanque de nitrógeno para fabricación de un densimet.\n\nAcsensor : se cambia contactor en mal estado queda operativo.\n\n*CD 40, se atiende llamado por problema con la dosificación, se le bajan los inyectores, no hay mejora , se le sube el nivel de la  mezcla en el plato giratoria y no sube la dosis, por recomendación del operador pasar la mezcla por el mezclador en V para homoginizar la mezcla \n\n*Blíster 3, se cambia reflector y se limpia sensor de palpador táctil \n\n*Se repara cucharón de la ronchi \n\n*Se aprietan bisagra de la puerta de personal  del horno\n\n*agitador portátil, se realizó mantenimiento al mandril, se encontraba pegado tenía producto ok"
+    "texto": "Reporte turno 09\n2026/08/03\n\nBlister 3 :  tiamina\nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1: montaje pepred\nEtiqueteadora 1: montaje pepred \nCD-40: flectadol\nCl1: stand by\nRonchy: vildagliptina \nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3: llamado por bloqueo de pantalla, se resetea computadora en dos ocaciones, luego llamado porque sale mal formacion se ajusta temperatura a tunel de calefaccion, de pues llamado porque corta mal el blister, luego sale pesraña, se ajustan parametros de maquina avances queda maquina operativa, hacer seguimiento. \n\nFabricacion de soluciones Cl: se coloca valvula con manómetro y regulador a tanque de nitrógeno para fabricación de un densimet.\n\nAcsensor : se cambia contactor en mal estado queda operativo.\n\n*CD 40, se atiende llamado por problema con la dosificación, se le bajan los inyectores, no hay mejora , se le sube el nivel de la  mezcla en el plato giratoria y no sube la dosis, por recomendación del operador pasar la mezcla por el mezclador en V para homoginizar la mezcla \n\n*Blíster 3, se cambia reflector y se limpia sensor de palpador táctil \n\n*Se repara cucharón de la ronchi \n\n*Se aprietan bisagra de la puerta de personal  del horno\n\n*agitador portátil, se realizó mantenimiento al mandril, se encontraba pegado tenía producto ok"
   },
   {
     "id": "rt-20260803-2113",
@@ -986,7 +985,7 @@ window.REPORTES_TURNO = [
       "CL #2: Llamado por problemas en el vibrador de la tolva de la selladora se revisa sistema se realiza ajustes se hacen pruebas se entrega a producción.",
       "BLISTER 8: Se calibra túnel de calefacción, equipo operativo."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE\n EQUIPOS OPERATIVO\nCL2: DOLORSIN FEM\nCL4: DISPONIBLE \nMT 1100: SUPERFLUIX,montaje\nBLÍSTER 2: DISPONIBLE \nBLISTER 5: DOLORSIN FEM \nENVASADO 3: DENSIMET \nCL3: DISPONIBLE \nENVASADORA 2:  ZIPED \nBIN BLENDER: FEXOFENADINA\nBOSCH: DISPONIBLE \nNJP1: VITAMINA A\nNJP2: DISPONIBLE \nNJP3: ESOMEPRAZOL\nPILOT LAB: FUMARATO\nFETTE 2020#1: DISPONIBLE \nMB 432: CONGESTEX\nBLISTER 9: NEUROMED\nBLISTER 8: DILOX\nSCHMUCKER: FLEXTRIL C\nINTEGRA 320: PRAGMATEN \nR200: NAPROXENO \nMB 451 evo: NIFEDIPINO \nMARZIO 1: ESOMED\nHUTTLIN 600: ESOMEPRAZOL \nR400: LIMPIEZA \nBOMBO 300: DISPONIBLE\nMARZIO 4: DISPONIBLE \nHUTTLIN 400: NIFEDIPINO \nRIMECK: LIMPIEZA \nCB 550: GELIMED\nFETTE 1010 : LOSARTAN\nFETTE 2020#1: ACETAMINOFÉN \nFETTE 2020# 2: DISPONIBLE \n        NOVEDADES:\nBLISTER 9: Se presta apoyo en cuadre de equipo (NEUROMED),paso, formación, corte, se cambia termocupla equipo operativo.\nNJP 3: Llamado por operador comenzando turno, encuentra equipo con ruido y colector de polvo deformado, se revisa torreta modular, estación de llenado y magazines, este último presenta resequedad, se realiza Limpieza y lubricación, se arma Nuevamente, equipo OK.\nINTEGRA 320: Se habilita sensor de cargadores HSS con su conector y se corrige leva paleta de seguridad, equipo operativo.\nHUTTLIN 600: llamado por problemas en el micro clima no alcanzaba la presión, se revisa sistema se ajusta presión de aire de entrada se hacen pruebas ok.\nCL #2: Llamado por problemas en el vibrador de la tolva de la selladora se revisa sistema se realiza ajustes se hacen pruebas se entrega a producción.\nBLISTER 8: Se calibra túnel de calefacción, equipo operativo."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE*\n *EQUIPOS OPERATIVO*\n*CL2:* DOLORSIN FEM\n*CL4:* DISPONIBLE \n*MT 1100:* SUPERFLUIX,montaje\n*BLÍSTER 2:* DISPONIBLE \n*BLISTER 5:* DOLORSIN FEM \n*ENVASADO 3:* DENSIMET \n*CL3:* DISPONIBLE \n*ENVASADORA 2:*  ZIPED \n*BIN BLENDER:* FEXOFENADINA\n*BOSCH:* DISPONIBLE \n*NJP1:* VITAMINA A\n*NJP2:* DISPONIBLE \n*NJP3:* ESOMEPRAZOL\n*PILOT LAB:* FUMARATO\n*FETTE 2020#1:* DISPONIBLE \n*MB 432:* CONGESTEX\n*BLISTER 9:* NEUROMED\n*BLISTER 8:* DILOX\n*SCHMUCKER:* FLEXTRIL C\n*INTEGRA 320:* PRAGMATEN \n*R200:* NAPROXENO \n*MB 451 evo:* NIFEDIPINO \n*MARZIO 1:* ESOMED\n*HUTTLIN 600:* ESOMEPRAZOL \n*R400:* LIMPIEZA \n*BOMBO 300:* DISPONIBLE\n*MARZIO 4:* DISPONIBLE \n*HUTTLIN 400:* NIFEDIPINO \n*RIMECK:* LIMPIEZA \n*CB 550:* GELIMED\n*FETTE 1010 :* LOSARTAN\n*FETTE 2020#1:* ACETAMINOFÉN \n*FETTE 2020# 2:* DISPONIBLE \n        *NOVEDADES:*\nBLISTER 9: Se presta apoyo en cuadre de equipo (NEUROMED),paso, formación, corte, se cambia termocupla equipo operativo.\nNJP 3: Llamado por operador comenzando turno, encuentra equipo con ruido y colector de polvo deformado, se revisa torreta modular, estación de llenado y magazines, este último presenta resequedad, se realiza Limpieza y lubricación, se arma Nuevamente, equipo OK.\nINTEGRA 320: Se habilita sensor de cargadores HSS con su conector y se corrige leva paleta de seguridad, equipo operativo.\nHUTTLIN 600: llamado por problemas en el micro clima no alcanzaba la presión, se revisa sistema se ajusta presión de aire de entrada se hacen pruebas ok.\nCL #2: Llamado por problemas en el vibrador de la tolva de la selladora se revisa sistema se realiza ajustes se hacen pruebas se entrega a producción.\nBLISTER 8: Se calibra túnel de calefacción, equipo operativo."
   },
   {
     "id": "rt-20260804-0921",
@@ -1047,7 +1046,7 @@ window.REPORTES_TURNO = [
       "Desempolvador ronchi",
       "Se cambia interruptor de encendido."
     ],
-    "texto": "Reporte turno\nSede 2 \n\nBlister 3 :  tiamina\nGb-100: montaje dispax\nFabricación1: pepred\nEnvasadora 1:  pepred\nEtiqueteadora 1 pepred \nCl1: stand by\nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\nNOVEDADES\n\nBlíster 3: \n20:30\nLlamado porque el lote salía torcido , se ajusta posición de formatos en estación de sellado , queda ok .\nSe corrige golpe en un arveolo , se deja avance en 61.5\nCalidad manifiesta q unos números salían pelados , se le corrige queda ok,\nSe realiza prueba de filtración sale bien y calidad da orden del arranque .\n\nA las empacadoras no les gusto el lote y el supervisor mando a detener el equipo,.\n\nSe desmontaron todos los formatos en sellado , se ajustaron números de lote, sufrideras , se calibra estación y equipo queda en funcionamiento a las \n23:30.\n\n02:00\nSe sale cadena del alimentador, se ajusta y el equipo sigue en funcionamiento.\n\n05:30\nSe recibe llamado por filtración en el blíster, se ajusta temperatura de sellado y se calibra nuevamente la estación, quedando en funcionamiento.\n\nDesempolvador ronchi\nSe cambia interruptor de encendido."
+    "texto": "Reporte turno\nSede 2 \n\nBlister 3 :  tiamina\nGb-100: montaje dispax\nFabricación1: pepred\nEnvasadora 1:  pepred\nEtiqueteadora 1 pepred \nCl1: stand by\nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3: \n20:30\nLlamado porque el lote salía torcido , se ajusta posición de formatos en estación de sellado , queda ok .\nSe corrige golpe en un arveolo , se deja avance en 61.5\nCalidad manifiesta q unos números salían pelados , se le corrige queda ok,\nSe realiza prueba de filtración sale bien y calidad da orden del arranque .\n\nA las empacadoras no les gusto el lote y el supervisor mando a detener el equipo,.\n\nSe desmontaron todos los formatos en sellado , se ajustaron números de lote, sufrideras , se calibra estación y equipo queda en funcionamiento a las \n23:30.\n\n02:00\nSe sale cadena del alimentador, se ajusta y el equipo sigue en funcionamiento.\n\n05:30\nSe recibe llamado por filtración en el blíster, se ajusta temperatura de sellado y se calibra nuevamente la estación, quedando en funcionamiento.\n\nDesempolvador ronchi\nSe cambia interruptor de encendido."
   },
   {
     "id": "rt-20260804-2136",
@@ -1077,9 +1076,9 @@ window.REPORTES_TURNO = [
       "*Marzzio se destapa sistema de succión, se ajusta morzada vertical y se reporta tornillo sin fin que permite posicionamiento de morzada vertical se encuentra partido.",
       "*Se realizan revisiones , remplazo de filtrasión  y retoques  de limpieza a las UMAS -Sólidos 08 A -Lquidos #2 -Inspección Centro Líquídos. -Dispensación, para Validación de HVAC.",
       "*Se atiende llamado en área blisteado y se baja aún más parámetros de la humedad, quedando ok.",
-      "*Se recomienda programar y reubicar la Aspiradora del area Marzio que se encuentra instalada en piso técnico principal, esto debido a cuando se realizan limpiezas de la misma o cuando se obstruyen las mangueras de producto se  satura el ambiente y contamina el área dondde están ubicadas las Manejadoras de aire a su alrededor. *micronizador #1, se desarma , se tapa el hueco en la mesa  con hueso duro, se le quita óxido, se pinta con contra óxido luego se le aplica pintura gris de alta temperatura, se realiza mantenimiento a las ruedas, queda pendiente realizarle mantenimiento al tablero eléctrico y al rotor de las cuchillas. Aspiradora para marzio."
+      "*Se recomienda programar y reubicar la Aspiradora del area Marzio que se encuentra instalada en piso técnico principal, esto debido a cuando se realizan limpiezas de la misma o cuando se obstruyen las mangueras de producto se  satura el ambiente y contamina el área dondde están ubicadas las Manejadoras de aire a su alrededor. *micronizador #1, se desarma , se tapa el hueco en la mesa  con hueso duro, se le quita óxido, se pinta con contra óxido luego se le aplica pintura gris de alta temperatura, se realiza mantenimiento a las ruedas, queda pendiente realizarle mantenimiento al tablero eléctrico y al rotor de las cuchillas."
     ],
-    "texto": "Reporte\nSede 2\n\nBlister 3 tiamina\nGb100 deslodex \nMarzzio congestex \n\nNovedades \n\n*Blister 3 se atiende llamado por problemas de filtración se calibra estacion de sellado , luego presenta problema con bloqueo de pantalla se procede a resetear pantalla se borras parámetros y se colocan nuevamente,  al realizar prueba presenta malformación se calibrar estacion de formado, se ajustan paso, se ajusta corte y queda ok\n\n*Gb100 se fabrica sufridera de metal.\n\n*Marzzio se destapa sistema de succión, se ajusta morzada vertical y se reporta tornillo sin fin que permite posicionamiento de morzada vertical se encuentra partido.\n\n*Se realizan revisiones , remplazo de filtrasión  y retoques  de limpieza a las UMAS \n-Sólidos 08 A\n-Lquidos #2\n-Inspección Centro Líquídos.\n-Dispensación, para Validación de HVAC.\n\n*Se atiende llamado en área blisteado y se baja aún más parámetros de la humedad, quedando ok.\n\n*Se recomienda programar y reubicar la Aspiradora del area Marzio que se encuentra instalada en piso técnico principal, esto debido a cuando se realizan limpiezas de la misma o cuando se obstruyen las mangueras de producto se  satura el ambiente y contamina el área dondde están ubicadas las Manejadoras de aire a su alrededor.\n*micronizador #1, se desarma , se tapa el hueco en la mesa  con hueso duro, se le quita óxido, se pinta con contra óxido luego se le aplica pintura gris de alta temperatura, se realiza mantenimiento a las ruedas, queda pendiente realizarle mantenimiento al tablero eléctrico y al rotor de las cuchillas.\nAspiradora para marzio."
+    "texto": "Reporte\nSede 2\n\nBlister 3 tiamina\nGb100 deslodex \nMarzzio congestex \n\nNovedades \n\n*Blister 3 se atiende llamado por problemas de filtración se calibra estacion de sellado , luego presenta problema con bloqueo de pantalla se procede a resetear pantalla se borras parámetros y se colocan nuevamente,  al realizar prueba presenta malformación se calibrar estacion de formado, se ajustan paso, se ajusta corte y queda ok\n\n*Gb100 se fabrica sufridera de metal.\n\n*Marzzio se destapa sistema de succión, se ajusta morzada vertical y se reporta tornillo sin fin que permite posicionamiento de morzada vertical se encuentra partido.\n\n*Se realizan revisiones , remplazo de filtrasión  y retoques  de limpieza a las UMAS \n-Sólidos 08 A\n-Lquidos #2\n-Inspección Centro Líquídos.\n-Dispensación, para Validación de HVAC.\n\n*Se atiende llamado en área blisteado y se baja aún más parámetros de la humedad, quedando ok.\n\n*Se recomienda programar y reubicar la Aspiradora del area Marzio que se encuentra instalada en piso técnico principal, esto debido a cuando se realizan limpiezas de la misma o cuando se obstruyen las mangueras de producto se  satura el ambiente y contamina el área dondde están ubicadas las Manejadoras de aire a su alrededor.\n*micronizador #1, se desarma , se tapa el hueco en la mesa  con hueso duro, se le quita óxido, se pinta con contra óxido luego se le aplica pintura gris de alta temperatura, se realiza mantenimiento a las ruedas, queda pendiente realizarle mantenimiento al tablero eléctrico y al rotor de las cuchillas."
   },
   {
     "id": "rt-20260804-2210",
@@ -1091,7 +1090,7 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-04",
     "equipos": [],
     "novedades": [
-      "DE TURNO DE DIA",
+      "DE TURNO DE DIA*",
       "Mb432 se atiende llamado porque se bloqueaba la chapaleta de descartes quedaba pegado se lubrica y se hace prueba queda ok",
       "Marzio 1 se atiende llamado porque no estaba grafillando la mordaza inferior se escontro el sistema desalineado y caído se baja se evidencia un brazo con ruptura a causa de un tornillo se hacen ajustes nuevos ajuste de mordaza y se entrega equipo",
       "Planta de agua de líquidos",
@@ -1102,7 +1101,7 @@ window.REPORTES_TURNO = [
       "Marzio 4 Se atiende llamado por problemas de cuchillas y tornillería suelta de pinza de arrastre se arma , se cuadra y se cambian cuchillas queda  operativa",
       "Mt1100 Sensor de bandeja de purgue no sensa, debido a que no habían más sensores pnp NC se coloca sensor pnp NO con rele para realizar cambio en sus contactos. Máquina queda operativa, sin embargo se deja sensor por fuera de la máquina ya que requiere ser normalida por el sensor pnp NC que se dañó"
     ],
-    "texto": "NOVEDADES DE TURNO DE DIA\n\nMb432 se atiende llamado porque se bloqueaba la chapaleta de descartes quedaba pegado se lubrica y se hace prueba queda ok\n\nMarzio 1\nse atiende llamado porque no estaba grafillando la mordaza inferior se escontro el sistema desalineado y caído se baja se evidencia un brazo con ruptura a causa de un tornillo se hacen ajustes nuevos ajuste de mordaza y se entrega equipo \n\nPlanta de agua de líquidos \n\nse atiende llamado porque no estaba funcionando el ozono se verifica mangueras y se encontró una partida se reemplaza se ajustaron todas las juntas se prueba equipo se hicieron más ajustes hasta que normalizo\n\nNJP1 \nSe realiza intervención en njp1 se desmonta torreta se cambian resortes partidos, se realiza limpieza y lubricación de sistema de trasmisión y levas.\n\nElevador Bosch:\n se restablece alarma por mal uso del equipo. Se está cargando el tanque fuera de la base lo que ocasiona que se incline hacia delante en el momento de la elevación causando que se alarme al perderse la posición óptima al inicio de la elevación.\n\nBlíster 9 \nSe atiende llamado por arandelas partida , que causaron daño en los formatos de sellado por caída en la formateria , se cambian arandela , se montan formateria y queda operativa \n\nMarzio 4 \nSe atiende llamado por problemas de cuchillas y tornillería suelta de pinza de arrastre se arma , se cuadra y se cambian cuchillas queda  operativa\n\nMt1100\nSensor de bandeja de purgue no sensa, debido a que no habían más sensores pnp NC se coloca sensor pnp NO con rele para realizar cambio en sus contactos.\nMáquina queda operativa, sin embargo se deja sensor por fuera de la máquina ya que requiere ser normalida por el sensor pnp NC que se dañó"
+    "texto": "*NOVEDADES DE TURNO DE DIA*\n\nMb432 se atiende llamado porque se bloqueaba la chapaleta de descartes quedaba pegado se lubrica y se hace prueba queda ok\n\nMarzio 1\nse atiende llamado porque no estaba grafillando la mordaza inferior se escontro el sistema desalineado y caído se baja se evidencia un brazo con ruptura a causa de un tornillo se hacen ajustes nuevos ajuste de mordaza y se entrega equipo \n\nPlanta de agua de líquidos \n\nse atiende llamado porque no estaba funcionando el ozono se verifica mangueras y se encontró una partida se reemplaza se ajustaron todas las juntas se prueba equipo se hicieron más ajustes hasta que normalizo\n\nNJP1 \nSe realiza intervención en njp1 se desmonta torreta se cambian resortes partidos, se realiza limpieza y lubricación de sistema de trasmisión y levas.\n\nElevador Bosch:\n se restablece alarma por mal uso del equipo. Se está cargando el tanque fuera de la base lo que ocasiona que se incline hacia delante en el momento de la elevación causando que se alarme al perderse la posición óptima al inicio de la elevación.\n\nBlíster 9 \nSe atiende llamado por arandelas partida , que causaron daño en los formatos de sellado por caída en la formateria , se cambian arandela , se montan formateria y queda operativa \n\nMarzio 4 \nSe atiende llamado por problemas de cuchillas y tornillería suelta de pinza de arrastre se arma , se cuadra y se cambian cuchillas queda  operativa\n\nMt1100\nSensor de bandeja de purgue no sensa, debido a que no habían más sensores pnp NC se coloca sensor pnp NO con rele para realizar cambio en sus contactos.\nMáquina queda operativa, sin embargo se deja sensor por fuera de la máquina ya que requiere ser normalida por el sensor pnp NC que se dañó"
   },
   {
     "id": "rt-20260805-0737",
@@ -1164,7 +1163,7 @@ window.REPORTES_TURNO = [
       "Recubrimiento 2 : llamado por bomba graco pegada se revisa se ajusta y se despega queda operativa.",
       "Gb-100: se corrige fuga en manguera 8mm y se cambia racor 1/4×8mm"
     ],
-    "texto": "Reporte turno 10\n2026/08/05\n\nBlister 3 :  ferbin\nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1:  pepred\nEtiqueteadora 1: pepred \nCD-40: stand by \nCl1: densimet\nRonchy: limpieza\nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\nNOVEDADES\n\nBlíster 3: llamado por pliego en el pvc se ajusta tiempo de formación se ajusta grafilado ok.  maquina trabaja sin  novedad\n\nMarzio 2: llamado porque se queda pegado el abridor se realiza desmontaje y se lubrican ejes y bujes maquina queda operativa.\n\nRecubrimiento 2 : llamado por bomba graco pegada se revisa se ajusta y se despega queda operativa. \n\nGb-100: se corrige fuga en manguera 8mm y se cambia racor 1/4×8mm"
+    "texto": "Reporte turno 10\n2026/08/05\n\nBlister 3 :  ferbin\nGb-100: stand by\nFabricación1: pepred\nEnvasadora 1:  pepred\nEtiqueteadora 1: pepred \nCD-40: stand by \nCl1: densimet\nRonchy: limpieza\nMarzio 2 : congestex \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3: llamado por pliego en el pvc se ajusta tiempo de formación se ajusta grafilado ok.  maquina trabaja sin  novedad\n\nMarzio 2: llamado porque se queda pegado el abridor se realiza desmontaje y se lubrican ejes y bujes maquina queda operativa.\n\nRecubrimiento 2 : llamado por bomba graco pegada se revisa se ajusta y se despega queda operativa. \n\nGb-100: se corrige fuga en manguera 8mm y se cambia racor 1/4×8mm"
   },
   {
     "id": "rt-20260805-0841",
@@ -1234,9 +1233,9 @@ window.REPORTES_TURNO = [
       "PESAJE 3 se realiza revisión de báscula debido a que no prendía, se encontró cable fracturado, se corrige y se habilita báscula",
       "Marzio1 se destapa tubería de extracción",
       "Bosch se atiende llamado por qué la columna elevadora no sube con peso y sin peso si sube además de eso el operador colocó más de tres veces la clave incorrecta y bloqueo la pantalla s revisa la columna motor se desatencióna las cadenas por qué estaban muy tensionadas   se entrega a turno entrante",
-      "Huttlin 600 se atiende llamado por qué se parte varilla que sujeta el el filtro de descargue y queda el tornillo metido dentro de la base se extrae y se soldo un tornillo en la punta de la varilla para remplaza queda ok Huttlin 600 Se corrige fuga de agua en el lavado"
+      "Huttlin 600 se atiende llamado por qué se parte varilla que sujeta el el filtro de descargue y queda el tornillo metido dentro de la base se extrae y se soldo un tornillo en la punta de la varilla para remplaza queda ok"
     ],
-    "texto": "Buenos días \nReporte de turno 1 \nSD4\n\nBlíster 5 coltrin \n\nCTL2 Dolorsinfen \n\nEnvasadora3 cronofen gotas \n\nBosch Nifedipino \n\nNJP2 vitamina A termina lote \n\nBlíster 9 Esomeprazol \n\nMB432 congestex \n\nIntegra pragmaten \n\nBlíster 8 Dilox \n\nMarzio1 esomed \n\nHuttlin 600 limpieza \n\nR200 Losartan \n\nMarzio4 novabell\n\nIntegra se atiende llamado por qué se parte tornillo del sistema que transmite el movimiento al cargador #1 se desarma de la parte de atrás se desmonta servo acople para poder bajar ese sistema y extraer el tornillo queda ok\n\nBlister 9 se atiende llamado por malformación se calibra túnel de calefacción y estación\n de formado\nplancha de formado mal puesta\nINTEGRA\nse realiza cambio de manguera siliconada en los 2 cargadores.\nse realiza revisión en sensor de llenado de tolva lado derecho debido a que no mandaba a llenar, se revisa conexión eléctrica ya que este se encontraba empalmado y se evidencia mal conectado el cable de señal y el cable negativo, se corrige conexión y se deja máquina operativa.\n\nPESAJE 3\nse realiza revisión de báscula debido a que no prendía, se encontró cable fracturado, se corrige y se habilita báscula\n\nMarzio1 se destapa tubería de extracción \n\nBosch se atiende llamado por qué la columna elevadora no sube con peso y sin peso si sube además de eso el operador colocó más de tres veces la clave incorrecta y bloqueo la pantalla s revisa la columna motor se desatencióna las cadenas por qué estaban muy tensionadas   se entrega a turno entrante\n\nHuttlin 600 se atiende llamado por qué se parte varilla que sujeta el el filtro de descargue y queda el tornillo metido dentro de la base se extrae y se soldo un tornillo en la punta de la varilla para remplaza queda ok\nHuttlin 600 Se corrige fuga de agua en el lavado"
+    "texto": "Buenos días \nReporte de turno 1 \nSD4\n\nBlíster 5 coltrin \n\nCTL2 Dolorsinfen \n\nEnvasadora3 cronofen gotas \n\nBosch Nifedipino \n\nNJP2 vitamina A termina lote \n\nBlíster 9 Esomeprazol \n\nMB432 congestex \n\nIntegra pragmaten \n\nBlíster 8 Dilox \n\nMarzio1 esomed \n\nHuttlin 600 limpieza \n\nR200 Losartan \n\nMarzio4 novabell\n\nIntegra se atiende llamado por qué se parte tornillo del sistema que transmite el movimiento al cargador #1 se desarma de la parte de atrás se desmonta servo acople para poder bajar ese sistema y extraer el tornillo queda ok\n\nBlister 9 se atiende llamado por malformación se calibra túnel de calefacción y estación\n de formado\nplancha de formado mal puesta\nINTEGRA\nse realiza cambio de manguera siliconada en los 2 cargadores.\nse realiza revisión en sensor de llenado de tolva lado derecho debido a que no mandaba a llenar, se revisa conexión eléctrica ya que este se encontraba empalmado y se evidencia mal conectado el cable de señal y el cable negativo, se corrige conexión y se deja máquina operativa.\n\nPESAJE 3\nse realiza revisión de báscula debido a que no prendía, se encontró cable fracturado, se corrige y se habilita báscula\n\nMarzio1 se destapa tubería de extracción \n\nBosch se atiende llamado por qué la columna elevadora no sube con peso y sin peso si sube además de eso el operador colocó más de tres veces la clave incorrecta y bloqueo la pantalla s revisa la columna motor se desatencióna las cadenas por qué estaban muy tensionadas   se entrega a turno entrante\n\nHuttlin 600 se atiende llamado por qué se parte varilla que sujeta el el filtro de descargue y queda el tornillo metido dentro de la base se extrae y se soldo un tornillo en la punta de la varilla para remplaza queda ok"
   },
   {
     "id": "rt-20260805-2114",
@@ -1248,7 +1247,7 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-05",
     "equipos": [],
     "novedades": [
-      "DEL TURNO DE DIA",
+      "DEL TURNO DE DIA*",
       "Planta de agua de sólidos se cambia lámpara uv del TOC  se necesita una lámpara de estás para tenerla en stock",
       "* Se instalan lámparas en piso técnico del Pilot",
       "Mb432 llamado del lado de empaque los blíster tropezaban y salian volando se ajustan guías",
@@ -1269,10 +1268,10 @@ window.REPORTES_TURNO = [
       "Mezclado nuevo",
       "Se habilita sistema de extracción, se encuentro desconectado y con la manguera con producto compactado",
       "Se soluciona y se deja operativo el cuarto con extracción",
-      "NOTA",
+      "*NOTA*",
       "Se encuentra volanta de la schmucker un poco pegada y dura cuando quisimos darle manual a la máquina , progamar limpieza y mantenimiento preventivo"
     ],
-    "texto": "NOVEDADES DEL TURNO DE DIA\n\nPlanta de agua de sólidos se cambia lámpara uv del TOC  se necesita una lámpara de estás para tenerla en stock \n\n* Se instalan lámparas en piso técnico del Pilot \n\nMb432 llamado del lado de empaque los blíster tropezaban y salian volando se ajustan guías\n\nMARZIO 1: se apoya en toma de plazo y ajuste de grafilado horizontal superior máquina ok.\n\nMARZIO 4: se fija base seguidor de leva de mordazas verticales, la misma se encontraba con los tornillos totalmente flojos lo cual no permitirá el correcto grafilado y producía un ruido excesivo.\n\nÍNTEGRA 320: Se atiende llamado por temperatura incorrecta en planchas de túnel de formado. \nSe revisa sistema se evidencia brakers disparados. Se restablece, máquina operativa.\n\nElevador BOSCH: se cambia tiempo de aceleración en parámetros de variador a motor elevador, ya que el mismo en el seteado anterior no vencía la fuerza que ejercía el tanque al ponerse en elevación y se quedaba pegado. Se ajusta sensor de bloqueo de elevador se entrega operativa.\n( Observación) Máquina durante el turno se apaga en 2 ocasiones deanera repentina lo que causa alarmas de rodadura de levas y pines expulsores. \n\nCL2: Se atiende llamado por perdida de aire en cabina de secado. Una de las cabinas internas del equipo secador se encontraba con un pedazo de acrílico partido, lo que ocasionaba la caída constante de cápsulas en la cabina. Se repara.\nY presentan nuevo llamado. Por mal entrega de cápsulas entre eslabones de selladora hacia eslabones de secadora. Se revisan tiempos de entrega se inspecciona máquina todo se encuentra en el tiempo. pero novedad persiste, se entrega a turno entrante.\n\nMT;\nSe realiza intervención a sensor de stick #3 \nSe le realizaron pruebas y se interviene por falta de señal en su salida, se realizan ajustes de posición a los 4 sensores ya que mostraba alarma por mala lectura.\nSe puentea sensor número 3 al 4 ya que sensor no funciona. Se cuadra lote y se deja operativa \n\nSchmucker \nSe atiende llamado por plancha desaliniada se cuadra lote y sobre  y se deja operativa \n\nMezclado nuevo \nSe habilita sistema de extracción, se encuentro desconectado y con la manguera con producto compactado \nSe soluciona y se deja operativo el cuarto con extracción\n\nNOTA\nSe encuentra volanta de la schmucker un poco pegada y dura cuando quisimos darle manual a la máquina , progamar limpieza y mantenimiento preventivo"
+    "texto": "*NOVEDADES DEL TURNO DE DIA*\n\nPlanta de agua de sólidos se cambia lámpara uv del TOC  se necesita una lámpara de estás para tenerla en stock \n\n* Se instalan lámparas en piso técnico del Pilot \n\nMb432 llamado del lado de empaque los blíster tropezaban y salian volando se ajustan guías\n\nMARZIO 1: se apoya en toma de plazo y ajuste de grafilado horizontal superior máquina ok.\n\nMARZIO 4: se fija base seguidor de leva de mordazas verticales, la misma se encontraba con los tornillos totalmente flojos lo cual no permitirá el correcto grafilado y producía un ruido excesivo.\n\nÍNTEGRA 320: Se atiende llamado por temperatura incorrecta en planchas de túnel de formado. \nSe revisa sistema se evidencia brakers disparados. Se restablece, máquina operativa.\n\nElevador BOSCH: se cambia tiempo de aceleración en parámetros de variador a motor elevador, ya que el mismo en el seteado anterior no vencía la fuerza que ejercía el tanque al ponerse en elevación y se quedaba pegado. Se ajusta sensor de bloqueo de elevador se entrega operativa.\n( Observación) Máquina durante el turno se apaga en 2 ocasiones deanera repentina lo que causa alarmas de rodadura de levas y pines expulsores. \n\nCL2: Se atiende llamado por perdida de aire en cabina de secado. Una de las cabinas internas del equipo secador se encontraba con un pedazo de acrílico partido, lo que ocasionaba la caída constante de cápsulas en la cabina. Se repara.\nY presentan nuevo llamado. Por mal entrega de cápsulas entre eslabones de selladora hacia eslabones de secadora. Se revisan tiempos de entrega se inspecciona máquina todo se encuentra en el tiempo. pero novedad persiste, se entrega a turno entrante.\n\nMT;\nSe realiza intervención a sensor de stick #3 \nSe le realizaron pruebas y se interviene por falta de señal en su salida, se realizan ajustes de posición a los 4 sensores ya que mostraba alarma por mala lectura.\nSe puentea sensor número 3 al 4 ya que sensor no funciona. Se cuadra lote y se deja operativa \n\nSchmucker \nSe atiende llamado por plancha desaliniada se cuadra lote y sobre  y se deja operativa \n\nMezclado nuevo \nSe habilita sistema de extracción, se encuentro desconectado y con la manguera con producto compactado \nSe soluciona y se deja operativo el cuarto con extracción\n\n*NOTA*\nSe encuentra volanta de la schmucker un poco pegada y dura cuando quisimos darle manual a la máquina , progamar limpieza y mantenimiento preventivo"
   },
   {
     "id": "rt-20260806-0743",
@@ -1333,7 +1332,7 @@ window.REPORTES_TURNO = [
       "Micronizador: se termina de armar micronizador se montan eje de cuchillas se monta correa se coloca guarda se realiza prueba todo ok, se sube a tercer piso queda en lavado utensilios lado C.",
       "Gb-100: llamado porque foil presenta inestabilidad se ajusta rodillo queda ok."
     ],
-    "texto": "Reporte turno 10\n2026/08/06\n\nBlister 3 :  ferbin\nGb-100: dispax\nFabricación1: sispra\nEnvasadora 1:  stand by\nEtiqueteadora 1: stand by \nCD-40: stand by \nCl1: densimet\nRonchy: desmontaje\nMarzio 2 : limpieza \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\nNOVEDADES\n\nMarzio 2: se desmonta tornillo sinfín qué se encuentra con tuerca partida, se busca tornillo en sede 4 y se monta en maquina, queda ok. Se lubrican mecanismos de  la.maquina todo ok. \n\nMicronizador: se termina de armar micronizador se montan eje de cuchillas se monta correa se coloca guarda se realiza prueba todo ok, se sube a tercer piso queda en lavado utensilios lado C.\n\nGb-100: llamado porque foil presenta inestabilidad se ajusta rodillo queda ok."
+    "texto": "Reporte turno 10\n2026/08/06\n\nBlister 3 :  ferbin\nGb-100: dispax\nFabricación1: sispra\nEnvasadora 1:  stand by\nEtiqueteadora 1: stand by \nCD-40: stand by \nCl1: densimet\nRonchy: desmontaje\nMarzio 2 : limpieza \nStick pack 3: stand by\nColimatic: \n‐-------------------------------------\n*NOVEDADES*\n\nMarzio 2: se desmonta tornillo sinfín qué se encuentra con tuerca partida, se busca tornillo en sede 4 y se monta en maquina, queda ok. Se lubrican mecanismos de  la.maquina todo ok. \n\nMicronizador: se termina de armar micronizador se montan eje de cuchillas se monta correa se coloca guarda se realiza prueba todo ok, se sube a tercer piso queda en lavado utensilios lado C.\n\nGb-100: llamado porque foil presenta inestabilidad se ajusta rodillo queda ok."
   },
   {
     "id": "rt-20260806-1049",
@@ -1629,19 +1628,19 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "MT1100: Se cambia caucho del expulsión de sachets #1 y se ajusta cañones de impresión 1 y 3 S/N en el turno.",
-      "FLEXOGRAFÍCA: Se realiza prueba de funcionamiento y se evidencia sensores daños.",
-      "CL2: Se atiende llamado porque mal posición de la cadena en la secadora, se posicionan, se ajusta la tensión y queda operativa.",
+      "*MT1100:* Se cambia caucho del expulsión de sachets #1 y se ajusta cañones de impresión 1 y 3 S/N en el turno.",
+      "*FLEXOGRAFÍCA:* Se realiza prueba de funcionamiento y se evidencia sensores daños.",
+      "*CL2:* Se atiende llamado porque mal posición de la cadena en la secadora, se posicionan, se ajusta la tensión y queda operativa.",
       "Después hacen un segundo llamado porque no abrían las cápsulas, se le da un poco más de vacío y se limpia el bloque,bomba y trampa de vacío en piso técnico superior quedando operativa.",
-      "CL4: Se realiza mantenimiento a motores de soluciones (selladora de capsulas) se fabrica acople a motor #1 en mecanizado convencional, se arma nuevamente se entrega a producción.",
-      "MARZIO#4: novabelle se fabrica pieza de la pinza de arraste que se había perdido y abre fácil.",
-      "MARZIO#6: Se coloca sensor y rele para el codificado.",
-      "BLÍSTER #5: llamado por problemas en el tornillo del troquel de avance, se realiza ajuste, tornillo se encuentra en mal estado hay que mandar a fabricar.",
-      "NJP3: omeprazol llamado por problemas en el sistema de expulsión de cápsulas, los empaques que retienen las cápsulas  están en mal estado.",
+      "*CL4:* Se realiza mantenimiento a motores de soluciones (selladora de capsulas) se fabrica acople a motor #1 en mecanizado convencional, se arma nuevamente se entrega a producción.",
+      "*MARZIO#4:* novabelle se fabrica pieza de la pinza de arraste que se había perdido y abre fácil.",
+      "*MARZIO#6:* Se coloca sensor y rele para el codificado.",
+      "*BLÍSTER #5:* llamado por problemas en el tornillo del troquel de avance, se realiza ajuste, tornillo se encuentra en mal estado hay que mandar a fabricar.",
+      "*NJP3:* omeprazol llamado por problemas en el sistema de expulsión de cápsulas, los empaques que retienen las cápsulas  están en mal estado.",
       ",se requieren.",
-      "SOLIDOS: Se despeja área para limpieza y se quitan válvulas de suministro (agua,vapor)."
+      "*SOLIDOS:* Se despeja área para limpieza y se quitan válvulas de suministro (agua,vapor)."
     ],
-    "texto": "REPORTE DE TURNO\n      2026-08-06\n           sede 4\n \nCL3: Disponible \nCL4: Disponible \nStick Pack 4: Superflux\nBlíster 2: Disponible \nEnvasadora 3: Disponible \nCL2: Dolor sinfem \nEnvasadora 2:  ferbin\nBin: Fluoxetina\nBosch: Disponible \nNJP1: Multivitaminico \nNJP2: Limpieza \nNJP3: Omeprazol \nPilot lab: Dimoflax \nMB 432: Congestex \nBlíster DM: Disponible \nSchmucker: Flextril \nBlíster 9: Esomeprazol\nIntegra 320: Lozartan\nR200: Naproxeno + Esomeprazol \nMB 451: Disponible \nMarzio 1: Disponible \nHuttlin 600: Disponible \nR400: Disponible \nBombo 300: Disponible \nMarzio 4: novabelle\nBombo 300: Disponible \nHuttlin 400: Nifedipino\nRimek:  Congestex forte\nCB 550: Gelimed\nFette 1010: Limpieza \nFette 2020 2: Losartan\nFette 2020 1: Acetaminofén \nBlíster 5: Serecor Forte\n\nNOVEDADES\n\nMT1100: Se cambia caucho del expulsión de sachets #1 y se ajusta cañones de impresión 1 y 3 S/N en el turno.\nFLEXOGRAFÍCA: Se realiza prueba de funcionamiento y se evidencia sensores daños.\nCL2: Se atiende llamado porque mal posición de la cadena en la secadora, se posicionan, se ajusta la tensión y queda operativa.\nDespués hacen un segundo llamado porque no abrían las cápsulas, se le da un poco más de vacío y se limpia el bloque,bomba y trampa de vacío en piso técnico superior quedando operativa. \nCL4: Se realiza mantenimiento a motores de soluciones (selladora de capsulas) se fabrica acople a motor #1 en mecanizado convencional, se arma nuevamente se entrega a producción.\nMARZIO#4: novabelle se fabrica pieza de la pinza de arraste que se había perdido y abre fácil.\nMARZIO#6: Se coloca sensor y rele para el codificado.\nBLÍSTER #5: llamado por problemas en el tornillo del troquel de avance, se realiza ajuste, tornillo se encuentra en mal estado hay que mandar a fabricar.\nNJP3: omeprazol llamado por problemas en el sistema de expulsión de cápsulas, los empaques que retienen las cápsulas  están en mal estado.\n,se requieren.\nSOLIDOS: Se despeja área para limpieza y se quitan válvulas de suministro (agua,vapor)."
+    "texto": "*REPORTE DE TURNO*\n      2026-08-06\n           sede 4\n \n*CL3:* Disponible \n*CL4:* Disponible \n*Stick Pack 4:* Superflux\n*Blíster 2:* Disponible \n*Envasadora 3:* Disponible \n*CL2:* Dolor sinfem \n*Envasadora 2:*  ferbin\n*Bin:* Fluoxetina\n*Bosch:* Disponible \n*NJP1:* Multivitaminico \n*NJP2:* Limpieza \n*NJP3:* Omeprazol \n*Pilot lab:* Dimoflax \n*MB 432:* Congestex \n*Blíster DM:* Disponible \n*Schmucker:* Flextril \n*Blíster 9:* Esomeprazol\n*Integra 320:* Lozartan\n*R200:* Naproxeno + Esomeprazol \n*MB 451:* Disponible \n*Marzio 1:* Disponible \n*Huttlin 600:* Disponible \n*R400:* Disponible \n*Bombo 300:* Disponible \n*Marzio 4:* novabelle\n*Bombo 300:* Disponible \n*Huttlin 400:* Nifedipino\n*Rimek:*  Congestex forte\n*CB 550:* Gelimed\n*Fette 1010:* Limpieza \n*Fette 2020 2:* Losartan\n*Fette 2020 1:* Acetaminofén \n*Blíster 5:* Serecor Forte\n\n*NOVEDADES*\n\n*MT1100:* Se cambia caucho del expulsión de sachets #1 y se ajusta cañones de impresión 1 y 3 S/N en el turno.\n*FLEXOGRAFÍCA:* Se realiza prueba de funcionamiento y se evidencia sensores daños.\n*CL2:* Se atiende llamado porque mal posición de la cadena en la secadora, se posicionan, se ajusta la tensión y queda operativa.\nDespués hacen un segundo llamado porque no abrían las cápsulas, se le da un poco más de vacío y se limpia el bloque,bomba y trampa de vacío en piso técnico superior quedando operativa. \n*CL4:* Se realiza mantenimiento a motores de soluciones (selladora de capsulas) se fabrica acople a motor #1 en mecanizado convencional, se arma nuevamente se entrega a producción.\n*MARZIO#4:* novabelle se fabrica pieza de la pinza de arraste que se había perdido y abre fácil.\n*MARZIO#6:* Se coloca sensor y rele para el codificado.\n*BLÍSTER #5:* llamado por problemas en el tornillo del troquel de avance, se realiza ajuste, tornillo se encuentra en mal estado hay que mandar a fabricar.\n*NJP3:* omeprazol llamado por problemas en el sistema de expulsión de cápsulas, los empaques que retienen las cápsulas  están en mal estado.\n,se requieren.\n*SOLIDOS:* Se despeja área para limpieza y se quitan válvulas de suministro (agua,vapor)."
   },
   {
     "id": "rt-20260806-1950",
@@ -1707,7 +1706,7 @@ window.REPORTES_TURNO = [
       "Centro líquido Tubería de vacío en el bloque de destape , se encontró en mal estado , se colocó tubería de bloque de centro líquido 3 , pendiente fabricar la pieza . Se deja equipo en funcionamiento",
       "Banda de codificado Se recibe llamado porque la banda brincaba demasiado , se hacen ajustes , se tensiona cadena y se colocan tornillos de sujeción , queda pendiente colocar la guarda , se entrega a turno entrante."
     ],
-    "texto": "Reporte turno 10\n2026/08/06\n\nBlister 3 :  ferbin\nGb-100: Stand by\nFabricación1: sispra\nEnvasadora 1:  montaje sispra gotas\nEtiqueteadora 1: montaje sispra gotas\nCD-40: vitamina c\nCl1: densimet\nRonchy: desmontaje\nMarzio 2 : limpieza \nStick pack 3: stand by\nColimatic: Stand by\n‐-------------------------------------\nNOVEDADES\n\ncd 40, se apoya el operador por dosis bajas, se realizan ajustes y se revisa bomba de vacío por problema con el destape, se limpia trampa y se le colocó caucho en la tapa para mejor hermeticidad , queda equipo en funcionamiento.\n\nBlíster 3 \nSe ajustan tiempos de formado y se sube humedad en el área.\n\nPesaje 1, se le hace roscas m5 para sujetar el electro iman de esclusa personal ya que se le partieron los tornillos queda ok\n\nPesaje 2, se le coloca la placa de acero del electro iman y se cuadro gato de la puerta queda ok\n\nSe destapa tubería de 6\" del drenaje microgranulos en piso rojo queda  ok.\n\nÁrea de fitoterapeutico, se sale tubería de aire comprimido que va conectada al regulador , se cierra tubería principal área de compresores , se corta tubería,  se  instala acople y se sujeta tubería y válvula reguladora  a la pared con chazos de 1/4. Se abre válvula de aire comprimido . Queda ok\n\nCentro líquido \nTubería de vacío en el bloque de destape , se encontró en mal estado , se colocó tubería de bloque de centro líquido 3 , pendiente fabricar la pieza . Se deja equipo en funcionamiento \n\nBanda de codificado \nSe recibe llamado porque la banda brincaba demasiado , se hacen ajustes , se tensiona cadena y se colocan tornillos de sujeción , queda pendiente colocar la guarda , se entrega a turno entrante."
+    "texto": "Reporte turno 10\n2026/08/06\n\nBlister 3 :  ferbin\nGb-100: Stand by\nFabricación1: sispra\nEnvasadora 1:  montaje sispra gotas\nEtiqueteadora 1: montaje sispra gotas\nCD-40: vitamina c\nCl1: densimet\nRonchy: desmontaje\nMarzio 2 : limpieza \nStick pack 3: stand by\nColimatic: Stand by\n‐-------------------------------------\n*NOVEDADES*\n\ncd 40, se apoya el operador por dosis bajas, se realizan ajustes y se revisa bomba de vacío por problema con el destape, se limpia trampa y se le colocó caucho en la tapa para mejor hermeticidad , queda equipo en funcionamiento.\n\nBlíster 3 \nSe ajustan tiempos de formado y se sube humedad en el área.\n\nPesaje 1, se le hace roscas m5 para sujetar el electro iman de esclusa personal ya que se le partieron los tornillos queda ok\n\nPesaje 2, se le coloca la placa de acero del electro iman y se cuadro gato de la puerta queda ok\n\nSe destapa tubería de 6\" del drenaje microgranulos en piso rojo queda  ok.\n\nÁrea de fitoterapeutico, se sale tubería de aire comprimido que va conectada al regulador , se cierra tubería principal área de compresores , se corta tubería,  se  instala acople y se sujeta tubería y válvula reguladora  a la pared con chazos de 1/4. Se abre válvula de aire comprimido . Queda ok\n\nCentro líquido \nTubería de vacío en el bloque de destape , se encontró en mal estado , se colocó tubería de bloque de centro líquido 3 , pendiente fabricar la pieza . Se deja equipo en funcionamiento \n\nBanda de codificado \nSe recibe llamado porque la banda brincaba demasiado , se hacen ajustes , se tensiona cadena y se colocan tornillos de sujeción , queda pendiente colocar la guarda , se entrega a turno entrante."
   },
   {
     "id": "rt-20260807-0912",
@@ -1835,7 +1834,7 @@ window.REPORTES_TURNO = [
       "Se atiende llamado por problemas de aplastamiento, se toma paso , se cuadra y queda operativa, por caída de aire comprimido el sistema de corte perdió el bolino , el operario no es de esa máquina se tocó apoyar y cuadrar telecamara 3 por el problema en el corte queda operativa",
       "Se habilita puerta controlsa lado empaques 1 con cable suelto en la parada de emergencia"
     ],
-    "texto": "Sede 4 -- turno (noche)\n2026/08/07\n\n           *EQUIPOS OPERATIVOS SEDE\n \nMarzio 1 esomed\nHuttiln 600 flextril \nBlíster 8 dilox \nR200 naproxeno \nIntegra tensofar\nCb550 gelimed \nRimek congestex \nHuttiln 400 nifedipino\nFette 2020-2 loartan\nMs235 flextril \nNjp3 omeprazol \nBosch Diclofenac\nBin acetaminofen\nEnvasado 2 ferbin \nCl2 dolorsin fem \nEnvasado 3 fluticazona\nMt1100 supreflux \nBlíster 5 serecor\n\n_________\n                  NOVEDADES\n\nCL 2: se realiza pieza en lámina de teflón para ayudar a caer después del secado las cápsulas no entraban óptimas en eslabones y se quedaban pegadas en los eslabones a la hora de salir del ciclo de secado.\n\n* Se recibe tapa superior de máquina NJP 3.\nPieza queda en taller\n\nMT1100\nSe atiende llamado por problemas de sellado vertical en uno de los sobre ( sobre 3 ) \nSe revisa temperatura, posición de mordazas laterales \nParámetros, se encuentra normales , nos percatamos que la pieza que ajusta la pestaña de sobre estaba mal posición y mal ajustada se coloca dentro de lo normal y se soluciona queda operativa \n, nos vuelve a llamar por falta de aire comprimido, se reporta y le dan solución queda operativa \n\nMarzio 1\nSe atiende llamado por problemas de que la máquina no daba marcha , se revisa sensores , queda operativa, nos vuelve a llamar por abre fácil , posición de la fotocelda , cilindro de corrección y paso de máquina se cuadra y queda operativa \n\nCb550 \nSe atiende llamado por problemas en el sellado vertical , no estaba aliniado , se cuadra y se deja operativa \n\nBlisteadora Integra \n\nSe atiende llamado por problemas de aplastamiento, se toma paso , se cuadra y queda operativa, por caída de aire comprimido el sistema de corte perdió el bolino , el operario no es de esa máquina se tocó apoyar y cuadrar telecamara 3 por el problema en el corte queda operativa\n\nSe habilita puerta controlsa lado empaques 1 con cable suelto en la parada de emergencia"
+    "texto": "Sede 4 -- turno (noche)\n2026/08/07\n\n           *EQUIPOS OPERATIVOS SEDE\n \nMarzio 1 esomed\nHuttiln 600 flextril \nBlíster 8 dilox \nR200 naproxeno \nIntegra tensofar\nCb550 gelimed \nRimek congestex \nHuttiln 400 nifedipino\nFette 2020-2 loartan\nMs235 flextril \nNjp3 omeprazol \nBosch Diclofenac\nBin acetaminofen\nEnvasado 2 ferbin \nCl2 dolorsin fem \nEnvasado 3 fluticazona\nMt1100 supreflux \nBlíster 5 serecor\n\n_________________________\n                  *NOVEDADES*\n\nCL 2: se realiza pieza en lámina de teflón para ayudar a caer después del secado las cápsulas no entraban óptimas en eslabones y se quedaban pegadas en los eslabones a la hora de salir del ciclo de secado.\n\n* Se recibe tapa superior de máquina NJP 3.\nPieza queda en taller\n\nMT1100\nSe atiende llamado por problemas de sellado vertical en uno de los sobre ( sobre 3 ) \nSe revisa temperatura, posición de mordazas laterales \nParámetros, se encuentra normales , nos percatamos que la pieza que ajusta la pestaña de sobre estaba mal posición y mal ajustada se coloca dentro de lo normal y se soluciona queda operativa \n, nos vuelve a llamar por falta de aire comprimido, se reporta y le dan solución queda operativa \n\nMarzio 1\nSe atiende llamado por problemas de que la máquina no daba marcha , se revisa sensores , queda operativa, nos vuelve a llamar por abre fácil , posición de la fotocelda , cilindro de corrección y paso de máquina se cuadra y queda operativa \n\nCb550 \nSe atiende llamado por problemas en el sellado vertical , no estaba aliniado , se cuadra y se deja operativa \n\nBlisteadora Integra \n\nSe atiende llamado por problemas de aplastamiento, se toma paso , se cuadra y queda operativa, por caída de aire comprimido el sistema de corte perdió el bolino , el operario no es de esa máquina se tocó apoyar y cuadrar telecamara 3 por el problema en el corte queda operativa\n\nSe habilita puerta controlsa lado empaques 1 con cable suelto en la parada de emergencia"
   },
   {
     "id": "rt-20260807-1946",
@@ -1847,16 +1846,16 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-07",
     "equipos": [],
     "novedades": [
-      "MARZIO#4: flumixol llamado por problemas de cuadre del sobre ,arrugas pestañas , se realizan ajustes , cambio de embudo se hacen pruebas se inicia producción.",
-      "SCHMUCKER:  Llamado por problemas en el sensor de carga mínima se encuentra con los cables rotos, se realiza conexión nuevamente se hacen pruebas.",
+      "*MARZIO#4:* flumixol llamado por problemas de cuadre del sobre ,arrugas pestañas , se realizan ajustes , cambio de embudo se hacen pruebas se inicia producción.",
+      "*SCHMUCKER:*  Llamado por problemas en el sensor de carga mínima se encuentra con los cables rotos, se realiza conexión nuevamente se hacen pruebas.",
       "Presento alarma de variador de dosificador,alarma de sobrecarga se revisa se encuentra duro mecanismos se ajusta se hacen pruebas se entrega a producción.",
-      "FLEXOGRAFICA#2: Se colocó todas las partes faltantes que se había retirado para hacer pruebas en el otro equipo de entrega a producción.",
-      "FLEXOGRAFICA#1: En mantenimiento se realiza cambio de cables del servo motor se hacen pruebas ok.",
-      "BLISTER 5: Se extrae tornillo partido en la plancha porta resistencia en la estación de sellado, se deja ok.",
-      "HUTTLIN 400: Se fabrica cuña para tanque de agitación en mecanizado convencional, se arma el mismo con propela, se realizan pruebas OK, se entrega a producción, se fabrica llave para apertura de tanques metálicos (Alcohol)",
-      "HUTTLIN 600: Se entrega a turno entrante colocar eje que se cayó a tanque móvil Baldor, novedad sucedió terminado turno, tienen que vaciar el mismo"
+      "*FLEXOGRAFICA#2:* Se colocó todas las partes faltantes que se había retirado para hacer pruebas en el otro equipo de entrega a producción.",
+      "*FLEXOGRAFICA#1:* En mantenimiento se realiza cambio de cables del servo motor se hacen pruebas ok.",
+      "*BLISTER 5:* Se extrae tornillo partido en la plancha porta resistencia en la estación de sellado, se deja ok.",
+      "*HUTTLIN 400:* Se fabrica cuña para tanque de agitación en mecanizado convencional, se arma el mismo con propela, se realizan pruebas OK, se entrega a producción, se fabrica llave para apertura de tanques metálicos (Alcohol)",
+      "*HUTTLIN 600:* Se entrega a turno entrante colocar eje que se cayó a tanque móvil Baldor, novedad sucedió terminado turno, tienen que vaciar el mismo"
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 DIA\nNOVEDADES\nMARZIO#4: flumixol llamado por problemas de cuadre del sobre ,arrugas pestañas , se realizan ajustes , cambio de embudo se hacen pruebas se inicia producción.\nSCHMUCKER:  Llamado por problemas en el sensor de carga mínima se encuentra con los cables rotos, se realiza conexión nuevamente se hacen pruebas.\nPresento alarma de variador de dosificador,alarma de sobrecarga se revisa se encuentra duro mecanismos se ajusta se hacen pruebas se entrega a producción.\nFLEXOGRAFICA#2: Se colocó todas las partes faltantes que se había retirado para hacer pruebas en el otro equipo de entrega a producción.\nFLEXOGRAFICA#1: En mantenimiento se realiza cambio de cables del servo motor se hacen pruebas ok.\nBLISTER 5: Se extrae tornillo partido en la plancha porta resistencia en la estación de sellado, se deja ok.\nHUTTLIN 400: Se fabrica cuña para tanque de agitación en mecanizado convencional, se arma el mismo con propela, se realizan pruebas OK, se entrega a producción, se fabrica llave para apertura de tanques metálicos (Alcohol)\nHUTTLIN 600: Se entrega a turno entrante colocar eje que se cayó a tanque móvil Baldor, novedad sucedió terminado turno, tienen que vaciar el mismo"
+    "texto": "*REPORTE DE TURNO GRUPO 1 DIA*\n*NOVEDADES*\n*MARZIO#4:* flumixol llamado por problemas de cuadre del sobre ,arrugas pestañas , se realizan ajustes , cambio de embudo se hacen pruebas se inicia producción.\n*SCHMUCKER:*  Llamado por problemas en el sensor de carga mínima se encuentra con los cables rotos, se realiza conexión nuevamente se hacen pruebas.\nPresento alarma de variador de dosificador,alarma de sobrecarga se revisa se encuentra duro mecanismos se ajusta se hacen pruebas se entrega a producción.\n*FLEXOGRAFICA#2:* Se colocó todas las partes faltantes que se había retirado para hacer pruebas en el otro equipo de entrega a producción.\n*FLEXOGRAFICA#1:* En mantenimiento se realiza cambio de cables del servo motor se hacen pruebas ok.\n*BLISTER 5:* Se extrae tornillo partido en la plancha porta resistencia en la estación de sellado, se deja ok.\n*HUTTLIN 400:* Se fabrica cuña para tanque de agitación en mecanizado convencional, se arma el mismo con propela, se realizan pruebas OK, se entrega a producción, se fabrica llave para apertura de tanques metálicos (Alcohol)\n*HUTTLIN 600:* Se entrega a turno entrante colocar eje que se cayó a tanque móvil Baldor, novedad sucedió terminado turno, tienen que vaciar el mismo"
   },
   {
     "id": "rt-20260807-1948",
@@ -1868,14 +1867,6 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-07",
     "equipos": [
       {
-        "equipo": "Apertura",
-        "producto": "de tanques metálicos."
-      },
-      {
-        "equipo": "Fabricación de cuña.",
-        "producto": ""
-      },
-      {
         "equipo": "HUTTLIN",
         "producto": "400"
       },
@@ -1885,7 +1876,7 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [],
-    "texto": "Apertura de tanques metálicos.\nFabricación de cuña.\nHUTTLIN 400\nHUTTLIN 600"
+    "texto": "HUTTLIN 400\nHUTTLIN 600"
   },
   {
     "id": "rt-20260807-2059",
@@ -1945,7 +1936,7 @@ window.REPORTES_TURNO = [
       "Se recibe nuevo llamado por filtración, se ajusta temperatura y se calibra estación de sellado y se ayuda con el lote .",
       "Centro líquido Se recibe llamado porque el equipo no realizaba movimiento , se revisa y se encuentra piñón de transmisión salido , se entrega a turno entrante"
     ],
-    "texto": "Reporte turno \nSede 2 \n\nBlister 3 :  Nifedipino \nGb-100: dispax\nFabricación1: sispra\nEnvasadora 1:  sispra gotas\nEtiqueteadora 1: sispra gotas\nCD-40: vitamina c\nCl1: densimet\nMarzio 2 : limpieza \nStick pack 3: stand by\nColimatic: Stand by\n‐-------------------------------------\nNOVEDADES\nSe cambia lámpara en esclusa de personal marzio 2.\n\nPuertas de pesaje a almacén , no cierran automáticamente, se revisa y se encuentra que la tarjeta electrónica no tiene salida de 13 vdc , pendiente el reemplazo de la misma.\n\nSe recibe llamado de mezclador horizontal por partículas negras en el producto, se revisa y se encuentra q el producto estaba generando una capa alrededor, ocasionando que las aspas rozaran con el y lo quemara por la fricción.\n\nBlíster 3 \nEn el montaje de Nifedipino se recibe llamado porque el equipo estaba mal formando , se hacen ajustes y se coloca receta de ferbin , se deja equipo en funcionamiento.\n\nSe recibe nuevo llamado por filtración, se ajusta temperatura y se calibra estación de sellado y se ayuda con el lote .\n\nCentro líquido \nSe recibe llamado porque el equipo no realizaba movimiento , se revisa y se encuentra piñón de transmisión salido , se entrega a turno entrante"
+    "texto": "Reporte turno \nSede 2 \n\nBlister 3 :  Nifedipino \nGb-100: dispax\nFabricación1: sispra\nEnvasadora 1:  sispra gotas\nEtiqueteadora 1: sispra gotas\nCD-40: vitamina c\nCl1: densimet\nMarzio 2 : limpieza \nStick pack 3: stand by\nColimatic: Stand by\n‐-------------------------------------\n*NOVEDADES*\nSe cambia lámpara en esclusa de personal marzio 2.\n\nPuertas de pesaje a almacén , no cierran automáticamente, se revisa y se encuentra que la tarjeta electrónica no tiene salida de 13 vdc , pendiente el reemplazo de la misma.\n\nSe recibe llamado de mezclador horizontal por partículas negras en el producto, se revisa y se encuentra q el producto estaba generando una capa alrededor, ocasionando que las aspas rozaran con el y lo quemara por la fricción.\n\nBlíster 3 \nEn el montaje de Nifedipino se recibe llamado porque el equipo estaba mal formando , se hacen ajustes y se coloca receta de ferbin , se deja equipo en funcionamiento.\n\nSe recibe nuevo llamado por filtración, se ajusta temperatura y se calibra estación de sellado y se ayuda con el lote .\n\nCentro líquido \nSe recibe llamado porque el equipo no realizaba movimiento , se revisa y se encuentra piñón de transmisión salido , se entrega a turno entrante"
   },
   {
     "id": "rt-20260808-0930",
@@ -2076,7 +2067,7 @@ window.REPORTES_TURNO = [
       "Marzio 6",
       "Se revisa y se termina cuadre , falta conseguir espárrago del sistema del embudo para entregar el equipo"
     ],
-    "texto": "Sede 4 -- turno (noche)\n2026/08/08\n\n           *EQUIPOS OPERATIVOS SEDE\n Envasado 3 fluticasona \nCl2 dolorsin fem \nEnvasado 2 ferbin\nNjp2 pragmaten \nBosch Diclofenac\nBin dimoflax \nNjp3 omeprazol \nMs235 flextril \nMb432 vitamina A\nBlíster 8 dimoflax \nMarzio 1 esomed \nHuttiln 600 oxaprozina \nMarzio 4 flumoxol\nRimek congestex \nHuttiln 400 nifedipino\nCb550 gelimed\n_________\n                  NOVEDADES\n\nMARZIO 1: se suelta uno de los tornillos de la base de las mordazas horizontales inferiores en sistema mecánico lo que ocasionaba mal grafilado del equipo se ajusta posición de sistema mecánico y fija tornillo máquina operativa.\n\nBosch: se ajusta bloque de cierre por rechazo constante de cápsulas en buen estado. Y se revisan mangueras de sistema de limpieza y se evidencian en mal estado.\n\nSe apoya en planta 2 con toma de tiempo centro líquido \n\nApoyo en blíster 3 por estiramiento de PVC ajuste de palpador y cambio de reflectivo \n\nSe baja pantalla de R 200 para entregar a reparación \n\nSe ajusta puerta controlsa de pesaje 3\n\n  Estuchadora Evo \nSe atiende llamado por problemas en las ventosas , se ajusta altura y también se ajustan empujadores queda operativa \n\nEstuchadora ensave 3 \nSe atiende problema por pieza de lote se parte tope de la posición de lote se coloca pieza provisional \n\nNJP2\nSe engrasa y se lubrica equipo\n\nTanque auxiliar del PILOT \nSe revisa , se arma y se coloca eje en posición correcta se entrega a producción\n\nMarzio 6 \nSe revisa y se termina cuadre , falta conseguir espárrago del sistema del embudo para entregar el equipo"
+    "texto": "Sede 4 -- turno (noche)\n2026/08/08\n\n           *EQUIPOS OPERATIVOS SEDE\n Envasado 3 fluticasona \nCl2 dolorsin fem \nEnvasado 2 ferbin\nNjp2 pragmaten \nBosch Diclofenac\nBin dimoflax \nNjp3 omeprazol \nMs235 flextril \nMb432 vitamina A\nBlíster 8 dimoflax \nMarzio 1 esomed \nHuttiln 600 oxaprozina \nMarzio 4 flumoxol\nRimek congestex \nHuttiln 400 nifedipino\nCb550 gelimed\n_________________________\n                  *NOVEDADES*\n\nMARZIO 1: se suelta uno de los tornillos de la base de las mordazas horizontales inferiores en sistema mecánico lo que ocasionaba mal grafilado del equipo se ajusta posición de sistema mecánico y fija tornillo máquina operativa.\n\nBosch: se ajusta bloque de cierre por rechazo constante de cápsulas en buen estado. Y se revisan mangueras de sistema de limpieza y se evidencian en mal estado.\n\nSe apoya en planta 2 con toma de tiempo centro líquido \n\nApoyo en blíster 3 por estiramiento de PVC ajuste de palpador y cambio de reflectivo \n\nSe baja pantalla de R 200 para entregar a reparación \n\nSe ajusta puerta controlsa de pesaje 3\n\n  Estuchadora Evo \nSe atiende llamado por problemas en las ventosas , se ajusta altura y también se ajustan empujadores queda operativa \n\nEstuchadora ensave 3 \nSe atiende problema por pieza de lote se parte tope de la posición de lote se coloca pieza provisional \n\nNJP2\nSe engrasa y se lubrica equipo\n\nTanque auxiliar del PILOT \nSe revisa , se arma y se coloca eje en posición correcta se entrega a producción\n\nMarzio 6 \nSe revisa y se termina cuadre , falta conseguir espárrago del sistema del embudo para entregar el equipo"
   },
   {
     "id": "rt-20260808-2009",
@@ -2139,7 +2130,7 @@ window.REPORTES_TURNO = [
       "Se requiere fabricar eje nuevo o pedir una nueva banda para codificado.",
       "* Se present novedad en planta 2. Reportan MPCD 13 y 14 apagadas, se revisa en la subestación y se encuentra seccionador del transformador 4 abierto. Se está revisando estado del trafo para verificar si se puede energizar. Con ese evento, se salieron los chillers 3 y 4 lo cual ocasiona temperatura alta en los cuartos 4, 5 y 6"
     ],
-    "texto": "Reporte turno 10\n2026/08/08\n\nBlister 3 :  nifedipino\nGb-100: stand by \nFabricación1: chiquident\nEnvasadora 1:  montaje \nEtiqueteadora 1: limpieza \nCD-40: flectadol \nCl1: limpieza\nRonchy: loratadina\nMarzio 2 : stand by \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\nNOVEDADES\n\nCD-40: se ajusta altura de las boquillas de dosificación\n \nBlister 3 : se bloquea pantalla en una ocacion luego llamado por mal corte se ajustan parámetros avance se purga formato de soplado y se calibra estación y tunel \n\nBanda de codificado: llamado por ruido anormal se revisa se desarma.y se encuentra eje con las puntas desgastada se invierte tensores y se arma nuevamente banda se deja operariva .\nSe requiere fabricar eje nuevo o pedir una nueva banda para codificado.\n\n* Se present novedad en planta 2. Reportan MPCD 13 y 14 apagadas, se revisa en la subestación y se encuentra seccionador del transformador 4 abierto. Se está revisando estado del trafo para verificar si se puede energizar. Con ese evento, se salieron los chillers 3 y 4 lo cual ocasiona temperatura alta en los cuartos 4, 5 y 6"
+    "texto": "Reporte turno 10\n2026/08/08\n\nBlister 3 :  nifedipino\nGb-100: stand by \nFabricación1: chiquident\nEnvasadora 1:  montaje \nEtiqueteadora 1: limpieza \nCD-40: flectadol \nCl1: limpieza\nRonchy: loratadina\nMarzio 2 : stand by \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\n*NOVEDADES*\n\nCD-40: se ajusta altura de las boquillas de dosificación\n \nBlister 3 : se bloquea pantalla en una ocacion luego llamado por mal corte se ajustan parámetros avance se purga formato de soplado y se calibra estación y tunel \n\nBanda de codificado: llamado por ruido anormal se revisa se desarma.y se encuentra eje con las puntas desgastada se invierte tensores y se arma nuevamente banda se deja operariva .\nSe requiere fabricar eje nuevo o pedir una nueva banda para codificado.\n\n* Se present novedad en planta 2. Reportan MPCD 13 y 14 apagadas, se revisa en la subestación y se encuentra seccionador del transformador 4 abierto. Se está revisando estado del trafo para verificar si se puede energizar. Con ese evento, se salieron los chillers 3 y 4 lo cual ocasiona temperatura alta en los cuartos 4, 5 y 6"
   },
   {
     "id": "rt-20260808-2216",
@@ -2279,7 +2270,7 @@ window.REPORTES_TURNO = [
       "•se atiende llamado por qué se estaba pegando el PVC y se estaba estirando tenía las temperaturas en 145 se cuadra túnel de calefacción y se dejan las temperaturas en 112",
       "BOSHC se recibe llamado en la máquina, se encontró estrellada, se evidenció pin de descarte volado y atascamiento por el pin con el disco del sistema de dosificación, se le pide al operador desmonte de piezas para sacar el pin atorado, se lleva al taller para sacar el resto de pin que quedaba dentro y se coloca un nuevo pin, se lleva a la máquina y se monta pieza porta pines, se realiza un ciclo para verificar todos los pines y se observaron ok, se entrega máquina a operador para el resto del armado."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: colágeno \nBOSHC: diclofenaco\nNJP #2: pragmaten\nNJP #1: nifedipino \nNJP #3: dimoflax\nSCMUKER: flextril c\nBLISTER #9: esomeprazol\nMB 432: vitamina A\nINTEGRA: tensofar\nBLISTER #8: dimoflax \nMARCHESINI EVO: nifedipino \nR200: stamby mtto\nR400: congestex\nMARZIO #1: esomed\nMARZIO #4: flumixol\nCB 550: gelimed\nHUTTLIN 600: oxaproxina \nHUTTLIN 400: nifedipino \nRIMEK: limpieza \nFETTE 2020-2: Trimebutina \nFETTE 1010: oxaproxina\nFETTE 2020-1: acetaminofén \n\nLÍQUIDO \nENVASADORA #2: Ferbin jarabe \nENVASADORA #3: fluticasona\nCLIQUIDO #2: inspección \nCLIQUIDO #3: disponible \nCLIQUIDO #4: disponible \nMT 1100: disponible \nBLISTER #2: disponible \nBLISTER #5: ezetimiba\n________________\n                       NOVEDADES \nSCMUKER\nse le quita inclinación a la banda debido a que los sobres no subían y se deslizaban por banda lisa, se deja en operación.\n\nMARZIO #4\n•se atiende llamado porque la máquina no daba marcha, se revisa tablero eléctrico y se evidencia variador con alarma \"Lu\" (bajo voltaje) se revisa alimentación principal y se evidencia fluctuación en una de las líneas por cable sulfatado en la clavija de la máquina, se corta el cable y se conecta nuevamente quedando máquina operativa.\n\n•Se atiende llamado por perdida de paso y mal corte se cambia de marzio se cuadran tiempos y se cuadra el sobre 3 veces pero siempre faltaba algo por cuadrar por qué no daban las distancias el detalle es que se armó la máquina con retazos de la otras máquinas hay piezas que no coinciden queda para seguir cuadrando\n\nBLISTER #9\n•se recibe llamado por banda de empaque apagada, se revisa tablero eléctrico y se encuentra variador con alarma \"oL\" (sobre carga) se restablece variador y se deja banda operativa.\n\n•se atiende llamado por qué se estaba pegando el PVC y se estaba estirando tenía las temperaturas en 145 se cuadra túnel de calefacción y se dejan las temperaturas en 112\n\nBOSHC \nse recibe llamado en la máquina, se encontró estrellada, se evidenció pin de descarte volado y atascamiento por el pin con el disco del sistema de dosificación, se le pide al operador desmonte de piezas para sacar el pin atorado, se lleva al taller para sacar el resto de pin que quedaba dentro y se coloca un nuevo pin, se lleva a la máquina y se monta pieza porta pines, se realiza un ciclo para verificar todos los pines y se observaron ok, se entrega máquina a operador para el resto del armado."
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: colágeno \nBOSHC: diclofenaco\nNJP #2: pragmaten\nNJP #1: nifedipino \nNJP #3: dimoflax\nSCMUKER: flextril c\nBLISTER #9: esomeprazol\nMB 432: vitamina A\nINTEGRA: tensofar\nBLISTER #8: dimoflax \nMARCHESINI EVO: nifedipino \nR200: stamby mtto\nR400: congestex\nMARZIO #1: esomed\nMARZIO #4: flumixol\nCB 550: gelimed\nHUTTLIN 600: oxaproxina \nHUTTLIN 400: nifedipino \nRIMEK: limpieza \nFETTE 2020-2: Trimebutina \nFETTE 1010: oxaproxina\nFETTE 2020-1: acetaminofén \n\nLÍQUIDO \nENVASADORA #2: Ferbin jarabe \nENVASADORA #3: fluticasona\nCLIQUIDO #2: inspección \nCLIQUIDO #3: disponible \nCLIQUIDO #4: disponible \nMT 1100: disponible \nBLISTER #2: disponible \nBLISTER #5: ezetimiba\n______________________________________________\n                       NOVEDADES \nSCMUKER\nse le quita inclinación a la banda debido a que los sobres no subían y se deslizaban por banda lisa, se deja en operación.\n\nMARZIO #4\n•se atiende llamado porque la máquina no daba marcha, se revisa tablero eléctrico y se evidencia variador con alarma \"Lu\" (bajo voltaje) se revisa alimentación principal y se evidencia fluctuación en una de las líneas por cable sulfatado en la clavija de la máquina, se corta el cable y se conecta nuevamente quedando máquina operativa.\n\n•Se atiende llamado por perdida de paso y mal corte se cambia de marzio se cuadran tiempos y se cuadra el sobre 3 veces pero siempre faltaba algo por cuadrar por qué no daban las distancias el detalle es que se armó la máquina con retazos de la otras máquinas hay piezas que no coinciden queda para seguir cuadrando\n\nBLISTER #9\n•se recibe llamado por banda de empaque apagada, se revisa tablero eléctrico y se encuentra variador con alarma \"oL\" (sobre carga) se restablece variador y se deja banda operativa.\n\n•se atiende llamado por qué se estaba pegando el PVC y se estaba estirando tenía las temperaturas en 145 se cuadra túnel de calefacción y se dejan las temperaturas en 112\n\nBOSHC \nse recibe llamado en la máquina, se encontró estrellada, se evidenció pin de descarte volado y atascamiento por el pin con el disco del sistema de dosificación, se le pide al operador desmonte de piezas para sacar el pin atorado, se lleva al taller para sacar el resto de pin que quedaba dentro y se coloca un nuevo pin, se lleva a la máquina y se monta pieza porta pines, se realiza un ciclo para verificar todos los pines y se observaron ok, se entrega máquina a operador para el resto del armado."
   },
   {
     "id": "rt-20260809-0749",
@@ -2420,20 +2411,16 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "MARZIO#6: Equipo de está realizando ajustes en áreas, tiempos, alineación,paso,tamaño,tornillería, rotula, se entrega turno entrante continuar.",
-      "INTEGRA 320: Llamado por atascamiento en cizalla (estación de corte), se revisa y lubrica tren de engranajes, se detecta  ruido en la misma, se requiere realizar mantenimiento URGENTE, equipo trabajando, se adjunta video",
-      "BOSCH: Segmentos porta cuerpos maltratados, no se deja alinear con calibre, se lleva al taller y se realizan ajustes, también se ubican distancias de los mismos, equipo ok, se desbloquea elevador.",
-      "MT1100: Se apoya en montaje e inicio de equipo, se borra alarma (Deposito de purga).",
-      "BLÍSTER 2: Se corrige mal formación de alveolos se cambian parámetros de soplado, equipo operativo.",
-      "R200: Se instala pantalla a equipo, operativo.",
-      "NJP2: Se cambian rodamientos lineales de estación, expulsión de capsulas, el mismo se encontraba atascado equipo operativo.",
-      "CL2: Se extrae prisionero de los rodillos de solución y se reemplaza. Queda ok",
-      "BOSCH",
-      "BOSCH",
-      "NJP2",
-      "INTEGRA 320, se requiere hacer mantenimiento."
+      "*MARZIO#6:* Equipo de está realizando ajustes en áreas, tiempos, alineación,paso,tamaño,tornillería, rotula, se entrega turno entrante continuar.",
+      "*INTEGRA 320:* Llamado por atascamiento en cizalla (estación de corte), se revisa y lubrica tren de engranajes, se detecta  ruido en la misma, se requiere realizar mantenimiento URGENTE, equipo trabajando, se adjunta video",
+      "*BOSCH:* Segmentos porta cuerpos maltratados, no se deja alinear con calibre, se lleva al taller y se realizan ajustes, también se ubican distancias de los mismos, equipo ok, se desbloquea elevador.",
+      "*MT1100:* Se apoya en montaje e inicio de equipo, se borra alarma (Deposito de purga).",
+      "*BLÍSTER 2:* Se corrige mal formación de alveolos se cambian parámetros de soplado, equipo operativo.",
+      "*R200:* Se instala pantalla a equipo, operativo.",
+      "*NJP2:* Se cambian rodamientos lineales de estación, expulsión de capsulas, el mismo se encontraba atascado equipo operativo.",
+      "*CL2:* Se extrae prisionero de los rodillos de solución y se reemplaza. Queda ok"
     ],
-    "texto": "REPORTE DE TURNO\n      2026-08-09\n           sede 4\n \nCL3: Disponible \nCL4: Disponible \nStick Pack 4: Superflux\nBlíster 2: Vicitra Z\nEnvasadora 3: Disponible \nCL2: Dolorsin fem\nEnvasadora 2:  Disponible \nBin: Fluoxetina\nBosch: Diclofenac \nNJP1: Nifedipino \nNJP2: Pragmaten \nNJP3: Omeprazol \nPilot lab: Disponible \nMB 432: Vitamina A\nBlíster DM: Dimoflax\nSchmucker: Disponible \nBlíster 9: Disponible \nIntegra 320: Lozartan\nR200: Disponible \nMB 451: Omeprazol\nMarzio 1: Disponible \nHuttlin 600: Disponible \nR400: Disponible \nBombo 300: Disponible \nMarzio 4: Mantenimiento \nBombo 300: Disponible \nHuttlin 400: Nifedipino\nRimek:  Limpieza \nCB 550: Gelimed\nFette 1010: Oxaproxina\nFette 2020 2: Disponible \nFette 2020 1: Disponible \nBlíster 5: congestex Forte\n\n              Novedades\nMARZIO#6: Equipo de está realizando ajustes en áreas, tiempos, alineación,paso,tamaño,tornillería, rotula, se entrega turno entrante continuar.\nINTEGRA 320: Llamado por atascamiento en cizalla (estación de corte), se revisa y lubrica tren de engranajes, se detecta  ruido en la misma, se requiere realizar mantenimiento URGENTE, equipo trabajando, se adjunta video \nBOSCH: Segmentos porta cuerpos maltratados, no se deja alinear con calibre, se lleva al taller y se realizan ajustes, también se ubican distancias de los mismos, equipo ok, se desbloquea elevador.\nMT1100: Se apoya en montaje e inicio de equipo, se borra alarma (Deposito de purga).\nBLÍSTER 2: Se corrige mal formación de alveolos se cambian parámetros de soplado, equipo operativo.\nR200: Se instala pantalla a equipo, operativo.\nNJP2: Se cambian rodamientos lineales de estación, expulsión de capsulas, el mismo se encontraba atascado equipo operativo.\nCL2: Se extrae prisionero de los rodillos de solución y se reemplaza. Queda ok\nBOSCH\nBOSCH\nNJP2\nINTEGRA 320, se requiere hacer mantenimiento."
+    "texto": "*REPORTE DE TURNO*\n      2026-08-09\n           sede 4\n \n*CL3:* Disponible \n*CL4:* Disponible \n*Stick Pack 4:* Superflux\n*Blíster 2:* Vicitra Z\n*Envasadora 3:* Disponible \n*CL2:* Dolorsin fem\n*Envasadora 2:*  Disponible \n*Bin:* Fluoxetina\n*Bosch:* Diclofenac \n*NJP1:* Nifedipino \n*NJP2:* Pragmaten \n*NJP3:* Omeprazol \n*Pilot lab:* Disponible \n*MB 432:* Vitamina A\n*Blíster DM:* Dimoflax\n*Schmucker:* Disponible \n*Blíster 9:* Disponible \n*Integra 320:* Lozartan\n*R200:* Disponible \n*MB 451:* Omeprazol\n*Marzio 1:* Disponible \n*Huttlin 600:* Disponible \n*R400:* Disponible \n*Bombo 300:* Disponible \n*Marzio 4:* Mantenimiento \n*Bombo 300:* Disponible \n*Huttlin 400:* Nifedipino\n*Rimek:*  Limpieza \n*CB 550:* Gelimed\n*Fette 1010:* Oxaproxina\n*Fette 2020 2:* Disponible \n*Fette 2020 1:* Disponible \n*Blíster 5:* congestex Forte\n\n              *Novedades*\n*MARZIO#6:* Equipo de está realizando ajustes en áreas, tiempos, alineación,paso,tamaño,tornillería, rotula, se entrega turno entrante continuar.\n*INTEGRA 320:* Llamado por atascamiento en cizalla (estación de corte), se revisa y lubrica tren de engranajes, se detecta  ruido en la misma, se requiere realizar mantenimiento URGENTE, equipo trabajando, se adjunta video \n*BOSCH:* Segmentos porta cuerpos maltratados, no se deja alinear con calibre, se lleva al taller y se realizan ajustes, también se ubican distancias de los mismos, equipo ok, se desbloquea elevador.\n*MT1100:* Se apoya en montaje e inicio de equipo, se borra alarma (Deposito de purga).\n*BLÍSTER 2:* Se corrige mal formación de alveolos se cambian parámetros de soplado, equipo operativo.\n*R200:* Se instala pantalla a equipo, operativo.\n*NJP2:* Se cambian rodamientos lineales de estación, expulsión de capsulas, el mismo se encontraba atascado equipo operativo.\n*CL2:* Se extrae prisionero de los rodillos de solución y se reemplaza. Queda ok"
   },
   {
     "id": "rt-20260809-0909",
@@ -2492,7 +2479,7 @@ window.REPORTES_TURNO = [
       "GB 100 Problemas en el avance del equipo , aire comprimido deficiente.",
       "Micronizado Se desmonta tablero eléctrico, se cambia cableado , contactor y breker de control ."
     ],
-    "texto": "Reporte turno 10\n2026/08/08\n\nBlister 3 :  nifedipino\nGb-100: dispax\nFabricación1: chiquident\nEnvasadora 1:  chiquident\nEtiqueteadora 1: chiquident\nCl1: limpieza\nRonchy: loratadina\nMarzio 2 : stand by \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\nNOVEDADES\n\nBlíster 3 \nSe recibe llamado por malformación , se ajusta túnel de calefacción y tiempo de soplado , trabaja hasta las 05:00 hrs , por baja presión de aire comprimido.\n\nRecubrimiento 9 se recibe llamado porque el bombo no giraba , se revisa y se encuentra variador en falla , por recalentamiento en una línea de la salida del variador , se corrige y se deja en funcionamiento.\n\nMezclador horizontal \nSe cambia clavija al agitador portátil.\n\nGB 100\nProblemas en el avance del equipo , aire comprimido deficiente.\n\nMicronizado \nSe desmonta tablero eléctrico, se cambia cableado , contactor y breker de control ."
+    "texto": "Reporte turno 10\n2026/08/08\n\nBlister 3 :  nifedipino\nGb-100: dispax\nFabricación1: chiquident\nEnvasadora 1:  chiquident\nEtiqueteadora 1: chiquident\nCl1: limpieza\nRonchy: loratadina\nMarzio 2 : stand by \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3 \nSe recibe llamado por malformación , se ajusta túnel de calefacción y tiempo de soplado , trabaja hasta las 05:00 hrs , por baja presión de aire comprimido.\n\nRecubrimiento 9 se recibe llamado porque el bombo no giraba , se revisa y se encuentra variador en falla , por recalentamiento en una línea de la salida del variador , se corrige y se deja en funcionamiento.\n\nMezclador horizontal \nSe cambia clavija al agitador portátil.\n\nGB 100\nProblemas en el avance del equipo , aire comprimido deficiente.\n\nMicronizado \nSe desmonta tablero eléctrico, se cambia cableado , contactor y breker de control ."
   },
   {
     "id": "rt-20260809-1955",
@@ -2642,21 +2629,10 @@ window.REPORTES_TURNO = [
       {
         "equipo": "Mt1100",
         "producto": "standby (sin operador)"
-      },
-      {
-        "equipo": "Notas",
-        "producto": ""
-      },
-      {
-        "equipo": "Smuker.",
-        "producto": ""
       }
     ],
-    "novedades": [
-      "Se recibe llamado por problemas en vibrador. Se inspecciona y se encuentra cableado interno partido. Se corrige conexión con terminales y se entrega operativa al operador. se hace seguimiento maquin aSIN NOVEDAD.",
-      "Se parte tornillo de cilindro de sellado de mordazas laterales. Se desmonta mordazas, se extrae tornillo y se ajusta sachets. Se entrega a operadora máquina operativa."
-    ],
-    "texto": "Turno\nFABRICACIÓN #1:  .\nENVASADO#2:  ferbin \nENVASADORA#3 flutivasona\nESTUCHADORA#3 fluticasona\nCL#3 STANDBY (sin operador)\nCL#4 standby \nCL#2 DOLOR SIN FEM\nBLISTER#5:alermed\nBLÍSTER#2: STANDBY SIM OPERADOR\nBIM: acetaminofén \nBOSCH: Diclofenac AR\nNJP#1 nifedipino 24h\nNJP#2:pragmaten\nNJP3: omeprazol \nPILOTO: dimoflax\nSmuker: flextril C\nBlister#9 esomeprazol\nBLISTER#6 MB432: vitamina A\nBLISTER#4: INTEGRA320:  cuadre Fluoxetina \nESTUCHADORA INTEGRA: STANBY\nBlister#8 sranby\nEvo: omeprazol \nEstuchadora omeprazol \nCB550: GELIMED PLUS HMB\nHutlin600: ibuprofeno \nMarzio#1 esomed\nMarzio4: novabelle\nRimel: stanby\nHutlin400:  multivitaminico\nFWTTW 2020/2 acetaminofén \nFETTE1010: oxaprosina\nFette2020/1 acetaminofén \nR400: limpieza equipo\nR200 standby(inspección es omeprazol 40mg)\nMt1100: standby (sin operador)\nNotas:\nSmuker.\nSe recibe llamado por problemas en vibrador. Se inspecciona y se encuentra cableado interno partido. Se corrige conexión con terminales y se entrega operativa al operador.\nse hace seguimiento maquin aSIN NOVEDAD.\n Se parte tornillo de cilindro de sellado de mordazas laterales.\nSe desmonta mordazas, se extrae tornillo y se ajusta sachets. Se entrega a operadora máquina operativa."
+    "novedades": [],
+    "texto": "Turno\nFABRICACIÓN #1:  .\nENVASADO#2:  ferbin \nENVASADORA#3 flutivasona\nESTUCHADORA#3 fluticasona\nCL#3 STANDBY (sin operador)\nCL#4 standby \nCL#2 DOLOR SIN FEM\nBLISTER#5:alermed\nBLÍSTER#2: STANDBY SIM OPERADOR\nBIM: acetaminofén \nBOSCH: Diclofenac AR\nNJP#1 nifedipino 24h\nNJP#2:pragmaten\nNJP3: omeprazol \nPILOTO: dimoflax\nSmuker: flextril C\nBlister#9 esomeprazol\nBLISTER#6 MB432: vitamina A\nBLISTER#4: INTEGRA320:  cuadre Fluoxetina \nESTUCHADORA INTEGRA: STANBY\nBlister#8 sranby\nEvo: omeprazol \nEstuchadora omeprazol \nCB550: GELIMED PLUS HMB\nHutlin600: ibuprofeno \nMarzio#1 esomed\nMarzio4: novabelle\nRimel: stanby\nHutlin400:  multivitaminico\nFWTTW 2020/2 acetaminofén \nFETTE1010: oxaprosina\nFette2020/1 acetaminofén \nR400: limpieza equipo\nR200 standby(inspección es omeprazol 40mg)\nMt1100: standby (sin operador)"
   },
   {
     "id": "rt-20260810-0755",
@@ -2797,19 +2773,19 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "MARZIO#4: Se realizan ajustes en sistema de mordazas, se realizan pruebas ok, se hacen ajustes finales en sitio, equipo operativo de adjunta video.",
+      "*MARZIO#4:* Se realizan ajustes en sistema de mordazas, se realizan pruebas ok, se hacen ajustes finales en sitio, equipo operativo de adjunta video.",
       "NOTA: Se saca MARZIO 6 nuevamente para el taller.",
-      "INTEGRA 320: Alarma en equipo por termicos, bomba de vacío, se revisa y presenta paletas de grafitos partidas, se reemplaza, equipo operativo.",
-      "BOSCH: Equipo presenta falla en cierre capsulas, la misma fue corregida y  luego otro Llamado por expulsores bloqueados, sensor en mal estado, el mismo fue reemplazado y adaptado para iniciar proceso, equipo operativo, se adjunta video.",
-      "HUTTLIN 600: Se recibe turno para las limpieza de captador, el mismo se encontraba saturado, se arma nuevamente, trabaja hasta finalizando el turno que se baja el volumen de aire, se requiere limpieza de filtros en captador.",
-      "NJP3: Equipo presenta poco vacío, captador de polvo saturado, se limpia, equipo operando.",
-      "MT1100: Se cambia resorte en cuchilla de corte y se ajusta sensores de sobres, equipo operativo.",
-      "CL2: Se cambia correa de transmisión rodillos de capsulas (secadora), equipo operativo.",
-      "BLISTER 2: Se ajusta temperatura en túnel de calefacción para corregir mal formación de alveolos.",
-      "SCHMUCKER: Se extrae tornillo partido en sufridera de lote, equipo operativo.",
-      "CB550: Se cambia banda de arrastre por arruga en sobres, equipo operativo, se requieren las mismas."
+      "*INTEGRA 320:* Alarma en equipo por termicos, bomba de vacío, se revisa y presenta paletas de grafitos partidas, se reemplaza, equipo operativo.",
+      "*BOSCH:* Equipo presenta falla en cierre capsulas, la misma fue corregida y  luego otro Llamado por expulsores bloqueados, sensor en mal estado, el mismo fue reemplazado y adaptado para iniciar proceso, equipo operativo, se adjunta video.",
+      "*HUTTLIN 600:* Se recibe turno para las limpieza de captador, el mismo se encontraba saturado, se arma nuevamente, trabaja hasta finalizando el turno que se baja el volumen de aire, se requiere limpieza de filtros en captador.",
+      "*NJP3:* Equipo presenta poco vacío, captador de polvo saturado, se limpia, equipo operando.",
+      "*MT1100:* Se cambia resorte en cuchilla de corte y se ajusta sensores de sobres, equipo operativo.",
+      "*CL2:* Se cambia correa de transmisión rodillos de capsulas (secadora), equipo operativo.",
+      "*BLISTER 2:* Se ajusta temperatura en túnel de calefacción para corregir mal formación de alveolos.",
+      "*SCHMUCKER:* Se extrae tornillo partido en sufridera de lote, equipo operativo.",
+      "*CB550:* Se cambia banda de arrastre por arruga en sobres, equipo operativo, se requieren las mismas."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE\n EQUIPOS OPERATIVO\nCL2: DOLORSIN FEM\nCL4: DISPONIBLE \nMT 1100: SUPERFLUIX,\nBLÍSTER 2: DISPONIBLE \nBLISTER 5: ALERMED\nENVASADO 3: FLUTICASONA\nCL3: DISPONIBLE \nENVASADORA 2:  FERBIN\nBIN BLENDER: COLAGENO\nBOSCH: DICLOFENAC\nNJP1: NIFEDIPINO \nNJP2: ORAGMATEN\nNJP3: ESOMEPRAZOL\nPILOT LAB: DIMOFLAX\nMB 432: FERRIMED montaje\nBLISTER 9: PROPANOLOL\nBLISTER 8: DIMOFLAX\nSCHMUCKER: FLEXTRIL C\nINTEGRA 320: FLUOXETINA \nR200: LIMPIEZA \nMB 451 evo: NIFEDIPINO \nMARZIO 1: ESOMED\nHUTTLIN 600: IBUPROFENO \nR400: LIMPIEZA \nBOMBO 300: DISPONIBLE\nMARZIO 4: FLUMIXOL\nHUTTLIN 400: LIMPIEZA \nRIMECK: LIMPIEZA \nCB 550: GELIMED\nFETTE 1010 : OXAPROZINA\nFETTE 2020#1: ACETAMINOFÉN \nFETTE 2020# 2: COMTRIM\nNOVEDADES\nMARZIO#4: Se realizan ajustes en sistema de mordazas, se realizan pruebas ok, se hacen ajustes finales en sitio, equipo operativo de adjunta video.\nNOTA: Se saca MARZIO 6 nuevamente para el taller.\nINTEGRA 320: Alarma en equipo por termicos, bomba de vacío, se revisa y presenta paletas de grafitos partidas, se reemplaza, equipo operativo.\nBOSCH: Equipo presenta falla en cierre capsulas, la misma fue corregida y  luego otro Llamado por expulsores bloqueados, sensor en mal estado, el mismo fue reemplazado y adaptado para iniciar proceso, equipo operativo, se adjunta video.\nHUTTLIN 600: Se recibe turno para las limpieza de captador, el mismo se encontraba saturado, se arma nuevamente, trabaja hasta finalizando el turno que se baja el volumen de aire, se requiere limpieza de filtros en captador.\nNJP3: Equipo presenta poco vacío, captador de polvo saturado, se limpia, equipo operando.\nMT1100: Se cambia resorte en cuchilla de corte y se ajusta sensores de sobres, equipo operativo.\nCL2: Se cambia correa de transmisión rodillos de capsulas (secadora), equipo operativo.\nBLISTER 2: Se ajusta temperatura en túnel de calefacción para corregir mal formación de alveolos.\nSCHMUCKER: Se extrae tornillo partido en sufridera de lote, equipo operativo.\nCB550: Se cambia banda de arrastre por arruga en sobres, equipo operativo, se requieren las mismas."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE*\n *EQUIPOS OPERATIVO*\n*CL2:* DOLORSIN FEM\n*CL4:* DISPONIBLE \n*MT 1100:* SUPERFLUIX,\n*BLÍSTER 2:* DISPONIBLE \n*BLISTER 5:* ALERMED\n*ENVASADO 3:* FLUTICASONA\n*CL3:* DISPONIBLE \n*ENVASADORA 2:*  FERBIN\n*BIN BLENDER:* COLAGENO\n*BOSCH:* DICLOFENAC\n*NJP1:* NIFEDIPINO \n*NJP2:* ORAGMATEN\n*NJP3:* ESOMEPRAZOL\n*PILOT LAB:* DIMOFLAX\n*MB 432:* FERRIMED montaje\n*BLISTER 9:* PROPANOLOL\n*BLISTER 8:* DIMOFLAX\n*SCHMUCKER:* FLEXTRIL C\n*INTEGRA 320:* FLUOXETINA \n*R200:* LIMPIEZA \n*MB 451 evo:* NIFEDIPINO \n*MARZIO 1:* ESOMED\n*HUTTLIN 600:* IBUPROFENO \n*R400:* LIMPIEZA \n*BOMBO 300:* DISPONIBLE\n*MARZIO 4:* FLUMIXOL\n*HUTTLIN 400:* LIMPIEZA \n*RIMECK:* LIMPIEZA \n*CB 550:* GELIMED\n*FETTE 1010 :* OXAPROZINA\n*FETTE 2020#1:* ACETAMINOFÉN \n*FETTE 2020# 2:* COMTRIM\n*NOVEDADES*\n*MARZIO#4:* Se realizan ajustes en sistema de mordazas, se realizan pruebas ok, se hacen ajustes finales en sitio, equipo operativo de adjunta video.\nNOTA: Se saca MARZIO 6 nuevamente para el taller.\n*INTEGRA 320:* Alarma en equipo por termicos, bomba de vacío, se revisa y presenta paletas de grafitos partidas, se reemplaza, equipo operativo.\n*BOSCH:* Equipo presenta falla en cierre capsulas, la misma fue corregida y  luego otro Llamado por expulsores bloqueados, sensor en mal estado, el mismo fue reemplazado y adaptado para iniciar proceso, equipo operativo, se adjunta video.\n*HUTTLIN 600:* Se recibe turno para las limpieza de captador, el mismo se encontraba saturado, se arma nuevamente, trabaja hasta finalizando el turno que se baja el volumen de aire, se requiere limpieza de filtros en captador.\n*NJP3:* Equipo presenta poco vacío, captador de polvo saturado, se limpia, equipo operando.\n*MT1100:* Se cambia resorte en cuchilla de corte y se ajusta sensores de sobres, equipo operativo.\n*CL2:* Se cambia correa de transmisión rodillos de capsulas (secadora), equipo operativo.\n*BLISTER 2:* Se ajusta temperatura en túnel de calefacción para corregir mal formación de alveolos.\n*SCHMUCKER:* Se extrae tornillo partido en sufridera de lote, equipo operativo.\n*CB550:* Se cambia banda de arrastre por arruga en sobres, equipo operativo, se requieren las mismas."
   },
   {
     "id": "rt-20260810-1338",
@@ -2855,7 +2831,7 @@ window.REPORTES_TURNO = [
       "Micronizado Se instala tablero eléctrico, se conecta cable de alimentacion y micro de seguridad.",
       "Se cambian lámparas LED en baño de mujeres."
     ],
-    "texto": "Reporte turno \nSede 2\n\nBlister 3 :  nifedipino\nGb-100: vildagriptina \nEnvasadora: 1 limpieza \nCl1: naproxeno\nMarzio 2 : stand by \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\nNOVEDADES\n\nBlíster 3 \nSe cambia racor de 1/4 por 8mm, por fuga de agua en formato de soplado queda ok.\n\nGB 100\n Se recibe llamado por malformación y filtración del blíster, se ajustan temperaturas y aire en el formado. Se deja equipo en funcionamiento \n\nMicronizado \nSe instala tablero eléctrico, se conecta cable de alimentacion y micro de seguridad.\n\nSe cambian lámparas LED en baño de mujeres."
+    "texto": "Reporte turno \nSede 2\n\nBlister 3 :  nifedipino\nGb-100: vildagriptina \nEnvasadora: 1 limpieza \nCl1: naproxeno\nMarzio 2 : stand by \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\n*NOVEDADES*\n\nBlíster 3 \nSe cambia racor de 1/4 por 8mm, por fuga de agua en formato de soplado queda ok.\n\nGB 100\n Se recibe llamado por malformación y filtración del blíster, se ajustan temperaturas y aire en el formado. Se deja equipo en funcionamiento \n\nMicronizado \nSe instala tablero eléctrico, se conecta cable de alimentacion y micro de seguridad.\n\nSe cambian lámparas LED en baño de mujeres."
   },
   {
     "id": "rt-20260810-2308",
@@ -2867,7 +2843,7 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-10",
     "equipos": [],
     "novedades": [
-      "DEL TURNO DE DIA",
+      "DEL TURNO DE DIA*",
       "CB550",
       "Se atiende llamado por problemas de correas de avance , se cambian de le dan tensión y porción también se le coloca teflón nuevo al bajante y guía de lamina",
       "Se vuelve atender llamado por recorrido de brazo mecánico , se le da más recorrido  queda operativa",
@@ -2883,7 +2859,7 @@ window.REPORTES_TURNO = [
       "Queda pendiente terminar de montar el resto de filtros y lavado de piso técnico",
       "Bosch se atiende llamado por falla de expulsar 1/2 y sobrecarga de expulsión 10 se encontró un cilindro en mal estado se remplaza y se ajusto con Loctite conector de sensor de expulsión y se aisla conexión por mostrar falla repetitiva"
     ],
-    "texto": "NOVEDADES DEL TURNO DE DIA\nCB550 \nSe atiende llamado por problemas de correas de avance , se cambian de le dan tensión y porción también se le coloca teflón nuevo al bajante y guía de lamina \nSe vuelve atender llamado por recorrido de brazo mecánico , se le da más recorrido  queda operativa \n\n* Se retira banda de codificadora de empaque de le entrega a contratista \n\nHUTTLIN 400\nSe atiende llamado por porta filtro los tornillos partidos , se cambian se rectifica y se cambia espiga de los filtros se le entrega dos filtros de pelett a producción\n\nSe repara fuga de vapor en monoblock de ht600, \nSe desmonta flanche se retira exceso de sellado, anterior se limpia y se monta nuevamente.\n\nMb432: se atiende llamado por pliegue en formado, se apoya operador novedad continua se entrega a turno entrante.\n\nNjp1: problema en 2 estaciones se encuentras ejes y pines dañados y doblados, se evidencia que la máquina sufrió un estrellón y no avisaron nada, se cambian ejes, se calibra todas las estaciones máquina arranca\n\nR200. Llaman por daño el bomba porque no succionaba la solución, se encuentra manguera rota y empaques mal  puesto. Queda ok\n\nHuttiln 600 se realiza limpieza de filtros del captador , se recogió la merma \nQueda pendiente terminar de montar el resto de filtros y lavado de piso técnico\n\nBosch se atiende llamado por falla de expulsar 1/2 y sobrecarga de expulsión 10 se encontró un cilindro en mal estado se remplaza y se ajusto con Loctite conector de sensor de expulsión y se aisla conexión por mostrar falla repetitiva"
+    "texto": "*NOVEDADES DEL TURNO DE DIA*\nCB550 \nSe atiende llamado por problemas de correas de avance , se cambian de le dan tensión y porción también se le coloca teflón nuevo al bajante y guía de lamina \nSe vuelve atender llamado por recorrido de brazo mecánico , se le da más recorrido  queda operativa \n\n* Se retira banda de codificadora de empaque de le entrega a contratista \n\nHUTTLIN 400\nSe atiende llamado por porta filtro los tornillos partidos , se cambian se rectifica y se cambia espiga de los filtros se le entrega dos filtros de pelett a producción\n\nSe repara fuga de vapor en monoblock de ht600, \nSe desmonta flanche se retira exceso de sellado, anterior se limpia y se monta nuevamente.\n\nMb432: se atiende llamado por pliegue en formado, se apoya operador novedad continua se entrega a turno entrante.\n\nNjp1: problema en 2 estaciones se encuentras ejes y pines dañados y doblados, se evidencia que la máquina sufrió un estrellón y no avisaron nada, se cambian ejes, se calibra todas las estaciones máquina arranca\n\nR200. Llaman por daño el bomba porque no succionaba la solución, se encuentra manguera rota y empaques mal  puesto. Queda ok\n\nHuttiln 600 se realiza limpieza de filtros del captador , se recogió la merma \nQueda pendiente terminar de montar el resto de filtros y lavado de piso técnico\n\nBosch se atiende llamado por falla de expulsar 1/2 y sobrecarga de expulsión 10 se encontró un cilindro en mal estado se remplaza y se ajusto con Loctite conector de sensor de expulsión y se aisla conexión por mostrar falla repetitiva"
   },
   {
     "id": "rt-20260811-0738",
@@ -2946,7 +2922,7 @@ window.REPORTES_TURNO = [
       "Cl1: presenta maltrato en el cierre de capsulas se revisa y se alinea formato queda maquina operativa.",
       "Se cambila lampara fluorescente atrapa inceptos en almacen"
     ],
-    "texto": "Reporte turno 10\n2026/08/11\n\nBlister 3 :  dolorsin fem\nGb-100: vildagliptina \nFabricación1: hierro\nEnvasadora 1:  anemikids \nEtiqueteadora 1: \nCD-40: stand by \nCl1: dolorsin fem\nRonchy: loratadina\nMarzio 2 : montaje  \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\nNOVEDADES\n\nBlister 3: llamado porque se dispara breaker del alimentador, se encuentra cepillo del motor frenado, se sjust queda ok.\nSe apolla en cuadre de lote.\n\nGb-100: llamado porque motor embobinador de retal no rodaba se revisa y se encuentra prisionero suelto se ajusta queda ok\n \nCl1: presenta maltrato en el cierre de capsulas se revisa y se alinea formato queda maquina operativa.\n\nSe cambila lampara fluorescente atrapa inceptos en almacen"
+    "texto": "Reporte turno 10\n2026/08/11\n\nBlister 3 :  dolorsin fem\nGb-100: vildagliptina \nFabricación1: hierro\nEnvasadora 1:  anemikids \nEtiqueteadora 1: \nCD-40: stand by \nCl1: dolorsin fem\nRonchy: loratadina\nMarzio 2 : montaje  \nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\n*NOVEDADES*\n\nBlister 3: llamado porque se dispara breaker del alimentador, se encuentra cepillo del motor frenado, se sjust queda ok.\nSe apolla en cuadre de lote.\n\nGb-100: llamado porque motor embobinador de retal no rodaba se revisa y se encuentra prisionero suelto se ajusta queda ok\n \nCl1: presenta maltrato en el cierre de capsulas se revisa y se alinea formato queda maquina operativa.\n\nSe cambila lampara fluorescente atrapa inceptos en almacen"
   },
   {
     "id": "rt-20260811-0740",
@@ -3110,7 +3086,7 @@ window.REPORTES_TURNO = [
       "Gb-100: se ajusta presión de formado porque estaba rompiendo.",
       "Marzio 2: llamado para cuadre de mordazas verticales se parte hexágono de tornillo sinfin que rueda el carro de las mordazas vertical , mandar a fabricar queda en taller."
     ],
-    "texto": "Reporte turno 10\n2026/08/12\n\nBlister 3 :  dolorsin fem\nGb-100: vildagliptina \nFabricación1: hierro\nEnvasadora 1:  anemikids \nEtiqueteadora 1:anemikids \nCD-40: stand by \nCl1: limpieza\nRonchy: dilgagliptina\nMarzio 2 : montaje esomed  \nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\nNOVEDADES\n\nBlister 3: se apoya en cuadre se ajusta paso de maquina.\n\nGb-100: se ajusta presión de formado porque estaba rompiendo.\n\nMarzio 2: llamado para cuadre de mordazas verticales se parte hexágono de tornillo sinfin que rueda el carro de las mordazas vertical , mandar a fabricar queda en taller."
+    "texto": "Reporte turno 10\n2026/08/12\n\nBlister 3 :  dolorsin fem\nGb-100: vildagliptina \nFabricación1: hierro\nEnvasadora 1:  anemikids \nEtiqueteadora 1:anemikids \nCD-40: stand by \nCl1: limpieza\nRonchy: dilgagliptina\nMarzio 2 : montaje esomed  \nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\n*NOVEDADES*\n\nBlister 3: se apoya en cuadre se ajusta paso de maquina.\n\nGb-100: se ajusta presión de formado porque estaba rompiendo.\n\nMarzio 2: llamado para cuadre de mordazas verticales se parte hexágono de tornillo sinfin que rueda el carro de las mordazas vertical , mandar a fabricar queda en taller."
   },
   {
     "id": "rt-20260812-0951",
@@ -3455,7 +3431,7 @@ window.REPORTES_TURNO = [
       "BLÍSTER 9: Equipo presenta quemadura de alveolos aleatoria durante el turno, se cambiaron guías de PVC y falla persiste, se sugiere quitar pines en estación de sellado inferior, para corregir la tolerancia requerida en los alveolos.",
       "HUTTLIN 400: Se cambia mangueras de bomba peristaltica."
     ],
-    "texto": "[REPORTE DE TURNO SEDE 4 ]       \n2026/08/12\nGRUPO 1 DÍA \n*******\n[ÁREA DE SÓLIDOS]\n>Bin:\nU>Bosch: Diclofenac\n>NJP2:Ferrimed \n>NJP1: Limpieza \n>NJP3: Omeprazol \n>MB 432: Acetaminofén \n>Blíster #8:\n>Integra 320: Losartan 50 MG \n>Estuchadora#1: Losartan 50 MG \n>Blíster #9: Propranolol \n>MB 451:Nifedipino\n>Estuchadora#2: Nifedipino \n>Schmucker:Flextril c \n>Marzio#4: Limpieza \n>Marzio#1:Esomed \n>R400: Oxaprozina \n>Sólidos: Trimebutina \n>R200:\n>CB 550:\n>Fette 1010: Oxaprozina \n>fette 2020#1:\n>Fette 2020#2: Losartan 50 MG \n>Rimex: Trimebutina+ simeticona \n>Pilot lab: Dimoflax \n>Huttlin 400: Limpieza para montaje de ibuprofeno \n>Huttlin 600: Limpieza \n>Bombo 300#1: Diclofenac \n>Bombo 300 #2: Diclofenac          \n[ÁREA DE LÍQUIDOS:]\n>CL #2:\n>CL #3:\n>CL #4: ácido valproico \n>Blíster #2: \n>tanques de fabricacion liquidos:\n>Tanque de fabricación centro líquido:\n>Envasadora #2:cronofen \n>Etiquetadora#2:cronofen \n>Envasadora#3: limpieza y montaje \n>Etiquetadora#3:\n>Marchesine MT1100: montaje y cuadre \n>Blíster #5: Dimoflax.\nNOVEDADES.\nSe habilita lámpara de cuarto de lavado liquidos área blanca 506\nR400: Se entrega bomba peristatica al operador \nMB432: se revisan sensores de dosidor que no funciona estaban usando el de la marchesini el cual no era se cambia y también se ajusta el bajante de blíster hacia la banda transportadora, se deja ok\nCB550: se ajusta la distancia de las mordazas verticales.\nINTEGRA: Se repara sensor de dosificación y se deja operativa.\nEnvasadora#2: cronofen se revise equipo detenido por problemas en un cabezal, estaba quedando muy arriba se desarma se encuentra pieza pegada se realiza limpieza y lubricación se hacen pruebas se entrega a producción.\nBlíster #8: oxaprozina se desmonta placa porta resistencia superior del túnel de formación se realiza un ajuste para dar más altura, se realiza calibración se hacen pruebas se entrega a producción.\nHuttlin 40:se realiza revisión al sistema de limpieza de filtros de manga del equipo, estaba presentando problemas en la limpieza de los mismos se encuentra cables invertidos y conectados donde no corresponden se normalizan se hacen pruebas se entrega a producción.\nBosch: omeprazol llamado porque dejo funcionar la aspiradora principal, se revisa equipo se encuentra cable suelto se normaliza  se hacen pruebas se entrega a producción.\nMT1100: Se cambian cuchillas circulares (5unds) corte de laminado.\nBLISTER5: Equipo atascado por formateria inferior (Sellado), se libera con  freno de motor, equipo operativo.\nBLÍSTER 8: Se corrige mal formación en alveolos y se corrige posición de túnel, equipo operativo.\nPREPARACIÓN DE SOLUCIONES CL: Se corrige fuga de vapor en tanque, equipo operativo.\nBLÍSTER 9: Equipo presenta quemadura de alveolos aleatoria durante el turno, se cambiaron guías de PVC y falla persiste, se sugiere quitar pines en estación de sellado inferior, para corregir la tolerancia requerida en los alveolos.\nHUTTLIN 400: Se cambia mangueras de bomba peristaltica."
+    "texto": "[REPORTE DE TURNO SEDE 4 ]       \n2026/08/12\nGRUPO 1 DÍA \n*******************\n[ÁREA DE SÓLIDOS]\n>Bin:\nU>Bosch: Diclofenac\n>NJP2:Ferrimed \n>NJP1: Limpieza \n>NJP3: Omeprazol \n>MB 432: Acetaminofén \n>Blíster #8:\n>Integra 320: Losartan 50 MG \n>Estuchadora#1: Losartan 50 MG \n>Blíster #9: Propranolol \n>MB 451:Nifedipino\n>Estuchadora#2: Nifedipino \n>Schmucker:Flextril c \n>Marzio#4: Limpieza \n>Marzio#1:Esomed \n>R400: Oxaprozina \n>Sólidos: Trimebutina \n>R200:\n>CB 550:\n>Fette 1010: Oxaprozina \n>fette 2020#1:\n>Fette 2020#2: Losartan 50 MG \n>Rimex: Trimebutina+ simeticona \n>Pilot lab: Dimoflax \n>Huttlin 400: Limpieza para montaje de ibuprofeno \n>Huttlin 600: Limpieza \n>Bombo 300#1: Diclofenac \n>Bombo 300 #2: Diclofenac          \n[ÁREA DE LÍQUIDOS:]\n>CL #2:\n>CL #3:\n>CL #4: ácido valproico \n>Blíster #2: \n>tanques de fabricacion liquidos:\n>Tanque de fabricación centro líquido:\n>Envasadora #2:cronofen \n>Etiquetadora#2:cronofen \n>Envasadora#3: limpieza y montaje \n>Etiquetadora#3:\n>Marchesine MT1100: montaje y cuadre \n>Blíster #5: Dimoflax.\nNOVEDADES.\nSe habilita lámpara de cuarto de lavado liquidos área blanca 506\nR400: Se entrega bomba peristatica al operador \nMB432: se revisan sensores de dosidor que no funciona estaban usando el de la marchesini el cual no era se cambia y también se ajusta el bajante de blíster hacia la banda transportadora, se deja ok\nCB550: se ajusta la distancia de las mordazas verticales.\nINTEGRA: Se repara sensor de dosificación y se deja operativa.\nEnvasadora#2: cronofen se revise equipo detenido por problemas en un cabezal, estaba quedando muy arriba se desarma se encuentra pieza pegada se realiza limpieza y lubricación se hacen pruebas se entrega a producción.\nBlíster #8: oxaprozina se desmonta placa porta resistencia superior del túnel de formación se realiza un ajuste para dar más altura, se realiza calibración se hacen pruebas se entrega a producción.\nHuttlin 40:se realiza revisión al sistema de limpieza de filtros de manga del equipo, estaba presentando problemas en la limpieza de los mismos se encuentra cables invertidos y conectados donde no corresponden se normalizan se hacen pruebas se entrega a producción.\nBosch: omeprazol llamado porque dejo funcionar la aspiradora principal, se revisa equipo se encuentra cable suelto se normaliza  se hacen pruebas se entrega a producción.\nMT1100: Se cambian cuchillas circulares (5unds) corte de laminado.\nBLISTER5: Equipo atascado por formateria inferior (Sellado), se libera con  freno de motor, equipo operativo.\nBLÍSTER 8: Se corrige mal formación en alveolos y se corrige posición de túnel, equipo operativo.\nPREPARACIÓN DE SOLUCIONES CL: Se corrige fuga de vapor en tanque, equipo operativo.\nBLÍSTER 9: Equipo presenta quemadura de alveolos aleatoria durante el turno, se cambiaron guías de PVC y falla persiste, se sugiere quitar pines en estación de sellado inferior, para corregir la tolerancia requerida en los alveolos.\nHUTTLIN 400: Se cambia mangueras de bomba peristaltica."
   },
   {
     "id": "rt-20260812-2207",
@@ -3508,7 +3484,7 @@ window.REPORTES_TURNO = [
       "Marzio 2, se coloca bisagra de la puerta",
       "Recubrimiento #7, se está trabajando en el anclaje del bombo"
     ],
-    "texto": "Reporte turno sede 2 \n2026/08/12\n\nBlister 3 :  aerovial\nGb-100: vildagliptina \nEnvasadora 1:  limpieza \nCD-40 flectadol\nCl1: naproxeno \nMarzio 2 : montaje esomed  \nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\nNOVEDADES\n\nBlister 3\nSe recibe llamado porque cuando el equipo se detiene en el arranque se estiraba el PVC , se ajusta temperatura y porcentaje del desembobinador queda ok.\n\nCd-40 \nSe realizan ajustes en boquilla de dosificación para cuadrar los pesos.\n\nSe limpia bomba de vacío , trampa y filtro.\n\nPesaje 2,Esclusa de materiales se fija electroimán al marco de la puerta ok\n\nRecubrimiento #6, se coloca el brazo del  gato y  se desprendieron los tornillos en la esclusa de materiales ok\n\nMarzio 2, se coloca bisagra de la puerta \n\nRecubrimiento #7, se está trabajando en el anclaje del bombo"
+    "texto": "Reporte turno sede 2 \n2026/08/12\n\nBlister 3 :  aerovial\nGb-100: vildagliptina \nEnvasadora 1:  limpieza \nCD-40 flectadol\nCl1: naproxeno \nMarzio 2 : montaje esomed  \nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\n*NOVEDADES*\n\nBlister 3\nSe recibe llamado porque cuando el equipo se detiene en el arranque se estiraba el PVC , se ajusta temperatura y porcentaje del desembobinador queda ok.\n\nCd-40 \nSe realizan ajustes en boquilla de dosificación para cuadrar los pesos.\n\nSe limpia bomba de vacío , trampa y filtro.\n\nPesaje 2,Esclusa de materiales se fija electroimán al marco de la puerta ok\n\nRecubrimiento #6, se coloca el brazo del  gato y  se desprendieron los tornillos en la esclusa de materiales ok\n\nMarzio 2, se coloca bisagra de la puerta \n\nRecubrimiento #7, se está trabajando en el anclaje del bombo"
   },
   {
     "id": "rt-20260813-0840",
@@ -3606,7 +3582,7 @@ window.REPORTES_TURNO = [
       "CB550 Se atiende llamado por problemas con pestaña se cuadra y se deja operativa",
       "Mt1100: se atiende llamado por falta de aire comprimido se valida con mtto kcaps presiones de trabajo compresores, se encuentran sin novedad. Se procede a reiniciar equipo. Se presenta problema con stick 1 se alinea sensor y entrega máquina operativa"
     ],
-    "texto": "Sede 4 -- turno (noche)\n2026/08/13\n\n           *EQUIPOS OPERATIVOS SEDE\n Bosch Diclofenac \nNjp2 ferrimed \nNjp3  omeprazol \nMa235 flextril \nBlíster 9 lordinex \nMb432 cronofen \nEvo nifedipino\nMarzio 4 esomed \nHuttiln 600 nifedipino\nCb550 gelimed \nRimek trimebutrina + simeticoma \nR400 oxaprozina\nHuttiln 400 ibuprofeno\nFette 2020,-2 Losartan \nEnvasado 2 cronofen\nenvasado 3 anemikids\nCl2 dolorsin fem \nCl4 ácido valproico\nBlister 5 dormex \n_________\n                  NOVEDADES\n\nSe fabrican 3 mallas para el área de sólidos \n2 #18 y 1 #12\n\nBlíster 9 se apoya en arranque de máquina por qué estába mostrando una quemadura se ajustan parámetros de temperatura y ajuste de túnel \nDespués un segundo llamado por ruido extraños en máquina por resequedad se lubrica \n\nMarzio se atiende llamado por perdida de paso se ajusta tamaño, fotocelda y pinza de arrastre \n\nSe arma desenpolvador se coloca conector original de máquina se prueba y arranca sin fuerza se evidencia rodamientos 6204 RS en mal estado pendiente cambiar no se encuentran unidas disponibles en taller. \n\nSchmucker \nSe a tiende llamado por seguro de bloque dosificador, se rectifica , se coloca espiga nueva y se deja operativa \n\nEstuchadora Evo \nSe a tiende llamado por problemas de cierre de entrega de estuche , se cuadra la entra de los estuches , y se ajusta cierre de los estuches. Se deja operativa\n\nCB550\nSe atiende llamado por problemas con pestaña se cuadra y se deja operativa\n\nMt1100: se atiende llamado por falta de aire comprimido se valida con mtto kcaps presiones de trabajo compresores, se encuentran sin novedad. Se procede a reiniciar equipo. \nSe presenta problema con stick 1 se alinea sensor y entrega máquina operativa"
+    "texto": "Sede 4 -- turno (noche)\n2026/08/13\n\n           *EQUIPOS OPERATIVOS SEDE\n Bosch Diclofenac \nNjp2 ferrimed \nNjp3  omeprazol \nMa235 flextril \nBlíster 9 lordinex \nMb432 cronofen \nEvo nifedipino\nMarzio 4 esomed \nHuttiln 600 nifedipino\nCb550 gelimed \nRimek trimebutrina + simeticoma \nR400 oxaprozina\nHuttiln 400 ibuprofeno\nFette 2020,-2 Losartan \nEnvasado 2 cronofen\nenvasado 3 anemikids\nCl2 dolorsin fem \nCl4 ácido valproico\nBlister 5 dormex \n_________________________\n                  *NOVEDADES*\n\nSe fabrican 3 mallas para el área de sólidos \n2 #18 y 1 #12\n\nBlíster 9 se apoya en arranque de máquina por qué estába mostrando una quemadura se ajustan parámetros de temperatura y ajuste de túnel \nDespués un segundo llamado por ruido extraños en máquina por resequedad se lubrica \n\nMarzio se atiende llamado por perdida de paso se ajusta tamaño, fotocelda y pinza de arrastre \n\nSe arma desenpolvador se coloca conector original de máquina se prueba y arranca sin fuerza se evidencia rodamientos 6204 RS en mal estado pendiente cambiar no se encuentran unidas disponibles en taller. \n\nSchmucker \nSe a tiende llamado por seguro de bloque dosificador, se rectifica , se coloca espiga nueva y se deja operativa \n\nEstuchadora Evo \nSe a tiende llamado por problemas de cierre de entrega de estuche , se cuadra la entra de los estuches , y se ajusta cierre de los estuches. Se deja operativa\n\nCB550\nSe atiende llamado por problemas con pestaña se cuadra y se deja operativa\n\nMt1100: se atiende llamado por falta de aire comprimido se valida con mtto kcaps presiones de trabajo compresores, se encuentran sin novedad. Se procede a reiniciar equipo. \nSe presenta problema con stick 1 se alinea sensor y entrega máquina operativa"
   },
   {
     "id": "rt-20260813-0857",
@@ -3647,20 +3623,20 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-13",
     "equipos": [],
     "novedades": [
-      "HUTTLIN 400: Preparación de soluciones, bomba difusora presenta fuga, la misma fue reemplazada por otra del área de líquidos, dejando área de tanques operativa, se lleva a taller, se desarma encontrandose sello de cerámica dañado, el mismo es requerido, se deja en taller la muestra.",
-      "MARZIO 5: Se comienza limpieza y armaje de equipo para colocarlo operativo Nuevamente, el mismo se encontraba en piso técnico.",
-      "PILOT LAB: Se corrige fuga de agua en punto de muestreo #16.",
-      "MT1100: Se corrige lote ilegible en cañón #2.",
-      "MB432: Alarma de térmicos de motores (Bomba de vacío), presenta paletas de grafito partidas, las misma no tenemos en taller de repuestos, se fabrican paletas con otras que son más grandes, equipo operativo.",
-      "BLISTER 8: Se calibra túnel de calefacción para corregir mal formación y partidura de PVC, equipo operativo.",
-      "BOSCH: Se realiza limpieza a tablero de aspiradora.",
-      "MARZIO 1: Se ajusta mordazas inferiores, verticales y abridor, equipo operativo.",
-      "FETTE 1010: Se ajusta el sensor de la tolva se limpia visor de la tolva y se deja operativa.",
-      "FETTE 2020 1: Se encontraba la unidad de mantenimiento del OGA cerrada, se procede abrir por completo y se deja funcionando.",
+      "*HUTTLIN 400:* Preparación de soluciones, bomba difusora presenta fuga, la misma fue reemplazada por otra del área de líquidos, dejando área de tanques operativa, se lleva a taller, se desarma encontrandose sello de cerámica dañado, el mismo es requerido, se deja en taller la muestra.",
+      "*MARZIO 5:* Se comienza limpieza y armaje de equipo para colocarlo operativo Nuevamente, el mismo se encontraba en piso técnico.",
+      "*PILOT LAB:* Se corrige fuga de agua en punto de muestreo #16.",
+      "*MT1100:* Se corrige lote ilegible en cañón #2.",
+      "*MB432:* Alarma de térmicos de motores (Bomba de vacío), presenta paletas de grafito partidas, las misma no tenemos en taller de repuestos, se fabrican paletas con otras que son más grandes, equipo operativo.",
+      "*BLISTER 8:* Se calibra túnel de calefacción para corregir mal formación y partidura de PVC, equipo operativo.",
+      "*BOSCH:* Se realiza limpieza a tablero de aspiradora.",
+      "*MARZIO 1:* Se ajusta mordazas inferiores, verticales y abridor, equipo operativo.",
+      "*FETTE 1010:* Se ajusta el sensor de la tolva se limpia visor de la tolva y se deja operativa.",
+      "*FETTE 2020 1:* Se encontraba la unidad de mantenimiento del OGA cerrada, se procede abrir por completo y se deja funcionando.",
       "Se entrega desempolvador a producción.",
-      "BOMBO 300: Diclofenac llamado porque el bombo no bajaba se revisa se encuentra freno pegado se limpia se entrega a producción."
+      "*BOMBO 300:* Diclofenac llamado porque el bombo no bajaba se revisa se encuentra freno pegado se limpia se entrega a producción."
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 DIA\nNOVEDADES\nHUTTLIN 400: Preparación de soluciones, bomba difusora presenta fuga, la misma fue reemplazada por otra del área de líquidos, dejando área de tanques operativa, se lleva a taller, se desarma encontrandose sello de cerámica dañado, el mismo es requerido, se deja en taller la muestra.\nMARZIO 5: Se comienza limpieza y armaje de equipo para colocarlo operativo Nuevamente, el mismo se encontraba en piso técnico.\nPILOT LAB: Se corrige fuga de agua en punto de muestreo #16.\nMT1100: Se corrige lote ilegible en cañón #2.\nMB432: Alarma de térmicos de motores (Bomba de vacío), presenta paletas de grafito partidas, las misma no tenemos en taller de repuestos, se fabrican paletas con otras que son más grandes, equipo operativo.\nBLISTER 8: Se calibra túnel de calefacción para corregir mal formación y partidura de PVC, equipo operativo.\nBOSCH: Se realiza limpieza a tablero de aspiradora.\nMARZIO 1: Se ajusta mordazas inferiores, verticales y abridor, equipo operativo.\nFETTE 1010: Se ajusta el sensor de la tolva se limpia visor de la tolva y se deja operativa.\nFETTE 2020 1: Se encontraba la unidad de mantenimiento del OGA cerrada, se procede abrir por completo y se deja funcionando.\nSe entrega desempolvador a producción.\nBOMBO 300: Diclofenac llamado porque el bombo no bajaba se revisa se encuentra freno pegado se limpia se entrega a producción."
+    "texto": "*REPORTE DE TURNO GRUPO 1 DIA*\n*NOVEDADES*\n*HUTTLIN 400:* Preparación de soluciones, bomba difusora presenta fuga, la misma fue reemplazada por otra del área de líquidos, dejando área de tanques operativa, se lleva a taller, se desarma encontrandose sello de cerámica dañado, el mismo es requerido, se deja en taller la muestra.\n*MARZIO 5:* Se comienza limpieza y armaje de equipo para colocarlo operativo Nuevamente, el mismo se encontraba en piso técnico.\n*PILOT LAB:* Se corrige fuga de agua en punto de muestreo #16.\n*MT1100:* Se corrige lote ilegible en cañón #2.\n*MB432:* Alarma de térmicos de motores (Bomba de vacío), presenta paletas de grafito partidas, las misma no tenemos en taller de repuestos, se fabrican paletas con otras que son más grandes, equipo operativo.\n*BLISTER 8:* Se calibra túnel de calefacción para corregir mal formación y partidura de PVC, equipo operativo.\n*BOSCH:* Se realiza limpieza a tablero de aspiradora.\n*MARZIO 1:* Se ajusta mordazas inferiores, verticales y abridor, equipo operativo.\n*FETTE 1010:* Se ajusta el sensor de la tolva se limpia visor de la tolva y se deja operativa.\n*FETTE 2020 1:* Se encontraba la unidad de mantenimiento del OGA cerrada, se procede abrir por completo y se deja funcionando.\nSe entrega desempolvador a producción.\n*BOMBO 300:* Diclofenac llamado porque el bombo no bajaba se revisa se encuentra freno pegado se limpia se entrega a producción."
   },
   {
     "id": "rt-20260813-1956",
@@ -3708,7 +3684,7 @@ window.REPORTES_TURNO = [
       "Se retira tomacorriente en mal estado en área de centro líquido, pendiente colocar la platina nueva.",
       "18:50 , falla en el fluido eléctrico, se habilitan bombas , y manejadoras."
     ],
-    "texto": "Reporte turno sede 2 \n2026/08/13\n\nBlister 3 :  Dolorsin fem\nGb-100: vildagliptina \nEnvasadora 1:  limpieza \nCD-40 flectadol\nCl1: limpieza  \nStick pack 3: stand by\n\n‐-------------------------------------\nNOVEDADES\n\nBlister 3\nSe recibe llamado porque la banda del troquel se freno, se encuentra montada a un lado , se ajusta tensión queda ok.\n\nSe corrige problema de filtración y números borrosos , se calibra estación y se colocan sufrideras nuevas.\n\nEtiquetadora 1\nSe recibe turno con problemas de voltaje en el equipo , se revisa y se corrige cortoelectrico en resistencia del lote , se energiza breker y se deja equipo en funcionamiento.\n\nSe ayuda en el cuadre de la etiqueta y el lote.\n\nMicronizador\nSe colocó breker de 30A , para tomacorriente de área de fitoterapeutico.\n\nRecubrimiento 9\nSe habilita motor de giro , se encontró línea en la bornera tropezando con la carcasa del motor. \n\ncd 40, se corrige el tiempo del plato giratorio de la mezcla, estaba adelantado queda equipo en funcionamiento.\n\nRecubrimiento#7, se deja anclado el bombo, se le da tensión a la cadena , queda pendiente resanar el piso y colocar la guarda de la cadena  queda ok.\n\nSe retira tomacorriente en mal estado en área de centro líquido, pendiente colocar la platina nueva.\n\n18:50 , falla en el fluido eléctrico, se habilitan bombas , y manejadoras."
+    "texto": "Reporte turno sede 2 \n2026/08/13\n\nBlister 3 :  Dolorsin fem\nGb-100: vildagliptina \nEnvasadora 1:  limpieza \nCD-40 flectadol\nCl1: limpieza  \nStick pack 3: stand by\n\n‐-------------------------------------\n*NOVEDADES*\n\nBlister 3\nSe recibe llamado porque la banda del troquel se freno, se encuentra montada a un lado , se ajusta tensión queda ok.\n\nSe corrige problema de filtración y números borrosos , se calibra estación y se colocan sufrideras nuevas.\n\nEtiquetadora 1\nSe recibe turno con problemas de voltaje en el equipo , se revisa y se corrige cortoelectrico en resistencia del lote , se energiza breker y se deja equipo en funcionamiento.\n\nSe ayuda en el cuadre de la etiqueta y el lote.\n\nMicronizador\nSe colocó breker de 30A , para tomacorriente de área de fitoterapeutico.\n\nRecubrimiento 9\nSe habilita motor de giro , se encontró línea en la bornera tropezando con la carcasa del motor. \n\ncd 40, se corrige el tiempo del plato giratorio de la mezcla, estaba adelantado queda equipo en funcionamiento.\n\nRecubrimiento#7, se deja anclado el bombo, se le da tensión a la cadena , queda pendiente resanar el piso y colocar la guarda de la cadena  queda ok.\n\nSe retira tomacorriente en mal estado en área de centro líquido, pendiente colocar la platina nueva.\n\n18:50 , falla en el fluido eléctrico, se habilitan bombas , y manejadoras."
   },
   {
     "id": "rt-20260814-0821",
@@ -3790,7 +3766,7 @@ window.REPORTES_TURNO = [
       "Banda de blíster 2 Se atiende llamado por qué banda atascada se , soluciona y se le sube velocidad",
       "Limpieza en pilot Se limpia piso técnico y se deja dos estiba de basura"
     ],
-    "texto": "Sede 4 -- turno (noche)\n2026/08/14\n\n           *EQUIPOS OPERATIVOS SEDE\n \nBin dimoflax \nMa235 flextril \nBlíster 9 loratadina\nMb432 cronofen \nEvo omeprazol \nMarzio 4 esomed \nHuttiln 600 nifedipino\nCb550 gelimed \nRimek trimebutrina + simeticoma \nR400 oxaprozina\nHuttiln 400 ibuprofeno\nEnvasado 2 cronofen\nCl2 dolorsin fem \nCl4 ácido valproico\nBlister 5 dormex \n_________\n                  NOVEDADES\nMarzio 1 se apoya en el arranque de equipo por perdida de paso ajuste de cuchillas y pinza de arrastre \n\nSe coloca tapa superior de la njp3 \n\nSe repara puerta de baño y de gabinete \n\nCb550 llamado porque las mordazas quedaron cerradas se encontró tornillo del cilindro desajustado equipo habilitado \n\nSe habilitan puertas controlsa por bloqueo \nSalida de merma lado de área de centro líquidos Puerta centro líquidos 2 y 3 \n\nHUTTLIN 400 \nSe atiende llamado por boquillas en mal estado se reparan y se entrega a producción\n\nBanda de blíster 2 \nSe atiende llamado por qué banda atascada se , soluciona y se le sube velocidad \n\nLimpieza en pilot \nSe limpia piso técnico y se deja dos estiba de basura"
+    "texto": "Sede 4 -- turno (noche)\n2026/08/14\n\n           *EQUIPOS OPERATIVOS SEDE\n \nBin dimoflax \nMa235 flextril \nBlíster 9 loratadina\nMb432 cronofen \nEvo omeprazol \nMarzio 4 esomed \nHuttiln 600 nifedipino\nCb550 gelimed \nRimek trimebutrina + simeticoma \nR400 oxaprozina\nHuttiln 400 ibuprofeno\nEnvasado 2 cronofen\nCl2 dolorsin fem \nCl4 ácido valproico\nBlister 5 dormex \n_________________________\n                  *NOVEDADES*\nMarzio 1 se apoya en el arranque de equipo por perdida de paso ajuste de cuchillas y pinza de arrastre \n\nSe coloca tapa superior de la njp3 \n\nSe repara puerta de baño y de gabinete \n\nCb550 llamado porque las mordazas quedaron cerradas se encontró tornillo del cilindro desajustado equipo habilitado \n\nSe habilitan puertas controlsa por bloqueo \nSalida de merma lado de área de centro líquidos Puerta centro líquidos 2 y 3 \n\nHUTTLIN 400 \nSe atiende llamado por boquillas en mal estado se reparan y se entrega a producción\n\nBanda de blíster 2 \nSe atiende llamado por qué banda atascada se , soluciona y se le sube velocidad \n\nLimpieza en pilot \nSe limpia piso técnico y se deja dos estiba de basura"
   },
   {
     "id": "rt-20260814-1954",
@@ -3936,7 +3912,7 @@ window.REPORTES_TURNO = [
       "MEZCLA HUMEDA se realiza cambio de tornillo Bristol M8 de la polea porque se partió, se deja equipo operativo.",
       "BODEGA ALMACEN se realiza cambio de guías de la estera debido al mal estado de estás."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: dimoflax\nBOSHC: diclofenaco\nNJP #2: disponible \nNJP #1: congestex\nNJP #3: nifedipino \nPILOT LAB: dimoflax\nSCMUKER: flextril c\nBLISTER #9: dolorsinfen\nMB 432: cronofen\nINTEGRA: tensofar stamby \nBLISTER #8: dilox\nMARCHESINI EVO: omeprazol \nR200: sitagliptina\nR400: inspección \nMARZIO #1: esomed\nMARZIO #4: disponible \nCB 550: gelimed\nHUTTLIN 600: Fluconazol \nHUTTLIN 400: congestex\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: Losartan potasico\nFETTE 1010: esomeprazol\nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: cronofen jarabe \nENVASADORA #3: azeflu spray\nCLIQUIDO #2: ibuprofeno\nCLIQUIDO #3: disponible \nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux stamby\nBLISTER #2: flectadol stamby\nBLISTER #5: dormex stamby \n________________\n                       NOVEDADES \nEMPAQUE LÍQUIDO \nse realiza reubicación de banda de codificado, se hacen ajustes de la guía para el loteado de los estuches, se deja conectada y probada, se le entrega a operador.\n\nRIMEK\nse realiza ajuste en pantalla y conector tipo RJ45, ya que se soltaba cuando el operador manipulaba para cambio de frecuencia.de la máquina.\n\nBLÍSTER #8\nse atiende llamado por perdida de paso se calibra tunel de calefacción se deja la temperatura en 110 están en 130 trabaja sin novedad \n\nBLÍSTER #9 \nse atiende llamado por qué se estaba pegando el material en el sellado se cambia de formato continua el problema estaba formado torcido se cuadra queda ok se atiende llamado nuevamente por para montar alimentador de arma y se instala queda pendiente probar con cápsulas \n\nMB 432 \nse invierte giro del rodillo volcador \nse realiza instalación de camisa para cilindro de los cargadores ya que no tenía.\n\nSMUKER \nse cambian de plancha de sellado se montan las reparada y se cuadra pestaña\n\nMEZCLA HUMEDA\nse realiza cambio de tornillo Bristol M8 de la polea porque se partió, se deja equipo operativo.\n\nBODEGA ALMACEN\nse realiza cambio de guías de la estera debido al mal estado de estás."
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: dimoflax\nBOSHC: diclofenaco\nNJP #2: disponible \nNJP #1: congestex\nNJP #3: nifedipino \nPILOT LAB: dimoflax\nSCMUKER: flextril c\nBLISTER #9: dolorsinfen\nMB 432: cronofen\nINTEGRA: tensofar stamby \nBLISTER #8: dilox\nMARCHESINI EVO: omeprazol \nR200: sitagliptina\nR400: inspección \nMARZIO #1: esomed\nMARZIO #4: disponible \nCB 550: gelimed\nHUTTLIN 600: Fluconazol \nHUTTLIN 400: congestex\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: Losartan potasico\nFETTE 1010: esomeprazol\nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: cronofen jarabe \nENVASADORA #3: azeflu spray\nCLIQUIDO #2: ibuprofeno\nCLIQUIDO #3: disponible \nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux stamby\nBLISTER #2: flectadol stamby\nBLISTER #5: dormex stamby \n______________________________________________\n                       NOVEDADES \nEMPAQUE LÍQUIDO \nse realiza reubicación de banda de codificado, se hacen ajustes de la guía para el loteado de los estuches, se deja conectada y probada, se le entrega a operador.\n\nRIMEK\nse realiza ajuste en pantalla y conector tipo RJ45, ya que se soltaba cuando el operador manipulaba para cambio de frecuencia.de la máquina.\n\nBLÍSTER #8\nse atiende llamado por perdida de paso se calibra tunel de calefacción se deja la temperatura en 110 están en 130 trabaja sin novedad \n\nBLÍSTER #9 \nse atiende llamado por qué se estaba pegando el material en el sellado se cambia de formato continua el problema estaba formado torcido se cuadra queda ok se atiende llamado nuevamente por para montar alimentador de arma y se instala queda pendiente probar con cápsulas \n\nMB 432 \nse invierte giro del rodillo volcador \nse realiza instalación de camisa para cilindro de los cargadores ya que no tenía.\n\nSMUKER \nse cambian de plancha de sellado se montan las reparada y se cuadra pestaña\n\nMEZCLA HUMEDA\nse realiza cambio de tornillo Bristol M8 de la polea porque se partió, se deja equipo operativo.\n\nBODEGA ALMACEN\nse realiza cambio de guías de la estera debido al mal estado de estás."
   },
   {
     "id": "rt-20260814-2005",
@@ -4001,7 +3977,7 @@ window.REPORTES_TURNO = [
       "*Planta de agua,bomba pedrollo ,se cambia tubería 1\" de la succión por fuga",
       "*Se corrigen presiones de la Esclusa 257A y pass through micronizado ( sello de las puertas) ok"
     ],
-    "texto": "Reporte turno 09\n2026/08/14\n\nBlister 3 :  dolorsin fem\nGb-100: vildagliptina \nFabricación1: levodrine\nEnvasadora 1: levodrine \nEtiqueteadora 1: levodrine \nCD-40: flectadol\nCl1: limpieza\nRonchy: vilgagliptina\nMarzio 2 :  esomed  \nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\nNOVEDADES\n\nSe recibe turno con problemas con aire comprimido, \nKcaps presenta problemas con transformador, afectando los equipos en área blanca, se restablece a las 15: 00. Horas\n\nMarzio 2: se apoyo en cuadre, se cambió cuchilla se ajusta el sujetador  se cuadra paso.\n\nColimatic : presenta problemas con thermocupla\n\n*Recubrimiento #8, bomba Graco se aprieta tuerca del inyector por fuga \n\n*Planta de agua,bomba pedrollo ,se cambia tubería 1\" de la succión por fuga \n\n*Se corrigen presiones de la Esclusa 257A y pass through micronizado ( sello de las puertas) ok"
+    "texto": "Reporte turno 09\n2026/08/14\n\nBlister 3 :  dolorsin fem\nGb-100: vildagliptina \nFabricación1: levodrine\nEnvasadora 1: levodrine \nEtiqueteadora 1: levodrine \nCD-40: flectadol\nCl1: limpieza\nRonchy: vilgagliptina\nMarzio 2 :  esomed  \nStick pack 3: stand by\nColimatic: ferrimed\n‐-------------------------------------\n*NOVEDADES*\n\nSe recibe turno con problemas con aire comprimido, \nKcaps presenta problemas con transformador, afectando los equipos en área blanca, se restablece a las 15: 00. Horas\n\nMarzio 2: se apoyo en cuadre, se cambió cuchilla se ajusta el sujetador  se cuadra paso.\n\nColimatic : presenta problemas con thermocupla\n\n*Recubrimiento #8, bomba Graco se aprieta tuerca del inyector por fuga \n\n*Planta de agua,bomba pedrollo ,se cambia tubería 1\" de la succión por fuga \n\n*Se corrigen presiones de la Esclusa 257A y pass through micronizado ( sello de las puertas) ok"
   },
   {
     "id": "rt-20260815-0758",
@@ -4142,20 +4118,19 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "BLÍSTER#9: Se realizan ajustes finales en cargador universal, se brinda inducción a operador, equipo trabajando S/N en el turno.",
-      "BLISTER#8: Se calibra túnel de calefacción y se ajustan parámetros de soplado, equipo operativo.",
-      "BLISTER#5: Se extrae pin partido en plancha de soplado, se entrega a producción.",
-      "HUTTLIN 400: Se entrega a supervisor 3 filtros de mangas para polvo originales del equipo.",
-      "HUTTLIN 600: Válvula de desagüe no activa, se procede a lubricar electroválvula y se activa manual.",
-      "PILOT LAB: Se ajustan mangueras de peristatica y se limpian boquillas, equipo operativo.",
-      "CL4: Se destraba cadena de capsulas atascai, equipo operativo.",
-      "NJP2: Se calibra disco de bronce, equipo operativo.",
-      "BLISTEADORA Evo: Se cambia sensor de cargador, equipo operativo.",
-      "MT1100: (DETENIDO), equipo presenta falla en mordazas de sellado inferior,presenta resortes (4) partidos, se procede a bajarlo para comprarlos, quedando pendiente bajar solo uno.",
-      "BOSCH: Equipo presenta alarma de circuito no cerrado, no se deja trabajar manual con las puertas abiertas, se entrega a turno entrante continuar revisando.",
-      "B9"
+      "*BLÍSTER#9:* Se realizan ajustes finales en cargador universal, se brinda inducción a operador, equipo trabajando S/N en el turno.",
+      "*BLISTER#8:* Se calibra túnel de calefacción y se ajustan parámetros de soplado, equipo operativo.",
+      "*BLISTER#5:* Se extrae pin partido en plancha de soplado, se entrega a producción.",
+      "*HUTTLIN 400:* Se entrega a supervisor 3 filtros de mangas para polvo originales del equipo.",
+      "*HUTTLIN 600:* Válvula de desagüe no activa, se procede a lubricar electroválvula y se activa manual.",
+      "*PILOT LAB:* Se ajustan mangueras de peristatica y se limpian boquillas, equipo operativo.",
+      "*CL4:* Se destraba cadena de capsulas atascai, equipo operativo.",
+      "*NJP2:* Se calibra disco de bronce, equipo operativo.",
+      "*BLISTEADORA Evo:* Se cambia sensor de cargador, equipo operativo.",
+      "*MT1100:* (DETENIDO), equipo presenta falla en mordazas de sellado inferior,presenta resortes (4) partidos, se procede a bajarlo para comprarlos, quedando pendiente bajar solo uno.",
+      "*BOSCH:* Equipo presenta alarma de circuito no cerrado, no se deja trabajar manual con las puertas abiertas, se entrega a turno entrante continuar revisando."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE\n EQUIPOS OPERATIVO\nCL2: DISPONIBLE \nCL4: FERBIN\nMT 1100: SUPERFLUIX,\nBLÍSTER 2: DISPONIBLE \nBLISTER 5: CRONIFEN\nENVASADO 3: AZEFLU\nCL3: DISPONIBLE \nENVASADORA 2:  DISPONIBLE \nBIN BLENDER: DISPONIBLE\nBOSCH: MONTAJE\nNJP1: CONGESTEX \nNJP2: FUNEX\nNJP3: NIFEDIPINO \nPILOT LAB: DIMOFLAX\nMB 432: FERRIMED montaje\nBLISTER 9: DOLORSIN FEM\nBLISTER 8: NAPROXENO \nSCHMUCKER: FLEXTRIL C,culmina\nINTEGRA 320: LOSARTAN\nR200: SITAGLPTINA\nMB 451 evo: OMEPRAZOL \nMARZIO 1: ESOMED\nHUTTLIN 600: LIMPIEZA \nR400: DISPONIBLE \nBOMBO 300: DISPONIBLE\nMARZIO 4: DISPONIBLE \nHUTTLIN 400: CONGESTEX\nRIMECK: COLTRIM\nCB 550: GELIMED\nFETTE 1010 : ESOMEPRAZOL \nFETTE 2020#1: DIMOFLAX\nFETTE 2020# 2: DISPONIBLE \nNOVEDADES\nBLÍSTER#9: Se realizan ajustes finales en cargador universal, se brinda inducción a operador, equipo trabajando S/N en el turno.\nBLISTER#8: Se calibra túnel de calefacción y se ajustan parámetros de soplado, equipo operativo.\nBLISTER#5: Se extrae pin partido en plancha de soplado, se entrega a producción.\nHUTTLIN 400: Se entrega a supervisor 3 filtros de mangas para polvo originales del equipo.\nHUTTLIN 600: Válvula de desagüe no activa, se procede a lubricar electroválvula y se activa manual.\nPILOT LAB: Se ajustan mangueras de peristatica y se limpian boquillas, equipo operativo.\nCL4: Se destraba cadena de capsulas atascai, equipo operativo.\nNJP2: Se calibra disco de bronce, equipo operativo.\nBLISTEADORA Evo: Se cambia sensor de cargador, equipo operativo.\nMT1100: (DETENIDO), equipo presenta falla en mordazas de sellado inferior,presenta resortes (4) partidos, se procede a bajarlo para comprarlos, quedando pendiente bajar solo uno.\nBOSCH: Equipo presenta alarma de circuito no cerrado, no se deja trabajar manual con las puertas abiertas, se entrega a turno entrante continuar revisando.\n B9"
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE*\n *EQUIPOS OPERATIVO*\n*CL2:* DISPONIBLE \n*CL4:* FERBIN\n*MT 1100:* SUPERFLUIX,\n*BLÍSTER 2:* DISPONIBLE \n*BLISTER 5:* CRONIFEN\n*ENVASADO 3:* AZEFLU\n*CL3:* DISPONIBLE \n*ENVASADORA 2:*  DISPONIBLE \n*BIN BLENDER:* DISPONIBLE\n*BOSCH:* MONTAJE\n*NJP1:* CONGESTEX \n*NJP2:* FUNEX\n*NJP3:* NIFEDIPINO \n*PILOT LAB:* DIMOFLAX\n*MB 432:* FERRIMED montaje\n*BLISTER 9:* DOLORSIN FEM\n*BLISTER 8:* NAPROXENO \n*SCHMUCKER:* FLEXTRIL C,culmina\n*INTEGRA 320:* LOSARTAN\n*R200:* SITAGLPTINA\n*MB 451 evo:* OMEPRAZOL \n*MARZIO 1:* ESOMED\n*HUTTLIN 600:* LIMPIEZA \n*R400:* DISPONIBLE \n*BOMBO 300:* DISPONIBLE\n*MARZIO 4:* DISPONIBLE \n*HUTTLIN 400:* CONGESTEX\n*RIMECK:* COLTRIM\n*CB 550:* GELIMED\n*FETTE 1010 :* ESOMEPRAZOL \n*FETTE 2020#1:* DIMOFLAX\n*FETTE 2020# 2:* DISPONIBLE \n*NOVEDADES*\n*BLÍSTER#9:* Se realizan ajustes finales en cargador universal, se brinda inducción a operador, equipo trabajando S/N en el turno.\n*BLISTER#8:* Se calibra túnel de calefacción y se ajustan parámetros de soplado, equipo operativo.\n*BLISTER#5:* Se extrae pin partido en plancha de soplado, se entrega a producción.\n*HUTTLIN 400:* Se entrega a supervisor 3 filtros de mangas para polvo originales del equipo.\n*HUTTLIN 600:* Válvula de desagüe no activa, se procede a lubricar electroválvula y se activa manual.\n*PILOT LAB:* Se ajustan mangueras de peristatica y se limpian boquillas, equipo operativo.\n*CL4:* Se destraba cadena de capsulas atascai, equipo operativo.\n*NJP2:* Se calibra disco de bronce, equipo operativo.\n*BLISTEADORA Evo:* Se cambia sensor de cargador, equipo operativo.\n*MT1100:* (DETENIDO), equipo presenta falla en mordazas de sellado inferior,presenta resortes (4) partidos, se procede a bajarlo para comprarlos, quedando pendiente bajar solo uno.\n*BOSCH:* Equipo presenta alarma de circuito no cerrado, no se deja trabajar manual con las puertas abiertas, se entrega a turno entrante continuar revisando."
   },
   {
     "id": "rt-20260815-1931",
@@ -4399,16 +4374,16 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "NJP#2: Funex se fabrica empaque de la tapa de la bomba de vacío se hacen pruebas se entrega a producción.",
-      "NJP3: nifedipino llamado por problemas en el sensor del nivel de agua se ajusta se hacen pruebas ok.",
-      "Marzio #4: congestex llamado por problemas de perdida de paso y foto celda, se corrige tornillo de corrección y calibra fotocelda.",
+      "*NJP#2:* Funex se fabrica empaque de la tapa de la bomba de vacío se hacen pruebas se entrega a producción.",
+      "*NJP3:* nifedipino llamado por problemas en el sensor del nivel de agua se ajusta se hacen pruebas ok.",
+      "*Marzio #4:* congestex llamado por problemas de perdida de paso y foto celda, se corrige tornillo de corrección y calibra fotocelda.",
       "Otro llamado porque el envudo se quedaba tapado,se cambia envudo y abridor se hacen pruebas se entrega a producción.",
-      "Blíster #9: dolorsin fen llamado por problemas en el sistema de foy ,se ajusta correa se hacen pruebas ok.",
-      "Mt 1100: Se hace el montaje de los resortes nuevos y se le da distancia a las mordazas con la rotula dejándola operativa.",
-      "Blister #8: Se atiende llamado porque mal formación, se encontró espárrago partido, se procede a cambiarlo y se ajusta el túnel dejándola operativa.",
-      "Fette 2020 #1: Se atiende llamado porque la pantalla se encuentraba apagada, se verifica que el conector a la máquina estaba haciendo falso contacto, se deja operativa."
+      "*Blíster #9:* dolorsin fen llamado por problemas en el sistema de foy ,se ajusta correa se hacen pruebas ok.",
+      "*Mt 1100:* Se hace el montaje de los resortes nuevos y se le da distancia a las mordazas con la rotula dejándola operativa.",
+      "*Blister #8:* Se atiende llamado porque mal formación, se encontró espárrago partido, se procede a cambiarlo y se ajusta el túnel dejándola operativa.",
+      "*Fette 2020 #1:* Se atiende llamado porque la pantalla se encuentraba apagada, se verifica que el conector a la máquina estaba haciendo falso contacto, se deja operativa."
     ],
-    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/08/16\n\n* TURNO #\n*******\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: Montelukast \n>Bosch:\n\n>NJP2:funex>\n\n>NJP1:congestex \n\n>NJP3:nifedipino >\n\n>MB 432: congestex \n>Blíster #8: dimoflax \n>Integra 320: Losartan \n>Estuchadora#1: Losartan \n\n>Blíster #9:dolorsin fen >\n\n>MB 451:esomeprazol \n>Estuchadora#2: esomeprazol \n>Schmucker: flumixol \n\n>Marzio#4: congestex >\n\n>Marzio#1:esomed \n>R400: dimoflax \n>Sólidos:\n>R200: limpieza \n>CB 550:gelimed \n>Fette 1010: omeprazol \n>fette 2020#1:dimoflax\n>Fette 2020#2:\n>Rimex: Trimebutina+ simeticona\n>Pilot lab:fumarato \n>Huttlin 400: ibuprofeno \n>Huttlin 600: nifedipino \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2:\n>CL #3:\n>CL #4: ácido valproico \n>Blíster #2: \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: congestex \n>Etiquetadora#2: congestex \n>Envasadora#3: azeflu \n>Etiquetadora#3:azeflu \n>Marchesine MT1100: súperflux \n>Blíster #5:cronofen forten\n\nNovedades\n\nNJP#2: Funex se fabrica empaque de la tapa de la bomba de vacío se hacen pruebas se entrega a producción.\n\nNJP3: nifedipino llamado por problemas en el sensor del nivel de agua se ajusta se hacen pruebas ok.\n\nMarzio #4: congestex llamado por problemas de perdida de paso y foto celda, se corrige tornillo de corrección y calibra fotocelda.\n\nOtro llamado porque el envudo se quedaba tapado,se cambia envudo y abridor se hacen pruebas se entrega a producción.\n\nBlíster #9: dolorsin fen llamado por problemas en el sistema de foy ,se ajusta correa se hacen pruebas ok.\n\nMt 1100: Se hace el montaje de los resortes nuevos y se le da distancia a las mordazas con la rotula dejándola operativa.\n\nBlister #8: Se atiende llamado porque mal formación, se encontró espárrago partido, se procede a cambiarlo y se ajusta el túnel dejándola operativa.\n\nFette 2020 #1: Se atiende llamado porque la pantalla se encuentraba apagada, se verifica que el conector a la máquina estaba haciendo falso contacto, se deja operativa."
+    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/08/16\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: Montelukast \n>Bosch:\n\n>NJP2:funex>\n\n>NJP1:congestex \n\n>NJP3:nifedipino >\n\n>MB 432: congestex \n>Blíster #8: dimoflax \n>Integra 320: Losartan \n>Estuchadora#1: Losartan \n\n>Blíster #9:dolorsin fen >\n\n>MB 451:esomeprazol \n>Estuchadora#2: esomeprazol \n>Schmucker: flumixol \n\n>Marzio#4: congestex >\n\n>Marzio#1:esomed \n>R400: dimoflax \n>Sólidos:\n>R200: limpieza \n>CB 550:gelimed \n>Fette 1010: omeprazol \n>fette 2020#1:dimoflax\n>Fette 2020#2:\n>Rimex: Trimebutina+ simeticona\n>Pilot lab:fumarato \n>Huttlin 400: ibuprofeno \n>Huttlin 600: nifedipino \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2:\n>CL #3:\n>CL #4: ácido valproico \n>Blíster #2: \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: congestex \n>Etiquetadora#2: congestex \n>Envasadora#3: azeflu \n>Etiquetadora#3:azeflu \n>Marchesine MT1100: súperflux \n>Blíster #5:cronofen forten\n\n*Novedades*\n\n*NJP#2:* Funex se fabrica empaque de la tapa de la bomba de vacío se hacen pruebas se entrega a producción.\n\n*NJP3:* nifedipino llamado por problemas en el sensor del nivel de agua se ajusta se hacen pruebas ok.\n\n*Marzio #4:* congestex llamado por problemas de perdida de paso y foto celda, se corrige tornillo de corrección y calibra fotocelda.\n\nOtro llamado porque el envudo se quedaba tapado,se cambia envudo y abridor se hacen pruebas se entrega a producción.\n\n*Blíster #9:* dolorsin fen llamado por problemas en el sistema de foy ,se ajusta correa se hacen pruebas ok.\n\n*Mt 1100:* Se hace el montaje de los resortes nuevos y se le da distancia a las mordazas con la rotula dejándola operativa.\n\n*Blister #8:* Se atiende llamado porque mal formación, se encontró espárrago partido, se procede a cambiarlo y se ajusta el túnel dejándola operativa.\n\n*Fette 2020 #1:* Se atiende llamado porque la pantalla se encuentraba apagada, se verifica que el conector a la máquina estaba haciendo falso contacto, se deja operativa."
   },
   {
     "id": "rt-20260816-0848",
@@ -4653,7 +4628,7 @@ window.REPORTES_TURNO = [
       "SMUKERS; se ajusta posición de cuchillas horizontales porque estaban presentando ruido al realizar corte.",
       "Nota: se reciben cuchillas circulares de máquina se dejan en meza de taller junto a juego de cuchillas nuevas de MARZIO."
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# Dia\n\n*•BIN: disponible \n*•BOSCH: disponible\n*•NJP2: floconazol 200g\n *NJP1: conjestex \n*•PILOT LAB HUTTLIN 40: fumarato\n*•FETTE 2020/3: disponible \n*•MS 235 SCHMUCKER: flumizol 600\n*•MB 432 MARCHESINI: conjestex \n*•INTEGRA 320: disponible\n*•BLISTER #8: disponible \n*•MB 451 EVO: disponible  \n*•RC 200: disponible\n*RC 400: disponible \n*•CB550: disponible \n*•HUTTLIN 600: disponible \n*•HUTTLIN 400:  ibuprofeno \n*•RIMEK: disponible \n*•MARZIO 6: \n*•MARZIO 1: limpieza \n*•FETTE 1010: imuflax\n*•FETTE 2020/1:imuflax \n- SOLIDOS\n*•ENVASADORA #2:  conjestex kis\n*•ENVASADORA #3: DISPONIBLE \n*•CLIQUIDOS 2: DISPONIBLE \n *•CLIQUIDOS 3: DISPONIBLE \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: disponible\n*BLISTER 2: DISPONIBLE\n*BLISTER 5: NAPROZOL \n_________\n        NOVEDADES\n\nSe realiza ajuste de puerta controlsa apertura y cierre de ajusta el modo maniobra automático se encontraba  en modo hombre presente \n\nSe realiza mantenimiento a tablero eléctrico de la fette 2020-2 \n\nSe entiende llamado de fabricacion de líquidos 1 por falla en tanque móvil 250ltd por falla de variador se restablece \n\nMarzio 1 se ajusta angulo de cuchillas de corte \n\nSe realiza mantenimiento a tablero eléctrico de la.fete 2020-2 y limpieza general parte inferior \n\nSe realiza limpieza y ajuste de bornes a tableros de recubridora 200 y 400 \n\nNjp2 llamado por deficiencia de vacío se limpia bomba queda ok\n\nMARZIO 4: Se ajustes en posición de mordazas verticales y orizontales se cuadra posición de cuchilla fija, y posición de foto celda. Se entrega máquina operativa.\n\nSMUKERS; se ajusta posición de cuchillas horizontales porque estaban presentando ruido al realizar corte. \n\nNota: se reciben cuchillas circulares de máquina se dejan en meza de taller junto a juego de cuchillas nuevas de MARZIO."
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# Dia\n\n*•BIN: disponible \n*•BOSCH: disponible\n*•NJP2: floconazol 200g\n *NJP1: conjestex \n*•PILOT LAB HUTTLIN 40: fumarato\n*•FETTE 2020/3: disponible \n*•MS 235 SCHMUCKER: flumizol 600\n*•MB 432 MARCHESINI: conjestex \n*•INTEGRA 320: disponible\n*•BLISTER #8: disponible \n*•MB 451 EVO: disponible  \n*•RC 200: disponible\n*RC 400: disponible \n*•CB550: disponible \n*•HUTTLIN 600: disponible \n*•HUTTLIN 400:  ibuprofeno \n*•RIMEK: disponible \n*•MARZIO 6: \n*•MARZIO 1: limpieza \n*•FETTE 1010: imuflax\n*•FETTE 2020/1:imuflax \n- SOLIDOS\n*•ENVASADORA #2:  conjestex kis\n*•ENVASADORA #3: DISPONIBLE \n*•CLIQUIDOS 2: DISPONIBLE \n *•CLIQUIDOS 3: DISPONIBLE \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: disponible\n*BLISTER 2: DISPONIBLE\n*BLISTER 5: NAPROZOL \n_________________________\n        *NOVEDADES*\n\nSe realiza ajuste de puerta controlsa apertura y cierre de ajusta el modo maniobra automático se encontraba  en modo hombre presente \n\nSe realiza mantenimiento a tablero eléctrico de la fette 2020-2 \n\nSe entiende llamado de fabricacion de líquidos 1 por falla en tanque móvil 250ltd por falla de variador se restablece \n\nMarzio 1 se ajusta angulo de cuchillas de corte \n\nSe realiza mantenimiento a tablero eléctrico de la.fete 2020-2 y limpieza general parte inferior \n\nSe realiza limpieza y ajuste de bornes a tableros de recubridora 200 y 400 \n\nNjp2 llamado por deficiencia de vacío se limpia bomba queda ok\n\nMARZIO 4: Se ajustes en posición de mordazas verticales y orizontales se cuadra posición de cuchilla fija, y posición de foto celda. Se entrega máquina operativa.\n\nSMUKERS; se ajusta posición de cuchillas horizontales porque estaban presentando ruido al realizar corte. \n\nNota: se reciben cuchillas circulares de máquina se dejan en meza de taller junto a juego de cuchillas nuevas de MARZIO."
   },
   {
     "id": "rt-20260817-0802",
@@ -4929,18 +4904,18 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "CL4: se atiende llamado Por cápsulas maltratadas de manera continua, se evidencia que el bloque de destape maltrata una cápsula en el momento de la entrega. Se evidencia partes de cuerpo en estación porta cuerpo, se realiza limpieza y se corrige el maltrato.",
-      "Banda de blíster 2",
+      "*CL4:* se atiende llamado Por cápsulas maltratadas de manera continua, se evidencia que el bloque de destape maltrata una cápsula en el momento de la entrega. Se evidencia partes de cuerpo en estación porta cuerpo, se realiza limpieza y se corrige el maltrato.",
+      "*Banda de blíster 2*",
       "Se realiza nuevamente corte a guarda en banda de blíster 2, porque se continuaban atascando los blíster.",
       "Se cambiaron lámpara en - pesaje - cuarto de la rimer - fette 2020-2",
       "Se cuadran entera de pesaje.",
       "Se presenta falla de temperatura Múltiples llamados en hutilin400  y recubridores Se realiza llamado a kkap para restablecer problemas con el vapor",
-      "Marzio 4 Se atiende llamado problema con cuchilla se cuadra angulo y posición queda operativa",
-      "Marzio 1 Se atiende llamado por problemas de pinza de arrastre se cuadra y se encuentra rotula suelta , se ajusta y queda operativa",
-      "Fette 1010 Se ajusta columna del oga de la gente 1010",
-      "HUTTLIN 600 Se reparan puertas externas e internas del huttiln 600 puertas caídas y no cerraban"
+      "*Marzio 4* Se atiende llamado problema con cuchilla se cuadra angulo y posición queda operativa",
+      "*Marzio 1* Se atiende llamado por problemas de pinza de arrastre se cuadra y se encuentra rotula suelta , se ajusta y queda operativa",
+      "*Fette 1010* Se ajusta columna del oga de la gente 1010",
+      "*HUTTLIN 600* Se reparan puertas externas e internas del huttiln 600 puertas caídas y no cerraban"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 TURNO DE DIA\n\n*•BIN: Colágeno \n*•BOSCH: disponible \n*•NJP2: Fluconazol \n *NJP1: congextes \nNJP3: disponible \n*•PILOT LAB HUTTLIN 40: limpieza \n*•FETTE 2020/2: acetaminofén \n*•MS 235 SCHMUCKER: fumixol \n*•MB 432 MARCHESINI: congextes \n*•INTEGRA 320: cuadre \n*•BLISTER #8: dolorsin fem \n*•MB 451 EVO: omeprazol \n*•RC 200: TRIMEBUTINA \n*RC 400: Dimoflax \n*•CB550: limpieza de area\n*•HUTTLIN 600: Nifedipino \n*•HUTTLIN 400:  ibuprofeno \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 4: esomed\n*•MARZIO 1: esomed \n*•FETTE 1010: Dimoflax \n*•FETTE 2020/1: disponible \n*•ENVASADORA #2: congextes kisd \n*•ML 642 ENVASADORA #3: Azefluz \n*•CLIQUIDOS 2: dolorsin fem\n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: disponible\n*BLISTER 2: disponible \n*BLISTER 5: naprozol termino \n_________\n        NOVEDADES\n\nCL4:\nse atiende llamado \nPor cápsulas maltratadas de manera continua, se evidencia que el bloque de destape maltrata una cápsula en el momento de la entrega. Se evidencia partes de cuerpo en estación porta cuerpo, se realiza limpieza y se corrige el maltrato. \n\nBanda de blíster 2\n\nSe realiza nuevamente corte a guarda en banda de blíster 2, porque se continuaban atascando los blíster.\n\nSe cambiaron lámpara en \n- pesaje\n- cuarto de la rimer \n- fette 2020-2\n\nSe cuadran entera de pesaje.\n\nSe presenta falla de temperatura\nMúltiples llamados en hutilin400  y recubridores \nSe realiza llamado a kkap para restablecer problemas con el vapor\n\nMarzio 4\nSe atiende llamado problema con cuchilla se cuadra angulo y posición queda operativa \n\nMarzio 1\nSe atiende llamado por problemas de pinza de arrastre se cuadra y se encuentra rotula suelta , se ajusta y queda operativa \n\nFette 1010\nSe ajusta columna del oga de la gente 1010 \n\nHUTTLIN 600\nSe reparan puertas externas e internas del huttiln 600 puertas caídas y no cerraban"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TURNO DE DIA*\n\n*•BIN: Colágeno \n*•BOSCH: disponible \n*•NJP2: Fluconazol \n *NJP1: congextes \nNJP3: disponible \n*•PILOT LAB HUTTLIN 40: limpieza \n*•FETTE 2020/2: acetaminofén \n*•MS 235 SCHMUCKER: fumixol \n*•MB 432 MARCHESINI: congextes \n*•INTEGRA 320: cuadre \n*•BLISTER #8: dolorsin fem \n*•MB 451 EVO: omeprazol \n*•RC 200: TRIMEBUTINA \n*RC 400: Dimoflax \n*•CB550: limpieza de area\n*•HUTTLIN 600: Nifedipino \n*•HUTTLIN 400:  ibuprofeno \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 4: esomed\n*•MARZIO 1: esomed \n*•FETTE 1010: Dimoflax \n*•FETTE 2020/1: disponible \n*•ENVASADORA #2: congextes kisd \n*•ML 642 ENVASADORA #3: Azefluz \n*•CLIQUIDOS 2: dolorsin fem\n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: disponible\n*BLISTER 2: disponible \n*BLISTER 5: naprozol termino \n_________________________\n        *NOVEDADES*\n\n*CL4:*\nse atiende llamado \nPor cápsulas maltratadas de manera continua, se evidencia que el bloque de destape maltrata una cápsula en el momento de la entrega. Se evidencia partes de cuerpo en estación porta cuerpo, se realiza limpieza y se corrige el maltrato. \n\n*Banda de blíster 2*\n\nSe realiza nuevamente corte a guarda en banda de blíster 2, porque se continuaban atascando los blíster.\n\nSe cambiaron lámpara en \n- pesaje\n- cuarto de la rimer \n- fette 2020-2\n\nSe cuadran entera de pesaje.\n\nSe presenta falla de temperatura\nMúltiples llamados en hutilin400  y recubridores \nSe realiza llamado a kkap para restablecer problemas con el vapor\n\n*Marzio 4*\nSe atiende llamado problema con cuchilla se cuadra angulo y posición queda operativa \n\n*Marzio 1*\nSe atiende llamado por problemas de pinza de arrastre se cuadra y se encuentra rotula suelta , se ajusta y queda operativa \n\n*Fette 1010*\nSe ajusta columna del oga de la gente 1010 \n\n*HUTTLIN 600*\nSe reparan puertas externas e internas del huttiln 600 puertas caídas y no cerraban"
   },
   {
     "id": "rt-20260817-2132",
@@ -5154,20 +5129,18 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-18",
     "equipos": [],
     "novedades": [
-      "SCHMUCKER: Se lleva a mecanizado bases de riel (cañón de codificado) con especificaciones de trabajo (Proyecto en desarrollo).",
-      "NJP2: Se alinea bloque orientador con magazine para el destape de capsulas, equipo operativo.",
-      "ENVASADO #2: Se cambian sufrideras base de frascos, equipo operativo.",
-      "BOSCH: Se cambia base porta tapa de segmentos, la misma Se encontraban doblada, equipo operativo.",
-      "BLÍSTEADORA Evo: Se corrige corto en bornera de resistencia, estación de sellado.",
-      "MT110: Se inicia mantenimiento preventivo, se limpia cuchillas horizontales y se cambian los resortes, se cambian los oring de los rodillos de arrastre, se corrige cableado de sensores de atascamiento se completa tornillería faltante, Pendiente continuar con el mantenimiento, peinado del cableado y ajuste base de reflx.",
-      "Bien: Llamado por bloqueo operador indica que se atravesó en los sensores de seguridad, se  puente señales de seguridad para llevar a posición nuevamente e iniciar ciclo.",
-      "Cb550: Se habilita, codificadora  que se recibió detenida se instalo y se habilita en la cb 550 se hicieron pruebas se entrega a producción. Para el inicio del lote.",
-      "Schmuker: Se apoya al operador con problemas con el lote que estaba marcando mucho, quedó pendiente terminar el lote #6 y esperar aprobación de calidad.",
-      "Integra 320: Se atiende llamado por contra-control se entrega a turno entrante para seguir con la falla.",
-      "SCHMUCKER",
-      "EVO"
+      "*SCHMUCKER:* Se lleva a mecanizado bases de riel (cañón de codificado) con especificaciones de trabajo (Proyecto en desarrollo).",
+      "*NJP2:* Se alinea bloque orientador con magazine para el destape de capsulas, equipo operativo.",
+      "*ENVASADO #2:* Se cambian sufrideras base de frascos, equipo operativo.",
+      "*BOSCH:* Se cambia base porta tapa de segmentos, la misma Se encontraban doblada, equipo operativo.",
+      "*BLÍSTEADORA Evo:* Se corrige corto en bornera de resistencia, estación de sellado.",
+      "*MT110:* Se inicia mantenimiento preventivo, se limpia cuchillas horizontales y se cambian los resortes, se cambian los oring de los rodillos de arrastre, se corrige cableado de sensores de atascamiento se completa tornillería faltante, Pendiente continuar con el mantenimiento, peinado del cableado y ajuste base de reflx.",
+      "*Bien:* Llamado por bloqueo operador indica que se atravesó en los sensores de seguridad, se  puente señales de seguridad para llevar a posición nuevamente e iniciar ciclo.",
+      "*Cb550:* Se habilita, codificadora  que se recibió detenida se instalo y se habilita en la cb 550 se hicieron pruebas se entrega a producción. Para el inicio del lote.",
+      "*Schmuker:* Se apoya al operador con problemas con el lote que estaba marcando mucho, quedó pendiente terminar el lote #6 y esperar aprobación de calidad.",
+      "*Integra 320:* Se atiende llamado por contra-control se entrega a turno entrante para seguir con la falla."
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 DIA\nNOVEDADES\nSCHMUCKER: Se lleva a mecanizado bases de riel (cañón de codificado) con especificaciones de trabajo (Proyecto en desarrollo).\nNJP2: Se alinea bloque orientador con magazine para el destape de capsulas, equipo operativo.\nENVASADO #2: Se cambian sufrideras base de frascos, equipo operativo.\nBOSCH: Se cambia base porta tapa de segmentos, la misma Se encontraban doblada, equipo operativo.\nBLÍSTEADORA Evo: Se corrige corto en bornera de resistencia, estación de sellado.\nMT110: Se inicia mantenimiento preventivo, se limpia cuchillas horizontales y se cambian los resortes, se cambian los oring de los rodillos de arrastre, se corrige cableado de sensores de atascamiento se completa tornillería faltante, Pendiente continuar con el mantenimiento, peinado del cableado y ajuste base de reflx.\nBien: Llamado por bloqueo operador indica que se atravesó en los sensores de seguridad, se  puente señales de seguridad para llevar a posición nuevamente e iniciar ciclo.\nCb550: Se habilita, codificadora  que se recibió detenida se instalo y se habilita en la cb 550 se hicieron pruebas se entrega a producción. Para el inicio del lote.\nSchmuker: Se apoya al operador con problemas con el lote que estaba marcando mucho, quedó pendiente terminar el lote #6 y esperar aprobación de calidad.\nIntegra 320: Se atiende llamado por contra-control se entrega a turno entrante para seguir con la falla.\nSCHMUCKER\nEVO"
+    "texto": "*REPORTE DE TURNO GRUPO 1 DIA*\n*NOVEDADES*\n*SCHMUCKER:* Se lleva a mecanizado bases de riel (cañón de codificado) con especificaciones de trabajo (Proyecto en desarrollo).\n*NJP2:* Se alinea bloque orientador con magazine para el destape de capsulas, equipo operativo.\n*ENVASADO #2:* Se cambian sufrideras base de frascos, equipo operativo.\n*BOSCH:* Se cambia base porta tapa de segmentos, la misma Se encontraban doblada, equipo operativo.\n*BLÍSTEADORA Evo:* Se corrige corto en bornera de resistencia, estación de sellado.\n*MT110:* Se inicia mantenimiento preventivo, se limpia cuchillas horizontales y se cambian los resortes, se cambian los oring de los rodillos de arrastre, se corrige cableado de sensores de atascamiento se completa tornillería faltante, Pendiente continuar con el mantenimiento, peinado del cableado y ajuste base de reflx.\n*Bien:* Llamado por bloqueo operador indica que se atravesó en los sensores de seguridad, se  puente señales de seguridad para llevar a posición nuevamente e iniciar ciclo.\n*Cb550:* Se habilita, codificadora  que se recibió detenida se instalo y se habilita en la cb 550 se hicieron pruebas se entrega a producción. Para el inicio del lote.\n*Schmuker:* Se apoya al operador con problemas con el lote que estaba marcando mucho, quedó pendiente terminar el lote #6 y esperar aprobación de calidad.\n*Integra 320:* Se atiende llamado por contra-control se entrega a turno entrante para seguir con la falla."
   },
   {
     "id": "rt-20260818-2109",
@@ -5272,15 +5245,15 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-18",
     "equipos": [
       {
-        "equipo": "BIN",
+        "equipo": "•BIN",
         "producto": "acetaminofén"
       },
       {
-        "equipo": "BOSCH",
+        "equipo": "•BOSCH",
         "producto": "disponible"
       },
       {
-        "equipo": "NJP2",
+        "equipo": "•NJP2",
         "producto": "limpieza"
       },
       {
@@ -5288,43 +5261,43 @@ window.REPORTES_TURNO = [
         "producto": "limpieza"
       },
       {
-        "equipo": "NJP3",
+        "equipo": "•NJP3",
         "producto": "nipedipino"
       },
       {
-        "equipo": "PILOT LAB HUTTLIN 40",
+        "equipo": "•PILOT LAB HUTTLIN 40",
         "producto": "disponible"
       },
       {
-        "equipo": "FETTE 2020/3",
+        "equipo": "•FETTE 2020/3",
         "producto": "disponible"
       },
       {
-        "equipo": "MS 235 SCHMUCKER",
+        "equipo": "•MS 235 SCHMUCKER",
         "producto": "flumizol"
       },
       {
-        "equipo": "MB 432 MARCHESINI",
+        "equipo": "•MB 432 MARCHESINI",
         "producto": "acetsminofen"
       },
       {
-        "equipo": "INTEGRA 320",
+        "equipo": "•INTEGRA 320",
         "producto": "ferrenet"
       },
       {
-        "equipo": "BLISTER #8",
+        "equipo": "•BLISTER #8",
         "producto": "ozaprocina"
       },
       {
-        "equipo": "BLISTER #9",
+        "equipo": "•BLISTER #9",
         "producto": "disponible"
       },
       {
-        "equipo": "MB 451 EVO",
+        "equipo": "•MB 451 EVO",
         "producto": "disponible"
       },
       {
-        "equipo": "RC 200",
+        "equipo": "•RC 200",
         "producto": "disponible"
       },
       {
@@ -5332,55 +5305,55 @@ window.REPORTES_TURNO = [
         "producto": "disponible"
       },
       {
-        "equipo": "CB550",
+        "equipo": "•CB550",
         "producto": "disponible"
       },
       {
-        "equipo": "HUTTLIN 600",
+        "equipo": "•HUTTLIN 600",
         "producto": "esomeprazol"
       },
       {
-        "equipo": "HUTTLIN 400",
+        "equipo": "•HUTTLIN 400",
         "producto": "desloratadina"
       },
       {
-        "equipo": "RIMEK",
+        "equipo": "•RIMEK",
         "producto": "trimebutina"
       },
       {
-        "equipo": "MARZIO 6",
+        "equipo": "•MARZIO 6",
         "producto": "disponible"
       },
       {
-        "equipo": "MARZIO 1",
+        "equipo": "•MARZIO 1",
         "producto": "esomed"
       },
       {
-        "equipo": "FETTE 1010",
+        "equipo": "•FETTE 1010",
         "producto": "imuflax"
       },
       {
-        "equipo": "FETTE 2020/1",
+        "equipo": "•FETTE 2020/1",
         "producto": "disponible"
       },
       {
-        "equipo": "FETTE 2020/2",
+        "equipo": "•FETTE 2020/2",
         "producto": "acetaminofén"
       },
       {
-        "equipo": "ENVASADORA #2",
+        "equipo": "•ENVASADORA #2",
         "producto": "cronofen"
       },
       {
-        "equipo": "ENVASADORA #3",
+        "equipo": "•ENVASADORA #3",
         "producto": "azeflu"
       },
       {
-        "equipo": "CLIQUIDOS 2",
+        "equipo": "•CLIQUIDOS 2",
         "producto": "DolorcinnFen"
       },
       {
-        "equipo": "CLIQUIDOS 3",
+        "equipo": "•CLIQUIDOS 3",
         "producto": "DISPONIBLE"
       },
       {
@@ -5402,16 +5375,16 @@ window.REPORTES_TURNO = [
     ],
     "novedades": [
       "- Se corregiré falla en estera de CL 2 (se encontraba alarmada y no subía)",
-      "MB432 Se atiende llamado por problemas en el rodillo de arrastre del PVC , se salió del rodamientos se cuadra se coloca se asegura y se deja operativa , se cuadra también guía de entrega de blíster de la banda que entrega a área blanca se cuadra y se deja operativa",
-      "Integra se recibe llamado por falla en alimentador 2. El cargador secundario no alimentaba a el cargador HS se revisa sensores, señales del mismo y se encuentra bien. Se procede a revisar la parte mecánica y se evidencia desajuste en acoplamiento del sistema de trasmisión. Se realiza ajuste al acoplamiento que se encontraba flojo y se entrega equipo operativo.",
-      "MS SMUKERS se ajusta polea a banda de máquina la guarda hizo contacto con el tornillo que sujeta la polea, por lo que se desenrosco y la polea de desacoplo de la cuña. Se normaliza posición de polea con respecto a cuña de entrega máquina operativa. También tuvimos llamado por problemas en cuchillas superior central , se limpia , se despega y se cuadra posición se deja operativa",
-      "HUTTLIN 400 Se atiende llamado por espiga de los porta filtro dañada se repara se rectifica se cambia tornillo y se deja operativa se entrega a producción",
-      "MT1100 Se cuadra sensores y se coloca guarda de los sensores",
-      "Marzio 1 Se atiende llamado por problemas en cuchillas , se cuadra , se coloca más ángulo y se deja operativa",
-      "CB550 Se atiende llamado por problemas en pestaña, se encuentra sistema de movimiento de pestañas pegado , se lubrica , se limpia y despega , y también se hace cuadre de sobre , se ajusta todo y se deja operativa",
+      "*MB432* Se atiende llamado por problemas en el rodillo de arrastre del PVC , se salió del rodamientos se cuadra se coloca se asegura y se deja operativa , se cuadra también guía de entrega de blíster de la banda que entrega a área blanca se cuadra y se deja operativa",
+      "*Integra* se recibe llamado por falla en alimentador 2. El cargador secundario no alimentaba a el cargador HS se revisa sensores, señales del mismo y se encuentra bien. Se procede a revisar la parte mecánica y se evidencia desajuste en acoplamiento del sistema de trasmisión. Se realiza ajuste al acoplamiento que se encontraba flojo y se entrega equipo operativo.",
+      "*MS SMUKERS* se ajusta polea a banda de máquina la guarda hizo contacto con el tornillo que sujeta la polea, por lo que se desenrosco y la polea de desacoplo de la cuña. Se normaliza posición de polea con respecto a cuña de entrega máquina operativa. También tuvimos llamado por problemas en cuchillas superior central , se limpia , se despega y se cuadra posición se deja operativa",
+      "*HUTTLIN 400* Se atiende llamado por espiga de los porta filtro dañada se repara se rectifica se cambia tornillo y se deja operativa se entrega a producción",
+      "*MT1100* Se cuadra sensores y se coloca guarda de los sensores",
+      "*Marzio 1* Se atiende llamado por problemas en cuchillas , se cuadra , se coloca más ángulo y se deja operativa",
+      "*CB550* Se atiende llamado por problemas en pestaña, se encuentra sistema de movimiento de pestañas pegado , se lubrica , se limpia y despega , y también se hace cuadre de sobre , se ajusta todo y se deja operativa",
       "CLT Se ayuda a operador a cuadrar bloque docificador"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# NOCHE\n\n•BIN: acetaminofén \n•BOSCH: disponible\n•NJP2: limpieza\n NJP1: limpieza\n•NJP3: nipedipino\n•PILOT LAB HUTTLIN 40: disponible\n•FETTE 2020/3: disponible \n•MS 235 SCHMUCKER: flumizol\n•MB 432 MARCHESINI: acetsminofen\n•INTEGRA 320: ferrenet\n•BLISTER #8: ozaprocina\n•BLISTER #9: disponible\n•MB 451 EVO: disponible\n•RC 200: disponible\nRC 400: disponible \n•CB550: disponible \n•HUTTLIN 600: esomeprazol\n•HUTTLIN 400: desloratadina\n•RIMEK: trimebutina \n•MARZIO 6: disponible \n•MARZIO 1: esomed \n•FETTE 1010: imuflax\n•FETTE 2020/1: disponible\n•FETTE 2020/2: acetaminofén \n•ENVASADORA #2: cronofen\n•ENVASADORA #3: azeflu\n•CLIQUIDOS 2: DolorcinnFen\n •CLIQUIDOS 3: DISPONIBLE \nCLIQUIDOS 4: ácido valproico\nMT1100 MARCHESINI: disponible\nBLISTER 2: DISPONIBLE\nBLISTER 5: disponible\n_________\n        NOVEDADES\n\n- Se corregiré falla en estera de CL 2 (se encontraba alarmada y no subía)\n\nMB432\nSe atiende llamado por problemas en el rodillo de arrastre del PVC , se salió del rodamientos se cuadra se coloca se asegura y se deja operativa , se cuadra también guía de entrega de blíster de la banda que entrega a área blanca se cuadra y se deja operativa \n\nIntegra\nse recibe llamado por falla en alimentador 2. \nEl cargador secundario no alimentaba a el cargador HS se revisa sensores, señales del mismo y se encuentra bien. Se procede a revisar la parte mecánica y se evidencia desajuste en acoplamiento del sistema de trasmisión. \nSe realiza ajuste al acoplamiento que se encontraba flojo y se entrega equipo operativo.\n\nMS SMUKERS\nse ajusta polea a banda de máquina la guarda hizo contacto con el tornillo que sujeta la polea, por lo que se desenrosco y la polea de desacoplo de la cuña. Se normaliza posición de polea con respecto a cuña de entrega máquina operativa. También tuvimos llamado por problemas en cuchillas superior central , se limpia , se despega y se cuadra posición se deja operativa \n\nHUTTLIN 400\nSe atiende llamado por espiga de los porta filtro dañada se repara se rectifica se cambia tornillo y se deja operativa se entrega a producción \n\nMT1100\nSe cuadra sensores y se coloca guarda de los sensores \n\nMarzio 1\nSe atiende llamado por problemas en cuchillas , se cuadra , se coloca más ángulo y se deja operativa \n\nCB550\nSe atiende llamado por problemas en pestaña, se encuentra sistema de movimiento de pestañas pegado , se lubrica , se limpia y despega , y también se hace cuadre de sobre , se ajusta todo y se deja operativa \n\nCLT \nSe ayuda a operador a cuadrar bloque docificador"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# NOCHE*\n\n*•BIN:* acetaminofén \n*•BOSCH:* disponible\n*•NJP2:* limpieza\n *NJP1:* limpieza\n*•NJP3:* nipedipino\n*•PILOT LAB HUTTLIN 40:* disponible\n*•FETTE 2020/3:* disponible \n*•MS 235 SCHMUCKER:* flumizol\n*•MB 432 MARCHESINI:* acetsminofen\n*•INTEGRA 320:* ferrenet\n*•BLISTER #8:* ozaprocina\n*•BLISTER #9:* disponible\n*•MB 451 EVO:* disponible\n*•RC 200:* disponible\n*RC 400:* disponible \n*•CB550:* disponible \n*•HUTTLIN 600:* esomeprazol\n*•HUTTLIN 400:* desloratadina\n*•RIMEK:* trimebutina \n*•MARZIO 6:* disponible \n*•MARZIO 1:* esomed \n*•FETTE 1010:* imuflax\n*•FETTE 2020/1:* disponible\n*•FETTE 2020/2:* acetaminofén \n*•ENVASADORA #2:* cronofen\n*•ENVASADORA #3:* azeflu\n*•CLIQUIDOS 2:* DolorcinnFen\n *•CLIQUIDOS 3:* DISPONIBLE \n*CLIQUIDOS 4:* ácido valproico\n*MT1100 MARCHESINI:* disponible\n*BLISTER 2:* DISPONIBLE\n*BLISTER 5:* disponible\n_________________________\n        *NOVEDADES*\n\n- Se corregiré falla en estera de CL 2 (se encontraba alarmada y no subía)\n\n*MB432*\nSe atiende llamado por problemas en el rodillo de arrastre del PVC , se salió del rodamientos se cuadra se coloca se asegura y se deja operativa , se cuadra también guía de entrega de blíster de la banda que entrega a área blanca se cuadra y se deja operativa \n\n*Integra*\nse recibe llamado por falla en alimentador 2. \nEl cargador secundario no alimentaba a el cargador HS se revisa sensores, señales del mismo y se encuentra bien. Se procede a revisar la parte mecánica y se evidencia desajuste en acoplamiento del sistema de trasmisión. \nSe realiza ajuste al acoplamiento que se encontraba flojo y se entrega equipo operativo.\n\n*MS SMUKERS*\nse ajusta polea a banda de máquina la guarda hizo contacto con el tornillo que sujeta la polea, por lo que se desenrosco y la polea de desacoplo de la cuña. Se normaliza posición de polea con respecto a cuña de entrega máquina operativa. También tuvimos llamado por problemas en cuchillas superior central , se limpia , se despega y se cuadra posición se deja operativa \n\n*HUTTLIN 400*\nSe atiende llamado por espiga de los porta filtro dañada se repara se rectifica se cambia tornillo y se deja operativa se entrega a producción \n\n*MT1100*\nSe cuadra sensores y se coloca guarda de los sensores \n\n*Marzio 1*\nSe atiende llamado por problemas en cuchillas , se cuadra , se coloca más ángulo y se deja operativa \n\n*CB550*\nSe atiende llamado por problemas en pestaña, se encuentra sistema de movimiento de pestañas pegado , se lubrica , se limpia y despega , y también se hace cuadre de sobre , se ajusta todo y se deja operativa \n\nCLT \nSe ayuda a operador a cuadrar bloque docificador"
   },
   {
     "id": "rt-20260819-2153",
@@ -5594,7 +5567,7 @@ window.REPORTES_TURNO = [
       "4) en la Marcio 4 codificadora presenta falla y suciedad en sus rodillos con polvillo, se limpia y se restaura para que quede operativa",
       "5) se fabrica malla #16 para el granulador, no hay para hacer más mallas"
     ],
-    "texto": "EQUIPOS OPERATIVOS     SEDE 4 T# NOCHE\n\n 2026/08/19\n\nLIQUIDOS\n\n*•BLISTER 5: COLTRIN\n*•CL4 : ACIDO VALPROICO 250 MG\n*•BLISTER2: DISPONIBLE \n*•MT: DISPONIBLE \n*•ENVASADO: AZEFLU SPRAY NASAL\n*•CL2 : DISPONIBLE \n*•EMBASADORA 2: DISPONIBLE \n\nSOLIDOS\n\n*•BIN: DISPONIBLE \n*•BOSH: DISPONIBLE \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40:  TRIMEBUTINA\n*•SCHMUKER: FLUMIZOL 600\n*•NJP3 NIFEDIPINO\n*•BLISTER #9: DISPONIBLE \n*•BLISTER 6 MB432: CRONOFEN\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DRILOX\n*•EVO: OMEPRAZOL 20G\n*•MARZIO #4 : CUADRE MYOSOP\n*•HUTTLIN 600: ESOMEPRASOL\n*•R200: DISPONIBLE \n*•R400: DISPONIBLE \n*•MARZIO 1: CONGESTEX\n*•HUTTLIN 400: DISPONIBLE \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: DIMOFLAX\n*•FETTE2021: DISPONIBLE \n*•CB550: GELIMET\n________\n       NOVEDADES\n\n1) se encuentra área de inspección en centro líquidos 2 sin energía en los tomas 110, se busca breaker y se sube para normalizar el 110\n\n2) en la blíster 8 se interviene sistema de soplado, se cambian espárragos ya que se partió uno. quedando la rosca dentro de la placa, se retira y se cambian  arandelas \n\n3) En la CB550 se realiza apoyo en sistema de laminado por qué se encontraba deslizando y arrugando la lámina \n\n4) en la Marcio 4 codificadora presenta falla y suciedad en sus rodillos con polvillo, se limpia y se restaura para que quede operativa \n\n5) se fabrica malla #16 para el granulador, no hay para hacer más mallas"
+    "texto": "*EQUIPOS OPERATIVOS     SEDE 4 T# NOCHE*\n\n *2026/08/19*\n\n*LIQUIDOS*\n\n*•BLISTER 5: COLTRIN\n*•CL4 : ACIDO VALPROICO 250 MG\n*•BLISTER2: DISPONIBLE \n*•MT: DISPONIBLE \n*•ENVASADO: AZEFLU SPRAY NASAL\n*•CL2 : DISPONIBLE \n*•EMBASADORA 2: DISPONIBLE \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE \n*•BOSH: DISPONIBLE \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40:  TRIMEBUTINA\n*•SCHMUKER: FLUMIZOL 600\n*•NJP3 NIFEDIPINO\n*•BLISTER #9: DISPONIBLE \n*•BLISTER 6 MB432: CRONOFEN\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DRILOX\n*•EVO: OMEPRAZOL 20G\n*•MARZIO #4 : CUADRE MYOSOP\n*•HUTTLIN 600: ESOMEPRASOL\n*•R200: DISPONIBLE \n*•R400: DISPONIBLE \n*•MARZIO 1: CONGESTEX\n*•HUTTLIN 400: DISPONIBLE \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: DIMOFLAX\n*•FETTE2021: DISPONIBLE \n*•CB550: GELIMET\n____________________\n       NOVEDADES\n\n1) se encuentra área de inspección en centro líquidos 2 sin energía en los tomas 110, se busca breaker y se sube para normalizar el 110\n\n2) en la blíster 8 se interviene sistema de soplado, se cambian espárragos ya que se partió uno. quedando la rosca dentro de la placa, se retira y se cambian  arandelas \n\n3) En la CB550 se realiza apoyo en sistema de laminado por qué se encontraba deslizando y arrugando la lámina \n\n4) en la Marcio 4 codificadora presenta falla y suciedad en sus rodillos con polvillo, se limpia y se restaura para que quede operativa \n\n5) se fabrica malla #16 para el granulador, no hay para hacer más mallas"
   },
   {
     "id": "rt-20260820-1955",
@@ -5799,9 +5772,9 @@ window.REPORTES_TURNO = [
       "BOSCH se realiza ajuste de altura en pines de verificación del sistema de expulsión.",
       "EMPAQUE LÍQUIDO Encintadora de caja: llaman problemas en bandas se encuentra acople flojo y cables sueltos, se restaura y queda ok",
       "BLÍSTER #5 se atiende llamado por qué el foill bailaba mucho se encuentra tornillo  del sistema mecánico dañado se fabrica uno nuevo queda ok MARZIO: Se hace  conexiones de resistencia laterales, horizontales, se monta y conecta mordazas inferiores. Se invierte conexiones de termocupla y se hacen pruebas de calentamiento.",
-      "Se cambia conexión de PLC  de cilindro dosificador salida  y3 a y6. Se conectan solenoides de electroválvulas Antes Después"
+      "Se cambia conexión de PLC  de cilindro dosificador salida  y3 a y6. Se conectan solenoides de electroválvulas"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: Montelukast \nBOSHC: stamby\nNJP #2: multivitaminico\nNJP #1: congestex\nNJP #3: stamby\nPILOT LAB: dimoflax\nSCMUKER: flumixol \nBLISTER #9: propranolol \nMB 432: cronofen\nINTEGRA: ferrimed\nBLISTER #8: dilox\nMARCHESINI EVO: omeprazol inspección \nR200: esomeprazol \nR400: dimoflax \nMARZIO #1: limpieza \nMARZIO #4: congestex \nCB 550: gelimed stamby\nHUTTLIN 600: esomeprazol \nHUTTLIN 400: ceterisina\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: dimoflax\nFETTE 2020-1: Trimebutina \n\nLÍQUIDO \nENVASADORA #2: supreflux jarabe \nENVASADORA #3: \nCLIQUIDO #2: dolorsinfen \nCLIQUIDO #3: disponible \nCLIQUIDO #4: ácido valproico\nMT 1100: stamby\nBLISTER #2: stamby\nBLISTER #5: dolorsinfen \n________________\n                       NOVEDADES \nBLISTER #5\nse realiza instalación del cargador de la máquina, se deja conectado parte eléctrica y neumática.\n\nR400\nse ajusta altura de aspa en mezclador, se deja un poco más abajo.\n\nMARZIO #4\nse realiza ajuste en sistema de pinza de agarre, se cuadra base de fotocelda y se programa lectura de la taca, se cuadra tiempo de la entrada de la pinza que arrastra el laminado y se deja máquina ok.\n\nBOSCH\nse realiza ajuste de altura en pines de verificación del sistema de expulsión.\n\nEMPAQUE LÍQUIDO \nEncintadora de caja: llaman problemas en bandas se encuentra acople flojo y cables sueltos, se restaura y queda ok\n\nBLÍSTER #5 \nse atiende llamado por qué el foill bailaba mucho se encuentra tornillo  del sistema mecánico dañado se fabrica uno nuevo queda ok\n \nMARZIO:\nSe hace  conexiones de resistencia laterales, horizontales, se monta y conecta mordazas inferiores.\nSe invierte conexiones de termocupla y se hacen pruebas de calentamiento.\n\nSe cambia conexión de PLC  de cilindro dosificador salida  y3 a y6. \nSe conectan solenoides de electroválvulas\nAntes\nDespués"
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: Montelukast \nBOSHC: stamby\nNJP #2: multivitaminico\nNJP #1: congestex\nNJP #3: stamby\nPILOT LAB: dimoflax\nSCMUKER: flumixol \nBLISTER #9: propranolol \nMB 432: cronofen\nINTEGRA: ferrimed\nBLISTER #8: dilox\nMARCHESINI EVO: omeprazol inspección \nR200: esomeprazol \nR400: dimoflax \nMARZIO #1: limpieza \nMARZIO #4: congestex \nCB 550: gelimed stamby\nHUTTLIN 600: esomeprazol \nHUTTLIN 400: ceterisina\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: dimoflax\nFETTE 2020-1: Trimebutina \n\nLÍQUIDO \nENVASADORA #2: supreflux jarabe \nENVASADORA #3: \nCLIQUIDO #2: dolorsinfen \nCLIQUIDO #3: disponible \nCLIQUIDO #4: ácido valproico\nMT 1100: stamby\nBLISTER #2: stamby\nBLISTER #5: dolorsinfen \n______________________________________________\n                       NOVEDADES \nBLISTER #5\nse realiza instalación del cargador de la máquina, se deja conectado parte eléctrica y neumática.\n\nR400\nse ajusta altura de aspa en mezclador, se deja un poco más abajo.\n\nMARZIO #4\nse realiza ajuste en sistema de pinza de agarre, se cuadra base de fotocelda y se programa lectura de la taca, se cuadra tiempo de la entrada de la pinza que arrastra el laminado y se deja máquina ok.\n\nBOSCH\nse realiza ajuste de altura en pines de verificación del sistema de expulsión.\n\nEMPAQUE LÍQUIDO \nEncintadora de caja: llaman problemas en bandas se encuentra acople flojo y cables sueltos, se restaura y queda ok\n\nBLÍSTER #5 \nse atiende llamado por qué el foill bailaba mucho se encuentra tornillo  del sistema mecánico dañado se fabrica uno nuevo queda ok\n \nMARZIO:\nSe hace  conexiones de resistencia laterales, horizontales, se monta y conecta mordazas inferiores.\nSe invierte conexiones de termocupla y se hacen pruebas de calentamiento.\n\nSe cambia conexión de PLC  de cilindro dosificador salida  y3 a y6. \nSe conectan solenoides de electroválvulas"
   },
   {
     "id": "rt-20260821-0817",
@@ -5942,16 +5915,16 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "CL2: Se ajusta bloque de destape, el mismo se encontraba desalineado",
-      "HUTTLIN 400: Se reparan (2) boquillas de sprayado.",
-      "HUTTLIN 600: Se ajusta eje de agitación tanque móvil Baldor, se deja operativo.",
-      "BOSCH: Se repara sello válvula dosificadora y se desbloquea columna elevadora, equipo disponible.",
-      "BLISTER 5: LLamado por falla en cargador universal, se alinea con guía de PVC y se le da altura requerida, equipo operativo.",
-      "Marzio#1: montaje y cuadre de airomed, se apoya en cuadre y arranque se ajustan tiempos de cuchilla, abridor pinza de arraste, y ajustes generales.",
+      "*CL2:* Se ajusta bloque de destape, el mismo se encontraba desalineado",
+      "*HUTTLIN 400:* Se reparan (2) boquillas de sprayado.",
+      "*HUTTLIN 600:* Se ajusta eje de agitación tanque móvil Baldor, se deja operativo.",
+      "*BOSCH:* Se repara sello válvula dosificadora y se desbloquea columna elevadora, equipo disponible.",
+      "*BLISTER 5:* LLamado por falla en cargador universal, se alinea con guía de PVC y se le da altura requerida, equipo operativo.",
+      "*Marzio#1:* montaje y cuadre de airomed, se apoya en cuadre y arranque se ajustan tiempos de cuchilla, abridor pinza de arraste, y ajustes generales.",
       "Se realizo limpieza de rodillos y ajuste de parámetros de la codificara.",
-      "Marzio#4: Llamado por problemas de alarma y lote borroso de la codificadora, se hace limpieza de rodillos y cabezal  cambio de cinta y ajustes de parámetros se hacen pruebas se entrega a producción."
+      "*Marzio#4:* Llamado por problemas de alarma y lote borroso de la codificadora, se hace limpieza de rodillos y cabezal  cambio de cinta y ajustes de parámetros se hacen pruebas se entrega a producción."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE\n EQUIPOS OPERATIVO\nCL2: DOLORSIN FEM\nCL4: FERBIN\nMT 1100: DISPONIBLE \nBLÍSTER 2: DISPONIBLE\nBLISTER 5: DOLORSIN FEM\nENVASADO 3: DISPONIBLE\nCL3: DISPONIBLE \nENVASADORA 2: SUOERFLUIX\nBIN BLENDER: DISPONIBLE\nBOSCH: DICLOFENAC\nNJP1: CONGESTEX \nNJP2: FERRIMED\nNJP3: DISPONIBLE \nPILOT LAB: LIMPIEZA \nMB 432: CRONOFEN\nBLISTER 9: PROPANOLOL\nBLISTER 8: DIMOFLAX\nSCHMUCKER: FLUMIXOL\nINTEGRA 320: FERRIMED\nR200: ESOMEPRAZOL\nMB 451 evo: OMEPRAZOL\nMARZIO 1: LIMPIEZA \nHUTTLIN 600: ESOMED\nR400: DIMOFLAX\nBOMBO 300: DISPONIBLE\nMARZIO 4: CONGESTEX\nHUTTLIN 400: IBUPROFENO\nRIMECK: COLTRIM\nCB 550: GELIMED\nFETTE 1010 : DISPONIBLE \nFETTE 2020#1: DISPONIBLE \nFETTE 2020# 2: LOSARTAN\nNOVEDADES\nCL2: Se ajusta bloque de destape, el mismo se encontraba desalineado \nHUTTLIN 400: Se reparan (2) boquillas de sprayado.\nHUTTLIN 600: Se ajusta eje de agitación tanque móvil Baldor, se deja operativo.\nBOSCH: Se repara sello válvula dosificadora y se desbloquea columna elevadora, equipo disponible.\nBLISTER 5: LLamado por falla en cargador universal, se alinea con guía de PVC y se le da altura requerida, equipo operativo.\nMarzio#1: montaje y cuadre de airomed, se apoya en cuadre y arranque se ajustan tiempos de cuchilla, abridor pinza de arraste, y ajustes generales.\nSe realizo limpieza de rodillos y ajuste de parámetros de la codificara.\nMarzio#4: Llamado por problemas de alarma y lote borroso de la codificadora, se hace limpieza de rodillos y cabezal  cambio de cinta y ajustes de parámetros se hacen pruebas se entrega a producción."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE*\n *EQUIPOS OPERATIVO*\n*CL2:* DOLORSIN FEM\n*CL4:* FERBIN\n*MT 1100:* DISPONIBLE \n*BLÍSTER 2:* DISPONIBLE\n*BLISTER 5:* DOLORSIN FEM\n*ENVASADO 3:* DISPONIBLE\n*CL3:* DISPONIBLE \n*ENVASADORA 2:* SUOERFLUIX\n*BIN BLENDER:* DISPONIBLE\n*BOSCH:* DICLOFENAC\n*NJP1:* CONGESTEX \n*NJP2:* FERRIMED\n*NJP3:* DISPONIBLE \n*PILOT LAB:* LIMPIEZA \n*MB 432:* CRONOFEN\n*BLISTER 9:* PROPANOLOL\n*BLISTER 8:* DIMOFLAX\n*SCHMUCKER:* FLUMIXOL\n*INTEGRA 320:* FERRIMED\n*R200:* ESOMEPRAZOL\n*MB 451 evo:* OMEPRAZOL\n*MARZIO 1:* LIMPIEZA \n*HUTTLIN 600:* ESOMED\n*R400:* DIMOFLAX\n*BOMBO 300:* DISPONIBLE\n*MARZIO 4:* CONGESTEX\n*HUTTLIN 400:* IBUPROFENO\n*RIMECK:* COLTRIM\n*CB 550:* GELIMED\n*FETTE 1010 :* DISPONIBLE \n*FETTE 2020#1:* DISPONIBLE \n*FETTE 2020# 2:* LOSARTAN\n*NOVEDADES*\n*CL2:* Se ajusta bloque de destape, el mismo se encontraba desalineado \n*HUTTLIN 400:* Se reparan (2) boquillas de sprayado.\n*HUTTLIN 600:* Se ajusta eje de agitación tanque móvil Baldor, se deja operativo.\n*BOSCH:* Se repara sello válvula dosificadora y se desbloquea columna elevadora, equipo disponible.\n*BLISTER 5:* LLamado por falla en cargador universal, se alinea con guía de PVC y se le da altura requerida, equipo operativo.\n*Marzio#1:* montaje y cuadre de airomed, se apoya en cuadre y arranque se ajustan tiempos de cuchilla, abridor pinza de arraste, y ajustes generales.\nSe realizo limpieza de rodillos y ajuste de parámetros de la codificara.\n*Marzio#4:* Llamado por problemas de alarma y lote borroso de la codificadora, se hace limpieza de rodillos y cabezal  cambio de cinta y ajustes de parámetros se hacen pruebas se entrega a producción."
   },
   {
     "id": "rt-20260821-1430",
@@ -6414,15 +6387,15 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "PLANTA DE AGUA#2: Equipo alarmado, se rearma nuevamente, equipo operativo.",
-      "MT1100: Se cuadra sensor salida de sobres, equipo operativo.",
-      "MARZIO 5: Se continúa armaje de equipo, se cambia motor principal ya que presenta ruido de rodamientos.",
-      "Marzio #1: airomed, se arregló la puerta de la  máquina parte trasera que tenía bisagra dañada, se cambia contacto abierto del pulso del lado derecho que no funcionaba y se modifica acrílico.",
-      "Fette 1010: montaje se pega pieza de teflón partida del recuperador de producto.",
-      "Fabricación de soluciones huttlin 400: llamado porque se tapo tubería no podían descargar la solución ,se requiere instalar una válvula manual bajo el tanque.",
+      "*PLANTA DE AGUA#2:* Equipo alarmado, se rearma nuevamente, equipo operativo.",
+      "*MT1100:* Se cuadra sensor salida de sobres, equipo operativo.",
+      "*MARZIO 5:* Se continúa armaje de equipo, se cambia motor principal ya que presenta ruido de rodamientos.",
+      "*Marzio #1:* airomed, se arregló la puerta de la  máquina parte trasera que tenía bisagra dañada, se cambia contacto abierto del pulso del lado derecho que no funcionaba y se modifica acrílico.",
+      "*Fette 1010:* montaje se pega pieza de teflón partida del recuperador de producto.",
+      "*Fabricación de soluciones huttlin 400:* llamado porque se tapo tubería no podían descargar la solución ,se requiere instalar una válvula manual bajo el tanque.",
       "Tocó utilizar la bomba neumático del área de líquido"
     ],
-    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/08/22\n\n* TURNO #\n*******\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: ácido acetilsalicilico \n>Bosch: Diclofenac \n>NJP2: limpieza \n>NJP1:\n>NJP3:\n>MB 432:cronofem \n>Blíster #8:\n>Integra 320:congextex \n>Estuchadora#1:\n>Blíster #9: propranolol \n>MB 451: omeprazol \n>Estuchadora#2: omeprazol \n>Schmucker:flumixol \n>Marzio#4:congextex \n>Marzio#1: airomed \n>R400:dimoflax \n>Sólidos:dimoflax \n>R200: limpieza \n>CB 550:gelimed \n>Fette 1010: montaje de Montelukast \n>fette 2020#1:\n>Fette 2020#2: acetaminofén \n>Rimex: Trimebutina+ simeticona\n>Pilot lab:\n>Huttlin 400: esomeprazol \n>Huttlin 600: limpieza \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: limpieza \n>CL #3:\n>CL #4: ácido valproico\n>Blíster #2: Funex \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2:\n>Etiquetadora#2:\n>Envasadora#3:\n>Etiquetadora#3:\n>Marchesine MT1100: súperflux \n>Blíster #5:dolorsin fen\nNOVEDADES:\nPLANTA DE AGUA#2: Equipo alarmado, se rearma nuevamente, equipo operativo.\nMT1100: Se cuadra sensor salida de sobres, equipo operativo.\nMARZIO 5: Se continúa armaje de equipo, se cambia motor principal ya que presenta ruido de rodamientos.\nMarzio #1: airomed, se arregló la puerta de la  máquina parte trasera que tenía bisagra dañada, se cambia contacto abierto del pulso del lado derecho que no funcionaba y se modifica acrílico.\n\nFette 1010: montaje se pega pieza de teflón partida del recuperador de producto.\n\nFabricación de soluciones huttlin 400: llamado porque se tapo tubería no podían descargar la solución ,se requiere instalar una válvula manual bajo el tanque.\nTocó utilizar la bomba neumático del área de líquido"
+    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/08/22\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: ácido acetilsalicilico \n>Bosch: Diclofenac \n>NJP2: limpieza \n>NJP1:\n>NJP3:\n>MB 432:cronofem \n>Blíster #8:\n>Integra 320:congextex \n>Estuchadora#1:\n>Blíster #9: propranolol \n>MB 451: omeprazol \n>Estuchadora#2: omeprazol \n>Schmucker:flumixol \n>Marzio#4:congextex \n>Marzio#1: airomed \n>R400:dimoflax \n>Sólidos:dimoflax \n>R200: limpieza \n>CB 550:gelimed \n>Fette 1010: montaje de Montelukast \n>fette 2020#1:\n>Fette 2020#2: acetaminofén \n>Rimex: Trimebutina+ simeticona\n>Pilot lab:\n>Huttlin 400: esomeprazol \n>Huttlin 600: limpieza \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: limpieza \n>CL #3:\n>CL #4: ácido valproico\n>Blíster #2: Funex \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2:\n>Etiquetadora#2:\n>Envasadora#3:\n>Etiquetadora#3:\n>Marchesine MT1100: súperflux \n>Blíster #5:dolorsin fen\n*NOVEDADES:*\n*PLANTA DE AGUA#2:* Equipo alarmado, se rearma nuevamente, equipo operativo.\n*MT1100:* Se cuadra sensor salida de sobres, equipo operativo.\n*MARZIO 5:* Se continúa armaje de equipo, se cambia motor principal ya que presenta ruido de rodamientos.\n*Marzio #1:* airomed, se arregló la puerta de la  máquina parte trasera que tenía bisagra dañada, se cambia contacto abierto del pulso del lado derecho que no funcionaba y se modifica acrílico.\n\n*Fette 1010:* montaje se pega pieza de teflón partida del recuperador de producto.\n\n*Fabricación de soluciones huttlin 400:* llamado porque se tapo tubería no podían descargar la solución ,se requiere instalar una válvula manual bajo el tanque.\nTocó utilizar la bomba neumático del área de líquido"
   },
   {
     "id": "rt-20260822-0950",
@@ -6501,17 +6474,17 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-22",
     "equipos": [],
     "novedades": [
-      "DEL TURNO DE DIA SEDE4 Blíster 8 Se realiza armado y montaje de estación de formación en blisteadora 8 se sincronizan tiempos. Pendiente montar formateria para probar en línea.",
-      "Ms 235 se atiende llamado porque la banda de caída de sobres estaba desalineada y se salía se destensiona se toma lugar se ajusta hasta quedar ok se montó guardas de motor principal y de la banda",
-      "Blíster 9 se atiende llamado porque el formato se salió y se corrió la estación de formado perdiendo los tiempos mecánicos de desarma equipos para rodar estación se arma se toman tiempo pero aún siguen perdidos los tiempos mecánicos vs encoder se entrega a turno entrante para continuar",
-      "HUTTLIN 600 Llamado de huttiln 600 por falla de aire comprimido se notifica a los de  keica y se resuelve",
-      "MT1100 Se atiende llamado por problemas en el centrado de impresión , se revisa y se encuentra sensor no alineado con la taca , se alinea y se deja operativa , se evidencia laminado nuevo con tacas diferentes milimetricamente por eso manda Alamar de centro de impresión se deja operativa",
-      "Blíster 5 Se atiende llamado por alimentador , se encuentra muy justo en la laguia principal y rozaba con la base , dejando viruta en PVC , se alinea alimentado , se cuadra altura del alimentado y se deja operativo , se vuelve atender llamado por perdida de paso , se toma los tiempos y cuadra se evidencia movimiento extraño en pinza de arrastre , se revisa y se llega a la conclusión que es el estiramiento de las correas , ya no se le puede dar más tensión , se deja operativa",
-      "Marzio 1 Se atiende llamado por grafilado inferior se ajusta y se le da más tensión , se cuadra y se deja operativa",
-      "Njp2 se atiende llamado porque el rectificador no ajusta se evidencia tornillo con cinta para ajustar de perfora base para instalar elicoiil y se ajusta rectificador Pendiente bajar está pieza para mandar a mecanizar embujar y fabricar rosca 5mm y 3 rectificadores",
-      "Schmucker Se atiende llamado por banda , se encuentra la lona montada a las guías se alinea y se deja operativa"
+      "DEL TURNO DE DIA SEDE4* *Blíster 8* Se realiza armado y montaje de estación de formación en blisteadora 8 se sincronizan tiempos. Pendiente montar formateria para probar en línea.",
+      "*Ms 235* se atiende llamado porque la banda de caída de sobres estaba desalineada y se salía se destensiona se toma lugar se ajusta hasta quedar ok se montó guardas de motor principal y de la banda",
+      "*Blíster 9* se atiende llamado porque el formato se salió y se corrió la estación de formado perdiendo los tiempos mecánicos de desarma equipos para rodar estación se arma se toman tiempo pero aún siguen perdidos los tiempos mecánicos vs encoder se entrega a turno entrante para continuar",
+      "*HUTTLIN 600* Llamado de huttiln 600 por falla de aire comprimido se notifica a los de  keica y se resuelve",
+      "*MT1100* Se atiende llamado por problemas en el centrado de impresión , se revisa y se encuentra sensor no alineado con la taca , se alinea y se deja operativa , se evidencia laminado nuevo con tacas diferentes milimetricamente por eso manda Alamar de centro de impresión se deja operativa",
+      "*Blíster 5* Se atiende llamado por alimentador , se encuentra muy justo en la laguia principal y rozaba con la base , dejando viruta en PVC , se alinea alimentado , se cuadra altura del alimentado y se deja operativo , se vuelve atender llamado por perdida de paso , se toma los tiempos y cuadra se evidencia movimiento extraño en pinza de arrastre , se revisa y se llega a la conclusión que es el estiramiento de las correas , ya no se le puede dar más tensión , se deja operativa",
+      "*Marzio 1* Se atiende llamado por grafilado inferior se ajusta y se le da más tensión , se cuadra y se deja operativa",
+      "*Njp2* se atiende llamado porque el rectificador no ajusta se evidencia tornillo con cinta para ajustar de perfora base para instalar elicoiil y se ajusta rectificador Pendiente bajar está pieza para mandar a mecanizar embujar y fabricar rosca 5mm y 3 rectificadores",
+      "*Schmucker* Se atiende llamado por banda , se encuentra la lona montada a las guías se alinea y se deja operativa"
     ],
-    "texto": "NOVEDADES DEL TURNO DE DIA SEDE4\nBlíster 8\nSe realiza armado y montaje de estación de formación en blisteadora 8 se sincronizan tiempos.\nPendiente montar formateria para probar en línea.\n\nMs 235\nse atiende llamado porque la banda de caída de sobres estaba desalineada y se salía se destensiona se toma lugar se ajusta hasta quedar ok se montó guardas de motor principal y de la banda \n\nBlíster 9\nse atiende llamado porque el formato se salió y se corrió la estación de formado perdiendo los tiempos mecánicos de desarma equipos para rodar estación se arma se toman tiempo pero aún siguen perdidos los tiempos mecánicos vs encoder se entrega a turno entrante para continuar \n\nHUTTLIN 600\nLlamado de huttiln 600 por falla de aire comprimido se notifica a los de  keica y se resuelve\n\nMT1100\nSe atiende llamado por problemas en el centrado de impresión , se revisa y se encuentra sensor no alineado con la taca , se alinea y se deja operativa , se evidencia laminado nuevo con tacas diferentes milimetricamente por eso manda Alamar de centro de impresión se deja operativa \n\nBlíster 5\nSe atiende llamado por alimentador , se encuentra muy justo en la laguia principal y rozaba con la base , dejando viruta en PVC , se alinea alimentado , se cuadra altura del alimentado y se deja operativo , se vuelve atender llamado por perdida de paso , se toma los tiempos y cuadra se evidencia movimiento extraño en pinza de arrastre , se revisa y se llega a la conclusión que es el estiramiento de las correas , ya no se le puede dar más tensión , se deja operativa \n\nMarzio 1\nSe atiende llamado por grafilado inferior se ajusta y se le da más tensión , se cuadra y se deja operativa \n\nNjp2\nse atiende llamado porque el rectificador no ajusta se evidencia tornillo con cinta para ajustar de perfora base para instalar elicoiil y se ajusta rectificador \nPendiente bajar está pieza para mandar a mecanizar embujar y fabricar rosca 5mm y 3 rectificadores\n\nSchmucker\nSe atiende llamado por banda , se encuentra la lona montada a las guías se alinea y se deja operativa"
+    "texto": "*NOVEDADES DEL TURNO DE DIA SEDE4*\n*Blíster 8*\nSe realiza armado y montaje de estación de formación en blisteadora 8 se sincronizan tiempos.\nPendiente montar formateria para probar en línea.\n\n*Ms 235*\nse atiende llamado porque la banda de caída de sobres estaba desalineada y se salía se destensiona se toma lugar se ajusta hasta quedar ok se montó guardas de motor principal y de la banda \n\n*Blíster 9*\nse atiende llamado porque el formato se salió y se corrió la estación de formado perdiendo los tiempos mecánicos de desarma equipos para rodar estación se arma se toman tiempo pero aún siguen perdidos los tiempos mecánicos vs encoder se entrega a turno entrante para continuar \n\n*HUTTLIN 600*\nLlamado de huttiln 600 por falla de aire comprimido se notifica a los de  keica y se resuelve\n\n*MT1100*\nSe atiende llamado por problemas en el centrado de impresión , se revisa y se encuentra sensor no alineado con la taca , se alinea y se deja operativa , se evidencia laminado nuevo con tacas diferentes milimetricamente por eso manda Alamar de centro de impresión se deja operativa \n\n*Blíster 5*\nSe atiende llamado por alimentador , se encuentra muy justo en la laguia principal y rozaba con la base , dejando viruta en PVC , se alinea alimentado , se cuadra altura del alimentado y se deja operativo , se vuelve atender llamado por perdida de paso , se toma los tiempos y cuadra se evidencia movimiento extraño en pinza de arrastre , se revisa y se llega a la conclusión que es el estiramiento de las correas , ya no se le puede dar más tensión , se deja operativa \n\n*Marzio 1*\nSe atiende llamado por grafilado inferior se ajusta y se le da más tensión , se cuadra y se deja operativa \n\n*Njp2*\nse atiende llamado porque el rectificador no ajusta se evidencia tornillo con cinta para ajustar de perfora base para instalar elicoiil y se ajusta rectificador \nPendiente bajar está pieza para mandar a mecanizar embujar y fabricar rosca 5mm y 3 rectificadores\n\n*Schmucker*\nSe atiende llamado por banda , se encuentra la lona montada a las guías se alinea y se deja operativa"
   },
   {
     "id": "rt-20260822-2214",
@@ -6813,9 +6786,10 @@ window.REPORTES_TURNO = [
       "Blíster 9 se recibe para seguir cuadrando los tiempos se cuadra tiempo eléctrico y tiempo mecánico de las pinzas de arrastre se entrega a producción trabaja y termina lote",
       "Blíster 5 se atiende llamado por perdida de paso se lubrica buje de leva de avance y se cuadran paso queda equipo trabajando",
       "Integra se atiende llamado por las cápsulas se salían de los cargadores se encuentra que le dieron lija a los pines y los dejaron muy cortos se fabrican 8 de forma artesanal o se cuadra caída de la cápsula queda ok pendiente cuadrar parámetros de cargador 1 para mejorarlo MT 1100 se recibe llamado por alarma de centrado de impresión y sellado vertical, se ajusta ubicación de fotocelda, se cuadra rollo junto con operador y se ajustan parámetros del centrado de impresión, se encontraba en -5.0 y se deja en -2.5.  queda equipo operativo ENVASADORA #2 se recibe llamado por temas de llenado y transporte de frascos, se realiza inspección, ajuste y sensibilidad del sensor de conteo de frascos y sensor de detención de frascos, se hacen pruebas y se deja máquina operativa. MARZIO #4 Se recibe llamado en 2 ocasiones por problemas con el equipo codificador, presentaba alarmas de rincón y altura de cabezal, se realizan ajustes mecánicos en rodillo y se modifican parámetros, queda máquina operativa. Marzio#1 Se cuadra tamaño de sobre, graficado lateral, superior e inferior. Se ajusta fotocelda y Pinza de arrastre. Se tiene problemas con temperatura lateral se revisa caja de conexiones y de encuentra humedad",
-      "MB432: llamado por parte de operador: equipo trabajando con tabletas de presentaban alveolos vacíos después de alimentadores. Se ajusta sensibilidad de sensores de llenado e inclinación de cargador. Maquina operativa NJP3: Llamado por operador. Bascula no hacía inspección periódica. Se encontraba baja presión de presostato. Venturi Invertido. Se deja operativo."
+      "MB432: llamado por parte de operador: equipo trabajando con tabletas de presentaban alveolos vacíos después de alimentadores. Se ajusta sensibilidad de sensores de llenado e inclinación de cargador. Maquina operativa",
+      "NJP3: Llamado por operador. Bascula no hacía inspección periódica. Se encontraba baja presión de presostato. Venturi Invertido. Se deja operativo."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n20:00-8:00\nSOLIDOS\nBIN: Acetaminofén \nBOSHC: Montaje nifedipino 12hrs\nNJP #2: Esomeprazol\nNJP #1: Diclofenac\nNJP #3: omeprazol \nPILOT LAB: Dimoflax \nSCMUKER: Recuperación flumizol\nBLISTER #9: Irtal\nMB 432: cronofen 500mg\nINTEGRA: congestex\nBLISTER #8: Dimoflax \nMARCHESINI EVO: omeprazol\nR200: Trimebutina+simeticona\nR400: Se baja sellada de Dimoflax/pasa a limpieza\nMARZIO #1: Myosop\nMARZIO #4: congestex\nCB 550: gelimed plus\nHUTTLIN 600: Esomeprazol \nHUTTLIN 400: limpieza \nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: Trimebutina \nFETTE 1010: disponible \nFETTE 2020-1: acetaminofén \n\nLÍQUIDO \nENVASADORA #2: Supreflux forte\nENVASADORA #3: azeflux\nCLIQUIDO #2: Dolorsin fem\nCLIQUIDO #3: aceflux\nCLIQUIDO #4: ácido valproico\nMT 1100:  supreflux\nBLISTER #2: stamby\nBLISTER #5: dolorsin fen\nBlíster 8 se recibe para ultimar detalles se cuadra tiempo estación de corte y se montan planchas de enfriamiento se calibra estación de formado se deja máquina trabajando \n\nBlíster 9 se recibe para seguir cuadrando los tiempos se cuadra tiempo eléctrico y tiempo mecánico de las pinzas de arrastre se entrega a producción trabaja y termina lote \n\nBlíster 5 se atiende llamado por perdida de paso se lubrica buje de leva de avance y se cuadran paso queda equipo trabajando \n\nIntegra se atiende llamado por las cápsulas se salían de los cargadores se encuentra que le dieron lija a los pines y los dejaron muy cortos se fabrican 8 de forma artesanal o se cuadra caída de la cápsula queda ok pendiente cuadrar parámetros de cargador 1 para mejorarlo\nMT 1100\nse recibe llamado por alarma de centrado de impresión y sellado vertical, se ajusta ubicación de fotocelda, se cuadra rollo junto con operador y se ajustan parámetros del centrado de impresión, se encontraba en -5.0 y se deja en -2.5.  queda equipo operativo\nENVASADORA #2\nse recibe llamado por temas de llenado y transporte de frascos, se realiza inspección, ajuste y sensibilidad del sensor de conteo de frascos y sensor de detención de frascos, se hacen pruebas y se deja máquina operativa.\nMARZIO #4\n Se recibe llamado en 2 ocasiones por problemas con el equipo codificador, presentaba alarmas de rincón y altura de cabezal, se realizan ajustes mecánicos en rodillo y se modifican parámetros, queda máquina operativa.\nMarzio#1\nSe cuadra tamaño de sobre, graficado lateral, superior e inferior. Se ajusta fotocelda y Pinza de arrastre. Se tiene problemas con temperatura lateral se revisa caja de conexiones y de encuentra humedad\n\nMB432:\nllamado por parte de operador: equipo trabajando con tabletas de presentaban alveolos vacíos después de alimentadores. Se ajusta sensibilidad de sensores de llenado e inclinación de cargador.\nMaquina operativa\nNJP3:\nLlamado por operador. Bascula no hacía inspección periódica. Se encontraba baja presión de presostato. Venturi Invertido.\nSe deja operativo."
+    "texto": "REPORTE MAQUINAS TURNO #1\n20:00-8:00\nSOLIDOS\nBIN: Acetaminofén \nBOSHC: Montaje nifedipino 12hrs\nNJP #2: Esomeprazol\nNJP #1: Diclofenac\nNJP #3: omeprazol \nPILOT LAB: Dimoflax \nSCMUKER: Recuperación flumizol\nBLISTER #9: Irtal\nMB 432: cronofen 500mg\nINTEGRA: congestex\nBLISTER #8: Dimoflax \nMARCHESINI EVO: omeprazol\nR200: Trimebutina+simeticona\nR400: Se baja sellada de Dimoflax/pasa a limpieza\nMARZIO #1: Myosop\nMARZIO #4: congestex\nCB 550: gelimed plus\nHUTTLIN 600: Esomeprazol \nHUTTLIN 400: limpieza \nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: Trimebutina \nFETTE 1010: disponible \nFETTE 2020-1: acetaminofén \n\nLÍQUIDO \nENVASADORA #2: Supreflux forte\nENVASADORA #3: azeflux\nCLIQUIDO #2: Dolorsin fem\nCLIQUIDO #3: aceflux\nCLIQUIDO #4: ácido valproico\nMT 1100:  supreflux\nBLISTER #2: stamby\nBLISTER #5: dolorsin fen\n\nBlíster 8 se recibe para ultimar detalles se cuadra tiempo estación de corte y se montan planchas de enfriamiento se calibra estación de formado se deja máquina trabajando \n\nBlíster 9 se recibe para seguir cuadrando los tiempos se cuadra tiempo eléctrico y tiempo mecánico de las pinzas de arrastre se entrega a producción trabaja y termina lote \n\nBlíster 5 se atiende llamado por perdida de paso se lubrica buje de leva de avance y se cuadran paso queda equipo trabajando \n\nIntegra se atiende llamado por las cápsulas se salían de los cargadores se encuentra que le dieron lija a los pines y los dejaron muy cortos se fabrican 8 de forma artesanal o se cuadra caída de la cápsula queda ok pendiente cuadrar parámetros de cargador 1 para mejorarlo\nMT 1100\nse recibe llamado por alarma de centrado de impresión y sellado vertical, se ajusta ubicación de fotocelda, se cuadra rollo junto con operador y se ajustan parámetros del centrado de impresión, se encontraba en -5.0 y se deja en -2.5.  queda equipo operativo\nENVASADORA #2\nse recibe llamado por temas de llenado y transporte de frascos, se realiza inspección, ajuste y sensibilidad del sensor de conteo de frascos y sensor de detención de frascos, se hacen pruebas y se deja máquina operativa.\nMARZIO #4\n Se recibe llamado en 2 ocasiones por problemas con el equipo codificador, presentaba alarmas de rincón y altura de cabezal, se realizan ajustes mecánicos en rodillo y se modifican parámetros, queda máquina operativa.\nMarzio#1\nSe cuadra tamaño de sobre, graficado lateral, superior e inferior. Se ajusta fotocelda y Pinza de arrastre. Se tiene problemas con temperatura lateral se revisa caja de conexiones y de encuentra humedad\n\nMB432:\nllamado por parte de operador: equipo trabajando con tabletas de presentaban alveolos vacíos después de alimentadores. Se ajusta sensibilidad de sensores de llenado e inclinación de cargador.\nMaquina operativa\n\nNJP3:\nLlamado por operador. Bascula no hacía inspección periódica. Se encontraba baja presión de presostato. Venturi Invertido.\nSe deja operativo."
   },
   {
     "id": "rt-20260823-2211",
@@ -6948,18 +6922,18 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "CL4",
+      "*CL4*",
       "Se realiza desmonte de morto #1 de discos selladores en CL4 para realizar cambio de acoplamiento. Se retira acople rústica y se coloca acoplamiento flexible. Se monta y se entrega.",
-      "Integra se atiende llamado por alarma de seguridad de desembobinador se realiza prueba de sensor y está ok, se calibra altura de sensor con la ayuda del ing Frank aveces molesto en el turno",
-      "Huttiln 400 se realiza ajuste de la tornillería de los filtros",
-      "Marzio 4 se cambia resistecia de la mordaza lateral y se apoya en cuadre del equipo , se cambia correa ( referencia B-39)",
-      "Marzio 1 Se atiende llamado por problemas en la fotocelda , se encuentra laminado muy ajustado a las guías , se cuadra se vuelve a tomar la foto se deja operativa",
-      "Blíster 9 Se atiende llamado por qué el aveolo no encajaban en las guías , se revisa y se encuentra guía de soplado con juego y por eso salían disparejon la formación , se cuadra y se evidencia que se deja aliniada la formación con la guía , se cuadra pero producción no quiso seguir con el cuadre y lo pasaron para blíster 2",
-      "MT1100 Se atiende llamado por problemas de cuchillas superiores , se revisan y se encuentra sucias se limpian y se deja operativa, después nos percatamos que las pestaña del sachets no se cuadraba , se ajusta con el bajante del laminado y se deja operativa",
+      "*Integra* se atiende llamado por alarma de seguridad de desembobinador se realiza prueba de sensor y está ok, se calibra altura de sensor con la ayuda del ing Frank aveces molesto en el turno",
+      "*Huttiln 400* se realiza ajuste de la tornillería de los filtros",
+      "*Marzio 4* se cambia resistecia de la mordaza lateral y se apoya en cuadre del equipo , se cambia correa ( referencia B-39)",
+      "*Marzio 1* Se atiende llamado por problemas en la fotocelda , se encuentra laminado muy ajustado a las guías , se cuadra se vuelve a tomar la foto se deja operativa",
+      "*Blíster 9* Se atiende llamado por qué el aveolo no encajaban en las guías , se revisa y se encuentra guía de soplado con juego y por eso salían disparejon la formación , se cuadra y se evidencia que se deja aliniada la formación con la guía , se cuadra pero producción no quiso seguir con el cuadre y lo pasaron para blíster 2",
+      "*MT1100* Se atiende llamado por problemas de cuchillas superiores , se revisan y se encuentra sucias se limpian y se deja operativa, después nos percatamos que las pestaña del sachets no se cuadraba , se ajusta con el bajante del laminado y se deja operativa",
       "* Se cambia cerradura de puerta principal de huttiln 600",
       "* Se arregla tomate corriente del cuarto de mermas"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 T:DIA\n\n*•BIN: Montelukast \n*•BOSCH:  Nifedipino \n*•NJP1: disponible \n *NJP2: disponible \nNJP3 disponible \n*•PILOT LAB HUTTLIN 40: Dimoflax \n*•FETTE 2020/2: TRIMEBUTINA SIMETICONA \n*•MS 235 SCHMUCKER: fumixol \n*•MB 432 MARCHESINI: cronofem\n*•INTEGRA 320: congextes \n*•BLISTER #8: Dimoflax \n*•MB 451 EVO: omeprazol \n*•RC 200: disponibles \n*RC 400: Dimoflax \n*•CB550: gelimed \n*•HUTTLIN 600: Omeprazol Pellets \n*•HUTTLIN 400: \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 4: congextes \n*•MARZIO 1: myosop \n*•FETTE 1010: disponible\n*•FETTE 2020/1: acetaminofén \n*•ENVASADORA #2: superflux \n*•ML 642 ENVASADORA #3: fuconazol \n*•CLIQUIDOS 2: disponible \n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: superflux \n*BLISTER 2: Limpieza \n*BLISTER 5: disponible \n_________\n        NOVEDADES\n\nCL4\n\nSe realiza desmonte de morto #1 de discos selladores en CL4 para realizar cambio de acoplamiento. Se retira acople rústica y se coloca acoplamiento flexible. Se monta y se entrega.\n\nIntegra \nse atiende llamado por alarma de seguridad de desembobinador se realiza prueba de sensor y está ok, se calibra altura de sensor con la ayuda del ing Frank aveces molesto en el turno \n\nHuttiln 400\n se realiza ajuste de la tornillería de los filtros \n\nMarzio 4\nse cambia resistecia de la mordaza lateral y se apoya en cuadre del equipo , se cambia correa ( referencia B-39)\n\nMarzio 1\nSe atiende llamado por problemas en la fotocelda , se encuentra laminado muy ajustado a las guías , se cuadra se vuelve a tomar la foto se deja operativa \n\nBlíster 9 \nSe atiende llamado por qué el aveolo no encajaban en las guías , se revisa y se encuentra guía de soplado con juego y por eso salían disparejon la formación , se cuadra y se evidencia que se deja aliniada la formación con la guía , se cuadra pero producción no quiso seguir con el cuadre y lo pasaron para blíster 2 \n\nMT1100\nSe atiende llamado por problemas de cuchillas superiores , se revisan y se encuentra sucias se limpian y se deja operativa, después nos percatamos que las pestaña del sachets no se cuadraba , se ajusta con el bajante del laminado y se deja operativa \n\n* Se cambia cerradura de puerta principal de huttiln 600\n\n* Se arregla tomate corriente del cuarto de mermas"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T:DIA*\n\n*•BIN: Montelukast \n*•BOSCH:  Nifedipino \n*•NJP1: disponible \n *NJP2: disponible \nNJP3 disponible \n*•PILOT LAB HUTTLIN 40: Dimoflax \n*•FETTE 2020/2: TRIMEBUTINA SIMETICONA \n*•MS 235 SCHMUCKER: fumixol \n*•MB 432 MARCHESINI: cronofem\n*•INTEGRA 320: congextes \n*•BLISTER #8: Dimoflax \n*•MB 451 EVO: omeprazol \n*•RC 200: disponibles \n*RC 400: Dimoflax \n*•CB550: gelimed \n*•HUTTLIN 600: Omeprazol Pellets \n*•HUTTLIN 400: \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 4: congextes \n*•MARZIO 1: myosop \n*•FETTE 1010: disponible\n*•FETTE 2020/1: acetaminofén \n*•ENVASADORA #2: superflux \n*•ML 642 ENVASADORA #3: fuconazol \n*•CLIQUIDOS 2: disponible \n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: ácido valproico\n*MT1100 MARCHESINI: superflux \n*BLISTER 2: Limpieza \n*BLISTER 5: disponible \n_________________________\n        *NOVEDADES*\n\n*CL4*\n\nSe realiza desmonte de morto #1 de discos selladores en CL4 para realizar cambio de acoplamiento. Se retira acople rústica y se coloca acoplamiento flexible. Se monta y se entrega.\n\n*Integra* \nse atiende llamado por alarma de seguridad de desembobinador se realiza prueba de sensor y está ok, se calibra altura de sensor con la ayuda del ing Frank aveces molesto en el turno \n\n*Huttiln 400*\n se realiza ajuste de la tornillería de los filtros \n\n*Marzio 4*\nse cambia resistecia de la mordaza lateral y se apoya en cuadre del equipo , se cambia correa ( referencia B-39)\n\n*Marzio 1*\nSe atiende llamado por problemas en la fotocelda , se encuentra laminado muy ajustado a las guías , se cuadra se vuelve a tomar la foto se deja operativa \n\n*Blíster 9* \nSe atiende llamado por qué el aveolo no encajaban en las guías , se revisa y se encuentra guía de soplado con juego y por eso salían disparejon la formación , se cuadra y se evidencia que se deja aliniada la formación con la guía , se cuadra pero producción no quiso seguir con el cuadre y lo pasaron para blíster 2 \n\n*MT1100*\nSe atiende llamado por problemas de cuchillas superiores , se revisan y se encuentra sucias se limpian y se deja operativa, después nos percatamos que las pestaña del sachets no se cuadraba , se ajusta con el bajante del laminado y se deja operativa \n\n* Se cambia cerradura de puerta principal de huttiln 600\n\n* Se arregla tomate corriente del cuarto de mermas"
   },
   {
     "id": "rt-20260824-0735",
@@ -7300,15 +7274,14 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Bosch: Se atiende primer llamado por problemas en el cierre de cápsulas, se limpia y se lubrica el eje de cierre. Segundo llamado porque se parten pines de expulsión de cápsulas, se cambian y se alinean las estaciones por reguero de cápsulas.",
+      "*Bosch:* Se atiende primer llamado por problemas en el cierre de cápsulas, se limpia y se lubrica el eje de cierre. Segundo llamado porque se parten pines de expulsión de cápsulas, se cambian y se alinean las estaciones por reguero de cápsulas.",
       "Tercer llamado por fallo de accionamiento en estación de polvo, se desmonta todo el sistema de dosificación y se evidencia producto compactado y pegado en el disco de dosificación evitando que bajen los pines, se desmonta y se manda a lavar se entrega al turno siguiente para hacer seguimiento.",
-      "CB550: se atiende llamado por variación de peso, se limpia plato, se cuadra la distancia quedando operativa.",
-      "Blister 2: Se atiende llamado porque estaba quemando los blister, se calibra túnel de calefacción y se cambia guia de enfriamiento, quedando operativa.",
-      "Marzio#4: Se realiza ajustes a fotocelda, tamaño de sobre, tornillo de corrección se hacen pruebas ok. Se ajusta el sensor del tiempo del codificado se entrega a producción.",
-      "NJP#2: Montaje y cuadre de esomed llamado por reguero de cápsulas en la expulsión y defectos, se corrige reguero de la expulsión se  alinean estaciónes  queda pendiente alinear dos estaciones.",
-      "Equipo en linea"
+      "*CB550:* se atiende llamado por variación de peso, se limpia plato, se cuadra la distancia quedando operativa.",
+      "*Blister 2:* Se atiende llamado porque estaba quemando los blister, se calibra túnel de calefacción y se cambia guia de enfriamiento, quedando operativa.",
+      "*Marzio#4:* Se realiza ajustes a fotocelda, tamaño de sobre, tornillo de corrección se hacen pruebas ok. Se ajusta el sensor del tiempo del codificado se entrega a producción.",
+      "*NJP#2:* Montaje y cuadre de esomed llamado por reguero de cápsulas en la expulsión y defectos, se corrige reguero de la expulsión se  alinean estaciónes  queda pendiente alinear dos estaciones."
     ],
-    "texto": "REPORTE DE TURNO\n      2026-08-24\n           sede 4\n \nCL3: Disponible \nCL4: Ácido valproico \nStick Pack 4: Superflux\nBlíster 2: Irtal\nEnvasadora 3: Fluticasona\nCL2: Dolorsin fem\nEnvasadora 2:  Disponible\nBin: Acetaminofén \nBosch: Nifedipino \nNJP1: Disponible \nNJP2: Esomeprazol \nNJP3: Omeprazol \nPilot lab: Dimoflax \nMB 432: Cronofen \nBlíster DM: Dimoflax\nSchmucker: Flumixol \nBlíster 9: Coltrim\nIntegra 320: Congestex\nR200: Coltrim\nMB 451: Nifedipino \nMarzio 1:  Myosop\nHuttlin 600: Esomeprazol \nR400: Dimoflax \nBombo 300: Disponible \nMarzio 4: Congestex\nBombo 300: Disponible \nHuttlin 400: Limpieza \nRimek:  Coltrim\nCB 550: Gelimed\nFette 1010: Disponible \nFette 2020 2: Acetaminofén \nFette 2020 1: Disponible \nBlíster 5: Dolorsin fem\n\nNOVEDADES\nBosch: Se atiende primer llamado por problemas en el cierre de cápsulas, se limpia y se lubrica el eje de cierre. Segundo llamado porque se parten pines de expulsión de cápsulas, se cambian y se alinean las estaciones por reguero de cápsulas.\nTercer llamado por fallo de accionamiento en estación de polvo, se desmonta todo el sistema de dosificación y se evidencia producto compactado y pegado en el disco de dosificación evitando que bajen los pines, se desmonta y se manda a lavar se entrega al turno siguiente para hacer seguimiento.\nCB550: se atiende llamado por variación de peso, se limpia plato, se cuadra la distancia quedando operativa.\nBlister 2: Se atiende llamado porque estaba quemando los blister, se calibra túnel de calefacción y se cambia guia de enfriamiento, quedando operativa.\nMarzio#4: Se realiza ajustes a fotocelda, tamaño de sobre, tornillo de corrección se hacen pruebas ok. Se ajusta el sensor del tiempo del codificado se entrega a producción.\nNJP#2: Montaje y cuadre de esomed llamado por reguero de cápsulas en la expulsión y defectos, se corrige reguero de la expulsión se  alinean estaciónes  queda pendiente alinear dos estaciones.\nEquipo en linea"
+    "texto": "*REPORTE DE TURNO*\n      2026-08-24\n           sede 4\n \n*CL3:* Disponible \n*CL4:* Ácido valproico \n*Stick Pack 4:* Superflux\n*Blíster 2:* Irtal\n*Envasadora 3:* Fluticasona\n*CL2:* Dolorsin fem\n*Envasadora 2:*  Disponible\n*Bin:* Acetaminofén \n*Bosch:* Nifedipino \n*NJP1:* Disponible \n*NJP2:* Esomeprazol \n*NJP3:* Omeprazol \n*Pilot lab:* Dimoflax \n*MB 432:* Cronofen \n*Blíster DM:* Dimoflax\n*Schmucker:* Flumixol \n*Blíster 9:* Coltrim\n*Integra 320:* Congestex\n*R200:* Coltrim\n*MB 451:* Nifedipino \n*Marzio 1:*  Myosop\n*Huttlin 600:* Esomeprazol \n*R400:* Dimoflax \n*Bombo 300:* Disponible \n*Marzio 4:* Congestex\n*Bombo 300:* Disponible \n*Huttlin 400:* Limpieza \n*Rimek:*  Coltrim\n*CB 550:* Gelimed\n*Fette 1010:* Disponible \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Disponible \n*Blíster 5:* Dolorsin fem\n\n*NOVEDADES*\n*Bosch:* Se atiende primer llamado por problemas en el cierre de cápsulas, se limpia y se lubrica el eje de cierre. Segundo llamado porque se parten pines de expulsión de cápsulas, se cambian y se alinean las estaciones por reguero de cápsulas.\nTercer llamado por fallo de accionamiento en estación de polvo, se desmonta todo el sistema de dosificación y se evidencia producto compactado y pegado en el disco de dosificación evitando que bajen los pines, se desmonta y se manda a lavar se entrega al turno siguiente para hacer seguimiento.\n*CB550:* se atiende llamado por variación de peso, se limpia plato, se cuadra la distancia quedando operativa.\n*Blister 2:* Se atiende llamado porque estaba quemando los blister, se calibra túnel de calefacción y se cambia guia de enfriamiento, quedando operativa.\n*Marzio#4:* Se realiza ajustes a fotocelda, tamaño de sobre, tornillo de corrección se hacen pruebas ok. Se ajusta el sensor del tiempo del codificado se entrega a producción.\n*NJP#2:* Montaje y cuadre de esomed llamado por reguero de cápsulas en la expulsión y defectos, se corrige reguero de la expulsión se  alinean estaciónes  queda pendiente alinear dos estaciones."
   },
   {
     "id": "rt-20260824-2129",
@@ -7440,7 +7413,7 @@ window.REPORTES_TURNO = [
       "CB550",
       "Se ajusta fotocelda y se limpia bajante se le entrega al operario para que cuadrara peso"
     ],
-    "texto": "Sede 4 -- turno (noche)\n2026/08/25\n\n                     Novedades\n\nBOSCH: Se recibe equipo Bosch para hacer seguimiento en montaje por alarma de accionamiento de estación de polvo. Se evidencian choque entre disco y pines eyectores. \nLa alarma se queda pegada no de dejaba restablecer. Se logra restablecer alarma y colocar estación de polvo en tiempo ha las 3 am se monta equipo y se pone en marcha. Nuevamente después de 1:30 de trabajo se vuelve a realizar llamada por la misma novedad. Se entrega equipo a turno entrante\n\nNJP 2: Se ajusta estribo de NJP2 por choque con formatos. Se encontraba torcido el mismo\n\n.Blíster 8 \nSe atiende llamado por problemas de formación se hacen ajuste del túnel y de formato de soplado sin tener éxito, se cuadra velocidad y se cambian guías por qué el aveolo queda muy justo , se cambia espárrago pero sigue presentado la novedad , se deja para turno entrante \n\nCB550 \nSe ajusta fotocelda y se limpia bajante se le entrega al operario para que cuadrara peso"
+    "texto": "Sede 4 -- turno (noche)\n2026/08/25\n\n                     *Novedades*\n\nBOSCH: Se recibe equipo Bosch para hacer seguimiento en montaje por alarma de accionamiento de estación de polvo. Se evidencian choque entre disco y pines eyectores. \nLa alarma se queda pegada no de dejaba restablecer. Se logra restablecer alarma y colocar estación de polvo en tiempo ha las 3 am se monta equipo y se pone en marcha. Nuevamente después de 1:30 de trabajo se vuelve a realizar llamada por la misma novedad. Se entrega equipo a turno entrante\n\nNJP 2: Se ajusta estribo de NJP2 por choque con formatos. Se encontraba torcido el mismo\n\n.Blíster 8 \nSe atiende llamado por problemas de formación se hacen ajuste del túnel y de formato de soplado sin tener éxito, se cuadra velocidad y se cambian guías por qué el aveolo queda muy justo , se cambia espárrago pero sigue presentado la novedad , se deja para turno entrante \n\nCB550 \nSe ajusta fotocelda y se limpia bajante se le entrega al operario para que cuadrara peso"
   },
   {
     "id": "rt-20260825-2010",
@@ -7452,17 +7425,16 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-25",
     "equipos": [],
     "novedades": [
-      "BOSCH: Equipo presenta correa principal destencionada, tiempo mecánico perdido y slitget decentrados, se realizan los ajustes debidamente, se reparan roscas M6 de anillo guarda polvo, se realizan montaje y pruebas, equipo trabajando S/N en el turno desde que se envió el video en la mañana.",
-      "SCHMUCKER: Se colocan guarda protectoras a banda de sobres y se corrigen en CNC medidas finales a planos de proyecto base codificadora.",
-      "HUTTLIN 400: Se monta sello mecánico a bomba difusora preparación de soluciones, la misma queda en taller para instalarla en el área.",
-      "TABLETEADORAS: Se cambian filtros (3) trasegadores OGA.",
-      "BLISTER #2: montaje de lipogras llamado por mal formación de aveolos, se cambia plancha de soplado con racores , se realiza ajustes a estación de formación, se calibra tunel se corrige novedad. En el proceso se parte espárrago del la estación de sellado, se realiza desmontaje y cambio del mismo se arma nuevamente se realiza ajustes se entrega a producción inicia producción a las 19:00 horas.",
-      "MARZIO #4: esomed se realiza ajustes en el envudo por requero de microgránulos.",
-      "MT1100: súper flux llamado a  las 18:30 porque la cuchilla #1 estaba cortando mal se realizan desmontaje de cuchillas limpieza se realiza montaje se hacen pruebas, pendiente hacer seguimiento al comportamiento del equipo.",
-      "BLÍSTER #8: Se corrige mal formación en alveolos por 15 capsulas(Nifedipino 12 Hrs), finalizando turno LLamado por desbobinador de PVC no activa, revisar.",
-      "Diseño  base de cañón  codificadora SCHMUCKER."
+      "*BOSCH:* Equipo presenta correa principal destencionada, tiempo mecánico perdido y slitget decentrados, se realizan los ajustes debidamente, se reparan roscas M6 de anillo guarda polvo, se realizan montaje y pruebas, equipo trabajando S/N en el turno desde que se envió el video en la mañana.",
+      "*SCHMUCKER:* Se colocan guarda protectoras a banda de sobres y se corrigen en CNC medidas finales a planos de proyecto base codificadora.",
+      "*HUTTLIN 400:* Se monta sello mecánico a bomba difusora preparación de soluciones, la misma queda en taller para instalarla en el área.",
+      "*TABLETEADORAS:* Se cambian filtros (3) trasegadores OGA.",
+      "*BLISTER #2:* montaje de lipogras llamado por mal formación de aveolos, se cambia plancha de soplado con racores , se realiza ajustes a estación de formación, se calibra tunel se corrige novedad. En el proceso se parte espárrago del la estación de sellado, se realiza desmontaje y cambio del mismo se arma nuevamente se realiza ajustes se entrega a producción inicia producción a las 19:00 horas.",
+      "*MARZIO #4:* esomed se realiza ajustes en el envudo por requero de microgránulos.",
+      "*MT1100:* súper flux llamado a  las 18:30 porque la cuchilla #1 estaba cortando mal se realizan desmontaje de cuchillas limpieza se realiza montaje se hacen pruebas, pendiente hacer seguimiento al comportamiento del equipo.",
+      "*BLÍSTER #8:* Se corrige mal formación en alveolos por 15 capsulas(Nifedipino 12 Hrs), finalizando turno LLamado por desbobinador de PVC no activa, revisar."
     ],
-    "texto": "REPORTE DE TURNO GRUPO #1 DIA SEDE 4\nNOVEDADES:\nBOSCH: Equipo presenta correa principal destencionada, tiempo mecánico perdido y slitget decentrados, se realizan los ajustes debidamente, se reparan roscas M6 de anillo guarda polvo, se realizan montaje y pruebas, equipo trabajando S/N en el turno desde que se envió el video en la mañana.\nSCHMUCKER: Se colocan guarda protectoras a banda de sobres y se corrigen en CNC medidas finales a planos de proyecto base codificadora.\nHUTTLIN 400: Se monta sello mecánico a bomba difusora preparación de soluciones, la misma queda en taller para instalarla en el área.\nTABLETEADORAS: Se cambian filtros (3) trasegadores OGA.\nBLISTER #2: montaje de lipogras llamado por mal formación de aveolos, se cambia plancha de soplado con racores , se realiza ajustes a estación de formación, se calibra tunel se corrige novedad. En el proceso se parte espárrago del la estación de sellado, se realiza desmontaje y cambio del mismo se arma nuevamente se realiza ajustes se entrega a producción inicia producción a las 19:00 horas.\nMARZIO #4: esomed se realiza ajustes en el envudo por requero de microgránulos.\nMT1100: súper flux llamado a  las 18:30 porque la cuchilla #1 estaba cortando mal se realizan desmontaje de cuchillas limpieza se realiza montaje se hacen pruebas, pendiente hacer seguimiento al comportamiento del equipo.\nBLÍSTER #8: Se corrige mal formación en alveolos por 15 capsulas(Nifedipino 12 Hrs), finalizando turno LLamado por desbobinador de PVC no activa, revisar.\n\n Diseño  base de cañón  codificadora SCHMUCKER."
+    "texto": "*REPORTE DE TURNO GRUPO #1 DIA SEDE 4*\n*NOVEDADES:*\n*BOSCH:* Equipo presenta correa principal destencionada, tiempo mecánico perdido y slitget decentrados, se realizan los ajustes debidamente, se reparan roscas M6 de anillo guarda polvo, se realizan montaje y pruebas, equipo trabajando S/N en el turno desde que se envió el video en la mañana.\n*SCHMUCKER:* Se colocan guarda protectoras a banda de sobres y se corrigen en CNC medidas finales a planos de proyecto base codificadora.\n*HUTTLIN 400:* Se monta sello mecánico a bomba difusora preparación de soluciones, la misma queda en taller para instalarla en el área.\n*TABLETEADORAS:* Se cambian filtros (3) trasegadores OGA.\n*BLISTER #2:* montaje de lipogras llamado por mal formación de aveolos, se cambia plancha de soplado con racores , se realiza ajustes a estación de formación, se calibra tunel se corrige novedad. En el proceso se parte espárrago del la estación de sellado, se realiza desmontaje y cambio del mismo se arma nuevamente se realiza ajustes se entrega a producción inicia producción a las 19:00 horas.\n*MARZIO #4:* esomed se realiza ajustes en el envudo por requero de microgránulos.\n*MT1100:* súper flux llamado a  las 18:30 porque la cuchilla #1 estaba cortando mal se realizan desmontaje de cuchillas limpieza se realiza montaje se hacen pruebas, pendiente hacer seguimiento al comportamiento del equipo.\n*BLÍSTER #8:* Se corrige mal formación en alveolos por 15 capsulas(Nifedipino 12 Hrs), finalizando turno LLamado por desbobinador de PVC no activa, revisar."
   },
   {
     "id": "rt-20260825-2138",
@@ -7576,19 +7548,19 @@ window.REPORTES_TURNO = [
     "equipos": [],
     "novedades": [
       "Blíster 2 lipogras Mt1100 supreflux Envasado 2 supreflux Cl4 ácido valpropico Envasado 3 fluticasona Huttiln 600 nifedipino Njp2 esomeprazol Njp1 multi vitamínico Pilot dimoflax Njp3 omeprazol Mb cronofen Integra Losartan Marzio 1 esomed Rimek Trimebutina + siméticona Huttiln 400  flextril Cb550 gelimed Bosch nifedipino Blíster 8 nifedipino",
-      "NOVEDADES",
-      "Njp2 se atiende llamado para reparar bujes de alineación de formatos por golpes se reparan y se entregan",
-      "Schmucker se le suministra al operador tornillería para ajuste de dosificador equipo en limpieza",
+      "*NOVEDADES*",
+      "*Njp2* se atiende llamado para reparar bujes de alineación de formatos por golpes se reparan y se entregan",
+      "*Schmucker* se le suministra al operador tornillería para ajuste de dosificador equipo en limpieza",
       "Líquidos . 1 primera llamado no llenaba frasco por sensor húmedo y no detectaba. Se acomodo y limpio sensor y quedó operativa",
       "2 llamado, se accionaba dos veces el llenado de liquido causando derramamiento. Se acomoda sensor y se realiza cambio de formato  y equipo queda operativo",
-      "BLISTER 8 Se atiende llamado en blíster 8 iniciando turno se ingresa a planta y se hace seguimiento a inicio de proceso La maquino no presenta ninguna novedad. Solo es cuadre de inicio de proceso. No se interviene ni mecánica ni eléctricamente. ( Durante el turno se realiza purga a sistema de refrigeración de formado porque se estaba pegando película en la estación lo cual ocasionó que se saliera el formato de sellado) Se hizo acompañamiento el operario ya que no lograba la formación correcta del alviolo , se ajusta y se deja operativa",
+      "*BLISTER 8* Se atiende llamado en blíster 8 iniciando turno se ingresa a planta y se hace seguimiento a inicio de proceso La maquino no presenta ninguna novedad. Solo es cuadre de inicio de proceso. No se interviene ni mecánica ni eléctricamente. ( Durante el turno se realiza purga a sistema de refrigeración de formado porque se estaba pegando película en la estación lo cual ocasionó que se saliera el formato de sellado) Se hizo acompañamiento el operario ya que no lograba la formación correcta del alviolo , se ajusta y se deja operativa",
       "Se entrega  al turno entrante formato de sellado ya que el pin que encaja en la estación , se salió formato de  sellado  resultando en el aplastamiento del pin",
       "- Se interviene equipo MT1100 por maltrato en estación de corte, se revisa sistema de refrigeración y señales de accionamiento de electroválvula que Polita el mismo, se encuentra sin novedad, no se puede regular presión de aire ya que la alimentación viene directo de tanque pulmón de la máquina. Se reducen temperatura de sellado en ambas plachas horizontales de 118° a 110° no presenta novedad por sellado y mejora corte del sashets. (Durante la intervención se aflojan piñones cónicos de sistema de trasmisión de arrastre de mordazas horizontal, los mismos se fijan y posiciona nuevamente el sistema de sellado y arrastre)",
       "- equipo MB integra presenta novedad por caída constante de los blíster en la estación de recepción de corte a brazos con ventosas, se modifica posición para mejorar la recepción de los blíster y se corrige novedad. Se fabrica cuña para ejes de volcadores de alimentador universal.",
       "- Blísteadora 2 se realiza purga a sistema de refrigeración en general de la máquina. Ya que la máquina en la puesta en marcha no mantenía el paso porque se pegaba en los formatos.",
       "MB432 Se atiende llamado por sensor de de desembobinador de PVC se encuentra sucio se limpia y queda operativa"
     ],
-    "texto": "Sede 4 -- turno (noche)\n2026/08/26\n\n                     Novedades\nBlíster 2 lipogras \nMt1100 supreflux \nEnvasado 2 supreflux \nCl4 ácido valpropico\nEnvasado 3 fluticasona \nHuttiln 600 nifedipino \nNjp2 esomeprazol \nNjp1 multi vitamínico\nPilot dimoflax \nNjp3 omeprazol \nMb cronofen \nIntegra Losartan \nMarzio 1 esomed \nRimek Trimebutina + siméticona \nHuttiln 400  flextril \nCb550 gelimed \nBosch nifedipino \nBlíster 8 nifedipino \n\n                    NOVEDADES\n\nNjp2 \nse atiende llamado para reparar bujes de alineación de formatos por golpes se reparan y se entregan \n\nSchmucker\nse le suministra al operador tornillería para ajuste de dosificador equipo en limpieza\n\nLíquidos .\n1 primera llamado no llenaba frasco por sensor húmedo y no detectaba.\nSe acomodo y limpio sensor y quedó operativa \n\n2 llamado, se accionaba dos veces el llenado de liquido causando derramamiento.\nSe acomoda sensor y se realiza cambio de formato  y equipo queda operativo\n\n BLISTER 8\n Se atiende llamado en blíster \n8 iniciando turno se ingresa a planta y se hace seguimiento a inicio de proceso\nLa maquino no presenta ninguna novedad. Solo es cuadre de inicio de proceso. No se interviene ni mecánica ni eléctricamente.\n( Durante el turno se realiza purga a sistema de refrigeración de formado porque se estaba pegando película en la estación lo cual ocasionó que se saliera el formato de sellado)  \nSe hizo acompañamiento el operario ya que no lograba la formación correcta del alviolo , se ajusta y se deja operativa \n\nSe entrega  al turno entrante formato de sellado ya que el pin que encaja en la estación , se salió formato de  sellado  resultando en el aplastamiento del pin \n\n- Se interviene equipo MT1100 por maltrato en estación de corte, se revisa sistema de refrigeración y señales de accionamiento de electroválvula que Polita el mismo, se encuentra sin novedad, no se puede regular presión de aire ya que la alimentación viene directo de tanque pulmón de la máquina. Se reducen temperatura de sellado en ambas plachas horizontales de 118° a 110° no presenta novedad por sellado y mejora corte del sashets. \n(Durante la intervención se aflojan piñones cónicos de sistema de trasmisión de arrastre de mordazas horizontal, los mismos se fijan y posiciona nuevamente el sistema de sellado y arrastre) \n\n- equipo MB integra presenta novedad por caída constante de los blíster en la estación de recepción de corte a brazos con ventosas, se modifica posición para mejorar la recepción de los blíster y se corrige novedad. \nSe fabrica cuña para ejes de volcadores de alimentador universal. \n\n- Blísteadora 2 se realiza purga a sistema de refrigeración en general de la máquina. Ya que la máquina en la puesta en marcha no mantenía el paso porque se pegaba en los formatos.\n\nMB432\nSe atiende llamado por sensor de de desembobinador de PVC se encuentra sucio se limpia y queda operativa"
+    "texto": "Sede 4 -- turno (noche)\n2026/08/26\n\n                     *Novedades*\nBlíster 2 lipogras \nMt1100 supreflux \nEnvasado 2 supreflux \nCl4 ácido valpropico\nEnvasado 3 fluticasona \nHuttiln 600 nifedipino \nNjp2 esomeprazol \nNjp1 multi vitamínico\nPilot dimoflax \nNjp3 omeprazol \nMb cronofen \nIntegra Losartan \nMarzio 1 esomed \nRimek Trimebutina + siméticona \nHuttiln 400  flextril \nCb550 gelimed \nBosch nifedipino \nBlíster 8 nifedipino \n\n                    *NOVEDADES*\n\n*Njp2* \nse atiende llamado para reparar bujes de alineación de formatos por golpes se reparan y se entregan \n\n*Schmucker*\nse le suministra al operador tornillería para ajuste de dosificador equipo en limpieza\n\nLíquidos .\n1 primera llamado no llenaba frasco por sensor húmedo y no detectaba.\nSe acomodo y limpio sensor y quedó operativa \n\n2 llamado, se accionaba dos veces el llenado de liquido causando derramamiento.\nSe acomoda sensor y se realiza cambio de formato  y equipo queda operativo\n\n *BLISTER 8*\n Se atiende llamado en blíster \n8 iniciando turno se ingresa a planta y se hace seguimiento a inicio de proceso\nLa maquino no presenta ninguna novedad. Solo es cuadre de inicio de proceso. No se interviene ni mecánica ni eléctricamente.\n( Durante el turno se realiza purga a sistema de refrigeración de formado porque se estaba pegando película en la estación lo cual ocasionó que se saliera el formato de sellado)  \nSe hizo acompañamiento el operario ya que no lograba la formación correcta del alviolo , se ajusta y se deja operativa \n\nSe entrega  al turno entrante formato de sellado ya que el pin que encaja en la estación , se salió formato de  sellado  resultando en el aplastamiento del pin \n\n- Se interviene equipo MT1100 por maltrato en estación de corte, se revisa sistema de refrigeración y señales de accionamiento de electroválvula que Polita el mismo, se encuentra sin novedad, no se puede regular presión de aire ya que la alimentación viene directo de tanque pulmón de la máquina. Se reducen temperatura de sellado en ambas plachas horizontales de 118° a 110° no presenta novedad por sellado y mejora corte del sashets. \n(Durante la intervención se aflojan piñones cónicos de sistema de trasmisión de arrastre de mordazas horizontal, los mismos se fijan y posiciona nuevamente el sistema de sellado y arrastre) \n\n- equipo MB integra presenta novedad por caída constante de los blíster en la estación de recepción de corte a brazos con ventosas, se modifica posición para mejorar la recepción de los blíster y se corrige novedad. \nSe fabrica cuña para ejes de volcadores de alimentador universal. \n\n- Blísteadora 2 se realiza purga a sistema de refrigeración en general de la máquina. Ya que la máquina en la puesta en marcha no mantenía el paso porque se pegaba en los formatos.\n\nMB432\nSe atiende llamado por sensor de de desembobinador de PVC se encuentra sucio se limpia y queda operativa"
   },
   {
     "id": "rt-20260826-1956",
@@ -7909,10 +7881,10 @@ window.REPORTES_TURNO = [
       "BLÍSTER #9: Se corrige distancia, pinzas de arrastre, equipo operativo.",
       "TAMIZADORA #5: Equipo se lleva a taller para revisar motor.",
       "ENVASADO 2:; Equipo queda detenido por parámetros en tiempo de llenado, continuar revisando turno entrante.",
-      "Schmuker : Llamado porque la banda transportadora de sobre deja de girar, se evidencia que el cuadrante del piñon se desgasto, se deja para turno entrante repararlo, se recomienda fabricar uno nuevo.",
-      "MARZIO 4: llamado porque la pinza de arrastre no cerraba, se ajusta el tornillo de cierre de la pinza."
+      "*Schmuker :* Llamado porque la banda transportadora de sobre deja de girar, se evidencia que el cuadrante del piñon se desgasto, se deja para turno entrante repararlo, se recomienda fabricar uno nuevo.",
+      "*MARZIO 4:* llamado porque la pinza de arrastre no cerraba, se ajusta el tornillo de cierre de la pinza."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE\n EQUIPOS OPERATIVO\nCL2: MANTENIMIENTO \nCL4: FERBIN\nMT 1100: DISPONIBLE \nBLÍSTER 2: LIPOGRAS\nBLISTER 5: FERRIMED\nENVASADO 3: METASPRAY\nCL3: DISPONIBLE \nENVASADORA 2: SUPERFLUIX\nBIN BLENDER: FLUMIXOL\nBOSCH: DISPONIBLE \nNJP1: CONGESTEX \nNJP2: ESOMED\nNJP3: OMEPRAZOL\nPILOT LAB: DIMOFLAX \nMB 432: CONGESTEX\nBLISTER 9: DIMOFLAX\nBLISTER 8: NIFEDIPINO\nSCHMUCKER: FLEXTRIL\nINTEGRA 320: DISPONIBLE \nR200: COLTRIM\nMB 451 evo: NIFEDIPINO\nMARZIO 1: FLEXTRIL\nHUTTLIN 600: NIFEDIPINO\nR400: LIMPIEZA \nBOMBO 300: DISPONIBLE\nMARZIO 4: ESOMED\nHUTTLIN 400: FLEXTRIL \nRIMECK: COLTRIM\nCB 550: DISPONIBLE \nFETTE 1010 : AIROMED\nFETTE 2020#1: DIMOFLAX\nFETTE 2020# 2: ACETAMINOFÉN \nNOVEDADES\nCL#2: Se realiza limpieza a bases de rodillos, secadora de capsulas.\nBLISTER 5: Se corrige mal formación de alveolos, modificando parámetros y calibrando túnel.\nHUTTLIN 400: Llamado por problemas de humedad en equipo, ductos de vapor condensados, se purgan los mismos, equipo operativo.\nSOLIDOS: Se fabrica malla # 10 y se cortan rollos #8 y #16 quedando pendiente realizar las pestañas.\nENVASADO 3: Se habilita tanque de solucion con extensión eléctrica 220v y se ajustan parámetros de variador.\nBLÍSTER #9: Se corrige distancia, pinzas de arrastre, equipo operativo.\nTAMIZADORA #5: Equipo se lleva a taller para revisar motor.\nENVASADO 2:; Equipo queda detenido por parámetros en tiempo de llenado, continuar revisando turno entrante.\nSchmuker : Llamado porque la banda transportadora de sobre deja de girar, se evidencia que el cuadrante del piñon se desgasto, se deja para turno entrante repararlo, se recomienda fabricar uno nuevo.\nMARZIO 4: llamado porque la pinza de arrastre no cerraba, se ajusta el tornillo de cierre de la pinza."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE*\n *EQUIPOS OPERATIVO*\n*CL2:* MANTENIMIENTO \n*CL4:* FERBIN\n*MT 1100:* DISPONIBLE \n*BLÍSTER 2:* LIPOGRAS\n*BLISTER 5:* FERRIMED\n*ENVASADO 3:* METASPRAY\n*CL3:* DISPONIBLE \n*ENVASADORA 2:* SUPERFLUIX\n*BIN BLENDER:* FLUMIXOL\n*BOSCH:* DISPONIBLE \n*NJP1:* CONGESTEX \n*NJP2:* ESOMED\n*NJP3:* OMEPRAZOL\n*PILOT LAB:* DIMOFLAX \n*MB 432:* CONGESTEX\n*BLISTER 9:* DIMOFLAX\n*BLISTER 8:* NIFEDIPINO\n*SCHMUCKER:* FLEXTRIL\n*INTEGRA 320:* DISPONIBLE \n*R200:* COLTRIM\n*MB 451 evo:* NIFEDIPINO\n*MARZIO 1:* FLEXTRIL\n*HUTTLIN 600:* NIFEDIPINO\n*R400:* LIMPIEZA \n*BOMBO 300:* DISPONIBLE\n*MARZIO 4:* ESOMED\n*HUTTLIN 400:* FLEXTRIL \n*RIMECK:* COLTRIM\n*CB 550:* DISPONIBLE \n*FETTE 1010 :* AIROMED\n*FETTE 2020#1:* DIMOFLAX\n*FETTE 2020# 2:* ACETAMINOFÉN \n*NOVEDADES*\nCL#2: Se realiza limpieza a bases de rodillos, secadora de capsulas.\nBLISTER 5: Se corrige mal formación de alveolos, modificando parámetros y calibrando túnel.\nHUTTLIN 400: Llamado por problemas de humedad en equipo, ductos de vapor condensados, se purgan los mismos, equipo operativo.\nSOLIDOS: Se fabrica malla # 10 y se cortan rollos #8 y #16 quedando pendiente realizar las pestañas.\nENVASADO 3: Se habilita tanque de solucion con extensión eléctrica 220v y se ajustan parámetros de variador.\nBLÍSTER #9: Se corrige distancia, pinzas de arrastre, equipo operativo.\nTAMIZADORA #5: Equipo se lleva a taller para revisar motor.\nENVASADO 2:; Equipo queda detenido por parámetros en tiempo de llenado, continuar revisando turno entrante.\n*Schmuker :* Llamado porque la banda transportadora de sobre deja de girar, se evidencia que el cuadrante del piñon se desgasto, se deja para turno entrante repararlo, se recomienda fabricar uno nuevo.\n*MARZIO 4:* llamado porque la pinza de arrastre no cerraba, se ajusta el tornillo de cierre de la pinza."
   },
   {
     "id": "rt-20260827-1939",
@@ -8253,19 +8225,19 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "MARZIO4 : Se ajusta el sistema de corte, mordazas horizontales superior y se toma el paso de la máquina, Dejándola operativa.",
-      "Schmuker : Se cambia correa de banda transportadora.",
-      "Fabricación de líquido 1: Se atiende llamado porque la pantalla no enciende, se evidencia humedad la tarjeta electrónica, se desintala pantalla y se deja en el taller para mandarlo a revisar.",
+      "*MARZIO4 :* Se ajusta el sistema de corte, mordazas horizontales superior y se toma el paso de la máquina, Dejándola operativa.",
+      "*Schmuker :* Se cambia correa de banda transportadora.",
+      "*Fabricación de líquido 1:* Se atiende llamado porque la pantalla no enciende, se evidencia humedad la tarjeta electrónica, se desintala pantalla y se deja en el taller para mandarlo a revisar.",
       "Se arma agitador de tanque auxiliar del R400 pendiente entregar.",
-      "HUTTLIN 400: Se desarma bomba dispersor se verifica el sello mecánico, se limpia y se vuelve armar, pendiente instalar lo en el área y realizar pruebas.",
+      "*HUTTLIN 400:* Se desarma bomba dispersor se verifica el sello mecánico, se limpia y se vuelve armar, pendiente instalar lo en el área y realizar pruebas.",
       "Llamado porque presentaba alarma en el sensor se temperatura del producto se revisar conector se limpia se hacen pruebas ok. Se entrega producción.",
-      "Blíster #5: Llamado por problemas de formación, se ajusta túnel temperatura, se desmonta plancha porta espárragos inferior, se realiza limpieza cambio de arandelas partidas de realiza montaje pruebas se entrega a producción.",
-      "MT1100: súper flux llamado porque la codificadora no tenía voltaje se revisa se encuentra breaker disparado se normaliza se entrega a producción.",
-      "Bosch: Llamado por alarmas en el equipo se resetea se hacen pruebas se entrega a producción",
-      "Marzio #1: Llamado porque se parte rotula del sellado inferior, se quito la de marzio #5 se monta se ajusta se hacen pruebas se entrega a producción.",
-      "NJP3: Llamado por problemas en el sensor del nivel de agua de la bomba de vacío se ajusta ok. Después otro llamado por una fuga de agua que está presentando se entrega a turno entrante para corregir."
+      "*Blíster #5:* Llamado por problemas de formación, se ajusta túnel temperatura, se desmonta plancha porta espárragos inferior, se realiza limpieza cambio de arandelas partidas de realiza montaje pruebas se entrega a producción.",
+      "*MT1100:* súper flux llamado porque la codificadora no tenía voltaje se revisa se encuentra breaker disparado se normaliza se entrega a producción.",
+      "*Bosch:* Llamado por alarmas en el equipo se resetea se hacen pruebas se entrega a producción",
+      "*Marzio #1:* Llamado porque se parte rotula del sellado inferior, se quito la de marzio #5 se monta se ajusta se hacen pruebas se entrega a producción.",
+      "*NJP3:* Llamado por problemas en el sensor del nivel de agua de la bomba de vacío se ajusta ok. Después otro llamado por una fuga de agua que está presentando se entrega a turno entrante para corregir."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE\n EQUIPOS OPERATIVO\nCL2: MANTENIMIENTO \nCL4: FERBIN\nMT 1100: DISPONIBLE \nBLÍSTER 2: LIPOGRAS\nBLISTER 5: FERRIMED\nENVASADO 3: METASPRAY\nCL3: DISPONIBLE \nENVASADORA 2: SUPERFLUIX\n*BIN BLENDER: acetaminofen\nBOSCH: DISPONIBLE \nNJP1: FERIMED \nNJP2: ESOMEPRAZOL\nNJP3: OMEPRAZOL\nPILOT LAB: DIMOFLAX \nMB 432: CONGESTEX\nBLISTER 9: DIMOFLAX\nBLISTER 8: NIFEDIPINO\nSCHMUCKER: FLUMIXOL\nINTEGRA 320: DISPONIBLE \nR200: DISPOMIBLE\nMB 451 evo: NIFEDIPINO\nMARZIO 1: ESOMED \nHUTTLIN 600: NIFEDIPINO\nR400: ESOMEPRAZOL\nBOMBO 300: DISPONIBLE\nMARZIO 4: ESOMED\nHUTTLIN 400: DICLOFENAC\nRIMECK: DISPONIBLE \nCB 550: DISPONIBLE \nFETTE 1010 : AIROMED\nFETTE 2020#1: DISPONIBLE \nFETTE 2020# 2: ACETAMINOFÉN \n\nNOVEDADES\n\nMARZIO4 : Se ajusta el sistema de corte, mordazas horizontales superior y se toma el paso de la máquina, Dejándola operativa.\nSchmuker : Se cambia correa de banda transportadora. \nFabricación de líquido 1: Se atiende llamado porque la pantalla no enciende, se evidencia humedad la tarjeta electrónica, se desintala pantalla y se deja en el taller para mandarlo a revisar.\n\nSe arma agitador de tanque auxiliar del R400 pendiente entregar.\n\nHUTTLIN 400: Se desarma bomba dispersor se verifica el sello mecánico, se limpia y se vuelve armar, pendiente instalar lo en el área y realizar pruebas.\nLlamado porque presentaba alarma en el sensor se temperatura del producto se revisar conector se limpia se hacen pruebas ok. Se entrega producción.\nBlíster #5: Llamado por problemas de formación, se ajusta túnel temperatura, se desmonta plancha porta espárragos inferior, se realiza limpieza cambio de arandelas partidas de realiza montaje pruebas se entrega a producción.\nMT1100: súper flux llamado porque la codificadora no tenía voltaje se revisa se encuentra breaker disparado se normaliza se entrega a producción.\nBosch: Llamado por alarmas en el equipo se resetea se hacen pruebas se entrega a producción\nMarzio #1: Llamado porque se parte rotula del sellado inferior, se quito la de marzio #5 se monta se ajusta se hacen pruebas se entrega a producción.\nNJP3: Llamado por problemas en el sensor del nivel de agua de la bomba de vacío se ajusta ok. Después otro llamado por una fuga de agua que está presentando se entrega a turno entrante para corregir."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 NOCHE*\n *EQUIPOS OPERATIVO*\n*CL2:* MANTENIMIENTO \n*CL4:* FERBIN\n*MT 1100:* DISPONIBLE \n*BLÍSTER 2:* LIPOGRAS\n*BLISTER 5:* FERRIMED\n*ENVASADO 3:* METASPRAY\n*CL3:* DISPONIBLE \n*ENVASADORA 2:* SUPERFLUIX\n*BIN BLENDER: acetaminofen\n*BOSCH:* DISPONIBLE \n*NJP1:* FERIMED \n*NJP2:* ESOMEPRAZOL\n*NJP3:* OMEPRAZOL\n*PILOT LAB:* DIMOFLAX \n*MB 432:* CONGESTEX\n*BLISTER 9:* DIMOFLAX\n*BLISTER 8:* NIFEDIPINO\n*SCHMUCKER:* FLUMIXOL\n*INTEGRA 320:* DISPONIBLE \n*R200:* DISPOMIBLE\n*MB 451 evo:* NIFEDIPINO\n*MARZIO 1:* ESOMED \n*HUTTLIN 600:* NIFEDIPINO\n*R400:* ESOMEPRAZOL\n*BOMBO 300:* DISPONIBLE\n*MARZIO 4:* ESOMED\n*HUTTLIN 400:* DICLOFENAC\n*RIMECK:* DISPONIBLE \n*CB 550:* DISPONIBLE \n*FETTE 1010 :* AIROMED\n*FETTE 2020#1:* DISPONIBLE \n*FETTE 2020# 2:* ACETAMINOFÉN \n\n*NOVEDADES*\n\n*MARZIO4 :* Se ajusta el sistema de corte, mordazas horizontales superior y se toma el paso de la máquina, Dejándola operativa.\n*Schmuker :* Se cambia correa de banda transportadora. \n*Fabricación de líquido 1:* Se atiende llamado porque la pantalla no enciende, se evidencia humedad la tarjeta electrónica, se desintala pantalla y se deja en el taller para mandarlo a revisar.\n\nSe arma agitador de tanque auxiliar del R400 pendiente entregar.\n\n*HUTTLIN 400:* Se desarma bomba dispersor se verifica el sello mecánico, se limpia y se vuelve armar, pendiente instalar lo en el área y realizar pruebas.\nLlamado porque presentaba alarma en el sensor se temperatura del producto se revisar conector se limpia se hacen pruebas ok. Se entrega producción.\n*Blíster #5:* Llamado por problemas de formación, se ajusta túnel temperatura, se desmonta plancha porta espárragos inferior, se realiza limpieza cambio de arandelas partidas de realiza montaje pruebas se entrega a producción.\n*MT1100:* súper flux llamado porque la codificadora no tenía voltaje se revisa se encuentra breaker disparado se normaliza se entrega a producción.\n*Bosch:* Llamado por alarmas en el equipo se resetea se hacen pruebas se entrega a producción\n*Marzio #1:* Llamado porque se parte rotula del sellado inferior, se quito la de marzio #5 se monta se ajusta se hacen pruebas se entrega a producción.\n*NJP3:* Llamado por problemas en el sensor del nivel de agua de la bomba de vacío se ajusta ok. Después otro llamado por una fuga de agua que está presentando se entrega a turno entrante para corregir."
   },
   {
     "id": "rt-20260828-0917",
@@ -8337,9 +8309,9 @@ window.REPORTES_TURNO = [
       "Se instala difusor en el área de fabricación de huttiln 400 y se trae bomba a taller",
       "Njp3 se revisa gotera del tanque de vacío se encuentra tubo visor cristalizado y partido se le coloca una manguera y no es visible En cada turno revisar el nivel de agua se corrige la fuga se habilita el equipo",
       "Estuchadora Evo se atiende llamado porque se salió un eslabón de la canaleta del robot se ajusta nuevamente queda ok",
-      "Blíster 8 llamado porque la temperatura de sellado superior no sube se encontró resistecia abierta se reemplaza se arma equipo y se apoya en cuadre de equipo 3.5hrs Acrílico de estación de stick mt1100 se habilita máquina sin el mismo porque obstruian el trabajo de los sensores. Máquina trabajo sin novedad Se realiza nuevamente armado de motor neumático de tanque agitador R400 el mismo presente fricción entre el rotor y las tapas del motor. Se realiza empaque de papel húmedo se arma nuevamente. El equipo funciona en vacío pero cuando se adapta el eje el equipo no ejerce la suficiente fuerza para trasmitir el giro al eje. Se corrige posición de cuchillas de abre fácil porque no estaban realizando el abre facil"
+      "Blíster 8 llamado porque la temperatura de sellado superior no sube se encontró resistecia abierta se reemplaza se arma equipo y se apoya en cuadre de equipo 3.5hrs"
     ],
-    "texto": "Sede 4 -- turno (día)\n2026/08/28\n\n                     *   NOVEDADES *\n\nSe instala difusor en el área de fabricación de huttiln 400 y se trae bomba a taller \n\nNjp3 se revisa gotera del tanque de vacío se encuentra tubo visor cristalizado y partido se le coloca una manguera y no es visible \nEn cada turno revisar el nivel de agua se corrige la fuga se habilita el equipo \n\nEstuchadora Evo se atiende llamado porque se salió un eslabón de la canaleta del robot se ajusta nuevamente queda ok\n\nBlíster 8 llamado porque la temperatura de sellado superior no sube se encontró resistecia abierta se reemplaza se arma equipo y se apoya en cuadre de equipo 3.5hrs\nAcrílico de estación de stick mt1100 se habilita máquina sin el mismo porque obstruian el trabajo de los sensores.\nMáquina trabajo sin novedad\nSe realiza nuevamente armado de motor neumático de tanque agitador R400 el mismo presente fricción entre el rotor y las tapas del motor. Se realiza empaque de papel húmedo se arma nuevamente.\nEl equipo funciona en vacío pero cuando se adapta el eje el equipo no ejerce la suficiente fuerza para trasmitir el giro al eje.\nSe corrige posición de cuchillas de abre fácil porque no estaban realizando el abre facil"
+    "texto": "Sede 4 -- turno (día)\n2026/08/28\n\n                     *   NOVEDADES *\n\nSe instala difusor en el área de fabricación de huttiln 400 y se trae bomba a taller \n\nNjp3 se revisa gotera del tanque de vacío se encuentra tubo visor cristalizado y partido se le coloca una manguera y no es visible \nEn cada turno revisar el nivel de agua se corrige la fuga se habilita el equipo \n\nEstuchadora Evo se atiende llamado porque se salió un eslabón de la canaleta del robot se ajusta nuevamente queda ok\n\nBlíster 8 llamado porque la temperatura de sellado superior no sube se encontró resistecia abierta se reemplaza se arma equipo y se apoya en cuadre de equipo 3.5hrs"
   },
   {
     "id": "rt-20260829-0744",
@@ -8545,7 +8517,7 @@ window.REPORTES_TURNO = [
       "MT 1100 Se recibe equipo  por  anomalía en abre fácil. Se desmonta sistema de corte. Se evidencia tornillo pin suelto. Se corrige y se entrega operativo al operador.",
       "SOLIDOS Se doblan mallas de GRANULADOR fabricación de sólidos"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n08:00 - 20:00\n\nSOLIDOS\nBIN: colageno\nBOSHC: nifedipino\nNJP #2: esomeprazol \nNJP #1: multivitaminico\nNJP #3: stamby\nPILOT LAB: Trimebutina \nSCMUKER: limpieza \nBLISTER #9: stamby\nMB 432: nifedipino \nINTEGRA: stamby\nBLISTER #8: esomeprazol\nMARCHESINI EVO: cronofen\nR200: stamby\nR400: limpieza \nMARZIO #1: esomed \nMARZIO #4: esomed\nCB 550: gelimed stamby\nHUTTLIN 600: limpieza \nHUTTLIN 400: oxaprozina\nRIMEK: inspección \nFETTE 2020-2: acetaminofén \nFETTE 1010: montaje ibuprofeno \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: anemikids\nENVASADORA #3: metaspray\nCLIQUIDO #2: stamby\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #5: ferranem\n________________\n                       NOVEDADES \nBLISTER #5\n*se atiende llamado por tornillo de ajuste de corte del troquel en mal estado, no ajustaba el troquel, se baja todo el conjunto y se instalan bujes de suplemento para darle más distancia y hacer que el tornillo agarre desde la rosca buena.\nNOTA: se requiere cambiar tornillo y base roscada ya que se encuentran con la rosca en mal estado.\n\n*se atiende llamado por ruido en estación de sellado se aplica libricante para que trabaje está pendiente bajar la estación de necesita un seguidor de leva se ayuda en cuadre de formación\n\nBLÍSTER #8 \nse recibe para cuadrar malformación  se calibra túnel calefacción y se colocan 2 arandelas más a la estación de formado para que de la altura del túnel se baja la presión del aire y se sube la temperatura \n\nMT 1100\nSe recibe equipo  por  anomalía en abre fácil. Se desmonta sistema de corte. Se evidencia tornillo pin suelto. Se corrige y se entrega operativo al operador.\n\nSOLIDOS \nSe doblan mallas de GRANULADOR fabricación de sólidos"
+    "texto": "REPORTE MAQUINAS TURNO #2\n08:00 - 20:00\n\nSOLIDOS\nBIN: colageno\nBOSHC: nifedipino\nNJP #2: esomeprazol \nNJP #1: multivitaminico\nNJP #3: stamby\nPILOT LAB: Trimebutina \nSCMUKER: limpieza \nBLISTER #9: stamby\nMB 432: nifedipino \nINTEGRA: stamby\nBLISTER #8: esomeprazol\nMARCHESINI EVO: cronofen\nR200: stamby\nR400: limpieza \nMARZIO #1: esomed \nMARZIO #4: esomed\nCB 550: gelimed stamby\nHUTTLIN 600: limpieza \nHUTTLIN 400: oxaprozina\nRIMEK: inspección \nFETTE 2020-2: acetaminofén \nFETTE 1010: montaje ibuprofeno \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: anemikids\nENVASADORA #3: metaspray\nCLIQUIDO #2: stamby\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #5: ferranem\n______________________________________________\n                       NOVEDADES \nBLISTER #5\n*se atiende llamado por tornillo de ajuste de corte del troquel en mal estado, no ajustaba el troquel, se baja todo el conjunto y se instalan bujes de suplemento para darle más distancia y hacer que el tornillo agarre desde la rosca buena.\nNOTA: se requiere cambiar tornillo y base roscada ya que se encuentran con la rosca en mal estado.\n\n*se atiende llamado por ruido en estación de sellado se aplica libricante para que trabaje está pendiente bajar la estación de necesita un seguidor de leva se ayuda en cuadre de formación\n\nBLÍSTER #8 \nse recibe para cuadrar malformación  se calibra túnel calefacción y se colocan 2 arandelas más a la estación de formado para que de la altura del túnel se baja la presión del aire y se sube la temperatura \n\nMT 1100\nSe recibe equipo  por  anomalía en abre fácil. Se desmonta sistema de corte. Se evidencia tornillo pin suelto. Se corrige y se entrega operativo al operador.\n\nSOLIDOS \nSe doblan mallas de GRANULADOR fabricación de sólidos"
   },
   {
     "id": "rt-20260829-2124",
@@ -8600,17 +8572,25 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-08-29",
     "equipos": [],
     "novedades": [
-      "DE TURNO DE DIA SEDE 4 Estuchadora Evo Se atiende llamado por problemas de seguridad de empujador, se encuentra empujador tocando el cangilon Se le da altura , se ajusta la altura y el ancho del estuche , se ajusta lote de estuche y se vuelve a cuadrar tolva y empujadores también lubrica ejes del sistema de empujadores se ajusta altura del trinche que pisa los blíster se deja operativa 3.15h",
+      "DE TURNO DE DIA SEDE 4*",
+      "*Estuchadora Evo*",
+      "Se atiende llamado por problemas de seguridad de empujador, se encuentra empujador tocando el cangilon",
+      "Se le da altura , se ajusta la altura y el ancho del estuche , se ajusta lote de estuche y se vuelve a cuadrar tolva y empujadores también lubrica ejes del sistema de empujadores se ajusta altura del trinche que pisa los blíster se deja operativa",
+      "3.15h",
       "Se instalan conectores macho y hembra de sensor de temp de la encapsuladora de cl se perforó lamina porque el conector era de mayor diámetro",
-      "Recubridor: se corrige fuga de vapor en tubería de vapor piso técnico.",
-      "CL2: Se realiza cambio de oring a grupo de pines de inyección de CL2 por perdida de productos al inyectar.",
-      "SMUKERS: se realiza cambio de cuchillas circulares a grupo de corte vertical",
-      "Njp3 se aliena pin del bloque de expulsión se encontró torcido",
+      "*Recubridor:*",
+      "se corrige fuga de vapor en tubería de vapor piso técnico.",
+      "*CL2:*",
+      "Se realiza cambio de oring a grupo de pines de inyección de CL2 por perdida de productos al inyectar.",
+      "SMUKERS:",
+      "se realiza cambio de cuchillas circulares a grupo de corte vertical",
+      "*Njp3*",
+      "se aliena pin del bloque de expulsión se encontró torcido",
       "Se suspende proceso por falla en caldera desde las 10:30 hasta las 14-45 los equipos huttiln 400,600, 40 , recubridores y fabricación",
       "Njp2 llamado por problemas el cierre de cápsulas se baja el bloque y se cambian rodamientos lineales LM20 limpieza y lubricación del sistema",
       "Se apoya a personal de metrología para calibración de tanques de fabricación de huttiln 600"
     ],
-    "texto": "NOVEDADES DE TURNO DE DIA SEDE 4\nEstuchadora Evo\nSe atiende llamado por problemas de seguridad de empujador, se encuentra empujador tocando el cangilon  \nSe le da altura , se ajusta la altura y el ancho del estuche , se ajusta lote de estuche y se vuelve a cuadrar tolva y empujadores también lubrica ejes del sistema de empujadores se ajusta altura del trinche que pisa los blíster se deja operativa \n3.15h\n\nSe instalan conectores macho y hembra de sensor de temp de la encapsuladora de cl se perforó lamina porque el conector era de mayor diámetro\n\n Recubridor: \nse corrige fuga de vapor en tubería de vapor piso técnico.\n\n CL2:\nSe realiza cambio de oring a grupo de pines de inyección de CL2 por perdida de productos al inyectar.\n\n SMUKERS: \nse realiza cambio de cuchillas circulares a grupo de corte vertical\n\nNjp3 \nse aliena pin del bloque de expulsión se encontró torcido\n\nSe suspende proceso por falla en caldera desde las 10:30 hasta las 14-45 los equipos huttiln 400,600, 40 , recubridores y fabricación \n\nNjp2 llamado por problemas el cierre de cápsulas se baja el bloque y se cambian rodamientos lineales LM20 limpieza y lubricación del sistema \n\nSe apoya a personal de metrología para calibración de tanques de fabricación de huttiln 600"
+    "texto": "*NOVEDADES DE TURNO DE DIA SEDE 4*\n*Estuchadora Evo*\nSe atiende llamado por problemas de seguridad de empujador, se encuentra empujador tocando el cangilon  \nSe le da altura , se ajusta la altura y el ancho del estuche , se ajusta lote de estuche y se vuelve a cuadrar tolva y empujadores también lubrica ejes del sistema de empujadores se ajusta altura del trinche que pisa los blíster se deja operativa \n3.15h\n\nSe instalan conectores macho y hembra de sensor de temp de la encapsuladora de cl se perforó lamina porque el conector era de mayor diámetro\n\n *Recubridor:* \nse corrige fuga de vapor en tubería de vapor piso técnico.\n\n *CL2:*\nSe realiza cambio de oring a grupo de pines de inyección de CL2 por perdida de productos al inyectar.\n\n SMUKERS: \nse realiza cambio de cuchillas circulares a grupo de corte vertical\n\n*Njp3* \nse aliena pin del bloque de expulsión se encontró torcido\n\nSe suspende proceso por falla en caldera desde las 10:30 hasta las 14-45 los equipos huttiln 400,600, 40 , recubridores y fabricación \n\nNjp2 llamado por problemas el cierre de cápsulas se baja el bloque y se cambian rodamientos lineales LM20 limpieza y lubricación del sistema \n\nSe apoya a personal de metrología para calibración de tanques de fabricación de huttiln 600"
   },
   {
     "id": "rt-20260830-0934",
@@ -8754,7 +8734,7 @@ window.REPORTES_TURNO = [
       "FETTE 2020-2 se atiende llamado por detector de metales está descalibrado no se encontraron las monedas de calibración  eso fue terminando el turno se entrega a turno entrante",
       "SOLIDOS se hace conversión de lámpara alogena a led, se deja doble fondo en el taller."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby\nNJP #2: esomeprazol \nNJP #1: limpieza \nNJP #3: esomeprazol \nPILOT LAB: limpieza \nSCMUKER: limpieza\nBLISTER #9: ferrimed\nMB 432: nifedipino \nINTEGRA: stamby\nBLISTER #8: stamby\nMARCHESINI EVO: cronofen\nR200: stamby\nR400: Montelukast \nMARZIO #1: stamby\nMARZIO #4: stamby\nCB 550: stamby\nHUTTLIN 600: limpieza \nHUTTLIN 400: oxaprozina\nRIMEK: stamby\nFETTE 2020-2: stamby\nFETTE 1010: ibuprofeno \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: anemikids\nENVASADORA #3: stamby\nCLIQUIDO #2: ibuprofeno \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: supreflux\nBLISTER #2: lipogras cuadre\nBLISTER #5: ferranem\n________________\n                       NOVEDADES \nBLÍSTER #8 \nse ayuda en cuadre de ferranem se cuadre formación y se cuadra sistema de loteado por qué se estaba corrigiendo el lote \n\nBLÍSTER #5 \nse atiende llamado por malformación  y por qué el material se estaba estirando se calibra tunel se juega con las presiones temperatura con la calibración de las arandelas cóncavas queda trabajando \n\nBLISTER #2\nse atiende llamado porque el troquel se queda pegado, se baja troquel y se revisa troquel 2 blíster, se cambian resortes para descartar el problema, se monta y se prueba pero se sigue pegando, se deja troquel en el taller para reparación ya que es de los viejos.\n\nMT 1100 \nse atiende llamado por corto circuito en codificadora se verifica que no haya tenido ningún daño se encuentra ok se sube el break \n\nFETTE 2020-2\nse atiende llamado por detector de metales está descalibrado no se encontraron las monedas de calibración  eso fue terminando el turno se entrega a turno entrante\n\nSOLIDOS \nse hace conversión de lámpara alogena a led, se deja doble fondo en el taller."
+    "texto": "REPORTE MAQUINAS TURNO #2\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby\nNJP #2: esomeprazol \nNJP #1: limpieza \nNJP #3: esomeprazol \nPILOT LAB: limpieza \nSCMUKER: limpieza\nBLISTER #9: ferrimed\nMB 432: nifedipino \nINTEGRA: stamby\nBLISTER #8: stamby\nMARCHESINI EVO: cronofen\nR200: stamby\nR400: Montelukast \nMARZIO #1: stamby\nMARZIO #4: stamby\nCB 550: stamby\nHUTTLIN 600: limpieza \nHUTTLIN 400: oxaprozina\nRIMEK: stamby\nFETTE 2020-2: stamby\nFETTE 1010: ibuprofeno \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: anemikids\nENVASADORA #3: stamby\nCLIQUIDO #2: ibuprofeno \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: supreflux\nBLISTER #2: lipogras cuadre\nBLISTER #5: ferranem\n______________________________________________\n                       NOVEDADES \nBLÍSTER #8 \nse ayuda en cuadre de ferranem se cuadre formación y se cuadra sistema de loteado por qué se estaba corrigiendo el lote \n\nBLÍSTER #5 \nse atiende llamado por malformación  y por qué el material se estaba estirando se calibra tunel se juega con las presiones temperatura con la calibración de las arandelas cóncavas queda trabajando \n\nBLISTER #2\nse atiende llamado porque el troquel se queda pegado, se baja troquel y se revisa troquel 2 blíster, se cambian resortes para descartar el problema, se monta y se prueba pero se sigue pegando, se deja troquel en el taller para reparación ya que es de los viejos.\n\nMT 1100 \nse atiende llamado por corto circuito en codificadora se verifica que no haya tenido ningún daño se encuentra ok se sube el break \n\nFETTE 2020-2\nse atiende llamado por detector de metales está descalibrado no se encontraron las monedas de calibración  eso fue terminando el turno se entrega a turno entrante\n\nSOLIDOS \nse hace conversión de lámpara alogena a led, se deja doble fondo en el taller."
   },
   {
     "id": "rt-20260830-1941",
@@ -8903,7 +8883,7 @@ window.REPORTES_TURNO = [
       "MT1100:  Se encontraba con mucha presión en el abre fácil, se baja las cuchillas y se reduce la distancia del abre fácil. Equipo operativo.",
       "ENVASADO2: Se atasca banda transportadora con el eslabón, se descuelga el motor para que libere tension, se corrige el atascamiento y se monta el motor en su posición. Equipo operativo."
     ],
-    "texto": "REPORTE DE TURNO\n      2026-08-30\n           sede 4\n \nCL3: Disponible \nCL4: Disponible \nStick Pack 4: Superflux forte\nBlíster 2: Disponible \nEnvasadora 3: Disponible \nCL2: Dolorsin fem\nEnvasadora 2:  anemikids\nBin: Acetaminofén \nBosch: Disponible \nNJP1: Disponible \nNJP2: Limpieza \nNJP3: esomeprazol \nPilot lab: Dimoflax \nMB 432: Nifedipino \nBlíster DM: Disponible \nSchmucker: Limpieza \nBlíster 9: Ferrimed \nIntegra 320: Disponible \nR200: Disponible \nMB 451: Cronofen\nMarzio 1:  Esomed\nHuttlin 600: Disponible \nR400: Dimoflax \nBombo 300: Disponible \nMarzio 4: Esomed\nBombo 300: Disponible \nHuttlin 400: oxaproxina\nRimek:  Trimebutina + simeticona \nCB 550: Gelimedy\nFette 1010: Ibuprofeno \nFette 2020 2: Acetaminofén \nFette 2020 1: Dimoflax\nBlíster 5: Ferrimed \n\nNOVEDADES\nBLISTER 8: Se recibe Llamado por PVC inestable, se calibra túnel de calefacción y se corrige parámetros de soplado, S/N en el turno.\nCL2: Equipo atascado en secadora de capsulas, presenta guía doblada, la misma fue corregida, equipo operativo.\nBLISTER 5: Llamado por mal formación de alveolos, se cambian parámetros de temperatura y amortiguación en está de formado, equipo operativo.\nNJP 3: Se colocan expulsores de capsulas hechos a la medida original, equipo operativo.\nCL4: Se realiza Desmontaje de bandeja de solución (selladora) para mantenimiento, encontrándose exceso de producto en pista y rodamientos lineales, se desarma para limpieza y lubricación, se arman nuevamente, se entrega a turno entrante continuar con la limpieza del equipo.\nMT1100:  Se encontraba con mucha presión en el abre fácil, se baja las cuchillas y se reduce la distancia del abre fácil. Equipo operativo.\nENVASADO2: Se atasca banda transportadora con el eslabón, se descuelga el motor para que libere tension, se corrige el atascamiento y se monta el motor en su posición. Equipo operativo."
+    "texto": "*REPORTE DE TURNO*\n      2026-08-30\n           sede 4\n \n*CL3:* Disponible \n*CL4:* Disponible \n*Stick Pack 4:* Superflux forte\n*Blíster 2:* Disponible \n*Envasadora 3:* Disponible \n*CL2:* Dolorsin fem\n*Envasadora 2:*  anemikids\n*Bin:* Acetaminofén \n*Bosch:* Disponible \n*NJP1:* Disponible \n*NJP2:* Limpieza \n*NJP3:* esomeprazol \n*Pilot lab:* Dimoflax \n*MB 432:* Nifedipino \n*Blíster DM:* Disponible \n*Schmucker:* Limpieza \n*Blíster 9:* Ferrimed \n*Integra 320:* Disponible \n*R200:* Disponible \n*MB 451:* Cronofen\n*Marzio 1:*  Esomed\n*Huttlin 600:* Disponible \n*R400:* Dimoflax \n*Bombo 300:* Disponible \n*Marzio 4:* Esomed\n*Bombo 300:* Disponible \n*Huttlin 400:* oxaproxina\n*Rimek:*  Trimebutina + simeticona \n*CB 550:* Gelimedy\n*Fette 1010:* Ibuprofeno \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Dimoflax\n*Blíster 5:* Ferrimed \n\n*NOVEDADES*\nBLISTER 8: Se recibe Llamado por PVC inestable, se calibra túnel de calefacción y se corrige parámetros de soplado, S/N en el turno.\nCL2: Equipo atascado en secadora de capsulas, presenta guía doblada, la misma fue corregida, equipo operativo.\nBLISTER 5: Llamado por mal formación de alveolos, se cambian parámetros de temperatura y amortiguación en está de formado, equipo operativo.\nNJP 3: Se colocan expulsores de capsulas hechos a la medida original, equipo operativo.\nCL4: Se realiza Desmontaje de bandeja de solución (selladora) para mantenimiento, encontrándose exceso de producto en pista y rodamientos lineales, se desarma para limpieza y lubricación, se arman nuevamente, se entrega a turno entrante continuar con la limpieza del equipo.\nMT1100:  Se encontraba con mucha presión en el abre fácil, se baja las cuchillas y se reduce la distancia del abre fácil. Equipo operativo.\nENVASADO2: Se atasca banda transportadora con el eslabón, se descuelga el motor para que libere tension, se corrige el atascamiento y se monta el motor en su posición. Equipo operativo."
   },
   {
     "id": "rt-20260830-2000",
@@ -9113,16 +9093,16 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Centro líquidos 4 se termina la limpieza del área interna y externa de la bandeja de gelatina se entrega a turno entrante para comenzar el montaje",
-      "Mb432 se apoya en el equipo porque estába enviando alarma de contracontrol se evidencia guías muy justas y el blíster tropezaban se acumulaba y enviaba la alarma queda ok",
+      "*Centro líquidos 4* se termina la limpieza del área interna y externa de la bandeja de gelatina se entrega a turno entrante para comenzar el montaje",
+      "*Mb432* se apoya en el equipo porque estába enviando alarma de contracontrol se evidencia guías muy justas y el blíster tropezaban se acumulaba y enviaba la alarma queda ok",
       "Huttiln 600 llamado porque la pantalla se bloqueó se habilita queda ok",
       "Pasajes carro para voltear los tanques se le despegó una correa del freno se repara queda ok",
       "BOSCH: Se atiende llamado por problemas en entrega de cápsulas vacías. Se evidencia trinche de magazine 1 flojo y base de bloque  restificador fuera posición lo que no permitía la entrada óptima de las cápsulas.se atiende llamado porque la columna elevadora se bloquea se habilita pero se evidencia conector del presostado en mal estado",
-      "Estuchadora Evo Se apoya en cuadre del equipo ya que tenía problemas con el cierre de la pestaña del estuche , se coloca para que no dañara el estuche pero dejaba la pestaña por fuera del estuche , aún así trabajo sin tener otro problema",
-      "Marzio 1 Problemas con el  codificado se cuadra , se limpia y se mueven parámetro queda operativa",
-      "Etiquetadora de Envase 2 Se ajusta altura del el equipo y se nivela con la tolva y con la llenadora queda operativa"
+      "*Estuchadora Evo* Se apoya en cuadre del equipo ya que tenía problemas con el cierre de la pestaña del estuche , se coloca para que no dañara el estuche pero dejaba la pestaña por fuera del estuche , aún así trabajo sin tener otro problema",
+      "*Marzio 1* Problemas con el  codificado se cuadra , se limpia y se mueven parámetro queda operativa",
+      "*Etiquetadora de Envase 2* Se ajusta altura del el equipo y se nivela con la tolva y con la llenadora queda operativa"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 T#NOCHE\n\n*•BIN: disponible \n*•BOSCH: tamsecol \n*•NJP2: Disponible \n *NJP1: disponible \n*NJP 3 disponible \n*•PILOT LAB HUTTLIN 40: trumebutina+ simeticoma \n*•FETTE 2020/2: acetaminofén \n*•MS 235 SCHMUCKER: fumixol \n*•MB 432 MARCHESINI: Nifedipino \n*•INTEGRA 320: disponible \n*•BLISTER #8: ferrimed \n*•MB 451 EVO: cronofem \n*•RC 200: ibuprofeno \n*RC 400: disponible \n*•CB550: limpieza de area\n*•HUTTLIN 600: losaltan \n*•HUTTLIN 400:  Limpieza \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 1: esomed\n*•MARZIO 4: limpieza \n*•FETTE 1010: disponible \n*•FETTE 2020/1: Dimoflax \n*•ENVASADORA #2: superflux \n*•ML 642 ENVASADORA #3: anemikids \n*•CLIQUIDOS 2: dolorsin fem\n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 MARCHESINI: superflux \n*BLISTER 2: disponible \n*BLISTER 5: disponible \n_________\n        NOVEDADES\n\nCentro líquidos 4 \nse termina la limpieza del área interna y externa de la bandeja de gelatina se entrega a turno entrante para comenzar el montaje\n\nMb432\nse apoya en el equipo porque estába enviando alarma de contracontrol se evidencia guías muy justas y el blíster tropezaban se acumulaba y enviaba la alarma queda ok \n\nHuttiln 600 llamado porque la pantalla se bloqueó se habilita queda ok \n\nPasajes carro para voltear los tanques se le despegó una correa del freno se repara queda ok\n\nBOSCH: Se atiende llamado por problemas en entrega de cápsulas vacías. Se evidencia trinche de magazine 1 flojo y base de bloque  restificador fuera posición lo que no permitía la entrada óptima de las cápsulas.se atiende llamado porque la columna elevadora se bloquea se habilita pero se evidencia conector del presostado en mal estado \n\nEstuchadora Evo\nSe apoya en cuadre del equipo ya que tenía problemas con el cierre de la pestaña del estuche , se coloca para que no dañara el estuche pero dejaba la pestaña por fuera del estuche , aún así trabajo sin tener otro problema \n\nMarzio 1\nProblemas con el  codificado se cuadra , se limpia y se mueven parámetro queda operativa\n\nEtiquetadora de Envase 2\n Se ajusta altura del el equipo y se nivela con la tolva y con la llenadora queda operativa"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T#NOCHE*\n\n*•BIN: disponible \n*•BOSCH: tamsecol \n*•NJP2: Disponible \n *NJP1: disponible \n*NJP 3 disponible \n*•PILOT LAB HUTTLIN 40: trumebutina+ simeticoma \n*•FETTE 2020/2: acetaminofén \n*•MS 235 SCHMUCKER: fumixol \n*•MB 432 MARCHESINI: Nifedipino \n*•INTEGRA 320: disponible \n*•BLISTER #8: ferrimed \n*•MB 451 EVO: cronofem \n*•RC 200: ibuprofeno \n*RC 400: disponible \n*•CB550: limpieza de area\n*•HUTTLIN 600: losaltan \n*•HUTTLIN 400:  Limpieza \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 1: esomed\n*•MARZIO 4: limpieza \n*•FETTE 1010: disponible \n*•FETTE 2020/1: Dimoflax \n*•ENVASADORA #2: superflux \n*•ML 642 ENVASADORA #3: anemikids \n*•CLIQUIDOS 2: dolorsin fem\n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 MARCHESINI: superflux \n*BLISTER 2: disponible \n*BLISTER 5: disponible \n_________________________\n        *NOVEDADES*\n\n*Centro líquidos 4* \nse termina la limpieza del área interna y externa de la bandeja de gelatina se entrega a turno entrante para comenzar el montaje\n\n*Mb432*\nse apoya en el equipo porque estába enviando alarma de contracontrol se evidencia guías muy justas y el blíster tropezaban se acumulaba y enviaba la alarma queda ok \n\nHuttiln 600 llamado porque la pantalla se bloqueó se habilita queda ok \n\nPasajes carro para voltear los tanques se le despegó una correa del freno se repara queda ok\n\nBOSCH: Se atiende llamado por problemas en entrega de cápsulas vacías. Se evidencia trinche de magazine 1 flojo y base de bloque  restificador fuera posición lo que no permitía la entrada óptima de las cápsulas.se atiende llamado porque la columna elevadora se bloquea se habilita pero se evidencia conector del presostado en mal estado \n\n*Estuchadora Evo*\nSe apoya en cuadre del equipo ya que tenía problemas con el cierre de la pestaña del estuche , se coloca para que no dañara el estuche pero dejaba la pestaña por fuera del estuche , aún así trabajo sin tener otro problema \n\n*Marzio 1*\nProblemas con el  codificado se cuadra , se limpia y se mueven parámetro queda operativa\n\n*Etiquetadora de Envase 2*\n Se ajusta altura del el equipo y se nivela con la tolva y con la llenadora queda operativa"
   },
   {
     "id": "rt-20260831-1945",
@@ -9143,7 +9123,7 @@ window.REPORTES_TURNO = [
       "HUTTLIN 400: Se repara válvula mariposa,descarga de producto, equipo operativo, la misma es requerida.",
       "BLISTER 3: Se recibe equipo traído de sede  2, se posiciona en área y se cambia bajante de suministro, se conectan todos, falta realizar pruebas de funcionamiento, se entrega a turno entrante hacerla, falta mouse para ingresar usuario."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 DIA\nNOVEDADES:\nENVASE 2: Se repara tornillo de dosificación, equipo operativo.\nBLÍSTER 5: Se desconectan suministros de equipo, se saca del área para ser traslado a sede 2, se lleva  base porta resistencias para hacer corredera, tornillo de sujesion en mecanizado, la misma fue realizada y entregada, queda en taller para su traslado.\na sede 2.\nNJP 2: Se reparan roscas de magazine, equipo en montaje.\nBOSCH: Se alinea magazines con torreta modular, equipo operativo.\nCL4: Se arma bandeja de soluciónes (secadora de capsulas), se instala en equipo, se realizan pruebas de movimientos, se entrega a producción para limpieza.\nHUTTLIN 400: Se repara válvula mariposa,descarga de producto, equipo operativo, la misma es requerida.\nBLISTER 3: Se recibe equipo traído de sede  2, se posiciona en área y se cambia bajante de suministro, se conectan todos, falta realizar pruebas de funcionamiento, se entrega a turno entrante hacerla, falta mouse para ingresar usuario."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 DIA*\n*NOVEDADES:*\nENVASE 2: Se repara tornillo de dosificación, equipo operativo.\nBLÍSTER 5: Se desconectan suministros de equipo, se saca del área para ser traslado a sede 2, se lleva  base porta resistencias para hacer corredera, tornillo de sujesion en mecanizado, la misma fue realizada y entregada, queda en taller para su traslado.\na sede 2.\nNJP 2: Se reparan roscas de magazine, equipo en montaje.\nBOSCH: Se alinea magazines con torreta modular, equipo operativo.\nCL4: Se arma bandeja de soluciónes (secadora de capsulas), se instala en equipo, se realizan pruebas de movimientos, se entrega a producción para limpieza.\nHUTTLIN 400: Se repara válvula mariposa,descarga de producto, equipo operativo, la misma es requerida.\nBLISTER 3: Se recibe equipo traído de sede  2, se posiciona en área y se cambia bajante de suministro, se conectan todos, falta realizar pruebas de funcionamiento, se entrega a turno entrante hacerla, falta mouse para ingresar usuario."
   },
   {
     "id": "rt-20260901-0913",
@@ -9466,7 +9446,7 @@ window.REPORTES_TURNO = [
       "*se atiende llamado por pestañas inferior de sellado muy corta y se filtraba el producto, se ajusta parámetros de posición de corte, se deja en -2.0, queda máquina operativa.",
       "MB 432 se recibe llamado por temas de arrastre y corte del blíster, posición del sensor de lectura de corvatura del PVC, se ajusta parámetros de longitud del bulino y parámetros de la camara de inspección del corte, se realizan pruebas hasta quedar la máquina en operación."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: diclofenac\nNJP #2: inspección \nNJP #1: congestex\nNJP #3: esomeprazol \nPILOT LAB: fumarato\nSCMUKER: flextril c\nBLISTER #9: dimoflax\nMB 432: congestex\nINTEGRA: stamby\nBLISTER #8: esomeprazol\nMARCHESINI EVO: cronofen\nR200: ácido acetilsalicilico\nR400: dimoflax\nMARZIO #1: esomed\nMARZIO #4: myosop\nCB 550: stamby\nHUTTLIN 600: limpieza \nHUTTLIN 400: oxaprozina\nRIMEK: stamby\nFETTE 2020-2: \nFETTE 1010: ibuprofeno \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: stamby \nENVASADORA #3: stamby\nCLIQUIDO #2: limpieza \nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: prueba \n________________\n                       NOVEDADES \nCLIQUIDO #4\nSe realiza mantenimiento a bandeja de selladora se encuentra limpieza se encuentran los rodamientos bien el teflón del tornillo del avance tiene la rosca un poco desgastada se hace pasante la rosca y se hace una cajuela para colocar una tuerca y se pega con Loctite \n\nBLÍSTER #3 \nse atiende llamado por el motor de retal no estaba funcionando correctamente estaba caliente el motor se desmonta y se prueba abajo el giro estaba girando al revés se invierte el giro \nSe invierte giro del motor del alimentador por qué estaba botando las cápsulas \nSe calibra tunel de calefacción por qué se estaba pegando el PVC y se partía queda ok y trabajando \n\nBLÍSTER #9 \nse calibra túnel de calefacción se y se ayuda a operador en cuadre\n\nLIMPIEZA DE UTENSILIOS\nse cambia seguro de puerta en mal estado\n\nPASILLO AREA GRIS\nSe cambia filtro de carbón fuente de agua de planta\n\nSMUKER \nse cambian rodamientos 6001 y 608 de cojinete central y cojinetes laterales.\nse brinda apoyo para la instalación del sistema OGA.\n\nMT 1100\n*se reciben múltiples llamados durante el turno, se realiza ajuste de posición del cabezal del equipo de codificado videojet debido a que el lote salía muy en el borde donde las mordazas hacian el sellado, se deja lote centrado en el sachet.\n\n*se recibe llamado por problemas con el abre fácil, se realiza ajuste de posición de la cuchilla del abre fácil y tornillo del resorte de esa parte quedando ok.\n\n*se recibe llamado por alarma de troquelado atascado, se revisa sistema de las cuchillas y se observa suciedad por retasos de los sobres al momento de realizar el corte por lo cual se activaba el sensor de bloqueo, se deja ok.\n\n*se atiende llamado por pestañas inferior de sellado muy corta y se filtraba el producto, se ajusta parámetros de posición de corte, se deja en -2.0, queda máquina operativa.\n\nMB 432\nse recibe llamado por temas de arrastre y corte del blíster, posición del sensor de lectura de corvatura del PVC, se ajusta parámetros de longitud del bulino y parámetros de la camara de inspección del corte, se realizan pruebas hasta quedar la máquina en operación."
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: diclofenac\nNJP #2: inspección \nNJP #1: congestex\nNJP #3: esomeprazol \nPILOT LAB: fumarato\nSCMUKER: flextril c\nBLISTER #9: dimoflax\nMB 432: congestex\nINTEGRA: stamby\nBLISTER #8: esomeprazol\nMARCHESINI EVO: cronofen\nR200: ácido acetilsalicilico\nR400: dimoflax\nMARZIO #1: esomed\nMARZIO #4: myosop\nCB 550: stamby\nHUTTLIN 600: limpieza \nHUTTLIN 400: oxaprozina\nRIMEK: stamby\nFETTE 2020-2: \nFETTE 1010: ibuprofeno \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: stamby \nENVASADORA #3: stamby\nCLIQUIDO #2: limpieza \nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: prueba \n______________________________________________\n                       NOVEDADES \nCLIQUIDO #4\nSe realiza mantenimiento a bandeja de selladora se encuentra limpieza se encuentran los rodamientos bien el teflón del tornillo del avance tiene la rosca un poco desgastada se hace pasante la rosca y se hace una cajuela para colocar una tuerca y se pega con Loctite \n\nBLÍSTER #3 \nse atiende llamado por el motor de retal no estaba funcionando correctamente estaba caliente el motor se desmonta y se prueba abajo el giro estaba girando al revés se invierte el giro \nSe invierte giro del motor del alimentador por qué estaba botando las cápsulas \nSe calibra tunel de calefacción por qué se estaba pegando el PVC y se partía queda ok y trabajando \n\nBLÍSTER #9 \nse calibra túnel de calefacción se y se ayuda a operador en cuadre\n\nLIMPIEZA DE UTENSILIOS\nse cambia seguro de puerta en mal estado\n\nPASILLO AREA GRIS\nSe cambia filtro de carbón fuente de agua de planta\n\nSMUKER \nse cambian rodamientos 6001 y 608 de cojinete central y cojinetes laterales.\nse brinda apoyo para la instalación del sistema OGA.\n\nMT 1100\n*se reciben múltiples llamados durante el turno, se realiza ajuste de posición del cabezal del equipo de codificado videojet debido a que el lote salía muy en el borde donde las mordazas hacian el sellado, se deja lote centrado en el sachet.\n\n*se recibe llamado por problemas con el abre fácil, se realiza ajuste de posición de la cuchilla del abre fácil y tornillo del resorte de esa parte quedando ok.\n\n*se recibe llamado por alarma de troquelado atascado, se revisa sistema de las cuchillas y se observa suciedad por retasos de los sobres al momento de realizar el corte por lo cual se activaba el sensor de bloqueo, se deja ok.\n\n*se atiende llamado por pestañas inferior de sellado muy corta y se filtraba el producto, se ajusta parámetros de posición de corte, se deja en -2.0, queda máquina operativa.\n\nMB 432\nse recibe llamado por temas de arrastre y corte del blíster, posición del sensor de lectura de corvatura del PVC, se ajusta parámetros de longitud del bulino y parámetros de la camara de inspección del corte, se realizan pruebas hasta quedar la máquina en operación."
   },
   {
     "id": "rt-20260902-0755",
@@ -9616,7 +9596,7 @@ window.REPORTES_TURNO = [
       "ENVASADO 2: se ajusta los cabezales y se recomienda fabricar llave de boca para está misma. Equipo operativo.",
       "NJP2: Rosca dañada se recomienda embujar."
     ],
-    "texto": "REPORTE DE TURNO\n      2026-09-02\n           sede 4\n \nCL3: Disponible \nCL4: Disponible\nStick Pack 4: Superflux \nBlíster 2: Disponible \nEnvasadora 3: Limpieza \nCL2: Disponible \nEnvasadora 2:  Superflux \nBin: Rosuvastatina calcica\nBosch: Disponible \nNJP1: Congestex\nNJP2: Disponible \nNJP3: esomeprazol \nPilot lab: Fumarato ferroso\nMB 432: Congestex \nBlíster DM: Disponible \nSchmucker: Flextril\nBlíster 9: Dimoflax\nIntegra 320: Losartan \nR200: Disponible \nMB 451: Cronofen\nMarzio 1:  Esomed\nHuttlin 600: Limpieza \nR400: Dimoflax \nBombo 300: Ferrimed\nMarzio 4: Myosop\nBombo 300: Ferrimed\nHuttlin 400: Montaje\nRimek:  Trimebutina + simeticona \nCB 550: Limpieza \nFette 1010: Oxaproxina \nFette 2020 2: Acetaminofén \nFette 2020 1: Dimoflax\nBlíster 3: Aerovial\nNOVEDADES: \nR400: Se comienza acondicionamiento de  motor eléctrico a tanque,agitación de soluciones, el mismo se requiere llevar a mecanizado para fabricar flanche sujesion, en reemplazo de motor neumático,se adjunta video e imagenes.\nBLISTER 5 (sede 2): Se lleva cargador universal de equipo, se instala y se realizan pruebas, equipo operativo.\nFETTE 2020#2: Acetaminofén se realiza cambio de  conector de alimentación de la máquina que presento corto y se derrite. Se verifican los voltajes y se hacen pruebas se entregan a producción.\nBOMBO 300: Ferrimed se revisa tamizadara porque estaba en dos fases se corrige se entrega a producción.\nMARZIO#4: Myosop llamado por problemas de corté, y cuadre se realiza cambio de cuchillas se corrige mal cuadre, tamaño, tornillo de corrección y codificado se hacen pruebas se entrega a producción.\nESTUCHADORA EVO: LLamado por palito de arrastre partido, el mismo fue reemplazado, equipo operativo.\nENVASADO 2: se ajusta los cabezales y se recomienda fabricar llave de boca para está misma. Equipo operativo.\nNJP2: Rosca dañada se recomienda embujar."
+    "texto": "*REPORTE DE TURNO*\n      2026-09-02\n           sede 4\n \n*CL3:* Disponible \n*CL4:* Disponible\n*Stick Pack 4:* Superflux \n*Blíster 2:* Disponible \n*Envasadora 3:* Limpieza \n*CL2:* Disponible \n*Envasadora 2:*  Superflux \n*Bin:* Rosuvastatina calcica\n*Bosch:* Disponible \n*NJP1:* Congestex\n*NJP2:* Disponible \n*NJP3:* esomeprazol \n*Pilot lab:* Fumarato ferroso\n*MB 432:* Congestex \n*Blíster DM:* Disponible \n*Schmucker:* Flextril\n*Blíster 9:* Dimoflax\n*Integra 320:* Losartan \n*R200:* Disponible \n*MB 451:* Cronofen\n*Marzio 1:*  Esomed\n*Huttlin 600:* Limpieza \n*R400:* Dimoflax \n*Bombo 300:* Ferrimed\n*Marzio 4:* Myosop\n*Bombo 300:* Ferrimed\n*Huttlin 400:* Montaje\n*Rimek:*  Trimebutina + simeticona \n*CB 550:* Limpieza \n*Fette 1010:* Oxaproxina \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Dimoflax\n*Blíster 3:* Aerovial\n*NOVEDADES:* \nR400: Se comienza acondicionamiento de  motor eléctrico a tanque,agitación de soluciones, el mismo se requiere llevar a mecanizado para fabricar flanche sujesion, en reemplazo de motor neumático,se adjunta video e imagenes.\nBLISTER 5 (sede 2): Se lleva cargador universal de equipo, se instala y se realizan pruebas, equipo operativo.\nFETTE 2020#2: Acetaminofén se realiza cambio de  conector de alimentación de la máquina que presento corto y se derrite. Se verifican los voltajes y se hacen pruebas se entregan a producción.\nBOMBO 300: Ferrimed se revisa tamizadara porque estaba en dos fases se corrige se entrega a producción.\nMARZIO#4: Myosop llamado por problemas de corté, y cuadre se realiza cambio de cuchillas se corrige mal cuadre, tamaño, tornillo de corrección y codificado se hacen pruebas se entrega a producción.\nESTUCHADORA EVO: LLamado por palito de arrastre partido, el mismo fue reemplazado, equipo operativo.\nENVASADO 2: se ajusta los cabezales y se recomienda fabricar llave de boca para está misma. Equipo operativo.\nNJP2: Rosca dañada se recomienda embujar."
   },
   {
     "id": "rt-20260902-0911",
@@ -9778,9 +9758,9 @@ window.REPORTES_TURNO = [
       "CTL4 se le da ajuste al  pistón del bloque dosificador por qué no entraba",
       "Blíster 3 se atiende llamado 3 veces por qué se bloquea la pantalla",
       "Bosch se atiende llamado por reguero de cápsulas se alinean bloque rectificador y magacines",
-      "NJP 4 se atiende llamado por nivel bajo de agua en la bomba se ajusta el  sensor por mala señal Blíster 9: se fabrica base para evitar caída de estuches en banda de salida de empaque."
+      "NJP 4 se atiende llamado por nivel bajo de agua en la bomba se ajusta el  sensor por mala señal"
     ],
-    "texto": "Buenas noches \nReporte de turno 2 \nSD4 \nBlíster 3 airomed suspenden el proceso \n\nCTL 4 alistamiento \n\nMT 1100 supreflux \n\nCTL2 Dolorsinfen \n\nEnvasadora3 cronofen montaje \n\nEnvasadora2 supreflux \n\nBosch Diclofenac \n\nBIN Acetaminofén \n\nNJP 2 mantenimiento \n\nNJP 1 congestex \n\nNJP 3 esomeprazol \n\nMS 235 flextril \n\nBlíster 9 Dimoflax termina lote \n\nMB 432 congestex \n \nIntegra Losartan \n\nBlíster 8 Beclazone\n\nMB EVO omeprazol \n\nR200 con desarrollo \n\nMarzio1 esomed \n\nHuttlin 600 flextril \n\nR 400 limpieza \n\nMarzio4 myosop\n\nHuttlin 400 multivitamínic \n\nRimed trimebutina \n\nFette 2020#2 acetaminofén \n\nFette 1010 oxaprozina \n\nFette 2020 #1 Dimoflax\n\nNota se realiza mantenimiento a NJP 2 se baja torreta se encuentran 2 ejes doblados de la estación 6 pendiente fabricar se baja base de magacin para llevar a embujar rosca se monta torreta se alinea estaciones dosificador y bloque de destape \n\nCTL4 se le da ajuste al  pistón del bloque dosificador por qué no entraba \n\nBlíster 3 se atiende llamado 3 veces por qué se bloquea la pantalla \n\nBosch se atiende llamado por reguero de cápsulas se alinean bloque rectificador y magacines \n\nNJP 4 se atiende llamado por nivel bajo de agua en la bomba se ajusta el  sensor por mala señal\nBlíster 9: se fabrica base para evitar caída de estuches en banda de salida de empaque."
+    "texto": "Buenas noches \nReporte de turno 2 \nSD4 \nBlíster 3 airomed suspenden el proceso \n\nCTL 4 alistamiento \n\nMT 1100 supreflux \n\nCTL2 Dolorsinfen \n\nEnvasadora3 cronofen montaje \n\nEnvasadora2 supreflux \n\nBosch Diclofenac \n\nBIN Acetaminofén \n\nNJP 2 mantenimiento \n\nNJP 1 congestex \n\nNJP 3 esomeprazol \n\nMS 235 flextril \n\nBlíster 9 Dimoflax termina lote \n\nMB 432 congestex \n \nIntegra Losartan \n\nBlíster 8 Beclazone\n\nMB EVO omeprazol \n\nR200 con desarrollo \n\nMarzio1 esomed \n\nHuttlin 600 flextril \n\nR 400 limpieza \n\nMarzio4 myosop\n\nHuttlin 400 multivitamínic \n\nRimed trimebutina \n\nFette 2020#2 acetaminofén \n\nFette 1010 oxaprozina \n\nFette 2020 #1 Dimoflax\n\nNota se realiza mantenimiento a NJP 2 se baja torreta se encuentran 2 ejes doblados de la estación 6 pendiente fabricar se baja base de magacin para llevar a embujar rosca se monta torreta se alinea estaciones dosificador y bloque de destape \n\nCTL4 se le da ajuste al  pistón del bloque dosificador por qué no entraba \n\nBlíster 3 se atiende llamado 3 veces por qué se bloquea la pantalla \n\nBosch se atiende llamado por reguero de cápsulas se alinean bloque rectificador y magacines \n\nNJP 4 se atiende llamado por nivel bajo de agua en la bomba se ajusta el  sensor por mala señal"
   },
   {
     "id": "rt-20260902-2014",
@@ -9996,7 +9976,7 @@ window.REPORTES_TURNO = [
       "NJP3: Se corrige fuga de aire comprimido en  piso técnico superior",
       "MB 451: se enderezó cangilones de la estuchadora."
     ],
-    "texto": "REPORTE DE TURNO\n      2026-09-03\n           sede 4\nCL3: Disponible \nCL4: Disponible\nStick Pack 4: Superflux,culmina\nBlíster 2: Fluconazol\n BLISTER Ferbin\n*Envasadora 3:*DISPONIBLE \nCL2: Dolorsin Fem\nEnvasadora 2:  Superflux \nBin: Nifidipino\nBosch: Diclofenac\nNJP1: Congestex\nNJP2: Disponible \nNJP3: Esomeprazol \nPilot lab: DISPONIBLE \nMB 432: Congestex \nBlíster #8: Beclazone \nSCHMUCKER: LImpieza\nBlíster 9: Dimoflax\nIntegra 320: Losartan \nR200: ácido acetilsalicilico \nMB 451: Cronofen\nMarzio 1:  Esomed\nHuttlin 600: FLEXTRIL\nR400: Dimoflax \nBombo 300: FERRIMED \nMarzio 4: Myosop\nBombo 300: Ferrimed\nHuttlin 400: falinefrina \nRimek:  Trimebutina + simeticona \nCB 550: Limpieza \nFette 1010: Oxaprozina \nFette 2020 2: Acetaminofén \nFette 2020 1: Dimoflax\nNOVEDADES:\nBLÍSTER 2: Se ajusta túnel de calefacción y parámetros de soplado para corregir mal formación de alveolos, equipo operativo.\nBLISTER 5: Se lleva a sede 2, base porta resistencias original del equipo bajada de blíster 9.\nR400: Se modifica protector para motor eléctrico, el mismo se encuentra en desarrollo.\nBLISTER 9: Se monta plancha porta resistencias (original) traída de sede 2 , se ajusta sellado, equipo listo para operar.\nBLISTER 3: Se corrige posición de palpador, equipo iniciará en turno de día.\nSe cambia cajas partidas,guarda motor y clavija en mal estado de los tanques de móviles del huttlin 400.\nPendiente corregir tamizadara está trabajando.\nPendiente corregir fugas de agua de área de utensilios y area de gelimed nose pudo realizar el trabajo debido que la planta de agua está bajo llave y no tenemos acceso a ella y ninguno de los supervisores en turno tienen la llave.\nNJP3: Se corrige fuga de aire comprimido en  piso técnico superior\nMB 451: se enderezó cangilones de la estuchadora."
+    "texto": "*REPORTE DE TURNO*\n      2026-09-03\n           sede 4\n*CL3:* Disponible \n*CL4:* Disponible\n*Stick Pack 4:* Superflux,culmina\n*Blíster 2:* Fluconazol\n *BLISTER* Ferbin\n**Envasadora* 3:*DISPONIBLE \n*CL2:* Dolorsin Fem\n*Envasadora 2:*  Superflux \n*Bin:* Nifidipino\n*Bosch:* Diclofenac\n*NJP1:* Congestex\n*NJP2:* Disponible \n*NJP3:* Esomeprazol \n*Pilot lab:* DISPONIBLE \n*MB 432:* Congestex \n*Blíster #8:* Beclazone \n*SCHMUCKER:* LImpieza\n*Blíster 9:* Dimoflax\n*Integra 320:* Losartan \n*R200:* ácido acetilsalicilico \n*MB 451:* Cronofen\n*Marzio 1:*  Esomed\n*Huttlin 600:* FLEXTRIL\n*R400:* Dimoflax \n*Bombo 300:* FERRIMED \n*Marzio 4:* Myosop\n*Bombo 300:* Ferrimed\n*Huttlin 400:* falinefrina \n*Rimek:*  Trimebutina + simeticona \n*CB 550:* Limpieza \n*Fette 1010:* Oxaprozina \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Dimoflax\n*NOVEDADES:*\nBLÍSTER 2: Se ajusta túnel de calefacción y parámetros de soplado para corregir mal formación de alveolos, equipo operativo.\nBLISTER 5: Se lleva a sede 2, base porta resistencias original del equipo bajada de blíster 9.\nR400: Se modifica protector para motor eléctrico, el mismo se encuentra en desarrollo.\nBLISTER 9: Se monta plancha porta resistencias (original) traída de sede 2 , se ajusta sellado, equipo listo para operar.\nBLISTER 3: Se corrige posición de palpador, equipo iniciará en turno de día.\nSe cambia cajas partidas,guarda motor y clavija en mal estado de los tanques de móviles del huttlin 400.\nPendiente corregir tamizadara está trabajando.\nPendiente corregir fugas de agua de área de utensilios y area de gelimed nose pudo realizar el trabajo debido que la planta de agua está bajo llave y no tenemos acceso a ella y ninguno de los supervisores en turno tienen la llave.\nNJP3: Se corrige fuga de aire comprimido en  piso técnico superior\nMB 451: se enderezó cangilones de la estuchadora."
   },
   {
     "id": "rt-20260903-2155",
@@ -10008,7 +9988,7 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-09-03",
     "equipos": [],
     "novedades": [
-      "DEL TURNO DE DIA SEDE 4",
+      "DEL TURNO DE DIA SEDE 4*",
       "Sede 4 sin fluido electrico desde las 8:45 hasta las 10:30",
       "Blíster 3 se atiende llamado por cadenilla del alimentador atascada se restablece queda ok también se realiza limpieza en los conectores de comunicación por falla de interrupción",
       "Se está realizando ajustes en los tanques auxiliares de 250lts ajuste de bornes prensaestopas están pendiente reemplazar llantas en mal estado. Se encontro un tanque con el motor pegado se desarma en taller y el motor está quemado está pendiente para re embobinar",
@@ -10020,9 +10000,9 @@ window.REPORTES_TURNO = [
       "Se realiza rearme de variador a bomba de recirculación ya que la misma estab alarmada.",
       "Blíster 2 Se cambian correas  , queda pendiente cambiar la correa del corte ya que solo teníamos 3 correas disponibles, se cogen los tiempos, queda pendiente reiniciar el encoder  y también se limpia tablero electrónico, se evidencia el tablero manchado , queda pendiente bajante",
       "* Se instala pulmón en el piso técnico para la integra",
-      "*  Se desmonta motor de agitador móvil por eje pegado, en el desmontaje se encuentran rodamientos dañados de referencia 6205 y el otro 6204 También se realiza revisión de sus bobinas y se encuentran abiertas Llantas de tanques 250lts en mal estado Cadenilla alimentador blíster 3"
+      "*  Se desmonta motor de agitador móvil por eje pegado, en el desmontaje se encuentran rodamientos dañados de referencia 6205 y el otro 6204 También se realiza revisión de sus bobinas y se encuentran abiertas"
     ],
-    "texto": "NOVEDADES DEL TURNO DE DIA SEDE 4\n\nSede 4 sin fluido electrico desde las 8:45 hasta las 10:30 \n\nBlíster 3 se atiende llamado por cadenilla del alimentador atascada se restablece queda ok también se realiza limpieza en los conectores de comunicación por falla de interrupción \n\nSe está realizando ajustes en los tanques auxiliares de 250lts ajuste de bornes prensaestopas están pendiente reemplazar llantas en mal estado.\nSe encontro un tanque con el motor pegado se desarma en taller y el motor está quemado está pendiente para re embobinar \n\nHuttiln 400 se atiende llamado porque la peristatica no actuaba se encontró variador en Manual  se restablece \n\nMarzio 1 se atiende llamado por mal corte se ajusta ángulo de cuchillas y se ajusta sistema de corrección \n\nFabricación de líquidos 2 con problema en pantalla de usuario y contraseña se crea contraseña nueva para usuario ' operador ' contraseña ' 1234'\nSe desmonta bomba perestaltica de sellado CL3 y se traslada a sede 2.\n\nSe realiza cambio de sello a punto de agua purificada de gb550. Y también se cambia bandas de arrastre del equipo \n\nSe atiende llamado en marzio 4 porque codificadora no lotea. La codificadora no sincronizaba con la pantalla lo que inhabilitaba el codificado, se desconecta y conecta nuevamente se borran alarmas y habilita codificado. \nVuelve a llamar problemas de paso y se ajusta sobre y fotocelda queda ok \n\nSe realiza rearme de variador a bomba de recirculación ya que la misma estab alarmada.\n\nBlíster 2 \nSe cambian correas  , queda pendiente cambiar la correa del corte ya que solo teníamos 3 correas disponibles, se cogen los tiempos, queda pendiente reiniciar el encoder  y también se limpia tablero electrónico, se evidencia el tablero manchado , queda pendiente bajante \n\n* Se instala pulmón en el piso técnico para la integra \n\n*  Se desmonta motor de agitador móvil por eje pegado, en el desmontaje se encuentran rodamientos dañados de referencia 6205 y el otro 6204\n También se realiza revisión de sus bobinas y se encuentran abiertas\nLlantas de tanques 250lts en mal estado\nCadenilla alimentador blíster 3"
+    "texto": "*NOVEDADES DEL TURNO DE DIA SEDE 4*\n\nSede 4 sin fluido electrico desde las 8:45 hasta las 10:30 \n\nBlíster 3 se atiende llamado por cadenilla del alimentador atascada se restablece queda ok también se realiza limpieza en los conectores de comunicación por falla de interrupción \n\nSe está realizando ajustes en los tanques auxiliares de 250lts ajuste de bornes prensaestopas están pendiente reemplazar llantas en mal estado.\nSe encontro un tanque con el motor pegado se desarma en taller y el motor está quemado está pendiente para re embobinar \n\nHuttiln 400 se atiende llamado porque la peristatica no actuaba se encontró variador en Manual  se restablece \n\nMarzio 1 se atiende llamado por mal corte se ajusta ángulo de cuchillas y se ajusta sistema de corrección \n\nFabricación de líquidos 2 con problema en pantalla de usuario y contraseña se crea contraseña nueva para usuario ' operador ' contraseña ' 1234'\nSe desmonta bomba perestaltica de sellado CL3 y se traslada a sede 2.\n\nSe realiza cambio de sello a punto de agua purificada de gb550. Y también se cambia bandas de arrastre del equipo \n\nSe atiende llamado en marzio 4 porque codificadora no lotea. La codificadora no sincronizaba con la pantalla lo que inhabilitaba el codificado, se desconecta y conecta nuevamente se borran alarmas y habilita codificado. \nVuelve a llamar problemas de paso y se ajusta sobre y fotocelda queda ok \n\nSe realiza rearme de variador a bomba de recirculación ya que la misma estab alarmada.\n\nBlíster 2 \nSe cambian correas  , queda pendiente cambiar la correa del corte ya que solo teníamos 3 correas disponibles, se cogen los tiempos, queda pendiente reiniciar el encoder  y también se limpia tablero electrónico, se evidencia el tablero manchado , queda pendiente bajante \n\n* Se instala pulmón en el piso técnico para la integra \n\n*  Se desmonta motor de agitador móvil por eje pegado, en el desmontaje se encuentran rodamientos dañados de referencia 6205 y el otro 6204\n También se realiza revisión de sus bobinas y se encuentran abiertas"
   },
   {
     "id": "rt-20260903-2212",
@@ -10276,7 +10256,7 @@ window.REPORTES_TURNO = [
       "Fette 2020-2 se atiende llamado porque cargador estaba haciendo contacto con la base giratoria del porta matrix, se le da altura a la base del cargador y queda el equipo operativo.",
       "Huttlin 600 se atiende llamado por pantalla del equipo apagada, se revisa en piso técnico y se encuentra breaker que alimenta un módulo de comunicación ethernet disparado, se restablece y queda pantalla operativa"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n20:00 a 8:00\nSOLIDOS\nBIN: Vitamina C\nBOSHC: Disponible \nNJP #2: Congestex \nNJP #1: limpieza \nNJP #3: nifedipino \nPILOT LAB: Diclofenaco \nSCMUKER: flextril\nBLISTER #9: Dimoflax \nMB 432: Disponible \nINTEGRA: Disponible \nBLISTER #8: Disponible \nMARCHESINI EVO: omeprazol \nR200: Disponible \nR400: limpieza\nMARZIO #1: esomed \nMARZIO #4: myosop\nCB 550: gelimed plus\nHUTTLIN 600: Disponible \nHUTTLIN 400: disponible \nRIMEK: Trimebutina+cimeticona\nFETTE 2020-2: acetaminofén\nFETTE 1010: osaproxina\nFETTE 2020-1: Trimebutina \n\nLÍQUIDO \nENVASADORA #2: acetaminofén jarabe\nENVASADORA #3: montaje cronofen jarabe\nCLIQUIDO #2: dolor sin fem\nCLIQUIDO #3: disponible \nCLIQUIDO #4: disponible \nMT 1100:  disponible \nBLISTER #2: disponible \nBLISTER #3: disponible\nMS235: se recibe llamado porque no abría por completo sistema de mordazas lado izquierdo por atascamiento, se baja y se lubrica pieza y se realiza prueba quedando operativa \n\nMarzio 1: se recibe llamado porque las mordazas horizontales cerraban, se encuentra tornillo suelto, se baja sistema de mordazas, se ajusta tornillo y queda el equipo operativo.\n\nChequeadora de peso envasado 3: se encuentra chequeadora de peso con falla en el inicio de sistemas, se realizan pruebas de apagado y encendido pero la pantalla queda en inicio y no da arranque el sistema (queda detenida)\n\nR400 se recibe llamado por equipo bloqueado por usuario (queda detenido por bloqueo del equipo)\n\nFette 2020-2 se atiende llamado porque cargador estaba haciendo contacto con la base giratoria del porta matrix, se le da altura a la base del cargador y queda el equipo operativo.\n\nHuttlin 600 se atiende llamado por pantalla del equipo apagada, se revisa en piso técnico y se encuentra breaker que alimenta un módulo de comunicación ethernet disparado, se restablece y queda pantalla operativa"
+    "texto": "REPORTE MAQUINAS TURNO #1\n20:00 a 8:00\nSOLIDOS\nBIN: Vitamina C\nBOSHC: Disponible \nNJP #2: Congestex \nNJP #1: limpieza \nNJP #3: nifedipino \nPILOT LAB: Diclofenaco \nSCMUKER: flextril\nBLISTER #9: Dimoflax \nMB 432: Disponible \nINTEGRA: Disponible \nBLISTER #8: Disponible \nMARCHESINI EVO: omeprazol \nR200: Disponible \nR400: limpieza\nMARZIO #1: esomed \nMARZIO #4: myosop\nCB 550: gelimed plus\nHUTTLIN 600: Disponible \nHUTTLIN 400: disponible \nRIMEK: Trimebutina+cimeticona\nFETTE 2020-2: acetaminofén\nFETTE 1010: osaproxina\nFETTE 2020-1: Trimebutina \n\nLÍQUIDO \nENVASADORA #2: acetaminofén jarabe\nENVASADORA #3: montaje cronofen jarabe\nCLIQUIDO #2: dolor sin fem\nCLIQUIDO #3: disponible \nCLIQUIDO #4: disponible \nMT 1100:  disponible \nBLISTER #2: disponible \nBLISTER #3: disponible \nMS235: se recibe llamado porque no abría por completo sistema de mordazas lado izquierdo por atascamiento, se baja y se lubrica pieza y se realiza prueba quedando operativa \n\nMarzio 1: se recibe llamado porque las mordazas horizontales cerraban, se encuentra tornillo suelto, se baja sistema de mordazas, se ajusta tornillo y queda el equipo operativo.\n\nChequeadora de peso envasado 3: se encuentra chequeadora de peso con falla en el inicio de sistemas, se realizan pruebas de apagado y encendido pero la pantalla queda en inicio y no da arranque el sistema (queda detenida)\n\nR400 se recibe llamado por equipo bloqueado por usuario (queda detenido por bloqueo del equipo)\n\nFette 2020-2 se atiende llamado porque cargador estaba haciendo contacto con la base giratoria del porta matrix, se le da altura a la base del cargador y queda el equipo operativo.\n\nHuttlin 600 se atiende llamado por pantalla del equipo apagada, se revisa en piso técnico y se encuentra breaker que alimenta un módulo de comunicación ethernet disparado, se restablece y queda pantalla operativa"
   },
   {
     "id": "rt-20260904-2146",
@@ -10288,17 +10268,17 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-09-04",
     "equipos": [],
     "novedades": [
-      "Marzio 4 se atiende llamado porque la mordaza inferior no realiza el sellado se revisa se encontró tornillo del sistema en mal estado se reemplaza y se cuadra equipo .",
-      "NJP2 llamado porque no aliena el disco con los pines se realiza el ajuste con las torres y el disco se entrega equipo",
-      "Integra llamado por alta temperatura de refrigeracion se revisa se encontró manguera tapada se realiza limpieza  del sistema",
+      "*Marzio 4* se atiende llamado porque la mordaza inferior no realiza el sellado se revisa se encontró tornillo del sistema en mal estado se reemplaza y se cuadra equipo .",
+      "*NJP2* llamado porque no aliena el disco con los pines se realiza el ajuste con las torres y el disco se entrega equipo",
+      "*Integra* llamado por alta temperatura de refrigeracion se revisa se encontró manguera tapada se realiza limpieza  del sistema",
       "* Planta de agua de líquidos se atiende llamado por baja presión de entrada de agua se le noticia a kicaps encontraron falla en una bomba y una válvula reductora se restablece presión de entrada",
       "* Se habilitan dos tomas de 110v  zona de empaque blíster 7 y uno en el área de marzio 4 se realizó conexión en techo por la ausencia de voltaje",
-      "Bosch Se realiza alineamiento de sline en encapsulado Bosch ya que la leva estaba un poco desfasada lo que ocasionaba una fracción y vibración en la máquina en la puesta en marcha.",
+      "*Bosch* Se realiza alineamiento de sline en encapsulado Bosch ya que la leva estaba un poco desfasada lo que ocasionaba una fracción y vibración en la máquina en la puesta en marcha.",
       "* Se realiza cambio de membrana y ajuste a regulador de toma de agua purificada en área de lavado de utensilios",
-      "SCHMUCKER Se le hace mantenimiento al brazo de  subida y bajada del sistema del bloque dosificacion , se limpia y se lubrica",
-      "NOTA Horno de comedor con Swich en mal estado no se pudo habilitar por atender llamados en planta se solicita cambiar Swich horno detenido"
+      "*SCHMUCKER* Se le hace mantenimiento al brazo de  subida y bajada del sistema del bloque dosificacion , se limpia y se lubrica",
+      "*NOTA* Horno de comedor con Swich en mal estado no se pudo habilitar por atender llamados en planta se solicita cambiar Swich horno detenido"
     ],
-    "texto": "Sede 4 -- turno (dia)\n2026/09/04\n\n             NOVEDADES\n\nMarzio 4\n se atiende llamado porque la mordaza inferior no realiza el sellado se revisa se encontró tornillo del sistema en mal estado se reemplaza y se cuadra equipo .\n\nNJP2\nllamado porque no aliena el disco con los pines se realiza el ajuste con las torres y el disco se entrega equipo \n\nIntegra\n llamado por alta temperatura de refrigeracion se revisa se encontró manguera tapada se realiza limpieza  del sistema \n\n* Planta de agua de líquidos se atiende llamado por baja presión de entrada de agua se le noticia a kicaps encontraron falla en una bomba y una válvula reductora se restablece presión de entrada \n\n* Se habilitan dos tomas de 110v  zona de empaque blíster 7 y uno en el área de marzio 4 se realizó conexión en techo por la ausencia de voltaje \n\nBosch\nSe realiza alineamiento de sline en encapsulado Bosch ya que la leva estaba un poco desfasada lo que ocasionaba una fracción y vibración en la máquina en la puesta en marcha.\n\n* Se realiza cambio de membrana y ajuste a regulador de toma de agua purificada en área de lavado de utensilios\n\nSCHMUCKER\nSe le hace mantenimiento al brazo de  subida y bajada del sistema del bloque dosificacion , se limpia y se lubrica\n\nNOTA \nHorno de comedor con Swich en mal estado no se pudo habilitar por atender llamados en planta se solicita cambiar Swich horno detenido"
+    "texto": "Sede 4 -- turno (dia)\n2026/09/04\n\n             *NOVEDADES*\n\n*Marzio 4*\n se atiende llamado porque la mordaza inferior no realiza el sellado se revisa se encontró tornillo del sistema en mal estado se reemplaza y se cuadra equipo .\n\n*NJP2*\nllamado porque no aliena el disco con los pines se realiza el ajuste con las torres y el disco se entrega equipo \n\n*Integra*\n llamado por alta temperatura de refrigeracion se revisa se encontró manguera tapada se realiza limpieza  del sistema \n\n* Planta de agua de líquidos se atiende llamado por baja presión de entrada de agua se le noticia a kicaps encontraron falla en una bomba y una válvula reductora se restablece presión de entrada \n\n* Se habilitan dos tomas de 110v  zona de empaque blíster 7 y uno en el área de marzio 4 se realizó conexión en techo por la ausencia de voltaje \n\n*Bosch*\nSe realiza alineamiento de sline en encapsulado Bosch ya que la leva estaba un poco desfasada lo que ocasionaba una fracción y vibración en la máquina en la puesta en marcha.\n\n* Se realiza cambio de membrana y ajuste a regulador de toma de agua purificada en área de lavado de utensilios\n\n*SCHMUCKER*\nSe le hace mantenimiento al brazo de  subida y bajada del sistema del bloque dosificacion , se limpia y se lubrica\n\n*NOTA* \nHorno de comedor con Swich en mal estado no se pudo habilitar por atender llamados en planta se solicita cambiar Swich horno detenido"
   },
   {
     "id": "rt-20260905-0759",
@@ -10441,7 +10421,7 @@ window.REPORTES_TURNO = [
       "CB 550 se recibe llamado por cuadre de peso y codificado borroso, se desarma plato de dosificación y se limpia, se arma nuevamente y se deja ok, se ajusta rollo de cinta del codificador, se coloca placa porta almohadilla a un costado del cabezal y se evidencia codificado en buen estado de lectura. se atiende llamado por filtración, se sube temperatura a mordazas horizontales y queda ok.",
       "TANQUE DE PREPARACIÓN DE SOLUCIONES H400 se recibe llamado porque el eje se salió, se baja motor reductor se limpia, se ajusta nuevamente el eje y se colocan puntos de soldadura a bisagra de tapa, se entrega y queda operativo."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: stamby \nNJP #1: limpieza \nNJP #3: nifedipino\nPILOT LAB: stamby \nSCMUKER: limpieza \nBLISTER #9: dimoflax\nMB 432: congestex\nINTEGRA: Losartan \nBLISTER #8: beclazone\nMARCHESINI EVO: omeprazol \nR200: inspección \nR400: dimoflax\nMARZIO #1: esomed stamby \nMARZIO #4: myosop stamby\nCB 550: gelimed\nHUTTLIN 600: flextril\nHUTTLIN 400: congestex \nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: oxaprozina\nFETTE 2020-1: Trimebutina \n\nLÍQUIDO \nENVASADORA #2: acetaminofén jarabe \nENVASADORA #3: stamby \nCLIQUIDO #2: dolorsin fen\nCLIQUIDO #3: stamby\nCLIQUIDO #4: stamby\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: ferbin\n________________\n                       NOVEDADES \nNJP #2 \nse cuadra reguero de cápsulas el dosificador quedaba corriendo se hace una pequeña corredera a la base del dosificador y se alinea bloque se ayuda a operador nuevo en cuadre de pesos y se le explica queda máquina trabajando\n\nMT 1100 \nse cambian resortes de cuchillas, encontraban partidos y se realiza limpieza a sistema de cuchillas.\n\nBLISTER #3 \nse atiende llamado porque se frena banda de salida, se verifica y se encuentra correa que se salió y dañó vincha del piñón, se voltea piñón, monta correa y queda equipo operativo.\n\nCB 550 \nse recibe llamado por cuadre de peso y codificado borroso, se desarma plato de dosificación y se limpia, se arma nuevamente y se deja ok, se ajusta rollo de cinta del codificador, se coloca placa porta almohadilla a un costado del cabezal y se evidencia codificado en buen estado de lectura.\nse atiende llamado por filtración, se sube temperatura a mordazas horizontales y queda ok.\n\nTANQUE DE PREPARACIÓN DE SOLUCIONES H400 \nse recibe llamado porque el eje se salió, se baja motor reductor se limpia, se ajusta nuevamente el eje y se colocan puntos de soldadura a bisagra de tapa, se entrega y queda operativo."
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: stamby \nNJP #1: limpieza \nNJP #3: nifedipino\nPILOT LAB: stamby \nSCMUKER: limpieza \nBLISTER #9: dimoflax\nMB 432: congestex\nINTEGRA: Losartan \nBLISTER #8: beclazone\nMARCHESINI EVO: omeprazol \nR200: inspección \nR400: dimoflax\nMARZIO #1: esomed stamby \nMARZIO #4: myosop stamby\nCB 550: gelimed\nHUTTLIN 600: flextril\nHUTTLIN 400: congestex \nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: oxaprozina\nFETTE 2020-1: Trimebutina \n\nLÍQUIDO \nENVASADORA #2: acetaminofén jarabe \nENVASADORA #3: stamby \nCLIQUIDO #2: dolorsin fen\nCLIQUIDO #3: stamby\nCLIQUIDO #4: stamby\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: ferbin\n______________________________________________\n                       NOVEDADES \nNJP #2 \nse cuadra reguero de cápsulas el dosificador quedaba corriendo se hace una pequeña corredera a la base del dosificador y se alinea bloque se ayuda a operador nuevo en cuadre de pesos y se le explica queda máquina trabajando\n\nMT 1100 \nse cambian resortes de cuchillas, encontraban partidos y se realiza limpieza a sistema de cuchillas.\n\nBLISTER #3 \nse atiende llamado porque se frena banda de salida, se verifica y se encuentra correa que se salió y dañó vincha del piñón, se voltea piñón, monta correa y queda equipo operativo.\n\nCB 550 \nse recibe llamado por cuadre de peso y codificado borroso, se desarma plato de dosificación y se limpia, se arma nuevamente y se deja ok, se ajusta rollo de cinta del codificador, se coloca placa porta almohadilla a un costado del cabezal y se evidencia codificado en buen estado de lectura.\nse atiende llamado por filtración, se sube temperatura a mordazas horizontales y queda ok.\n\nTANQUE DE PREPARACIÓN DE SOLUCIONES H400 \nse recibe llamado porque el eje se salió, se baja motor reductor se limpia, se ajusta nuevamente el eje y se colocan puntos de soldadura a bisagra de tapa, se entrega y queda operativo."
   },
   {
     "id": "rt-20260905-2037",
@@ -10590,12 +10570,12 @@ window.REPORTES_TURNO = [
       "CB 550: se recibe equipos con problemas de sellado horizontal se  se realiza ajustes de presión y se ajusta el sistema de sacar el aire del sobre se hacen pruebas se entregan a producción.",
       "BLISTER#2:Se recibe llamado porque el equipo presentaba los tiempos perdidos, se realiza ajustes se hacen pruebas se entregan a producción.",
       "Después otra llamada porque el equipo no estaba formando se cambia planchas de soplado,se calibra estación y se calibra túnel y se ajusta presión de formación se hacen pruebas se entregan a producción, luego un tercer Llamado por mal formación de alveolos, se entrega a turno entrante revisar.",
-      "OBS: Equipo presento problemas durante todo el turno.",
+      "*OBS:* Equipo presento problemas durante todo el turno.",
       "ESTUCHADORA EVO: LIamado porque salía alarma de cierre de solapa, se atasco el sistema,partió un resorte y  se perdio la sincronizacion se realiza ajustes se hacen varias pruebas de entrega a producción, equipo operativo.",
       "NJP2: LLamado por atascamiento de equipo, se desmonta estación de dosificado  y se encuentra desprendido distribuidor de mezcla,  doblando eyector de dosis en matriz, se verifican todos los tiempos me mecánicos y se cambia eyector, se calibra disco de bronce, equipo en montaje nuevamente.",
       "R400: Se acondiciona motor eléctrico a tanque preparación de soluciones, con apoyo de mecanizado fabricando flanche de sujesion, se arma tablero de control, se realizan pruebas de giro, consumo y velocidades, S/N, queda en taller para entregar a producción."
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 DIA\n EQUIPOS OPERATIVOS:     \nCL3: Disponible.\nCL4: Disponible.\nMT 1100: Superflux.\nBLÍSTER 2: Alermed.\n BLISTER 3: Ferbin.\n*ENVASADO 3: Disponible.\nCL2: Dolorsin Fem.\nENVASADORA 2: Cronofen.\nBIN BLENDER: Acetaminofén. \nBOSCH: Disponible \nNJP1: Ferrimed\nNJP2:\nVitamina C\nNJP3: Nifidipino.\nPILOT LAB: Disponible \nMB 432: Congestex \nBLISTER 8: Esomeprazol.\nSCHMUCKER: Flextril C\nBlíster 9: Dimoflax\nINTEGRA 320: Losartan \nR200: Disponible\nMB 451:  Ferrimed  \nMARZIO 1: Flumixol\nHUTTLIN 600: Flextril\nR400: Dimoflax \nBOMBO 300: Disponible \nMARZIO 4: *Myosop \nHuttlin400: Congestex \nRimek:  Trimebutina + simeticona \nCB 550: Gelimed\nFETTE 1010: Limpieza. \nFETTE 2020 2: Acetaminofén \nFETTE 2020 1: Dimoflax\nNOVEDADES:\n ETIQUETADORA ENVASE 2: se alinea cabezal de marcaje por etiqueta torcida, equipo operativo.\nCB 550: se recibe equipos con problemas de sellado horizontal se  se realiza ajustes de presión y se ajusta el sistema de sacar el aire del sobre se hacen pruebas se entregan a producción.\nBLISTER#2:Se recibe llamado porque el equipo presentaba los tiempos perdidos, se realiza ajustes se hacen pruebas se entregan a producción.\nDespués otra llamada porque el equipo no estaba formando se cambia planchas de soplado,se calibra estación y se calibra túnel y se ajusta presión de formación se hacen pruebas se entregan a producción, luego un tercer Llamado por mal formación de alveolos, se entrega a turno entrante revisar.\nOBS: Equipo presento problemas durante todo el turno.\nESTUCHADORA EVO: LIamado porque salía alarma de cierre de solapa, se atasco el sistema,partió un resorte y  se perdio la sincronizacion se realiza ajustes se hacen varias pruebas de entrega a producción, equipo operativo.\nNJP2: LLamado por atascamiento de equipo, se desmonta estación de dosificado  y se encuentra desprendido distribuidor de mezcla,  doblando eyector de dosis en matriz, se verifican todos los tiempos me mecánicos y se cambia eyector, se calibra disco de bronce, equipo en montaje nuevamente.\nR400: Se acondiciona motor eléctrico a tanque preparación de soluciones, con apoyo de mecanizado fabricando flanche de sujesion, se arma tablero de control, se realizan pruebas de giro, consumo y velocidades, S/N, queda en taller para entregar a producción."
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 DIA*\n *EQUIPOS OPERATIVOS:*     \n*CL3:* Disponible.\n*CL4:* Disponible.\n*MT 1100:* Superflux.\n*BLÍSTER 2:* Alermed.\n *BLISTER 3:* Ferbin.\n**ENVASADO 3:* Disponible.\n*CL2:* Dolorsin Fem.\n*ENVASADORA 2:* Cronofen.\n*BIN BLENDER:* Acetaminofén. \n*BOSCH:* Disponible \n*NJP1:* Ferrimed\n*NJP2:*\nVitamina C\n*NJP3:* Nifidipino.\n*PILOT LAB:* Disponible \n*MB 432:* Congestex \n*BLISTER 8:* Esomeprazol.\n*SCHMUCKER*: Flextril C\n*Blíster 9:* Dimoflax\n*INTEGRA 320:* Losartan \n*R200:* Disponible\n*MB 451:*  Ferrimed  \n*MARZIO 1:* Flumixol\n*HUTTLIN 600:* Flextril\n*R400:* Dimoflax \n*BOMBO 300:* Disponible \n*MARZIO 4:* *Myosop \n*Huttlin400:* Congestex \n*Rimek:*  Trimebutina + simeticona \n*CB 550:* Gelimed\n*FETTE 1010:* Limpieza. \n*FETTE 2020 2:* Acetaminofén \n*FETTE 2020 1:* Dimoflax\n*NOVEDADES:*\n ETIQUETADORA ENVASE 2: se alinea cabezal de marcaje por etiqueta torcida, equipo operativo.\nCB 550: se recibe equipos con problemas de sellado horizontal se  se realiza ajustes de presión y se ajusta el sistema de sacar el aire del sobre se hacen pruebas se entregan a producción.\nBLISTER#2:Se recibe llamado porque el equipo presentaba los tiempos perdidos, se realiza ajustes se hacen pruebas se entregan a producción.\nDespués otra llamada porque el equipo no estaba formando se cambia planchas de soplado,se calibra estación y se calibra túnel y se ajusta presión de formación se hacen pruebas se entregan a producción, luego un tercer Llamado por mal formación de alveolos, se entrega a turno entrante revisar.\n*OBS:* Equipo presento problemas durante todo el turno.\nESTUCHADORA EVO: LIamado porque salía alarma de cierre de solapa, se atasco el sistema,partió un resorte y  se perdio la sincronizacion se realiza ajustes se hacen varias pruebas de entrega a producción, equipo operativo.\nNJP2: LLamado por atascamiento de equipo, se desmonta estación de dosificado  y se encuentra desprendido distribuidor de mezcla,  doblando eyector de dosis en matriz, se verifican todos los tiempos me mecánicos y se cambia eyector, se calibra disco de bronce, equipo en montaje nuevamente.\nR400: Se acondiciona motor eléctrico a tanque preparación de soluciones, con apoyo de mecanizado fabricando flanche de sujesion, se arma tablero de control, se realizan pruebas de giro, consumo y velocidades, S/N, queda en taller para entregar a producción."
   },
   {
     "id": "rt-20260906-0839",
@@ -10767,17 +10747,18 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Blíster 3 se atiende llamado por ruido extraño en la banda de caída de blíster de desmonta banda se cambia prisionero de piñón se alinea banda con respecto a salida de empaque se realiza doble de bajante de cápsulas y se limpia banda",
-      "Cl4 se atiende llamado por racor partido de cilindro de la selladora se remplaza",
+      "*",
+      "*Blíster 3* se atiende llamado por ruido extraño en la banda de caída de blíster de desmonta banda se cambia prisionero de piñón se alinea banda con respecto a salida de empaque se realiza doble de bajante de cápsulas y se limpia banda",
+      "*Cl4* se atiende llamado por racor partido de cilindro de la selladora se remplaza",
       "* Falla en suministro de aire comprimido se apoya con kicaps queda ok",
-      "ESTUCHADORA EVO Estuchadora llamado porque el equipo se bloqueó se reinicia se evidencia fuga de aire comprimido en una electroválvula cerca al sistema de rechazo se corrige . después llamado porque no agarraba los estuches se evidencia que no lo tenía activo desde la pantalla . nos vuelve a llamar por cangilon de apilamiento de blíster partido , Se sueldan piezas de cangilón y se deja operativa, también se ajusta posición de robot mediante la pantalla por qué entregaba los blíster pegado al cangilon también se cuentra manguera de las ventosa que entregan el estuche suelta se cuadra y se deja operativa",
-      "Marzio 4 Primer llamado, fusil abierto en resistencia de mordaza vertical Segundo llamado, corto circuito entre mordaza vertical y orizontal Se cambian resistencia y anomalía en relé de mordaza vertical, le entraban 12v pero el contacto se encontraba pegado",
-      "Njp2 Cuadre de Estación de polvo, se alinea ya que los pines golpeaban",
-      "GB550 se atendió llamado por qué se salió una de las poleas de arrastre. Se corrige posición y fija con tornillo prisionero.",
-      "Blíster 2 Se recibe máquina con problemas de formación , se ajusta túnel , se ajusta PVC y amortiguación del sistema de soplado , se ajusta temperatura y se deja operativa, termina producto",
-      "NOTA No tenemos repuestos de cangilón, ref. 1M0T6080075 @"
+      "*ESTUCHADORA EVO* Estuchadora llamado porque el equipo se bloqueó se reinicia se evidencia fuga de aire comprimido en una electroválvula cerca al sistema de rechazo se corrige . después llamado porque no agarraba los estuches se evidencia que no lo tenía activo desde la pantalla . nos vuelve a llamar por cangilon de apilamiento de blíster partido , Se sueldan piezas de cangilón y se deja operativa, también se ajusta posición de robot mediante la pantalla por qué entregaba los blíster pegado al cangilon también se cuentra manguera de las ventosa que entregan el estuche suelta se cuadra y se deja operativa",
+      "*Marzio 4* Primer llamado, fusil abierto en resistencia de mordaza vertical Segundo llamado, corto circuito entre mordaza vertical y orizontal Se cambian resistencia y anomalía en relé de mordaza vertical, le entraban 12v pero el contacto se encontraba pegado",
+      "*Njp2* Cuadre de Estación de polvo, se alinea ya que los pines golpeaban",
+      "*GB550* se atendió llamado por qué se salió una de las poleas de arrastre. Se corrige posición y fija con tornillo prisionero.",
+      "*Blíster 2* Se recibe máquina con problemas de formación , se ajusta túnel , se ajusta PVC y amortiguación del sistema de soplado , se ajusta temperatura y se deja operativa, termina producto",
+      "*NOTA* No tenemos repuestos de cangilón, ref. 1M0T6080075 @"
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1 DIA\n EQUIPOS OPERATIVOS: \nCL2: Dolorsin fen   \nCL3: Disponible.\nCL4: Disponible.\nMT 1100: Superflux.\nBLÍSTER 2: Alermed.\n BLISTER 3: Ferbin.\n*ENVASADO 3: Disponible.\nENVASADORA 2: Cronofen.\n*BIN: Disponible. \nBOSCH: Disponible \nNJP1: Ferrimed\n*NJP2:*vitamina C\nNJP3: Nifidipino.\nPILOT LAB: Disponible \nMB 432: Congestex \n*BLISTER8:*Esomeprazol\nSCHMUCKER: Flextril C\nBlíster 9: Dimoflax\nINTEGRA 320: Losartan \nR200: Disponible\nMB 451:  Ferrimed  \nMARZIO 1: Flumixol\nHUTTLIN 600: Flextril\nR400: Dimoflax \nBOMBO 300: Disponible \n*MARZIO 4: disponible\nHuttlin400: Congestex \nRimek:  Trimebutina + simeticona \nCB 550: Gelimed\nFETTE 1010: Limpieza. \nFETTE 2020 2: Acetaminofén \nFETTE 2020 1: Dimoflax\n\n           Novedades:\n\nBlíster 3 \nse atiende llamado por ruido extraño en la banda de caída de blíster de desmonta banda se cambia prisionero de piñón se alinea banda con respecto a salida de empaque se realiza doble de bajante de cápsulas y se limpia banda\n\nCl4 \nse atiende llamado por racor partido de cilindro de la selladora se remplaza\n\n* Falla en suministro de aire comprimido se apoya con kicaps queda ok\n\nESTUCHADORA EVO \nEstuchadora llamado porque el equipo se bloqueó se reinicia se evidencia fuga de aire comprimido en una electroválvula cerca al sistema de rechazo se corrige . después llamado porque no agarraba los estuches se evidencia que no lo tenía activo desde la pantalla .\nnos vuelve a llamar por cangilon de apilamiento de blíster partido , Se sueldan piezas de cangilón y se deja operativa, también se ajusta posición de robot mediante la pantalla por qué entregaba los blíster pegado al cangilon también se cuentra manguera de las ventosa que entregan el estuche suelta se cuadra y se deja operativa \n\nMarzio 4 \nPrimer llamado, fusil abierto en resistencia de mordaza vertical \nSegundo llamado, corto circuito entre mordaza vertical y orizontal \nSe cambian resistencia y anomalía en relé de mordaza vertical, le entraban 12v pero el contacto se encontraba pegado\n\nNjp2\nCuadre de Estación de polvo, se alinea ya que los pines golpeaban\n\nGB550\nse atendió llamado por qué se salió una de las poleas de arrastre. Se corrige posición y fija con tornillo prisionero.\n\nBlíster 2\nSe recibe máquina con problemas de formación , se ajusta túnel , se ajusta PVC y amortiguación del sistema de soplado , se ajusta temperatura y se deja operativa, termina producto \n\nNOTA\nNo tenemos repuestos de cangilón, ref. 1M0T6080075 @"
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1 DIA*\n *EQUIPOS OPERATIVOS:* \nCL2: Dolorsin fen   \n*CL3:* Disponible.\n*CL4:* Disponible.\n*MT 1100:* Superflux.\n*BLÍSTER 2:* Alermed.\n *BLISTER 3:* Ferbin.\n**ENVASADO 3:* Disponible.\n*ENVASADORA 2:* Cronofen.\n*BIN: Disponible. \n*BOSCH:* Disponible \n*NJP1:* Ferrimed\n*NJP2:*vitamina C\n*NJP3:* Nifidipino.\n*PILOT LAB:* Disponible \n*MB 432:* Congestex \n*BLISTER8:*Esomeprazol\n*SCHMUCKER*: Flextril C\n*Blíster 9:* Dimoflax\n*INTEGRA 320:* Losartan \n*R200:* Disponible\n*MB 451:*  Ferrimed  \n*MARZIO 1:* Flumixol\n*HUTTLIN 600:* Flextril\n*R400:* Dimoflax \n*BOMBO 300:* Disponible \n*MARZIO 4: disponible\n*Huttlin400:* Congestex \n*Rimek:*  Trimebutina + simeticona \n*CB 550:* Gelimed\n*FETTE 1010:* Limpieza. \n*FETTE 2020 2:* Acetaminofén \n*FETTE 2020 1:* Dimoflax\n\n           *Novedades:*\n\n*Blíster 3* \nse atiende llamado por ruido extraño en la banda de caída de blíster de desmonta banda se cambia prisionero de piñón se alinea banda con respecto a salida de empaque se realiza doble de bajante de cápsulas y se limpia banda\n\n*Cl4* \nse atiende llamado por racor partido de cilindro de la selladora se remplaza\n\n* Falla en suministro de aire comprimido se apoya con kicaps queda ok\n\n*ESTUCHADORA EVO* \nEstuchadora llamado porque el equipo se bloqueó se reinicia se evidencia fuga de aire comprimido en una electroválvula cerca al sistema de rechazo se corrige . después llamado porque no agarraba los estuches se evidencia que no lo tenía activo desde la pantalla .\nnos vuelve a llamar por cangilon de apilamiento de blíster partido , Se sueldan piezas de cangilón y se deja operativa, también se ajusta posición de robot mediante la pantalla por qué entregaba los blíster pegado al cangilon también se cuentra manguera de las ventosa que entregan el estuche suelta se cuadra y se deja operativa \n\n*Marzio 4* \nPrimer llamado, fusil abierto en resistencia de mordaza vertical \nSegundo llamado, corto circuito entre mordaza vertical y orizontal \nSe cambian resistencia y anomalía en relé de mordaza vertical, le entraban 12v pero el contacto se encontraba pegado\n\n*Njp2*\nCuadre de Estación de polvo, se alinea ya que los pines golpeaban\n\n*GB550*\nse atendió llamado por qué se salió una de las poleas de arrastre. Se corrige posición y fija con tornillo prisionero.\n\n*Blíster 2*\nSe recibe máquina con problemas de formación , se ajusta túnel , se ajusta PVC y amortiguación del sistema de soplado , se ajusta temperatura y se deja operativa, termina producto \n\n*NOTA*\nNo tenemos repuestos de cangilón, ref. 1M0T6080075 @"
   },
   {
     "id": "rt-20260906-1955",
@@ -11059,9 +11040,9 @@ window.REPORTES_TURNO = [
       "BLÍSTER #8 se cuadra túnel de calefacción por qué estaba saliendo poca pestaña termina lote",
       "NJP #3 se restablece desempolvador debido a que no prendía, se encontró falso contacto en bloque de pulsador, queda equipo ok.",
       "LIQUIDO PREPARACIÓN se recibe llamado por fuga en bomba de recirculación, se revisa y se evidencia sello mecánico en mal estado, se baja bomba y se deja en taller para reparación.",
-      "ENVASADORA #3 se realiza acompañamiento al personal de sistemas para revisión de la chequeadora de peso, se deja equipo habilitado. Pailo: se instala flauta  de manguera de bomba peristaltica"
+      "ENVASADORA #3 se realiza acompañamiento al personal de sistemas para revisión de la chequeadora de peso, se deja equipo habilitado."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: vitamina c\nNJP #1: stamby\nNJP #3: omeprazol \nPILOT LAB: dimoflax\nSCMUKER: flextril c\nBLISTER #9: ácido acetilsalicilico\nMB 432: limpieza \nINTEGRA: stamby\nBLISTER #8: esomed\nMARCHESINI EVO: inspección \nR200: sitagliptina\nR400: ozaproxina\nMARZIO #1: stamby \nMARZIO #4: stamby\nCB 550: gelimed\nHUTTLIN 600: flextril\nHUTTLIN 400: nifedipino\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: etorimed\nFETTE 2020-1: losartan\n\nLÍQUIDO \nENVASADORA #2: stamby\nENVASADORA #3: ferbin jarabe \nCLIQUIDO #2: stamby\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: flectadol\nBLISTER #3: stamby\n_______________                          NOVEDADES\nPILOT LAB \n*se instala flauta  de manguera de bomba peristaltica.\n\n*Se fabrica mesa para tanque y bomba de área tecnica del pilot, queda pendiente plataforma para montaje.\n\nMARZIO #1\nSe cambia buje de  actuador del dosificador\n\nNJP #2 \nse apoya en cuadre de pesos\n\nSOLIDO MEZCLA HUMEDA\nMezclador de 300k se pule parte inferior que se había rallado con la punta del aspa y se arma rejilla de esa misma área que estaba desarmanda \n\nBLÍSTER #8 \nse cuadra túnel de calefacción por qué estaba saliendo poca pestaña termina lote\n\nNJP #3\nse restablece desempolvador debido a que no prendía, se encontró falso contacto en bloque de pulsador, queda equipo ok.\n\nLIQUIDO PREPARACIÓN \nse recibe llamado por fuga en bomba de recirculación, se revisa y se evidencia sello mecánico en mal estado, se baja bomba y se deja en taller para reparación.\n\nENVASADORA #3\nse realiza acompañamiento al personal de sistemas para revisión de la chequeadora de peso, se deja equipo habilitado.\nPailo: se instala flauta  de manguera de bomba peristaltica"
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: vitamina c\nNJP #1: stamby\nNJP #3: omeprazol \nPILOT LAB: dimoflax\nSCMUKER: flextril c\nBLISTER #9: ácido acetilsalicilico\nMB 432: limpieza \nINTEGRA: stamby\nBLISTER #8: esomed\nMARCHESINI EVO: inspección \nR200: sitagliptina\nR400: ozaproxina\nMARZIO #1: stamby \nMARZIO #4: stamby\nCB 550: gelimed\nHUTTLIN 600: flextril\nHUTTLIN 400: nifedipino\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: etorimed\nFETTE 2020-1: losartan\n\nLÍQUIDO \nENVASADORA #2: stamby\nENVASADORA #3: ferbin jarabe \nCLIQUIDO #2: stamby\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: flectadol\nBLISTER #3: stamby\n_____________________________________________                          NOVEDADES\nPILOT LAB \n*se instala flauta  de manguera de bomba peristaltica.\n\n*Se fabrica mesa para tanque y bomba de área tecnica del pilot, queda pendiente plataforma para montaje.\n\nMARZIO #1\nSe cambia buje de  actuador del dosificador\n\nNJP #2 \nse apoya en cuadre de pesos\n\nSOLIDO MEZCLA HUMEDA\nMezclador de 300k se pule parte inferior que se había rallado con la punta del aspa y se arma rejilla de esa misma área que estaba desarmanda \n\nBLÍSTER #8 \nse cuadra túnel de calefacción por qué estaba saliendo poca pestaña termina lote\n\nNJP #3\nse restablece desempolvador debido a que no prendía, se encontró falso contacto en bloque de pulsador, queda equipo ok.\n\nLIQUIDO PREPARACIÓN \nse recibe llamado por fuga en bomba de recirculación, se revisa y se evidencia sello mecánico en mal estado, se baja bomba y se deja en taller para reparación.\n\nENVASADORA #3\nse realiza acompañamiento al personal de sistemas para revisión de la chequeadora de peso, se deja equipo habilitado."
   },
   {
     "id": "rt-20260908-0749",
@@ -11212,7 +11193,7 @@ window.REPORTES_TURNO = [
       "Marzio #1: flumixol llamado por lote borroso se realizan ajustes ok.despues otro llamado por correa en mal estado se cambia se hacen pruebas ok. ( B39).",
       "ENVASADO 3: Falla de comunicación,se desconecta y conectan nuevamente todos los cables de red quedando operativo."
     ],
-    "texto": "REPORTE DE TURNO \n GRUPO 1 NOCHE \n SEDE 4 \n- CL3: ácido valproico \n- CL4: Disponible \n- MT 1100: Superflux\n- BLÍSTER 5: Disponible \n- BLÍSTER 3: Disponible \n- ENVASADO 3: Ferbin jarabe \n- CL2: Disponible \n- ENVASADO 2: Disponible \n- BIN BLENDER: Disponible \n- BOSCH: Disponible\n- NJP1: Ferrimed\n- NJP2: Vitamina C\n- NJP3: OMEPRAZOL 20mg\n- PILOT LAB: DIMOFLAX \n- MB 432: Disponible \n- BLÍSTER 8: Esomeprazol \n- SCHMUCKER: Flextril C\n- Blíster 9: ASA\n- INTEGRA 320: limpieza\n- R200: Colestox\n- MB 451: Esomeprazol \n- MARZIO 1: Flumixol\n- HUTTLIN 600: Limpieza \n- R400: Oxaproxina \n- BOMBO 300: Disponible\n- MARZIO 4: Area sucia.\n- Huttlin 400: Nifedipino \n- Rimek:  Trimebutina + Simeticona\n- FETTE 1010: Disponible \n- FETTE 2020 2: Acetaminofén\n- FETTE 2020 1: Losartan 100mg\n- CB 550: Gelimed 10mg\nNOVEDADES:\nSCHMUCKER: Se rectifica sufridera y se cambian resortes, equipo operativo.\nTAMIZADORA: Se corrige conectores de bobina en motor, falta montarla.\nDIFUSOR: Se desarma equipo, para revisar sello mecánico, el mismo es requerido.\nINTEGRA 320: LLamado por alarma de térmico en bomba de vacío, paletas de grafito partidas, se reemplaza y se entrega equipo a producción.\nCB550: Se corrige sellado lateral, equipo operativo.\nBLÍSTER 9: Se cambian resortes y pines, plancha de formación, equipo operativo.\nBlíster #9: llamado por problemas que estaba quemando de un lado, y una marca en el PVC, se cambia plancha de soplado, guia después de formación se realiza ajustes de temperaturas y se correa guia larga se hacen pruebas ok. Termina producto pasa  limpieza y montaje de dilox.\nMarzio #1: flumixol llamado por lote borroso se realizan ajustes ok.despues otro llamado por correa en mal estado se cambia se hacen pruebas ok. ( B39).\nENVASADO 3: Falla de comunicación,se desconecta y conectan nuevamente todos los cables de red quedando operativo."
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO* *1* *NOCHE* \n *SEDE* *4* \n- *CL3:* ácido valproico \n- *CL4:* Disponible \n- *MT 1100:* Superflux\n- *BLÍSTER 5:* Disponible \n- *BLÍSTER 3:* Disponible \n- *ENVASADO 3:* Ferbin jarabe \n- *CL2:* Disponible \n- *ENVASADO 2:* Disponible \n- *BIN BLENDER:* Disponible \n- *BOSCH:* Disponible\n- *NJP1:* Ferrimed\n- *NJP2:* Vitamina C\n- *NJP3:* OMEPRAZOL 20mg\n- *PILOT LAB:* DIMOFLAX \n- *MB 432:* Disponible \n- *BLÍSTER 8:* Esomeprazol \n- *SCHMUCKER:* Flextril C\n- *Blíster 9:* ASA\n- *INTEGRA 320:* limpieza\n- *R200:* Colestox\n- *MB 451:* Esomeprazol \n- *MARZIO 1:* Flumixol\n- *HUTTLIN 600:* Limpieza \n- *R400:* Oxaproxina \n- *BOMBO 300:* Disponible\n- *MARZIO 4:* Area sucia.\n- *Huttlin 400:* Nifedipino \n- *Rimek:*  Trimebutina + Simeticona\n- *FETTE 1010:* Disponible \n- *FETTE 2020 2:* Acetaminofén\n- *FETTE 2020 1:* Losartan 100mg\n- *CB 550:* Gelimed 10mg\n*NOVEDADES:*\nSCHMUCKER: Se rectifica sufridera y se cambian resortes, equipo operativo.\nTAMIZADORA: Se corrige conectores de bobina en motor, falta montarla.\nDIFUSOR: Se desarma equipo, para revisar sello mecánico, el mismo es requerido.\nINTEGRA 320: LLamado por alarma de térmico en bomba de vacío, paletas de grafito partidas, se reemplaza y se entrega equipo a producción.\nCB550: Se corrige sellado lateral, equipo operativo.\nBLÍSTER 9: Se cambian resortes y pines, plancha de formación, equipo operativo.\nBlíster #9: llamado por problemas que estaba quemando de un lado, y una marca en el PVC, se cambia plancha de soplado, guia después de formación se realiza ajustes de temperaturas y se correa guia larga se hacen pruebas ok. Termina producto pasa  limpieza y montaje de dilox.\nMarzio #1: flumixol llamado por lote borroso se realizan ajustes ok.despues otro llamado por correa en mal estado se cambia se hacen pruebas ok. ( B39).\nENVASADO 3: Falla de comunicación,se desconecta y conectan nuevamente todos los cables de red quedando operativo."
   },
   {
     "id": "rt-20260908-0913",
@@ -11669,18 +11650,19 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "NJP3 Se realiza ajuste a sistema de destape de NJP3 mejorando así el reguero constante en múltiples estaciones.",
-      "Chequeadora se apoya en cuadre y parametrizar equipo por problemas con los rechazos de frascos.",
-      "Integra se recibe equipo con problemas de toma de blíster se prueba primero cambiando las ventosas pero el problema seguía se toma tiempo de brazos se ajustan cadenas ya que se evidencia muy destensionadas se realiza prueba y se entrega equipo",
+      "*NJP3* Se realiza ajuste a sistema de destape de NJP3 mejorando así el reguero constante en múltiples estaciones.",
+      "*Chequeadora* se apoya en cuadre y parametrizar equipo por problemas con los rechazos de frascos.",
+      "*Integra* se recibe equipo con problemas de toma de blíster se prueba primero cambiando las ventosas pero el problema seguía se toma tiempo de brazos se ajustan cadenas ya que se evidencia muy destensionadas se realiza prueba y se entrega equipo",
       "* Se reinician tablero de preparación de soluciones de huttiln 600",
-      "ESTUCHADORA EVO * Se atiende llamado por problemas con aire comprimido *  Se habilita sistema de colocación de blíster faltante de blisteado hacia estuchadora",
-      "Blíster 9 Se atiende llamado problema de paso , se revisa máquina y no se encuentra nada fuera de los parámetros eléctricamente y mecánicamente, solo era cuadre del equipo , se ajusta lote y se deja cuadre en vacío se deja para probar en línea con producto",
-      "Blíster3 Se atiende llamado por problemas en troquel se limpia se ajusta y alinea queda operativo",
-      "Smucker se cambian tornillos de planchas viejas que se encuentra dañados",
-      "Centro líquido 4encapsulado es: se lubricas piñones ejes y se limpia máquina.",
-      "CB550 Se atiende llamado por codificadora mal programada se ajusta y se deja operativa Se realiza cambio de bomba Fabricación de líquidos dos a a trasvase 2 Se ajustan visagras y se cambia puerta de huttlin 600 No sé pudo instalar bomba que tenemos en stand by en taller por falta de accesorios Se instalan nuevamente visagras caída en área de materia prima"
+      "*ESTUCHADORA EVO* * Se atiende llamado por problemas con aire comprimido *  Se habilita sistema de colocación de blíster faltante de blisteado hacia estuchadora",
+      "*Blíster 9* Se atiende llamado problema de paso , se revisa máquina y no se encuentra nada fuera de los parámetros eléctricamente y mecánicamente, solo era cuadre del equipo , se ajusta lote y se deja cuadre en vacío se deja para probar en línea con producto",
+      "*Blíster3* Se atiende llamado por problemas en troquel se limpia se ajusta y alinea queda operativo",
+      "*Smucker* se cambian tornillos de planchas viejas que se encuentra dañados",
+      "*Centro líquido 4encapsulado* es: se lubricas piñones ejes y se limpia máquina.",
+      "*CB550* Se atiende llamado por codificadora mal programada se ajusta y se deja operativa",
+      "No sé pudo instalar bomba que tenemos en stand by en taller por falta de accesorios"
     ],
-    "texto": "REPORTE DE TURNO\n2026-09-09\nsede 4\n\nCL3: Disponible\nCL4: Ácido valproico\nStick Pack 4: Disponible\nBlíster 2: Disponible\nBlíster 3: Dolorsin fem\nEnvasadora 3: femoxil\nCL2: Dolorsin fem\nEnvasadora 2: Disponible\nBin: gelimed \nBosch: Disponible\nNJP1: Multivitamínico\nNJP2: disponible \nNJP3: omeprazol\nPilot lab: Limpieza\nMB 432: Funex\nBlíster DM: Disponibles \nSchmucker: Flextril C\nBlíster 9: Dimoflax\nIntegra 320: Prazed\nR200: Colestox\nMB 451: Omeprazol\nMarzio 1: Disponible\nHuttlin 600: Disponible\nR400: Losartan\nMarzio 4: Cogestex\nHuttlin 400: Nifedipinoa\nRimek: Trimebutina + simeticona\nCB 550: gelimed\nFette 1010: Disponible\nFette 2020 2: Acetaminofén\nFette 2020 1: Losartan\n\nNIVEDADES:\nNJP3\nSe realiza ajuste a sistema de destape de NJP3 mejorando así el reguero constante en múltiples estaciones.\n\n Chequeadora\n se apoya en cuadre y parametrizar equipo por problemas con los rechazos de frascos.\n\nIntegra\nse recibe equipo con problemas de toma de blíster se prueba primero cambiando las ventosas pero el problema seguía se toma tiempo de brazos se ajustan cadenas ya que se evidencia muy destensionadas se realiza prueba y se entrega equipo \n\n* Se reinician tablero de preparación de soluciones de huttiln 600\n\nESTUCHADORA EVO\n* Se atiende llamado por problemas con aire comprimido \n*  Se habilita sistema de colocación de blíster faltante de blisteado hacia estuchadora \n\nBlíster 9\nSe atiende llamado problema de paso , se revisa máquina y no se encuentra nada fuera de los parámetros eléctricamente y mecánicamente, solo era cuadre del equipo , se ajusta lote y se deja cuadre en vacío se deja para probar en línea con producto \n\nBlíster3 \nSe atiende llamado por problemas en troquel se limpia se ajusta y alinea queda operativo \n\nSmucker\nse cambian tornillos de planchas viejas que se encuentra dañados\n\nCentro líquido 4encapsulado es: se lubricas piñones ejes y se limpia máquina.\n\nCB550\nSe atiende llamado por codificadora mal programada se ajusta y se deja operativa\nSe realiza cambio de bomba Fabricación de líquidos dos a a trasvase 2\nSe ajustan visagras y se cambia puerta de huttlin 600\nNo sé pudo instalar bomba que tenemos en stand by en taller por falta de accesorios\nSe instalan nuevamente visagras caída en área de materia prima"
+    "texto": "REPORTE DE TURNO\n2026-09-09\nsede 4\n\nCL3: Disponible\nCL4: Ácido valproico\nStick Pack 4: Disponible\nBlíster 2: Disponible\nBlíster 3: Dolorsin fem\nEnvasadora 3: femoxil\nCL2: Dolorsin fem\nEnvasadora 2: Disponible\nBin: gelimed \nBosch: Disponible\nNJP1: Multivitamínico\nNJP2: disponible \nNJP3: omeprazol\nPilot lab: Limpieza\nMB 432: Funex\nBlíster DM: Disponibles \nSchmucker: Flextril C\nBlíster 9: Dimoflax\nIntegra 320: Prazed\nR200: Colestox\nMB 451: Omeprazol\nMarzio 1: Disponible\nHuttlin 600: Disponible\nR400: Losartan\nMarzio 4: Cogestex\nHuttlin 400: Nifedipinoa\nRimek: Trimebutina + simeticona\nCB 550: gelimed\nFette 1010: Disponible\nFette 2020 2: Acetaminofén\nFette 2020 1: Losartan\n\nNIVEDADES:\n*NJP3*\nSe realiza ajuste a sistema de destape de NJP3 mejorando así el reguero constante en múltiples estaciones.\n\n *Chequeadora*\n se apoya en cuadre y parametrizar equipo por problemas con los rechazos de frascos.\n\n*Integra*\nse recibe equipo con problemas de toma de blíster se prueba primero cambiando las ventosas pero el problema seguía se toma tiempo de brazos se ajustan cadenas ya que se evidencia muy destensionadas se realiza prueba y se entrega equipo \n\n* Se reinician tablero de preparación de soluciones de huttiln 600\n\n*ESTUCHADORA EVO*\n* Se atiende llamado por problemas con aire comprimido \n*  Se habilita sistema de colocación de blíster faltante de blisteado hacia estuchadora \n\n*Blíster 9*\nSe atiende llamado problema de paso , se revisa máquina y no se encuentra nada fuera de los parámetros eléctricamente y mecánicamente, solo era cuadre del equipo , se ajusta lote y se deja cuadre en vacío se deja para probar en línea con producto \n\n*Blíster3* \nSe atiende llamado por problemas en troquel se limpia se ajusta y alinea queda operativo \n\n*Smucker*\nse cambian tornillos de planchas viejas que se encuentra dañados\n\n*Centro líquido 4encapsulado* es: se lubricas piñones ejes y se limpia máquina.\n\n*CB550*\nSe atiende llamado por codificadora mal programada se ajusta y se deja operativa\n\n\n\n\n\nNo sé pudo instalar bomba que tenemos en stand by en taller por falta de accesorios"
   },
   {
     "id": "rt-20260910-0753",
@@ -11981,7 +11963,7 @@ window.REPORTES_TURNO = [
       "30min",
       "NJP2: se recibe llamado en equipo porque los tornillos de sujeción de la guarda de estación de polvo se encuentran totalmente sin rosca. Pendiente desmontar base del disco de bronce enbujar y nuevamente llevar a rosca m6. 3h"
     ],
-    "texto": "SEDE 4. TURNO   (DIA )\n2026/08/10\n\nBlíster 3 dolorsin fem (termina lote)\nCl4 ácido valproico\nEnvasado 3 cronofen gotas \nCl 3  dolorsin fem\nEnvasado 2 supreflux\nBin myosop\nBosch Diclofenac \nNjp2 vitamina A \nNjp1 ferrimed \nNjp3 omeprazol \nMs235 flextril \nBLISTER 9 Dimoflax \nMB432 DISPONIBLE \nINTEGRA DISPONIBLE \nBLISTER 8 DISPONIBLE \nBLISTEADORA EVO OMEPRAZOL \nMARZIO 1 FLUMIXOL \nHUTTLIN 600 NIFEDIPINO \nMARZIO 4 CONGEXTES \nHUTTLIN 4O0 NIFEDIPINO \nRIMEX SIMETICOMA+ \nFETTE 1010 FEXOFENADINA \nFETTE 2020/2 ACETAMINOFÉN \nFETTE 2020/1  LOSALTAN\n\n                             Novedades \n\n-, Se continua con identificación de puntos de conexión Tablero de distribución  regulado, circuitos 15 y 18 (TDR CTO 15 y 18) y se realiza inspección para instalación de puntos de conexión tomacorrientes 3F + PE 220VAC 3 ~ para cuarto operador Mezcladora y R 400  Se tomaron listado de materiales y queda pendiente instalación por otras novedades en planta\n\n- Se revisa puerta controlsa de Almacén la cual presentaba bloqueo y no funcionaba correctamente, se encuentra desajuste en paro de emergencia  se ajusta y se programa. equipo  queda funcional.\n- Se cambia válvula de cierre tubería de agua proveniente de la bomba de agua pasillo piso técnico en compañía del compañero\n\nSe ajusta puerta controlsa de centro líquidos 2 se encontró programado hombre presente se pasa automático \n\nSe trae desenpolvador de fette 2020-1 para mantenimiento se cambian 2 rodamientos 6204\n\nSe recibe filomatic de la fette 1010 con problemas de atascamiento se cambian 4 rodamientos se arma se lubrica y se entrega\n- Sensor en envasado dos, se revisa sensor de tanque de producto, marca como si estuviera lleno pero es por falta de calibración.\n\n- válvula de dosificación presentaba rosca maltratada y no enroscaba sobre su base, se rectifica filamento para poder ajustarla de la rosca \n\n- se corrige fuga en manómetro de envasado 3\n\nFETTE 2020-2: se atiende llamado por alarma de no comunicación en máquina se revisa tablero y se evidencia brakers disparado. Activa nuevamente la máquina pide llevarse a puntos de referencia. Se ajusta y entrega equipo operativo.\n45min \n\nCL4: se atiende llamado por alarma de servo motor inactivo, el uno de los motores de los ajustadores tropezó con la termocupla lo cual ocasionó el disparo del brakers en tablero principal del equipo se habilita y queda operativa. \n30min \n\nNJP2: se recibe llamado en equipo porque los tornillos de sujeción de la guarda de estación de polvo se encuentran totalmente sin rosca. Pendiente desmontar base del disco de bronce enbujar y nuevamente llevar a rosca m6. 3h"
+    "texto": "SEDE 4. TURNO   (DIA )\n2026/08/10\n\nBlíster 3 dolorsin fem (termina lote)\nCl4 ácido valproico\nEnvasado 3 cronofen gotas \nCl 3  dolorsin fem\nEnvasado 2 supreflux\nBin myosop\nBosch Diclofenac \nNjp2 vitamina A \nNjp1 ferrimed \nNjp3 omeprazol \nMs235 flextril \n*BLISTER 9* Dimoflax \n*MB432* DISPONIBLE \n*INTEGRA* DISPONIBLE \n*BLISTER 8* DISPONIBLE \n*BLISTEADORA EVO* OMEPRAZOL \n*MARZIO 1* FLUMIXOL \n*HUTTLIN 600* NIFEDIPINO \n*MARZIO 4* CONGEXTES \n*HUTTLIN 4O0* NIFEDIPINO \n*RIMEX* SIMETICOMA+ \nFETTE 1010 FEXOFENADINA \nFETTE 2020/2 ACETAMINOFÉN \nFETTE 2020/1  LOSALTAN\n\n                             Novedades \n\n-, Se continua con identificación de puntos de conexión Tablero de distribución  regulado, circuitos 15 y 18 (TDR CTO 15 y 18) y se realiza inspección para instalación de puntos de conexión tomacorrientes 3F + PE 220VAC 3 ~ para cuarto operador Mezcladora y R 400  Se tomaron listado de materiales y queda pendiente instalación por otras novedades en planta\n\n- Se revisa puerta controlsa de Almacén la cual presentaba bloqueo y no funcionaba correctamente, se encuentra desajuste en paro de emergencia  se ajusta y se programa. equipo  queda funcional.\n- Se cambia válvula de cierre tubería de agua proveniente de la bomba de agua pasillo piso técnico en compañía del compañero\n\nSe ajusta puerta controlsa de centro líquidos 2 se encontró programado hombre presente se pasa automático \n\nSe trae desenpolvador de fette 2020-1 para mantenimiento se cambian 2 rodamientos 6204\n\nSe recibe filomatic de la fette 1010 con problemas de atascamiento se cambian 4 rodamientos se arma se lubrica y se entrega\n- Sensor en envasado dos, se revisa sensor de tanque de producto, marca como si estuviera lleno pero es por falta de calibración.\n\n- válvula de dosificación presentaba rosca maltratada y no enroscaba sobre su base, se rectifica filamento para poder ajustarla de la rosca \n\n- se corrige fuga en manómetro de envasado 3\n\nFETTE 2020-2: se atiende llamado por alarma de no comunicación en máquina se revisa tablero y se evidencia brakers disparado. Activa nuevamente la máquina pide llevarse a puntos de referencia. Se ajusta y entrega equipo operativo.\n45min \n\nCL4: se atiende llamado por alarma de servo motor inactivo, el uno de los motores de los ajustadores tropezó con la termocupla lo cual ocasionó el disparo del brakers en tablero principal del equipo se habilita y queda operativa. \n30min \n\nNJP2: se recibe llamado en equipo porque los tornillos de sujeción de la guarda de estación de polvo se encuentran totalmente sin rosca. Pendiente desmontar base del disco de bronce enbujar y nuevamente llevar a rosca m6. 3h"
   },
   {
     "id": "rt-20260910-2145",
@@ -12167,7 +12149,7 @@ window.REPORTES_TURNO = [
       "Blíster 5 se atiende llamado por qué necesitaban limpiar la plancha de sellado y no podían soltar los tornillos se parten sacándolos se lleva a taller y se extraen queda ok",
       "NJP 2 se atiende llamado por que no podían cuadrar los pesos se bajan eyectores  para revisar si tenían los resortes  partidos se encuentra bien y se ayuda a operador en cuadre queda ok"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: vitamina A\nNJP #1: ferrimed\nNJP #3: omeprazol \nPILOT LAB: stamby \nSCMUKER: flextril c \nBLISTER #9: dimoflax\nMB 432: nifedipino \nINTEGRA: stamby\nBLISTER #8: esomeprazol\nMARCHESINI EVO: omeprazol \nR200: inspección \nR400: dimoflax\nMARZIO #1: flumixol\nMARZIO #4: congestex\nCB 550: gelimed\nHUTTLIN 600: nifedipino\nHUTTLIN 400: nifedipino \nRIMEK: simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: fexofenadina\nFETTE 2020-1: Losartan \n\nLÍQUIDO \nENVASADORA #2: supreflux \nENVASADORA #3: cronofen gotas \nCLIQUIDO #2: dolorsin fen\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico \nMT 1100: stamby\nBLISTER #2: stamby\nBLISTER #3: stamby\n________________\n                       NOVEDADES\nMS235: Se atiende llamado por banda detenida, se encuentra tornillo desajustado, se ajusta y queda la banda operativa\nNJP #3\nse recibe llamado porque no aspiraba las cápsulas de rechazo, se revisa sistema de aspiración y se observa aspiradora llena de cápsulas y polvo, se realiza recolección de cápsulas y limpieza de filtro, se restablece aspiración y se deja máquina operativa.\nBlíster 3 se atiende llamado por qué se la banda grande no rodaba se encuentra atascada queda ok\n\nBlíster 5 se atiende llamado por qué necesitaban limpiar la plancha de sellado y no podían soltar los tornillos se parten sacándolos se lleva a taller y se extraen queda ok \n\nNJP 2 se atiende llamado por que no podían cuadrar los pesos se bajan eyectores  para revisar si tenían los resortes  partidos se encuentra bien y se ayuda a operador en cuadre queda ok"
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: vitamina A\nNJP #1: ferrimed\nNJP #3: omeprazol \nPILOT LAB: stamby \nSCMUKER: flextril c \nBLISTER #9: dimoflax\nMB 432: nifedipino \nINTEGRA: stamby\nBLISTER #8: esomeprazol\nMARCHESINI EVO: omeprazol \nR200: inspección \nR400: dimoflax\nMARZIO #1: flumixol\nMARZIO #4: congestex\nCB 550: gelimed\nHUTTLIN 600: nifedipino\nHUTTLIN 400: nifedipino \nRIMEK: simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: fexofenadina\nFETTE 2020-1: Losartan \n\nLÍQUIDO \nENVASADORA #2: supreflux \nENVASADORA #3: cronofen gotas \nCLIQUIDO #2: dolorsin fen\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico \nMT 1100: stamby\nBLISTER #2: stamby\nBLISTER #3: stamby\n______________________________________________\n                       NOVEDADES\nMS235: Se atiende llamado por banda detenida, se encuentra tornillo desajustado, se ajusta y queda la banda operativa\nNJP #3\nse recibe llamado porque no aspiraba las cápsulas de rechazo, se revisa sistema de aspiración y se observa aspiradora llena de cápsulas y polvo, se realiza recolección de cápsulas y limpieza de filtro, se restablece aspiración y se deja máquina operativa.\nBlíster 3 se atiende llamado por qué se la banda grande no rodaba se encuentra atascada queda ok\n\nBlíster 5 se atiende llamado por qué necesitaban limpiar la plancha de sellado y no podían soltar los tornillos se parten sacándolos se lleva a taller y se extraen queda ok \n\nNJP 2 se atiende llamado por que no podían cuadrar los pesos se bajan eyectores  para revisar si tenían los resortes  partidos se encuentra bien y se ayuda a operador en cuadre queda ok"
   },
   {
     "id": "rt-20260911-0810",
@@ -12494,32 +12476,32 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Marzio 5",
+      "*Marzio 5*",
       "se atiende llamado porque no llegaba la señal de codificado se corrige conexión y se apoya en cambio de rotulas de abridor y embudo de coloca abre fácil , se ajusta sobre y fotocelda 21:00 hasta las 22:00",
-      "Blíster 7",
+      "*Blíster 7*",
       "se atiende llamado Falla en sensor de pliegue de foil , se ajusta posición",
       "Desde las 22:15 hasta las 23:00 (45min)",
       "Se evidencia pala posición del  sensor palpador se desmonta se limpia y se realiza el ajuste se le coloca la guarda (30min)",
-      "Trasvase 2",
+      "*Trasvase 2*",
       "se atiende llamado porque el tanque no recircula se verifica giro de motor se verifica estado de válvulas se desarma tubería y se prueban válvulas una de ellas estaba invertida cuando tenía que abrir está cerraba se desarma válvula se saca el camper y se invierte 03:00 hasta las 03:50",
-      "Njp2",
+      "*Njp2*",
       "llamado por bomba de vacío atascada se desarma se encontró dos paletas de grafitos atascadas se limpia bomba filtros y se adaptan 2 paletas de grafito porque las que tienen son largas 05:00 hasta 06:45",
-      "LIQUIDO",
+      "*LIQUIDO*",
       "Llamado de líquidos porque no había agua purificada se encontró planta de agua alarmada y tanque con 1.100 litros se restablece hora de intervención 6:45",
-      "Estuchadoras Evo",
+      "*Estuchadoras Evo*",
       "Se realiza cambio de palito partido durante proceso, se atiende novedad por toma de blíster en robot, la estación superior izquierda de los brazos del robot dejaba los blíster eventualmente, se corrige posición de la toma y posiciona bien la ventosa, se corrige novedad.",
       "40 mins.",
-      "Área CL4:",
+      "*Área CL4:*",
       "brakers disparado de alimentación 110, se rearma breaks",
       "15 mins",
-      "CL2:",
+      "*CL2:*",
       "se recibe llamado por manguera de peristalticas rota, no se encuentra en taller una del mismo diámetro, se toma tramo de CL 3 para habilitar equipo",
       "45mins",
-      "CB550",
+      "*CB550*",
       "Se atiende llamado por problemas de arrugas de sobre , se revisa , se limpia se cambia papel del embudo y sigue con la novedad , se desarma y se limpia sistema del bajante , se coloca teflón internamente pero aún así sigue con la novedad , se revisa el laminado y nos percatamos que el laminado nuevo es más grueso de lo normal y también más el grueso del teflón entraba al bajante muy estrecho y entraba mal , se llegó a la conclusión que era el teflón se quita teflón del bajante y mejoro se entrega a producción, calidad y producción le dieron el visto bueno y se dejó a operario montando el sistema de dosificacion y alistamiento de área",
       "20:00 - 03:00"
     ],
-    "texto": "SEDE 4. TURNO   (noche )\n2026/08/12\n\nBlíster 7 omeprazol \nMarzio 5 myosop\nBlíster 8 esomeprazol \nMb432 nifedipino\nCb550 gelimed \nNjp3 omeprazol \nMs235 flextril \nNjp1 multivitaminico \nNjp2 vitamina A\nFette 2020-1 Losartan \nBlíster 3 nifedipino\nCl4 ácido valproico\nCl2 dolorsin fem \nPilot fumarato\n\n                             Novedades \n \nMarzio 5\nse atiende llamado porque no llegaba la señal de codificado se corrige conexión y se apoya en cambio de rotulas de abridor y embudo de coloca abre fácil , se ajusta sobre y fotocelda 21:00 hasta las 22:00\n\nBlíster 7\nse atiende llamado Falla en sensor de pliegue de foil , se ajusta posición \nDesde las 22:15 hasta las 23:00 (45min)\n\nSe evidencia pala posición del  sensor palpador se desmonta se limpia y se realiza el ajuste se le coloca la guarda (30min)\n\nTrasvase 2 \nse atiende llamado porque el tanque no recircula se verifica giro de motor se verifica estado de válvulas se desarma tubería y se prueban válvulas una de ellas estaba invertida cuando tenía que abrir está cerraba se desarma válvula se saca el camper y se invierte 03:00 hasta las 03:50\n\nNjp2 \nllamado por bomba de vacío atascada se desarma se encontró dos paletas de grafitos atascadas se limpia bomba filtros y se adaptan 2 paletas de grafito porque las que tienen son largas 05:00 hasta 06:45\n\nLIQUIDO\nLlamado de líquidos porque no había agua purificada se encontró planta de agua alarmada y tanque con 1.100 litros se restablece hora de intervención 6:45\n\nEstuchadoras Evo\nSe realiza cambio de palito partido durante proceso, se atiende novedad por toma de blíster en robot, la estación superior izquierda de los brazos del robot dejaba los blíster eventualmente, se corrige posición de la toma y posiciona bien la ventosa, se corrige novedad.  \n40 mins.\n\nÁrea CL4:\nbrakers disparado de alimentación 110, se rearma breaks \n15 mins \n\nCL2: \nse recibe llamado por manguera de peristalticas rota, no se encuentra en taller una del mismo diámetro, se toma tramo de CL 3 para habilitar equipo \n45mins\n\nCB550\nSe atiende llamado por problemas de arrugas de sobre , se revisa , se limpia se cambia papel del embudo y sigue con la novedad , se desarma y se limpia sistema del bajante , se coloca teflón internamente pero aún así sigue con la novedad , se revisa el laminado y nos percatamos que el laminado nuevo es más grueso de lo normal y también más el grueso del teflón entraba al bajante muy estrecho y entraba mal , se llegó a la conclusión que era el teflón se quita teflón del bajante y mejoro se entrega a producción, calidad y producción le dieron el visto bueno y se dejó a operario montando el sistema de dosificacion y alistamiento de área \n20:00 - 03:00"
+    "texto": "SEDE 4. TURNO   (noche )\n2026/08/12\n\nBlíster 7 omeprazol \nMarzio 5 myosop\nBlíster 8 esomeprazol \nMb432 nifedipino\nCb550 gelimed \nNjp3 omeprazol \nMs235 flextril \nNjp1 multivitaminico \nNjp2 vitamina A\nFette 2020-1 Losartan \nBlíster 3 nifedipino\nCl4 ácido valproico\nCl2 dolorsin fem \nPilot fumarato\n\n                             Novedades \n \n*Marzio 5*\nse atiende llamado porque no llegaba la señal de codificado se corrige conexión y se apoya en cambio de rotulas de abridor y embudo de coloca abre fácil , se ajusta sobre y fotocelda 21:00 hasta las 22:00\n\n*Blíster 7*\nse atiende llamado Falla en sensor de pliegue de foil , se ajusta posición \nDesde las 22:15 hasta las 23:00 (45min)\n\nSe evidencia pala posición del  sensor palpador se desmonta se limpia y se realiza el ajuste se le coloca la guarda (30min)\n\n*Trasvase 2* \nse atiende llamado porque el tanque no recircula se verifica giro de motor se verifica estado de válvulas se desarma tubería y se prueban válvulas una de ellas estaba invertida cuando tenía que abrir está cerraba se desarma válvula se saca el camper y se invierte 03:00 hasta las 03:50\n\n*Njp2* \nllamado por bomba de vacío atascada se desarma se encontró dos paletas de grafitos atascadas se limpia bomba filtros y se adaptan 2 paletas de grafito porque las que tienen son largas 05:00 hasta 06:45\n\n*LIQUIDO*\nLlamado de líquidos porque no había agua purificada se encontró planta de agua alarmada y tanque con 1.100 litros se restablece hora de intervención 6:45\n\n*Estuchadoras Evo*\nSe realiza cambio de palito partido durante proceso, se atiende novedad por toma de blíster en robot, la estación superior izquierda de los brazos del robot dejaba los blíster eventualmente, se corrige posición de la toma y posiciona bien la ventosa, se corrige novedad.  \n40 mins.\n\n*Área CL4:*\nbrakers disparado de alimentación 110, se rearma breaks \n15 mins \n\n*CL2:* \nse recibe llamado por manguera de peristalticas rota, no se encuentra en taller una del mismo diámetro, se toma tramo de CL 3 para habilitar equipo \n45mins\n\n*CB550*\nSe atiende llamado por problemas de arrugas de sobre , se revisa , se limpia se cambia papel del embudo y sigue con la novedad , se desarma y se limpia sistema del bajante , se coloca teflón internamente pero aún así sigue con la novedad , se revisa el laminado y nos percatamos que el laminado nuevo es más grueso de lo normal y también más el grueso del teflón entraba al bajante muy estrecho y entraba mal , se llegó a la conclusión que era el teflón se quita teflón del bajante y mejoro se entrega a producción, calidad y producción le dieron el visto bueno y se dejó a operario montando el sistema de dosificacion y alistamiento de área \n20:00 - 03:00"
   },
   {
     "id": "rt-20260912-1117",
@@ -12698,19 +12680,19 @@ window.REPORTES_TURNO = [
     ],
     "novedades": [
       "SCHMUCKER: Equipo presenta desgaste en piñón de transmisión (Banda de sobres), se desmonta y suelda con electrodo de aluminio, se realiza ajuste con lima, se monta nuevamente, equipo S/N en el turno.",
-      "OBS: Se requiere repuesto URGENTE.",
-      "T:180mn aprox.",
+      "*OBS:* Se requiere repuesto URGENTE.",
+      "*T:180mn aprox.*",
       "MARZIO 5: Se realizan ajustes finales en equipo, tamaño, dosis y fotocelda, se corrige alarma en impresora, equipo operativo.",
-      "T:90mn aprox.",
+      "*T:90mn aprox.*",
       "FLEXOGRAFÍCA: Sin fin, rodillo de cyrel atascado, se desmonta y rectifica rosca, se monta nuevamente, se realizan ajustes, equipo operativo.",
-      "T: 120mn aprox.",
-      "NJP2: llamado porque se queda sin vacío, se procede a desarmar la bomba de vacío y se encuentra 5 paletas de grafito partidas, se limpia cambian y se limpia la camara de vacío se arma nuevamente y queda operativa. Se requiere más paletas de grafito para tenerlas en stop",
-      "T: 90 mn aprox",
+      "*T: 120mn aprox.*",
+      "NJP2: llamado porque se queda sin vacío, se procede a desarmar la bomba de vacío y se encuentra 5 paletas de grafito partidas, se limpia cambian y se limpia la camara de vacío se arma nuevamente y queda operativa. *Se requiere más paletas de grafito para tenerlas en stop*",
+      "*T: 90 mn aprox*",
       "BLÍSTER #9: Dimoflax llamado porque estaba presentando alarma en el desenvolver de PVC",
       "Se realizo ajustes de levas de sensor del PVC se hacen pruebas termina lote ok. ( 60 minutos).",
       "NJP#3:Omeprazol llamado porque equipo presentaba problemas con destape de cápsulas en dos estaciones,se verifican alineación, se verifica bronce de  succionar de destapé  bomba de vacío, se encontro tubería obstruida del sistema dónde estaba presentando problemas se realiza limpieza se hacen pruebas se entregan a producción.( 120 minutos)."
     ],
-    "texto": "REPORTE DE TURNO \n GRUPO 1 DIA \n SEDE 4 \n- CL2: Disponible \n- CL4: FERBIN \n- MT 1100: SUPERFLUX\n- BLÍSTER 3: Disponible \n- BLÍSTER : Disponible \n- ENVASADO 3: AZEFLU esperando resultados \n- CL3: Disponible \n- ENVASADO 2: Disponible \n- BIN BLENDER: NIFEDIPINO \n- BOSCH: NIFEDIPINO\n- NJP1: VITAMINA A\n- NJP2: Disponible \n- NJP3: OMEPRAZOL 20mg\n- PILOT LAB: LIMPIEZA \n- MB 432: NIFEDIPINO\n- BLÍSTER 8: ESOMEPRAZOL\n- SCHMUCKER: Flextril C\n- Blíster 9: IBUPROFENO \n- INTEGRA 320: LOSARTAN \n- R200: COLTRIM \n- MB 451 EVO: OMEPRAZOL\n- MARZIO 5: MYOSOP\n- HUTTLIN 600: NIFEDIPINO \n- R400: DISPONIBLE \n- BOMBO 300: Disponible\n- MARZIO 4: CONGESTEX\n- HUTTLIN 400: DISPONIBLE \n- RIMEK:  COLTRIM\n- FETTE 1010: ALIZAPRIDA\n- FETTE 2020 2: CRONOFEN\n- FETTE 2020 1: LOSARTAN \n- CB 550: Disponible \nNOVEDADES:\nSCHMUCKER: Equipo presenta desgaste en piñón de transmisión (Banda de sobres), se desmonta y suelda con electrodo de aluminio, se realiza ajuste con lima, se monta nuevamente, equipo S/N en el turno.\nOBS: Se requiere repuesto URGENTE.\nT:180mn aprox.\nMARZIO 5: Se realizan ajustes finales en equipo, tamaño, dosis y fotocelda, se corrige alarma en impresora, equipo operativo.\nT:90mn aprox.\nFLEXOGRAFÍCA: Sin fin, rodillo de cyrel atascado, se desmonta y rectifica rosca, se monta nuevamente, se realizan ajustes, equipo operativo.\nT: 120mn aprox.\nNJP2: llamado porque se queda sin vacío, se procede a desarmar la bomba de vacío y se encuentra 5 paletas de grafito partidas, se limpia cambian y se limpia la camara de vacío se arma nuevamente y queda operativa. Se requiere más paletas de grafito para tenerlas en stop\nT: 90 mn aprox\nBLÍSTER #9: Dimoflax llamado porque estaba presentando alarma en el desenvolver de PVC \nSe realizo ajustes de levas de sensor del PVC se hacen pruebas termina lote ok. ( 60 minutos).\nNJP#3:Omeprazol llamado porque equipo presentaba problemas con destape de cápsulas en dos estaciones,se verifican alineación, se verifica bronce de  succionar de destapé  bomba de vacío, se encontro tubería obstruida del sistema dónde estaba presentando problemas se realiza limpieza se hacen pruebas se entregan a producción.( 120 minutos)."
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 DIA* \n *SEDE* *4* \n- *CL2:* Disponible \n- *CL4:* FERBIN \n- *MT 1100:* SUPERFLUX\n- *BLÍSTER 3:* Disponible \n- *BLÍSTER :* Disponible \n- *ENVASADO 3:* AZEFLU esperando resultados \n- *CL3:* Disponible \n- *ENVASADO 2:* Disponible \n- *BIN BLENDER:* NIFEDIPINO \n- *BOSCH:* NIFEDIPINO\n- *NJP1:* VITAMINA A\n- *NJP2:* Disponible \n- *NJP3:* OMEPRAZOL 20mg\n- *PILOT LAB:* LIMPIEZA \n- *MB 432:* NIFEDIPINO\n- *BLÍSTER 8:* ESOMEPRAZOL\n- *SCHMUCKER:* Flextril C\n- *Blíster 9:* IBUPROFENO \n- *INTEGRA 320:* LOSARTAN \n- *R200:* COLTRIM \n- *MB 451 EVO:* OMEPRAZOL\n- *MARZIO 5:* MYOSOP\n- *HUTTLIN 600:* NIFEDIPINO \n- *R400:* DISPONIBLE \n- *BOMBO 300:* Disponible\n- *MARZIO 4:* CONGESTEX\n- *HUTTLIN 400:* DISPONIBLE \n- *RIMEK:*  COLTRIM\n- *FETTE 1010:* ALIZAPRIDA\n- *FETTE 2020 2:* CRONOFEN\n- *FETTE 2020 1:* LOSARTAN \n- *CB 550:* Disponible \n*NOVEDADES:*\nSCHMUCKER: Equipo presenta desgaste en piñón de transmisión (Banda de sobres), se desmonta y suelda con electrodo de aluminio, se realiza ajuste con lima, se monta nuevamente, equipo S/N en el turno.\n*OBS:* Se requiere repuesto URGENTE.\n*T:180mn aprox.*\nMARZIO 5: Se realizan ajustes finales en equipo, tamaño, dosis y fotocelda, se corrige alarma en impresora, equipo operativo.\n*T:90mn aprox.*\nFLEXOGRAFÍCA: Sin fin, rodillo de cyrel atascado, se desmonta y rectifica rosca, se monta nuevamente, se realizan ajustes, equipo operativo.\n*T: 120mn aprox.*\nNJP2: llamado porque se queda sin vacío, se procede a desarmar la bomba de vacío y se encuentra 5 paletas de grafito partidas, se limpia cambian y se limpia la camara de vacío se arma nuevamente y queda operativa. *Se requiere más paletas de grafito para tenerlas en stop*\n*T: 90 mn aprox*\nBLÍSTER #9: Dimoflax llamado porque estaba presentando alarma en el desenvolver de PVC \nSe realizo ajustes de levas de sensor del PVC se hacen pruebas termina lote ok. ( 60 minutos).\nNJP#3:Omeprazol llamado porque equipo presentaba problemas con destape de cápsulas en dos estaciones,se verifican alineación, se verifica bronce de  succionar de destapé  bomba de vacío, se encontro tubería obstruida del sistema dónde estaba presentando problemas se realiza limpieza se hacen pruebas se entregan a producción.( 120 minutos)."
   },
   {
     "id": "rt-20260912-2255",
@@ -12967,7 +12949,7 @@ window.REPORTES_TURNO = [
       "CB 550 se atiende llamado por qué estaba bailando el laminado en el arrastre se cambian de correas de arrastre queda ok  las correas  de color beige trabajan mejor para tener en cuenta. 2H",
       "MARZIO #5 se cambia tornillo partido (M5) de rotula de envudo dosificador"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: vitamina A\nNJP #1: stamby\nNJP #3: omeprazol \nPILOT LAB: stamby\nSCMUKER: flextril c\nBLISTER #9: ibuprofeno 800\nMB 432: ferrimed plus\nINTEGRA: stamby\nBLISTER #8: esomeprazol \nMARCHESINI EVO: omeprazol \nR200: Trimebutina \nR400: ozaproxina\nMARZIO #1: myosop\nMARZIO #4: stamby\nCB 550: gelimed\nHUTTLIN 600: nifedipino \nHUTTLIN 400: stamby\nRIMEK: limpieza \nFETTE 2020-2: acetaminofén \nFETTE 1010: stamby\nFETTE 2020-1: losartan\n\nLÍQUIDO \nENVASADORA #2: superflux forte\nENVASADORA #3: azeflu spray\nCLIQUIDO #2: vitamina E\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: limpieza \nBLISTER #2: limpieza \nBLISTER #3: nifedipino 12h\n_______________                          NOVEDADES\nBIN\nse recibe llamado por equipo bloqueado, se encontró trinche un poco más arriba de su posición para poder meter la olla de mezcla, se baja manual mente, se ubican posición final de sensores y final de carrera, se ajusta posición del sensor láser hacia el auto reflec, se ajusta apertura y cierre de los seguros de la olla en el equipo, se deja equipo operativo. 1.5H\n\nMEZCLA HUMEDA - SOLIDO\nse recibe llamado porque no prende en motor del granulador, se revisa sistema eléctrico y se encuentra ausencia de tensión en una de las líneas que llegan al guarda motor por cable fracturado, se realiza cambio del cable principal, se deja equipo operativo. 0.5H\n\nR200 \nse atiende llamado por qué vacío bajo se limpian los filtros y piso técnico. 3H\n\nMB 432 \nse recibe para por qué las cámaras estaban quedando bloqueada se reinicia el equipo se ajustan camaras se cambia de recepta y nada se evidencia que telecamaras #3 es la que está generando el problema por qué se desabilita el corte y la máquina trabaja bien apenas habilitan el corte se alarma que pendiente se entrega a turno entrante. 8H\n\nCLIQUIDO #2 \nse atiende llamado por corto circuito y se alarma el equipo también por qué el bloque no estaba inyectando la cantidad de dosis requerida se ajusta corredera del vástago de dosificación \nSe atiende llamado nuevamente por qué la selladora tiene tiempo perdido queda ok total tiempo. 4H\n\nCB 550 \nse atiende llamado por qué estaba bailando el laminado en el arrastre se cambian de correas de arrastre queda ok  las correas  de color beige trabajan mejor para tener en cuenta. 2H\n\nMARZIO #5\nse cambia tornillo partido (M5) de rotula de envudo dosificador"
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: vitamina A\nNJP #1: stamby\nNJP #3: omeprazol \nPILOT LAB: stamby\nSCMUKER: flextril c\nBLISTER #9: ibuprofeno 800\nMB 432: ferrimed plus\nINTEGRA: stamby\nBLISTER #8: esomeprazol \nMARCHESINI EVO: omeprazol \nR200: Trimebutina \nR400: ozaproxina\nMARZIO #1: myosop\nMARZIO #4: stamby\nCB 550: gelimed\nHUTTLIN 600: nifedipino \nHUTTLIN 400: stamby\nRIMEK: limpieza \nFETTE 2020-2: acetaminofén \nFETTE 1010: stamby\nFETTE 2020-1: losartan\n\nLÍQUIDO \nENVASADORA #2: superflux forte\nENVASADORA #3: azeflu spray\nCLIQUIDO #2: vitamina E\nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: limpieza \nBLISTER #2: limpieza \nBLISTER #3: nifedipino 12h\n_____________________________________________                          NOVEDADES\nBIN\nse recibe llamado por equipo bloqueado, se encontró trinche un poco más arriba de su posición para poder meter la olla de mezcla, se baja manual mente, se ubican posición final de sensores y final de carrera, se ajusta posición del sensor láser hacia el auto reflec, se ajusta apertura y cierre de los seguros de la olla en el equipo, se deja equipo operativo. 1.5H\n\nMEZCLA HUMEDA - SOLIDO\nse recibe llamado porque no prende en motor del granulador, se revisa sistema eléctrico y se encuentra ausencia de tensión en una de las líneas que llegan al guarda motor por cable fracturado, se realiza cambio del cable principal, se deja equipo operativo. 0.5H\n\nR200 \nse atiende llamado por qué vacío bajo se limpian los filtros y piso técnico. 3H\n\nMB 432 \nse recibe para por qué las cámaras estaban quedando bloqueada se reinicia el equipo se ajustan camaras se cambia de recepta y nada se evidencia que telecamaras #3 es la que está generando el problema por qué se desabilita el corte y la máquina trabaja bien apenas habilitan el corte se alarma que pendiente se entrega a turno entrante. 8H\n\nCLIQUIDO #2 \nse atiende llamado por corto circuito y se alarma el equipo también por qué el bloque no estaba inyectando la cantidad de dosis requerida se ajusta corredera del vástago de dosificación \nSe atiende llamado nuevamente por qué la selladora tiene tiempo perdido queda ok total tiempo. 4H\n\nCB 550 \nse atiende llamado por qué estaba bailando el laminado en el arrastre se cambian de correas de arrastre queda ok  las correas  de color beige trabajan mejor para tener en cuenta. 2H\n\nMARZIO #5\nse cambia tornillo partido (M5) de rotula de envudo dosificador"
   },
   {
     "id": "rt-20260914-0735",
@@ -13108,22 +13090,22 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "SCHMUCKER: Equipo queda DETENIDO por piñón, banda transportadora dañado y no tenemos electrodo de aluminio para repararlo.",
-      "T:0",
-      "MT1100: LLamado por alarma (inversor agitador tolva), se revisa conexiones en tablero, se restablece equipo, trabajando S/N.",
-      "T:60mn aprox",
-      "MB 432: Se revisa telecamara 3, se desmonta, se realiza limpieza de lentes y conexiónes, se ajustan parámetros, equipo operativo, se adjunta video e imágen.",
-      "T:240mn aprox",
+      "SCHMUCKER: Equipo queda *DETENIDO* por piñón, banda transportadora dañado y no tenemos electrodo de aluminio para repararlo.",
+      "*T:0*",
+      "*MT1100:* LLamado por alarma (inversor agitador tolva), se revisa conexiones en tablero, se restablece equipo, trabajando S/N.",
+      "*T:60mn aprox*",
+      "*MB 432:* Se revisa telecamara 3, se desmonta, se realiza limpieza de lentes y conexiónes, se ajustan parámetros, equipo operativo, se adjunta video e imágen.",
+      "*T:240mn aprox*",
       "CB550: Se ajustan bandas de arrastre y se cambia tornillo, cilindro neumático de mordazas.",
-      "T: 90mn aprox",
+      "*T: 90mn aprox*",
       "MARZIO 5: LLamado por mordazas inferiores, se ubica tiempo de la misma, se ajusta tornillería, se ajusta cadena tren de levas (sensores), tiempo de embudo, equipo operativo.",
-      "T: 180mn aprox",
+      "*T: 180mn aprox*",
       "BLÍSTER 3: LLamado por presión de área en negativo, kcaps realiza los ajustes correspondientes, equipo operativo.",
-      "T:60mn aprox",
+      "*T:60mn aprox*",
       "ENVASADORA 3: se recibe llamado por múltiples alarmas se reinicia equipo se evidencia alta temperatura en cuadro eléctrico se reinicia y se deja puerta abierta para bajar temperatura.",
-      "T: 60mn aprox"
+      "*T: 60mn aprox*"
     ],
-    "texto": "REPORTE DE TURNO \n *GRUPO 1 Noche \n SEDE 4 \n- CL2: Dolorsin FEM \n- CL4: FERBIN \n- MT 1100: SUPERFLUX\n- BLÍSTER 3: NIFIDIPINO \n- BLÍSTER  : Disponible \n- ENVASADO 3: AZEFLU \n- CL3: Disponible \n- ENVASADO 2: Disponible \n- BIN BLENDER: Disponible \n- BOSCH: DICLOFENAC \n- NJP1: Disponible \n- NJP2: VITAMINA A \n- NJP3: OMEPRAZOL 20mg\n- PILOT LAB: Disponible \n- MB 432: FERRIMED \n- BLÍSTER 8: ESOMEPRAZOL\n- SCHMUCKER: FLEXTRIL C\n- Blíster 9: IBUPROFENO \n- INTEGRA 320: LOSARTAN \n- R200: Disponible \n- MB 451 EVO: OMEPRAZOL\n- MARZIO 5: MYOSOP\n- HUTTLIN 600: FLEXTRIL \n- R400: LOSARTAN \n- BOMBO 300: FUMARATO \n- MARZIO 4: CONGESTEX\n- HUTTLIN 400: NIFEDIPINO \n- RIMEK: Disponible \n- FETTE 1010: ALIDONA \n- FETTE 2020 2: CRONOFEN\n- FETTE 2020 1: LOSARTAN \n- CB 550: GELIMED \nNOVEDADES:\nSCHMUCKER: Equipo queda DETENIDO por piñón, banda transportadora dañado y no tenemos electrodo de aluminio para repararlo.\nT:0\nMT1100: LLamado por alarma (inversor agitador tolva), se revisa conexiones en tablero, se restablece equipo, trabajando S/N.\nT:60mn aprox\nMB 432: Se revisa telecamara 3, se desmonta, se realiza limpieza de lentes y conexiónes, se ajustan parámetros, equipo operativo, se adjunta video e imágen.\nT:240mn aprox\nCB550: Se ajustan bandas de arrastre y se cambia tornillo, cilindro neumático de mordazas.\nT: 90mn aprox\nMARZIO 5: LLamado por mordazas inferiores, se ubica tiempo de la misma, se ajusta tornillería, se ajusta cadena tren de levas (sensores), tiempo de embudo, equipo operativo.\nT: 180mn aprox\nBLÍSTER 3: LLamado por presión de área en negativo, kcaps realiza los ajustes correspondientes, equipo operativo.\nT:60mn aprox\nENVASADORA 3: se recibe llamado por múltiples alarmas se reinicia equipo se evidencia alta temperatura en cuadro eléctrico se reinicia y se deja puerta abierta para bajar temperatura.\nT: 60mn aprox"
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 Noche \n *SEDE* *4* \n- *CL2:* Dolorsin FEM \n- *CL4:* FERBIN \n- *MT 1100:* SUPERFLUX\n- *BLÍSTER 3:* NIFIDIPINO \n- *BLÍSTER  :* Disponible \n- *ENVASADO 3:* AZEFLU \n- *CL3:* Disponible \n- *ENVASADO 2:* Disponible \n- *BIN BLENDER:* Disponible \n- *BOSCH:* DICLOFENAC \n- *NJP1:* Disponible \n- *NJP2:* VITAMINA A \n- *NJP3:* OMEPRAZOL 20mg\n- *PILOT LAB:* Disponible \n- *MB 432:* FERRIMED \n- *BLÍSTER 8:* ESOMEPRAZOL\n- *SCHMUCKER:* FLEXTRIL C\n- *Blíster 9:* IBUPROFENO \n- *INTEGRA 320:* LOSARTAN \n- *R200:* Disponible \n- *MB 451 EVO:* OMEPRAZOL\n- *MARZIO 5:* MYOSOP\n- *HUTTLIN 600:* FLEXTRIL \n- *R400:* LOSARTAN \n- *BOMBO 300:* FUMARATO \n- *MARZIO 4:* CONGESTEX\n- *HUTTLIN 400:* NIFEDIPINO \n- *RIMEK:* Disponible \n- *FETTE 1010:* ALIDONA \n- *FETTE 2020 2:* CRONOFEN\n- *FETTE 2020 1:* LOSARTAN \n- *CB 550:* GELIMED \n*NOVEDADES:*\nSCHMUCKER: Equipo queda *DETENIDO* por piñón, banda transportadora dañado y no tenemos electrodo de aluminio para repararlo.\n*T:0*\n*MT1100:* LLamado por alarma (inversor agitador tolva), se revisa conexiones en tablero, se restablece equipo, trabajando S/N.\n*T:60mn aprox*\n*MB 432:* Se revisa telecamara 3, se desmonta, se realiza limpieza de lentes y conexiónes, se ajustan parámetros, equipo operativo, se adjunta video e imágen.\n*T:240mn aprox*\nCB550: Se ajustan bandas de arrastre y se cambia tornillo, cilindro neumático de mordazas.\n*T: 90mn aprox*\nMARZIO 5: LLamado por mordazas inferiores, se ubica tiempo de la misma, se ajusta tornillería, se ajusta cadena tren de levas (sensores), tiempo de embudo, equipo operativo.\n*T: 180mn aprox*\nBLÍSTER 3: LLamado por presión de área en negativo, kcaps realiza los ajustes correspondientes, equipo operativo.\n*T:60mn aprox*\nENVASADORA 3: se recibe llamado por múltiples alarmas se reinicia equipo se evidencia alta temperatura en cuadro eléctrico se reinicia y se deja puerta abierta para bajar temperatura.\n*T: 60mn aprox*"
   },
   {
     "id": "rt-20260914-0914",
@@ -13322,7 +13304,7 @@ window.REPORTES_TURNO = [
       "Marzio5 lote borroso se limpia cabezal y rodillos se cambia cinta queda ok 40mn",
       "Marzio4 se atiende llamado también por codificadora se cuadra lote por qué el operador no sabía"
     ],
-    "texto": "REPORTE DE TURNO \n *GRUPO 1 Noche \n SEDE 4 \n- CL2: Dolorsin FEM \n- CL4: FERBIN \n- MT 1100: SUPERFLUX\n- BLÍSTER 3: NIFIDIPINO \n- BLÍSTER  : Disponible \n- ENVASADO 3: AZEFLU \n- CL3: Disponible \n- ENVASADO 2: Disponible \n- BIN BLENDER: Disponible \n- BOSCH: DICLOFENAC \n- NJP1: Disponible \n- NJP2: VITAMINA A \n- NJP3: OMEPRAZOL 20mg\n- PILOT LAB: Disponible \n- MB 432: FERRIMED \n- BLÍSTER 8: ESOMEPRAZOL\n- SCHMUCKER: FLEXTRIL C\n- Blíster 9: IBUPROFENO \n- INTEGRA 320: LOSARTAN \n- R200: Disponible \n- MB 451 EVO: OMEPRAZOL\n- MARZIO 5: MYOSOP\n- HUTTLIN 600: FLEXTRIL \n- R400: LOSARTAN \n- BOMBO 300: FUMARATO \n- MARZIO 4: CONGESTEX\n- HUTTLIN 400: NIFEDIPINO \n- RIMEK: Disponible \n- FETTE 1010: ALIDONA \n- FETTE 2020 2: CRONOFEN\n- FETTE 2020 1: LOSARTAN \n\nNota R200se realiza mantenimiento a válvula de salida del  y válvula anti incendio 7H\n\nSmuker se reconstruyen nuevamente la polea dentada de la banda 3h\n\nMB432 presenta nuevamente bloqueado de camaras solo una vez en turno \n\nStuchadora #1 se ayuda a operador en cuadre operador desconoce el equipo y se cuadra entrega de producto del robot por qué estaba volteando los blíster cuando los colocaba se corre un diente a la banda 3H\n\nBlíster 3 se atiende llamado por qué se queda pegada la pantalla y tenía una alarma de Windows se desconectan baterías y se verifica el voltaje de carga se reinicia la máquina y se deja operativa 1 h\n\nMarzio5 lote borroso se limpia cabezal y rodillos se cambia cinta queda ok 40mn \n\nMarzio4 se atiende llamado también por codificadora se cuadra lote por qué el operador no sabía"
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 Noche \n *SEDE* *4* \n- *CL2:* Dolorsin FEM \n- *CL4:* FERBIN \n- *MT 1100:* SUPERFLUX\n- *BLÍSTER 3:* NIFIDIPINO \n- *BLÍSTER  :* Disponible \n- *ENVASADO 3:* AZEFLU \n- *CL3:* Disponible \n- *ENVASADO 2:* Disponible \n- *BIN BLENDER:* Disponible \n- *BOSCH:* DICLOFENAC \n- *NJP1:* Disponible \n- *NJP2:* VITAMINA A \n- *NJP3:* OMEPRAZOL 20mg\n- *PILOT LAB:* Disponible \n- *MB 432:* FERRIMED \n- *BLÍSTER 8:* ESOMEPRAZOL\n- *SCHMUCKER:* FLEXTRIL C\n- *Blíster 9:* IBUPROFENO \n- *INTEGRA 320:* LOSARTAN \n- *R200:* Disponible \n- *MB 451 EVO:* OMEPRAZOL\n- *MARZIO 5:* MYOSOP\n- *HUTTLIN 600:* FLEXTRIL \n- *R400:* LOSARTAN \n- *BOMBO 300:* FUMARATO \n- *MARZIO 4:* CONGESTEX\n- *HUTTLIN 400:* NIFEDIPINO \n- *RIMEK:* Disponible \n- *FETTE 1010:* ALIDONA \n- *FETTE 2020 2:* CRONOFEN\n- *FETTE 2020 1:* LOSARTAN \n\nNota R200se realiza mantenimiento a válvula de salida del  y válvula anti incendio 7H\n\nSmuker se reconstruyen nuevamente la polea dentada de la banda 3h\n\nMB432 presenta nuevamente bloqueado de camaras solo una vez en turno \n\nStuchadora #1 se ayuda a operador en cuadre operador desconoce el equipo y se cuadra entrega de producto del robot por qué estaba volteando los blíster cuando los colocaba se corre un diente a la banda 3H\n\nBlíster 3 se atiende llamado por qué se queda pegada la pantalla y tenía una alarma de Windows se desconectan baterías y se verifica el voltaje de carga se reinicia la máquina y se deja operativa 1 h\n\nMarzio5 lote borroso se limpia cabezal y rodillos se cambia cinta queda ok 40mn \n\nMarzio4 se atiende llamado también por codificadora se cuadra lote por qué el operador no sabía"
   },
   {
     "id": "rt-20260914-2001",
@@ -13394,23 +13376,22 @@ window.REPORTES_TURNO = [
     "equipos": [],
     "novedades": [
       "ESTUCHADORA INTEGRA 320: Se cambia palitos de arrastre (3), se ubica tiempo mecánico para  corregir entrada de blíster en estuches, equipo operativo.",
-      "T: 180mn aprox",
+      "*T: 180mn aprox*",
       "ESTUCHADORA EVO: LLamado por cangilones partidos (Guías), las mismas fueron reparadas con tornillos M4, equipo operativo.",
-      "T:90mn aprox",
+      "*T:90mn aprox*",
       "ENVASADORA 3: LLamado por salida de frascos vacíos, se revisan diafragmas y tiempo de cremallera OK, tubería obstruida equipo operativo.",
-      "T:170mn aproxu",
+      "*T:170mn aproxu*",
       "INTEGRA 320: Se reemplaza diafragma de cargador 1, el mismo presentaba fuga, equipo operativo.",
-      "T:40mn aprox",
+      "*T:40mn aprox*",
       "CL4: LLamado culminando turno por motor 2 bandeja de soluciónes no gira, se indica que despejen la misma para revisar, se entrega a turno entrante revisar.",
-      "T:0",
+      "*T:0*",
       "Marzio#5: myosop llamado por problemas en la codificadora estaba alarmada se realiza limpieza de rodillos ajustes pruebas ok.",
       "( 30 minutos).",
       "Marzio#4: flextril C llamado por problemas de corté, paso y peso se realiza ajustes a tamaño, del sobre tornillo de corrección y se coloca resoster y tornillos a otro plato. Se hacen pruebas ok. Otro llamado porque no tenía vacío se revisa se encuentra manguera obstruida se limpia se hacen pruebas ok. ( 90 minutos).",
       "Etiquetadora#3: llamado por problemas que se corría el lote y se reventaba la cinta,se realiza limpieza de todos los rodillos,cambio de rollo y ajustes se hacen pruebas se entrega a producción.",
-      "(180 minutos).",
-      "ESTUCHADORA INTEGRA"
+      "(180 minutos)."
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 NOCHE SEDE 4\nNOVEDADES: \nESTUCHADORA INTEGRA 320: Se cambia palitos de arrastre (3), se ubica tiempo mecánico para  corregir entrada de blíster en estuches, equipo operativo.\nT: 180mn aprox\nESTUCHADORA EVO: LLamado por cangilones partidos (Guías), las mismas fueron reparadas con tornillos M4, equipo operativo.\nT:90mn aprox\nENVASADORA 3: LLamado por salida de frascos vacíos, se revisan diafragmas y tiempo de cremallera OK, tubería obstruida equipo operativo.\nT:170mn aproxu\nINTEGRA 320: Se reemplaza diafragma de cargador 1, el mismo presentaba fuga, equipo operativo.\nT:40mn aprox\nCL4: LLamado culminando turno por motor 2 bandeja de soluciónes no gira, se indica que despejen la misma para revisar, se entrega a turno entrante revisar.\nT:0\nMarzio#5: myosop llamado por problemas en la codificadora estaba alarmada se realiza limpieza de rodillos ajustes pruebas ok. \n( 30 minutos).\nMarzio#4: flextril C llamado por problemas de corté, paso y peso se realiza ajustes a tamaño, del sobre tornillo de corrección y se coloca resoster y tornillos a otro plato. Se hacen pruebas ok. Otro llamado porque no tenía vacío se revisa se encuentra manguera obstruida se limpia se hacen pruebas ok. ( 90 minutos).\nEtiquetadora#3: llamado por problemas que se corría el lote y se reventaba la cinta,se realiza limpieza de todos los rodillos,cambio de rollo y ajustes se hacen pruebas se entrega a producción.\n(180 minutos).\nESTUCHADORA INTEGRA"
+    "texto": "*REPORTE DE TURNO GRUPO 1 NOCHE SEDE 4*\n*NOVEDADES:* \nESTUCHADORA INTEGRA 320: Se cambia palitos de arrastre (3), se ubica tiempo mecánico para  corregir entrada de blíster en estuches, equipo operativo.\n*T: 180mn aprox*\nESTUCHADORA EVO: LLamado por cangilones partidos (Guías), las mismas fueron reparadas con tornillos M4, equipo operativo.\n*T:90mn aprox*\nENVASADORA 3: LLamado por salida de frascos vacíos, se revisan diafragmas y tiempo de cremallera OK, tubería obstruida equipo operativo.\n*T:170mn aproxu*\nINTEGRA 320: Se reemplaza diafragma de cargador 1, el mismo presentaba fuga, equipo operativo.\n*T:40mn aprox*\nCL4: LLamado culminando turno por motor 2 bandeja de soluciónes no gira, se indica que despejen la misma para revisar, se entrega a turno entrante revisar.\n*T:0*\nMarzio#5: myosop llamado por problemas en la codificadora estaba alarmada se realiza limpieza de rodillos ajustes pruebas ok. \n( 30 minutos).\nMarzio#4: flextril C llamado por problemas de corté, paso y peso se realiza ajustes a tamaño, del sobre tornillo de corrección y se coloca resoster y tornillos a otro plato. Se hacen pruebas ok. Otro llamado porque no tenía vacío se revisa se encuentra manguera obstruida se limpia se hacen pruebas ok. ( 90 minutos).\nEtiquetadora#3: llamado por problemas que se corría el lote y se reventaba la cinta,se realiza limpieza de todos los rodillos,cambio de rollo y ajustes se hacen pruebas se entrega a producción.\n(180 minutos)."
   },
   {
     "id": "rt-20260915-0919",
@@ -13547,15 +13528,15 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Huttiln 400 llamado por alarma de presurizador se encontró manguera principal partida se coloca union porque no tenemos manguera 3/8 T 45min",
-      "CL4: Se recibe equipo detenido se evidencia fusibles mecánico partido, se procede a desmontar motor para retirar el mismo, luego buscar repuesto en almacén colocar y nuevamente realizar el montaje del motor",
+      "*Huttiln 400* llamado por alarma de presurizador se encontró manguera principal partida se coloca union porque no tenemos manguera 3/8 T 45min",
+      "*CL4:* Se recibe equipo detenido se evidencia fusibles mecánico partido, se procede a desmontar motor para retirar el mismo, luego buscar repuesto en almacén colocar y nuevamente realizar el montaje del motor",
       "120mins",
       "Se repara estufa electrica de centro líquidos 4 se cambia cable de alimentación y se ajustan bornes y se aislan T 45min",
       "Schmucker se entiende llamado porque la banda se detuvo se encontro correa en mal estado se reemplaza está pendiente mandar a fabricar piñón porque está en mal estado. 1.5hrs",
       "* Se instala pulmón para la blisteadora y estuchadera evo",
       "CB550 Se atiende llamado por apagado inoportuno de equipo Se revisa toma 220V se encuentra ok Se procede a revisar acometida alimentación de tablero principal encontrando en Breaker general que no funciona correctamente Se procede a revisar y se encuentra Breaker contaminado con material, se realiza mantenimiento y limpieza conls novedad que más adelante se requiere cambiar Breaker vuelve a llamar por sellado vertical un poco claro , se da más presión queda operativa 4h"
     ],
-    "texto": "SEDE 4. TURNO   (día)\n2026/08/15\n\nMs235 flextril\nNjp3 nifedipino \nBlíster 9 aerovial\nIntegra Losartan \nEvo omeprazol \nR400 Losartan \nMarzio 5 myosop\nHuttiln 600 flextril\nHuttiln 400 nifedipino\nMarzio 1 flextril \nFette 2020-2 acetaminofén \nFette 1010 amlodipino\nFette 2020-1 Losartan \nBin zintergia \nCl4 ácido valproico\nBlíster 3  ferbin \nEnvasado 3 azeflu\nEnvasado 2 supreflux \n\n                     Novedades\nHuttiln 400 llamado por alarma de presurizador se encontró manguera principal partida se coloca union porque no tenemos manguera 3/8 T 45min\n\nCL4:\nSe recibe equipo detenido se evidencia fusibles mecánico partido, se procede a desmontar motor para retirar el mismo, luego buscar repuesto en almacén colocar y nuevamente realizar el montaje del motor \n\n120mins\n\nSe repara estufa electrica de centro líquidos 4 se cambia cable de alimentación y se ajustan bornes y se aislan\nT 45min\n\nSchmucker se entiende llamado porque la banda se detuvo se encontro correa en mal estado se reemplaza está pendiente mandar a fabricar piñón porque está en mal estado. 1.5hrs\n\n* Se instala pulmón para la blisteadora y estuchadera evo\n\nCB550\nSe atiende llamado por apagado inoportuno de equipo \nSe revisa toma 220V se encuentra ok \nSe procede a revisar acometida alimentación de tablero principal encontrando en Breaker general que no funciona correctamente \nSe procede a revisar y se encuentra Breaker contaminado con material, se realiza mantenimiento y limpieza conls novedad que más adelante se requiere cambiar Breaker\nvuelve a llamar por sellado vertical un poco claro , se da más presión queda operativa 4h"
+    "texto": "*SEDE 4. TURNO   (día)*\n*2026/08/15*\n\nMs235 flextril\nNjp3 nifedipino \nBlíster 9 aerovial\nIntegra Losartan \nEvo omeprazol \nR400 Losartan \nMarzio 5 myosop\nHuttiln 600 flextril\nHuttiln 400 nifedipino\nMarzio 1 flextril \nFette 2020-2 acetaminofén \nFette 1010 amlodipino\nFette 2020-1 Losartan \nBin zintergia \nCl4 ácido valproico\nBlíster 3  ferbin \nEnvasado 3 azeflu\nEnvasado 2 supreflux \n\n                     *Novedades*\n*Huttiln 400* llamado por alarma de presurizador se encontró manguera principal partida se coloca union porque no tenemos manguera 3/8 T 45min\n\n*CL4:*\nSe recibe equipo detenido se evidencia fusibles mecánico partido, se procede a desmontar motor para retirar el mismo, luego buscar repuesto en almacén colocar y nuevamente realizar el montaje del motor \n\n120mins\n\nSe repara estufa electrica de centro líquidos 4 se cambia cable de alimentación y se ajustan bornes y se aislan\nT 45min\n\nSchmucker se entiende llamado porque la banda se detuvo se encontro correa en mal estado se reemplaza está pendiente mandar a fabricar piñón porque está en mal estado. 1.5hrs\n\n* Se instala pulmón para la blisteadora y estuchadera evo\n\nCB550\nSe atiende llamado por apagado inoportuno de equipo \nSe revisa toma 220V se encuentra ok \nSe procede a revisar acometida alimentación de tablero principal encontrando en Breaker general que no funciona correctamente \nSe procede a revisar y se encuentra Breaker contaminado con material, se realiza mantenimiento y limpieza conls novedad que más adelante se requiere cambiar Breaker\nvuelve a llamar por sellado vertical un poco claro , se da más presión queda operativa 4h"
   },
   {
     "id": "rt-20260915-2210",
@@ -14138,7 +14119,7 @@ window.REPORTES_TURNO = [
       "* Se cambian palitos de la estuchadora integra se deja operativa 30min",
       "* Se intenta cambiar lámpara del R400 pero no se encontró respuesto en el taller"
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# \n\nLIQUIDOS\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n*•BLISTER2: DISPONIBLE \n*•MT: DISPONIBLE \n*•ENVASADO: FERBIN \n*• MARCHESINI: ACEFLUX \n*•CL2 : LIMPIEZA \n*•EMBASADORA 2: LIMPIEZA\n\nSOLIDOS\n\n*•BIN: DISPONIBLE \n*•BOSH: \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40: no había nadie \n*•SCHMUKER: FLEXTRIL\n*•NJP3 : NIFEDIPINO 24 HORAS\n*•BLISTER #9: AEROVIA\n*•BLISTER 6 MB432: NIFEDIPINO\n*•INTEGRA320: LOSARTAN \n*•BLISTER #8: ESOMEPRAZOL \n*•EVO: OMEPRAZOL \n*•MARZIO #4 : MYOSOP \n*•HUTTLIN 600: ESOMEPRAZOL\n*•R200: DISPONIBLE \n*•R400: DISPONIBLE \n*•MARZIO 1: FLEXTRIL \n*•HUTTLIN 400: ESIPIENTE DE ESOMEPRAZOL \n*•FETTE 2020/2: DISPONIBLE \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: DISPONIBLE \n*•FETTE2021: LIMPIEZA \n*•CB550: GELIMET\n________\n       NOVEDADES\n\nÁrea técnica encapsulado 2: se realiza sistema de extracción a ambas aspiradoras ubicadas en el área. \n\nMb432: se realiza ajuste a sistema de soldadura, se desmontan planchas y se accionan de manera manual sensores de soldadura, ya que los mismo enviaban error porque quedaba una de las señales pegada se realiza nuevamente montaje de sistema y seguimiento a señal de los mismos equipo operativo.\nLuego envía contante error en telecamara 2 se realiza Nueva receta y corrige equipo queda listo para dar inició en turno entrante. 3h\n\nCL4: se desmonta motor de selladora nuevamente porque se daña acople tipo fusible se entrega a turno entrante.\n\nCb550: se realiza ajuste a sellado de mordazas horizontales ya que no estaban sellando correctamente, se de un margen más largo de tiempo de sellado y se corrige novedad. 2h\n\nBlíster 8 se recibe equipo detenido con esparrago partido se reemplaza se apoya el cuadre de formación de alveolos T 2hrs\n\n* Se repara cerradura de pesaje 2 \n\n* Se cambian palitos de la estuchadora integra se deja operativa 30min\n\n* Se intenta cambiar lámpara del R400 pero no se encontró respuesto en el taller"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n*•BLISTER2: DISPONIBLE \n*•MT: DISPONIBLE \n*•ENVASADO: FERBIN \n*• MARCHESINI: ACEFLUX \n*•CL2 : LIMPIEZA \n*•EMBASADORA 2: LIMPIEZA\n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE \n*•BOSH: \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40: no había nadie \n*•SCHMUKER: FLEXTRIL\n*•NJP3 : NIFEDIPINO 24 HORAS\n*•BLISTER #9: AEROVIA\n*•BLISTER 6 MB432: NIFEDIPINO\n*•INTEGRA320: LOSARTAN \n*•BLISTER #8: ESOMEPRAZOL \n*•EVO: OMEPRAZOL \n*•MARZIO #4 : MYOSOP \n*•HUTTLIN 600: ESOMEPRAZOL\n*•R200: DISPONIBLE \n*•R400: DISPONIBLE \n*•MARZIO 1: FLEXTRIL \n*•HUTTLIN 400: ESIPIENTE DE ESOMEPRAZOL \n*•FETTE 2020/2: DISPONIBLE \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: DISPONIBLE \n*•FETTE2021: LIMPIEZA \n*•CB550: GELIMET\n____________________\n       NOVEDADES\n\nÁrea técnica encapsulado 2: se realiza sistema de extracción a ambas aspiradoras ubicadas en el área. \n\nMb432: se realiza ajuste a sistema de soldadura, se desmontan planchas y se accionan de manera manual sensores de soldadura, ya que los mismo enviaban error porque quedaba una de las señales pegada se realiza nuevamente montaje de sistema y seguimiento a señal de los mismos equipo operativo.\nLuego envía contante error en telecamara 2 se realiza Nueva receta y corrige equipo queda listo para dar inició en turno entrante. 3h\n\nCL4: se desmonta motor de selladora nuevamente porque se daña acople tipo fusible se entrega a turno entrante.\n\nCb550: se realiza ajuste a sellado de mordazas horizontales ya que no estaban sellando correctamente, se de un margen más largo de tiempo de sellado y se corrige novedad. 2h\n\nBlíster 8 se recibe equipo detenido con esparrago partido se reemplaza se apoya el cuadre de formación de alveolos T 2hrs\n\n* Se repara cerradura de pesaje 2 \n\n* Se cambian palitos de la estuchadora integra se deja operativa 30min\n\n* Se intenta cambiar lámpara del R400 pero no se encontró respuesto en el taller"
   },
   {
     "id": "rt-20260917-0747",
@@ -14231,9 +14212,9 @@ window.REPORTES_TURNO = [
       "Smuker se atiende llamado por qué se estaba pelando la correa se estaba montando por fuera del piñon se le coloca una arandela grande y se acomoda 40mn",
       "CLIQUIDO #4 se recibe motor con acople en mal estado, se realiza cambio de acople e instalación de motor que mueve los rodillos del sellado de las cápsulas lado derecho. 1H",
       "MARZIO #4 se realiza ajuste en el equipo codificador debido a que el lote estaba saliendo borroso.1H",
-      "LIQUIDO se repara cortina controlsa área de acumulación de residuos en liquido ya que no bajaba porq estaba por fuera de las guías, se deja habilitada. Se limpia juego de filtros del R200 que estaba en stop Marzio4 se atiende llamado por  que se parte brazo del dosificador se suelda nuevamente 1.5h"
+      "LIQUIDO se repara cortina controlsa área de acumulación de residuos en liquido ya que no bajaba porq estaba por fuera de las guías, se deja habilitada."
     ],
-    "texto": "Buenos Días \nReporte de turno 1 \nSD4\nBIN \nNJP 2 Nitrofurantoina \nNJP 3 Nifedipino \nMS235 flextril \nBlíster 9 Tiamina \nMB 432 Nifedipino\nIntegra Losartan \nR200 oxaprozina \nBlíster 8 Esomeprazol \nMB EVO omeprazol \nHuttlin600\nesomeprazol \nMarzio4 flextril C\nHuttlin 400 esomeprazol termina lote \nFette 2020 #2 limpieza \nFette 1010 olmesartan\nFette 2020#1 Dimoflax \nCTL 4 ácido valproico \nBlíster 3 ferbin\n\nNota \nNJP 2 se atiende llamado para alinear discos de dosificador se encuentra disco con un golpe se lima con cuida y se pule disco por qué estaba muy rayado queda ok 2H\n\nSmuker se atiende llamado por qué se estaba pelando la correa se estaba montando por fuera del piñon se le coloca una arandela grande y se acomoda 40mn\n\nCLIQUIDO #4\nse recibe motor con acople en mal estado, se realiza cambio de acople e instalación de motor que mueve los rodillos del sellado de las cápsulas lado derecho. 1H\n\nMARZIO #4\nse realiza ajuste en el equipo codificador debido a que el lote estaba saliendo borroso.1H\n\nLIQUIDO \nse repara cortina controlsa área de acumulación de residuos en liquido ya que no bajaba porq estaba por fuera de las guías, se deja habilitada.\n Se limpia juego de filtros del R200 que estaba en stop\n Marzio4 se atiende llamado por  que se parte brazo del dosificador se suelda nuevamente 1.5h"
+    "texto": "Buenos Días \nReporte de turno 1 \nSD4\nBIN \nNJP 2 Nitrofurantoina \nNJP 3 Nifedipino \nMS235 flextril \nBlíster 9 Tiamina \nMB 432 Nifedipino\nIntegra Losartan \nR200 oxaprozina \nBlíster 8 Esomeprazol \nMB EVO omeprazol \nHuttlin600\nesomeprazol \nMarzio4 flextril C\nHuttlin 400 esomeprazol termina lote \nFette 2020 #2 limpieza \nFette 1010 olmesartan\nFette 2020#1 Dimoflax \nCTL 4 ácido valproico \nBlíster 3 ferbin\n\nNota \nNJP 2 se atiende llamado para alinear discos de dosificador se encuentra disco con un golpe se lima con cuida y se pule disco por qué estaba muy rayado queda ok 2H\n\nSmuker se atiende llamado por qué se estaba pelando la correa se estaba montando por fuera del piñon se le coloca una arandela grande y se acomoda 40mn\n\nCLIQUIDO #4\nse recibe motor con acople en mal estado, se realiza cambio de acople e instalación de motor que mueve los rodillos del sellado de las cápsulas lado derecho. 1H\n\nMARZIO #4\nse realiza ajuste en el equipo codificador debido a que el lote estaba saliendo borroso.1H\n\nLIQUIDO \nse repara cortina controlsa área de acumulación de residuos en liquido ya que no bajaba porq estaba por fuera de las guías, se deja habilitada."
   },
   {
     "id": "rt-20260917-0752",
@@ -14305,9 +14286,9 @@ window.REPORTES_TURNO = [
     "equipos": [],
     "novedades": [
       "- Se realiza instalación de tomacorriente adicional 120 VAC en cuarto Mezcladora, se realizaron pruebas todo ok -  - Mezcla humeda 324 - 8:40 a.m. - 9:45 a.m. - Se reciben 3 unidades de breaker general tipo cofre Trifásico 63A - 22 Kw , Se revisa por oportunidad la instalación en equipo CB550 para listado de materiales de instalación. - Se reciben 4 unidades de caja 2×4 PVC y 4 tomas 110V para stock de electricistas. - Se realiza extension 110 V para uso general del mantenimiento. - Se realiza instalación de acometida para gabinete eléctrico en Tanques nuevos cerca de Centro líquido 1  (Me dispensan el nombre del equipo) Se adecua instalación a la espera de la orden de la ubicación en tablero de distribución. 2:30 p.m. - 3:40 p.m.",
-      "Todas las actividades en compañía del practicante eléctrico Jose Díaz Viloría. Dpacheco"
+      "Todas las actividades en compañía del practicante eléctrico Jose Díaz Viloría. *Dpacheco*"
     ],
-    "texto": "Buenas tardes \nReporte turno día 17\n2026/09/17\n\n- Se realiza instalación de tomacorriente adicional 120 VAC en cuarto Mezcladora, se realizaron pruebas todo ok\n-  - Mezcla humeda 324 - 8:40 a.m. - 9:45 a.m.\n- Se reciben 3 unidades de breaker general tipo cofre Trifásico 63A - 22 Kw , Se revisa por oportunidad la instalación en equipo CB550 para listado de materiales de instalación.\n- Se reciben 4 unidades de caja 2×4 PVC y 4 tomas 110V para stock de electricistas.\n- Se realiza extension 110 V para uso general del mantenimiento.\n- Se realiza instalación de acometida para gabinete eléctrico en Tanques nuevos cerca de Centro líquido 1  (Me dispensan el nombre del equipo) Se adecua instalación a la espera de la orden de la ubicación en tablero de distribución. 2:30 p.m. - 3:40 p.m.\nTodas las actividades en compañía del practicante eléctrico Jose Díaz Viloría.\nDpacheco"
+    "texto": "Buenas tardes \nReporte turno día 17\n2026/09/17\n\n- Se realiza instalación de tomacorriente adicional 120 VAC en cuarto Mezcladora, se realizaron pruebas todo ok\n-  - Mezcla humeda 324 - 8:40 a.m. - 9:45 a.m.\n- Se reciben 3 unidades de breaker general tipo cofre Trifásico 63A - 22 Kw , Se revisa por oportunidad la instalación en equipo CB550 para listado de materiales de instalación.\n- Se reciben 4 unidades de caja 2×4 PVC y 4 tomas 110V para stock de electricistas.\n- Se realiza extension 110 V para uso general del mantenimiento.\n- Se realiza instalación de acometida para gabinete eléctrico en Tanques nuevos cerca de Centro líquido 1  (Me dispensan el nombre del equipo) Se adecua instalación a la espera de la orden de la ubicación en tablero de distribución. 2:30 p.m. - 3:40 p.m.\nTodas las actividades en compañía del practicante eléctrico Jose Díaz Viloría.\n*Dpacheco*"
   },
   {
     "id": "rt-20260917-1631",
@@ -14336,21 +14317,21 @@ window.REPORTES_TURNO = [
     "equipos": [],
     "novedades": [
       "ESTUCHADORA INTEGRA 320: Se ubica tiempo cierre de solapa lateral para corregir maltrato en estuche.",
-      "T:180mn aprox",
-      "HUTTLIN 400: Se monta eje tanque de soluciones reparado en mecanizado.",
-      "LIQUIDOS 1: Se monta Nuevamente propela caída en tanque de 600.",
-      "T:120 mn aprox",
-      "R400: se cambia válvula de entrada de aire de 12’’ y además se calibra el encoder del actuador, ya que presentaba fallas.",
-      "T: 8hrs",
-      "NJP2: Llaman por problema de vacío no destapa, se limpian filtros de bomba de vacío, se encuentra manguera partida. Además se calibra bloque de vacío queda ok.",
-      "T:180mn aprox",
+      "*T:180mn aprox*",
+      "*HUTTLIN 400:* Se monta eje tanque de soluciones reparado en mecanizado.",
+      "*LIQUIDOS 1:* Se monta Nuevamente propela caída en tanque de 600.",
+      "*T:120 mn aprox*",
+      "*R400:* se cambia válvula de entrada de aire de 12’’ y además se calibra el encoder del actuador, ya que presentaba fallas.",
+      "*T: 8hrs*",
+      "*NJP2:* Llaman por problema de vacío no destapa, se limpian filtros de bomba de vacío, se encuentra manguera partida. Además se calibra bloque de vacío queda ok.",
+      "*T:180mn aprox*",
       "(se requiere manguera corrugada de PVC de 1’’).",
-      "Envasado3: Se cambia de posición el ventilador del tablero eléctrico ya que se encontraba caliente los componentes y se alarmaban los variadores. T: 45 minutos",
-      "CB550: Se fabrica espaciadores de las mordazas verticales porque se habían partido, se alinea las mordazas horizontales por filtración y queda pendiente realizar prueba. T: 120 minutos",
-      "Marzio:#5: Myosop llamado por problemas con la codificadora se realiza limpieza de rodillos se hacen pruebas ok.",
-      "Cl#2: Dolorsin  fem se coloca mangueras de la peristatica de CL 3 a CL #2, no hay mangueras."
+      "*Envasado3:* Se cambia de posición el ventilador del tablero eléctrico ya que se encontraba caliente los componentes y se alarmaban los variadores. *T: 45 minutos*",
+      "*CB550:* Se fabrica espaciadores de las mordazas verticales porque se habían partido, se alinea las mordazas horizontales por filtración y queda pendiente realizar prueba. *T: 120 minutos*",
+      "*Marzio:#5:* Myosop llamado por problemas con la codificadora se realiza limpieza de rodillos se hacen pruebas ok.",
+      "*Cl#2:* Dolorsin  fem se coloca mangueras de la peristatica de CL 3 a CL #2, no hay mangueras."
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 NOCHE SEDE 4\nNOVEDADES: \nESTUCHADORA INTEGRA 320: Se ubica tiempo cierre de solapa lateral para corregir maltrato en estuche.\nT:180mn aprox\nHUTTLIN 400: Se monta eje tanque de soluciones reparado en mecanizado.\nLIQUIDOS 1: Se monta Nuevamente propela caída en tanque de 600.\nT:120 mn aprox\nR400: se cambia válvula de entrada de aire de 12’’ y además se calibra el encoder del actuador, ya que presentaba fallas.\nT: 8hrs\nNJP2: Llaman por problema de vacío no destapa, se limpian filtros de bomba de vacío, se encuentra manguera partida. Además se calibra bloque de vacío queda ok.\nT:180mn aprox\n(se requiere manguera corrugada de PVC de 1’’).\nEnvasado3: Se cambia de posición el ventilador del tablero eléctrico ya que se encontraba caliente los componentes y se alarmaban los variadores. T: 45 minutos\nCB550: Se fabrica espaciadores de las mordazas verticales porque se habían partido, se alinea las mordazas horizontales por filtración y queda pendiente realizar prueba. T: 120 minutos\nMarzio:#5: Myosop llamado por problemas con la codificadora se realiza limpieza de rodillos se hacen pruebas ok.\nCl#2: Dolorsin  fem se coloca mangueras de la peristatica de CL 3 a CL #2, no hay mangueras."
+    "texto": "*REPORTE DE TURNO GRUPO 1 NOCHE SEDE 4*\n*NOVEDADES:* \nESTUCHADORA INTEGRA 320: Se ubica tiempo cierre de solapa lateral para corregir maltrato en estuche.\n*T:180mn aprox*\n*HUTTLIN 400:* Se monta eje tanque de soluciones reparado en mecanizado.\n*LIQUIDOS 1:* Se monta Nuevamente propela caída en tanque de 600.\n*T:120 mn aprox*\n*R400:* se cambia válvula de entrada de aire de 12’’ y además se calibra el encoder del actuador, ya que presentaba fallas.\n*T: 8hrs*\n*NJP2:* Llaman por problema de vacío no destapa, se limpian filtros de bomba de vacío, se encuentra manguera partida. Además se calibra bloque de vacío queda ok.\n*T:180mn aprox*\n(se requiere manguera corrugada de PVC de 1’’).\n*Envasado3:* Se cambia de posición el ventilador del tablero eléctrico ya que se encontraba caliente los componentes y se alarmaban los variadores. *T: 45 minutos*\n*CB550:* Se fabrica espaciadores de las mordazas verticales porque se habían partido, se alinea las mordazas horizontales por filtración y queda pendiente realizar prueba. *T: 120 minutos*\n*Marzio:#5:* Myosop llamado por problemas con la codificadora se realiza limpieza de rodillos se hacen pruebas ok.\n*Cl#2:* Dolorsin  fem se coloca mangueras de la peristatica de CL 3 a CL #2, no hay mangueras."
   },
   {
     "id": "rt-20260917-2113",
@@ -14510,13 +14491,13 @@ window.REPORTES_TURNO = [
       "Fabricación de soluciones huttiln 600 se atiende llamado por bomba botando producto se desmonta se trae a taller se evidencia eje con desgaste queda en taller para reparar 60min",
       "Tanque auxiliar de 250lts del área de centro líquidos 2 por falla de termocupla se reemplaza queda ok 30min",
       "* Huttiln 400 presentado baja presión de aire de entrada",
-      "CB550 Se atiende llamado por problemas de filtración, se cuadra tiempo de sellado horizontal, se cuadra sistema de mordazas y se alinean , se deja operativa, vuelve a llamar por arruga se cuadra arrugas se deja operativa, hace último movimiento se deja para prueba 5h",
+      "*CB550* Se atiende llamado por problemas de filtración, se cuadra tiempo de sellado horizontal, se cuadra sistema de mordazas y se alinean , se deja operativa, vuelve a llamar por arruga se cuadra arrugas se deja operativa, hace último movimiento se deja para prueba 5h",
       "Blíster 8 Se atiende llamado por problemas de paso se cuadra paso , se ajusta tamaño de blíster , guías y se sistema de formación queda operativo 3h",
       "NJP2 Se atiende llamado por falta de vacío se verifica bomba y se encuentra paletas de grafito partidas y desgastadas , Se adapta palabras de grafito ya que la referencia de esa bomba no la tenemos en el taller , se deja operativa También se cuadra y se limpia el sistema de succión queda operativa 3h",
-      "Estuchadora integra",
+      "*Estuchadora integra*",
       "Se atiende llamado por qué la estuchadora dañaba el estuche en la salida de la máquina se cuadra guías y también guía de salida , queda lista para el arranque , pero no tenían operador en blisteado 45min"
     ],
-    "texto": "SEDE 4. TURNO   (noche)\n2026/08/18\n_________________\n\nCl2 dolorsin fem\nMt1100 supreflux\nCl4 limpieza \nEnvasado 3 zipezp\nEnvasado 2 alermed \nNjp2 nitorurantoina \nPilot dimoflax \nNjp1 multi vitamínico\nMs235 flextril c \nBlíster 9 Ferbin \nHuttiln 600 esomeprszol \nMarzio  4 flextril \nRimek etorimed\n\n                    Novedades\n\nFabricación de soluciones huttiln 600 se atiende llamado por bomba botando producto se desmonta se trae a taller se evidencia eje con desgaste queda en taller para reparar 60min\n\nTanque auxiliar de 250lts del área de centro líquidos 2 por falla de termocupla se reemplaza queda ok 30min\n\n* Huttiln 400 presentado baja presión de aire de entrada \n\nCB550\nSe atiende llamado por problemas de filtración, se cuadra tiempo de sellado horizontal, se cuadra sistema de mordazas y se alinean , se deja operativa, vuelve a llamar por arruga se cuadra arrugas se deja operativa, hace último movimiento se deja para prueba \n5h \n\nBlíster 8 \nSe atiende llamado por problemas de paso se cuadra paso , se ajusta tamaño de blíster , guías y se sistema de formación queda operativo \n3h\n\nNJP2\nSe atiende llamado por falta de vacío se verifica bomba y se encuentra paletas de grafito partidas y desgastadas , \nSe adapta palabras de grafito ya que la referencia de esa bomba no la tenemos en el taller , se deja operativa\nTambién se cuadra y se limpia el sistema de succión queda operativa 3h\n\nEstuchadora integra\n\nSe atiende llamado por qué la estuchadora dañaba el estuche en la salida de la máquina se cuadra guías y también guía de salida , queda lista para el arranque , pero no tenían operador en blisteado 45min"
+    "texto": "SEDE 4. TURNO   (noche)\n2026/08/18\n_______________________________________________\n\nCl2 dolorsin fem\nMt1100 supreflux\nCl4 limpieza \nEnvasado 3 zipezp\nEnvasado 2 alermed \nNjp2 nitorurantoina \nPilot dimoflax \nNjp1 multi vitamínico\nMs235 flextril c \nBlíster 9 Ferbin \nHuttiln 600 esomeprszol \nMarzio  4 flextril \nRimek etorimed\n\n                    Novedades\n\nFabricación de soluciones huttiln 600 se atiende llamado por bomba botando producto se desmonta se trae a taller se evidencia eje con desgaste queda en taller para reparar 60min\n\nTanque auxiliar de 250lts del área de centro líquidos 2 por falla de termocupla se reemplaza queda ok 30min\n\n* Huttiln 400 presentado baja presión de aire de entrada \n\n*CB550*\nSe atiende llamado por problemas de filtración, se cuadra tiempo de sellado horizontal, se cuadra sistema de mordazas y se alinean , se deja operativa, vuelve a llamar por arruga se cuadra arrugas se deja operativa, hace último movimiento se deja para prueba \n5h \n\nBlíster 8 \nSe atiende llamado por problemas de paso se cuadra paso , se ajusta tamaño de blíster , guías y se sistema de formación queda operativo \n3h\n\nNJP2\nSe atiende llamado por falta de vacío se verifica bomba y se encuentra paletas de grafito partidas y desgastadas , \nSe adapta palabras de grafito ya que la referencia de esa bomba no la tenemos en el taller , se deja operativa\nTambién se cuadra y se limpia el sistema de succión queda operativa 3h\n\n*Estuchadora integra*\n\nSe atiende llamado por qué la estuchadora dañaba el estuche en la salida de la máquina se cuadra guías y también guía de salida , queda lista para el arranque , pero no tenían operador en blisteado 45min"
   },
   {
     "id": "rt-20260918-1940",
@@ -14657,27 +14638,24 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Envasado2: Se atiende llamado porque la máquina no arrancaba, se encontraba un fusible quemado por causa de los inyectores tapados de producto, se desmonta los inyectores y se manda a lavar, se realiza el montaje de los inyectores, quedando operativo. T: 180 minutos aprox.",
-      "Cb 550: Se corrige fuga de aire comprimido en la válvula neumática. T: 30 minutos aprox.",
-      "Cl2: Se dispara breaker de bomba peristaltica, se revisa y se sube breaker, quedando operativa.",
-      "En la encapsuladora encendia el motor de rodillo alimentador de cápsulas, se reinicia la máquina quedando operativa. T: 60 minutos aprox.",
-      "NJP2 : Se atiende llamado por variación de peso y por vacio, se calibra disco de bronce, se limpian los filtros de la bomba de vacío, las mangueras y queda operativa.",
+      "*Envasado2:* Se atiende llamado porque la máquina no arrancaba, se encontraba un fusible quemado por causa de los inyectores tapados de producto, se desmonta los inyectores y se manda a lavar, se realiza el montaje de los inyectores, quedando operativo. *T: 180 minutos aprox.*",
+      "*Cb 550:* Se corrige fuga de aire comprimido en la válvula neumática. *T: 30 minutos aprox.*",
+      "*Cl2:* Se dispara breaker de bomba peristaltica, se revisa y se sube breaker, quedando operativa.",
+      "En la encapsuladora encendia el motor de rodillo alimentador de cápsulas, se reinicia la máquina quedando operativa. *T: 60 minutos aprox.*",
+      "*NJP2 :* Se atiende llamado por variación de peso y por vacio, se calibra disco de bronce, se limpian los filtros de la bomba de vacío, las mangueras y queda operativa.",
       "Segundo llamado por atascamiento en la estación de polvo, se baja los pines dosificadores y se evidencia un pin doblado, se endereza, se monta y se prueba quedando operativa.",
-      "Tercer llamado por nuevamente atascamiento en la estación de polvo, se desmonta todo el sistema y se evidencia producto comprimido entre el disco de  bronce y  disco dosificador, se limpia y se calibra nuevamente el disco de bronce. Quedando operativa. T: 5 hrs aprox.",
-      "HUTTLIN 600: Se coloca bomba difusora en preparación de soluciones quedando disponible.",
-      "T: 60 mn aprox",
-      "BLÍSTER #8: Se corrige mal formación  de alveolos calibrando túnel de calefacción, equipo operativo.",
+      "Tercer llamado por nuevamente atascamiento en la estación de polvo, se desmonta todo el sistema y se evidencia producto comprimido entre el disco de  bronce y  disco dosificador, se limpia y se calibra nuevamente el disco de bronce. Quedando operativa. *T: 5 hrs aprox.*",
+      "*HUTTLIN 600:* Se coloca bomba difusora en preparación de soluciones quedando disponible.",
+      "*T: 60 mn aprox*",
+      "*BLÍSTER #8:* Se corrige mal formación  de alveolos calibrando túnel de calefacción, equipo operativo.",
       "*T:60 mn aprox.",
-      "ESTUCHADORA INTEGRA: Se corrige posición de brazo cierre de solapa lateral para evitar maltrato en estuches, equipo trabajando en linea.",
-      "T:180mn aprox",
-      "SCHMUCKER: Equipo trabajando S/N, se deja pendiente montar piñón banda de arrastre (nuevo).",
-      "CB550: Se corrige filtracion en sobres, equipo operativo.",
-      "T:50 mn aprox",
-      "H600",
-      "ESTUCHADORA INTEGRA.",
-      "ESTUCHADORA INTEGRA trabajando en linea."
+      "*ESTUCHADORA INTEGRA:* Se corrige posición de brazo cierre de solapa lateral para evitar maltrato en estuches, equipo trabajando en linea.",
+      "*T:180mn aprox*",
+      "*SCHMUCKER:* Equipo trabajando S/N, se deja pendiente montar piñón banda de arrastre (nuevo).",
+      "*CB550:* Se corrige filtracion en sobres, equipo operativo.",
+      "*T:50 mn aprox*"
     ],
-    "texto": "REPORTE DE TURNO \n GRUPO 1 Día\n SEDE 4 \n- CL2: Dolorsin fem \n- CL4: FERBIN \n- MT 1100: LIMPIA\n- BLÍSTER 3: FERBIN\n- BLÍSTER 2 : TAMSEXCO\n- ENVASADO 3: ZIPED\n- CL3: Disponible \n- ENVASADO 2: ALERMED\n- BIN BLENDER: VILDAGLIPTINA\n- BOSCH: DISPONIBLE \n- NJP1: FERRIMED \n- NJP2: NITROFURANTINA \n- NJP3: DISPONIBLE \n- PILOT LAB: DIMOFLAX \n- MB 432: NIFEDIPINO 30MG\n- BLÍSTER 8: ALERMED \n- SCHMUCKER: Flextril C\n- Blíster 9: BIOCAR-E \n- INTEGRA 320: LOSARTAN \n- R200: DIMOFLAX \n- MB 451 EVO: OMEPRAZOL\n- MARZIO 5: LIMPIA \n- HUTTLIN 600: LIMPIEZA \n- R400: DIMOFLAX \n- BOMBO 300: DISPONIBLE \n- MARZIO 4: FLEXTRIL \n- HUTTLIN 400: DICLOFENAC\n- RIMEK: ETIRIMED 90MG\n- FETTE 1010: MONTAJE \n- FETTE 2020 2: LIMPIEZA\n- FETTE 2020 1: DIMOFLAX \n- CB 550: gelimed \n\nNOVEDADES\nEnvasado2: Se atiende llamado porque la máquina no arrancaba, se encontraba un fusible quemado por causa de los inyectores tapados de producto, se desmonta los inyectores y se manda a lavar, se realiza el montaje de los inyectores, quedando operativo. T: 180 minutos aprox.\nCb 550: Se corrige fuga de aire comprimido en la válvula neumática. T: 30 minutos aprox.\nCl2: Se dispara breaker de bomba peristaltica, se revisa y se sube breaker, quedando operativa. \nEn la encapsuladora encendia el motor de rodillo alimentador de cápsulas, se reinicia la máquina quedando operativa. T: 60 minutos aprox.\nNJP2 : Se atiende llamado por variación de peso y por vacio, se calibra disco de bronce, se limpian los filtros de la bomba de vacío, las mangueras y queda operativa.\nSegundo llamado por atascamiento en la estación de polvo, se baja los pines dosificadores y se evidencia un pin doblado, se endereza, se monta y se prueba quedando operativa. \nTercer llamado por nuevamente atascamiento en la estación de polvo, se desmonta todo el sistema y se evidencia producto comprimido entre el disco de  bronce y  disco dosificador, se limpia y se calibra nuevamente el disco de bronce. Quedando operativa. T: 5 hrs aprox.\nHUTTLIN 600: Se coloca bomba difusora en preparación de soluciones quedando disponible.\nT: 60 mn aprox\nBLÍSTER #8: Se corrige mal formación  de alveolos calibrando túnel de calefacción, equipo operativo.\n*T:60 mn aprox.\nESTUCHADORA INTEGRA: Se corrige posición de brazo cierre de solapa lateral para evitar maltrato en estuches, equipo trabajando en linea.\nT:180mn aprox\nSCHMUCKER: Equipo trabajando S/N, se deja pendiente montar piñón banda de arrastre (nuevo).\nCB550: Se corrige filtracion en sobres, equipo operativo.\nT:50 mn aprox\n H600\n ESTUCHADORA INTEGRA.\n ESTUCHADORA INTEGRA trabajando en linea."
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 Día*\n *SEDE* *4* \n- *CL2:* Dolorsin fem \n- *CL4:* FERBIN \n- *MT 1100:* LIMPIA\n- *BLÍSTER 3:* FERBIN\n- *BLÍSTER 2 :* TAMSEXCO\n- *ENVASADO 3:* ZIPED\n- *CL3:* Disponible \n- *ENVASADO 2:* ALERMED\n- *BIN BLENDER:* VILDAGLIPTINA\n- *BOSCH:* DISPONIBLE \n- *NJP1:* FERRIMED \n- *NJP2:* NITROFURANTINA \n- *NJP3:* DISPONIBLE \n- *PILOT LAB:* DIMOFLAX \n- *MB 432:* NIFEDIPINO 30MG\n- *BLÍSTER 8:* ALERMED \n- *SCHMUCKER:* Flextril C\n- *Blíster 9:* BIOCAR-E \n- *INTEGRA 320:* LOSARTAN \n- *R200:* DIMOFLAX \n- *MB 451 EVO:* OMEPRAZOL\n- *MARZIO 5:* LIMPIA \n- *HUTTLIN 600:* LIMPIEZA \n- *R400:* DIMOFLAX \n- *BOMBO 300:* DISPONIBLE \n- *MARZIO 4:* FLEXTRIL \n- *HUTTLIN 400:* DICLOFENAC\n- *RIMEK:* ETIRIMED 90MG\n- *FETTE 1010:* MONTAJE \n- *FETTE 2020 2:* LIMPIEZA\n- *FETTE 2020 1:* DIMOFLAX \n- *CB 550:* gelimed \n\n*NOVEDADES*\n*Envasado2:* Se atiende llamado porque la máquina no arrancaba, se encontraba un fusible quemado por causa de los inyectores tapados de producto, se desmonta los inyectores y se manda a lavar, se realiza el montaje de los inyectores, quedando operativo. *T: 180 minutos aprox.*\n*Cb 550:* Se corrige fuga de aire comprimido en la válvula neumática. *T: 30 minutos aprox.*\n*Cl2:* Se dispara breaker de bomba peristaltica, se revisa y se sube breaker, quedando operativa. \nEn la encapsuladora encendia el motor de rodillo alimentador de cápsulas, se reinicia la máquina quedando operativa. *T: 60 minutos aprox.*\n*NJP2 :* Se atiende llamado por variación de peso y por vacio, se calibra disco de bronce, se limpian los filtros de la bomba de vacío, las mangueras y queda operativa.\nSegundo llamado por atascamiento en la estación de polvo, se baja los pines dosificadores y se evidencia un pin doblado, se endereza, se monta y se prueba quedando operativa. \nTercer llamado por nuevamente atascamiento en la estación de polvo, se desmonta todo el sistema y se evidencia producto comprimido entre el disco de  bronce y  disco dosificador, se limpia y se calibra nuevamente el disco de bronce. Quedando operativa. *T: 5 hrs aprox.*\n*HUTTLIN 600:* Se coloca bomba difusora en preparación de soluciones quedando disponible.\n*T: 60 mn aprox*\n*BLÍSTER #8:* Se corrige mal formación  de alveolos calibrando túnel de calefacción, equipo operativo.\n*T:60 mn aprox.\n*ESTUCHADORA INTEGRA:* Se corrige posición de brazo cierre de solapa lateral para evitar maltrato en estuches, equipo trabajando en linea.\n*T:180mn aprox*\n*SCHMUCKER:* Equipo trabajando S/N, se deja pendiente montar piñón banda de arrastre (nuevo).\n*CB550:* Se corrige filtracion en sobres, equipo operativo.\n*T:50 mn aprox*"
   },
   {
     "id": "rt-20260918-1944",
@@ -14885,15 +14863,15 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "HUTTLIN 600 Se entiende llamado de fabricación de soluciones huttiln 600 no activan válvulas y los motores se encontró variadores en falla  se verifica giro de motor",
-      "FABRICACION Tanque de 250 fabricaron de líquidos centro líquidos 2 llamado por disparo el.set del guardamotor estaba en 6A y estaba consumiendo 7A se modifica",
-      "NJP2",
+      "*HUTTLIN 600* Se entiende llamado de fabricación de soluciones huttiln 600 no activan válvulas y los motores se encontró variadores en falla  se verifica giro de motor",
+      "*FABRICACION* Tanque de 250 fabricaron de líquidos centro líquidos 2 llamado por disparo el.set del guardamotor estaba en 6A y estaba consumiendo 7A se modifica",
+      "*NJP2*",
       "Se realiza alineamiento de pines dosificadores en NJP2 y corrige posición de la tapa del magazin porque tenía ruido. Máquina operativa.",
-      "Blíster 8 Se realiza revisión en túnel de blisteadora 8. Se desmonta por tornillo flojo y entorpecía proceso sobre el teflón y se ajusta leva del  sensor desenbobinador de teflon",
+      "*Blíster 8* Se realiza revisión en túnel de blisteadora 8. Se desmonta por tornillo flojo y entorpecía proceso sobre el teflón y se ajusta leva del  sensor desenbobinador de teflon",
       "* SE REPARA CERRADURA DE CUARTO DE PERSONAL DE LA EVO * SE REPARA CLAVIJA DE 110 DE PESA EN PESAJE 1",
-      "MARZIO 4 Se atiende llamado por problemas con la codificadora se revisa se cuadra y se deja operativa, se le da capacitación al operario de como colocar el lote ya que el no sabía cómo hacerlo"
+      "*MARZIO 4* Se atiende llamado por problemas con la codificadora se revisa se cuadra y se deja operativa, se le da capacitación al operario de como colocar el lote ya que el no sabía cómo hacerlo"
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# \n\nLIQUIDOS\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n*•BLISTER2: DISPONIBLE \n*•MT: DISPONIBLE \n*•ENVASADO: FERBIN \n*• MARCHESINI: ACEFLUX \n*•CL2 : ALERMED \n*•EMBASADORA 2: LIMPIEZA\n\nSOLIDOS\n\n*•BIN: LIMPIEZA \n*•BOSH: LIMPIEZA \n*•NJP2 : NITROFUATUINA\n*•NJP1 : LIMPIEZA Y MONTAJE\n*•PILOTBLAB HUYTLIN40: DISPONIBLE \n*•SCHMUKER: FLEXTRIL\n*•NJP3 :LIMPIEZA \n*•BLISTER #9: COLTRIM \n*•BLISTER 6 MB432: NIFEDIPINO\n*•INTEGRA320: \n*•BLISTER #8: ALERMET\n*•EVO: LIMPIEZA \n*•MARZIO #4 : DISPONIBLE \n*•HUTTLIN 600: DISPONIBLE \n*•R200: DISPONIBLE \n*•R400: IMUFLAX \n*•MARZIO 1: FLEXTRIL\n*•HUTTLIN 400: LIMPIEZA \n*•FETTE 2020/2: DISPONIBLE \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: DISPONIBLE \n*•FETTE2021: IMUFLAX \n*•CB550: DISPONIBLE \n________\n       NOVEDADES\n\nHUTTLIN 600\nSe entiende llamado de fabricación de soluciones huttiln 600 no activan válvulas y los motores se encontró variadores en falla  se verifica giro de motor \n\nFABRICACION \nTanque de 250 fabricaron de líquidos centro líquidos 2 llamado por disparo el.set del guardamotor estaba en 6A y estaba consumiendo 7A se modifica\n\nNJP2 \n\nSe realiza alineamiento de pines dosificadores en NJP2 y corrige posición de la tapa del magazin porque tenía ruido.\nMáquina operativa.\n\nBlíster 8\n Se realiza revisión en túnel de blisteadora 8.\nSe desmonta por tornillo flojo y entorpecía proceso sobre el teflón y se ajusta leva del  sensor desenbobinador de teflon\n\n* SE REPARA CERRADURA DE CUARTO DE PERSONAL DE LA EVO \n* SE REPARA CLAVIJA DE 110 DE PESA EN PESAJE 1 \n\nMARZIO 4\nSe atiende llamado por problemas con la codificadora se revisa se cuadra y se deja operativa, se le da capacitación al operario de como colocar el lote ya que el no sabía cómo hacerlo"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n*•BLISTER2: DISPONIBLE \n*•MT: DISPONIBLE \n*•ENVASADO: FERBIN \n*• MARCHESINI: ACEFLUX \n*•CL2 : ALERMED \n*•EMBASADORA 2: LIMPIEZA\n\n*SOLIDOS*\n\n*•BIN: LIMPIEZA \n*•BOSH: LIMPIEZA \n*•NJP2 : NITROFUATUINA\n*•NJP1 : LIMPIEZA Y MONTAJE\n*•PILOTBLAB HUYTLIN40: DISPONIBLE \n*•SCHMUKER: FLEXTRIL\n*•NJP3 :LIMPIEZA \n*•BLISTER #9: COLTRIM \n*•BLISTER 6 MB432: NIFEDIPINO\n*•INTEGRA320: \n*•BLISTER #8: ALERMET\n*•EVO: LIMPIEZA \n*•MARZIO #4 : DISPONIBLE \n*•HUTTLIN 600: DISPONIBLE \n*•R200: DISPONIBLE \n*•R400: IMUFLAX \n*•MARZIO 1: FLEXTRIL\n*•HUTTLIN 400: LIMPIEZA \n*•FETTE 2020/2: DISPONIBLE \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: DISPONIBLE \n*•FETTE2021: IMUFLAX \n*•CB550: DISPONIBLE \n____________________\n       NOVEDADES\n\n*HUTTLIN 600*\nSe entiende llamado de fabricación de soluciones huttiln 600 no activan válvulas y los motores se encontró variadores en falla  se verifica giro de motor \n\n*FABRICACION* \nTanque de 250 fabricaron de líquidos centro líquidos 2 llamado por disparo el.set del guardamotor estaba en 6A y estaba consumiendo 7A se modifica\n\n*NJP2* \n\nSe realiza alineamiento de pines dosificadores en NJP2 y corrige posición de la tapa del magazin porque tenía ruido.\nMáquina operativa.\n\n*Blíster 8*\n Se realiza revisión en túnel de blisteadora 8.\nSe desmonta por tornillo flojo y entorpecía proceso sobre el teflón y se ajusta leva del  sensor desenbobinador de teflon\n\n* SE REPARA CERRADURA DE CUARTO DE PERSONAL DE LA EVO \n* SE REPARA CLAVIJA DE 110 DE PESA EN PESAJE 1 \n\n*MARZIO 4*\nSe atiende llamado por problemas con la codificadora se revisa se cuadra y se deja operativa, se le da capacitación al operario de como colocar el lote ya que el no sabía cómo hacerlo"
   },
   {
     "id": "rt-20260919-1655",
@@ -14968,7 +14946,7 @@ window.REPORTES_TURNO = [
       "*En dos ocasiones hubo fluctuacion en la  planta , se realizan recorrido de UMAS y bombas de agua fría",
       "*Mezclador horizontal, compuerta de descarga atascada, se corrige problema ok"
     ],
-    "texto": "Reporte turno\n2026/09/19\n\nBlister 5 :  dolorsin fem( stand by)\nGb-100: dispax \nHorno secado: limpieza profunda \nMezclador horizontal: \nFabricación1: supreflux forte \nEnvasadora 1:  supreflux forte \nEtiqueteadora 1: supreflux forte \nCD-40: \nLimpieza profunda \nCl1: orlistat\nRonchy: limpieza profunda \nMarzio 2 : novabelle\nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\nNOVEDADES\n\n*Gb 100, se atiende llamado por problema con el sellado, se hacen ajustes y se realizan pruebas ok,\n\n*Planta de agua, se cambia cabezal de control del suavizador por fisura ,se le colocó unión universal de 3/4 al tubo de rechazo ya que no había forma de quitar el tubo \n\n*Centro líquidos 2, se le colocaron discos en L nuevos a la selladora, quedan pendientes los discos en V para mejorar el sellado \n\n*En dos ocasiones hubo fluctuacion en la  planta , se realizan recorrido de UMAS y bombas de agua fría \n\n*Mezclador horizontal, compuerta de descarga atascada, se corrige problema ok"
+    "texto": "Reporte turno\n2026/09/19\n\nBlister 5 :  dolorsin fem( stand by)\nGb-100: dispax \nHorno secado: limpieza profunda \nMezclador horizontal: \nFabricación1: supreflux forte \nEnvasadora 1:  supreflux forte \nEtiqueteadora 1: supreflux forte \nCD-40: \nLimpieza profunda \nCl1: orlistat\nRonchy: limpieza profunda \nMarzio 2 : novabelle\nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\n*NOVEDADES*\n\n*Gb 100, se atiende llamado por problema con el sellado, se hacen ajustes y se realizan pruebas ok,\n\n*Planta de agua, se cambia cabezal de control del suavizador por fisura ,se le colocó unión universal de 3/4 al tubo de rechazo ya que no había forma de quitar el tubo \n\n*Centro líquidos 2, se le colocaron discos en L nuevos a la selladora, quedan pendientes los discos en V para mejorar el sellado \n\n*En dos ocasiones hubo fluctuacion en la  planta , se realizan recorrido de UMAS y bombas de agua fría \n\n*Mezclador horizontal, compuerta de descarga atascada, se corrige problema ok"
   },
   {
     "id": "rt-20260920-0811",
@@ -14980,17 +14958,17 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-09-19",
     "equipos": [],
     "novedades": [
-      "ESTUCHADORA INTEGRA: Cambio de formato, Llamado porque volanta (apertura banda alimentadora, blísters), no accionaba en ninguno de los sentidos, se procede a desarmar sistemas, encontrándose alojamiento (piñón angular de movimiento) partido, se da apertura de banda de forma manual, se comienza a armar nuevamente, se entrega a turno entrante continuar con alineación de ambas bandas.",
+      "*ESTUCHADORA INTEGRA:* Cambio de formato, Llamado porque volanta (apertura banda alimentadora, blísters), no accionaba en ninguno de los sentidos, se procede a desarmar sistemas, encontrándose alojamiento (piñón angular de movimiento) partido, se da apertura de banda de forma manual, se comienza a armar nuevamente, se entrega a turno entrante continuar con alineación de ambas bandas.",
       "Se adjunta imágenes, se requiere reparar y pedir repuestos URGENTE!!!",
-      "T:12hrs",
-      "MB451 Evo: LLamado por perdida de paso en rodillo de arrastre, se ajusta leva  del mismo y se limpia troquel de corte, equipo operativo, se adjunta video.",
-      "T: 120mn aprox",
-      "Blíster 9: Se mando a lavar los rodillos y la tolva del cargador universal porque se encontraba con producto, Se realiza el montaje del cargador universal, se cuadra sensor dicificador y velocidad de rodillo, queda operativa. T: 3 hrs",
-      "Blíster 8: Se mando a lavar los rodillos y la tolva del cargador universal por producto acumulado, Se realiza el montaje y al momento de realizar prueba se evidencia que el sensor dosificador se encuentra en mal estado, se desmonta todo el sistema de dosificación pero queda operativa la máquina. T: 3 hrs",
-      "Marzio5: Se realiza ajuste en el brazo de dosificación y se cambia cuchillas, se encuentra en montaje. ( Pendiente mandar afilar)",
-      "MT110: Se atiende llamado por falla en el inversor agitador de la cuba, se revisa y se evidencia conector con agua y cables sulfatados, se repara y queda operativa, después otro llamado porque el stick quedaba atascado, se encontro caucho expulsores en mal estado, se cambia y queda operativa. Un último llamado porque realiza el cambio de laminado y no salía bien el lote, se le da múltiples ajustes y persiste la anomalía, Se recomienda cambiar laminado nuevamente (Realizar seguimiento) T: 3.5 hrs"
+      "*T:12hrs*",
+      "*MB451 Evo:* LLamado por perdida de paso en rodillo de arrastre, se ajusta leva  del mismo y se limpia troquel de corte, equipo operativo, se adjunta video.",
+      "*T: 120mn aprox*",
+      "*Blíster 9:* Se mando a lavar los rodillos y la tolva del cargador universal porque se encontraba con producto, Se realiza el montaje del cargador universal, se cuadra sensor dicificador y velocidad de rodillo, queda operativa. *T: 3 hrs*",
+      "*Blíster 8:* Se mando a lavar los rodillos y la tolva del cargador universal por producto acumulado, Se realiza el montaje y al momento de realizar prueba se evidencia que el sensor dosificador se encuentra en mal estado, se desmonta todo el sistema de dosificación pero queda operativa la máquina. *T: 3 hrs*",
+      "*Marzio5:* Se realiza ajuste en el brazo de dosificación y se cambia cuchillas, se encuentra en montaje. *( Pendiente mandar afilar)*",
+      "*MT110:* Se atiende llamado por falla en el inversor agitador de la cuba, se revisa y se evidencia conector con agua y cables sulfatados, se repara y queda operativa, después otro llamado porque el stick quedaba atascado, se encontro caucho expulsores en mal estado, se cambia y queda operativa. Un último llamado porque realiza el cambio de laminado y no salía bien el lote, se le da múltiples ajustes y persiste la anomalía, Se recomienda cambiar laminado nuevamente *(Realizar seguimiento)* *T: 3.5 hrs*"
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 NOCHE SEDE 4\nNOVEDADES:\nESTUCHADORA INTEGRA: Cambio de formato, Llamado porque volanta (apertura banda alimentadora, blísters), no accionaba en ninguno de los sentidos, se procede a desarmar sistemas, encontrándose alojamiento (piñón angular de movimiento) partido, se da apertura de banda de forma manual, se comienza a armar nuevamente, se entrega a turno entrante continuar con alineación de ambas bandas.\nSe adjunta imágenes, se requiere reparar y pedir repuestos URGENTE!!!\n\nT:12hrs\nMB451 Evo: LLamado por perdida de paso en rodillo de arrastre, se ajusta leva  del mismo y se limpia troquel de corte, equipo operativo, se adjunta video.\nT: 120mn aprox\nBlíster 9: Se mando a lavar los rodillos y la tolva del cargador universal porque se encontraba con producto, Se realiza el montaje del cargador universal, se cuadra sensor dicificador y velocidad de rodillo, queda operativa. T: 3 hrs\nBlíster 8: Se mando a lavar los rodillos y la tolva del cargador universal por producto acumulado, Se realiza el montaje y al momento de realizar prueba se evidencia que el sensor dosificador se encuentra en mal estado, se desmonta todo el sistema de dosificación pero queda operativa la máquina. T: 3 hrs\nMarzio5: Se realiza ajuste en el brazo de dosificación y se cambia cuchillas, se encuentra en montaje. ( Pendiente mandar afilar)\nMT110: Se atiende llamado por falla en el inversor agitador de la cuba, se revisa y se evidencia conector con agua y cables sulfatados, se repara y queda operativa, después otro llamado porque el stick quedaba atascado, se encontro caucho expulsores en mal estado, se cambia y queda operativa. Un último llamado porque realiza el cambio de laminado y no salía bien el lote, se le da múltiples ajustes y persiste la anomalía, Se recomienda cambiar laminado nuevamente (Realizar seguimiento) T: 3.5 hrs"
+    "texto": "*REPORTE DE TURNO GRUPO 1 NOCHE SEDE 4*\n*NOVEDADES:*\n*ESTUCHADORA INTEGRA:* Cambio de formato, Llamado porque volanta (apertura banda alimentadora, blísters), no accionaba en ninguno de los sentidos, se procede a desarmar sistemas, encontrándose alojamiento (piñón angular de movimiento) partido, se da apertura de banda de forma manual, se comienza a armar nuevamente, se entrega a turno entrante continuar con alineación de ambas bandas.\nSe adjunta imágenes, se requiere reparar y pedir repuestos URGENTE!!!\n\n*T:12hrs*\n*MB451 Evo:* LLamado por perdida de paso en rodillo de arrastre, se ajusta leva  del mismo y se limpia troquel de corte, equipo operativo, se adjunta video.\n*T: 120mn aprox*\n*Blíster 9:* Se mando a lavar los rodillos y la tolva del cargador universal porque se encontraba con producto, Se realiza el montaje del cargador universal, se cuadra sensor dicificador y velocidad de rodillo, queda operativa. *T: 3 hrs*\n*Blíster 8:* Se mando a lavar los rodillos y la tolva del cargador universal por producto acumulado, Se realiza el montaje y al momento de realizar prueba se evidencia que el sensor dosificador se encuentra en mal estado, se desmonta todo el sistema de dosificación pero queda operativa la máquina. *T: 3 hrs*\n*Marzio5:* Se realiza ajuste en el brazo de dosificación y se cambia cuchillas, se encuentra en montaje. *( Pendiente mandar afilar)*\n*MT110:* Se atiende llamado por falla en el inversor agitador de la cuba, se revisa y se evidencia conector con agua y cables sulfatados, se repara y queda operativa, después otro llamado porque el stick quedaba atascado, se encontro caucho expulsores en mal estado, se cambia y queda operativa. Un último llamado porque realiza el cambio de laminado y no salía bien el lote, se le da múltiples ajustes y persiste la anomalía, Se recomienda cambiar laminado nuevamente *(Realizar seguimiento)* *T: 3.5 hrs*"
   },
   {
     "id": "rt-20260920-2004",
@@ -15058,11 +15036,9 @@ window.REPORTES_TURNO = [
       "*Horno secado, se programa 180 minutos de secado por humedad por orden de supervisora, no tenía operador",
       "*Marzio 2, se cuadra mordaza horizontal por desviación en el grafilado ok",
       "*Ascensor ,se quita cerrojo de la puerta del segundo piso debido que no estaba activando el sensor ok",
-      "*Se coloca lámpara led al taller de mantenimiento, se le realiza limpieza y se bota basura",
-      "Horno de secado: Se atiende llamado para ajustar el tiempo de secado de 180 minutos a 500 minutos, se ajusta el tiempo y queda trabajando.",
-      "Centro líquidos: se atiende llamado por correa de discos de sellado partida, se realiza el cambio y queda equipo operativo."
+      "*Se coloca lámpara led al taller de mantenimiento, se le realiza limpieza y se bota basura"
     ],
-    "texto": "Reporte turno\n2026/09/20\n\nBlister 5 :  dolorsin fem( stand by)\nGb-100: vidagliptina \nHorno secado: naproxeno \nMezclador horizontal: limpieza profunda \nFabricación1: supreflux forte \nEnvasadora 1:  supreflux forte \nEtiqueteadora 1: supreflux forte \nCD-40: flectadol \nCl1: orlistat\nRonchy: montaje naproxeno más cafeína \nMarzio 2 : novabelle\nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\nNOVEDADES\n\n*Horno secado, se programa 180 minutos de secado por humedad por orden de supervisora, no tenía operador \n\n*Marzio 2, se cuadra mordaza horizontal por desviación en el grafilado ok\n\n*Ascensor ,se quita cerrojo de la puerta del segundo piso debido que no estaba activando el sensor ok\n\n*Se coloca lámpara led al taller de mantenimiento, se le realiza limpieza y se bota basura\n Horno de secado: Se atiende llamado para ajustar el tiempo de secado de 180 minutos a 500 minutos, se ajusta el tiempo y queda trabajando.\n\nCentro líquidos: se atiende llamado por correa de discos de sellado partida, se realiza el cambio y queda equipo operativo."
+    "texto": "Reporte turno\n2026/09/20\n\nBlister 5 :  dolorsin fem( stand by)\nGb-100: vidagliptina \nHorno secado: naproxeno \nMezclador horizontal: limpieza profunda \nFabricación1: supreflux forte \nEnvasadora 1:  supreflux forte \nEtiqueteadora 1: supreflux forte \nCD-40: flectadol \nCl1: orlistat\nRonchy: montaje naproxeno más cafeína \nMarzio 2 : novabelle\nStick pack 3: stand by\nColimatic: stand by\n‐-------------------------------------\n*NOVEDADES*\n\n*Horno secado, se programa 180 minutos de secado por humedad por orden de supervisora, no tenía operador \n\n*Marzio 2, se cuadra mordaza horizontal por desviación en el grafilado ok\n\n*Ascensor ,se quita cerrojo de la puerta del segundo piso debido que no estaba activando el sensor ok\n\n*Se coloca lámpara led al taller de mantenimiento, se le realiza limpieza y se bota basura"
   },
   {
     "id": "rt-20260920-2021",
@@ -15313,7 +15289,7 @@ window.REPORTES_TURNO = [
       "HUTTLIN 400: Problemas durante el turno por temperatura en equipo, se verifican válvulas y ducterias de vapor, se revisa sensor de temperatura , conexiónes en tablero eléctrico superior...",
       "BLISTER 9: Se corrige mal formación de alveolos, modificando parámetros de soplado, equipo operativo."
     ],
-    "texto": "REPORTE DE TURNO\n         GRUPO 1\n      2026-09-21\n           sede 4\n \nCL4: Ácido valprohico \nCL3: Disponible \nCL2: Limpieza\nStick Pack 4: Super flux\nBlíster 2: Disponible \nBlíster 3: Ferbin\nEnvasadora 3: Disponible \nEnvasadora 2:  Disponible \nBin: Colágeno \nBosch: Disponible \nNJP1: Disponible \nNJP2: Zintergia\nNJP3: Nifedipino \nMB 432: Ferrimed plus\nIntegra 320: Disponible \nMB 451: Omeprazol \nBlíster 9: Furantomed\nBlíster 8: Dimoflax\nSchmucker: Flextril C\nCB 550: Gelimed\nMarzio 5: Esomed\nMarzio 4: Disponible \nR400: Dimoflax \nR200: Disponible \nHuttlin 600: Nifedipino \nHuttlin 400: Nifedipino \nHuttlin 40: Limpieza\nBombo 300: Disponible \nBombo 300: Disponible \nRimek:  Trimebutina + simeticona\nFette 1010: Vildagliptina\nFette 2020 2: Disponible \nFette 2020 1: Dimoflax \n\n              Novedades\nBLÍSTER 3: LLamado por estación de sellado presenta alta temperatura, se procede a purgar mangueras, equipo operativo.\nESTUCHADORA INTEGRA: Se verifican posiciones de empujadores yy bandas.\nHUTTLIN 400: Problemas durante el turno por temperatura en equipo, se verifican válvulas y ducterias de vapor, se revisa sensor de temperatura , conexiónes en tablero eléctrico superior...\nBLISTER 9: Se corrige mal formación de alveolos, modificando parámetros de soplado, equipo operativo."
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-09-21\n           sede 4\n \n*CL4:* Ácido valprohico \n*CL3:* Disponible \n*CL2:* Limpieza\n*Stick Pack 4:* Super flux\n*Blíster 2:* Disponible \n*Blíster 3:* Ferbin\n*Envasadora 3:* Disponible \n*Envasadora 2:*  Disponible \n*Bin:* Colágeno \n*Bosch:* Disponible \n*NJP1:* Disponible \n*NJP2:* Zintergia\n*NJP3:* Nifedipino \n*MB 432:* Ferrimed plus\n*Integra 320:* Disponible \n*MB 451:* Omeprazol \n*Blíster 9:* Furantomed\n*Blíster 8:* Dimoflax\n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Esomed\n*Marzio 4:* Disponible \n*R400:* Dimoflax \n*R200:* Disponible \n*Huttlin 600:* Nifedipino \n*Huttlin 400:* Nifedipino \n*Huttlin 40:* Limpieza\n*Bombo 300:* Disponible \n*Bombo 300:* Disponible \n*Rimek:*  Trimebutina + simeticona\n*Fette 1010:* Vildagliptina\n*Fette 2020 2:* Disponible \n*Fette 2020 1:* Dimoflax \n\n              *Novedades*\nBLÍSTER 3: LLamado por estación de sellado presenta alta temperatura, se procede a purgar mangueras, equipo operativo.\nESTUCHADORA INTEGRA: Se verifican posiciones de empujadores yy bandas.\nHUTTLIN 400: Problemas durante el turno por temperatura en equipo, se verifican válvulas y ducterias de vapor, se revisa sensor de temperatura , conexiónes en tablero eléctrico superior...\nBLISTER 9: Se corrige mal formación de alveolos, modificando parámetros de soplado, equipo operativo."
   },
   {
     "id": "rt-20260921-0924",
@@ -15403,7 +15379,7 @@ window.REPORTES_TURNO = [
     "id": "rt-20260921-2223",
     "fecha": "2026-09-21",
     "hora": "22:23",
-    "autor": "+57 301 2263014",
+    "autor": "Miguel",
     "sede": "Sede 4",
     "turno": "Grupo 4-2 · Día",
     "fechaTurno": "2026-09-21",
@@ -15948,7 +15924,7 @@ window.REPORTES_TURNO = [
       "Mt1100 Se atiende llamado por problemas con la lectura de los cartuchos , se colocaron unos nuevos y no los leía la codificadora, se entra a los parámetros se ajusta cartuchos y se le da actualización a la codificadora y se deja operativa, después tenemos problema con el lote rallado nos percatamos que el bajante del laminado que entra a las mordazas verticales , rayaba el lote se le coloca teflón a esa parte y se deja operativa 3h",
       "Marzio 5 Se da apoyo a marzio para producto nuevo , nos acercamos ya acabándose el turno nos dimos de cuenta que está mal cuadrada y la correa ya se patina , se deja cambio para el turno entrante"
     ],
-    "texto": "SEDE 4. TURNO   (día)\n2026/08/22\n_________________\nBlíster 3 tiamina \nCl4 ácido valproico\nEnvasado 3 densimed \nCl2  reunomed \nEnvasado 2 \nNjp2 zintergia\nNjp1 multi vitamínico\nNjp3 omeprazol \nBlíster 9 dimoflax \nBlíster 8 coltein \nMb432 congestex \nBlíster 7 omeprazol \nBin gelimed \nCb 550 gelimed \nBlíster 5 esomed \nHuttiln 600 nifedipino\nRimek Trimebutina \nHuttiln 400 nifedipino\nFette 1010 vildagliptina\n\n                             Novedades \n\n Schmucker Se camabian seguidores de soporte del rollo del laminado,\nse cambian rodamientos de rodillos de arrastre.\nSe cambian rodamientos de piñón que alza el bloque de dosificador  y se continúa limpieza de máquina\n- Se realizó limpieza de gabinete eléctrico y neumático. Se encontraron tapas de electroválvulas  desajustadas, las cuales se ajustan , lavando de piezas, tapas y mangueras de extracción   T.8hrs\n\n- ENVASADO 2 Se realiza seguimiento a instalación de sensores de nivel Se evidencia que el sistema de control en modo automático se evidencia que la bomba funciona correctamente y se apaga al llegar al nivel max del tanque , se recomienda a operadores como utilizar la válvula de cierre rápido , tenemos problema con sensores se cuadra y se deja operativa, presente un goteo en las jeringas se coloca babero , aún así persiste el goteo se le coloca malla internamente a las jeringas para disminuir el goteo funciona y la máquina produce , pero aún así persiste goteo en la cuarta  jeringa T.3.5hrs\n\n- Se  reubica acometida para luces internas de los tanques nuevos (3 tanques en un cuarto) Queda pendiente conexión en gabinete de control PLC. 14:20  - 16:10.   T. 2.5hrs\n\nSe corrige fuga de agua en planta de agua de sólidos se cambia racor de 1/4 ×8mm   T 20min\n\nCentro líquidos 2 se entiende llamado porque el dosificador no dosificaba completo y quedaba goteando  después de la revisión operador comenta que el equipo estuvo detenido con producto se le da ciclos continuos hasta despegar \nSelladora operador nos entrega unas guías de los discos que le faltaba un gancho se revisa en la tolva de la gelatina y allí estaba se monta nuevamente   T 2.5hrs\n\nSe trae tamizadora a taller se evidencia motor con agua internamente y aterrizado \n\n- Se haya corto circuito en luminaria del huttlin 600 \nSe reviso búsqueda del           breaker y se encontró también que el corto había dejado desernergizado todo el tablero principal.\nTocó pedir apoyo a kycaps para restablecer la energía al tablero donde se encontraba el breaker de la luminaria del huttlin 600\nT. 3 horas\n\n- se realiza limpieza en piso técnico del pilot 2.5hrs \n\nSe realiza ajuste de mordaza lateral ya que no sellaba completamente el sobre en la marzio 5 T30min\n\nMt1100\nSe atiende llamado por problemas con la lectura de los cartuchos , se colocaron unos nuevos y no los leía la codificadora, se entra a los parámetros se ajusta cartuchos y se le da actualización a la codificadora y se deja operativa, después tenemos problema con el lote rallado nos percatamos que el bajante del laminado que entra a las mordazas verticales , rayaba el lote se le coloca teflón a esa parte y se deja operativa 3h\n\nMarzio 5\nSe da apoyo a marzio para producto nuevo , nos acercamos ya acabándose el turno nos dimos de cuenta que está mal cuadrada y la correa ya se patina , se deja cambio para el turno entrante"
+    "texto": "SEDE 4. TURNO   (día)\n2026/08/22\n_______________________________________________\nBlíster 3 tiamina \nCl4 ácido valproico\nEnvasado 3 densimed \nCl2  reunomed \nEnvasado 2 \nNjp2 zintergia\nNjp1 multi vitamínico\nNjp3 omeprazol \nBlíster 9 dimoflax \nBlíster 8 coltein \nMb432 congestex \nBlíster 7 omeprazol \nBin gelimed \nCb 550 gelimed \nBlíster 5 esomed \nHuttiln 600 nifedipino\nRimek Trimebutina \nHuttiln 400 nifedipino\nFette 1010 vildagliptina\n\n                             Novedades \n\n Schmucker Se camabian seguidores de soporte del rollo del laminado,\nse cambian rodamientos de rodillos de arrastre.\nSe cambian rodamientos de piñón que alza el bloque de dosificador  y se continúa limpieza de máquina\n- Se realizó limpieza de gabinete eléctrico y neumático. Se encontraron tapas de electroválvulas  desajustadas, las cuales se ajustan , lavando de piezas, tapas y mangueras de extracción   T.8hrs\n\n- ENVASADO 2 Se realiza seguimiento a instalación de sensores de nivel Se evidencia que el sistema de control en modo automático se evidencia que la bomba funciona correctamente y se apaga al llegar al nivel max del tanque , se recomienda a operadores como utilizar la válvula de cierre rápido , tenemos problema con sensores se cuadra y se deja operativa, presente un goteo en las jeringas se coloca babero , aún así persiste el goteo se le coloca malla internamente a las jeringas para disminuir el goteo funciona y la máquina produce , pero aún así persiste goteo en la cuarta  jeringa T.3.5hrs\n\n- Se  reubica acometida para luces internas de los tanques nuevos (3 tanques en un cuarto) Queda pendiente conexión en gabinete de control PLC. 14:20  - 16:10.   T. 2.5hrs\n\nSe corrige fuga de agua en planta de agua de sólidos se cambia racor de 1/4 ×8mm   T 20min\n\nCentro líquidos 2 se entiende llamado porque el dosificador no dosificaba completo y quedaba goteando  después de la revisión operador comenta que el equipo estuvo detenido con producto se le da ciclos continuos hasta despegar \nSelladora operador nos entrega unas guías de los discos que le faltaba un gancho se revisa en la tolva de la gelatina y allí estaba se monta nuevamente   T 2.5hrs\n\nSe trae tamizadora a taller se evidencia motor con agua internamente y aterrizado \n\n- Se haya corto circuito en luminaria del huttlin 600 \nSe reviso búsqueda del           breaker y se encontró también que el corto había dejado desernergizado todo el tablero principal.\nTocó pedir apoyo a kycaps para restablecer la energía al tablero donde se encontraba el breaker de la luminaria del huttlin 600\nT. 3 horas\n\n- se realiza limpieza en piso técnico del pilot 2.5hrs \n\nSe realiza ajuste de mordaza lateral ya que no sellaba completamente el sobre en la marzio 5 T30min\n\nMt1100\nSe atiende llamado por problemas con la lectura de los cartuchos , se colocaron unos nuevos y no los leía la codificadora, se entra a los parámetros se ajusta cartuchos y se le da actualización a la codificadora y se deja operativa, después tenemos problema con el lote rallado nos percatamos que el bajante del laminado que entra a las mordazas verticales , rayaba el lote se le coloca teflón a esa parte y se deja operativa 3h\n\nMarzio 5\nSe da apoyo a marzio para producto nuevo , nos acercamos ya acabándose el turno nos dimos de cuenta que está mal cuadrada y la correa ya se patina , se deja cambio para el turno entrante"
   },
   {
     "id": "rt-20260923-0841",
@@ -16107,10 +16083,10 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "las pt100 quedaron en equipos diferentes, la del 600 en el 400 y la del 400 en el 600, no se pudieron cambiar porque el HUTTLIN 600 estaba haciendo lavado. FETTE 2020-2 se tapa orificio del visor en tolva de producto ENVASADORA 2 se atiende llamado por goteo en inyector #3 de dosificación, se realiza malla y se coloca al inyector queda ok, se atiende llamado nuevamente por maltrato en la parte inferior del frasco, se ajusta y queda equipo operativo.",
-      "Se realiza cambio de filtros de recubridor R200, se encuentra agua en el cárter, pendiente cambiar válvula de salida."
+      "las pt100 quedaron en equipos diferentes, la del 600 en el 400 y la del 400 en el 600, no se pudieron cambiar porque el HUTTLIN 600 estaba haciendo lavado. FETTE 2020-2 se tapa orificio del visor en tolva de producto",
+      "ENVASADORA 2 se atiende llamado por goteo en inyector #3 de dosificación, se realiza malla y se coloca al inyector queda ok, se atiende llamado nuevamente por maltrato en la parte inferior del frasco, se ajusta y queda equipo operativo."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 a 8:00\nSOLIDOS\nBIN: Acetaminofén \nBOSHC: Disponible\nNJP #2: Zintergia\nNJP #1: Disponible \nNJP #3: Nifedipino \nPILOT LAB: Trimebutina+simeticona\nSCMUKER: Mantenimiento \nBLISTER #9: Disponible \nMB 432: Congestex\nINTEGRA: Disponible \nBLISTER #8: Coltrin\nMARCHESINI EVO: omeprazol\nR200: Etolime \nR400: Dimoflax enterica \nMARZIO #1: esomed\nMARZIO #5 Disponible \nCB 550: gelimed plus\nHUTTLIN 600: Limpieza \nHUTTLIN 400: Montaje nifedipino\nRIMEK: Trimebutina+simeticona \nFETTE 2020-2: acetaminofén\nFETTE 1010: vildagliptina\nFETTE 2020-1 Fluoxetina \n\nLÍQUIDO \nENVASADORA #2: Ferbin\nENVASADORA #3: Densimet\nCLIQUIDO #2: Disponible \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Ácido valproico \nMT 1100:  Supreflux \nBLISTER #2: Disponible \nBLISTER #3: disponible\n\nHUTTLIN 400\nSe recibe llamado por problemas de temperatura de entrada, se le hizo seguimiento a las tuberías de vapor, se encontraron unas llaves cerradas, se abrieron pero el problema persiste, se revisaron conexiones de la pt100 y el módulo del plc, se mide pt100 y se observo dentro de los parámetros, se realiza un intercambio de pt100 se pasa la del HUTTLIN 600 para el 400 y viceversa pero el problema persiste al momento de estar subiendo la temperatura, quedó el equipo detenido.\nNOTA: las pt100 quedaron en equipos diferentes, la del 600 en el 400 y la del 400 en el 600, no se pudieron cambiar porque el HUTTLIN 600 estaba haciendo lavado.\nFETTE 2020-2\nse tapa orificio del visor en tolva de producto\nENVASADORA 2 se atiende llamado por goteo en inyector #3 de dosificación, se realiza malla y se coloca al inyector queda ok, se atiende llamado nuevamente por maltrato en la parte inferior del frasco, se ajusta y queda equipo operativo.\n\n\n Se realiza cambio de filtros de recubridor R200, se encuentra agua en el cárter, pendiente cambiar válvula de salida."
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 a 8:00\nSOLIDOS\nBIN: Acetaminofén \nBOSHC: Disponible\nNJP #2: Zintergia\nNJP #1: Disponible \nNJP #3: Nifedipino \nPILOT LAB: Trimebutina+simeticona\nSCMUKER: Mantenimiento \nBLISTER #9: Disponible \nMB 432: Congestex\nINTEGRA: Disponible \nBLISTER #8: Coltrin\nMARCHESINI EVO: omeprazol\nR200: Etolime \nR400: Dimoflax enterica \nMARZIO #1: esomed\nMARZIO #5 Disponible \nCB 550: gelimed plus\nHUTTLIN 600: Limpieza \nHUTTLIN 400: Montaje nifedipino\nRIMEK: Trimebutina+simeticona \nFETTE 2020-2: acetaminofén\nFETTE 1010: vildagliptina\nFETTE 2020-1 Fluoxetina \n\nLÍQUIDO \nENVASADORA #2: Ferbin\nENVASADORA #3: Densimet\nCLIQUIDO #2: Disponible \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Ácido valproico \nMT 1100:  Supreflux \nBLISTER #2: Disponible \nBLISTER #3: disponible\n\nHUTTLIN 400\nSe recibe llamado por problemas de temperatura de entrada, se le hizo seguimiento a las tuberías de vapor, se encontraron unas llaves cerradas, se abrieron pero el problema persiste, se revisaron conexiones de la pt100 y el módulo del plc, se mide pt100 y se observo dentro de los parámetros, se realiza un intercambio de pt100 se pasa la del HUTTLIN 600 para el 400 y viceversa pero el problema persiste al momento de estar subiendo la temperatura, quedó el equipo detenido.\nNOTA: las pt100 quedaron en equipos diferentes, la del 600 en el 400 y la del 400 en el 600, no se pudieron cambiar porque el HUTTLIN 600 estaba haciendo lavado.\nFETTE 2020-2\nse tapa orificio del visor en tolva de producto\nENVASADORA 2 se atiende llamado por goteo en inyector #3 de dosificación, se realiza malla y se coloca al inyector queda ok, se atiende llamado nuevamente por maltrato en la parte inferior del frasco, se ajusta y queda equipo operativo."
   },
   {
     "id": "rt-20260923-1957",
@@ -16251,13 +16227,13 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "MARZIO 5: llaman por falta de graficado. Se hace ajuste también se quita arruga que presentaba el sobre y se lubrica mordazas verticales que se encontraban pegadas.",
-      "MARZIO 4: se cambia correa del motor, se ajusta tiempo de mordazas verticales",
-      "SCHMUCKER: Se buscan brazos de sellado en mecanizado externo, se desarman y arman nuevamente, se realiza limpieza y lubricación, se procede a montarlo en equipo, con resistencias, se realizan todas las conexiones eléctricas y neumáticas, quedando pendiente montar planchas de sellado (nuevas) y realizar pruebas de funcionamiento.",
-      "FETTE 2020 1: Se atiende llamado porque el OGA no succionaba, se se evidencia que las mangueras se encontraban invertidas, se corrige y queda operativa. T: 30 minutos",
-      "Blíster 3: Se atiende llamado por mal formación, se ajusta velocidad, se calibra el túnel de calefacción, se cambian arandelas partidas en estación de formado y se deja operativa. T: 3.5 hrs"
+      "*MARZIO 5:* llaman por falta de graficado. Se hace ajuste también se quita arruga que presentaba el sobre y se lubrica mordazas verticales que se encontraban pegadas.",
+      "*MARZIO 4:* se cambia correa del motor, se ajusta tiempo de mordazas verticales",
+      "*SCHMUCKER:* Se buscan brazos de sellado en mecanizado externo, se desarman y arman nuevamente, se realiza limpieza y lubricación, se procede a montarlo en equipo, con resistencias, se realizan todas las conexiones eléctricas y neumáticas, quedando pendiente montar planchas de sellado (nuevas) y realizar pruebas de funcionamiento.",
+      "*FETTE 2020 1:* Se atiende llamado porque el OGA no succionaba, se se evidencia que las mangueras se encontraban invertidas, se corrige y queda operativa. *T: 30 minutos*",
+      "*Blíster 3:* Se atiende llamado por mal formación, se ajusta velocidad, se calibra el túnel de calefacción, se cambian arandelas partidas en estación de formado y se deja operativa. *T: 3.5 hrs*"
     ],
-    "texto": "REPORTE DE TURNO\n         GRUPO 1\n      2026-09-23\n           sede 4\n \nCL4: Ácido valproico \nCL3: Disponible \nCL2: NEUROMED\nStick Pack 4: Super flux\nBlíster 2: DISPONIBLE \nBlíster 3: TIAMINA\nEnvasadora 3: DESIMET X10\nENVASADORA 2: FERBIN \nBin: ACETAMINOFÉN \nBosch: Disponible \nNJP1: DISPONIBLE \nNJP2: Zintergia\nNJP3: DISPONIBLE \nMB 432: Ferrimed plus\n PAILOTB : LIMPIEZA \nIntegra 320: DISPONIBLE \nMB 451: Omeprazol \nBlíster 9: DIMOFLAX \nBlíster 8: COLTRIM\nSchmucker: MANTENIMIENTO \nCB 550: LIMPIA \nMarzio 5: Esomed\nMarzio 4: UROFOS\nR400: LIMPIA\nR200: ETIRIMED 90MG\nHuttlin 600: LIMPIEZA \nHuttlin 400: Nifedipino \nBombo 300: INSPECCIÓN \nRimek:  Trimebutina + simeticona\nFette 1010: SUCIA \nFette 20202: ACETAMINOFÉN \n *Fette 2020 1: FLUOXETINA  20MG\nNOVEDADES:\nMARZIO 5: llaman por falta de graficado. Se hace ajuste también se quita arruga que presentaba el sobre y se lubrica mordazas verticales que se encontraban pegadas.\nMARZIO 4: se cambia correa del motor, se ajusta tiempo de mordazas verticales\nSCHMUCKER: Se buscan brazos de sellado en mecanizado externo, se desarman y arman nuevamente, se realiza limpieza y lubricación, se procede a montarlo en equipo, con resistencias, se realizan todas las conexiones eléctricas y neumáticas, quedando pendiente montar planchas de sellado (nuevas) y realizar pruebas de funcionamiento.\nFETTE 2020 1: Se atiende llamado porque el OGA no succionaba, se se evidencia que las mangueras se encontraban invertidas, se corrige y queda operativa. T: 30 minutos\nBlíster 3: Se atiende llamado por mal formación, se ajusta velocidad, se calibra el túnel de calefacción, se cambian arandelas partidas en estación de formado y se deja operativa. T: 3.5 hrs"
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-09-23\n           sede 4\n \n*CL4:* Ácido valproico \n*CL3:* Disponible \n*CL2:* NEUROMED\n*Stick Pack 4:* Super flux\n*Blíster 2:* DISPONIBLE \n*Blíster 3:* TIAMINA\n*Envasadora 3: DESIMET X10*\n*ENVASADORA 2:* FERBIN \n*Bin:* ACETAMINOFÉN \n*Bosch:* Disponible \n*NJP1:* DISPONIBLE \n*NJP2:* Zintergia\n*NJP3:* DISPONIBLE \n*MB 432:* Ferrimed plus\n *PAILOTB* : LIMPIEZA \n*Integra 320:* DISPONIBLE \n*MB 451:* Omeprazol \n*Blíster 9:* DIMOFLAX \n*Blíster 8:* COLTRIM\n*Schmucker:* MANTENIMIENTO \n*CB 550:* LIMPIA \n*Marzio 5:* Esomed\n*Marzio 4:* UROFOS\n*R400:* LIMPIA\n*R200:* ETIRIMED 90MG\n*Huttlin 600:* LIMPIEZA \n*Huttlin 400:* Nifedipino \n*Bombo 300:* INSPECCIÓN \n*Rimek:*  Trimebutina + simeticona\n*Fette 1010:* SUCIA \n*Fette 20202:* ACETAMINOFÉN \n **Fette 2020* 1: FLUOXETINA  20MG\n*NOVEDADES:*\n*MARZIO 5:* llaman por falta de graficado. Se hace ajuste también se quita arruga que presentaba el sobre y se lubrica mordazas verticales que se encontraban pegadas.\n*MARZIO 4:* se cambia correa del motor, se ajusta tiempo de mordazas verticales\n*SCHMUCKER:* Se buscan brazos de sellado en mecanizado externo, se desarman y arman nuevamente, se realiza limpieza y lubricación, se procede a montarlo en equipo, con resistencias, se realizan todas las conexiones eléctricas y neumáticas, quedando pendiente montar planchas de sellado (nuevas) y realizar pruebas de funcionamiento.\n*FETTE 2020 1:* Se atiende llamado porque el OGA no succionaba, se se evidencia que las mangueras se encontraban invertidas, se corrige y queda operativa. *T: 30 minutos*\n*Blíster 3:* Se atiende llamado por mal formación, se ajusta velocidad, se calibra el túnel de calefacción, se cambian arandelas partidas en estación de formado y se deja operativa. *T: 3.5 hrs*"
   },
   {
     "id": "rt-20260923-2115",
@@ -16441,9 +16417,9 @@ window.REPORTES_TURNO = [
       "Huttiln 600 llamado por qué la bomba se estaba fugando se encontró sello de caucho partido se pegó pero seguía fugando se cambia bomba 1.5hrs",
       "Blíster 9 se atiende llamado porque se salió tornillo que ajusta la plancha de la parte superior del túnel se ajusta nuevamente T 1.5hrs",
       "MT110 Se atiende llamado por problemas en la bomba neumática , se sale manguera de trasporte de producto , se revisa sistema y se encuentra la cuba con presión por encima de lo normal , se revisa sistema y se cuadra en la pantalla sistema de presión que ingresa a la cuba se deja operativa 2h",
-      "CLT2 Se endereza disco del sistema de sellado se deja operativa Brazo no reparado Desalineaciom Suplemento Equipo alineado"
+      "CLT2 Se endereza disco del sistema de sellado se deja operativa"
     ],
-    "texto": "SEDE 4 -- turno (noche)\n2026/08/24\n\nNjp2  zintergia \nNjp3 omeprazol \nBlíster 9 dimoflax \nMb432 congestex \nBlíster 8 coltrim \nBlíster 7 omeprazol \nHuttiln 600 limpieza \nHuttiln 400 nifedipino\nRimek. Trimebutina + simeticona \nFette 2020-2 acetaminofen \nFette 2020-1 Fluoxetina \nEnvasado 2 ferbin \nEnvasasdo 3 densimed \nCl4 ácido valproico \nCl2  multi vitamínico\nBlíster 3 tiamina \n\n                      NOVEDADES\nSchmucker. Se termina de montar mangueras, guardas se pulieron los pasadores de los rodillos por tener la punta maltratada se arman planchas y se evidencia que no quedan alineadas porque las roscas de los brazos en la parte de atrás no fueron reparadas,  se coloca un suplemento de lamina y se  alinean, se realiza prueba de grafilado sin lote y después prueba con lote estaba marcado mucho y se cambian resortes se suministro 8 tornillos 2mm para la placa de la sufridera\nPor parte de producción está pendiente la limpieza profunda   12hrs\n\nHuttiln 600 llamado por qué la bomba se estaba fugando se encontró sello de caucho partido se pegó pero seguía fugando se cambia bomba 1.5hrs\n\nBlíster 9 se atiende llamado porque se salió tornillo que ajusta la plancha de la parte superior del túnel se ajusta nuevamente T 1.5hrs\n\nMT110 \nSe atiende llamado por problemas en la bomba neumática , se sale manguera de trasporte de producto , se revisa sistema y se encuentra la cuba con presión por encima de lo normal , se revisa sistema y se cuadra en la pantalla sistema de presión que ingresa a la cuba se deja operativa 2h\n\nCLT2\nSe endereza disco del sistema de sellado se deja operativa\nBrazo no reparado\nDesalineaciom\nSuplemento\nEquipo alineado"
+    "texto": "SEDE 4 -- turno (noche)\n2026/08/24\n\nNjp2  zintergia \nNjp3 omeprazol \nBlíster 9 dimoflax \nMb432 congestex \nBlíster 8 coltrim \nBlíster 7 omeprazol \nHuttiln 600 limpieza \nHuttiln 400 nifedipino\nRimek. Trimebutina + simeticona \nFette 2020-2 acetaminofen \nFette 2020-1 Fluoxetina \nEnvasado 2 ferbin \nEnvasasdo 3 densimed \nCl4 ácido valproico \nCl2  multi vitamínico\nBlíster 3 tiamina \n\n                      *NOVEDADES*\nSchmucker. Se termina de montar mangueras, guardas se pulieron los pasadores de los rodillos por tener la punta maltratada se arman planchas y se evidencia que no quedan alineadas porque las roscas de los brazos en la parte de atrás no fueron reparadas,  se coloca un suplemento de lamina y se  alinean, se realiza prueba de grafilado sin lote y después prueba con lote estaba marcado mucho y se cambian resortes se suministro 8 tornillos 2mm para la placa de la sufridera\nPor parte de producción está pendiente la limpieza profunda   12hrs\n\nHuttiln 600 llamado por qué la bomba se estaba fugando se encontró sello de caucho partido se pegó pero seguía fugando se cambia bomba 1.5hrs\n\nBlíster 9 se atiende llamado porque se salió tornillo que ajusta la plancha de la parte superior del túnel se ajusta nuevamente T 1.5hrs\n\nMT110 \nSe atiende llamado por problemas en la bomba neumática , se sale manguera de trasporte de producto , se revisa sistema y se encuentra la cuba con presión por encima de lo normal , se revisa sistema y se cuadra en la pantalla sistema de presión que ingresa a la cuba se deja operativa 2h\n\nCLT2\nSe endereza disco del sistema de sellado se deja operativa"
   },
   {
     "id": "rt-20260924-1955",
@@ -16454,6 +16430,10 @@ window.REPORTES_TURNO = [
     "turno": "Grupo 4-1 · Día",
     "fechaTurno": "2026-09-24",
     "equipos": [
+      {
+        "equipo": "_REPORTE DE TURNO_",
+        "producto": ""
+      },
       {
         "equipo": "CL4",
         "producto": "Ácido Valproico"
@@ -16591,18 +16571,17 @@ window.REPORTES_TURNO = [
       "MARZIO 4: SE REALIZA CAMBIO DE CUCHILLAS Y SE APOYA EN CUADRE.",
       "B9: SE RECIBE LLAMO POR ESTACIÓN DE SELLADO PEGADA",
       "SE REALIZAN AJUSTES Y QUEDA OPERATIVA",
-      "Blíster 3: Se calibra túnel de calefacción y temperatura porque el PVC se alargaba, quedando operativa. T: 90 minutos aprox",
-      "CB550: Se alinean mordazas verticales por filtración, quedando operativa. T: 40 minutos aprox",
+      "*Blíster 3:* Se calibra túnel de calefacción y temperatura porque el PVC se alargaba, quedando operativa. *T: 90 minutos aprox*",
+      "*CB550:* Se alinean mordazas verticales por filtración, quedando operativa. *T: 40 minutos aprox*",
       "Se pegan esquineros en toda la área de sólido, continuar",
       "FETTE 2020 2: SE REALIZA AJUSTE EN LA VALVULA DE DESCARGUE DEL OGA",
       "(RACORES INVERTIDOS)",
       "T: 20 MIN APRX",
       "MT:  SE RECIBE LLAMADO POR POR MAL CORTW DEL SOBRE",
       "SE LIMPIAN Y AJUSTAN LAS CUCHILLAS",
-      "QUEDA OPORATIVA T: 25 APRX",
-      "Queda pegada y operativa la tubería de agua de lavado delos recubridores"
+      "QUEDA OPORATIVA T: 25 APRX"
     ],
-    "texto": "REPORTE DE TURNO\nGRUPO 1\n2026-09-24\nsede 4\n\nCL4: Ácido Valproico\nCL3: Disponible\nCL2: Limpieza\nStick Pack 4: Super Flux\nBlíster 2: Dormex\nBlíster 3: Tiamina\nEnvasadora 3: Desimet\nEnvasadora 2: Limpieza\nBin: Acetaminofén\nBosch: Disponible\nNJP1: Disponible\nNJP2: Zintergia\nNJP3: Disponible\nMB 432: Ferrimed Plus\nPailot B: Loratadina\nIntegra 320: Disponible\nMB 451: Omeprazol\nBlíster 9: Dimoflax\nBlíster 8: Congestex Forte\nSchmucker: Limpieza\nMB 430: Congestex\nCB 550: Limpieza\nMarzio 5: Esomed\nMarzio 4: Airomed\nR400: Limpieza\nR200: Limpieza\nHuttlin 600: Nifedipino\nHuttlin 400: Nifedipino\nBombo 300: Inspección\nRimek: Trimebutina + Simeticona\nFette 1010: Limpieza\nFette 2020-2: Acetaminofén\nFette 2020-1: Fluoxetina 20mg\n\nNOVEDADES:\nMARZIO 4: SE REALIZA CAMBIO DE CUCHILLAS Y SE APOYA EN CUADRE.\n\nB9: SE RECIBE LLAMO POR ESTACIÓN DE SELLADO PEGADA \nSE REALIZAN AJUSTES Y QUEDA OPERATIVA \n\nBlíster 3: Se calibra túnel de calefacción y temperatura porque el PVC se alargaba, quedando operativa. T: 90 minutos aprox\nCB550: Se alinean mordazas verticales por filtración, quedando operativa. T: 40 minutos aprox\n\nSe pegan esquineros en toda la área de sólido, continuar\n\nFETTE 2020 2: SE REALIZA AJUSTE EN LA VALVULA DE DESCARGUE DEL OGA \n(RACORES INVERTIDOS)\nT: 20 MIN APRX\n\nMT:  SE RECIBE LLAMADO POR POR MAL CORTW DEL SOBRE \nSE LIMPIAN Y AJUSTAN LAS CUCHILLAS \nQUEDA OPORATIVA T: 25 APRX\n Queda pegada y operativa la tubería de agua de lavado delos recubridores"
+    "texto": "_REPORTE DE TURNO_\n_GRUPO 1_\n2026-09-24\nsede 4\n\n*CL4:* Ácido Valproico\n*CL3:* Disponible\n*CL2:* Limpieza\n*Stick Pack 4:* Super Flux\n*Blíster 2:* Dormex\n*Blíster 3:* Tiamina\n*Envasadora 3:* Desimet\n*Envasadora 2:* Limpieza\n*Bin:* Acetaminofén\n*Bosch:* Disponible\n*NJP1:* Disponible\n*NJP2:* Zintergia\n*NJP3:* Disponible\n*MB 432:* Ferrimed Plus\n*Pailot B:* Loratadina\n*Integra 320:* Disponible\n*MB 451:* Omeprazol\n*Blíster 9:* Dimoflax\n*Blíster 8:* Congestex Forte\n*Schmucker:* Limpieza\n*MB 430:* Congestex\n*CB 550:* Limpieza\n*Marzio 5:* Esomed\n*Marzio 4:* Airomed\n*R400:* Limpieza\n*R200:* Limpieza\n*Huttlin 600:* Nifedipino\n*Huttlin 400:* Nifedipino\n*Bombo 300:* Inspección\n*Rimek:* Trimebutina + Simeticona\n*Fette 1010:* Limpieza\n*Fette 2020-2:* Acetaminofén\n*Fette 2020-1:* Fluoxetina 20mg\n\n\nNOVEDADES:\nMARZIO 4: SE REALIZA CAMBIO DE CUCHILLAS Y SE APOYA EN CUADRE.\n\nB9: SE RECIBE LLAMO POR ESTACIÓN DE SELLADO PEGADA \nSE REALIZAN AJUSTES Y QUEDA OPERATIVA \n\n*Blíster 3:* Se calibra túnel de calefacción y temperatura porque el PVC se alargaba, quedando operativa. *T: 90 minutos aprox*\n*CB550:* Se alinean mordazas verticales por filtración, quedando operativa. *T: 40 minutos aprox*\n\nSe pegan esquineros en toda la área de sólido, continuar\n\nFETTE 2020 2: SE REALIZA AJUSTE EN LA VALVULA DE DESCARGUE DEL OGA \n(RACORES INVERTIDOS)\nT: 20 MIN APRX\n\nMT:  SE RECIBE LLAMADO POR POR MAL CORTW DEL SOBRE \nSE LIMPIAN Y AJUSTAN LAS CUCHILLAS \nQUEDA OPORATIVA T: 25 APRX"
   },
   {
     "id": "rt-20260925-1024",
@@ -16750,7 +16729,7 @@ window.REPORTES_TURNO = [
       "Estuchadora evo",
       "Se ayuda a cuadrar velocidad y sistema de cierre de las caja queda operativa"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\nLIQUIDOS\n\n*•BLISTER 3: TIAMINA\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: DISPONbIBLE \n*•MT: SUPERFLUX\n*•ENVASADO: LIMPIEZA\n*•CL2 : LIMPIEZA \n*•EMBASADORA 2: CRONOFEN \n\nSOLIDOS\n\n*•BIN: DISPONIBLE\n*•BOSH: DISPONIBLE \n*•NJP2 : DISPONIBLE \n*•NJP1 : SINTERGIA\n*•PILOTBLAB HUYTLIN40: DISPONIBLE \n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGETEX\n*•INTEGRA320: CONGETEX \n*•BLISTER #8: DISPONIBLE \n*•EVO: OMEPRAZOL \n*•MARZIO #4 : ESMED \n*•HUTTLIN 600: NIFEDIPINO\n*•R200: DISPONIBLE \n*•R400: DIMUFLAX \n*•MARZIO 1: AIROMED\n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: ETORINED\n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n________\n       NOVEDADES\n\nCL2:Se realiza desmonte de bloque dosificador de CL2 se limpia y. Lubrica sistema mecánico, se arma nuevamente y se monta a equipo se entrega a producción.\n\nBlíster 3: Se realiza desmonte de estación de sellado a blisteadora 3  para mantenimiento queda en taller.\n\nIntegra 320: se realiza cambio de diagrama a cargador lineal\n\n* se repara estera de pesaje 1\n\nBlíster 5 \nSe cuadra pines de formato \n\nMarzio 4 \nSe ajusta sistema de mordazas laterales y se engrasa sistema de mordazas inferior \n\nEstuchadora evo \nSe ayuda a cuadrar velocidad y sistema de cierre de las caja queda operativa"
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: TIAMINA\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: DISPONbIBLE \n*•MT: SUPERFLUX\n*•ENVASADO: LIMPIEZA\n*•CL2 : LIMPIEZA \n*•EMBASADORA 2: CRONOFEN \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE\n*•BOSH: DISPONIBLE \n*•NJP2 : DISPONIBLE \n*•NJP1 : SINTERGIA\n*•PILOTBLAB HUYTLIN40: DISPONIBLE \n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGETEX\n*•INTEGRA320: CONGETEX \n*•BLISTER #8: DISPONIBLE \n*•EVO: OMEPRAZOL \n*•MARZIO #4 : ESMED \n*•HUTTLIN 600: NIFEDIPINO\n*•R200: DISPONIBLE \n*•R400: DIMUFLAX \n*•MARZIO 1: AIROMED\n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: ETORINED\n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n____________________\n       NOVEDADES\n\nCL2:Se realiza desmonte de bloque dosificador de CL2 se limpia y. Lubrica sistema mecánico, se arma nuevamente y se monta a equipo se entrega a producción.\n\nBlíster 3: Se realiza desmonte de estación de sellado a blisteadora 3  para mantenimiento queda en taller.\n\nIntegra 320: se realiza cambio de diagrama a cargador lineal\n\n* se repara estera de pesaje 1\n\nBlíster 5 \nSe cuadra pines de formato \n\nMarzio 4 \nSe ajusta sistema de mordazas laterales y se engrasa sistema de mordazas inferior \n\nEstuchadora evo \nSe ayuda a cuadrar velocidad y sistema de cierre de las caja queda operativa"
   },
   {
     "id": "rt-20260925-2014",
@@ -16796,10 +16775,6 @@ window.REPORTES_TURNO = [
     "turno": "Grupo 4-3 · Día",
     "fechaTurno": "2026-09-25",
     "equipos": [
-      {
-        "equipo": "Rodamientos",
-        "producto": "de lineal de canastilla estación de formado dañado blíster 3"
-      },
       {
         "equipo": "Blíster 2",
         "producto": "Diclofenac"
@@ -16891,7 +16866,7 @@ window.REPORTES_TURNO = [
       "Blíster 8 se atiende llamado por perdida de paso se calibra túnel de calefacción y se toma paso 1.5H",
       "Huttlin 40 se atiende llamado por qué el equipo en el lavado quedaba sucio se limpia trampa que está antes de la bomba se  aumenta la presión del agua caliente se habilita la bomba del detergente ya que tenía la manguera rota se remplaza queda ok 4H Huttlin 400 se atiende llamado por volumen de aire bajito se limpia captador de polvo ya que se encontraba lleno hasta arriba y se sacuden los filtros se realizan pruebas el volumen marco -1 se entrega turno entrante para que revise el sensor"
     ],
-    "texto": "Rodamientos de lineal de canastilla estación de formado dañado blíster 3\nBuenas noches \nReporte de turno Día \nSD4\n\nBlíster 2 Diclofenac \n\nEnvasadora3 anemikisd\n\nEnvasadora2 cronofen\n\nNJP2 limpieza \n\nHuttlin 40 limpieza \n \nNJP 3 limpieza\n\nMS235 flextril \n\nBlíster 9 Dimoflax \n\nMB432 congestex \n\nBlíster 8 tamsecox\n\nMB EVO omeprazol \n\nHuttlin 600 Nifedipino \n\nR400 Etorimed\nR200levoflixacina\n\nMarzio5 airemed\n\nHuttlin 400 Montelukast \n\nRimed trimebutina \n\nFette 2020#2 Acetaminofén \n\nFette 2020#1 Fluoxetina \n\nFette 1010 Etorimed \n\nCB550 colágen\n\nNota se continúa con el mantenimiento de blíster 3 se baja estación de formado se desarma estación de sellado y se lleva a taller a embujar polea y eje de leva \n\nR400 se atiende llamado por vacío bajo se cambian los filtros y se limpia colector de polvo 4h\n\nBlíster 8 se atiende llamado por perdida de paso se calibra túnel de calefacción y se toma paso 1.5H\n\nHuttlin 40 se atiende llamado por qué el equipo en el lavado quedaba sucio se limpia trampa que está antes de la bomba se  aumenta la presión del agua caliente se habilita la bomba del detergente ya que tenía la manguera rota se remplaza queda ok 4H\n \nHuttlin 400 se atiende llamado por volumen de aire bajito se limpia captador de polvo ya que se encontraba lleno hasta arriba y se sacuden los filtros se realizan pruebas el volumen marco -1 se entrega turno entrante para que revise el sensor"
+    "texto": "Buenas noches \nReporte de turno Día \nSD4\n\nBlíster 2 Diclofenac \n\nEnvasadora3 anemikisd\n\nEnvasadora2 cronofen\n\nNJP2 limpieza \n\nHuttlin 40 limpieza \n \nNJP 3 limpieza\n\nMS235 flextril \n\nBlíster 9 Dimoflax \n\nMB432 congestex \n\nBlíster 8 tamsecox\n\nMB EVO omeprazol \n\nHuttlin 600 Nifedipino \n\nR400 Etorimed\nR200levoflixacina\n\nMarzio5 airemed\n\nHuttlin 400 Montelukast \n\nRimed trimebutina \n\nFette 2020#2 Acetaminofén \n\nFette 2020#1 Fluoxetina \n\nFette 1010 Etorimed \n\nCB550 colágen\n\nNota se continúa con el mantenimiento de blíster 3 se baja estación de formado se desarma estación de sellado y se lleva a taller a embujar polea y eje de leva \n\nR400 se atiende llamado por vacío bajo se cambian los filtros y se limpia colector de polvo 4h\n\nBlíster 8 se atiende llamado por perdida de paso se calibra túnel de calefacción y se toma paso 1.5H\n\nHuttlin 40 se atiende llamado por qué el equipo en el lavado quedaba sucio se limpia trampa que está antes de la bomba se  aumenta la presión del agua caliente se habilita la bomba del detergente ya que tenía la manguera rota se remplaza queda ok 4H\n \nHuttlin 400 se atiende llamado por volumen de aire bajito se limpia captador de polvo ya que se encontraba lleno hasta arriba y se sacuden los filtros se realizan pruebas el volumen marco -1 se entrega turno entrante para que revise el sensor"
   },
   {
     "id": "rt-20260926-0757",
@@ -17478,7 +17453,7 @@ window.REPORTES_TURNO = [
       "MT 1100 se recibe llamado debido que la máquina no dejaba modificar parámetros, se realizó cambio de memoria USB y permitió hacer los ajustes en los parámetros. 1H",
       "SEDE 2 Se brinda apoyo en SD2 para cuadrar marzio  se cuadran tiempos de dosificación y pesos 3H"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: stamby\nNJP #1: diclofenac\nNJP #3: lanzoprazol\nPILOT LAB: nifedipino\nSCMUKER: flextril c\nBLISTER #9: dimoflax\nMB 432: congestex\nINTEGRA: stamby\nBLISTER #8: zintergia\nMARCHESINI EVO: cronofen\nR200: levofloxacina\nR400: stamby\nMARZIO #1: \nMARZIO #5: esomed\nMARZIO #4: airomed\nCB 550: stamby\nHUTTLIN 600: nifedipino\nHUTTLIN 400: limpieza \nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: levofloxacina\nFETTE 2020-1: Fluoxetina \n\nLÍQUIDO \nENVASADORA #2: acetaminofén \nENVASADORA #3: anemikid\nCLIQUIDO #2: naproxeno \nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: mtto\n_______________                          NOVEDADES\nMB 432 \nse atiende llamado por qué estaba variando el corte la integra no estaba trabajando y se toma el tanque pulmón y se le coloca a la MB 432. 1H\n\nBLÍSTER #3 \nSe reciben repuestos de estación de sellado se arma y se monta en equipo \n\nCLIQUIDO #2 \nSe atiende llamado por qué no está dosificando se baja bloque de dosificación para hacer mantenimiento correctivo se arma nuevamente se monta pero no se pudo probar por qué cuando se iba hacer prueba la bomba de vacío no prendió no dió el tiempo se entrega a turno entrante 2 H\n\nBLÍSTER #3\nse realiza cambio de Swich general seccionador trifásico, se realizan perforaciones para adaptar el nuevo, se deja ok y puerta cerrada. 2H\n\nFETTE 1010\nse realiza revisión del detector de metales ya que no encajaba bien el acople del embudo y el del la bobina de expulsión, se ajustan tapas y base en la estructura del equipo, se realizan pruebas y se deja detector de metales operativo. 1H\n\nMT 1100\nse recibe llamado debido que la máquina no dejaba modificar parámetros, se realizó cambio de memoria USB y permitió hacer los ajustes en los parámetros. 1H\n\nSEDE 2\nSe brinda apoyo en SD2 para cuadrar marzio  se cuadran tiempos de dosificación y pesos 3H"
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: stamby\nNJP #1: diclofenac\nNJP #3: lanzoprazol\nPILOT LAB: nifedipino\nSCMUKER: flextril c\nBLISTER #9: dimoflax\nMB 432: congestex\nINTEGRA: stamby\nBLISTER #8: zintergia\nMARCHESINI EVO: cronofen\nR200: levofloxacina\nR400: stamby\nMARZIO #1: \nMARZIO #5: esomed\nMARZIO #4: airomed\nCB 550: stamby\nHUTTLIN 600: nifedipino\nHUTTLIN 400: limpieza \nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: levofloxacina\nFETTE 2020-1: Fluoxetina \n\nLÍQUIDO \nENVASADORA #2: acetaminofén \nENVASADORA #3: anemikid\nCLIQUIDO #2: naproxeno \nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: mtto\n_____________________________________________                          NOVEDADES\nMB 432 \nse atiende llamado por qué estaba variando el corte la integra no estaba trabajando y se toma el tanque pulmón y se le coloca a la MB 432. 1H\n\nBLÍSTER #3 \nSe reciben repuestos de estación de sellado se arma y se monta en equipo \n\nCLIQUIDO #2 \nSe atiende llamado por qué no está dosificando se baja bloque de dosificación para hacer mantenimiento correctivo se arma nuevamente se monta pero no se pudo probar por qué cuando se iba hacer prueba la bomba de vacío no prendió no dió el tiempo se entrega a turno entrante 2 H\n\nBLÍSTER #3\nse realiza cambio de Swich general seccionador trifásico, se realizan perforaciones para adaptar el nuevo, se deja ok y puerta cerrada. 2H\n\nFETTE 1010\nse realiza revisión del detector de metales ya que no encajaba bien el acople del embudo y el del la bobina de expulsión, se ajustan tapas y base en la estructura del equipo, se realizan pruebas y se deja detector de metales operativo. 1H\n\nMT 1100\nse recibe llamado debido que la máquina no dejaba modificar parámetros, se realizó cambio de memoria USB y permitió hacer los ajustes en los parámetros. 1H\n\nSEDE 2\nSe brinda apoyo en SD2 para cuadrar marzio  se cuadran tiempos de dosificación y pesos 3H"
   },
   {
     "id": "rt-20260926-2202",
@@ -17655,23 +17630,23 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "BLISTER 9: Se posicióna estación de sellado (apertura) y se extrae pasador maltratado plancha de sellado inferior.",
-      "T:60 mn aprox",
-      "HUTTLIN 400: Se requiere corregir fugas de vapor piso técnico WIP, se adjunta video.",
-      "BLISTER 3: Se arma rodamientos lineales, los mismos se encontraban fuera de la jaula retenedora , se arma estación de formado y se monta en equipo, quedando pendiente Apretar tuercas de poleas (sellado/formado) y ubicar tiempos mecánicos, se adjunta imágenes.",
-      "T: 9 hrs aprox",
-      "Cl4: Se ajusta sensor por falla en el transportador de entrega capsulas y se evidencia algunos transportadores. T: 30 mn aprox",
-      "MT1100: Llamado por lote borroso, se le da centrado al laminado, se le baja la temperatura a las mordazas verticales, se ajusta la distancia de los cabezales de codificado, quedando operativo. T: 3hrs aprox",
-      "Blíster#8: Llamado porque se bajo la temperatura de la placa del túnel inferior se realiza desmontaje y verificación se encuentra abierta se procede a desarmar y cambiar. ( T:90 minutos).",
-      "Huttlin 40: Llamado porque el equipo estaba goteando Agua se revisa no se encuentra novedad, se repite el proceso de limpieza con aire y secado ok.( T:60 minutos).",
+      "*BLISTER 9:* Se posicióna estación de sellado (apertura) y se extrae pasador maltratado plancha de sellado inferior.",
+      "*T:60 mn aprox*",
+      "*HUTTLIN 400:* Se requiere corregir fugas de vapor piso técnico WIP, se adjunta video.",
+      "*BLISTER 3:* Se arma rodamientos lineales, los mismos se encontraban fuera de la jaula retenedora , se arma estación de formado y se monta en equipo, quedando pendiente *Apretar tuercas de poleas (sellado/formado)* y ubicar tiempos mecánicos, se adjunta imágenes.",
+      "*T: 9 hrs aprox*",
+      "*Cl4:* Se ajusta sensor por falla en el transportador de entrega capsulas y se evidencia algunos transportadores. *T: 30 mn aprox*",
+      "*MT1100:* Llamado por lote borroso, se le da centrado al laminado, se le baja la temperatura a las mordazas verticales, se ajusta la distancia de los cabezales de codificado, quedando operativo. *T: 3hrs aprox*",
+      "*Blíster#8:* Llamado porque se bajo la temperatura de la placa del túnel inferior se realiza desmontaje y verificación se encuentra abierta se procede a desarmar y cambiar. ( *T:90 minutos*).",
+      "*Huttlin 40:* Llamado porque el equipo estaba goteando Agua se revisa no se encuentra novedad, se repite el proceso de limpieza con aire y secado ok.( *T:60 minutos*).",
       "Otro llamado porque el equipo no estaba alcanzando la cantidad de pulverización, se realiza verificación de cabezales , boquillas mangueras , se cambia mangueras solo alcanzo 330 de 400.",
       "Termino el producto.",
-      "( T:60 minutos).",
-      "Cl#2: Se revisa bomba de vacío porque no estaba activando se encuentra pegada se realiza ajuste queda operativa.( T:30 minutos).",
-      "Envasadora #3: llamado porque le equipo estaba presentando bloque de válvulas de realiza verificación y pruebas ok.( T:60 minutos).",
-      "Otro llamado porque está presentando problemas con la colocación de la tapa , se hacen pruebas y ajustes, aveces no enrosca algunas pendiente seguir revisando ( T:60 minutos)."
+      "( *T:60 minutos*).",
+      "*Cl#2:* Se revisa bomba de vacío porque no estaba activando se encuentra pegada se realiza ajuste queda operativa.( *T:30 minutos*).",
+      "*Envasadora #3:* llamado porque le equipo estaba presentando bloque de válvulas de realiza verificación y pruebas ok.( *T:60 minutos*).",
+      "Otro llamado porque está presentando problemas con la colocación de la tapa , se hacen pruebas y ajustes, aveces no enrosca algunas pendiente seguir revisando ( *T:60 minutos*)."
     ],
-    "texto": "REPORTE DE TURNO\n         GRUPO 1\n      2026-09-27\n           sede 4\n \nCL4: Ácido valprohico \nCL3: Disponible \nCL2: Disponible \nStick Pack 4: Super flux Forte\nBlíster 2: Neuromed\nBlíster 3: Mantenimiento \nEnvasadora 3: Anemikid\nEnvasadora 2:  Cronofen\nBin: Disponible \nBosch: Disponible \nNJP1: Complejo B + Diclofenac\nNJP2: Tiamina \nNJP3: Lansoprazol \nMB 432: Congestex\nIntegra 320: Montaje Losartan \nMB 451: Cronofen\nBlíster 9: Dimoflax \nBlíster 8: Zintergia\nSchmucker: Flextril C\nCB 550: Gelimed\nMarzio 5: Esomed\nMarzio 4: Airomed\nR400: Stand by\nR200: Stand by\nHuttlin 600: Nifedipino \nHuttlin 400: Stand by\nHuttlin 40: Fumarato\nBombo 300: Disponible \nBombo 300: Disponible \nRimek:  Trimebutina + simeticona\nFette 1010: Stand by\nFette 2020 2: Stand by\nFette 2020 1: Fluoxetina\n\nNOVEDADES: \nBLISTER 9: Se posicióna estación de sellado (apertura) y se extrae pasador maltratado plancha de sellado inferior.\nT:60 mn aprox\nHUTTLIN 400: Se requiere corregir fugas de vapor piso técnico WIP, se adjunta video.\nBLISTER 3: Se arma rodamientos lineales, los mismos se encontraban fuera de la jaula retenedora , se arma estación de formado y se monta en equipo, quedando pendiente Apretar tuercas de poleas (sellado/formado) y ubicar tiempos mecánicos, se adjunta imágenes.\nT: 9 hrs aprox\nCl4: Se ajusta sensor por falla en el transportador de entrega capsulas y se evidencia algunos transportadores. T: 30 mn aprox\nMT1100: Llamado por lote borroso, se le da centrado al laminado, se le baja la temperatura a las mordazas verticales, se ajusta la distancia de los cabezales de codificado, quedando operativo. T: 3hrs aprox\nBlíster#8: Llamado porque se bajo la temperatura de la placa del túnel inferior se realiza desmontaje y verificación se encuentra abierta se procede a desarmar y cambiar. ( T:90 minutos).\nHuttlin 40: Llamado porque el equipo estaba goteando Agua se revisa no se encuentra novedad, se repite el proceso de limpieza con aire y secado ok.( T:60 minutos).\nOtro llamado porque el equipo no estaba alcanzando la cantidad de pulverización, se realiza verificación de cabezales , boquillas mangueras , se cambia mangueras solo alcanzo 330 de 400.\nTermino el producto.\n( T:60 minutos).\nCl#2: Se revisa bomba de vacío porque no estaba activando se encuentra pegada se realiza ajuste queda operativa.( T:30 minutos).\nEnvasadora #3: llamado porque le equipo estaba presentando bloque de válvulas de realiza verificación y pruebas ok.( T:60 minutos).\nOtro llamado porque está presentando problemas con la colocación de la tapa , se hacen pruebas y ajustes, aveces no enrosca algunas pendiente seguir revisando ( T:60 minutos)."
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-09-27\n           sede 4\n \n*CL4:* Ácido valprohico \n*CL3:* Disponible \n*CL2:* Disponible \n*Stick Pack 4:* Super flux Forte\n*Blíster 2:* Neuromed\n*Blíster 3:* Mantenimiento \n*Envasadora 3:* Anemikid\n*Envasadora 2:*  Cronofen\n*Bin:* Disponible \n*Bosch:* Disponible \n*NJP1:* Complejo B + Diclofenac\n*NJP2:* Tiamina \n*NJP3:* Lansoprazol \n*MB 432:* Congestex\n*Integra 320:* Montaje Losartan \n*MB 451:* Cronofen\n*Blíster 9:* Dimoflax \n*Blíster 8:* Zintergia\n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Esomed\n*Marzio 4:* Airomed\n*R400:* Stand by\n*R200:* Stand by\n*Huttlin 600:* Nifedipino \n*Huttlin 400:* Stand by\n*Huttlin 40:* Fumarato\n*Bombo 300:* Disponible \n*Bombo 300:* Disponible \n*Rimek:*  Trimebutina + simeticona\n*Fette 1010:* Stand by\n*Fette 2020 2:* Stand by\n*Fette 2020 1:* Fluoxetina\n\n*NOVEDADES:* \n*BLISTER 9:* Se posicióna estación de sellado (apertura) y se extrae pasador maltratado plancha de sellado inferior.\n*T:60 mn aprox*\n*HUTTLIN 400:* Se requiere corregir fugas de vapor piso técnico WIP, se adjunta video.\n*BLISTER 3:* Se arma rodamientos lineales, los mismos se encontraban fuera de la jaula retenedora , se arma estación de formado y se monta en equipo, quedando pendiente *Apretar tuercas de poleas (sellado/formado)* y ubicar tiempos mecánicos, se adjunta imágenes.\n*T: 9 hrs aprox*\n*Cl4:* Se ajusta sensor por falla en el transportador de entrega capsulas y se evidencia algunos transportadores. *T: 30 mn aprox*\n*MT1100:* Llamado por lote borroso, se le da centrado al laminado, se le baja la temperatura a las mordazas verticales, se ajusta la distancia de los cabezales de codificado, quedando operativo. *T: 3hrs aprox*\n*Blíster#8:* Llamado porque se bajo la temperatura de la placa del túnel inferior se realiza desmontaje y verificación se encuentra abierta se procede a desarmar y cambiar. ( *T:90 minutos*).\n*Huttlin 40:* Llamado porque el equipo estaba goteando Agua se revisa no se encuentra novedad, se repite el proceso de limpieza con aire y secado ok.( *T:60 minutos*).\nOtro llamado porque el equipo no estaba alcanzando la cantidad de pulverización, se realiza verificación de cabezales , boquillas mangueras , se cambia mangueras solo alcanzo 330 de 400.\nTermino el producto.\n( *T:60 minutos*).\n*Cl#2:* Se revisa bomba de vacío porque no estaba activando se encuentra pegada se realiza ajuste queda operativa.( *T:30 minutos*).\n*Envasadora #3:* llamado porque le equipo estaba presentando bloque de válvulas de realiza verificación y pruebas ok.( *T:60 minutos*).\nOtro llamado porque está presentando problemas con la colocación de la tapa , se hacen pruebas y ajustes, aveces no enrosca algunas pendiente seguir revisando ( *T:60 minutos*)."
   },
   {
     "id": "rt-20260927-2128",
@@ -17800,16 +17775,16 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "Njp2 se cambian paletas de grafito de la bomba de vacio se limpia aspiradora y filtro T 60min",
-      "Centro líquidos 2 se atiende llamado por bajo peso se evidencia embolo que no hace todo el recorrido se ajusta tiempo en bloque dosificador queda ok T 30min",
+      "*Njp2* se cambian paletas de grafito de la bomba de vacio se limpia aspiradora y filtro T 60min",
+      "*Centro líquidos 2* se atiende llamado por bajo peso se evidencia embolo que no hace todo el recorrido se ajusta tiempo en bloque dosificador queda ok T 30min",
       "Después llamado porque no hay vacío en la encapsuladora se revisa bomba de vacío y sus bobinas están abiertas se traslada bomba de centro líquidos 3 al área y se remplaza se relaliza limpieza de área en techo se instala bomba con trampa T 3hrs",
       "Estuchadora de la integra se atiende llamado operador en ma movimiento estrella la máquina y pierde los tiempos de la banda y la banda de los palitos se toman ambos tiempos y se entrega equipo T 3hrs",
       "* Pendinte bajar la bomba que está en mal estado",
-      "Marzio 1 se cambia resistencia de mordaza vertical y se ajusta sistema de corrección se le da tamaño y se ajusta pinza 2h",
-      "Marzio 4 Se atiende llamando por problemas de codificado , se soluciona , tenemos un segundo llamado por el mismo problema nos dimos de cuenta que la cinta codificadora estaba arrugada , se limpia rodillos y se ajusta tensión de la película de la cinta , se deja operativa T:45min",
-      "MT110 Se recibe máquina por problemas en el codificado , se cuadra arrastre de laminado , se cuadra pestaña del laminado , cuando ya el sobre no tenía pestaña y la máquina no encontraba el centrado de impresión se cuadra parámetros se coloca parámetro original y se reinicia equipo pero sin tener éxito , e cambia laminado y se encontró mejoría se deja el equipo operativo 7h"
+      "*Marzio 1* se cambia resistencia de mordaza vertical y se ajusta sistema de corrección se le da tamaño y se ajusta pinza 2h",
+      "*Marzio 4* Se atiende llamando por problemas de codificado , se soluciona , tenemos un segundo llamado por el mismo problema nos dimos de cuenta que la cinta codificadora estaba arrugada , se limpia rodillos y se ajusta tensión de la película de la cinta , se deja operativa T:45min",
+      "*MT110* Se recibe máquina por problemas en el codificado , se cuadra arrastre de laminado , se cuadra pestaña del laminado , cuando ya el sobre no tenía pestaña y la máquina no encontraba el centrado de impresión se cuadra parámetros se coloca parámetro original y se reinicia equipo pero sin tener éxito , e cambia laminado y se encontró mejoría se deja el equipo operativo 7h"
     ],
-    "texto": "**EQUIPOS OPERATIVOS SEDE 4 T#3\n\n*•BIN: Montelukast \n*•BOSCH: Disponible \n*•NJP2: Tiamina \n *NJP1: Dolornepal \nNJP3 Disponible \n*•PILOT LAB HUTTLIN 40: fumarato\n*•FETTE 2020/2: N/A\n*•MS 235 SCHMUCKER: flextril c + msm \n*•MB 432 MARCHESINI: Nifedipino \n*•INTEGRA 320: LOSALTAN \n*•BLISTER #8: zintergia \n*•MB 451 EVO: cronofem \n*•RC 200: disponible \n*RC 400: limpieza \n*•CB550: Disponible \n*•HUTTLIN 600: limpieza \n*•HUTTLIN 400:  naproxeno+ cafeína \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 6: esomed \n*•MARZIO 1: airomed \n*•FETTE 1010: levofloxacina \n*•FETTE 2020/1: Fluoxetina \n\nLIQUIDOS\n\n*•BLISTER 3: MONTAJE DOLORSIN \n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: AREMIKIT \n*•CL2 : NAPROCENO \n*•ENVASADORA 2: MONTAJE\n\n         NOVEDADES\n\nNjp2 \nse cambian paletas de grafito de la bomba de vacio se limpia aspiradora y filtro T 60min \n\nCentro líquidos 2 \nse atiende llamado por bajo peso se evidencia embolo que no hace todo el recorrido se ajusta tiempo en bloque dosificador queda ok T 30min\n\nDespués llamado porque no hay vacío en la encapsuladora se revisa bomba de vacío y sus bobinas están abiertas se traslada bomba de centro líquidos 3 al área y se remplaza se relaliza limpieza de área en techo se instala bomba con trampa T 3hrs \n\nEstuchadora de la integra se atiende llamado operador en ma movimiento estrella la máquina y pierde los tiempos de la banda y la banda de los palitos se toman ambos tiempos y se entrega equipo \nT 3hrs \n\n* Pendinte bajar la bomba que está en mal estado\n\nMarzio 1\nse cambia resistencia de mordaza vertical y se ajusta sistema de corrección se le da tamaño y se ajusta pinza\n2h \n\nMarzio 4\nSe atiende llamando por problemas de codificado , se soluciona , tenemos un segundo llamado por el mismo problema nos dimos de cuenta que la cinta codificadora estaba arrugada , se limpia rodillos y se ajusta tensión de la película de la cinta , se deja operativa T:45min \n\nMT110\nSe recibe máquina por problemas en el codificado , se cuadra arrastre de laminado , se cuadra pestaña del laminado , cuando ya el sobre no tenía pestaña y la máquina no encontraba el centrado de impresión se cuadra parámetros se coloca parámetro original y se reinicia equipo pero sin tener éxito , e cambia laminado y se encontró mejoría se deja el equipo operativo \n7h"
+    "texto": "**EQUIPOS OPERATIVOS SEDE 4 T#3\n\n*•BIN: Montelukast \n*•BOSCH: Disponible \n*•NJP2: Tiamina \n *NJP1: Dolornepal \nNJP3 Disponible \n*•PILOT LAB HUTTLIN 40: fumarato\n*•FETTE 2020/2: N/A\n*•MS 235 SCHMUCKER: flextril c + msm \n*•MB 432 MARCHESINI: Nifedipino \n*•INTEGRA 320: LOSALTAN \n*•BLISTER #8: zintergia \n*•MB 451 EVO: cronofem \n*•RC 200: disponible \n*RC 400: limpieza \n*•CB550: Disponible \n*•HUTTLIN 600: limpieza \n*•HUTTLIN 400:  naproxeno+ cafeína \n*•RIMEK: Trimebutina+simeticona\n*•MARZIO 6: esomed \n*•MARZIO 1: airomed \n*•FETTE 1010: levofloxacina \n*•FETTE 2020/1: Fluoxetina \n\n*LIQUIDOS*\n\n*•BLISTER 3: MONTAJE DOLORSIN \n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: AREMIKIT \n*•CL2 : NAPROCENO \n*•ENVASADORA 2: MONTAJE\n\n         *NOVEDADES*\n\n*Njp2* \nse cambian paletas de grafito de la bomba de vacio se limpia aspiradora y filtro T 60min \n\n*Centro líquidos 2* \nse atiende llamado por bajo peso se evidencia embolo que no hace todo el recorrido se ajusta tiempo en bloque dosificador queda ok T 30min\n\nDespués llamado porque no hay vacío en la encapsuladora se revisa bomba de vacío y sus bobinas están abiertas se traslada bomba de centro líquidos 3 al área y se remplaza se relaliza limpieza de área en techo se instala bomba con trampa T 3hrs \n\nEstuchadora de la integra se atiende llamado operador en ma movimiento estrella la máquina y pierde los tiempos de la banda y la banda de los palitos se toman ambos tiempos y se entrega equipo \nT 3hrs \n\n* Pendinte bajar la bomba que está en mal estado\n\n*Marzio 1*\nse cambia resistencia de mordaza vertical y se ajusta sistema de corrección se le da tamaño y se ajusta pinza\n2h \n\n*Marzio 4*\nSe atiende llamando por problemas de codificado , se soluciona , tenemos un segundo llamado por el mismo problema nos dimos de cuenta que la cinta codificadora estaba arrugada , se limpia rodillos y se ajusta tensión de la película de la cinta , se deja operativa T:45min \n\n*MT110*\nSe recibe máquina por problemas en el codificado , se cuadra arrastre de laminado , se cuadra pestaña del laminado , cuando ya el sobre no tenía pestaña y la máquina no encontraba el centrado de impresión se cuadra parámetros se coloca parámetro original y se reinicia equipo pero sin tener éxito , e cambia laminado y se encontró mejoría se deja el equipo operativo \n7h"
   },
   {
     "id": "rt-20260927-2128-2",
@@ -18131,9 +18106,9 @@ window.REPORTES_TURNO = [
       "- - Mezclador R400 se reviso luminaria no fue necesario cambiar, a esta luminaria, requiere mantenimiento a los sockets.",
       "- - Mezcladores Tonbom, Solo se realizó cambio de 1 tubo, las demás toca por oportunidad equipos en proceso no se podían instalar.",
       "- Esclusa material Recubrimiento 1, Se realiza cambio de 4 tubos T8 led, al revisar cuarto se percata que presenta instalación de tubos de mercurio T32, ya sacados del mercado por hace años, toca realizar instalación nueva con balastros para tubos led. Son 4 lámparas, cada una con 4 tubos.",
-      "Nota: algunas tuberías led presentan condensación"
+      "*Nota: algunas tuberías led presentan condensación*"
     ],
-    "texto": "SEDE 4 -- turno (día)\n2026/08/28\n\nHuttiln 600 cetirizina \nMarzio 5 esomed \nBlíster 7 cronofen\nBlíster 8 dolomerpal \nIntegra Losartan \nMb432 nifedipino\nBlíster 9 dilox \nNjp3  lansoprazol \nMs235 flextril \nPilot dimoflax \nNjp1 diclonec + complejo B\nNjp2  tiamina \nBin myosop \nRimek Trimebutina + simeticoma \nEnvasado 2. Deslodex \nCl2 naproxeno\nCl4 ácido valproico\nBlíster 3 dolorsin fem\nMt1100 supreflux \nEnvasado 3 anemikids \n\n                      NOVEDADES\n\nEstuchadora Evo: se cambian tubos de succión , bentosas y tubos de conexión, se quitan los viejos y se dejan en taller como repuesto, en puesta en marcha se evidencia una con una leve inclinacion se corrige, máquina operativa. 60min\n\nBomba se huttlin 600: se agrega sello adicional se hacen pruebas de filtración y qued aok. Pendiente montar 1.5hrs\n\nBlíster 8 estación de sellado no abre en su totalidad se toma el tiempo nuevamente y se lubrica estación se verifico estado del desperté está ok T 1.5hrs\n\nSe reparan 3 puertas controlas del pasillo de almacén 60min\n\nBlíster 4 de ajusta grafilado de la mordaza vertical 30min\n\nHuttlin 400:Se realiza reparación de fuga a tubería de vapor en piso técnico de huttlin 400.\n\nNJP 3: se corrige espacios entre porta tapas y porta cuerpo de estación. Ya que estaba inclinando hacia un lado lo que hacía que se encontraran creando fricción entre ambas piezas.\n\nSe realiza ajuste de esteras en líquidos.\n\nSe realiza desmonte de válvula dosificadora de la mt1100 ya que se encontraba pegada\n\nSe realiza ajuste de mordaza en vertical de la marzio 5 \n\nEnvasado 3 se desmonta sujetador de pase de las jeringas  y se cambian tornillos desgastados\n\n- Se realiza instalación de prensa-estopas acometida luces tanques de fabricación centro líquido 1\n- Se realizó recorrido para referencias de repuestos de luminarias \n- Se realiza revisión y/o cambio de luminarias t8 tubo led en : \n- - Mezcladora R200 (Pendiente revisión de conexióny de circuito en el techo las luminarias están ok) no hubo cambios \n- - Mezclador R400 se reviso luminaria no fue necesario cambiar, a esta luminaria, requiere mantenimiento a los sockets.\n- - Mezcladores Tonbom, Solo se realizó cambio de 1 tubo, las demás toca por oportunidad equipos en proceso no se podían instalar. \n- Esclusa material Recubrimiento 1, Se realiza cambio de 4 tubos T8 led, al revisar cuarto se percata que presenta instalación de tubos de mercurio T32, ya sacados del mercado por hace años, toca realizar instalación nueva con balastros para tubos led. Son 4 lámparas, cada una con 4 tubos.\n\nNota: algunas tuberías led presentan condensación"
+    "texto": "SEDE 4 -- turno (día)\n2026/08/28\n\nHuttiln 600 cetirizina \nMarzio 5 esomed \nBlíster 7 cronofen\nBlíster 8 dolomerpal \nIntegra Losartan \nMb432 nifedipino\nBlíster 9 dilox \nNjp3  lansoprazol \nMs235 flextril \nPilot dimoflax \nNjp1 diclonec + complejo B\nNjp2  tiamina \nBin myosop \nRimek Trimebutina + simeticoma \nEnvasado 2. Deslodex \nCl2 naproxeno\nCl4 ácido valproico\nBlíster 3 dolorsin fem\nMt1100 supreflux \nEnvasado 3 anemikids \n\n                      *NOVEDADES*\n\nEstuchadora Evo: se cambian tubos de succión , bentosas y tubos de conexión, se quitan los viejos y se dejan en taller como repuesto, en puesta en marcha se evidencia una con una leve inclinacion se corrige, máquina operativa. 60min\n\nBomba se huttlin 600: se agrega sello adicional se hacen pruebas de filtración y qued aok. Pendiente montar 1.5hrs\n\nBlíster 8 estación de sellado no abre en su totalidad se toma el tiempo nuevamente y se lubrica estación se verifico estado del desperté está ok T 1.5hrs\n\nSe reparan 3 puertas controlas del pasillo de almacén 60min\n\nBlíster 4 de ajusta grafilado de la mordaza vertical 30min\n\nHuttlin 400:Se realiza reparación de fuga a tubería de vapor en piso técnico de huttlin 400.\n\nNJP 3: se corrige espacios entre porta tapas y porta cuerpo de estación. Ya que estaba inclinando hacia un lado lo que hacía que se encontraran creando fricción entre ambas piezas.\n\nSe realiza ajuste de esteras en líquidos.\n\nSe realiza desmonte de válvula dosificadora de la mt1100 ya que se encontraba pegada\n\nSe realiza ajuste de mordaza en vertical de la marzio 5 \n\nEnvasado 3 se desmonta sujetador de pase de las jeringas  y se cambian tornillos desgastados\n\n- Se realiza instalación de prensa-estopas acometida luces tanques de fabricación centro líquido 1\n- Se realizó recorrido para referencias de repuestos de luminarias \n- Se realiza revisión y/o cambio de luminarias t8 tubo led en : \n- - Mezcladora R200 (Pendiente revisión de conexióny de circuito en el techo las luminarias están ok) no hubo cambios \n- - Mezclador R400 se reviso luminaria no fue necesario cambiar, a esta luminaria, requiere mantenimiento a los sockets.\n- - Mezcladores Tonbom, Solo se realizó cambio de 1 tubo, las demás toca por oportunidad equipos en proceso no se podían instalar. \n- Esclusa material Recubrimiento 1, Se realiza cambio de 4 tubos T8 led, al revisar cuarto se percata que presenta instalación de tubos de mercurio T32, ya sacados del mercado por hace años, toca realizar instalación nueva con balastros para tubos led. Son 4 lámparas, cada una con 4 tubos.\n\n*Nota: algunas tuberías led presentan condensación*"
   },
   {
     "id": "rt-20260928-2149",
@@ -18322,9 +18297,9 @@ window.REPORTES_TURNO = [
       "-Lecho fluido 40 se intenta cambiar 2 tubos led pero por logística de uso de escalera el operario impide la instalación debido al alto riesgo de contaminación.",
       "-Equipos limpios: Se cambian 2 tubos led Se realizó limpieza a vidrio de lámparas.",
       "-Se ajusta vidriera de una  lámpara y siguen pendientes por oportunidad operativa el cambios de tubos en Mezcladores bonbom ya que continuaban operando.  12:24 p.m. - 15:20 p.m.",
-      "Dpacheco"
+      "*Dpacheco*"
     ],
-    "texto": "SEDE 4 -- turno (día)\n2026/09/29\n\n- Se revisa punto 110v monofásico y 220v trifásico por presentar ausencia de tensión de Envasadora # 2 \nSe encuentran cables en techo cortados, se realiza conexión y queda punto 110V en circuito # 16 TD2A Líquidos. (8:44 - 9:50)\n\n- Se continúan trabajos de instalación de luminarias:\n\n-Lecho fluido 40 se intenta cambiar 2 tubos led pero por logística de uso de escalera el operario impide la instalación debido al alto riesgo de contaminación.\n\n-Equipos limpios: Se cambian 2 tubos led\nSe realizó limpieza a vidrio de lámparas.\n\n-Se ajusta vidriera de una  lámpara y siguen pendientes por oportunidad operativa el cambios de tubos en Mezcladores bonbom ya que continuaban operando.  12:24 p.m. - 15:20 p.m.\n\nDpacheco"
+    "texto": "SEDE 4 -- turno (día)\n2026/09/29\n\n- Se revisa punto 110v monofásico y 220v trifásico por presentar ausencia de tensión de Envasadora # 2 \nSe encuentran cables en techo cortados, se realiza conexión y queda punto 110V en circuito # 16 TD2A Líquidos. (8:44 - 9:50)\n\n- Se continúan trabajos de instalación de luminarias:\n\n-Lecho fluido 40 se intenta cambiar 2 tubos led pero por logística de uso de escalera el operario impide la instalación debido al alto riesgo de contaminación.\n\n-Equipos limpios: Se cambian 2 tubos led\nSe realizó limpieza a vidrio de lámparas.\n\n-Se ajusta vidriera de una  lámpara y siguen pendientes por oportunidad operativa el cambios de tubos en Mezcladores bonbom ya que continuaban operando.  12:24 p.m. - 15:20 p.m.\n\n*Dpacheco*"
   },
   {
     "id": "rt-20260929-1946",
@@ -18465,26 +18440,22 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "TROQUEL 4 BLISTER: Se realiza mantenimiento y prueba de corte OK, Se cambian resortes de expulsión, se entrega a producción.",
-      "T: 90mn aprox",
-      "SCHMUCKER: Se retoma proyecto de base codificadora de equipo, se presenta en  bases (rodillos de laminado) de equipo y en base de sujesion (cañón), se adjunta imágenes y video.",
-      "MB 451 EVO: LLamado por mal formación de alveolos, se verifican presiones de aire comprimido y enebrado, se corriyge guía de PVC, equipo operativo.",
-      "T: 90 mn aprox",
-      "MB 432: Bloqueó de telecamara 3, se resetea equipo persiste falla,se entrega a turno entrante continuar revisando.",
-      "ENVASADORA 3: Se atiende llamado por falla de carga de dosificación, se regula la velocidad de la bomba de llenado y se lubrica el tornillo del llenado de las jeringas, también se cambia manguera del vacío que está ubicada pone los goteros, queda equipo operativo. T: 150 mn aprox.",
-      "CL3: Se realiza mantenimiento a bomba de vacío, se cambian rodamientos, se realizan pruebas OK, queda en taller.",
-      "T: 240 mn aprox",
-      "HUTTLIN 600: Se instala bomba difusora en preparación de soluciones.",
-      "T: 60mn aprox",
-      "BLISTER #3: se atiende llamado porque se freno banda del troquel se realiza limpieza y lubricación se entrega a producción.( 30 minutos).",
+      "*TROQUEL 4 BLISTER:* Se realiza mantenimiento y prueba de corte OK, Se cambian resortes de expulsión, se entrega a producción.",
+      "*T: 90mn aprox*",
+      "*SCHMUCKER:* Se retoma proyecto de base codificadora de equipo, se presenta en  bases (rodillos de laminado) de equipo y en base de sujesion (cañón), se adjunta imágenes y video.",
+      "*MB 451 EVO:* LLamado por mal formación de alveolos, se verifican presiones de aire comprimido y enebrado, se corriyge guía de PVC, equipo operativo.",
+      "*T: 90 mn aprox*",
+      "*MB 432:* Bloqueó de telecamara 3, se resetea equipo persiste falla,se entrega a turno entrante continuar revisando.",
+      "*ENVASADORA 3:* Se atiende llamado por falla de carga de dosificación, se regula la velocidad de la bomba de llenado y se lubrica el tornillo del llenado de las jeringas, también se cambia manguera del vacío que está ubicada pone los goteros, queda equipo operativo. *T: 150 mn aprox.*",
+      "*CL3:* Se realiza mantenimiento a bomba de vacío, se cambian rodamientos, se realizan pruebas OK, queda en taller.",
+      "*T: 240 mn aprox*",
+      "*HUTTLIN 600:* Se instala bomba difusora en preparación de soluciones.",
+      "*T: 60mn aprox*",
+      "*BLISTER #3:* se atiende llamado porque se freno banda del troquel se realiza limpieza y lubricación se entrega a producción.( 30 minutos).",
       "Se habilito toma de 110v del área de envasado #2. Pendiente  instalación de 220 se necesita 20 metros de cable #12.( 120 minutos).",
-      "Chequeaadora de peso de envasado #3: se ajusta sensor por problemas en el descarte. ( 20 minutos).",
-      "MB432",
-      "Base codificadora SCHMUCKER",
-      "Base codificadora SCHMUCKER",
-      "Envasado 3"
+      "Chequeaadora de peso de envasado #3: se ajusta sensor por problemas en el descarte. ( 20 minutos)."
     ],
-    "texto": "REPORTE DE TURNO \n GRUPO 1 Día\n SEDE 4 \n- CL2: DOLORSIN FEM\n- CL4: FERBIN \n- MT 1100: MONTAJE\n- BLÍSTER 3: DOLORSIN FEM\n- BLÍSTER 2 : DISPONIBLE \n- ENVASADO 3: FLUTICASONA\n- CL3: DISPONIBLE \n- ENVASADO 2: DESLODEx\n- BIN BLENDER: DISPONIBLE \n- BOSCH: DISPONIBLE \n- NJP1: DISPONIBLE \n- NJP2: TIAMINA\n- NJP3: LANZOPRAZOL\n- PILOT LAB: DIMOFLAX \n- MB 432: NIFEDIPINO.\n- BLÍSTER 8: DOLORMEPAL\n- SCHMUCKER: LIMPIEZA \n- Blíster 9: DILOX\n- INTEGRA 320: FLUEXETINA \n- R200: COLTRIM\n- MB 451 EVO: CRONOFEN\n- MARZIO 5: MYOSOP\n- HUTTLIN 600: LIMPIEZA \n- R400: DISPONIBLE \n- BOMBO 300: DISPONIBLE \n- MARZIO 4: AIROMED\n- HUTTLIN 400: NIFEDIPINO\n- RIMEK: COLTRIM\n- FETTE 1010: AIROMED\n- FETTE 2020 2: ACETAMINOFEN\n- FETTE 2020 1: ESOMEPRAZOL\n- CB 550: GELIMED\nNOVEDADES\nTROQUEL 4 BLISTER: Se realiza mantenimiento y prueba de corte OK, Se cambian resortes de expulsión, se entrega a producción.\nT: 90mn aprox\nSCHMUCKER: Se retoma proyecto de base codificadora de equipo, se presenta en  bases (rodillos de laminado) de equipo y en base de sujesion (cañón), se adjunta imágenes y video.\nMB 451 EVO: LLamado por mal formación de alveolos, se verifican presiones de aire comprimido y enebrado, se corriyge guía de PVC, equipo operativo.\nT: 90 mn aprox\nMB 432: Bloqueó de telecamara 3, se resetea equipo persiste falla,se entrega a turno entrante continuar revisando.\nENVASADORA 3: Se atiende llamado por falla de carga de dosificación, se regula la velocidad de la bomba de llenado y se lubrica el tornillo del llenado de las jeringas, también se cambia manguera del vacío que está ubicada pone los goteros, queda equipo operativo. T: 150 mn aprox.\nCL3: Se realiza mantenimiento a bomba de vacío, se cambian rodamientos, se realizan pruebas OK, queda en taller.\nT: 240 mn aprox\nHUTTLIN 600: Se instala bomba difusora en preparación de soluciones.\nT: 60mn aprox\nBLISTER #3: se atiende llamado porque se freno banda del troquel se realiza limpieza y lubricación se entrega a producción.( 30 minutos).\nSe habilito toma de 110v del área de envasado #2. Pendiente  instalación de 220 se necesita 20 metros de cable #12.( 120 minutos).\nChequeaadora de peso de envasado #3: se ajusta sensor por problemas en el descarte. ( 20 minutos).\n MB432\n Base codificadora SCHMUCKER\n\n Base codificadora SCHMUCKER\n\nEnvasado 3"
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 Día*\n *SEDE* *4* \n- *CL2:* DOLORSIN FEM\n- *CL4:* FERBIN \n- *MT 1100:* MONTAJE\n- *BLÍSTER 3:* DOLORSIN FEM\n- *BLÍSTER 2 :* DISPONIBLE \n- *ENVASADO 3:* FLUTICASONA\n- *CL3:* DISPONIBLE \n- *ENVASADO 2:* DESLODEx\n- *BIN BLENDER:* DISPONIBLE \n- *BOSCH:* DISPONIBLE \n- *NJP1:* DISPONIBLE \n- *NJP2:* TIAMINA\n- *NJP3:* LANZOPRAZOL\n- *PILOT LAB:* DIMOFLAX \n- *MB 432:* NIFEDIPINO.\n- *BLÍSTER 8:* DOLORMEPAL\n- *SCHMUCKER:* LIMPIEZA \n- *Blíster 9:* DILOX\n- *INTEGRA 320:* FLUEXETINA \n- *R200:* COLTRIM\n- *MB 451 EVO:* CRONOFEN\n- *MARZIO 5:* MYOSOP\n- *HUTTLIN 600:* LIMPIEZA \n- *R400:* DISPONIBLE \n- *BOMBO 300:* DISPONIBLE \n- *MARZIO 4:* AIROMED\n- *HUTTLIN 400:* NIFEDIPINO\n- *RIMEK:* COLTRIM\n- *FETTE 1010:* AIROMED\n- *FETTE 2020 2:* ACETAMINOFEN\n- *FETTE 2020 1:* ESOMEPRAZOL\n- *CB 550:* GELIMED\n*NOVEDADES*\n*TROQUEL 4 BLISTER:* Se realiza mantenimiento y prueba de corte OK, Se cambian resortes de expulsión, se entrega a producción.\n*T: 90mn aprox*\n*SCHMUCKER:* Se retoma proyecto de base codificadora de equipo, se presenta en  bases (rodillos de laminado) de equipo y en base de sujesion (cañón), se adjunta imágenes y video.\n*MB 451 EVO:* LLamado por mal formación de alveolos, se verifican presiones de aire comprimido y enebrado, se corriyge guía de PVC, equipo operativo.\n*T: 90 mn aprox*\n*MB 432:* Bloqueó de telecamara 3, se resetea equipo persiste falla,se entrega a turno entrante continuar revisando.\n*ENVASADORA 3:* Se atiende llamado por falla de carga de dosificación, se regula la velocidad de la bomba de llenado y se lubrica el tornillo del llenado de las jeringas, también se cambia manguera del vacío que está ubicada pone los goteros, queda equipo operativo. *T: 150 mn aprox.*\n*CL3:* Se realiza mantenimiento a bomba de vacío, se cambian rodamientos, se realizan pruebas OK, queda en taller.\n*T: 240 mn aprox*\n*HUTTLIN 600:* Se instala bomba difusora en preparación de soluciones.\n*T: 60mn aprox*\n*BLISTER #3:* se atiende llamado porque se freno banda del troquel se realiza limpieza y lubricación se entrega a producción.( 30 minutos).\nSe habilito toma de 110v del área de envasado #2. Pendiente  instalación de 220 se necesita 20 metros de cable #12.( 120 minutos).\nChequeaadora de peso de envasado #3: se ajusta sensor por problemas en el descarte. ( 20 minutos)."
   },
   {
     "id": "rt-20260929-2104",
@@ -18638,10 +18609,10 @@ window.REPORTES_TURNO = [
       "Se llamo nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad 30 min",
       "Fette 1010 se atiende llamado porque filomatic no gira se revisa se evidencia que no está atascado y el equipo no muestra falla se quita tapa parte superior del equipo se da arranque y el motor emite vibración pero no gira se desmonta y se desarma se evidencia corona partida se encontró motor en stock y se monta equipo operativo T 3hrs",
       "MT1100 Se atiende llamado por problemas con jeringa docificador se afloja rosca de seguridad la cual la mantiene sin fuga , se le da toque , se evidencia vástago rallado se soluciona se monta y queda operativa 1h",
-      "Nota El operario me comenta que la jeringa en algunas ocasiones fuga producto pero no afecta la dosificación asignada,",
+      "*Nota* El operario me comenta que la jeringa en algunas ocasiones fuga producto pero no afecta la dosificación asignada,",
       "Estuchadora Evo Se atiende llamado por problemas de entrega de estuche y cierre del mismo , se cuadra equipo y se deja operativa 2h"
     ],
-    "texto": "SEDE 4 -- turno (día)\n2026/08/30\n\nMs235 flextril \nNjp3  lansoprazol\nLevofloxacina\nMb432 nifedipino\nIntegra Fluoxetina\nBlíster 8 dolomerpal \nBlíster 7 cronofen \nMarzio 5  myosop\nHuttiln 600 flextril \nCb 550 gelimed \nFette 1010 montelucast + desloratadina \nFette 2020-1 esomeprazol \nBosch nifedipino\nPilot dimoflax \nEnvasado 2 deslodex \nEnvasado 3  furoflitil\nMt1100 supreflux \nCl4 ácido valproico \nBlíster 3  ferbin \n\n                      NOVEDADES\n\nSchmucker se entiende llamado operador comenta que recibió turno con motor vibrador con los cables partidos se trae a taller y se suelda con cuidado porque ya están muy cortos se habilita y se encontró pasador de presión de mordaza por fuera de ajusta T 2hrs\n\nBosch se atiende llamado porque se pasó la columna y se bloqueó se restablece 20min\n llamado nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad \n30 min\n\nMarzio 5 llamaron por ajuste en brazo  dosificador se realiza cambio de resorte del Brazo y se ajustan tornillos y el brazo.\nSe restablece.\n2 horas\n\nSe llamo nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad \n30 min\n\nFette 1010 se atiende llamado porque filomatic no gira se revisa se evidencia que no está atascado y el equipo no muestra falla se quita tapa parte superior del equipo se da arranque y el motor emite vibración pero no gira se desmonta y se desarma se evidencia corona partida se encontró motor en stock y se monta equipo operativo T 3hrs \n\nMT1100\nSe atiende llamado por problemas con jeringa docificador se afloja rosca de seguridad la cual la mantiene sin fuga , se le da toque , se evidencia vástago rallado se soluciona se monta y queda operativa 1h \n\nNota \nEl operario me comenta que la jeringa en algunas ocasiones fuga producto pero no afecta la dosificación asignada, \n\nEstuchadora Evo \nSe atiende llamado por problemas de entrega de estuche y cierre del mismo , se cuadra equipo y se deja operativa 2h"
+    "texto": "SEDE 4 -- turno (día)\n2026/08/30\n\nMs235 flextril \nNjp3  lansoprazol\nLevofloxacina\nMb432 nifedipino\nIntegra Fluoxetina\nBlíster 8 dolomerpal \nBlíster 7 cronofen \nMarzio 5  myosop\nHuttiln 600 flextril \nCb 550 gelimed \nFette 1010 montelucast + desloratadina \nFette 2020-1 esomeprazol \nBosch nifedipino\nPilot dimoflax \nEnvasado 2 deslodex \nEnvasado 3  furoflitil\nMt1100 supreflux \nCl4 ácido valproico \nBlíster 3  ferbin \n\n                      *NOVEDADES*\n\nSchmucker se entiende llamado operador comenta que recibió turno con motor vibrador con los cables partidos se trae a taller y se suelda con cuidado porque ya están muy cortos se habilita y se encontró pasador de presión de mordaza por fuera de ajusta T 2hrs\n\nBosch se atiende llamado porque se pasó la columna y se bloqueó se restablece 20min\n llamado nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad \n30 min\n\nMarzio 5 llamaron por ajuste en brazo  dosificador se realiza cambio de resorte del Brazo y se ajustan tornillos y el brazo.\nSe restablece.\n2 horas\n\nSe llamo nuevamente de la bosh por bloqueo del elevador. Se revisa la seguridad de bloque del elevador y se encuentra que el equipo se había apagado sin terminar ciclo, se completo ciclo y el equipo desbloquea la seguridad \n30 min\n\nFette 1010 se atiende llamado porque filomatic no gira se revisa se evidencia que no está atascado y el equipo no muestra falla se quita tapa parte superior del equipo se da arranque y el motor emite vibración pero no gira se desmonta y se desarma se evidencia corona partida se encontró motor en stock y se monta equipo operativo T 3hrs \n\nMT1100\nSe atiende llamado por problemas con jeringa docificador se afloja rosca de seguridad la cual la mantiene sin fuga , se le da toque , se evidencia vástago rallado se soluciona se monta y queda operativa 1h \n\n*Nota* \nEl operario me comenta que la jeringa en algunas ocasiones fuga producto pero no afecta la dosificación asignada, \n\nEstuchadora Evo \nSe atiende llamado por problemas de entrega de estuche y cierre del mismo , se cuadra equipo y se deja operativa 2h"
   },
   {
     "id": "rt-20260930-1942",
@@ -19173,9 +19144,9 @@ window.REPORTES_TURNO = [
       "Marzio 4 Se atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h",
       "Etiquetadora 2 Se atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h",
       "Blíster 3 Se atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno",
-      "Nota Se daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
+      "*Nota* Se daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\nLIQUIDOS\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICAZONA\n*•CL2 : NAPROCENO \n*•EMBASADORA 2: ACETAMINOFÉN \n\nSOLIDOS\n\n*•BIN: DISPONIBLE\n*•BOSH: NIFEDIPINO\n*•NJP2 : DISPONIBLE \n*•NJP1 : LANZOPRAZOL\n*•PILOTBLAB HUYTLIN40: INUFLASH\n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGESTEL\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DISPONIBLE \n*•EVO: CRONOFEN\n*•MARZIO #4 : MYOSOP\n*•HUTTLIN 600: FESTRIL\n*•R200: DÑTRIMEBUTINA\n*•R400: DISPONIBLE \n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \nFETTE 2020/1: ESOMEPRAZOL \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: EVOFLOSACINA \n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n________\n       NOVEDADES\n\n* Se repara filtro de HUTTLIN 400 \n\n- Se instala bomba en  trasvase líquido 2 \n 30 min \n\nenvase 2 \n no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min\n\n* Se repara puerta de esclusa de personal de la blisteadora Evo \n\n* Se cuadran estera de fabricación de liquido y de pesaje 1 \n\n* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9 \n\nMarzio 4\nSe atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h \n\nEtiquetadora 2 \nSe atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h \n\nBlíster 3 \nSe atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno \n\nNota \nSe daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: NEUROMED \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICAZONA\n*•CL2 : NAPROCENO \n*•EMBASADORA 2: ACETAMINOFÉN \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE\n*•BOSH: NIFEDIPINO\n*•NJP2 : DISPONIBLE \n*•NJP1 : LANZOPRAZOL\n*•PILOTBLAB HUYTLIN40: INUFLASH\n*•SCHMUKER:FLEXTRIL \n*•NJP3 : NIFEDIPINO\n*•BLISTER #9: DIMOFLAX \n*•BLISTER 6 MB432: CONGESTEL\n*•INTEGRA320: DISPONIBLE \n*•BLISTER #8: DISPONIBLE \n*•EVO: CRONOFEN\n*•MARZIO #4 : MYOSOP\n*•HUTTLIN 600: FESTRIL\n*•R200: DÑTRIMEBUTINA\n*•R400: DISPONIBLE \n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: DIFEDIPINO\n*•RIMEK: TRIMEBUTINA \nFETTE 2020/1: ESOMEPRAZOL \n*•FETTE 2020/2: ACETAMINOFÉN \n*•RIMEK: DISPONIBLE \n*•FETTE 1010: EVOFLOSACINA \n*•FETTE2021: FLOJRXETINOL\n*•CB550: GELIMED \n____________________\n       NOVEDADES\n\n* Se repara filtro de HUTTLIN 400 \n\n- Se instala bomba en  trasvase líquido 2 \n 30 min \n\nenvase 2 \n no dosificaba por cuadre del sensor de conteo, se realizó limpieza y ajuste del sensor y queda nuevamente operando 20 min\n\n* Se repara puerta de esclusa de personal de la blisteadora Evo \n\n* Se cuadran estera de fabricación de liquido y de pesaje 1 \n\n* Se le pasa lija a sufriera de bronce para emparejar por desgaste , en blíster 9 \n\nMarzio 4\nSe atiende llamado por problemas en brazo docificador se cuadra y se deja operativa también se corrige sistema de corrección  se cuadra sobre y se ajusta pinza 2h \n\nEtiquetadora 2 \nSe atiende llamado por problemas de cuadre del equipo ya que la operaria es nueva , se cuadra salida de etiqueta y altura de la misma , se cuadra lote y se cuadra la velocidad para que no causa arruga en la etiqueta se vuelve a llamar por lote borro se acomoda lote y sufriera queda operativa 2h \n\nBlíster 3 \nSe atiende llamado por formato de soplado sin refrigeración ya que el PVC se pegaba , se pulga el sistema y se deja para prueba por qué nos llamaron tipo 7:20 y el operario ya estaba cerrado y limpiando área para entregar el turno \n\n*Nota* \nSe daña bomba de vacío del área de empaque se busca respuesto y solución pero sin tener éxito queda pendiente"
   },
   {
     "id": "rt-20261001-1135",
@@ -19495,7 +19466,7 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [],
-    "texto": "Reporte Turno ( NOCHE )\nSede 2\n\n Blister 5 : NAPROXENO 250MG\n\n GB 100 : ESOMEPRAZOL\n\n CENTRO LÍQUIDO  1: lIPOGRAS. (ESPERANDO MAETRIA PRIMA )\n\nSE APOYA EN MONTAJE Y AJUSTE  B5\n\nSE LUBRICAN RODAMIENTO LINEALES EN GB 100"
+    "texto": "Reporte Turno ( *NOCHE* )\nSede 2\n\n *Blister 5* : NAPROXENO 250MG\n\n *GB 100* : ESOMEPRAZOL\n\n *CENTRO LÍQUIDO*  1: lIPOGRAS. (ESPERANDO MAETRIA PRIMA )\n\nSE APOYA EN MONTAJE Y AJUSTE  B5\n\nSE LUBRICAN RODAMIENTO LINEALES EN GB 100"
   },
   {
     "id": "rt-20261002-0814",
@@ -19636,20 +19607,20 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "BLISTER 9: Se corrige filtración en blíster y se ubican tiempos mecánicos perdidos, (pin de encoder suel)",
-      "T: 180mn aprox",
-      "ENVASADO 2: LLamado por falla en cilindro dosificador, el mismo fue corregido, equipo operativo.",
-      "T:60 mn aprox",
-      "MT1100: Llamados durante todo el turno por diferentes fallas, problemas con la cuba(mal conectado), se corrige dosis en sachet #1, falla en foto centrado de laminado, queda detenido, se entrega al turno entrante continuar revisando.",
-      "BOSCH: Se realiza seguimiento a equipo, trabajando S/N.",
-      "ETIQUETADORA 2: LLamado por impresión de etiquetas desalineadas, se nivela cabezal y rodillos, equipo operativo.",
-      "T:30 mn aprox",
-      "PILOT LAB: LLamado por bajo volumen entrda de aire, se revisan equipos en piso técnico OK, Se sugiere limpiar bolw, equipo operativo.",
-      "T:120 mn aprox",
-      "CL 2: Se reparan roscas M6 , bandeja de solución equipo operativo.",
-      "T:60 mn"
+      "*BLISTER 9:* Se corrige filtración en blíster y se ubican tiempos mecánicos perdidos, (pin de encoder suel)",
+      "*T: 180mn aprox*",
+      "*ENVASADO 2:* LLamado por falla en cilindro dosificador, el mismo fue corregido, equipo operativo.",
+      "*T:60 mn aprox*",
+      "*MT1100:* Llamados durante todo el turno por diferentes fallas, problemas con la cuba(mal conectado), se corrige dosis en sachet #1, falla en foto centrado de laminado, queda detenido, se entrega al turno entrante continuar revisando.",
+      "*BOSCH:* Se realiza seguimiento a equipo, trabajando S/N.",
+      "*ETIQUETADORA 2:* LLamado por impresión de etiquetas desalineadas, se nivela cabezal y rodillos, equipo operativo.",
+      "*T:30 mn aprox*",
+      "*PILOT LAB:* LLamado por bajo volumen entrda de aire, se revisan equipos en piso técnico OK, Se sugiere limpiar bolw, equipo operativo.",
+      "*T:120 mn aprox*",
+      "*CL 2:* Se reparan roscas M6 , bandeja de solución equipo operativo.",
+      "*T:60 mn*"
     ],
-    "texto": "REPORTE DE TURNO\n         GRUPO 1\n      2026-10-01\n           sede 4\n \nCL4: Limpieza \nCL3: Disponible\nCL2: Limpieza \nStick Pack 4: Superflux\nBlíster 2: Disponible \nBlíster 3: Ferbin\nEnvasadora 3: Disponible \nEnvasadora 2: Limpieza \nBin: Disponible \nBosch: Nifedipino \nNJP1: Multivitaminico \nNJP2: Disponible \nNJP3: Limpieza \nMB 432: Prazed\nIntegra 320: Fluoxetina \nMB 451: cronofen\nBlíster 9: Naproflash forte\nBlíster 8: zintergia \nSchmucker: Flextril C\nCB 550: Gelimed\nMarzio 5: Myosop\nMarzio 4: Airomed\nR400: Montelukast + Desloratadina\nR200: Disponible \nHuttlin 600: Flextril C\nHuttlin 400: Nifedipino \nHuttlin 40: Dimoflax\nBombo 300: Disponible \nBombo 300: Disponible \nRimek:  sintrelina\nFette 1010: Limpieza\nFette 2020 2: Acetaminofén \nFette 2020 1: Esomeprazol\nNOVEDADES: \nBLISTER 9: Se corrige filtración en blíster y se ubican tiempos mecánicos perdidos, (pin de encoder suel)\nT: 180mn aprox\nENVASADO 2: LLamado por falla en cilindro dosificador, el mismo fue corregido, equipo operativo.\nT:60 mn aprox\nMT1100: Llamados durante todo el turno por diferentes fallas, problemas con la cuba(mal conectado), se corrige dosis en sachet #1, falla en foto centrado de laminado, queda detenido, se entrega al turno entrante continuar revisando.\nBOSCH: Se realiza seguimiento a equipo, trabajando S/N.\nETIQUETADORA 2: LLamado por impresión de etiquetas desalineadas, se nivela cabezal y rodillos, equipo operativo.\nT:30 mn aprox\nPILOT LAB: LLamado por bajo volumen entrda de aire, se revisan equipos en piso técnico OK, Se sugiere limpiar bolw, equipo operativo.\nT:120 mn aprox\nCL 2: Se reparan roscas M6 , bandeja de solución equipo operativo.\nT:60 mn"
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-10-01\n           sede 4\n \n*CL4:* Limpieza \n*CL3:* Disponible\n*CL2:* Limpieza \n*Stick Pack 4:* Superflux\n*Blíster 2:* Disponible \n*Blíster 3:* Ferbin\n*Envasadora 3:* Disponible \n*Envasadora 2:* Limpieza \n*Bin:* Disponible \n*Bosch:* Nifedipino \n*NJP1:* Multivitaminico \n*NJP2:* Disponible \n*NJP3:* Limpieza \n*MB 432:* Prazed\n*Integra 320:* Fluoxetina \n*MB 451:* cronofen\n*Blíster 9:* Naproflash forte\n*Blíster 8:* zintergia \n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Myosop\n*Marzio 4:* Airomed\n*R400:* Montelukast + Desloratadina\n*R200:* Disponible \n*Huttlin 600:* Flextril C\n*Huttlin 400:* Nifedipino \n*Huttlin 40:* Dimoflax\n*Bombo 300:* Disponible \n*Bombo 300:* Disponible \n*Rimek:*  sintrelina\n*Fette 1010:* Limpieza\n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Esomeprazol\n*NOVEDADES:* \n*BLISTER 9:* Se corrige filtración en blíster y se ubican tiempos mecánicos perdidos, (pin de encoder suel)\n*T: 180mn aprox*\n*ENVASADO 2:* LLamado por falla en cilindro dosificador, el mismo fue corregido, equipo operativo.\n*T:60 mn aprox*\n*MT1100:* Llamados durante todo el turno por diferentes fallas, problemas con la cuba(mal conectado), se corrige dosis en sachet #1, falla en foto centrado de laminado, queda detenido, se entrega al turno entrante continuar revisando.\n*BOSCH:* Se realiza seguimiento a equipo, trabajando S/N.\n*ETIQUETADORA 2:* LLamado por impresión de etiquetas desalineadas, se nivela cabezal y rodillos, equipo operativo.\n*T:30 mn aprox*\n*PILOT LAB:* LLamado por bajo volumen entrda de aire, se revisan equipos en piso técnico OK, Se sugiere limpiar bolw, equipo operativo.\n*T:120 mn aprox*\n*CL 2:* Se reparan roscas M6 , bandeja de solución equipo operativo.\n*T:60 mn*"
   },
   {
     "id": "rt-20261002-2102",
@@ -20003,7 +19974,7 @@ window.REPORTES_TURNO = [
       "SE LIMPIA LA CORROSIÓN DE TANQUE MOVIL DE MICROGRANULO",
       "PENDIENTE: SE RECIBE LLAMADO DEL OPERADOR DE SOLIDO ( HORNO) LA PUERTA NO CIERRA LOS PINES DE SEGURIDAD SE DEVUELVEN Y NO AJUSTAN PARA EL CIERRE"
     ],
-    "texto": "TURNO NOCHE \n BLISTER 5: NAPROXENO \n(TERMINO)\n\n GB 100: ESOMEPRAZOL \n\n CL 1: DIMETICONA \n\nNOVEDADES: \nSE APOYA EN MONTAJE DE ALIMENTADOR  DE B5\n\nSE LIMPIA LA CORROSIÓN DE TANQUE MOVIL DE MICROGRANULO\n\nPENDIENTE: \nSE RECIBE LLAMADO DEL OPERADOR DE SOLIDO ( HORNO)\nLA PUERTA NO CIERRA LOS PINES DE SEGURIDAD SE DEVUELVEN Y NO AJUSTAN PARA EL CIERRE"
+    "texto": "TURNO NOCHE \n *BLISTER* 5: NAPROXENO \n(TERMINO)\n\n *GB 100*: ESOMEPRAZOL \n\n *CL* 1: DIMETICONA \n\nNOVEDADES: \nSE APOYA EN MONTAJE DE ALIMENTADOR  DE B5\n\nSE LIMPIA LA CORROSIÓN DE TANQUE MOVIL DE MICROGRANULO\n\nPENDIENTE: \nSE RECIBE LLAMADO DEL OPERADOR DE SOLIDO ( HORNO)\nLA PUERTA NO CIERRA LOS PINES DE SEGURIDAD SE DEVUELVEN Y NO AJUSTAN PARA EL CIERRE"
   },
   {
     "id": "rt-20261003-0823",
@@ -20556,14 +20527,23 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "MT 1100: SE REALIZA CAMBIO DE ROSORTE EN CUCHILLAS DE CORTE Y SE AJUSTA SEGUNDO SENSOR DESCARTADORA DE STICK VUELVE A LLAMAR POR PORBLEMA DE ENCENTRADO DE IMPRESION SE LIMPIA LENTE Y SE VERIFICA Y SE DEJA OPERATIVA 45H",
-      "ENVASE 3 SE REALIZA INSPECCIÓN DE SONIDO EN MOTOR DE DOSIFICACIÓN POR RUIDO ANOMALO. SE DESMONTA MOTOR PARA DESCARTAR PORBLEMAS DE RODAMIENTO Y PIÑONES DE ARRASTRE Y SE NOTA QUE EL RUIDO PROBIENE EN CHUMACERA DE TORNILLO SINFIN QUE MUEVE BASTAGO DE DOSIFICACIÓN. (SE REQUIERE BAJAR EL EQUIPO PARA PODER REVISAR LA REFERENCIA DEL RODAMIENTO Y REALIZAR EL CAMBIO) EL EQUIPO SE ENCUENTRA TRABAJANDO PERO QUEDA PENDIENTE PARA UN MANTENIMIENTO CORRECTIVO  Y  REVISAR ESE RODAMIENTO. 3H",
-      "ESTUCHADORA EVO: SE ATIENDE LLAMADO POR ALARMA DE SEGURIDAD DE POSICIÓN EN PALOADOR, SE REAJUSTAN SENSOSRES Y SE ACOMODA PARA HABALITAR MAQUINA, también se presenta varios llamado por parte del operario por falta de experiencia en máquina ya que es nuevo en ese equipo ,  se ajusta cuadre de estuche y cierre del mismo , se atiende llamado porque las bandas transportadoras de blíster al robot estás desalineada y el robot las estaba rompiendo se realiza alineación de banda y se relaliza prueba queda ok 5h",
+      "*MT 1100:*",
+      "SE REALIZA CAMBIO DE ROSORTE EN CUCHILLAS DE CORTE Y SE AJUSTA SEGUNDO SENSOR DESCARTADORA DE STICK",
+      "VUELVE A LLAMAR POR PORBLEMA DE ENCENTRADO DE IMPRESION SE LIMPIA LENTE Y SE VERIFICA Y SE DEJA OPERATIVA 45H",
+      "*ENVASE 3*",
+      "SE REALIZA INSPECCIÓN DE SONIDO EN MOTOR DE DOSIFICACIÓN POR RUIDO ANOMALO. SE DESMONTA MOTOR PARA DESCARTAR PORBLEMAS DE RODAMIENTO Y PIÑONES DE ARRASTRE Y SE NOTA QUE EL RUIDO PROBIENE EN CHUMACERA DE TORNILLO SINFIN QUE MUEVE BASTAGO DE DOSIFICACIÓN.",
+      "(SE REQUIERE BAJAR EL EQUIPO PARA PODER REVISAR LA REFERENCIA DEL RODAMIENTO Y REALIZAR EL CAMBIO)",
+      "EL EQUIPO SE ENCUENTRA TRABAJANDO PERO QUEDA PENDIENTE PARA UN MANTENIMIENTO CORRECTIVO  Y  REVISAR ESE RODAMIENTO. 3H",
+      "*ESTUCHADORA EVO:*",
+      "SE ATIENDE LLAMADO POR ALARMA DE SEGURIDAD DE POSICIÓN EN PALOADOR, SE REAJUSTAN SENSOSRES Y SE ACOMODA PARA HABALITAR MAQUINA, también se presenta varios llamado por parte del operario por falta de experiencia en máquina ya que es nuevo en ese equipo ,  se ajusta cuadre de estuche y cierre del mismo , se atiende llamado porque las bandas transportadoras de blíster al robot estás desalineada y el robot las estaba rompiendo se realiza alineación de banda y se relaliza prueba queda ok",
+      "5h",
       "Otro llamado porque unos de los empujadores estaba golpeando en la entrada de los transportadores y se detenía la máquina se alinea queda ok  20min",
-      "Bosch se atiende llamado por fallas múltiples entre esas de comunicación se realizan varias pruebas y se procede a limpiar conectores de eternet con limpiador de contacto se entrega equipo ok 1.5hrs",
-      "Blíster 3 se atiende llamado por falla de accionamiento principal se revisa servomotor y se encontró polea con mucho desajuste se desmonta se encontró alojamientos de cuña de polea y eje en mal estado para mandar a mecanizar equipo detenido"
+      "*Bosch*",
+      "se atiende llamado por fallas múltiples entre esas de comunicación se realizan varias pruebas y se procede a limpiar conectores de eternet con limpiador de contacto se entrega equipo ok 1.5hrs",
+      "Blíster 3",
+      "se atiende llamado por falla de accionamiento principal se revisa servomotor y se encontró polea con mucho desajuste se desmonta se encontró alojamientos de cuña de polea y eje en mal estado para mandar a mecanizar equipo detenido"
     ],
-    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\nLIQUIDOS\n\n*•BLISTER 3: NIFEDIPINO\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: DISPONIBLE \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICASONA\n*•CL2 : DISPONIBLE \n*•EMBASADORA 2: CONJETES KITS\n\nSOLIDOS\n\n*•BIN: MICRONIZANDONAZUCAR\n*•BOSH:NIPEDIPINO \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•NJP3 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40: FULMSRATO\n*•SCHMUKER: FLEXTRIL\n*•BLISTER #9: COLTRIM\n*•BLISTER #6 MB432:FERRIMED\n*•BLISTER #4 INTEGRA320: FLUOXETINA\n*•BLISTER #8: ZINTERGIA \n*•EVOBLISTER 7: FERBIN250\n*•MARZIO #4 : DISPONIBLE \n*•HUTTLIN 600: DISPONIBLE \n*•R200: DISPONIBLE \n*•R400: DIMUFLAX\n*•MARZIO 1: AIROMED\n*•HUTTLIN 400: LIMPIEZA \n*•RIMEK: SERTRALINA \n*•FETE1010: LEVOFLACILINA \n*•FETTE20202: ESOMEPRAZOL \n*•FETTE20201: ACETAMINOFÉN \n*•CB550: GELIMED\n________\n       NOVEDADES\n\nMT 1100: \nSE REALIZA CAMBIO DE ROSORTE EN CUCHILLAS DE CORTE Y SE AJUSTA SEGUNDO SENSOR DESCARTADORA DE STICK\nVUELVE A LLAMAR POR PORBLEMA DE ENCENTRADO DE IMPRESION SE LIMPIA LENTE Y SE VERIFICA Y SE DEJA OPERATIVA 45H\n\n ENVASE 3\n SE REALIZA INSPECCIÓN DE SONIDO EN MOTOR DE DOSIFICACIÓN POR RUIDO ANOMALO. SE DESMONTA MOTOR PARA DESCARTAR PORBLEMAS DE RODAMIENTO Y PIÑONES DE ARRASTRE Y SE NOTA QUE EL RUIDO PROBIENE EN CHUMACERA DE TORNILLO SINFIN QUE MUEVE BASTAGO DE DOSIFICACIÓN.\n(SE REQUIERE BAJAR EL EQUIPO PARA PODER REVISAR LA REFERENCIA DEL RODAMIENTO Y REALIZAR EL CAMBIO)\nEL EQUIPO SE ENCUENTRA TRABAJANDO PERO QUEDA PENDIENTE PARA UN MANTENIMIENTO CORRECTIVO  Y  REVISAR ESE RODAMIENTO. 3H\n\nESTUCHADORA EVO:\n SE ATIENDE LLAMADO POR ALARMA DE SEGURIDAD DE POSICIÓN EN PALOADOR, SE REAJUSTAN SENSOSRES Y SE ACOMODA PARA HABALITAR MAQUINA, también se presenta varios llamado por parte del operario por falta de experiencia en máquina ya que es nuevo en ese equipo ,  se ajusta cuadre de estuche y cierre del mismo , se atiende llamado porque las bandas transportadoras de blíster al robot estás desalineada y el robot las estaba rompiendo se realiza alineación de banda y se relaliza prueba queda ok \n5h\n\nOtro llamado porque unos de los empujadores estaba golpeando en la entrada de los transportadores y se detenía la máquina se alinea queda ok  20min\n\nBosch\nse atiende llamado por fallas múltiples entre esas de comunicación se realizan varias pruebas y se procede a limpiar conectores de eternet con limpiador de contacto se entrega equipo ok 1.5hrs\n\nBlíster 3\n se atiende llamado por falla de accionamiento principal se revisa servomotor y se encontró polea con mucho desajuste se desmonta se encontró alojamientos de cuña de polea y eje en mal estado para mandar a mecanizar equipo detenido"
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: NIFEDIPINO\n*•CL4 : ACIDO VALPROICO \n\n*•BLISTER2: DISPONIBLE \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: FLUTICASONA\n*•CL2 : DISPONIBLE \n*•EMBASADORA 2: CONJETES KITS\n\n*SOLIDOS*\n\n*•BIN: MICRONIZANDONAZUCAR\n*•BOSH:NIPEDIPINO \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•NJP3 : DISPONIBLE \n*•PILOTBLAB HUYTLIN40: FULMSRATO\n*•SCHMUKER: FLEXTRIL\n*•BLISTER #9: COLTRIM\n*•BLISTER #6 MB432:FERRIMED\n*•BLISTER #4 INTEGRA320: FLUOXETINA\n*•BLISTER #8: ZINTERGIA \n*•EVOBLISTER 7: FERBIN250\n*•MARZIO #4 : DISPONIBLE \n*•HUTTLIN 600: DISPONIBLE \n*•R200: DISPONIBLE \n*•R400: DIMUFLAX\n*•MARZIO 1: AIROMED\n*•HUTTLIN 400: LIMPIEZA \n*•RIMEK: SERTRALINA \n*•FETE1010: LEVOFLACILINA \n*•FETTE20202: ESOMEPRAZOL \n*•FETTE20201: ACETAMINOFÉN \n*•CB550: GELIMED\n____________________\n       NOVEDADES\n\n*MT 1100:* \nSE REALIZA CAMBIO DE ROSORTE EN CUCHILLAS DE CORTE Y SE AJUSTA SEGUNDO SENSOR DESCARTADORA DE STICK\nVUELVE A LLAMAR POR PORBLEMA DE ENCENTRADO DE IMPRESION SE LIMPIA LENTE Y SE VERIFICA Y SE DEJA OPERATIVA 45H\n\n *ENVASE 3*\n SE REALIZA INSPECCIÓN DE SONIDO EN MOTOR DE DOSIFICACIÓN POR RUIDO ANOMALO. SE DESMONTA MOTOR PARA DESCARTAR PORBLEMAS DE RODAMIENTO Y PIÑONES DE ARRASTRE Y SE NOTA QUE EL RUIDO PROBIENE EN CHUMACERA DE TORNILLO SINFIN QUE MUEVE BASTAGO DE DOSIFICACIÓN.\n(SE REQUIERE BAJAR EL EQUIPO PARA PODER REVISAR LA REFERENCIA DEL RODAMIENTO Y REALIZAR EL CAMBIO)\nEL EQUIPO SE ENCUENTRA TRABAJANDO PERO QUEDA PENDIENTE PARA UN MANTENIMIENTO CORRECTIVO  Y  REVISAR ESE RODAMIENTO. 3H\n\n*ESTUCHADORA EVO:*\n SE ATIENDE LLAMADO POR ALARMA DE SEGURIDAD DE POSICIÓN EN PALOADOR, SE REAJUSTAN SENSOSRES Y SE ACOMODA PARA HABALITAR MAQUINA, también se presenta varios llamado por parte del operario por falta de experiencia en máquina ya que es nuevo en ese equipo ,  se ajusta cuadre de estuche y cierre del mismo , se atiende llamado porque las bandas transportadoras de blíster al robot estás desalineada y el robot las estaba rompiendo se realiza alineación de banda y se relaliza prueba queda ok \n5h\n\nOtro llamado porque unos de los empujadores estaba golpeando en la entrada de los transportadores y se detenía la máquina se alinea queda ok  20min\n\n*Bosch*\nse atiende llamado por fallas múltiples entre esas de comunicación se realizan varias pruebas y se procede a limpiar conectores de eternet con limpiador de contacto se entrega equipo ok 1.5hrs\n\nBlíster 3\n se atiende llamado por falla de accionamiento principal se revisa servomotor y se encontró polea con mucho desajuste se desmonta se encontró alojamientos de cuña de polea y eje en mal estado para mandar a mecanizar equipo detenido"
   },
   {
     "id": "rt-20261004-0859",
@@ -20710,7 +20690,7 @@ window.REPORTES_TURNO = [
       "PISO TÉCNICO HUTTLIN 40 Se realiza limpieza se continúa organizando se bota basura la chatarra se deja en la carpa azul pendiente botar.",
       "R400 Se atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: stamby\nNJP #1: stamby\nNJP #3: nifedipino\nPILOT LAB: fumarato\nSCMUKER: flextril c \nBLISTER #9: coltrin\nMB 432: multivitaminico\nINTEGRA: fluixetina\nBLISTER #8: zintergia\nMARCHESINI EVO: ferbin \nR200: sertralina\nR400: esomeprazol \nMARZIO #1: \nMARZIO #4: stamby\nMARZIO #5: stamby\nCB 550: gelimed plus\nHUTTLIN 600: stamby\nHUTTLIN 400: congestex \nRIMEK: limpieza \nFETTE 2020-2: acetaminofén \nFETTE 1010: levofloxacina\nFETTE 2020-1: esomeprazol \n\nLÍQUIDO \nENVASADORA #2: congestex kids jarabe \nENVASADORA #3: fluticasona suspensión \nCLIQUIDO #2: stamby \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: limpieza \nBLISTER #2: beclazone\nBLISTER #3: stamby\n________________\n                       NOVEDADES \nBLÍSTER #2 \nse atiende llamado porque se parte manguera 8mm de plancha de enfriamiento después del sellado, se encuentran mangueras en mal estado y racor de 1/8x8 en mal estado, se realiza el cambio de racor y mangueras y queda equipo operativo.\n\nBLÍSTER #3 \nse realiza limpieza y desarme de reductor, queda pendiente llevar eje y polea a reparar.\n\nCB 550\nse ayuda a operador en el cuadre de la máquina, se ajusta posición de fotocelda, se cuadra el centrado de la imagen del laminado, se ajustan tiempo de retardo en sellado vertical y horizontal.\n\nPISO TÉCNICO HUTTLIN 40 \nSe realiza limpieza se continúa organizando se bota basura la chatarra se deja en la carpa azul pendiente botar.\n\nR400 \nSe atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 - 08:00\n\nSOLIDOS\nBIN: limpieza \nBOSHC: stamby \nNJP #2: stamby\nNJP #1: stamby\nNJP #3: nifedipino\nPILOT LAB: fumarato\nSCMUKER: flextril c \nBLISTER #9: coltrin\nMB 432: multivitaminico\nINTEGRA: fluixetina\nBLISTER #8: zintergia\nMARCHESINI EVO: ferbin \nR200: sertralina\nR400: esomeprazol \nMARZIO #1: \nMARZIO #4: stamby\nMARZIO #5: stamby\nCB 550: gelimed plus\nHUTTLIN 600: stamby\nHUTTLIN 400: congestex \nRIMEK: limpieza \nFETTE 2020-2: acetaminofén \nFETTE 1010: levofloxacina\nFETTE 2020-1: esomeprazol \n\nLÍQUIDO \nENVASADORA #2: congestex kids jarabe \nENVASADORA #3: fluticasona suspensión \nCLIQUIDO #2: stamby \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: limpieza \nBLISTER #2: beclazone\nBLISTER #3: stamby\n______________________________________________\n                       NOVEDADES \nBLÍSTER #2 \nse atiende llamado porque se parte manguera 8mm de plancha de enfriamiento después del sellado, se encuentran mangueras en mal estado y racor de 1/8x8 en mal estado, se realiza el cambio de racor y mangueras y queda equipo operativo.\n\nBLÍSTER #3 \nse realiza limpieza y desarme de reductor, queda pendiente llevar eje y polea a reparar.\n\nCB 550\nse ayuda a operador en el cuadre de la máquina, se ajusta posición de fotocelda, se cuadra el centrado de la imagen del laminado, se ajustan tiempo de retardo en sellado vertical y horizontal.\n\nPISO TÉCNICO HUTTLIN 40 \nSe realiza limpieza se continúa organizando se bota basura la chatarra se deja en la carpa azul pendiente botar.\n\nR400 \nSe atiende llamado a las 7:30 por qué se iban a preparar una solución y el agitador no prendió, se revisa y se encuentra línea suelta en la caja de mando, se conecta y se deja equipo operativo."
   },
   {
     "id": "rt-20261004-0929",
@@ -20941,9 +20921,9 @@ window.REPORTES_TURNO = [
       "EVO se realiza cambio de racores de 3/8 x 12mm por unos de 3/8 x 10mm en el sistema del sellado debido a que se dañó el original, se colocan estos ya que no tenemos los de 12mm. Se cambió también el tramo de manguera neumática de 12mm a 10mm.",
       "CB 550 se atiende llamado por alarma de señal de fotocelda, se revisa fotocelda y se evidencia trabajando dentro de parámetros, se revisa tablero eléctrico y se evidencia servo drive que mueve las bandas de arrastre alarmado, se realiza el reset de la máquina y se quita la alarma. se ajusta posición de la fotocelda. Se lubrica sistema de rodillos que activan la marcha y paro del desembobinado del laminado ya que se estaba atascando. MARZIO 4 se realiza ajuste entre las pinzas de arrastre y las cuchillas ya que estaban tropezando.",
       "Blíster 9 se recibe para cuadrar tiempos mecánicos y tiempo eléctrico se ayuda en cuadre queda ok",
-      "Blíster 2 se ayuda a operador en cuadre de equipo Fette 1010 se recibe raspador partido, se repara con Loctite y se le hace un refuerzo, se endereza base y queda ok. MS 235 se atiende llamado por pin de agitador partido, se repara el pin con soldadura, se monta y queda equipo operativo."
+      "Blíster 2 se ayuda a operador en cuadre de equipo"
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 a 8:00\nSOLIDOS\nBIN: Dimoflax\nBOSHC: Disponible \nNJP #2: Disponible \nNJP #1: Disponible \nNJP #3: nifedipino \nPILOT LAB: Dimoflax \nSCMUKER: Flextril c\nBLISTER #9: Nifedipino \nMB 432: cronofen\nINTEGRA: Fluoxetina\nBLISTER #8: zintergia\nMARCHESINI EVO: Ferbin 250 \nR200: limpieza \nR400: Esomeprazol enterica\nMARZIO #4 Flextril C\nMARZIO #5 Esomed\nCB 550: Gelimed\nHUTTLIN 600: Diclofenac\nHUTTLIN 400: limpieza \nRIMEK: Disponible \nFETTE 2020-2: acetaminofén\nFETTE 1010: valaciclovir\nFETTE 2020-1 Dimoflax \n\nLÍQUIDO \nENVASADORA #2: supreflux forte\nENVASADORA #3: Fluticasona furoato \nCLIQUIDO #2: Naproxeno \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Disponible \nMT 1100:  Supreflux \nBLISTER #2: Etorimed \nBLISTER #3:\n\nNota \n\nENVASADORA 2\nse realiza ajuste de sensor que le da salida a las tapas de los frascos, se le da más tiempo al momento de sensar el frasco para mantener el aire de impulso de las tapas activo y que las tapas no se queden.\nBlíster 2 se atiende llamado porque no ajusta la guía del blíster antes del troquelado, se encuentra un rosca en mal estado, se rectifica con macho M6, queda ok.\n\nEVO\nse realiza cambio de racores de 3/8 x 12mm por unos de 3/8 x 10mm en el sistema del sellado debido a que se dañó el original, se colocan estos ya que no tenemos los de 12mm. Se cambió también el tramo de manguera neumática de 12mm a 10mm.\n\nCB 550\nse atiende llamado por alarma de señal de fotocelda, se revisa fotocelda y se evidencia trabajando dentro de parámetros, se revisa tablero eléctrico y se evidencia servo drive que mueve las bandas de arrastre alarmado, se realiza el reset de la máquina y se quita la alarma.\nse ajusta posición de la fotocelda.\nSe lubrica sistema de rodillos que activan la marcha y paro del desembobinado del laminado ya que se estaba atascando.\nMARZIO 4\nse realiza ajuste entre las pinzas de arrastre y las cuchillas ya que estaban tropezando.\n\nBlíster 9 se recibe para cuadrar tiempos mecánicos y tiempo eléctrico se ayuda en cuadre queda ok \n\nBlíster 2 se ayuda a operador en cuadre de equipo\nFette 1010 se recibe raspador partido, se repara con Loctite y se le hace un refuerzo, se endereza base y queda ok.\nMS 235 se atiende llamado por pin de agitador partido, se repara el pin con soldadura, se monta y queda equipo operativo."
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 a 8:00\nSOLIDOS\nBIN: Dimoflax\nBOSHC: Disponible \nNJP #2: Disponible \nNJP #1: Disponible \nNJP #3: nifedipino \nPILOT LAB: Dimoflax \nSCMUKER: Flextril c\nBLISTER #9: Nifedipino \nMB 432: cronofen\nINTEGRA: Fluoxetina\nBLISTER #8: zintergia\nMARCHESINI EVO: Ferbin 250 \nR200: limpieza \nR400: Esomeprazol enterica\nMARZIO #4 Flextril C\nMARZIO #5 Esomed\nCB 550: Gelimed\nHUTTLIN 600: Diclofenac\nHUTTLIN 400: limpieza \nRIMEK: Disponible \nFETTE 2020-2: acetaminofén\nFETTE 1010: valaciclovir\nFETTE 2020-1 Dimoflax \n\nLÍQUIDO \nENVASADORA #2: supreflux forte\nENVASADORA #3: Fluticasona furoato \nCLIQUIDO #2: Naproxeno \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Disponible \nMT 1100:  Supreflux \nBLISTER #2: Etorimed \nBLISTER #3:\n\nNota \n\nENVASADORA 2\nse realiza ajuste de sensor que le da salida a las tapas de los frascos, se le da más tiempo al momento de sensar el frasco para mantener el aire de impulso de las tapas activo y que las tapas no se queden.\nBlíster 2 se atiende llamado porque no ajusta la guía del blíster antes del troquelado, se encuentra un rosca en mal estado, se rectifica con macho M6, queda ok.\n\nEVO\nse realiza cambio de racores de 3/8 x 12mm por unos de 3/8 x 10mm en el sistema del sellado debido a que se dañó el original, se colocan estos ya que no tenemos los de 12mm. Se cambió también el tramo de manguera neumática de 12mm a 10mm.\n\nCB 550\nse atiende llamado por alarma de señal de fotocelda, se revisa fotocelda y se evidencia trabajando dentro de parámetros, se revisa tablero eléctrico y se evidencia servo drive que mueve las bandas de arrastre alarmado, se realiza el reset de la máquina y se quita la alarma.\nse ajusta posición de la fotocelda.\nSe lubrica sistema de rodillos que activan la marcha y paro del desembobinado del laminado ya que se estaba atascando.\nMARZIO 4\nse realiza ajuste entre las pinzas de arrastre y las cuchillas ya que estaban tropezando.\n\nBlíster 9 se recibe para cuadrar tiempos mecánicos y tiempo eléctrico se ayuda en cuadre queda ok \n\nBlíster 2 se ayuda a operador en cuadre de equipo"
   },
   {
     "id": "rt-20261005-2032",
@@ -20977,42 +20957,10 @@ window.REPORTES_TURNO = [
       {
         "equipo": "Se recibió  llamada de gb 100",
         "producto": "por baja humedad se soluciona"
-      },
-      {
-        "equipo": "Cumpliendo",
-        "producto": "al requerimiento de la ARL"
-      },
-      {
-        "equipo": "Se",
-        "producto": "protegeje los rodillos de banda transportadora de GB 100 ( empaque)"
-      },
-      {
-        "equipo": "Se",
-        "producto": "remplazo bomba en el área de fabricación de líquido 2"
-      },
-      {
-        "equipo": "Operativo",
-        "producto": ""
-      },
-      {
-        "equipo": "Se",
-        "producto": "cambian pines de seguridad"
-      },
-      {
-        "equipo": "De",
-        "producto": "la puerta de horno"
-      },
-      {
-        "equipo": "Queda",
-        "producto": "OK"
-      },
-      {
-        "equipo": "Se",
-        "producto": "solda tapa de tanque móvil de fabricación  de micro gránulos"
       }
     ],
     "novedades": [],
-    "texto": "TURNO DIA \n\n---\nENTREGA TURNO 2 - 05/10/26\n\nENV 1: Supreflux 240ml - En proceso\nGB100: Dispax - En proceso  \nCL1: Dimeticona - (sin operadores)\nENCA: Flectadol - En proceso\n\nSe recibió  llamada de gb 100 por baja humedad se soluciona \n\nNovedad: Sin novedad, equipos operativos, área organizadas\n\n Cumpliendo al requerimiento de la ARL \nSe protegeje los rodillos de banda transportadora de GB 100 ( empaque)\n Se remplazo bomba en el área de fabricación de líquido 2\nOperativo\n Se cambian pines de seguridad \nDe la puerta de horno \nQueda OK\n\n Se solda tapa de tanque móvil de fabricación  de micro gránulos \nQueda OK"
+    "texto": "TURNO DIA \n\n---\n*ENTREGA TURNO 2 - 05/10/26*\n\n*ENV 1:* Supreflux 240ml - En proceso\n*GB100:* Dispax - En proceso  \n*CL1:* Dimeticona - (sin operadores)\n*ENCA:* Flectadol - En proceso\n\nSe recibió  llamada de gb 100 por baja humedad se soluciona \n\n*Novedad:* Sin novedad, equipos operativos, área organizadas"
   },
   {
     "id": "rt-20261005-2102",
@@ -21024,16 +20972,16 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-10-05",
     "equipos": [],
     "novedades": [
-      "Blíster 9: Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC T: 120 min aprox",
-      "CB550: Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. T: 40 min aprox",
-      "Blíster 8: Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. T: 70 min aprox.",
-      "PILOT LAB se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.",
-      "MT 1100: llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.",
-      "MARZIO 4: llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.",
-      "BLISTER 3: Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.",
-      "BOSCH: Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
+      "*Blíster 9:* Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC *T: 120 min aprox*",
+      "*CB550:* Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. *T: 40 min aprox*",
+      "*Blíster 8:* Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. *T: 70 min aprox.*",
+      "*PILOT LAB* se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.",
+      "*MT 1100:* llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.",
+      "*MARZIO 4:* llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.",
+      "*BLISTER 3:* Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.",
+      "*BOSCH:* Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
     ],
-    "texto": "REPORTE DE TURNO GRUPO 1 SEDE 4\nNOVEDADES:\nBlíster 9: Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC T: 120 min aprox\nCB550: Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. T: 40 min aprox\nBlíster 8: Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. T: 70 min aprox.\nPILOT LAB se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.\nMT 1100: llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.\nMARZIO 4: llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.\nBLISTER 3: Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.\nBOSCH: Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
+    "texto": "*REPORTE DE TURNO GRUPO 1 SEDE 4*\n*NOVEDADES:*\n*Blíster 9:* Se abre estación de sellado, se purga el sistema de agua fría y se baja un poco la temperatura de sellado porque se dañaba el PVC *T: 120 min aprox*\n*CB550:* Se alinea y se le da presión a las mordazas verticales por mal sellado, quedua operativa.. *T: 40 min aprox*\n*Blíster 8:* Se realiza montaje del cargador universal y se extrae un pin de guia del formato de sellado, queda operativa. *T: 70 min aprox.*\n*PILOT LAB* se cambió rodamiento 6002 de la bomba peristatica, y se fija base de las  mangueras.\n*MT 1100:* llamadou por bloqueo de motor ,se realiza revisión se resetea equipo se hacen pruebas ok.\n*MARZIO 4:* llamado por problemas con la rotula del envudo se realiza ajustes se entrega a producción.\n*BLISTER 3:* Se realiza montaje de motor, cuña reparada en mecanizado y se realiza trabajo de acople (polea de transmisión) en torno convencional, se ubican tiempos mecánicos y electrónicos OK, se entrega a producción para limpieza profunda, se adjunta video.\n*BOSCH:* Se realiza cambio de manifol, bloque #2, se cambian bases de bloques orientadores de capsulas y magazines, se realiza centraje y alineación de elementos, se realizan pruebas equipo se entrega a producción."
   },
   {
     "id": "rt-20261006-0945",
@@ -21217,7 +21165,7 @@ window.REPORTES_TURNO = [
       "Blister 3 se atiende llamado por fuerte ruido en la estación de formado se revisan los grupos de arandelas cóncavas las cuales estaban mal montadas se organizan y se ajusta polea también se ajusta tiempo se soplado T 2h",
       "Se arma tamizadora se monta motor, se fija caja de guardamotor se ajusta cableado T 2hrs"
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4\n\n*•BIN: disponible \n*•BOSCH: disponible \n*•NJP1: zintergia \n *NJP2: multivitamico \nNjp2 3 Nifedipino \n*•PILOT LAB HUTTLIN 40: Dimoflax \n*•FETTE 2020/2: acetaminofén \nBlíster 9 Nifedipino 12h \n*•MS 235 SCHMUCKER: disponible \n*•MB 432 MARCHESINI: vitamina A\n*•INTEGRA 320: congexte \n*•BLISTER #8: Zintergia \n*•MB 451 EVO: ferbin \n*•RC 200: disponible \n*RC 400: esomeplazol  \n*•CB550: disponible \n*•HUTTLIN 600: FLEXTRIL \n*•HUTTLIN 400:  granulado exipiente \n*•RIMEK: valaciclovir \n*•MARZIO 6: esomed\n*•MARZIO 1: FLEXTRIL C + msm \n*•FETTE 1010: disponible \n*•FETTE 2020/1: disponible \n*•ENVASADORA #2: disponible \n*•ML 642 ENVASADORA #3: muxol adulto  \n*•CLIQUIDOS 2: naproflax \n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: Disponible \n*MT1100 MARCHESINI: disponible\n*BLISTER 2: disponible \n*BLISTER 5: Nifedipino \n_________\n        NOVEDADES\n\nNjp2 \nSe atiende llamado por problemas con el destape destape , se revisa bomba y se  alinea estaciones se deja operativa 1h\n\nTanque de fabricación \nSe arma tubería ya que los operarios no sabían cómo iban   armado y por falta de pieza 1h\n\nMarzio 4 \nSe atiende llamado por problemas de tiempo del docificador se ajusta tiempo y se cuadra brazo queda operativa 2h\n\nBlíster 9 \nSe desmonta sistema de trasmisión de estación de formado para posicionar la misma ya que por obstrucción en proceso se corre. Se posiciona nuevamente y de toman tiempos se entrega equipo operativo. 2h\n\nB432 se atiende llamado por qué el equipo se apagó cuando se estaba haciendo el cuadre el operador comenta que estaba cuadrando el sensor de la tolva se revisa de evidencia un cable suelto se lleva a taller se suelda y se entrega T 1.30h\n\nBlister 3 se atiende llamado por fuerte ruido en la estación de formado se revisan los grupos de arandelas cóncavas las cuales estaban mal montadas se organizan y se ajusta polea también se ajusta tiempo se soplado T 2h\n\nSe arma tamizadora se monta motor, se fija caja de guardamotor se ajusta cableado T 2hrs"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4\n\n*•BIN: disponible \n*•BOSCH: disponible \n*•NJP1: zintergia \n *NJP2: multivitamico \nNjp2 3 Nifedipino \n*•PILOT LAB HUTTLIN 40: Dimoflax \n*•FETTE 2020/2: acetaminofén \nBlíster 9 Nifedipino 12h \n*•MS 235 SCHMUCKER: disponible \n*•MB 432 MARCHESINI: vitamina A\n*•INTEGRA 320: congexte \n*•BLISTER #8: Zintergia \n*•MB 451 EVO: ferbin \n*•RC 200: disponible \n*RC 400: esomeplazol  \n*•CB550: disponible \n*•HUTTLIN 600: FLEXTRIL \n*•HUTTLIN 400:  granulado exipiente \n*•RIMEK: valaciclovir \n*•MARZIO 6: esomed\n*•MARZIO 1: FLEXTRIL C + msm \n*•FETTE 1010: disponible \n*•FETTE 2020/1: disponible \n*•ENVASADORA #2: disponible \n*•ML 642 ENVASADORA #3: muxol adulto  \n*•CLIQUIDOS 2: naproflax \n *•CLIQUIDOS 3: Disponible \n*CLIQUIDOS 4: Disponible \n*MT1100 MARCHESINI: disponible\n*BLISTER 2: disponible \n*BLISTER 5: Nifedipino \n_________________________\n        *NOVEDADES*\n\nNjp2 \nSe atiende llamado por problemas con el destape destape , se revisa bomba y se  alinea estaciones se deja operativa 1h\n\nTanque de fabricación \nSe arma tubería ya que los operarios no sabían cómo iban   armado y por falta de pieza 1h\n\nMarzio 4 \nSe atiende llamado por problemas de tiempo del docificador se ajusta tiempo y se cuadra brazo queda operativa 2h\n\nBlíster 9 \nSe desmonta sistema de trasmisión de estación de formado para posicionar la misma ya que por obstrucción en proceso se corre. Se posiciona nuevamente y de toman tiempos se entrega equipo operativo. 2h\n\nB432 se atiende llamado por qué el equipo se apagó cuando se estaba haciendo el cuadre el operador comenta que estaba cuadrando el sensor de la tolva se revisa de evidencia un cable suelto se lleva a taller se suelda y se entrega T 1.30h\n\nBlister 3 se atiende llamado por fuerte ruido en la estación de formado se revisan los grupos de arandelas cóncavas las cuales estaban mal montadas se organizan y se ajusta polea también se ajusta tiempo se soplado T 2h\n\nSe arma tamizadora se monta motor, se fija caja de guardamotor se ajusta cableado T 2hrs"
   },
   {
     "id": "rt-20261006-2017",
@@ -21258,7 +21206,7 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "CD 40 SE REALIZA LIMPIEZA A LA BOMBA DE VACIO",
+      ": CD 40 SE REALIZA LIMPIEZA A LA BOMBA DE VACIO",
       "OPERATIVO ✅️",
       "SE LE HACE ENTREGA A SUPERVISORA DE AREA",
       "MALLAS  #12 # 14 #16",
@@ -21268,7 +21216,7 @@ window.REPORTES_TURNO = [
       "SE RECIBIÓ  LLAMADO  DE MICRONIZADO",
       "SE APAGO EL EQUIPO",
       "SE AJUSTA LA CLAVIJA  HEMBRA",
-      "( REQUIERE CAMBIO )",
+      "( *REQUIERE CAMBIO* )",
       "SE CAMBIA RESORTE DE MORDAZA DE LA ENCELOFANADORA",
       "SECAMBIA CORREA DE MARZIO R120",
       "SE ATIENDE LLAMADO  DE *CL1*POR FALLAS EN LA DOSIFICACIÓN  SE HACEN AJUSTE",
@@ -21278,11 +21226,9 @@ window.REPORTES_TURNO = [
       "RF: 6306",
       "SE RECIBE LLAMADO  DE PORTERÍA",
       "DEBIDO A LA ACTIVACIÓN  DE ALARMA ( AREA SECADO)",
-      "SE HACE PRESENCIA  Y NO HAY NOVEDADES",
-      "Amperaje  de la bomba de fabricación",
-      "Cambio de correa de marzio"
+      "SE HACE PRESENCIA  Y NO HAY NOVEDADES"
     ],
-    "texto": "ENTREGA DE TURNO - 2026/10/06(DIA)\n\nB5: Sertralina\nGB 100: Dispax\nENVASADO 1: Supreflux\nENCAPSULADO: Flectadol\nCL 1: Dispax\nRONCHI: Loratadina 10mg - SIN OPERARIOS\n\n NOVEDADES : CD 40 SE REALIZA LIMPIEZA A LA BOMBA DE VACIO \nOPERATIVO ✅️\n\nSE LE HACE ENTREGA A SUPERVISORA DE AREA \nMALLAS  #12 # 14 #16\nPARA TAMIZADORA \n\nSE DESMONTA BOMBA DE FABRICACIÓN  DE LIQUIDOS #2\nSE CAMBIAN RODAMIENTOS  Y AJUSTES EN LA FRICCIÓN \n\nSE RECIBIÓ  LLAMADO  DE MICRONIZADO \nSE APAGO EL EQUIPO \nSE AJUSTA LA CLAVIJA  HEMBRA \n( REQUIERE CAMBIO )\n\nSE CAMBIA RESORTE DE MORDAZA DE LA ENCELOFANADORA \n\nSECAMBIA CORREA DE MARZIO R120\n\nSE ATIENDE LLAMADO  DE *CL1*POR FALLAS EN LA DOSIFICACIÓN  SE HACEN AJUSTE \nOPERATIVA✅\nEl cambio de rodamientos de la bomba \n\nRF: 6206\nRF: 6306\nSE RECIBE LLAMADO  DE PORTERÍA \nDEBIDO A LA ACTIVACIÓN  DE ALARMA ( AREA SECADO)\n\nSE HACE PRESENCIA  Y NO HAY NOVEDADES\n Amperaje  de la bomba de fabricación\n Cambio de correa de marzio"
+    "texto": "*ENTREGA DE TURNO - 2026/10/06*(DIA)\n\n*B5:* Sertralina\n*GB 100:* Dispax\n*ENVASADO 1:* Supreflux\n*ENCAPSULADO:* Flectadol\n*CL 1:* Dispax\n*RONCHI:* Loratadina 10mg - *SIN OPERARIOS*\n\n *NOVEDADES* : CD 40 SE REALIZA LIMPIEZA A LA BOMBA DE VACIO \nOPERATIVO ✅️\n\nSE LE HACE ENTREGA A SUPERVISORA DE AREA \nMALLAS  #12 # 14 #16\nPARA TAMIZADORA \n\nSE DESMONTA BOMBA DE FABRICACIÓN  DE LIQUIDOS #2\nSE CAMBIAN RODAMIENTOS  Y AJUSTES EN LA FRICCIÓN \n\nSE RECIBIÓ  LLAMADO  DE MICRONIZADO \nSE APAGO EL EQUIPO \nSE AJUSTA LA CLAVIJA  HEMBRA \n( *REQUIERE CAMBIO* )\n\nSE CAMBIA RESORTE DE MORDAZA DE LA ENCELOFANADORA \n\nSECAMBIA CORREA DE MARZIO R120\n\nSE ATIENDE LLAMADO  DE *CL1*POR FALLAS EN LA DOSIFICACIÓN  SE HACEN AJUSTE \nOPERATIVA✅\n\nEl cambio de rodamientos de la bomba \n\nRF: 6206\nRF: 6306\nSE RECIBE LLAMADO  DE PORTERÍA \nDEBIDO A LA ACTIVACIÓN  DE ALARMA ( AREA SECADO)\n\nSE HACE PRESENCIA  Y NO HAY NOVEDADES"
   },
   {
     "id": "rt-20261007-0934",
@@ -21476,7 +21422,7 @@ window.REPORTES_TURNO = [
       "Se atiende llamado por problemas de arrugas de sobre , se cambian correa y ajusta guías y sobre , se alinea vase y guías , se hacen pruebas y queda operativa 6h",
       "Bomba de vacío en la NJP1 no encendia, se realizó seguimiento y se encontró que el contactor que la accionaba estaba pegado mecánicamente se realiza ajuste y limpieza y queda operativa."
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TN NOCHE 06/10/26\n*•BIN: propranolol\n*•BOSCH: Disponible \n*•NJP1: multivitaminico \n*•NJP2: zintergia\n* NJP3: omeprazol \n*•FETTE 2020/2 : propranolol \n*•PILOT LAB: Dimoflax \n*•MB 432: stand by\n*•BLISTER 8: zintergia\n*.Blíster 9:Dimoflax\n*•MS 235: Stan by \n*•INTEGRA 320: congestex\n*•RC 200: Stand by \n*RC 400: Dimoflax\n*•CB550: Gelimed\n*•MB 235 EVO: Ferbín \n*•HUTTLIN 600: Esomeprazol\n*•HUTTLIN 400: Esomeprazol \n*•RIMEK: Trimebutina \n*•MARZIO 4: esomed\n*•MARZIO 1: Stand by\n*•FETTE 1010: Disponible\n*•FETTE 2020/1: Stand by\n*•CLIQUIDOS 2: naproflax\n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 Marchesini: Disponible \n *ENVASADORA #2: Disponible \n*•ML 642 ENVASADORA #3: Disponible \n*BLISTER 2: disponible\n*BLÍSTER 3: nifedipino \n_________\n        NOVEDADES\n\nNJP 3: se llena bomba de aceite de sistema de lubricación de NJP3, se realiza limpieza y posteriormente llenado con el aceite de las bandejas de lubricación.\n\nNJP2: se desmonta sistema de expulsión de estribo porque estaba atacado, se realizan cambio de rodamientos y limpieza. (PENDIENTE)\nRealizar pedido de eje oscilante del sistema que presenta maltrato.\nMedidas de 20 mm de diámetro y 220.5 mm de longitud. Rosca en la parte superior medida M8 y orificio pasante (horizontal) de sujeción para rotula de seguidor de leva en partes inferior.\n\nR200: se coloca tapa a sistema de exprayado se retrae sistema a posición de trabajo y se coloca dentro del recubridor.\n\nBlíster 8: se extrae tornillo barrido de porta tipos.\n\nBlíster 9: se atiende llamado por falla en alimentador universal, el equipo no operaba en la puesta en marcha, se revisa y evidencia sensor capacitivo dañado, se coloca otro sensor de entrega operativa.\n\nEstuchadora Evo: se restablece alarma activa de estuche en banda de salida. Se evidencia que la señal del sensor la está obstruyendo un blíster en el fondo cabina donde caen las cajas rechazadas, se retira blíster y normaliza máquina. Principio de turno nos llaman por problemas de seguridad de empujador se cuadra se quitan calsa de los empujadores , se cuadra por qué estaba desalineado , se ajusta escuché y cuadre del equipo, se deja operativa 2.50h\n\nBlíster 3: se fabrican sufrideras para plancha de sellado.\n\nCB550\nSe atiende llamado por problemas de arrugas de sobre , se cambian correa y ajusta guías y sobre , se alinea vase y guías , se hacen pruebas y queda operativa 6h\n\nBomba de vacío en la NJP1 no encendia, se realizó seguimiento y se encontró que el contactor que la accionaba estaba pegado mecánicamente se realiza ajuste y limpieza y queda operativa."
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TN NOCHE 06/10/26\n*•BIN: propranolol\n*•BOSCH: Disponible \n*•NJP1: multivitaminico \n*•NJP2: zintergia\n* NJP3: omeprazol \n*•FETTE 2020/2 : propranolol \n*•PILOT LAB: Dimoflax \n*•MB 432: stand by\n*•BLISTER 8: zintergia\n*.Blíster 9:Dimoflax\n*•MS 235: Stan by \n*•INTEGRA 320: congestex\n*•RC 200: Stand by \n*RC 400: Dimoflax\n*•CB550: Gelimed\n*•MB 235 EVO: Ferbín \n*•HUTTLIN 600: Esomeprazol\n*•HUTTLIN 400: Esomeprazol \n*•RIMEK: Trimebutina \n*•MARZIO 4: esomed\n*•MARZIO 1: Stand by\n*•FETTE 1010: Disponible\n*•FETTE 2020/1: Stand by\n*•CLIQUIDOS 2: naproflax\n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 Marchesini: Disponible \n *ENVASADORA #2: Disponible \n*•ML 642 ENVASADORA #3: Disponible \n*BLISTER 2: disponible\n*BLÍSTER 3: nifedipino \n_________________________\n        *NOVEDADES*\n\nNJP 3: se llena bomba de aceite de sistema de lubricación de NJP3, se realiza limpieza y posteriormente llenado con el aceite de las bandejas de lubricación.\n\nNJP2: se desmonta sistema de expulsión de estribo porque estaba atacado, se realizan cambio de rodamientos y limpieza. (PENDIENTE)\nRealizar pedido de eje oscilante del sistema que presenta maltrato.\nMedidas de 20 mm de diámetro y 220.5 mm de longitud. Rosca en la parte superior medida M8 y orificio pasante (horizontal) de sujeción para rotula de seguidor de leva en partes inferior.\n\nR200: se coloca tapa a sistema de exprayado se retrae sistema a posición de trabajo y se coloca dentro del recubridor.\n\nBlíster 8: se extrae tornillo barrido de porta tipos.\n\nBlíster 9: se atiende llamado por falla en alimentador universal, el equipo no operaba en la puesta en marcha, se revisa y evidencia sensor capacitivo dañado, se coloca otro sensor de entrega operativa.\n\nEstuchadora Evo: se restablece alarma activa de estuche en banda de salida. Se evidencia que la señal del sensor la está obstruyendo un blíster en el fondo cabina donde caen las cajas rechazadas, se retira blíster y normaliza máquina. Principio de turno nos llaman por problemas de seguridad de empujador se cuadra se quitan calsa de los empujadores , se cuadra por qué estaba desalineado , se ajusta escuché y cuadre del equipo, se deja operativa 2.50h\n\nBlíster 3: se fabrican sufrideras para plancha de sellado.\n\nCB550\nSe atiende llamado por problemas de arrugas de sobre , se cambian correa y ajusta guías y sobre , se alinea vase y guías , se hacen pruebas y queda operativa 6h\n\nBomba de vacío en la NJP1 no encendia, se realizó seguimiento y se encontró que el contactor que la accionaba estaba pegado mecánicamente se realiza ajuste y limpieza y queda operativa."
   },
   {
     "id": "rt-20261007-2141",
@@ -21684,18 +21630,18 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "CB550: gelimed se realiza ajustes de mordazas horizontal alineación temperatura, se realiza ajustes en el sistema que saca el aire del sobre, tensión de correa, ajuste de mordazas vertical se hacen pruebas se entrega a producción ( 3 horas).",
-      "MARZIO#4: esomed llamado por problemas en dosificación se realiza ajustes tiempos ok.",
+      "*CB550:* gelimed se realiza ajustes de mordazas horizontal alineación temperatura, se realiza ajustes en el sistema que saca el aire del sobre, tensión de correa, ajuste de mordazas vertical se hacen pruebas se entrega a producción ( 3 horas).",
+      "*MARZIO#4:* esomed llamado por problemas en dosificación se realiza ajustes tiempos ok.",
       "Otro llamado por perdida de paso se realiza ajustes de tamaño tornillo de corrección ok. (90 minutos aprox)",
-      "MARZIO 5: Se posiciona codificadora y se le ajusta parámetros, también se ajusta foto celda y pinza de arrastre T: 60 min aprox.",
-      "ESTUCHADORA EVO: Alarma de empujadores, se corrige recorrido y maltrato de blíster en estuche.",
-      "T:90 mn aprox",
-      "FLEXOGRAFÍCA #1: Se termina de realizar armaje de equipo con accesorios faltantes, habilitan FLEXOGRAFÍCA #2 por falta de foil impreso.",
-      "T:180 mn aprox",
-      "MB 432: Se cambia manguera de diafragma, cargador #1, equipo operativo.",
-      "T:40 mn aprox"
+      "*MARZIO 5:* Se posiciona codificadora y se le ajusta parámetros, también se ajusta foto celda y pinza de arrastre *T: 60 min aprox.*",
+      "*ESTUCHADORA EVO:* Alarma de empujadores, se corrige recorrido y maltrato de blíster en estuche.",
+      "*T:90 mn aprox*",
+      "*FLEXOGRAFÍCA #1:* Se termina de realizar armaje de equipo con accesorios faltantes, habilitan FLEXOGRAFÍCA #2 por falta de foil impreso.",
+      "*T:180 mn aprox*",
+      "*MB 432:* Se cambia manguera de diafragma, cargador #1, equipo operativo.",
+      "*T:40 mn aprox*"
     ],
-    "texto": "[REPORTE DE TURNO SEDE 4 ]        \n2026/10/07\nGRUPO 1 NOCHE \n*******\n[ÁREA DE SÓLIDOS]\n>Bin: acetaminofén \n>Bosch: nifedipino espera de resultados \n>NJP2: zintergia \n>NJP1:  multi vitamínico esperar resultados \n>NJP3: omeprazol \n>MB 432: vitamina A \n>Blíster #8:aerovil \n>Integra 320:ferrimed \n>Estuchadora#1:ferrimed \n>Blíster #9: dimoflax \n>MB 451:ferbin \n>Estuchadora#2:ferbin \n>Schmucker:fextril \n>Marzio#4:esomed\n>Marzio#5: congestex \n>R400: dimoflax \n>Sólidos: dimoflax \n>R200: limpieza \n>CB 550: gelimed \n>Fette 1010: desmontaje y limpieza \n>fette 2020#1: dimofax \n>Fette 2020#2:\n>Rimex: Trimebutina+ simeticona \n>Pilot lab:dimofax \n>Huttlin 400:esomeprazol \n>Huttlin 600: esomeprazol \n>Bombo 300#1: \n>Bombo 300 #2:        \n[ÁREA DE LÍQUIDOS:]\n>CL #2: naproxeno \n>CL #3:\n>CL #4:\n>Blíster #2:\n>tangues de fabricacion liquidos:\n>Tanque de fabricación centro líquido:\n>Envasadora #2: \n>Etiquetadora#2:\n>Envasadora#3:azeflu \n>Etiquetadora#3: azeflu \n>Marchesine MT1100:\n>Blíster #3:lanzor\nNOVEDADES:\nCB550: gelimed se realiza ajustes de mordazas horizontal alineación temperatura, se realiza ajustes en el sistema que saca el aire del sobre, tensión de correa, ajuste de mordazas vertical se hacen pruebas se entrega a producción ( 3 horas).\nMARZIO#4: esomed llamado por problemas en dosificación se realiza ajustes tiempos ok. \nOtro llamado por perdida de paso se realiza ajustes de tamaño tornillo de corrección ok. (90 minutos aprox)\nMARZIO 5: Se posiciona codificadora y se le ajusta parámetros, también se ajusta foto celda y pinza de arrastre T: 60 min aprox.\nESTUCHADORA EVO: Alarma de empujadores, se corrige recorrido y maltrato de blíster en estuche.\nT:90 mn aprox\nFLEXOGRAFÍCA #1: Se termina de realizar armaje de equipo con accesorios faltantes, habilitan FLEXOGRAFÍCA #2 por falta de foil impreso.\nT:180 mn aprox\nMB 432: Se cambia manguera de diafragma, cargador #1, equipo operativo.\nT:40 mn aprox"
+    "texto": "[REPORTE DE TURNO SEDE 4 ]        \n2026/10/07\nGRUPO 1 NOCHE \n*******************\n[ÁREA DE SÓLIDOS]\n>Bin: acetaminofén \n>Bosch: nifedipino espera de resultados \n>NJP2: zintergia \n>NJP1:  multi vitamínico esperar resultados \n>NJP3: omeprazol \n>MB 432: vitamina A \n>Blíster #8:aerovil \n>Integra 320:ferrimed \n>Estuchadora#1:ferrimed \n>Blíster #9: dimoflax \n>MB 451:ferbin \n>Estuchadora#2:ferbin \n>Schmucker:fextril \n>Marzio#4:esomed\n>Marzio#5: congestex \n>R400: dimoflax \n>Sólidos: dimoflax \n>R200: limpieza \n>CB 550: gelimed \n>Fette 1010: desmontaje y limpieza \n>fette 2020#1: dimofax \n>Fette 2020#2:\n>Rimex: Trimebutina+ simeticona \n>Pilot lab:dimofax \n>Huttlin 400:esomeprazol \n>Huttlin 600: esomeprazol \n>Bombo 300#1: \n>Bombo 300 #2:        \n[ÁREA DE LÍQUIDOS:]\n>CL #2: naproxeno \n>CL #3:\n>CL #4:\n>Blíster #2:\n>tangues de fabricacion liquidos:\n>Tanque de fabricación centro líquido:\n>Envasadora #2: \n>Etiquetadora#2:\n>Envasadora#3:azeflu \n>Etiquetadora#3: azeflu \n>Marchesine MT1100:\n>Blíster #3:lanzor\n*NOVEDADES:*\n*CB550:* gelimed se realiza ajustes de mordazas horizontal alineación temperatura, se realiza ajustes en el sistema que saca el aire del sobre, tensión de correa, ajuste de mordazas vertical se hacen pruebas se entrega a producción ( 3 horas).\n*MARZIO#4:* esomed llamado por problemas en dosificación se realiza ajustes tiempos ok. \nOtro llamado por perdida de paso se realiza ajustes de tamaño tornillo de corrección ok. (90 minutos aprox)\n*MARZIO 5:* Se posiciona codificadora y se le ajusta parámetros, también se ajusta foto celda y pinza de arrastre *T: 60 min aprox.*\n*ESTUCHADORA EVO:* Alarma de empujadores, se corrige recorrido y maltrato de blíster en estuche.\n*T:90 mn aprox*\n*FLEXOGRAFÍCA #1:* Se termina de realizar armaje de equipo con accesorios faltantes, habilitan FLEXOGRAFÍCA #2 por falta de foil impreso.\n*T:180 mn aprox*\n*MB 432:* Se cambia manguera de diafragma, cargador #1, equipo operativo.\n*T:40 mn aprox*"
   },
   {
     "id": "rt-20261008-0826",
@@ -21733,16 +21679,16 @@ window.REPORTES_TURNO = [
     ],
     "novedades": [
       "Se recibe llamado para apoyar en GB100 por pérdida constante de paso, lo cual estaba afectando el centrado del corte.",
-      "Acciones realizadas:",
+      "*Acciones realizadas:*",
       "- Ajuste de guías de lámina",
       "- Revisión y ajuste de plancha de sellado inferior",
       "- Revisión y limpieza de troquel",
       "- Ajuste de guías de arrastre",
       "- Se aumenta flujo de aire en estación de corte Regulador Corte: 5.0 -7.0",
-      "Estado final: Equipo queda para más ajustes debió a que trabaja bien 10 0 15min y pierde el paso",
-      "Pendiente turno día: Validar filo de troquel y monitoreo de la estación de corte ."
+      "*Estado final:* Equipo queda para más ajustes debió a que trabaja bien 10 0 15min y pierde el paso",
+      "*Pendiente turno día:* Validar filo de troquel y monitoreo de la estación de corte ."
     ],
-    "texto": "INFORME TURNO NOCHE - 2026-10-08\n\nBlíster 5: LORATADINA\nEquipo: GB100 - DISPAX\nRonchi: Sin operario\nCentro de Líquidos 1: DISPAX\nEnvasado 1: SUPREFLUX 240ml\n\nNOVEDADES:\n\nSe recibe llamado para apoyar en GB100 por pérdida constante de paso, lo cual estaba afectando el centrado del corte.\n\nAcciones realizadas:\n- Ajuste de guías de lámina\n- Revisión y ajuste de plancha de sellado inferior\n- Revisión y limpieza de troquel\n- Ajuste de guías de arrastre\n- Se aumenta flujo de aire en estación de corte Regulador Corte: 5.0 -7.0 \n\nEstado final: Equipo queda para más ajustes debió a que trabaja bien 10 0 15min y pierde el paso \n\nPendiente turno día: Validar filo de troquel y monitoreo de la estación de corte ."
+    "texto": "*INFORME TURNO NOCHE - 2026-10-08*\n\n*Blíster 5:* LORATADINA\n*Equipo:* GB100 - DISPAX\n*Ronchi:* Sin operario\n*Centro de Líquidos 1:* DISPAX\n*Envasado 1:* SUPREFLUX 240ml\n\n*NOVEDADES:*\n\nSe recibe llamado para apoyar en GB100 por pérdida constante de paso, lo cual estaba afectando el centrado del corte.\n\n*Acciones realizadas:*\n- Ajuste de guías de lámina\n- Revisión y ajuste de plancha de sellado inferior\n- Revisión y limpieza de troquel\n- Ajuste de guías de arrastre\n- Se aumenta flujo de aire en estación de corte Regulador Corte: 5.0 -7.0 \n\n*Estado final:* Equipo queda para más ajustes debió a que trabaja bien 10 0 15min y pierde el paso \n\n*Pendiente turno día:* Validar filo de troquel y monitoreo de la estación de corte ."
   },
   {
     "id": "rt-20261008-1957",
@@ -21838,9 +21784,9 @@ window.REPORTES_TURNO = [
       "Blísteadora Evo  se limpia y se lubrica elevador de cápsulas Se coloca tapa inoxidable  con silicona MEZCLADOR SOLIDO Equipo granulador se realiza cambio de guarda motor de 6-10 amp debido a que se estaba disparando sin llegar al límite de corriente seteada en el mismo, se deja equipo operativo.",
       "CLIQUIDO #3 se instala controlador en la selladora de cápsulas.",
       "Blíster 8 se atiende llamado por qué se estaba variando el corte y el PVC tenía poca pestaña se calibra túnel de calefacción",
-      "ENVASADORA 2 Se repara guía de frascos de banda transportadora, se encontraba partida, se modifica porque se atascaba cuando entraban más de dos frascos queda ok. Se coloca cinta rubate a tubería de chiller por qué estaba condensada H400 se realiza cambio de tornillo M8 Avellanedo, se encontraba en mal estado"
+      "ENVASADORA 2 Se repara guía de frascos de banda transportadora, se encontraba partida, se modifica porque se atascaba cuando entraban más de dos frascos queda ok."
     ],
-    "texto": "Buenas noches \nReporte de turno Días\n\nEnvasadora3 azeflu \n\nCTL 2 Naproxeno\n\nBIN colágeno\n\nBosch Diclofenac \n\nNJP 2 zintergia \n\nNJP 1 multivitamínic \n\nHuttlin 40 Dimoflax \n\nNJP 3 omeprazol \n\nMS235 flextril \n\nBlíster 9 Dimoflax \n\nMB432 vitamina A\n\nIntegra ferrimed \n\nBlíster 8 Airomed \n\nMB EVO ferbin \n\nHuttlin 600 Esomeprazol \n\nMarzio4 esomed \n\nRimed trimebutina \n\nFette 2020#2 Acetaminofén \n\nFette 1010 Azitromicina \n\nFette2020#1 Dimoflax\n\nNota \nBlísteadora Evo  se limpia y se lubrica elevador de cápsulas\nSe coloca tapa inoxidable  con silicona \nMEZCLADOR SOLIDO\nEquipo granulador se realiza cambio de guarda motor de 6-10 amp debido a que se estaba disparando sin llegar al límite de corriente seteada en el mismo, se deja equipo operativo.\n\nCLIQUIDO #3\nse instala controlador en la selladora de cápsulas.\n\nBlíster 8 se atiende llamado por qué se estaba variando el corte y el PVC tenía poca pestaña se calibra túnel de calefacción \n\nENVASADORA 2 \nSe repara guía de frascos de banda transportadora, se encontraba partida, se modifica porque se atascaba cuando entraban más de dos frascos queda ok.\nSe coloca cinta rubate a tubería de chiller por qué estaba condensada\nH400 se realiza cambio de tornillo M8 Avellanedo, se encontraba en mal estado"
+    "texto": "Buenas noches \nReporte de turno Días\n\nEnvasadora3 azeflu \n\nCTL 2 Naproxeno\n\nBIN colágeno\n\nBosch Diclofenac \n\nNJP 2 zintergia \n\nNJP 1 multivitamínic \n\nHuttlin 40 Dimoflax \n\nNJP 3 omeprazol \n\nMS235 flextril \n\nBlíster 9 Dimoflax \n\nMB432 vitamina A\n\nIntegra ferrimed \n\nBlíster 8 Airomed \n\nMB EVO ferbin \n\nHuttlin 600 Esomeprazol \n\nMarzio4 esomed \n\nRimed trimebutina \n\nFette 2020#2 Acetaminofén \n\nFette 1010 Azitromicina \n\nFette2020#1 Dimoflax\n\nNota \nBlísteadora Evo  se limpia y se lubrica elevador de cápsulas\nSe coloca tapa inoxidable  con silicona \nMEZCLADOR SOLIDO\nEquipo granulador se realiza cambio de guarda motor de 6-10 amp debido a que se estaba disparando sin llegar al límite de corriente seteada en el mismo, se deja equipo operativo.\n\nCLIQUIDO #3\nse instala controlador en la selladora de cápsulas.\n\nBlíster 8 se atiende llamado por qué se estaba variando el corte y el PVC tenía poca pestaña se calibra túnel de calefacción \n\nENVASADORA 2 \nSe repara guía de frascos de banda transportadora, se encontraba partida, se modifica porque se atascaba cuando entraban más de dos frascos queda ok."
   },
   {
     "id": "rt-20261008-2215",
@@ -22062,16 +22008,16 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "BLISTER 3: Se recibe Llamado por equipo bloqueado, se resetea el mismo y presenta la misma falla, se procede a limpiaru disco duro y memoria, equipo operativo.",
-      "T: 120 mn aprox",
-      "MT 1100: Se correge conexión de manguera en cuba, la misma no realizaba la purga correctamente, equipo operativo.",
-      "T:40 mn aprox",
-      "SCHMUCKER: LLamado por agitador de polvo partido, se extrae rosca quedada en la base, se monta agitador nuevo, equipo operativo.",
-      "T: 90 mn aprox",
-      "CB550: Se alinea sellado vertical y se le ajusta el sistema que le quita el aire al sobre. T: 30 min aprox.",
-      "NJP#2: zintergia llamado porque se estaba quedando pegado el eje que expulsa las cápsulas sin destapar se realiza desmontaje y limpieza y lubricación se hacen pruebas se entrega a producción y se calibra dos veces el disco de bronce por variación de peso y se deja para realizar prueba. T: 120 min aprox."
+      "*BLISTER 3:* Se recibe Llamado por equipo bloqueado, se resetea el mismo y presenta la misma falla, se procede a limpiaru disco duro y memoria, equipo operativo.",
+      "*T: 120 mn aprox*",
+      "*MT 1100:* Se correge conexión de manguera en cuba, la misma no realizaba la purga correctamente, equipo operativo.",
+      "*T:40 mn aprox*",
+      "*SCHMUCKER:* LLamado por agitador de polvo partido, se extrae rosca quedada en la base, se monta agitador nuevo, equipo operativo.",
+      "*T: 90 mn aprox*",
+      "*CB550:* Se alinea sellado vertical y se le ajusta el sistema que le quita el aire al sobre. *T: 30 min aprox.*",
+      "*NJP#2:* zintergia llamado porque se estaba quedando pegado el eje que expulsa las cápsulas sin destapar se realiza desmontaje y limpieza y lubricación se hacen pruebas se entrega a producción y se calibra dos veces el disco de bronce por variación de peso y se deja para realizar prueba. *T: 120 min aprox.*"
     ],
-    "texto": "REPORTE DE TURNO \n GRUPO 1 NOCHE\n SEDE 4 \n- CL2: NAPROXENO \n- CL4: DISPONIBLE \n- MT 1100: SUPERFLUIX \n- BLÍSTER 3: LANZOR\n- BLÍSTER 2 : DISPONIBLE \n- ENVASADO 3: AZEFLU \n- CL3: DISPONIBLE \n- ENVASADO 2: LEVRONC\n- BIN BLENDER: GELIMED\n- BOSCH: LIMPIEZA \n- NJP1: ZINTERGIA\n- NJP2: FERRIMED\n- NJP3: OMEPRAZOL\n- PILOT LAB: DESARROLLO \n- MB 432: VITAMINA A \n- BLÍSTER 8: AEROVIAL\n- SCHMUCKER: FLECTRIL\n- Blíster 9: COLTRIM\n- INTEGRA 320: DISPONIBLE \n- R200: DIMOFLAX\n- MB 451 EVO: FERBIN\n- MARZIO 5: CONGESTEX\n- HUTTLIN 600: LIMPIEZA \n- R400: DIMOFLAX\n- BOMBO 300: DISPONIBLE \n- MARZIO 4: ESOMED\n- HUTTLIN 400: MONTAJE\n- RIMEK: COLTRIM\n- FETTE 1010: LIMPIEZA \n- FETTE 2020 2: ACETAMINOFEN\n- FETTE 2020 1: DIMOFLAX\n- CB 550: GELIMED\nNOVEDADES\nBLISTER 3: Se recibe Llamado por equipo bloqueado, se resetea el mismo y presenta la misma falla, se procede a limpiaru disco duro y memoria, equipo operativo.\nT: 120 mn aprox\nMT 1100: Se correge conexión de manguera en cuba, la misma no realizaba la purga correctamente, equipo operativo.\nT:40 mn aprox\nSCHMUCKER: LLamado por agitador de polvo partido, se extrae rosca quedada en la base, se monta agitador nuevo, equipo operativo.\nT: 90 mn aprox\nCB550: Se alinea sellado vertical y se le ajusta el sistema que le quita el aire al sobre. T: 30 min aprox.\nNJP#2: zintergia llamado porque se estaba quedando pegado el eje que expulsa las cápsulas sin destapar se realiza desmontaje y limpieza y lubricación se hacen pruebas se entrega a producción y se calibra dos veces el disco de bronce por variación de peso y se deja para realizar prueba. T: 120 min aprox."
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 NOCHE*\n *SEDE* *4* \n- *CL2:* NAPROXENO \n- *CL4:* DISPONIBLE \n- *MT 1100:* SUPERFLUIX \n- *BLÍSTER 3:* LANZOR\n- *BLÍSTER 2 :* DISPONIBLE \n- *ENVASADO 3:* AZEFLU \n- *CL3:* DISPONIBLE \n- *ENVASADO 2:* LEVRONC\n- *BIN BLENDER:* GELIMED\n- *BOSCH:* LIMPIEZA \n- *NJP1:* ZINTERGIA\n- *NJP2:* FERRIMED\n- *NJP3:* OMEPRAZOL\n- *PILOT LAB:* DESARROLLO \n- *MB 432:* VITAMINA A \n- *BLÍSTER 8:* AEROVIAL\n- *SCHMUCKER:* FLECTRIL\n- *Blíster 9:* COLTRIM\n- *INTEGRA 320:* DISPONIBLE \n- *R200:* DIMOFLAX\n- *MB 451 EVO:* FERBIN\n- *MARZIO 5:* CONGESTEX\n- *HUTTLIN 600:* LIMPIEZA \n- *R400:* DIMOFLAX\n- *BOMBO 300:* DISPONIBLE \n- *MARZIO 4:* ESOMED\n- *HUTTLIN 400:* MONTAJE\n- *RIMEK:* COLTRIM\n- *FETTE 1010:* LIMPIEZA \n- *FETTE 2020 2:* ACETAMINOFEN\n- *FETTE 2020 1:* DIMOFLAX\n- *CB 550:* GELIMED\n*NOVEDADES*\n*BLISTER 3:* Se recibe Llamado por equipo bloqueado, se resetea el mismo y presenta la misma falla, se procede a limpiaru disco duro y memoria, equipo operativo.\n*T: 120 mn aprox*\n*MT 1100:* Se correge conexión de manguera en cuba, la misma no realizaba la purga correctamente, equipo operativo.\n*T:40 mn aprox*\n*SCHMUCKER:* LLamado por agitador de polvo partido, se extrae rosca quedada en la base, se monta agitador nuevo, equipo operativo.\n*T: 90 mn aprox*\n*CB550:* Se alinea sellado vertical y se le ajusta el sistema que le quita el aire al sobre. *T: 30 min aprox.*\n*NJP#2:* zintergia llamado porque se estaba quedando pegado el eje que expulsa las cápsulas sin destapar se realiza desmontaje y limpieza y lubricación se hacen pruebas se entrega a producción y se calibra dos veces el disco de bronce por variación de peso y se deja para realizar prueba. *T: 120 min aprox.*"
   },
   {
     "id": "rt-20261009-2149",
@@ -22083,7 +22029,7 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-10-09",
     "equipos": [],
     "novedades": [
-      "DEL TURNO DE DIA",
+      "DEL TURNO DE DIA*",
       "Envasado 3 se relaliza mantenimiento al sistema del tornillo sinfín de dosificador se cambia rodamiento de chumacera se toma tiempo y se entrega equipo queda ok 3hrs",
       "• Se atiende llamado en Envasadora # 2 por presenta novedad con sensor de nivel  máximo de tanque pulmón de producto, el producto al caer en el tanque genera espuma el cual le hace alojar una lectura errónea al sensor, se realizó limpieza y se estuvo presenta durante 2 ciclos, opero de forma automática, se requiere de una instalación de limpieza o purga de producto en el sensor ya sea con un accionamiento de electroválvulas con aire comprimido o la instalación de un motor con escobas que limpien el sensor.",
       "Tanque de fabricación de líquidos centro líquidos 2 se atiende llamado para ajuste de celda de carga tanque vacío y estaba mostrando 98kg quedó oxilamdo en 2 y 5kg",
@@ -22108,7 +22054,7 @@ window.REPORTES_TURNO = [
       "Tanque que líquido 3",
       "Se acomodan parámetros de variador ya que no quería encender con el potenciómetro"
     ],
-    "texto": "NOVEDADES DEL TURNO DE DIA\n\nEnvasado 3 se relaliza mantenimiento al sistema del tornillo sinfín de dosificador se cambia rodamiento de chumacera se toma tiempo y se entrega equipo queda ok 3hrs\n\n• Se atiende llamado en Envasadora # 2 por presenta novedad con sensor de nivel  máximo de tanque pulmón de producto, el producto al caer en el tanque genera espuma el cual le hace alojar una lectura errónea al sensor, se realizó limpieza y se estuvo presenta durante 2 ciclos, opero de forma automática, se requiere de una instalación de limpieza o purga de producto en el sensor ya sea con un accionamiento de electroválvulas con aire comprimido o la instalación de un motor con escobas que limpien el sensor.\n\nTanque de fabricación de líquidos centro líquidos 2 se atiende llamado para ajuste de celda de carga tanque vacío y estaba mostrando 98kg quedó oxilamdo en 2 y 5kg\nPendiente mandar a calibrar 20min\n\nBlíster 3 se dirmde llamado por estiramiento de PVC se ajusta temperatura de túnel 20min \n\n- Se realiza cambio de 4 luminarias led en cuarto Hutlin 40 - Lecho fluido 40\n\n- Se revisa cortina CL2 - Ingreso de materia prima para equipo. Se realizó programación y autoajuste, donde el equipo presentó novedad con control de \"paro de equipo\" no reaccionaba al pulsar stop de emergencia, se revisan \ncomponentes, botón de emergencia y contacto NC todo ok. Y se evidencia que la cortina se comporta de forma  anormal bajando y subiendo sola sin recibir orden de los sensores. Se requiere de cambio de tarjeta de control en los pulsadores.\n\n- Se realiza tendido de acometida para pulsador Star en paralelo para encendido de chiller CL2 pendiente realizar conexión.\n\n- BOSCH: Se realizan ajustes en raspador y alineación de discos dosificador, los pines estában teniendo fricción al entrar en el disco.\n\nNJP3: Se recibe llamado por reguero de microgranulos en dosificador, se evidencia tornillo de sujeción en base de dosificadores flojos, se ajusta y corrige novedad.\n\nEstuchadora Evo \nSe atiende llamado por problemas de cierre de estuche , se cuadra estuche y se encuentra empujadores con papel de quita y se cuadra , los estuches en vacío no cerraban se tuvo que cuadrar equipo con producto , se cuadra altura , anchura y tamaño se deja operativa, 17:10 se retira el sitio , después vuelve a llamar por problemas de la pestaña de los lados del estuche y por problemas de empujadores , se deja detenía para revisión del turno entrante 9h \n\nBlisteadora integra \nSe atiende llamado por telecamara 1 , se limpia lente y se reinicia equipo queda operativa 20 minutos \n\nCB550 \nSe atiende llamado por problemas de marca en sobre , se limpia base y se coloca papel teflón queda operativa 45min \n\nMt1100\nSe encuentra resorte de sellado partido y no sellaba bien los sobres.\nSe desmontan y se cambian por unos nuevos y se habilita máquina\n\n* Pendiente Tanque de fabricación de centro liquidos dos par alarma y fuerte ruido no se pudo revisa el origen por falta de tiempo\n\nTanque que líquido 3\nSe acomodan parámetros de variador ya que no quería encender con el potenciómetro"
+    "texto": "*NOVEDADES DEL TURNO DE DIA*\n\nEnvasado 3 se relaliza mantenimiento al sistema del tornillo sinfín de dosificador se cambia rodamiento de chumacera se toma tiempo y se entrega equipo queda ok 3hrs\n\n• Se atiende llamado en Envasadora # 2 por presenta novedad con sensor de nivel  máximo de tanque pulmón de producto, el producto al caer en el tanque genera espuma el cual le hace alojar una lectura errónea al sensor, se realizó limpieza y se estuvo presenta durante 2 ciclos, opero de forma automática, se requiere de una instalación de limpieza o purga de producto en el sensor ya sea con un accionamiento de electroválvulas con aire comprimido o la instalación de un motor con escobas que limpien el sensor.\n\nTanque de fabricación de líquidos centro líquidos 2 se atiende llamado para ajuste de celda de carga tanque vacío y estaba mostrando 98kg quedó oxilamdo en 2 y 5kg\nPendiente mandar a calibrar 20min\n\nBlíster 3 se dirmde llamado por estiramiento de PVC se ajusta temperatura de túnel 20min \n\n- Se realiza cambio de 4 luminarias led en cuarto Hutlin 40 - Lecho fluido 40\n\n- Se revisa cortina CL2 - Ingreso de materia prima para equipo. Se realizó programación y autoajuste, donde el equipo presentó novedad con control de \"paro de equipo\" no reaccionaba al pulsar stop de emergencia, se revisan \ncomponentes, botón de emergencia y contacto NC todo ok. Y se evidencia que la cortina se comporta de forma  anormal bajando y subiendo sola sin recibir orden de los sensores. Se requiere de cambio de tarjeta de control en los pulsadores.\n\n- Se realiza tendido de acometida para pulsador Star en paralelo para encendido de chiller CL2 pendiente realizar conexión.\n\n- BOSCH: Se realizan ajustes en raspador y alineación de discos dosificador, los pines estában teniendo fricción al entrar en el disco.\n\nNJP3: Se recibe llamado por reguero de microgranulos en dosificador, se evidencia tornillo de sujeción en base de dosificadores flojos, se ajusta y corrige novedad.\n\nEstuchadora Evo \nSe atiende llamado por problemas de cierre de estuche , se cuadra estuche y se encuentra empujadores con papel de quita y se cuadra , los estuches en vacío no cerraban se tuvo que cuadrar equipo con producto , se cuadra altura , anchura y tamaño se deja operativa, 17:10 se retira el sitio , después vuelve a llamar por problemas de la pestaña de los lados del estuche y por problemas de empujadores , se deja detenía para revisión del turno entrante 9h \n\nBlisteadora integra \nSe atiende llamado por telecamara 1 , se limpia lente y se reinicia equipo queda operativa 20 minutos \n\nCB550 \nSe atiende llamado por problemas de marca en sobre , se limpia base y se coloca papel teflón queda operativa 45min \n\nMt1100\nSe encuentra resorte de sellado partido y no sellaba bien los sobres.\nSe desmontan y se cambian por unos nuevos y se habilita máquina\n\n* Pendiente Tanque de fabricación de centro liquidos dos par alarma y fuerte ruido no se pudo revisa el origen por falta de tiempo\n\nTanque que líquido 3\nSe acomodan parámetros de variador ya que no quería encender con el potenciómetro"
   },
   {
     "id": "rt-20261010-0951",
@@ -22425,7 +22371,7 @@ window.REPORTES_TURNO = [
       "Mt1100 Se atiende llamado por problemas en la salida del sobre , se ajusta se le da altura , se cambian resorte y se ajusta sistema de salida de sobre , sin tener éxito se se hacen ajuste de alineación , trabaja pero cuando cambiaron el laminado comenzó a molesta se hicieron los mismo movimientos sin tener éxito se deja pendiente al turno entrante",
       "Se realiza cambio de cable de comunicacion partido en fabricación de líquidos 3 . Llamaron por problemas en tablero de control no dejaba mostrar ni cambiar consignas para motor de mezclado del tanque. Se reviso conexionado, se realizó limpieza de terminales del variador y por último se cambió cable de comunicación del variador y se normalizo. Se encontró que el cable que va al variador de comúnniccion y se nota maltrado Una vez que se cambió la falla dejo dejo de persistir"
     ],
-    "texto": "SEDE 4 TURNO (DIA)\n2026/10/10\n\nLIQUIDOS\n\n*•BLISTER 3: LANZOR \n*•CL4 : DISPONIBLE \n\n*•BLISTER2: \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: MTTO\n*•CL2 :AZEFLUBS SPRAY\n*•EMBASADORA 2: SUPREFLUX \n\nSOLIDOS\n\n*•BIN: DISPONIBLE \n*•BOSH: DISPONIBLE \n*•NJP2 : ZINTERGIA \n*•NJP1 : DISPONIBLE \n*•NJP3 : OMEPRAZOL \n*•PILOTBLAB HUYTLIN40: DISPONIBLE \n*•SCHMUKER: FLEXTRIL\n*•BLISTER #9: FURANTOMED\n*•BLISTER #6 MB432: FUNEX \n*•BLISTER #4 INTEGRA320: FERRIMED \n*•BLISTER #8: AMANTADINA\n*•EVOBLISTER 7: OMEPRAZOL \n*•MARZIO #4 : CONGETEX \n*•HUTTLIN 600: FLEXTRIL\n*•R200: TRIMEBUTINO\n*•R400: DIMUFLAX\n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: LIMPIEZA \n*•RIMEK: TRIMEBUTINA \n*•FETE1010: PALACICLOBIR\n*•FETTE20202: DISPONIBLE \n*•FETTE20201: PROPRSNOLOL\n*•CB550: GELYMED\n________\n       NOVEDADES\n\nEnvasado 2 se atiende llamado porque las jeringas quedaban con mucho goteo se envidencia que no tienen la malla se fabrican mallas nuevas y se instalan 60min\nUn segundo llamado porque no estaba enviando las tapas a los frascos se ajusta sensor de entrada de frascos se ajusta  tiempo y distancia T 30min \n\nFette 1010 se trae cargador y se realiza mantenimiento y lubricación por pega de producto T 60min\n\nNjp2 se rectifica rosca del bloque de destape porque uno de los tornillos no ajustaba 30min\n\nMt1100\nSe atiende llamado por problemas en la salida del sobre , se ajusta se le da altura , se cambian resorte y se ajusta sistema de salida de sobre , sin tener éxito se se hacen ajuste de alineación , trabaja pero cuando cambiaron el laminado comenzó a molesta se hicieron los mismo movimientos sin tener éxito se deja pendiente al turno entrante\n\nSe realiza cambio de cable de comunicacion partido en fabricación de líquidos 3 .\nLlamaron por problemas en tablero de control no dejaba mostrar ni cambiar consignas para motor de mezclado del tanque.\nSe reviso conexionado, se realizó limpieza de terminales del variador y por último se cambió cable de comunicación del variador y se normalizo.\nSe encontró que el cable que va al variador de comúnniccion y se nota maltrado \nUna vez que se cambió la falla dejo dejo de persistir"
+    "texto": "SEDE 4 TURNO (DIA)\n2026/10/10\n\n*LIQUIDOS*\n\n*•BLISTER 3: LANZOR \n*•CL4 : DISPONIBLE \n\n*•BLISTER2: \n*•MT: SUPERFLUX\n*•LIQUIDOS 3: MTTO\n*•CL2 :AZEFLUBS SPRAY\n*•EMBASADORA 2: SUPREFLUX \n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE \n*•BOSH: DISPONIBLE \n*•NJP2 : ZINTERGIA \n*•NJP1 : DISPONIBLE \n*•NJP3 : OMEPRAZOL \n*•PILOTBLAB HUYTLIN40: DISPONIBLE \n*•SCHMUKER: FLEXTRIL\n*•BLISTER #9: FURANTOMED\n*•BLISTER #6 MB432: FUNEX \n*•BLISTER #4 INTEGRA320: FERRIMED \n*•BLISTER #8: AMANTADINA\n*•EVOBLISTER 7: OMEPRAZOL \n*•MARZIO #4 : CONGETEX \n*•HUTTLIN 600: FLEXTRIL\n*•R200: TRIMEBUTINO\n*•R400: DIMUFLAX\n*•MARZIO 1: DISPONIBLE \n*•HUTTLIN 400: LIMPIEZA \n*•RIMEK: TRIMEBUTINA \n*•FETE1010: PALACICLOBIR\n*•FETTE20202: DISPONIBLE \n*•FETTE20201: PROPRSNOLOL\n*•CB550: GELYMED\n____________________\n       NOVEDADES\n\nEnvasado 2 se atiende llamado porque las jeringas quedaban con mucho goteo se envidencia que no tienen la malla se fabrican mallas nuevas y se instalan 60min\nUn segundo llamado porque no estaba enviando las tapas a los frascos se ajusta sensor de entrada de frascos se ajusta  tiempo y distancia T 30min \n\nFette 1010 se trae cargador y se realiza mantenimiento y lubricación por pega de producto T 60min\n\nNjp2 se rectifica rosca del bloque de destape porque uno de los tornillos no ajustaba 30min\n\nMt1100\nSe atiende llamado por problemas en la salida del sobre , se ajusta se le da altura , se cambian resorte y se ajusta sistema de salida de sobre , sin tener éxito se se hacen ajuste de alineación , trabaja pero cuando cambiaron el laminado comenzó a molesta se hicieron los mismo movimientos sin tener éxito se deja pendiente al turno entrante\n\nSe realiza cambio de cable de comunicacion partido en fabricación de líquidos 3 .\nLlamaron por problemas en tablero de control no dejaba mostrar ni cambiar consignas para motor de mezclado del tanque.\nSe reviso conexionado, se realizó limpieza de terminales del variador y por último se cambió cable de comunicación del variador y se normalizo.\nSe encontró que el cable que va al variador de comúnniccion y se nota maltrado \nUna vez que se cambió la falla dejo dejo de persistir"
   },
   {
     "id": "rt-20261011-0821",
@@ -22617,7 +22563,7 @@ window.REPORTES_TURNO = [
       "MARZIO #4 se atiende llamado porque atasco del brazo dosificador, se encuentra el brazo con mucha presión y provocó desgaste y se atascaba, se lima la punta del brazo, se le quita presión y se limpia viruta generada por el desgaste, queda equipo operativo.",
       "ESTUCHADORA EVO Se enderezan dos canjilones doblados y se solda uno partido."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #2\nSEDE 4\n20:00 - 08:00\n\nSOLIDOS\nBIN: vitamina A\nBOSHC: stamby \nNJP #2: zintergia \nNJP #1: stamby\nNJP #3: omeprazol \nPILOT LAB: stamby\nSCMUKER: stamby\nBLISTER #9: furantomed\nMB 432: fluconazol\nINTEGRA: limpieza \nBLISTER #8: beclazone\nMARCHESINI EVO: omeprazol \nR200: Trimebutina \nR400: dimoflax\nMARZIO #4: esomed\nMARZIO #5: stamby\nCB 550: gelimed \nHUTTLIN 600: flextril \nHUTTLIN 400: esomeprazol\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: valaciclovir\nFETTE 2020-1: propranolol\n\nLÍQUIDO \nENVASADORA #2: supreflux forte\nENVASADORA #3: azeflu spray\nCLIQUIDO #2: montaje \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: supreflux\nBLISTER #2: flectadol\nBLISTER #3: stamby\n________________\n                       NOVEDADES \nMT 1100\nse recibe equipo para seguir cuadrando la salida del stick se cuadra se entrega máquina a producción a las 22:30 \nSe trabaja media hora y llaman por un fuerte ruido en el sistema mecánico de las cuchillas y se cuadran las presiones y deja el ruido pero deja de cortar se cuadra el corte pero las cuchillas del abre fácil no logran abrir el sobre queda pendiente cuadrar ese detalle se entra a turno entrante total 9 horas\n\nLIQUIDOS #2 \nSe recibe llamada del tanque de 3000L fuerte ruido y estaba botando virutas se encuentra acople flojo y corrido apunto de salir la cuña se ajusta todo en su sitio y se entrega a para hacer pruebas\n\nENVASADORA #2\nse recibe llamado por bomba de trasvase trabajando directa al toma y necesitaban estar apagandola y prendiendo para el llenado del tanque pulmón de producto, se llevó tablero con variador instalado que estaba en el taller y se dejó trabajando la bomba desde el tablero. 0.5H\n\nCB 550\nse recibe llamado por borde del sellado horizontal muy largo y vertical con arruga, se realizan ajustes en parámetros de retardos en tiempos de apertura y cierre de mordazas, también se cuadra el arrastre hasta lograr habilitar la máquina. 2H\n\nMB 432\nse realiza cambio de manguera interna en cargador del lado izquierdo ya que estaba rota, se deja máquina habilitada. 0.5H\n\nFETTE 2020-1 \nse atiende llamado porque el equipo no deja arrancar, muestra alarma    de marcas de referencias, se desmonta producto del equipo y se siguen instrucciones del manual y queda equipo operativo.\n\nFETTE 1010 \nse atiende llamado porque el cargador no le entra producto, se encuentra un retenedor en mal estado que no dejaba entrar de manera correcta el agitador, se cambia retenedor y queda equipo operativo.\n\nMARZIO #4 \nse atiende llamado porque atasco del brazo dosificador, se encuentra el brazo con mucha presión y provocó desgaste y se atascaba, se lima la punta del brazo, se le quita presión y se limpia viruta generada por el desgaste, queda equipo operativo.\n\nESTUCHADORA EVO \nSe enderezan dos canjilones doblados y se solda uno partido."
+    "texto": "REPORTE MAQUINAS TURNO #2\nSEDE 4\n20:00 - 08:00\n\nSOLIDOS\nBIN: vitamina A\nBOSHC: stamby \nNJP #2: zintergia \nNJP #1: stamby\nNJP #3: omeprazol \nPILOT LAB: stamby\nSCMUKER: stamby\nBLISTER #9: furantomed\nMB 432: fluconazol\nINTEGRA: limpieza \nBLISTER #8: beclazone\nMARCHESINI EVO: omeprazol \nR200: Trimebutina \nR400: dimoflax\nMARZIO #4: esomed\nMARZIO #5: stamby\nCB 550: gelimed \nHUTTLIN 600: flextril \nHUTTLIN 400: esomeprazol\nRIMEK: Trimebutina+simeticona\nFETTE 2020-2: acetaminofén \nFETTE 1010: valaciclovir\nFETTE 2020-1: propranolol\n\nLÍQUIDO \nENVASADORA #2: supreflux forte\nENVASADORA #3: azeflu spray\nCLIQUIDO #2: montaje \nCLIQUIDO #3: stamby\nCLIQUIDO #4: limpieza \nMT 1100: supreflux\nBLISTER #2: flectadol\nBLISTER #3: stamby\n______________________________________________\n                       NOVEDADES \nMT 1100\nse recibe equipo para seguir cuadrando la salida del stick se cuadra se entrega máquina a producción a las 22:30 \nSe trabaja media hora y llaman por un fuerte ruido en el sistema mecánico de las cuchillas y se cuadran las presiones y deja el ruido pero deja de cortar se cuadra el corte pero las cuchillas del abre fácil no logran abrir el sobre queda pendiente cuadrar ese detalle se entra a turno entrante total 9 horas\n\nLIQUIDOS #2 \nSe recibe llamada del tanque de 3000L fuerte ruido y estaba botando virutas se encuentra acople flojo y corrido apunto de salir la cuña se ajusta todo en su sitio y se entrega a para hacer pruebas\n\nENVASADORA #2\nse recibe llamado por bomba de trasvase trabajando directa al toma y necesitaban estar apagandola y prendiendo para el llenado del tanque pulmón de producto, se llevó tablero con variador instalado que estaba en el taller y se dejó trabajando la bomba desde el tablero. 0.5H\n\nCB 550\nse recibe llamado por borde del sellado horizontal muy largo y vertical con arruga, se realizan ajustes en parámetros de retardos en tiempos de apertura y cierre de mordazas, también se cuadra el arrastre hasta lograr habilitar la máquina. 2H\n\nMB 432\nse realiza cambio de manguera interna en cargador del lado izquierdo ya que estaba rota, se deja máquina habilitada. 0.5H\n\nFETTE 2020-1 \nse atiende llamado porque el equipo no deja arrancar, muestra alarma    de marcas de referencias, se desmonta producto del equipo y se siguen instrucciones del manual y queda equipo operativo.\n\nFETTE 1010 \nse atiende llamado porque el cargador no le entra producto, se encuentra un retenedor en mal estado que no dejaba entrar de manera correcta el agitador, se cambia retenedor y queda equipo operativo.\n\nMARZIO #4 \nse atiende llamado porque atasco del brazo dosificador, se encuentra el brazo con mucha presión y provocó desgaste y se atascaba, se lima la punta del brazo, se le quita presión y se limpia viruta generada por el desgaste, queda equipo operativo.\n\nESTUCHADORA EVO \nSe enderezan dos canjilones doblados y se solda uno partido."
   },
   {
     "id": "rt-20261011-2034",
@@ -22854,7 +22800,7 @@ window.REPORTES_TURNO = [
       "Estuchadera evo se ajusta empujadores por golpe y quedaban atascados candulones, ahí mismo se bajó unos de los cangilones por qué sobresalía de la base y tropezaban los blíster. Se realizó desgaste ya que anteriormente estaba soldado y dejo una pequeña rebaba.",
       "MT1100 se revisa equipo ya que se  encontraba detenido , se percata que el piñon queda la motricidad a la base de los rodillos que arrastran el laminado está fuera de posición de se coloca en posición, se da arranque pero observamos que el sobre queda por encima de las cuchillas por eso no arrastra bien , desmonta sistema de rodillos , se ajusta guías de rodillos con la corredera de la  misma base , y se mueve el sobre para quedé centrado con la cuchilla , se le da arranque pero al equipo y se percata ruido extraño se observa que la platina que ajusta el sistema de corte con la motricidad de la misma hace roce con el sistema de rodillos haciendo que salte el sistema y suene , se desmonta y se encuentra desgaste , se soluciona acomodado la pieza , se arranca el equipo con normalidad, al coger los sobres nos percatamos que se cortaban arriba del sellado , se observa y se evidencia el sobre muy pegado a la pared de el sistema de corte se mueve rodillos de arrastre despegandolo para que tena un poco más de movimiento, se arranca y se prueba y queda trabajando sin novedad , le dimos marcha un rato y entregamos equipo a producción, producción nos comentó que no tenían operario , entonces no pudieron producir"
     ],
-    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TN\n*•BIN: Disponible \n*•BOSCH: nifedipino\n*•NJP1: Alistamiento \n*•NJP2: vitamina A\n* NJP3: Alistamiento \n*•FETTE 2020/2 : acetaminofén \n*•PILOT LAB: Dimoflax \n*•MB 432: funex\n*•BLISTER 8: Esomeprazol \n*.Blíster 9:Furantomed\n*•MS 235: Stan by \n*•INTEGRA 320: omeprazol \n*•RC 200: Stand by \n*RC 400: Dimoflax\n*•CB550: Gelimed\n*•MB 235 EVO: omeprazol\n*•HUTTLIN 600: limpieza \n*•HUTTLIN 400: Esomeprazol \n*•RIMEK: Trimebutina \n*•MARZIO 4: esomed\n*•MARZIO 1: congestex\n*•FETTE 1010: Disponible\n*•FETTE 2020/1: propranolol \n*•CLIQUIDOS 2: Disponible \n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 Marchesini: Disponible \n *ENVASADORA #2: Supreflux \n*•ML 642 ENVASADORA #3: levronc \n*BLISTER 2: disponible\n*BLÍSTER 3: nifedipino \n_________\n        NOVEDADES\n\nBlíster 3 se atiende llamado por estiramiento de PVC se ajusta altura del túnel de calefacción se entrega equipo \n\nBlíster 8 se atiende llamado porque la banda caída de blíster se estaba atascando se bajan rodillos se limpian y se lubrican se arma queda ok\n\nLlamaron de del R400\nLanzaba múltiples alarma sobre todo con el presostato, se realizó revisión y búsqueda de que generaba la alarma y se haya que el pulsador de emergencia del wip en el cuarto de máquinas detrás del mismo R 400 estaba accionado. 1.5 horas \n\nEstuchadera evo se ajusta empujadores por golpe y quedaban atascados candulones, ahí mismo se bajó unos de los cangilones por qué sobresalía de la base y tropezaban los blíster.\nSe realizó desgaste ya que anteriormente estaba soldado y dejo una pequeña rebaba.\n\nMT1100 \nse revisa equipo ya que se  encontraba detenido , se percata que el piñon queda la motricidad a la base de los rodillos que arrastran el laminado está fuera de posición de se coloca en posición, se da arranque pero observamos que el sobre queda por encima de las cuchillas por eso no arrastra bien , desmonta sistema de rodillos , se ajusta guías de rodillos con la corredera de la  misma base , y se mueve el sobre para quedé centrado con la cuchilla , se le da arranque pero al equipo y se percata ruido extraño se observa que la platina que ajusta el sistema de corte con la motricidad de la misma hace roce con el sistema de rodillos haciendo que salte el sistema y suene , se desmonta y se encuentra desgaste , se soluciona acomodado la pieza , se arranca el equipo con normalidad, al coger los sobres nos percatamos que se cortaban arriba del sellado , se observa y se evidencia el sobre muy pegado a la pared de el sistema de corte se mueve rodillos de arrastre despegandolo para que tena un poco más de movimiento, se arranca y se prueba y queda trabajando sin novedad , le dimos marcha un rato y entregamos equipo a producción, producción nos comentó que no tenían operario , entonces no pudieron producir"
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TN\n*•BIN: Disponible \n*•BOSCH: nifedipino\n*•NJP1: Alistamiento \n*•NJP2: vitamina A\n* NJP3: Alistamiento \n*•FETTE 2020/2 : acetaminofén \n*•PILOT LAB: Dimoflax \n*•MB 432: funex\n*•BLISTER 8: Esomeprazol \n*.Blíster 9:Furantomed\n*•MS 235: Stan by \n*•INTEGRA 320: omeprazol \n*•RC 200: Stand by \n*RC 400: Dimoflax\n*•CB550: Gelimed\n*•MB 235 EVO: omeprazol\n*•HUTTLIN 600: limpieza \n*•HUTTLIN 400: Esomeprazol \n*•RIMEK: Trimebutina \n*•MARZIO 4: esomed\n*•MARZIO 1: congestex\n*•FETTE 1010: Disponible\n*•FETTE 2020/1: propranolol \n*•CLIQUIDOS 2: Disponible \n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: disponible \n*MT1100 Marchesini: Disponible \n *ENVASADORA #2: Supreflux \n*•ML 642 ENVASADORA #3: levronc \n*BLISTER 2: disponible\n*BLÍSTER 3: nifedipino \n_________________________\n        *NOVEDADES*\n\nBlíster 3 se atiende llamado por estiramiento de PVC se ajusta altura del túnel de calefacción se entrega equipo \n\nBlíster 8 se atiende llamado porque la banda caída de blíster se estaba atascando se bajan rodillos se limpian y se lubrican se arma queda ok\n\nLlamaron de del R400\nLanzaba múltiples alarma sobre todo con el presostato, se realizó revisión y búsqueda de que generaba la alarma y se haya que el pulsador de emergencia del wip en el cuarto de máquinas detrás del mismo R 400 estaba accionado. 1.5 horas \n\nEstuchadera evo se ajusta empujadores por golpe y quedaban atascados candulones, ahí mismo se bajó unos de los cangilones por qué sobresalía de la base y tropezaban los blíster.\nSe realizó desgaste ya que anteriormente estaba soldado y dejo una pequeña rebaba.\n\nMT1100 \nse revisa equipo ya que se  encontraba detenido , se percata que el piñon queda la motricidad a la base de los rodillos que arrastran el laminado está fuera de posición de se coloca en posición, se da arranque pero observamos que el sobre queda por encima de las cuchillas por eso no arrastra bien , desmonta sistema de rodillos , se ajusta guías de rodillos con la corredera de la  misma base , y se mueve el sobre para quedé centrado con la cuchilla , se le da arranque pero al equipo y se percata ruido extraño se observa que la platina que ajusta el sistema de corte con la motricidad de la misma hace roce con el sistema de rodillos haciendo que salte el sistema y suene , se desmonta y se encuentra desgaste , se soluciona acomodado la pieza , se arranca el equipo con normalidad, al coger los sobres nos percatamos que se cortaban arriba del sellado , se observa y se evidencia el sobre muy pegado a la pared de el sistema de corte se mueve rodillos de arrastre despegandolo para que tena un poco más de movimiento, se arranca y se prueba y queda trabajando sin novedad , le dimos marcha un rato y entregamos equipo a producción, producción nos comentó que no tenían operario , entonces no pudieron producir"
   },
   {
     "id": "rt-20261012-2030",
@@ -22866,22 +22812,22 @@ window.REPORTES_TURNO = [
     "fechaTurno": "2026-10-12",
     "equipos": [],
     "novedades": [
-      "MT1100: Se realizan  ajustes de sellado y abre fácil, se verifican distancias de apertura (mordazas horizontales) y rotulas, se corrigen filtraciones de sobres, equipo operativo, culminando lote a las 18:00, el mismo se encuentra en Desmontaje para limpieza.",
-      "T: 240mn aprox",
-      "BLISTER 3: Se ajustan parámetros de soplado y temperatura, se calibra túnel de calefacción y estacion de formado, equipo operativo (25.500 blíster NIFEDIPINO 12 horas).",
-      "T:120mn aprox",
-      "BLISTER #7 Evo: LLamado por alarma en estación de soldadura, se revisa conexiones en bornera y presenta cable de alimentación fundido y bornera de cerámica dañada, ambas fueron reemplazadas, equipo operativo.",
-      "T:120 mn aprox",
-      "BOSCH: LLamado por tornillo partido (sujesion de slitget) y pin de expulsión doblado, se extrae tornillo y se cambia pin, se entrega a turno entrante montar.",
-      "NJP2: se desarmo la bomba de vacio y se llevó al taller la tapa para reparar la junta de sellado de vacío por qué no destapaba las cápsulas, pendiente montar y armar bomba de vacío.",
-      "R400: llaman porque se encuentra sello de junta siempre con aire, se encuentra electrovalvula pegada y se ajusta brazo de boquillas.",
-      "T:90 mn aprox",
-      "R200: Bomba peristatica bloqueada, la misma se resetea, se entrega a producción, equipo operativo.",
-      "T:30 mn aprox",
-      "BLÍSTER 9: Se posicióna estación de formado, se ubican tiempos mecánicos y electrónicos, se realizan pruebas, se entrega a producción.",
-      "T:11 HRS"
+      "*MT1100:* Se realizan  ajustes de sellado y abre fácil, se verifican distancias de apertura (mordazas horizontales) y rotulas, se corrigen filtraciones de sobres, equipo operativo, culminando lote a las 18:00, el mismo se encuentra en Desmontaje para limpieza.",
+      "*T: 240mn aprox*",
+      "*BLISTER 3:* Se ajustan parámetros de soplado y temperatura, se calibra túnel de calefacción y estacion de formado, equipo operativo (25.500 blíster NIFEDIPINO 12 horas).",
+      "*T:120mn aprox*",
+      "*BLISTER #7 Evo:* LLamado por alarma en estación de soldadura, se revisa conexiones en bornera y presenta cable de alimentación fundido y bornera de cerámica dañada, ambas fueron reemplazadas, equipo operativo.",
+      "*T:120 mn aprox*",
+      "*BOSCH:* LLamado por tornillo partido (sujesion de slitget) y pin de expulsión doblado, se extrae tornillo y se cambia pin, se entrega a turno entrante montar.",
+      "*NJP2:* se desarmo la bomba de vacio y se llevó al taller la tapa para reparar la junta de sellado de vacío por qué no destapaba las cápsulas, pendiente montar y armar bomba de vacío.",
+      "*R400:* llaman porque se encuentra sello de junta siempre con aire, se encuentra electrovalvula pegada y se ajusta brazo de boquillas.",
+      "*T:90 mn aprox*",
+      "*R200:* Bomba peristatica bloqueada, la misma se resetea, se entrega a producción, equipo operativo.",
+      "*T:30 mn aprox*",
+      "*BLÍSTER 9:* Se posicióna estación de formado, se ubican tiempos mecánicos y electrónicos, se realizan pruebas, se entrega a producción.",
+      "*T:11 HRS*"
     ],
-    "texto": "REPORTE DE TURNO SEDE 4 GRUPO 1\nNOVEDADES:\nMT1100: Se realizan  ajustes de sellado y abre fácil, se verifican distancias de apertura (mordazas horizontales) y rotulas, se corrigen filtraciones de sobres, equipo operativo, culminando lote a las 18:00, el mismo se encuentra en Desmontaje para limpieza.\nT: 240mn aprox\nBLISTER 3: Se ajustan parámetros de soplado y temperatura, se calibra túnel de calefacción y estacion de formado, equipo operativo (25.500 blíster NIFEDIPINO 12 horas).\nT:120mn aprox\nBLISTER #7 Evo: LLamado por alarma en estación de soldadura, se revisa conexiones en bornera y presenta cable de alimentación fundido y bornera de cerámica dañada, ambas fueron reemplazadas, equipo operativo.\nT:120 mn aprox\nBOSCH: LLamado por tornillo partido (sujesion de slitget) y pin de expulsión doblado, se extrae tornillo y se cambia pin, se entrega a turno entrante montar.\nNJP2: se desarmo la bomba de vacio y se llevó al taller la tapa para reparar la junta de sellado de vacío por qué no destapaba las cápsulas, pendiente montar y armar bomba de vacío.\nR400: llaman porque se encuentra sello de junta siempre con aire, se encuentra electrovalvula pegada y se ajusta brazo de boquillas.\nT:90 mn aprox\nR200: Bomba peristatica bloqueada, la misma se resetea, se entrega a producción, equipo operativo.\nT:30 mn aprox\nBLÍSTER 9: Se posicióna estación de formado, se ubican tiempos mecánicos y electrónicos, se realizan pruebas, se entrega a producción.\nT:11 HRS"
+    "texto": "*REPORTE DE TURNO SEDE 4 GRUPO 1*\n*NOVEDADES:*\n*MT1100:* Se realizan  ajustes de sellado y abre fácil, se verifican distancias de apertura (mordazas horizontales) y rotulas, se corrigen filtraciones de sobres, equipo operativo, culminando lote a las 18:00, el mismo se encuentra en Desmontaje para limpieza.\n*T: 240mn aprox*\n*BLISTER 3:* Se ajustan parámetros de soplado y temperatura, se calibra túnel de calefacción y estacion de formado, equipo operativo (25.500 blíster NIFEDIPINO 12 horas).\n*T:120mn aprox*\n*BLISTER #7 Evo:* LLamado por alarma en estación de soldadura, se revisa conexiones en bornera y presenta cable de alimentación fundido y bornera de cerámica dañada, ambas fueron reemplazadas, equipo operativo.\n*T:120 mn aprox*\n*BOSCH:* LLamado por tornillo partido (sujesion de slitget) y pin de expulsión doblado, se extrae tornillo y se cambia pin, se entrega a turno entrante montar.\n*NJP2:* se desarmo la bomba de vacio y se llevó al taller la tapa para reparar la junta de sellado de vacío por qué no destapaba las cápsulas, pendiente montar y armar bomba de vacío.\n*R400:* llaman porque se encuentra sello de junta siempre con aire, se encuentra electrovalvula pegada y se ajusta brazo de boquillas.\n*T:90 mn aprox*\n*R200:* Bomba peristatica bloqueada, la misma se resetea, se entrega a producción, equipo operativo.\n*T:30 mn aprox*\n*BLÍSTER 9:* Se posicióna estación de formado, se ubican tiempos mecánicos y electrónicos, se realizan pruebas, se entrega a producción.\n*T:11 HRS*"
   },
   {
     "id": "rt-20261012-2128",
@@ -22926,9 +22872,10 @@ window.REPORTES_TURNO = [
       }
     ],
     "novedades": [
-      "- Se realizó revisión y mantenimiento al Retorno de Sólidos 08A, equipo quedando en funcionamiento. - Se realizó limpieza de filtraciones de 35% al Retorno de Sólidos 08B, UMA Sólidos 08B, UMA Centro Líquidos y UMA Inspección de Centro Líquidos, equipos quedando en funcionamiento. - Recorrido a bombas de agua fría y a equipos en pisos técnicos. - Se recibe llamada de Centro Líquido, los rodamientos de la selladora estaban pegados. Se cambian. Pendiente cambio de correa. - Colimatic: Se realiza cambio de rodamientos de mordaza longitudinal ya que estaban obsoletos."
+      "*",
+      "- Se realizó revisión y mantenimiento al *Retorno de Sólidos 08A*, equipo quedando en funcionamiento. - Se realizó limpieza de filtraciones de 35% al *Retorno de Sólidos 08B*, *UMA Sólidos 08B*, *UMA Centro Líquidos* y *UMA Inspección de Centro Líquidos*, equipos quedando en funcionamiento. - Recorrido a *bombas de agua fría* y a equipos en pisos técnicos. - Se recibe llamada de *Centro Líquido*, los rodamientos de la selladora estaban pegados. Se cambian. Pendiente cambio de correa. - *Colimatic:* Se realiza cambio de rodamientos de mordaza longitudinal ya que estaban obsoletos."
     ],
-    "texto": "2026 10 12 - Turno Día\n\nEquipos operativos:\nBlíster 5: tiomed\nGb100: VILDAGLIPTINA 50mg\nEncapsulado: área limpia\nEnvasado: supreflux\nCentro líquido: ibuprofeno\nMarzio: esomeprazol\nTableteado: ibuprofeno + hioscina\n\nNovedades:\n\n- Se realizó revisión y mantenimiento al Retorno de Sólidos 08A, equipo quedando en funcionamiento.\n- Se realizó limpieza de filtraciones de 35% al Retorno de Sólidos 08B, UMA Sólidos 08B, UMA Centro Líquidos y UMA Inspección de Centro Líquidos, equipos quedando en funcionamiento.\n- Recorrido a bombas de agua fría y a equipos en pisos técnicos.\n- Se recibe llamada de Centro Líquido, los rodamientos de la selladora estaban pegados. Se cambian. Pendiente cambio de correa.\n- Colimatic: Se realiza cambio de rodamientos de mordaza longitudinal ya que estaban obsoletos."
+    "texto": "*2026 10 12 - Turno Día*\n\n*Equipos operativos:*\n*Blíster 5:* tiomed\n*Gb100:* VILDAGLIPTINA 50mg\n*Encapsulado:* área limpia\n*Envasado:* supreflux\n*Centro líquido:* ibuprofeno\n*Marzio:* esomeprazol\n*Tableteado:* ibuprofeno + hioscina\n\n*Novedades:*\n\n- Se realizó revisión y mantenimiento al *Retorno de Sólidos 08A*, equipo quedando en funcionamiento.\n- Se realizó limpieza de filtraciones de 35% al *Retorno de Sólidos 08B*, *UMA Sólidos 08B*, *UMA Centro Líquidos* y *UMA Inspección de Centro Líquidos*, equipos quedando en funcionamiento.\n- Recorrido a *bombas de agua fría* y a equipos en pisos técnicos.\n- Se recibe llamada de *Centro Líquido*, los rodamientos de la selladora estaban pegados. Se cambian. Pendiente cambio de correa.\n- *Colimatic:* Se realiza cambio de rodamientos de mordaza longitudinal ya que estaban obsoletos."
   },
   {
     "id": "rt-20261013-1943",
@@ -23021,10 +22968,9 @@ window.REPORTES_TURNO = [
       "- Se atiende llamado en tanques de fabricación #2 . El cual desde la pantalla hmi no encendía la bomba 2 del tanque 3000 hacia el tanque trasvase #2 se revisa PLC y variador de equipo el cual no presento novedad, se percata de que el PLC tiene un led de estado en error y se realizó reinicio. Se realizan encendidos de equipos y de entrega todo en coordinación con operario ok. Hubo la necesidad de setear usuario y clave para operarios en pantalla hmi del tanque trasvase #2.",
       "T: 1h 20 min",
       "- Se colabora con instalación de puerta fija en H600 ya que el seguro mecánico fue reparado.",
-      "T: 30 min",
-      "MS235 Se atiende llamado porque estaba regando el producto por la unión de la tolva, se encuentra rosca y tornillo M6 en mal estado, se rectifica rosca y se cambia tornillo queda ok."
+      "T: 30 min"
     ],
-    "texto": "Buenas noches \nReporte de turno Día \nSD 4 \n\nNJP2 vitamina A\n\nNJP 3 congestex max \n\nMS235 flextril \n\nBlíster 9 propanonol \n\nMB432 fenex \n\nBlíster 8 Naproflax \n\nMarzio5 congestex \n\nMB EVO limpieza \n\nHuttlin 600 termina lote limpieza \n\nMarzio4 esomed \n\nRimed funzal \n\nHuttlin 400 ibuprofeno \n\nFette 2020 #2 Acetaminofén \n\nFette 1010 valaciclovir \n\nEnvasadora2 supreflux \n\nCTL4 ácido valproico \n\nEnvasadora3 levron\n\nNota \nMarzio5 se ayuda a operador en cuadre de paso y se alarma codificadora se cambia por la de marzio4 por qué después de 4 solo habíamos 2 en turno y habían otros llamados queda pendiente revisar codificadora \n\nNJP 2 nos de pudo ayudar de mucho en cuadre de pesos al operador por otros llamados en planta más sin embargo se calibra disco de bronce y se alinea disco Se realiza ajuste de los bloques de alineación de cápsulas. Además, se desmonta el cilindro de expulsión de cápsulas debido a que se encontraba dañado; posteriormente, se realiza limpieza y lubricación de los componentes. También se ajusta el tiempo de un bloque que no coincidía con el clasificador y se corrige el trinche de expulsión de cápsulas no conformes. \n\nBlíster 8 se atiende llamado por fuerte ruido que venía de la estación de formado se baja estación y se desarma y se cambiax seguidor de leva se arma también se encuentra esparrago partido se extrae y se remplaza se entrega a turno entrante para montar 4H\n\nLucho buena tarde \nEl reporte de lo que se hizo hoy\n\n- Se atiende llamado en pantalla táctil del H400 que presentó problemas con panel táctil, el cual se accionaba en diferentes puntos, se revisa y se restablecen control activando panel del teclado de entrega operativa \nT: 20 min\n- Se atiende llamado en Envasadora #3 para instalación de encendido automático de bomba de tanque auxiliar agitador a tolva de dosificación de producto. se logra tendido del cable, queda pendiente instalación en gabinete de variador. \n- A su vez queda pendiente instalación de extensión de tanques auxiliares agitadores,se encuentra con una conexión errónea aguas abajo de otro variador de estuvo pendiente durante todo el turno. Se encontraron en operacion y por información de la operaria Diana Luz no se permitió actividad.\n- Se atiende llamado en tanques de fabricación #2 . El cual desde la pantalla hmi no encendía la bomba 2 del tanque 3000 hacia el tanque trasvase #2 se revisa PLC y variador de equipo el cual no presento novedad, se percata de que el PLC tiene un led de estado en error y se realizó reinicio. Se realizan encendidos de equipos y de entrega todo en coordinación con operario ok. Hubo la necesidad de setear usuario y clave para operarios en pantalla hmi del tanque trasvase #2.\nT: 1h 20 min\n- Se colabora con instalación de puerta fija en H600 ya que el seguro mecánico fue reparado.\nT: 30 min\nMS235 Se atiende llamado porque estaba regando el producto por la unión de la tolva, se encuentra rosca y tornillo M6 en mal estado, se rectifica rosca y se cambia tornillo queda ok."
+    "texto": "Buenas noches \nReporte de turno Día \nSD 4 \n\nNJP2 vitamina A\n\nNJP 3 congestex max \n\nMS235 flextril \n\nBlíster 9 propanonol \n\nMB432 fenex \n\nBlíster 8 Naproflax \n\nMarzio5 congestex \n\nMB EVO limpieza \n\nHuttlin 600 termina lote limpieza \n\nMarzio4 esomed \n\nRimed funzal \n\nHuttlin 400 ibuprofeno \n\nFette 2020 #2 Acetaminofén \n\nFette 1010 valaciclovir \n\nEnvasadora2 supreflux \n\nCTL4 ácido valproico \n\nEnvasadora3 levron\n\nNota \nMarzio5 se ayuda a operador en cuadre de paso y se alarma codificadora se cambia por la de marzio4 por qué después de 4 solo habíamos 2 en turno y habían otros llamados queda pendiente revisar codificadora \n\nNJP 2 nos de pudo ayudar de mucho en cuadre de pesos al operador por otros llamados en planta más sin embargo se calibra disco de bronce y se alinea disco Se realiza ajuste de los bloques de alineación de cápsulas. Además, se desmonta el cilindro de expulsión de cápsulas debido a que se encontraba dañado; posteriormente, se realiza limpieza y lubricación de los componentes. También se ajusta el tiempo de un bloque que no coincidía con el clasificador y se corrige el trinche de expulsión de cápsulas no conformes. \n\nBlíster 8 se atiende llamado por fuerte ruido que venía de la estación de formado se baja estación y se desarma y se cambiax seguidor de leva se arma también se encuentra esparrago partido se extrae y se remplaza se entrega a turno entrante para montar 4H\n\nLucho buena tarde \nEl reporte de lo que se hizo hoy\n\n- Se atiende llamado en pantalla táctil del H400 que presentó problemas con panel táctil, el cual se accionaba en diferentes puntos, se revisa y se restablecen control activando panel del teclado de entrega operativa \nT: 20 min\n- Se atiende llamado en Envasadora #3 para instalación de encendido automático de bomba de tanque auxiliar agitador a tolva de dosificación de producto. se logra tendido del cable, queda pendiente instalación en gabinete de variador. \n- A su vez queda pendiente instalación de extensión de tanques auxiliares agitadores,se encuentra con una conexión errónea aguas abajo de otro variador de estuvo pendiente durante todo el turno. Se encontraron en operacion y por información de la operaria Diana Luz no se permitió actividad.\n- Se atiende llamado en tanques de fabricación #2 . El cual desde la pantalla hmi no encendía la bomba 2 del tanque 3000 hacia el tanque trasvase #2 se revisa PLC y variador de equipo el cual no presento novedad, se percata de que el PLC tiene un led de estado en error y se realizó reinicio. Se realizan encendidos de equipos y de entrega todo en coordinación con operario ok. Hubo la necesidad de setear usuario y clave para operarios en pantalla hmi del tanque trasvase #2.\nT: 1h 20 min\n- Se colabora con instalación de puerta fija en H600 ya que el seguro mecánico fue reparado.\nT: 30 min"
   },
   {
     "id": "rt-20261013-2150",
@@ -23253,7 +23199,7 @@ window.REPORTES_TURNO = [
       "Otro llamado porque se partió pin de la válvula #4 se revisa se desmontaje se encuentra válvula total pegado( se realiza revisión de las otras tres válvulas se encuentra bien.( 120 minutos). Equipo queda detenido.",
       "Se fabricó una malla número 10 para el micronizador"
     ],
-    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/10/13\n\n* TURNO #\n*******\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: valaciclovir \n>Bosch: \n>NJP2: vitamina A\n>NJP1:\n>NJP3:congestex max \n>MB 432:funex \n>Blíster #8: naproxeno \n>Integra 320: prazed \n>Estuchadora#1: prazed \n>Blíster #9: propranolol \n>MB 451:nifedipino\n>Estuchadora#2: nifedipino \n>Schmucker:flextri C \n>Marzio#4: limpieza \n>Marzio#5: congestex \n>R400:dimoflax termino paso a limpieza \n>Sólidos:\n>R200:\n>CB 550: gelimed \n>Fette 1010: limpieza \n>fette 2020#1:fluxetina \n>Fette 2020#2:\n>Rimex: limpieza \n>Pilot lab: dimoflax \n>Huttlin 400: ibuprofeno \n>Huttlin 600: lavado \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: \n>CL #3:\n>CL #4: ácido \n>Blíster #2: limpieza \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: súper flux \n>Etiquetadora#2: súper flux \n>Envasadora#3: Lebron \n>Etiquetadora#3: Lebron \n>Marchesine MT1100:superflux \n>Blíster #3: nifedipino 12 horas \n\n>NOVEDADES:\n\nBlíster #8: se resivi equipo para montaje de estación de formación se realiza montaje y se cuadran tiempos mecánicos y electrónicos se hacen las se entrega a producción.( 120 minutos).\n\nDespués un llamado porque estaba quemando aveces se realiza ajuste se calibra túnel, se ajusta temperatura y paso.( 30 minutos).\n\nCL #4: ácido valproico llamado porque el chiller estaba apagado y humedad alta en el área se habilita chiller y se llama al área encargada para las condiciones ( 180 minutos) \n\nBlíster #3: nifedipino llamado porque el equipo estába presentando mal formación de aveolos y plieque en el PVC se realiza varios ajustes sin tener resultados. \n\nSe deja trabajando tunel  por medio de radiación se ajustaron temperatura y velocidad de 35 el equipo para poder terminar el producto ( 180 minutos).\n\nBlíster #9: propranolol se ayuda a montaje de tolva manual ( 30 minutos).\n\nNJP#2: vitamina A equipo está presentando variación de peso se realiza varios ajustes, cambio de disco calibración de disco de bronce sin obtener resultado. Equipo queda detenido( 11 horas ).\n\nMT 1100: superflux llamado porque la cuba se dañó un racor se realiza cambio ok. \n\nOtro llamado porque una válvula #1 estaba presentando aire en la manguera( válvula reparada) se desmonta se se revisa se ajusta mangueras se hacen pruebas ok. \n\nOtro llamado porque se partió pin de la válvula #4 se revisa se desmontaje se encuentra válvula total pegado( se realiza revisión de las otras tres válvulas se encuentra bien.( 120 minutos). Equipo queda detenido.\n\nSe fabricó una malla número 10 para el micronizador"
+    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/10/13\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: valaciclovir \n>Bosch: \n>NJP2: vitamina A\n>NJP1:\n>NJP3:congestex max \n>MB 432:funex \n>Blíster #8: naproxeno \n>Integra 320: prazed \n>Estuchadora#1: prazed \n>Blíster #9: propranolol \n>MB 451:nifedipino\n>Estuchadora#2: nifedipino \n>Schmucker:flextri C \n>Marzio#4: limpieza \n>Marzio#5: congestex \n>R400:dimoflax termino paso a limpieza \n>Sólidos:\n>R200:\n>CB 550: gelimed \n>Fette 1010: limpieza \n>fette 2020#1:fluxetina \n>Fette 2020#2:\n>Rimex: limpieza \n>Pilot lab: dimoflax \n>Huttlin 400: ibuprofeno \n>Huttlin 600: lavado \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: \n>CL #3:\n>CL #4: ácido \n>Blíster #2: limpieza \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: súper flux \n>Etiquetadora#2: súper flux \n>Envasadora#3: Lebron \n>Etiquetadora#3: Lebron \n>Marchesine MT1100:superflux \n>Blíster #3: nifedipino 12 horas \n\n>NOVEDADES:\n\nBlíster #8: se resivi equipo para montaje de estación de formación se realiza montaje y se cuadran tiempos mecánicos y electrónicos se hacen las se entrega a producción.( 120 minutos).\n\nDespués un llamado porque estaba quemando aveces se realiza ajuste se calibra túnel, se ajusta temperatura y paso.( 30 minutos).\n\nCL #4: ácido valproico llamado porque el chiller estaba apagado y humedad alta en el área se habilita chiller y se llama al área encargada para las condiciones ( 180 minutos) \n\nBlíster #3: nifedipino llamado porque el equipo estába presentando mal formación de aveolos y plieque en el PVC se realiza varios ajustes sin tener resultados. \n\nSe deja trabajando tunel  por medio de radiación se ajustaron temperatura y velocidad de 35 el equipo para poder terminar el producto ( 180 minutos).\n\nBlíster #9: propranolol se ayuda a montaje de tolva manual ( 30 minutos).\n\nNJP#2: vitamina A equipo está presentando variación de peso se realiza varios ajustes, cambio de disco calibración de disco de bronce sin obtener resultado. Equipo queda detenido( 11 horas ).\n\nMT 1100: superflux llamado porque la cuba se dañó un racor se realiza cambio ok. \n\nOtro llamado porque una válvula #1 estaba presentando aire en la manguera( válvula reparada) se desmonta se se revisa se ajusta mangueras se hacen pruebas ok. \n\nOtro llamado porque se partió pin de la válvula #4 se revisa se desmontaje se encuentra válvula total pegado( se realiza revisión de las otras tres válvulas se encuentra bien.( 120 minutos). Equipo queda detenido.\n\nSe fabricó una malla número 10 para el micronizador"
   },
   {
     "id": "rt-20261014-2044",
@@ -23426,7 +23372,7 @@ window.REPORTES_TURNO = [
       "TANQUE AGITADOR Se encuentra rastros de aceite en la bornera del motor, se desmonta motorreductor para revisar y se encuentra motor lleno de aceite por retenedor en mal estado, se procede a hacer limpieza y queda pendiente por falta del retenedor 35-52-7. (Se buscó en taller y no habia)",
       "Se arreglan puertas y bisagras de esclusa de huttlin 600."
     ],
-    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: vitamina A\nNJP #1: stamby\nNJP #3: limpieza \nPILOT LAB: Trimebutina+simeticona\nSCMUKER: flextril c\nBLISTER #9: propranolol\nMB 432: limpieza \nINTEGRA: stamby\nBLISTER #8: naproflash capsula\nMARCHESINI EVO: nifedipino\nR200: stamby\nR400: stamby\nMARZIO #5: congestex\nMARZIO #4: esomed\nCB 550: gelimed\nHUTTLIN 600: nifedipino\nHUTTLIN 400: ibuprofeno \nRIMEK: valaciclovir\nFETTE 2020-2: acetaminofén \nFETTE 1010: stamby\nFETTE 2020-1: Fluoxetina \n\nLÍQUIDO \nENVASADORA #2: stamby\nENVASADORA #3: azeflu spray\nCLIQUIDO #2: naproxeno \nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: stamby\n_______________                          NOVEDADES\nMARZIO #4\nse traslada equipo codificador que presentaba alarmas, se limpia rodillos, se verifica internamente posición de los rodillos tensores, se limpia cabezal de impresión, se instala y se realizan pruebas quedando equipo operativo.  1.5H\n\nBLÍSTER #9\nse atiende llamado porque la banda del troquel no se movía, se revisa sistema y se evidencia acople que transmite el movimiento fuera del eje de la banda, se realiza ajuste y se prueba quedando sistema operativo.  1H\n\nMT1100 \nse habilita máquina con tres válvulas queda trabajando 4H \n\nNJP #2 \nse ayuda en cuadre de pesos queda trabajando \n\nCB 550 \nse ayuda a operadora en cuadre de pesos \n\nMARZIO #4 \nse suelta rotula del embudo se restablece queda ok \n\nRIMEK \nse atiende llamado por qué la leva de compresión estaba pegada se lubrica y se gira hasta lograr aflojar 1h\n\nFABRICACIÓN LÍQUIDOS 2\nSe cambia sello mecánico a bomba, se monta y queda trabajando.\n\nAGITADORES SOLIDO\nSe realiza cambio de llantas a dos tanques agitadores y se solda base de una llanta partida.\n\nTANQUE AGITADOR\nSe encuentra rastros de aceite en la bornera del motor, se desmonta motorreductor para revisar y se encuentra motor lleno de aceite por retenedor en mal estado, se procede a hacer limpieza y queda pendiente por falta del retenedor 35-52-7. (Se buscó en taller y no habia)\n\nSe arreglan puertas y bisagras de esclusa de huttlin 600."
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: acetaminofén \nBOSHC: stamby \nNJP #2: vitamina A\nNJP #1: stamby\nNJP #3: limpieza \nPILOT LAB: Trimebutina+simeticona\nSCMUKER: flextril c\nBLISTER #9: propranolol\nMB 432: limpieza \nINTEGRA: stamby\nBLISTER #8: naproflash capsula\nMARCHESINI EVO: nifedipino\nR200: stamby\nR400: stamby\nMARZIO #5: congestex\nMARZIO #4: esomed\nCB 550: gelimed\nHUTTLIN 600: nifedipino\nHUTTLIN 400: ibuprofeno \nRIMEK: valaciclovir\nFETTE 2020-2: acetaminofén \nFETTE 1010: stamby\nFETTE 2020-1: Fluoxetina \n\nLÍQUIDO \nENVASADORA #2: stamby\nENVASADORA #3: azeflu spray\nCLIQUIDO #2: naproxeno \nCLIQUIDO #3: stamby\nCLIQUIDO #4: ácido valproico\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: stamby\n_____________________________________________                          NOVEDADES\nMARZIO #4\nse traslada equipo codificador que presentaba alarmas, se limpia rodillos, se verifica internamente posición de los rodillos tensores, se limpia cabezal de impresión, se instala y se realizan pruebas quedando equipo operativo.  1.5H\n\nBLÍSTER #9\nse atiende llamado porque la banda del troquel no se movía, se revisa sistema y se evidencia acople que transmite el movimiento fuera del eje de la banda, se realiza ajuste y se prueba quedando sistema operativo.  1H\n\nMT1100 \nse habilita máquina con tres válvulas queda trabajando 4H \n\nNJP #2 \nse ayuda en cuadre de pesos queda trabajando \n\nCB 550 \nse ayuda a operadora en cuadre de pesos \n\nMARZIO #4 \nse suelta rotula del embudo se restablece queda ok \n\nRIMEK \nse atiende llamado por qué la leva de compresión estaba pegada se lubrica y se gira hasta lograr aflojar 1h\n\nFABRICACIÓN LÍQUIDOS 2\nSe cambia sello mecánico a bomba, se monta y queda trabajando.\n\nAGITADORES SOLIDO\nSe realiza cambio de llantas a dos tanques agitadores y se solda base de una llanta partida.\n\nTANQUE AGITADOR\nSe encuentra rastros de aceite en la bornera del motor, se desmonta motorreductor para revisar y se encuentra motor lleno de aceite por retenedor en mal estado, se procede a hacer limpieza y queda pendiente por falta del retenedor 35-52-7. (Se buscó en taller y no habia)\n\nSe arreglan puertas y bisagras de esclusa de huttlin 600."
   },
   {
     "id": "rt-20261015-0806",
@@ -23474,7 +23420,7 @@ window.REPORTES_TURNO = [
       "SE ATIENDE LLAMDO",
       "EN COLIMATIC PERDIDA DE PASO EN MORZADA TRANSVERSAL QUEDA OPATETIVA"
     ],
-    "texto": "Reporte de turno \n\n2026 10 15 \n\n Blíster 5 : Limpieza\n\n Gb 100: VILDAGLIPTINA 50MG \n\n ENVASADO : SUPREFLUX \n\n ENCAPSULADO: IBUPROFENO +HIOSCINA u\n\nSE APOYA OPERARIO EN DESMONTE DE ALIMENTADOR DE B5\n\nMARZIO SE RETIRA CUERPO DE TORNILLO  QUE ESTABA PARTIDO \nEN LA BASE DE  LAS MORDAZAS\n\nSE ATIENDE LLAMDO \nEN COLIMATIC\nPERDIDA DE PASO EN MORZADA TRANSVERSAL \nQUEDA OPATETIVA"
+    "texto": "Reporte de turno \n\n2026 10 15 \n\n *Blíster 5* : Limpieza\n\n *Gb 100*: VILDAGLIPTINA 50MG \n\n *ENVASADO* : SUPREFLUX \n\n *ENCAPSULADO*: IBUPROFENO +HIOSCINA u\n\nSE APOYA OPERARIO EN DESMONTE DE ALIMENTADOR DE B5\n\nMARZIO SE RETIRA CUERPO DE TORNILLO  QUE ESTABA PARTIDO \nEN LA BASE DE  LAS MORDAZAS\n\nSE ATIENDE LLAMDO \nEN COLIMATIC\nPERDIDA DE PASO EN MORZADA TRANSVERSAL \nQUEDA OPATETIVA"
   },
   {
     "id": "rt-20261015-0810",
@@ -23624,7 +23570,7 @@ window.REPORTES_TURNO = [
       "Blíster 3: llamado por mal formación se calibra el túnel y se ajusta temperatura quedando operativa, se fabrica sufriera de lote para Congestex forte. (90 minutos)",
       "Cb550: Llamado porque el tornillo que sujeta la mordazas verticales se parte, se realiza el cambio y se ajusta la distancia, después llama porque las mordazas se cerraron, se ajusta el tornillo yqueda operativa. (90 minutos)"
     ],
-    "texto": "REPORTE DE TURNO\n         GRUPO 1\n      2026-10-14\n           sede 4\n \nCL4: Ácido valprohico \nCL3: Disponible\nCL2: Disponible \nStick Pack 4: Superflux\nBlíster 2: bacterol\nBlíster 3: Lanzor\nEnvasadora 3: Azeflu \nEnvasadora 2: Disponible \nBin: Disponible \nBosch: Disponibles \nNJP1: Disponible \nNJP2: Vitamina A\nNJP3: Limpieza \nMB 432: Cronofen \nIntegra 320: Limpieza \nMB 451: Nifedipino \nBlíster 9: Propanolol \nBlíster 8: Naproflash\nSchmucker: Flextril C\nCB 550: Gelimed\nMarzio 5: Congestex\nMarzio 4: Esomed\nR400: Disponible \nR200: Limpieza \nHuttlin 600: Nifedipino \nHuttlin 400: ibuprofeno \nHuttlin 40: Trimebutina + Simeticona \nBombo 300: Disponible \nBombo 300: Disponible \nRimek:  Valaciclovir \nFette 1010: Disponible \nFette 2020 2: Acetaminofén \nFette 2020 1: Fluoxetina \n\n              Novedades\nFette 2020 #1:  llamado porque no estaban bajando las tabletas se estaban quedando en el bajante se revisa se hacen ajustes se desmonta cargador para limpieza de hacen pruebas se entregan a producción ( 60 minutos).\n\nMT 1100: superflux se realiza limpieza y lubricación de las cuchillas y se ajusta abre fácil ( 40 minutos). \n\n MB 432:cronofem llamado por problemas con el alimentador de tabletas que no se estaba moviendo y un sensor estaba molestando se realizan ajustes se hacen pruebas se entrega a producción. Se recomienda realizar mantenimiento al motor de los rodillos de alimentación.\n\nEnvasado #3: se realize conexión de la cuba con el variador se hacen pruebas se entrega a producción. Quedó trabajando de forma automática\nSe corrige arruga en la etiquetadora quedando operativa.\n\nNJP2: llamado en el cierre de cápsulas porque estaban saliendo largas, se cambian los rodamientos lineales en la estación de cierre, se limpia y se lubrica también se alinea estaciones de porta cuerpos y porta tapa, quedó operativa adicional se repara luz LED de la mesa de inspección. (120 minutos)\n\nBlíster 3: llamado por mal formación se calibra el túnel y se ajusta temperatura quedando operativa, se fabrica sufriera de lote para Congestex forte. (90 minutos) \n\nCb550: Llamado porque el tornillo que sujeta la mordazas verticales se parte, se realiza el cambio y se ajusta la distancia, después llama porque las mordazas se cerraron, se ajusta el tornillo yqueda operativa. (90 minutos)"
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-10-14\n           sede 4\n \n*CL4:* Ácido valprohico \n*CL3:* Disponible\n*CL2:* Disponible \n*Stick Pack 4:* Superflux\n*Blíster 2:* bacterol\n*Blíster 3:* Lanzor\n*Envasadora 3:* Azeflu \n*Envasadora 2:* Disponible \n*Bin:* Disponible \n*Bosch:* Disponibles \n*NJP1:* Disponible \n*NJP2:* Vitamina A\n*NJP3:* Limpieza \n*MB 432:* Cronofen \n*Integra 320:* Limpieza \n*MB 451:* Nifedipino \n*Blíster 9:* Propanolol \n*Blíster 8:* Naproflash\n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Congestex\n*Marzio 4:* Esomed\n*R400:* Disponible \n*R200:* Limpieza \n*Huttlin 600:* Nifedipino \n*Huttlin 400:* ibuprofeno \n*Huttlin 40:* Trimebutina + Simeticona \n*Bombo 300:* Disponible \n*Bombo 300:* Disponible \n*Rimek:*  Valaciclovir \n*Fette 1010:* Disponible \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Fluoxetina \n\n              *Novedades*\nFette 2020 #1:  llamado porque no estaban bajando las tabletas se estaban quedando en el bajante se revisa se hacen ajustes se desmonta cargador para limpieza de hacen pruebas se entregan a producción ( 60 minutos).\n\nMT 1100: superflux se realiza limpieza y lubricación de las cuchillas y se ajusta abre fácil ( 40 minutos). \n\n MB 432:cronofem llamado por problemas con el alimentador de tabletas que no se estaba moviendo y un sensor estaba molestando se realizan ajustes se hacen pruebas se entrega a producción. Se recomienda realizar mantenimiento al motor de los rodillos de alimentación.\n\nEnvasado #3: se realize conexión de la cuba con el variador se hacen pruebas se entrega a producción. Quedó trabajando de forma automática\nSe corrige arruga en la etiquetadora quedando operativa.\n\nNJP2: llamado en el cierre de cápsulas porque estaban saliendo largas, se cambian los rodamientos lineales en la estación de cierre, se limpia y se lubrica también se alinea estaciones de porta cuerpos y porta tapa, quedó operativa adicional se repara luz LED de la mesa de inspección. (120 minutos)\n\nBlíster 3: llamado por mal formación se calibra el túnel y se ajusta temperatura quedando operativa, se fabrica sufriera de lote para Congestex forte. (90 minutos) \n\nCb550: Llamado porque el tornillo que sujeta la mordazas verticales se parte, se realiza el cambio y se ajusta la distancia, después llama porque las mordazas se cerraron, se ajusta el tornillo yqueda operativa. (90 minutos)"
   },
   {
     "id": "rt-20261015-2145",
@@ -23770,7 +23716,7 @@ window.REPORTES_TURNO = [
       "Fette2020-1 se realiza desmonte de válvula mariposa de alimentación del producto por mala posición, se desmonta, se calibra y se deja a disposición para lo traje nuevamente 1.2 hrs",
       "Bosh se atiende llamado por sensor golpeado , que no ingresaba en conector , se acomoda y se ingresa al conector"
     ],
-    "texto": "REPORTE DE TURNO DE DIA \n           sede 4\n \nCL4: Ácido valprohico \nCL3: Disponible\nCL2: Dolorsim fem\nTM1100 disponible \nBlíster 2: disponible \nBlíster 3: congexte max \nEnvasadora 3: Azeflu \nEnvasadora 2: Disponible \nBin: Disponible \nBosch: Disponibles \nNJP1: Disponible \nNJP2: Vitamina A\nNJP3: esomeplazol \nMB 432: cronofem \nIntegra 320: disponible \nEVO : Nifedipino \nBlíster 9: Propanolol \nBlíster 8: Naproflash\nSchmucker: Flextril C\nCB 550: Gelimed\nMarzio 5: Congestex\nMarzio 4: Esomed\nR400: Disponible \nR200: Limpieza \nHuttlin 600: Nifedipino \nHuttlin 400: ibuprofeno \nHuttlin 40: Trimebutina + Simeticona \nRimek:  Valaciclovir \nFette 1010: Disponible\nFette 2020 2: Acetaminofén \nFette 2020 1: Fluoxetina \n\n              Novedades\nBlíster 9 se atiende llamado porque se atasco el formato se logra sacar sin perder los tiempos equipo ok T 20min\n\nBlíster 3 se ajusta sensor palpador tactil y se cambia reflectivo se ajusta el sensor del péndulo por no encontrarse en posición , también se atiende por qué los rodillos del alimentador se atacaban  se desarma y se alinea tensor que estaba por fuera de la cadena queda ok , se apoya al cuadre del grafilado por problemas de filtración queda ok también se cuadra lote , ya que salia borroso , arranca el equipo , después vuelve a llamar por problemas de corte , se cambia de troquel y se deja operativa, se hace una prueba queda ok falta darle marcha continua \n2.30h\n\nSe habilita un desempolvador para la fette 1010 hay que sacar los otros para revisión en taller no funcionan \n\nFette 2020-1 se atiende llamado operador comenta que el oga no tiene fuerza se evidencia que la válvula está caída se revisa y está sin tornillos pasantes que hacen el agarre de la misma se lleva a taller y se repara 60min \n\nSe habilita puerta controlsa de pesaje 2   T 1.5hrs \n\nNjp3 se atiende llamado porque el desempolvador no subía las cápsulas se encontró mal armado se corrige equipo ok 40min\nNjp2 se realizó desmonte de platinas de grafito por atascamiento del motor, se limpia superficie, se arma y se realiza cambio de empaque de filtro ya que había perdido succión  4hrs\n\nFette2020-1 se realiza desmonte de válvula mariposa de alimentación del producto por mala posición, se desmonta, se calibra y se deja a disposición para lo traje nuevamente 1.2 hrs\n\nBosh  \nse atiende llamado por sensor golpeado , que no ingresaba en conector , se acomoda y se ingresa al conector"
+    "texto": "*REPORTE DE TURNO DE DIA* \n           *sede 4*\n \n*CL4:* Ácido valprohico \n*CL3:* Disponible\n*CL2:* Dolorsim fem\n*TM1100* disponible \n*Blíster 2:* disponible \n*Blíster 3:* congexte max \n*Envasadora 3:* Azeflu \n*Envasadora 2:* Disponible \n*Bin:* Disponible \n*Bosch:* Disponibles \n*NJP1:* Disponible \n*NJP2:* Vitamina A\n*NJP3:* esomeplazol \n*MB 432:* cronofem \n*Integra 320:* disponible \n*EVO :* Nifedipino \n*Blíster 9:* Propanolol \n*Blíster 8:* Naproflash\n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Congestex\n*Marzio 4:* Esomed\n*R400:* Disponible \n*R200:* Limpieza \n*Huttlin 600:* Nifedipino \n*Huttlin 400:* ibuprofeno \n*Huttlin 40:* Trimebutina + Simeticona \n*Rimek:*  Valaciclovir \n*Fette 1010:* Disponible\n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Fluoxetina \n\n              *Novedades*\nBlíster 9 se atiende llamado porque se atasco el formato se logra sacar sin perder los tiempos equipo ok T 20min\n\nBlíster 3 se ajusta sensor palpador tactil y se cambia reflectivo se ajusta el sensor del péndulo por no encontrarse en posición , también se atiende por qué los rodillos del alimentador se atacaban  se desarma y se alinea tensor que estaba por fuera de la cadena queda ok , se apoya al cuadre del grafilado por problemas de filtración queda ok también se cuadra lote , ya que salia borroso , arranca el equipo , después vuelve a llamar por problemas de corte , se cambia de troquel y se deja operativa, se hace una prueba queda ok falta darle marcha continua \n2.30h\n\nSe habilita un desempolvador para la fette 1010 hay que sacar los otros para revisión en taller no funcionan \n\nFette 2020-1 se atiende llamado operador comenta que el oga no tiene fuerza se evidencia que la válvula está caída se revisa y está sin tornillos pasantes que hacen el agarre de la misma se lleva a taller y se repara 60min \n\nSe habilita puerta controlsa de pesaje 2   T 1.5hrs \n\nNjp3 se atiende llamado porque el desempolvador no subía las cápsulas se encontró mal armado se corrige equipo ok 40min\nNjp2 se realizó desmonte de platinas de grafito por atascamiento del motor, se limpia superficie, se arma y se realiza cambio de empaque de filtro ya que había perdido succión  4hrs\n\nFette2020-1 se realiza desmonte de válvula mariposa de alimentación del producto por mala posición, se desmonta, se calibra y se deja a disposición para lo traje nuevamente 1.2 hrs\n\nBosh  \nse atiende llamado por sensor golpeado , que no ingresaba en conector , se acomoda y se ingresa al conector"
   },
   {
     "id": "rt-20261015-2149",
@@ -24935,5 +24881,2181 @@ window.REPORTES_TURNO = [
       "Se traslado bomba de trasvase para realizar la limpieza de los tanques nuevos"
     ],
     "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/10/18\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: \n>Bosch: \n>NJP2: montaje de fumarato >\n>NJP1: limpieza \n>NJP3:esomeprazol >\n>MB 432: acetaminofén >\n>Blíster #8:valclomed >\n>Integra 320: Losartan \n>Estuchadora#1: Losartan >\n>Blíster #9: propranolol \n>MB 451: omeprazol \n>Estuchadora#2: omeprazol \n>Schmucker:flextril c \n>Marzio#4:esomed \n>Marzio#5: congestex \n>R400: limpieza \n>Sólidos: dimoflax >\n>R200:\n>CB 550: gelimed \n>Fette 1010:\n>fette 2020#1: dimoflax \n>Fette 2020#2:\n>Rimex: ibuprofeno+ iosina \n>Pilot lab:dimoflax \n>Huttlin 400: limpieza \n>Huttlin 600: flextril \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: dolorsin fem \n>CL #3:\n>CL #4: ácido \n>Blíster #2:aerovial \n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: \n>Etiquetadora#2:\n>Envasadora#3:pepred >\n>Etiquetadora#3: pepred>\n>Marchesine MT1100: limpieza y montaje >\n>Blíster #3: congestex max >\n\nNOVEDADES:\n\nBlíster#3: se apoya durante el turno por detalles en formación paso y sonido extraño en la estación de formación,se realizan ajustes se realiza lubricacion trabajando y se bajo presión de aire en la estación de formado ( seguir bajo observación.\n\nMT 1100: se realiza instalación de sensor de tolva de purga, se fabrica pin partió de la base de  válvula, se realiza montaje de válvula reparada, se realiza cambio de mangueras en mal estado ( pendiente realizar pruebas de la válvula reparada si da la dosis).\n\nEnvasado #3: llamado porque la cuba no estába cargado se realiza ajuste ok, Después hacen un segundo llamado porque se revientan los cauchos en la estacion de tapado de frascos se realiza el cambio y luego llaman nuevamente porque esa misma estación se había caído el cabezal y no debajo subir con el tornillo sin fin, se entrega turno entrante para que revise la causa del porque no sube.\n\nEtiquetadora #3: la chequeadora de peso estaba presentando problemas con el rechazo se ajusta presión de expulsión se hacen pruebas ok.\n\nSólidos: de fabrican dos mallas #16.\n\nEstuchadora #1: llamado por ruido de  rose en el robot, se revisa se encuentra tapa mal montada se corrige queda ok.\n\nLlamado final del turno hay que cerrar la cadena del transportador de estuches, se entrega a turno entrante( nota piñón esta en estado y la tiene rosca partida la base).\n\nMB 432: estaba presentando falla con la tele camara #3 bulino se ajusta presión de rodillos y se ajustan parámetros se hacen pruebas queda ok.\n\nNJP3: llamado por alarma de nivel de aceite se revisa se encuentra bajo nivel se repone se entrega a producción.\n\nNJP2: llamado a final del porque estaba presentando problemas con el destape se revisa vacío alineación se ajusta y se alinea magazine se hacen pruebas. ( Queda pendiente verificar dos estaciones que eran presentando todavía problemas).\n\nBlíster 8: Se atiende llamado porque el PVC queda pegado en la estación de formado causando la perdida del paso de la maquina, se realizó purga del sistema de refrigeración, se calibra túnel de calefacción este mismo se aleja de la estación de formado, se ajusta temperatura y por último se trata de aislar el formato de formado con respecto al túnel de calefacción ya que este no viene con refrigeración de agua fría y la transferencia de calor del túnel superaba la tranferencia de refrigeración del formato, quedando operativa. \n\nSe traslado bomba de trasvase para realizar la limpieza de los tanques nuevos"
+  },
+  {
+    "id": "rt-20261019-2307",
+    "fecha": "2026-10-19",
+    "hora": "23:07",
+    "autor": "+57 304 5642880",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-3 · Día",
+    "fechaTurno": "2026-10-19",
+    "equipos": [
+      {
+        "equipo": "BIN",
+        "producto": "micronizado"
+      },
+      {
+        "equipo": "BOSHC",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "NJP #2",
+        "producto": "multivitaminico"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "SCMUKER",
+        "producto": "flextril c"
+      },
+      {
+        "equipo": "BLISTER #9",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "INTEGRA",
+        "producto": "ferrimed"
+      },
+      {
+        "equipo": "BLISTER #8",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "MARCHESINI EVO",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "R200",
+        "producto": "ibuprofeno"
+      },
+      {
+        "equipo": "R400",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "MARZIO #5",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "MARZIO #4",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "gelimed"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "FETTE 2020-2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "FETTE 2020-1",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "cronofen jarabe"
+      },
+      {
+        "equipo": "ENVASADORA #3",
+        "producto": "pepred"
+      },
+      {
+        "equipo": "CLIQUIDO #2",
+        "producto": "dolorsin fen"
+      },
+      {
+        "equipo": "CLIQUIDO #3",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "CLIQUIDO #4",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "supreflux"
+      },
+      {
+        "equipo": "BLISTER #2",
+        "producto": "stamby"
+      },
+      {
+        "equipo": "BLISTER #3",
+        "producto": "stamby"
+      }
+    ],
+    "novedades": [
+      "ESTUCHADORA INTEGRA Se desmonta la base del piñon que habré y cierra la banda transportadora de los estuches por qué estaba partida se suelda se rellena la rosca y se hace nuevamente queda para montar.",
+      "INTEGRA se recibe llamado por alarma de presión de soldadura, se verifica presión de aire en el manómetro con respecto al set poin y se coloca en el mismo rango, se da marcha y queda ok. Se atiende llamado por mal posicionamiento de ventosas en salida del troquel y dejaban caer los BLISTER, se realiza ajuste de tiempo de ventosas y se da marcha quedando máquina ok.",
+      "MT 1100 Se atiende llamado por temas operativos, no estaba sellando los stick porque la pestañas estaban corridas, se le ayuda ajustar guías del cuello y se rueda un poco el rollo, se deja ok. Se atiende llamado por válvula atascada, se baja válvula y se encuentran pines doblados, dientes de piñón partidos y eje atascado, queda pendiente fabricar los pines y retirar eje de la válvula.",
+      "BLÍSTER #8 Se extrae pin y se rectifica rosca se coloca pin nuevo."
+    ],
+    "texto": "REPORTE MAQUINAS TURNO #1\n08:00 - 20:00\n\nSOLIDOS\nBIN: micronizado\nBOSHC: stamby \nNJP #2: multivitaminico\nNJP #1: congestex\nNJP #3: esomeprazol\nPILOT LAB: dimoflax\nSCMUKER: flextril c\nBLISTER #9: esomeprazol \nMB 432: cronofen\nINTEGRA: ferrimed\nBLISTER #8: dimoflax\nMARCHESINI EVO: omeprazol \nR200: ibuprofeno \nR400: dimoflax\nMARZIO #5: congestex\nMARZIO #4: esomed\nCB 550: gelimed\nHUTTLIN 600: flextril \nHUTTLIN 400: esomeprazol \nRIMEK: stamby\nFETTE 2020-2: acetaminofén \nFETTE 1010: limpieza \nFETTE 2020-1: dimoflax\n\nLÍQUIDO \nENVASADORA #2: cronofen jarabe \nENVASADORA #3: pepred\nCLIQUIDO #2: dolorsin fen\nCLIQUIDO #3: stamby\nCLIQUIDO #4: stamby\nMT 1100: supreflux\nBLISTER #2: stamby\nBLISTER #3: stamby\n_____________________________________________                          NOVEDADES\nESTUCHADORA INTEGRA\nSe desmonta la base del piñon que habré y cierra la banda transportadora de los estuches por qué estaba partida se suelda se rellena la rosca y se hace nuevamente queda para montar.\n\nINTEGRA\nse recibe llamado por alarma de presión de soldadura, se verifica presión de aire en el manómetro con respecto al set poin y se coloca en el mismo rango, se da marcha y queda ok.\nSe atiende llamado por mal posicionamiento de ventosas en salida del troquel y dejaban caer los BLISTER, se realiza ajuste de tiempo de ventosas y se da marcha quedando máquina ok.\n\nMT 1100\nSe atiende llamado por temas operativos, no estaba sellando los stick porque la pestañas estaban corridas, se le ayuda ajustar guías del cuello y se rueda un poco el rollo, se deja ok.\nSe atiende llamado por válvula atascada, se baja válvula y se encuentran pines doblados, dientes de piñón partidos y eje atascado, queda pendiente fabricar los pines y retirar eje de la válvula.\n\nBLÍSTER #8 \nSe extrae pin y se rectifica rosca se coloca pin nuevo."
+  },
+  {
+    "id": "rt-20261020-0918",
+    "fecha": "2026-10-20",
+    "hora": "09:18",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-19",
+    "equipos": [
+      {
+        "equipo": "ENTREGA",
+        "producto": "DE TURNO - PLANTA2"
+      },
+      {
+        "equipo": "Fecha",
+        "producto": "2026/10/20"
+      },
+      {
+        "equipo": "1. PRODUCCIÓN",
+        "producto": ""
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "Dolorsin Fem"
+      },
+      {
+        "equipo": "GB100",
+        "producto": "esomeprazol 20mg"
+      },
+      {
+        "equipo": "Sólidos",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Horno",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Envasado",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "Encapsulado",
+        "producto": "En limpieza"
+      },
+      {
+        "equipo": "Centro Líquido",
+        "producto": "Dispax"
+      },
+      {
+        "equipo": "Tableteado",
+        "producto": "Limpieza"
+      }
+    ],
+    "novedades": [
+      "Se retiran rodamientos en mal estado  Del Motor de la extracción  de recubrimiento # 10 (Se montan nuevos)",
+      "La supervisora  de empaque hace llamado Debido al que el montacargas Se le reventó la manguera del aceite y la entrada de empaque  estaba llena de aceite Mmtto  k-kaps encargados del asunto"
+    ],
+    "texto": "*ENTREGA DE TURNO - PLANTA*2\n\n*Fecha:* 2026/10/20\n*Turno:* noche\n\n*1. PRODUCCIÓN *\n\n- *Blíster 5:* Dolorsin Fem\n- *GB100:* esomeprazol 20mg\n- *Sólidos:* Carbamazepina\n- *Horno:* Carbamazepina\n- *Envasado:* Supreflux\n- *Encapsulado:* En limpieza\n- *Centro Líquido:* Dispax\n- *Tableteado:* Limpieza \n\n *Novedades*\n\nSe retiran rodamientos en mal estado  Del \nMotor de la extracción  de recubrimiento # 10\n(Se montan nuevos)\n\nLa supervisora  de empaque hace llamado \nDebido al que el montacargas\nSe le reventó la manguera del aceite y la entrada de empaque  estaba llena de aceite \nMmtto  k-kaps encargados del asunto"
+  },
+  {
+    "id": "rt-20261020-0922",
+    "fecha": "2026-10-20",
+    "hora": "09:22",
+    "autor": "Jhon",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-19",
+    "equipos": [
+      {
+        "equipo": "Blíster #2",
+        "producto": "irtal de 5 MG"
+      },
+      {
+        "equipo": "Blíster #3",
+        "producto": "aerovial"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "superflux"
+      },
+      {
+        "equipo": "Envasado #2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "Envasado#3",
+        "producto": "preprep"
+      },
+      {
+        "equipo": "Cl#2",
+        "producto": "dolor sin"
+      },
+      {
+        "equipo": "Cl4",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "NJP#2",
+        "producto": "multi vitamínico"
+      },
+      {
+        "equipo": "Huttil 40",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "Huttil 400",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "Huttil 600",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "Fette 2020 #1",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "Fette",
+        "producto": "1010:montaje"
+      },
+      {
+        "equipo": "Fette 2020 #2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "Marzio#4",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "Marzio#5",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "Cb550",
+        "producto": "gelimed"
+      },
+      {
+        "equipo": "R400",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "Sólidos",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": "Evo",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "Blíster#9",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": "Integra",
+        "producto": "ferrimed"
+      },
+      {
+        "equipo": "Blíster",
+        "producto": "dimoflax"
+      }
+    ],
+    "novedades": [
+      "*MARZIO4 :* Se ajusta la posición de la foto celda y se le da reset a esta misma ya que se encontraba tomando una mala lectura y también se ajusta el tornillo de corrección.",
+      "*BLISTER 8:* Se atiende llamado porque se parte 3 espárragos en la estación de formado, se le entrego al turno entrante para que continúe.",
+      "*Schmucker:* Llamado por mal corte en la cuchilla central, se limpia y se trata de afilar un poco, queda pendiente probar.",
+      "*Huttlin 600:* se recibe llamado porque equipo no subía la temperatura se revisa se encuentra que las válvulas de vapor no estaban siendo accionadas se hace revisión eléctricamente no se encuentra anomalías  se verifica en pantalla y se encuentra a la armada la válvula de descarga se resetea se hacen pruebas okay.",
+      "*MT 1100:* se realiza desmontaje limpieza y lubricación de las cuchillas y se ajusta la cuchilla de la abre fácil.",
+      "*Envasado #2:* llamado por problemas por torque de frasco se revisa se hacen ajustes se baja más la base para que realice mayor torque se hacen pruebas pero uno o dos frascos salen con el torque bajo seguro tiene esa novedad.",
+      "*Estuchadora #1*: se recibe equipo para realizar montaje de piezas roscas reparadas y soldadura de pieza se cambian los piñones se realiza montaje de la pieza se hacen pruebas de apertura y cierre okay se entrega a turno entrante para terminar de colocar unas tapas y cambiar dos palitos partidos",
+      "Se fabrican 2 mallas para el granulador"
+    ],
+    "texto": "Grupo 1\n2026/10/20\n\nBlíster #2:irtal de 5 MG \nBlíster #3:aerovial \nMT 1100:superflux \nEnvasado #2: acetaminofén \nEnvasado#3:preprep \nCl#2: dolor sin \nCl4: limpieza\nNJP #3: limpieza \nNJP #1: congestex\nNJP#2: multi vitamínico \nHuttil 40:dimoflax \nHuttil 400: esomeprazol \nHuttil 600:flextril \nFette 2020 #1: limpieza \nFette: 1010:montaje \nFette 2020 #2: acetaminofén \nMarzio#4:esomed \nMarzio#5: congestex \nCb550: gelimed\nR400: dimoflax \nSólidos:dimoflax \nEvo: omeprazol \nBlíster#9: esomeprazol \nIntegra:ferrimed \nBlíster: dimoflax\n\n*NOVEDADES*\n*MARZIO4 :* Se ajusta la posición de la foto celda y se le da reset a esta misma ya que se encontraba tomando una mala lectura y también se ajusta el tornillo de corrección.\n*BLISTER 8:* Se atiende llamado porque se parte 3 espárragos en la estación de formado, se le entrego al turno entrante para que continúe.\n*Schmucker:* Llamado por mal corte en la cuchilla central, se limpia y se trata de afilar un poco, queda pendiente probar.\n*Huttlin 600:* se recibe llamado porque equipo no subía la temperatura se revisa se encuentra que las válvulas de vapor no estaban siendo accionadas se hace revisión eléctricamente no se encuentra anomalías  se verifica en pantalla y se encuentra a la armada la válvula de descarga se resetea se hacen pruebas okay. \n*MT 1100:* se realiza desmontaje limpieza y lubricación de las cuchillas y se ajusta la cuchilla de la abre fácil. \n*Envasado #2:* llamado por problemas por torque de frasco se revisa se hacen ajustes se baja más la base para que realice mayor torque se hacen pruebas pero uno o dos frascos salen con el torque bajo seguro tiene esa novedad. \n*Estuchadora #1*: se recibe equipo para realizar montaje de piezas roscas reparadas y soldadura de pieza se cambian los piñones se realiza montaje de la pieza se hacen pruebas de apertura y cierre okay se entrega a turno entrante para terminar de colocar unas tapas y cambiar dos palitos partidos\n\nSe fabrican 2 mallas para el granulador"
+  },
+  {
+    "id": "rt-20261020-2132",
+    "fecha": "2026-10-20",
+    "hora": "21:32",
+    "autor": "Lucho",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-3 · Día",
+    "fechaTurno": "2026-10-20",
+    "equipos": [
+      {
+        "equipo": "BIN",
+        "producto": "propanodol"
+      },
+      {
+        "equipo": "BOSHC",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "Cogestex"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "SCMUKER",
+        "producto": "Flextril c"
+      },
+      {
+        "equipo": "BLISTER #9",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": "INTEGRA",
+        "producto": "ferrime"
+      },
+      {
+        "equipo": "BLISTER #8",
+        "producto": "Montaje Dolorsin complex"
+      },
+      {
+        "equipo": "MARCHESINI EVO",
+        "producto": "Omeprazol"
+      },
+      {
+        "equipo": "R200",
+        "producto": "Cronexmed"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Dimoflax enterica"
+      },
+      {
+        "equipo": "MARZIO #4",
+        "producto": "Congestex"
+      },
+      {
+        "equipo": "MARZIO #5",
+        "producto": "Esomed"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "FETTE 2020-2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "FETTE",
+        "producto": "2020-1 Propanolol"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "Cronofen L"
+      },
+      {
+        "equipo": "ENVASADORA #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CLIQUIDO #2",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "CLIQUIDO #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CLIQUIDO #4",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "BLISTER #2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "BLISTER #3",
+        "producto": "Disponible"
+      }
+    ],
+    "novedades": [
+      "Stuchadora #1 se termina de armar se prueba  se entrega a producción",
+      "MB432 se Atiende llamado por qué las cápsulas no salían del cargador cambia manguera estaba rota",
+      "Smuker se cambian cuchillas que dividen el maninado en 2 por qué no cortaban se llevan rodillos a mecanizado se pulen por qué tenían muchas imperfecciones y el laminado se doblaba mucho se montan nuevamente queda para terminar de cuadrar pestaña",
+      "Se instala tanque pulmón nuevo a la máquina blisteadora mb432",
+      "MT1100 se realiza ajuste de cuchillas del abre fácil ya que no estaban cortando.",
+      "FETTE 2020-1 se realiza ajuste de posición en mesa que soporta el cargador ya que estaba separada del disco giratorio. MARZIO #5 Se realiza ajuste de parámetros en equipo codificador debido a que el lote estaba saliendo con un número borroso, se deja equipo operativo."
+    ],
+    "texto": "REPORTE MAQUINAS TURNO #2\n8:00 a 20:00\nSOLIDOS\nBIN: propanodol \nBOSHC: Disponible\nNJP #2: Disponible \nNJP #1: Cogestex \nNJP #3: Nifedipino \nPILOT LAB: Dimoflax\nSCMUKER: Flextril c\nBLISTER #9: Esomeprazol\nMB 432: cronofen\nINTEGRA: ferrime\nBLISTER #8: Montaje Dolorsin complex \nMARCHESINI EVO: Omeprazol \nR200: Cronexmed \nR400: Dimoflax enterica\nMARZIO #4 Congestex \nMARZIO #5 Esomed\nCB 550: Gelimed\nHUTTLIN 600: limpieza \nHUTTLIN 400: Esomeprazol \nRIMEK: Disponible \nFETTE 2020-2: acetaminofén\nFETTE 1010: Dimoflax \nFETTE 2020-1 Propanolol\n\nLÍQUIDO \nENVASADORA #2: Cronofen L\nENVASADORA #3: Disponible\nCLIQUIDO #2: limpieza \nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Disponible \nMT 1100:  Supreflux \nBLISTER #2: Disponible \nBLISTER #3: Disponible\n\nNota \n\nStuchadora #1 se termina de armar se prueba  se entrega a producción \n\nMB432 se Atiende llamado por qué las cápsulas no salían del cargador cambia manguera estaba rota \n\nSmuker se cambian cuchillas que dividen el maninado en 2 por qué no cortaban se llevan rodillos a mecanizado se pulen por qué tenían muchas imperfecciones y el laminado se doblaba mucho se montan nuevamente queda para terminar de cuadrar pestaña\n\nSe instala tanque pulmón nuevo a la máquina blisteadora mb432\n\nMT1100\nse realiza ajuste de cuchillas del abre fácil ya que no estaban cortando.\n\nFETTE 2020-1 \nse realiza ajuste de posición en mesa que soporta el cargador ya que estaba separada del disco giratorio.\nMARZIO #5\nSe realiza ajuste de parámetros en equipo codificador debido a que el lote estaba saliendo con un número borroso, se deja equipo operativo."
+  },
+  {
+    "id": "rt-20261021-0751",
+    "fecha": "2026-10-21",
+    "hora": "07:51",
+    "autor": "Jhon",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-20",
+    "equipos": [
+      {
+        "equipo": "[ÁREA DE SÓLIDOS]",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bin",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">Bosch",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": ">NJP2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": ">NJP1",
+        "producto": "Cogestex"
+      },
+      {
+        "equipo": ">NJP3",
+        "producto": "Nifedipino 24 h"
+      },
+      {
+        "equipo": ">MB 432",
+        "producto": "Cronofen - Aceftaminofen"
+      },
+      {
+        "equipo": ">Blíster #8",
+        "producto": "Dolorsin complex"
+      },
+      {
+        "equipo": ">Integra 320",
+        "producto": "Limpieza y montaje de Losartan"
+      },
+      {
+        "equipo": ">Estuchadora#1",
+        "producto": "Losartan"
+      },
+      {
+        "equipo": ">Blíster #9",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": ">MB 451",
+        "producto": "montaje de cronofen"
+      },
+      {
+        "equipo": ">Estuchadora#2",
+        "producto": "montaje de cronofen"
+      },
+      {
+        "equipo": ">Schmucker",
+        "producto": "FrextrilC Sobre"
+      },
+      {
+        "equipo": ">Marzio#4",
+        "producto": "Esomed  10"
+      },
+      {
+        "equipo": ">Marzio#5",
+        "producto": "Congestex 6.5 gr"
+      },
+      {
+        "equipo": ">R400",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": ">Sólidos",
+        "producto": "Tranexmed"
+      },
+      {
+        "equipo": ">R200",
+        "producto": "Naproxeno Limpieza"
+      },
+      {
+        "equipo": ">CB 550",
+        "producto": "Gelimed 10g"
+      },
+      {
+        "equipo": ">Fette 1010",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": ">fette 2020#1",
+        "producto": "Propanolol 40mg"
+      },
+      {
+        "equipo": ">Fette 2020#2",
+        "producto": "Disponible Antes Aceftaminofen"
+      },
+      {
+        "equipo": ">Rimex",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": ">Pilot lab",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">Huttlin 400",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": ">Huttlin 600",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": ">Bombo 300#1",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bombo 300 #2",
+        "producto": ""
+      },
+      {
+        "equipo": "[ÁREA DE LÍQUIDOS",
+        "producto": "]"
+      },
+      {
+        "equipo": ">CL #2",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">CL #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": ">CL #4",
+        "producto": "ácido valproico"
+      },
+      {
+        "equipo": ">Blíster #2",
+        "producto": "Dormex"
+      },
+      {
+        "equipo": ">tangues de fabricacion liquidos",
+        "producto": ""
+      },
+      {
+        "equipo": ">Tangue de fabricación centro líquido",
+        "producto": ""
+      },
+      {
+        "equipo": ">Envasadora #2",
+        "producto": "Cronofen"
+      },
+      {
+        "equipo": ">Etiquetadora#2",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": ">Envasadora#3",
+        "producto": "Fluticaxona"
+      },
+      {
+        "equipo": ">Etiquetadora#3",
+        "producto": "fluticaxona"
+      },
+      {
+        "equipo": ">Marchesine MT1100",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": ">Blíster #3",
+        "producto": "Aerovial 200 mcg"
+      }
+    ],
+    "novedades": [
+      ">MB 432: llamado por problemas en la lectura del bulino de realiza ajustes parámetros, presión de los rodillos, seguia presenta el problema, se quita presión del lote y se cuadro con otra receta se  hacen pruebas queda.( 4 horas ).",
+      ">Envasado #3: llamado por qué el operador no sabía conectar las mangueras de la cuba se apoya ok.",
+      "Después otro llamado porque la cuba no estaba cargando se realiza ajustes parámetros queda ok. ( 60 minutos).",
+      ">Estuchadora #2: montaje llamado porque había turca dañada de la tolva se realiza desmontaje.",
+      "Después otro llamado para enderezar un empujando que se doblo.",
+      "Otro llamado porque estaba saliendo alarma de empujandor.",
+      "Estaba saliendo el empujandor #4 que no debía salir. Se desactivo de pantalla y mecánica mente.",
+      ">Blíster #3: llamado por ruido en la estación de formación se revisa se envídencia ruido y movimiento entraño en la estación de formación. ( Programar revisión).",
+      "Otro llamado por alarmas de roctura de cable de la termocupla de la placa superior se revisa se encuentra conector flojo se ajusta ok. ( 40 minutos).",
+      ">Sólidos: Se corrige posición de sensores para posición de carga y descarga en mezclador de sólidos ya que estaba desajustada",
+      ">MT 1100: se realiza ajustes de cuchillas de abre fácil,y se fabrica caucho que baja el blíster.( 60 minutos).",
+      ">Blíster #7: llamado porque el equipo estaba prestando una fuga en la estación de formación y se bloqueo se reinicio se realiza desmontaje de formato de formación se revisa se coloca bien el orín se monta nuevamente se hacen pruebas ok. ( 60 minutos).",
+      ">Schmuker: se recibe equipo detenido por problemas de arruga en el sobre y pestaña  se realiza revisión y se ajustan un embudo se ah en pruebas ok. ( 4 horas).",
+      ">Marzio#5: llamado porque dejó de calentar la mordaza vertical se revisa se encuentra breaks se hacen pruebas ok.(  20 minutos)."
+    ],
+    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/10/20\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin:dimoflax \n>Bosch: Disponible \n>NJP2:  Disponible \n>NJP1: Cogestex\n>NJP3: Nifedipino 24 h\n>MB 432: Cronofen - Aceftaminofen \n>Blíster #8: Dolorsin complex\n>Integra 320: Limpieza y montaje de Losartan \n>Estuchadora#1: Losartan \n>Blíster #9: Esomeprazol\n>MB 451: montaje de cronofen \n>Estuchadora#2: montaje de cronofen \n>Schmucker: FrextrilC Sobre\n>Marzio#4: Esomed  10\n>Marzio#5: Congestex 6.5 gr\n>R400: Dimoflax\n>Sólidos: Tranexmed\n>R200: Naproxeno Limpieza \n>CB 550: Gelimed 10g\n>Fette 1010: Dimoflax \n>fette 2020#1: Propanolol 40mg\n>Fette 2020#2: Disponible Antes Aceftaminofen \n>Rimex: Disponible \n>Pilot lab: dimoflax \n>Huttlin 400: Disponible\n>Huttlin 600: Esomeprazol \n>Bombo 300#1:\n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: limpieza \n>CL #3: Disponible\n>CL #4 : ácido valproico\n>Blíster #2: Dormex\n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: Cronofen \n>Etiquetadora#2:cronofen\n>Envasadora#3: Fluticaxona\n>Etiquetadora#3: fluticaxona \n>Marchesine MT1100:  Supreflux\n>Blíster #3: Aerovial 200 mcg\n\nNovedades:\n\n>MB 432: llamado por problemas en la lectura del bulino de realiza ajustes parámetros, presión de los rodillos, seguia presenta el problema, se quita presión del lote y se cuadro con otra receta se  hacen pruebas queda.( 4 horas ).\n\n>Envasado #3: llamado por qué el operador no sabía conectar las mangueras de la cuba se apoya ok. \n\nDespués otro llamado porque la cuba no estaba cargando se realiza ajustes parámetros queda ok. ( 60 minutos).\n\n>Estuchadora #2: montaje llamado porque había turca dañada de la tolva se realiza desmontaje.\n\nDespués otro llamado para enderezar un empujando que se doblo.\n\nOtro llamado porque estaba saliendo alarma de empujandor.\nEstaba saliendo el empujandor #4 que no debía salir. Se desactivo de pantalla y mecánica mente.\n\n>Blíster #3: llamado por ruido en la estación de formación se revisa se envídencia ruido y movimiento entraño en la estación de formación. ( Programar revisión).\n\nOtro llamado por alarmas de roctura de cable de la termocupla de la placa superior se revisa se encuentra conector flojo se ajusta ok. ( 40 minutos).\n\n>Sólidos: Se corrige posición de sensores para posición de carga y descarga en mezclador de sólidos ya que estaba desajustada\n\n>MT 1100: se realiza ajustes de cuchillas de abre fácil,y se fabrica caucho que baja el blíster.( 60 minutos).\n\n>Blíster #7: llamado porque el equipo estaba prestando una fuga en la estación de formación y se bloqueo se reinicio se realiza desmontaje de formato de formación se revisa se coloca bien el orín se monta nuevamente se hacen pruebas ok. ( 60 minutos).\n\n>Schmuker: se recibe equipo detenido por problemas de arruga en el sobre y pestaña  se realiza revisión y se ajustan un embudo se ah en pruebas ok. ( 4 horas).\n\n>Marzio#5: llamado porque dejó de calentar la mordaza vertical se revisa se encuentra breaks se hacen pruebas ok.(  20 minutos)."
+  },
+  {
+    "id": "rt-20261021-0814",
+    "fecha": "2026-10-21",
+    "hora": "08:14",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-20",
+    "equipos": [
+      {
+        "equipo": "ENTREGA",
+        "producto": "DE TURNO - 21/10/2026 - NOCHE"
+      },
+      {
+        "equipo": "1. PRODUCCIÓN EN CURSO",
+        "producto": ""
+      },
+      {
+        "equipo": "CL",
+        "producto": "Dispax"
+      },
+      {
+        "equipo": "Envasado",
+        "producto": "Cannepi x 100 ml"
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "Deslodex Duo"
+      },
+      {
+        "equipo": "B5",
+        "producto": "Dolorsin Fem"
+      },
+      {
+        "equipo": "Sólidos",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Tableteado",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "2. ACTIVIDADES DE MANTENIMIENTO",
+        "producto": ""
+      },
+      {
+        "equipo": "Recubrimiento 1",
+        "producto": "Se cambia clavija a bombo móvil por problemas de encendido. Se restablece variador de fábrica, se parametriza y se deja en funcionamiento."
+      },
+      {
+        "equipo": "Colimatic",
+        "producto": "Llamado porque el equipo no estaba haciendo el sello horizontal. Se revisa parte mecánica, se encuentra chumacera en mal estado y piñón que transmite el sistema no hacía el movimiento. Se continúa revisando y se encuentra que el freno electromagnético no tiene la entrada de 24V."
+      }
+    ],
+    "novedades": [],
+    "texto": "*ENTREGA DE TURNO - 21/10/2026 - NOCHE*\n\n*1. PRODUCCIÓN EN CURSO*\n- *CL:* Dispax\n- *Envasado:* Cannepi x 100 ml\n- *GB 100:* Deslodex Duo\n- *B5:* Dolorsin Fem\n- *Sólidos:* Carbamazepina\n- *Tableteado:* Disponible\n\n*2. ACTIVIDADES DE MANTENIMIENTO*\n\n- *Recubrimiento 1:* Se cambia clavija a bombo móvil por problemas de encendido. Se restablece variador de fábrica, se parametriza y se deja en funcionamiento.\n- *Colimatic:* Llamado porque el equipo no estaba haciendo el sello horizontal. Se revisa parte mecánica, se encuentra chumacera en mal estado y piñón que transmite el sistema no hacía el movimiento. Se continúa revisando y se encuentra que el freno electromagnético no tiene la entrada de 24V."
+  },
+  {
+    "id": "rt-20261021-2137",
+    "fecha": "2026-10-21",
+    "hora": "21:37",
+    "autor": "Miguel",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-2 · Día",
+    "fechaTurno": "2026-10-21",
+    "equipos": [],
+    "novedades": [
+      "DE SEDE 4 TURNO DE DIA* *Estuchadora Evo* Se atiende llamado por qué empujador se sale y se agrieta se acomoda y se monta , volvió a quedar atacado y se pierde tiempo de banda de cangilones se coge tiempo pero el empujador agrietado se parte por completo , se le da solución colocandole una platina para que cogiera la soldadura ya que el material no es acto para soldar , se coloca y se revisa y se encuentra empujador más adelante de lo normal , se empuja más hacia dentro y se prueba y se saca 5 estuches se deja para que haga producción continua , hacer seguimiento 10h",
+      "*BLUSTER3* Se realiza desmonte y revisión de estación de formado a blíster 3 por fuerte sonido se evidencia uno de los rodamientos lineales pegados, se lubrica arma y monta nuevamente queda pendiente cambio de los rodamientos.",
+      "*R200* Se realiza montaje de Bambula de mariposa en sistema principal de aire a recubridor R200",
+      "* Se realiza apoyo en sede 2 en tableteadora ronchi, se hace revisión de sensores de puertas del equipo ya que presentaba alarma y no dejaba arrancar máquina. Se corrigió buje que acciona final de carrera de la puerta ya que presentaba atascamiento al momento de regresar cuando se cerraba la puerta en las imágenes se muestra como tenía rebaba en el tunel donde se deslizaba el buej",
+      "*PLANTA DE AGUA  DE LIQUIDO* se realiza limpieza de sensor de presión diferencial, se resetean alarmar se realiza prueba y seguimiento de equipo de 660ppc del toc baja hasta 30ppc y oxila en rangos pequeños T 4hrs También se reviso lampara uv y bobina de paso de agua",
+      "*Integra* se atiende llamado por cargador atascado se baja se limpia y se lubrica después la máquina no estaba agarrando los blíster y se toma tiempo de los brazos de las ventosas queda ok 1.5hrs",
+      "Se reinicia tablero eléctrico de los tanques de fabricación de líquidos de huttiln 600"
+    ],
+    "texto": "*NOVEDADES DE SEDE 4 TURNO DE DIA*\n*Estuchadora Evo*\nSe atiende llamado por qué empujador se sale y se agrieta se acomoda y se monta , volvió a quedar atacado y se pierde tiempo de banda de cangilones se coge tiempo pero el empujador agrietado se parte por completo , se le da solución colocandole una platina para que cogiera la soldadura ya que el material no es acto para soldar , se coloca y se revisa y se encuentra empujador más adelante de lo normal , se empuja más hacia dentro y se prueba y se saca 5 estuches se deja para que haga producción continua , hacer seguimiento 10h \n\n*BLUSTER3*\nSe realiza desmonte y revisión de estación de formado a blíster 3 por fuerte sonido se evidencia uno de los rodamientos lineales pegados, se lubrica arma y monta nuevamente queda pendiente cambio de los rodamientos.\n\n*R200*\nSe realiza montaje de Bambula de mariposa en sistema principal de aire a recubridor R200\n\n* Se realiza apoyo en sede 2 en tableteadora ronchi, se hace revisión de sensores de puertas del equipo ya que presentaba alarma y no dejaba arrancar máquina.\nSe corrigió buje que acciona final de carrera de la puerta ya que presentaba atascamiento al momento de regresar cuando se cerraba la puerta en las imágenes se muestra como tenía rebaba en el tunel donde se deslizaba el buej\n\n*PLANTA DE AGUA  DE LIQUIDO* \n se realiza limpieza de sensor de presión diferencial, se resetean alarmar se realiza prueba y seguimiento de equipo de 660ppc del toc baja hasta 30ppc y oxila en rangos pequeños T 4hrs\nTambién se reviso lampara uv y bobina de paso de agua \n\n*Integra*\n se atiende llamado por cargador atascado se baja se limpia y se lubrica después la máquina no estaba agarrando los blíster y se toma tiempo de los brazos de las ventosas queda ok 1.5hrs\n\nSe reinicia tablero eléctrico de los tanques de fabricación de líquidos de huttiln 600"
+  },
+  {
+    "id": "rt-20261021-2202",
+    "fecha": "2026-10-21",
+    "hora": "22:02",
+    "autor": "+57 312 7212941",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-2 · Día",
+    "fechaTurno": "2026-10-21",
+    "equipos": [
+      {
+        "equipo": "Blíster 5",
+        "producto": "dolorsinfen"
+      },
+      {
+        "equipo": "Gb 100",
+        "producto": "deslodex"
+      },
+      {
+        "equipo": "Sólidos carbamazepina",
+        "producto": ""
+      },
+      {
+        "equipo": "Romchi",
+        "producto": "naproxeno+ caefina"
+      },
+      {
+        "equipo": "Cl",
+        "producto": "dispax"
+      },
+      {
+        "equipo": "Envasadora1",
+        "producto": "cannepi"
+      },
+      {
+        "equipo": "Marzzio",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "Colimatic",
+        "producto": "ferrimed"
+      }
+    ],
+    "novedades": [
+      "*colimatic, se arman y se lubrican sistema de mordazas, arrastre y se colocan guardas , se revisa equipo con ayuda del ingeniero Frank, se observa que el piñón de la caja de levas mecánicas estaba suelto,  se aprieta el prisionero y se cuadra sellado transversal, se realizan pruebas con blíster ok, se le hace entrega al operador del turno.",
+      "Gb 100 se brinda acompañamiento por frenado de cilindro del avance se desmontan se despega. Se ajusta presión y se busca paso nuevamente.",
+      "Ascensor se brinda acompañamiento a contratista se ajusta freno se realizan prueba y se ajusta sensores",
+      "Romchi se recibe maquina detenida por problemas en sensores de puerta se observa que estaba con suciedad debido a eso estaba saliendo la alarma se limpia queda operativa",
+      "Se cambian luminaria de area de almacén se reporta dos lámparas en mal estado.",
+      "Se lubrica estera de almacen."
+    ],
+    "texto": "Reporte turno \nSede 2\n\nBlíster 5 dolorsinfen\nGb 100 deslodex \nSólidos carbamazepina\nRomchi naproxeno+ caefina\nCl dispax\nEnvasadora1 cannepi\nMarzzio esomed \nColimatic ferrimed \n\nNovedades \n\n*colimatic, se arman y se lubrican sistema de mordazas, arrastre y se colocan guardas , se revisa equipo con ayuda del ingeniero Frank, se observa que el piñón de la caja de levas mecánicas estaba suelto,  se aprieta el prisionero y se cuadra sellado transversal, se realizan pruebas con blíster ok, se le hace entrega al operador del turno.\n\nGb 100 se brinda acompañamiento por frenado de cilindro del avance se desmontan se despega. Se ajusta presión y se busca paso nuevamente.\n\nAscensor se brinda acompañamiento a contratista se ajusta freno se realizan prueba y se ajusta sensores \n\nRomchi se recibe maquina detenida por problemas en sensores de puerta se observa que estaba con suciedad debido a eso estaba saliendo la alarma se limpia queda operativa \n\nSe cambian luminaria de area de almacén se reporta dos lámparas en mal estado.\n\nSe lubrica estera de almacen."
+  },
+  {
+    "id": "rt-20261023-0805",
+    "fecha": "2026-10-23",
+    "hora": "08:05",
+    "autor": "Diego Temporal",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-3 · Noche",
+    "fechaTurno": "2026-10-22",
+    "equipos": [
+      {
+        "equipo": "BIN",
+        "producto": "Rosurastatina"
+      },
+      {
+        "equipo": "BOSHC",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #2",
+        "producto": "Montaje Esomeprazol"
+      },
+      {
+        "equipo": "NJP #1",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "NJP #3",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "Fumarato"
+      },
+      {
+        "equipo": "SCMUKER",
+        "producto": "Flextril c"
+      },
+      {
+        "equipo": "BLISTER #9",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "INTEGRA",
+        "producto": "Tensofar"
+      },
+      {
+        "equipo": "BLISTER #8",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "MARCHESINI",
+        "producto": "EVO cronofen"
+      },
+      {
+        "equipo": "R200",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Dimoflax enterica"
+      },
+      {
+        "equipo": "MARZIO #4",
+        "producto": "Novabell"
+      },
+      {
+        "equipo": "MARZIO #5",
+        "producto": "Esomed"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "Trimebutina+simeticona"
+      },
+      {
+        "equipo": "FETTE 2020-2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "FETTE",
+        "producto": "2020-1 Propanolol"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "ziped"
+      },
+      {
+        "equipo": "ENVASADORA #3",
+        "producto": "Metaspray"
+      },
+      {
+        "equipo": "CLIQUIDO #2",
+        "producto": "ibuprofeno+hioscina"
+      },
+      {
+        "equipo": "CLIQUIDO #3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CLIQUIDO #4",
+        "producto": "Ácido valproico"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "BLISTER #2",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "BLISTER #3",
+        "producto": "Ferbin"
+      }
+    ],
+    "novedades": [],
+    "texto": "REPORTE MAQUINAS TURNO #2\n20:00 a 8:00\nSOLIDOS\nBIN: Rosurastatina\nBOSHC: Disponible\nNJP #2: Montaje Esomeprazol \nNJP #1: Disponible \nNJP #3: omeprazol \nPILOT LAB: Fumarato \nSCMUKER: Flextril c\nBLISTER #9: Dimoflax\nMB 432: Limpieza \nINTEGRA: Tensofar\nBLISTER #8: Disponible \nMARCHESINI EVO cronofen \nR200: limpieza \nR400: Dimoflax enterica\nMARZIO #4 Novabell\nMARZIO #5 Esomed\nCB 550: Gelimed\nHUTTLIN 600: limpieza \nHUTTLIN 400: limpieza \nRIMEK Trimebutina+simeticona\nFETTE 2020-2: acetaminofén\nFETTE 1010: Dimoflax \nFETTE 2020-1 Propanolol\n\nLÍQUIDO \nENVASADORA #2: ziped\nENVASADORA #3: Metaspray\nCLIQUIDO #2: ibuprofeno+hioscina\nCLIQUIDO #3: Disponible \nCLIQUIDO #4: Ácido valproico\nMT 1100:  Supreflux \nBLISTER #2: Disponible \nBLISTER #3: Ferbin"
+  },
+  {
+    "id": "rt-20261023-0847",
+    "fecha": "2026-10-23",
+    "hora": "08:47",
+    "autor": "@alfonsoorozco10",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-1 · Noche",
+    "fechaTurno": "2026-10-22",
+    "equipos": [
+      {
+        "equipo": "Blister 5",
+        "producto": "dolorsin fem"
+      },
+      {
+        "equipo": "Gb-100",
+        "producto": "stand by"
+      },
+      {
+        "equipo": "Fabricación1",
+        "producto": "chiquident"
+      },
+      {
+        "equipo": "Envasadora 1",
+        "producto": "chiquident"
+      },
+      {
+        "equipo": "Etiqueteadora 1",
+        "producto": "chiquident"
+      },
+      {
+        "equipo": "CD-40",
+        "producto": "stand by"
+      },
+      {
+        "equipo": "Cl1",
+        "producto": "dimeticona + pinaverio"
+      },
+      {
+        "equipo": "Ronchy",
+        "producto": "naproxeno+ cafeina"
+      },
+      {
+        "equipo": "Marzio 2",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "Colimatic",
+        "producto": "ferrimed plus"
+      }
+    ],
+    "novedades": [
+      "Envasado 1: llamado porque sale bajo torque, se sube velocidad a servomotor de grafadora",
+      "Marzio2 : llamado por mal corte se da inclinación a cuchillas",
+      "Otro llamado por ajuste de mordazas superiores",
+      "Cl1: llamado porque no prende el motor qué mueve la.vinracion de las capsulas en la selladora. Se encuentra potenciómetro de motor en 0 se sube queda ok.",
+      "Se apoya en sede 4 con el traslado de la chatarra que se encuentra en el muelle de planta"
+    ],
+    "texto": "Reporte turno 10\n2026/10/23\n\nBlister 5 : dolorsin fem\nGb-100: stand by \nFabricación1: chiquident \nEnvasadora 1: chiquident \nEtiqueteadora 1: chiquident \nCD-40: stand by \nCl1: dimeticona + pinaverio  \nRonchy: naproxeno+ cafeina\nMarzio 2 :  esomed\nColimatic: ferrimed plus\n\n--------------------------------------\nNovedades:\n\nEnvasado 1: llamado porque sale bajo torque, se sube velocidad a servomotor de grafadora\n\nMarzio2 : llamado por mal corte se da inclinación a cuchillas \nOtro llamado por ajuste de mordazas superiores\n\nCl1: llamado porque no prende el motor qué mueve la.vinracion de las capsulas en la selladora. Se encuentra potenciómetro de motor en 0 se sube queda ok.\n\nSe apoya en sede 4 con el traslado de la chatarra que se encuentra en el muelle de planta"
+  },
+  {
+    "id": "rt-20261023-1939",
+    "fecha": "2026-10-23",
+    "hora": "19:39",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-23",
+    "equipos": [
+      {
+        "equipo": "CL4",
+        "producto": "Ácido valprohico"
+      },
+      {
+        "equipo": "CL3",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "CL2",
+        "producto": "Dolorsin fem"
+      },
+      {
+        "equipo": "Stick Pack 4",
+        "producto": "Superflux"
+      },
+      {
+        "equipo": "Blíster 2",
+        "producto": "Dormex"
+      },
+      {
+        "equipo": "Blíster 3",
+        "producto": "Ferbin"
+      },
+      {
+        "equipo": "Envasadora 3",
+        "producto": "Metaspray"
+      },
+      {
+        "equipo": "Envasadora 2",
+        "producto": "Zinc"
+      },
+      {
+        "equipo": "Bin",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Bosch",
+        "producto": "Disponibles"
+      },
+      {
+        "equipo": "NJP1",
+        "producto": "Congestex"
+      },
+      {
+        "equipo": "NJP2",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "Omeprazol"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "Nifedipino"
+      },
+      {
+        "equipo": "Integra 320",
+        "producto": "Losartan"
+      },
+      {
+        "equipo": "MB 451",
+        "producto": "Cronofen"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "Blíster 8",
+        "producto": "etorimed"
+      },
+      {
+        "equipo": "Schmucker",
+        "producto": "Flextril C"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "Gelimed"
+      },
+      {
+        "equipo": "Marzio 5",
+        "producto": "Novabelle plus"
+      },
+      {
+        "equipo": "Marzio 4",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "R200",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "Huttlin 600",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "Huttlin 400",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Huttlin 40",
+        "producto": "Fumarato"
+      },
+      {
+        "equipo": "Bombo 300",
+        "producto": "Fumarato"
+      },
+      {
+        "equipo": "Bombo 300",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Rimek",
+        "producto": "Trimebutina + Simeticona"
+      },
+      {
+        "equipo": "Fette 1010",
+        "producto": "Limpieza"
+      },
+      {
+        "equipo": "Fette 2020 2",
+        "producto": "Acetaminofén"
+      },
+      {
+        "equipo": "Fette 2020 1",
+        "producto": "Propanolol"
+      }
+    ],
+    "novedades": [
+      "*BLISTER 3:* Se ajusta estación de corte,tunel de calefacción y amortiguación en estación de sellado, equipo operativo.",
+      "*T:60mn aprox*",
+      "*SCHMUCKER:* Se continúa con proyecto, base codificadora en mecanizado.",
+      "*FETTE P2020:* Se habilita desempolvador gratex, se adjunta video.",
+      "*T:180 mn aprox*",
+      "*ESTUCHADORA EVO:* Se cambia palitos de arrastre (2) , los mismos se encontraban partidos.",
+      "*T:80 mn aprox*",
+      "*CL2:* Se realiza el cambia del cilindro neumático que expulsan las cápsulas *T: 45 minutos.*",
+      "Se limpio el piso técnico del R200.",
+      "*NJP#2:* se alinea  base  y se cambia dosificador se pega suplemento de acrílico a dosificador para evitar reguero de hacen pruebas de entrega a producción.",
+      "*MT1100:* se realiza desmontaje y limpieza de cuchillas se lubrica sistema de corte y se ajusta las cuchillas del abre fácil.",
+      "*Riego de agua*: Se atiende llamado por fuga de agua en pasillo, se revisa piso técnico H600 y se encuentra desagüe de compresor Kaiser y tubería de salida condensado donde se llena, la tubería de encuentra obstruida por particulas de material medicamento. Se estuvo limpiando durante todo el turno a cada 3 horas",
+      "*CL2*: Se atiende llamado en Centro líquido por puerta de acceso con problemas en perilla de apertura de puerta, se encuentra mecanismo desajustado. Se ajusta queda ok",
+      "*T: 10 min*",
+      "*Pesaje 2* : se atiende llamado por lona salida de la guía se llega al sitio. Se ajusta nuevamente queda ok.",
+      "*T: 15 min*",
+      "*Escuchadora Evo*: Se colabora con la desinstalación e instalación de lámpara led nueva arriba del equipo, se encontró que el led nuevo no soporta las 4 cintas led. Se monta con 3.",
+      "*T: 2h 25 min*",
+      "*ESPERANDO AUN LUZ VERDE POR PARTE DE K-CAPS PARA INICIAR OPERACIONES EN MEDICAMENTOS*"
+    ],
+    "texto": "*REPORTE DE TURNO*\n         *GRUPO 1*\n      2026-10-23\n           sede 4\n \n*CL4:* Ácido valprohico \n*CL3:* Disponible\n*CL2:* Dolorsin fem\n*Stick Pack 4:* Superflux\n*Blíster 2:* Dormex\n*Blíster 3:* Ferbin\n*Envasadora 3:* Metaspray\n*Envasadora 2:* Zinc\n*Bin:* Disponible \n*Bosch:* Disponibles \n*NJP1:* Congestex\n*NJP2:* Esomeprazol \n*NJP3:* Omeprazol \n*MB 432:* Nifedipino \n*Integra 320:* Losartan\n*MB 451:* Cronofen\n*Blíster 9:* Dimoflax \n*Blíster 8:* etorimed\n*Schmucker:* Flextril C\n*CB 550:* Gelimed\n*Marzio 5:* Novabelle plus\n*Marzio 4:* Limpieza \n*R400:* Disponible \n*R200:* Limpieza \n*Huttlin 600:* Esomeprazol \n*Huttlin 400:* Disponible \n*Huttlin 40:* Fumarato \n*Bombo 300:* Fumarato \n*Bombo 300:* Disponible \n*Rimek:*  Trimebutina + Simeticona \n*Fette 1010:* Limpieza \n*Fette 2020 2:* Acetaminofén \n*Fette 2020 1:* Propanolol\n*NOVEDADES:*\n*BLISTER 3:* Se ajusta estación de corte,tunel de calefacción y amortiguación en estación de sellado, equipo operativo.\n*T:60mn aprox*\n*SCHMUCKER:* Se continúa con proyecto, base codificadora en mecanizado.\n*FETTE P2020:* Se habilita desempolvador gratex, se adjunta video.\n*T:180 mn aprox*\n*ESTUCHADORA EVO:* Se cambia palitos de arrastre (2) , los mismos se encontraban partidos.\n*T:80 mn aprox*\n*CL2:* Se realiza el cambia del cilindro neumático que expulsan las cápsulas *T: 45 minutos.*\nSe limpio el piso técnico del R200.\n*NJP#2:* se alinea  base  y se cambia dosificador se pega suplemento de acrílico a dosificador para evitar reguero de hacen pruebas de entrega a producción.\n*MT1100:* se realiza desmontaje y limpieza de cuchillas se lubrica sistema de corte y se ajusta las cuchillas del abre fácil.\nNovedades \n*Riego de agua*: Se atiende llamado por fuga de agua en pasillo, se revisa piso técnico H600 y se encuentra desagüe de compresor Kaiser y tubería de salida condensado donde se llena, la tubería de encuentra obstruida por particulas de material medicamento. Se estuvo limpiando durante todo el turno a cada 3 horas \n*CL2*: Se atiende llamado en Centro líquido por puerta de acceso con problemas en perilla de apertura de puerta, se encuentra mecanismo desajustado. Se ajusta queda ok \n*T: 10 min*\n*Pesaje 2* : se atiende llamado por lona salida de la guía se llega al sitio. Se ajusta nuevamente queda ok. \n*T: 15 min*\n*Escuchadora Evo*: Se colabora con la desinstalación e instalación de lámpara led nueva arriba del equipo, se encontró que el led nuevo no soporta las 4 cintas led. Se monta con 3.\n*T: 2h 25 min*\n*ESPERANDO AUN LUZ VERDE POR PARTE DE K-CAPS PARA INICIAR OPERACIONES EN MEDICAMENTOS*"
+  },
+  {
+    "id": "rt-20261023-2006",
+    "fecha": "2026-10-23",
+    "hora": "20:06",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-23",
+    "equipos": [
+      {
+        "equipo": "ENTREGA",
+        "producto": "DE TURNO - DÍA"
+      },
+      {
+        "equipo": "Fecha",
+        "producto": "23/10/2026"
+      },
+      {
+        "equipo": "1. PRODUCCIÓN EN CURSO",
+        "producto": ""
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "Deslodex"
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "Montaje"
+      },
+      {
+        "equipo": "Sólidos",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Horno",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Encapsulado",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Envasado",
+        "producto": "Chiquident Gotas"
+      },
+      {
+        "equipo": "Centro Líquido",
+        "producto": "Limpieza Profunda"
+      },
+      {
+        "equipo": "Tableteado",
+        "producto": "Naproxeno + Cafeína"
+      }
+    ],
+    "novedades": [
+      "*2. NOVEDADES / ACTIVIDADES DE MANTENIMIENTO*",
+      "- *Recubrimiento #3:* Se ancla bombo y se reparan huecos en el piso. Se pinta parte trasera del bombo. (Pendiente pintar el piso). - *Fabricación de Soluciones:* Se atiende llamado por motor homogenizador que no enciende. Se cambia el pulsador, se soluciona y se deja operativo. - *Deshumificador de Microgránulos:* Se saca del área y se traslada al taller debido a que no calentaba. Se revisa y se desmonta por completo. Se aprovecha para mantenimiento general, se cambian rodamientos y se pinta la estructura. Pendiente montaje del equipo. - *Blíster 5:* Se apoya para desmontaje de alimentador y se instalan bandejas. - *Mallas:* Se cortan y ajustan: N° 8, N° 10, N° 12, N° 14, N° 16, N° 18, N° 20, N° 30. Pendiente: (N° 4) 1 unidad. - *Recubrimiento #10:* Se instala motor de extracción, se reemplazan rodamientos y se aplica pintura azul en aerosol. Equipo queda en funcionamiento. - *Extracciones Lado C:* Se reemplaza filtración en colector. - *Piso Técnico Lado B y C:* Se cambian tubos LED. - *UMA Microgránulos Lado A:* Se reemplaza filtración de 35% y 85%, limpieza de drenaje. Equipo quedando en funcionamiento. - *Pisos Técnicos:* Recorrido a bombas de agua fría y equipos.",
+      "*3. PENDIENTES* ⚠️ *Centro Líquido - Llenadora:* Ajuste en cilindro del bloque dosificador."
+    ],
+    "texto": "*ENTREGA DE TURNO - DÍA*\n*Fecha:* 23/10/2026\n\n*1. PRODUCCIÓN EN CURSO*\n- *GB 100:* Deslodex\n- *Blíster 5:* Montaje\n- *Sólidos:* Carbamazepina\n- *Horno:* Carbamazepina\n- *Encapsulado:* Disponible\n- *Envasado:* Chiquident Gotas\n- *Centro Líquido:* Limpieza Profunda\n- *Tableteado:* Naproxeno + Cafeína\n\n*2. NOVEDADES / ACTIVIDADES DE MANTENIMIENTO*\n\n- *Recubrimiento #3:* Se ancla bombo y se reparan huecos en el piso. Se pinta parte trasera del bombo. (Pendiente pintar el piso).\n- *Fabricación de Soluciones:* Se atiende llamado por motor homogenizador que no enciende. Se cambia el pulsador, se soluciona y se deja operativo.\n- *Deshumificador de Microgránulos:* Se saca del área y se traslada al taller debido a que no calentaba. Se revisa y se desmonta por completo. Se aprovecha para mantenimiento general, se cambian rodamientos y se pinta la estructura. Pendiente montaje del equipo.\n- *Blíster 5:* Se apoya para desmontaje de alimentador y se instalan bandejas.\n- *Mallas:* Se cortan y ajustan: N° 8, N° 10, N° 12, N° 14, N° 16, N° 18, N° 20, N° 30. Pendiente: (N° 4) 1 unidad.\n- *Recubrimiento #10:* Se instala motor de extracción, se reemplazan rodamientos y se aplica pintura azul en aerosol. Equipo queda en funcionamiento.\n- *Extracciones Lado C:* Se reemplaza filtración en colector.\n- *Piso Técnico Lado B y C:* Se cambian tubos LED.\n- *UMA Microgránulos Lado A:* Se reemplaza filtración de 35% y 85%, limpieza de drenaje. Equipo quedando en funcionamiento.\n- *Pisos Técnicos:* Recorrido a bombas de agua fría y equipos.\n\n*3. PENDIENTES*\n⚠️ *Centro Líquido - Llenadora:* Ajuste en cilindro del bloque dosificador."
+  },
+  {
+    "id": "rt-20261024-0816",
+    "fecha": "2026-10-24",
+    "hora": "08:16",
+    "autor": "+57 312 7212941",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-2 · Noche",
+    "fechaTurno": "2026-10-23",
+    "equipos": [
+      {
+        "equipo": "Blíster 5",
+        "producto": "actin 80mg"
+      },
+      {
+        "equipo": "Gb 100",
+        "producto": "deslodex"
+      },
+      {
+        "equipo": "Marzzio",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "Mezclador",
+        "producto": "horizontal carbamazepina"
+      },
+      {
+        "equipo": "Horno",
+        "producto": "carbamazepina"
+      }
+    ],
+    "novedades": [
+      "Marzzio se realiza ajuste de cuchillas",
+      "Bliste 5 se atiende llamado por problemas de mal formado",
+      "Se pinta base del deshumidificador y base de motor de extracción",
+      "Recorrido de bomba de agua frías y umas",
+      "Cd 40 se limpia trampa y filtro  de bomba de vacio."
+    ],
+    "texto": "Reporte de turno\nSede 2 \n\nBlíster 5 actin 80mg\nGb 100 deslodex \nMarzzio esomed \nMezclador horizontal carbamazepina \nHorno carbamazepina \n\nNovedades \n\nMarzzio se realiza ajuste de cuchillas \n\nBliste 5 se atiende llamado por problemas de mal formado \n\n Se pinta base del deshumidificador y base de motor de extracción \n\nRecorrido de bomba de agua frías y umas\n\nCd 40 se limpia trampa y filtro  de bomba de vacio."
+  },
+  {
+    "id": "rt-20261024-0928",
+    "fecha": "2026-10-24",
+    "hora": "09:28",
+    "autor": "Brayan",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-2 · Noche",
+    "fechaTurno": "2026-10-23",
+    "equipos": [
+      {
+        "equipo": "•BLISTER 3",
+        "producto": "FERBIN 250"
+      },
+      {
+        "equipo": "•CL4",
+        "producto": "ACIDO VALPROICO"
+      },
+      {
+        "equipo": "•BLISTER2",
+        "producto": "DORMIX"
+      },
+      {
+        "equipo": "•MT",
+        "producto": "SUPERFLUX"
+      },
+      {
+        "equipo": "•LIQUIDOS 3",
+        "producto": "CANNEPI SOLUCIÓN"
+      },
+      {
+        "equipo": "•CL2",
+        "producto": "IBUPROFENO"
+      },
+      {
+        "equipo": "•EMBASADORA 2",
+        "producto": "ZIPED"
+      },
+      {
+        "equipo": "•BIN",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•BOSH",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•NJP3",
+        "producto": "OMEPRAZOL"
+      },
+      {
+        "equipo": "•PILOTBLAB HUYTLIN40",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•SCHMUKER",
+        "producto": "FLEXTRIL"
+      },
+      {
+        "equipo": "•BLISTER #9",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "•BLISTER #6 MB432",
+        "producto": "NIFEDIPINO"
+      },
+      {
+        "equipo": "•BLISTER #4 INTEGRA320",
+        "producto": "LOSARTAN"
+      },
+      {
+        "equipo": "•BLISTER #8",
+        "producto": "ETORIMED"
+      },
+      {
+        "equipo": "•EVOBLISTER 7",
+        "producto": "CRONOFEN"
+      },
+      {
+        "equipo": "•MARZIO #4",
+        "producto": "NOVABELLE"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "•R200",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•R400",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "TRIMEBUTINA"
+      },
+      {
+        "equipo": "•FETE1010",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "•FETTE20202",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "•FETTE20201",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "GELYMED"
+      }
+    ],
+    "novedades": [
+      "- Turno pasado nos entrega planta con fluctuación de energía se restablecen las condiciones se arranca plantas de agua liquidos y sólidos",
+      "- Banda de empaque blíster 2 atascada se encontró unos blíster entre la lona y el rodillo se sacan y se ajusta tensión de banda",
+      "- Ms235 se atiende llamado porque se parte correa de la banda caída de blíster se intento desvarar con otras bandas parecidas trabajo 1.5hrs después y se volvió a dañar se detuvo el equipo y se bajó la banda para mantenimiento limpieza y lubricación pendiente para comenzar a montar",
+      "- CL2: durante el turno se interviene actuador neumático de sistema de expulsión de cápsulas.",
+      "Por lento retroceso se regula presión de entrada y salida de aire y alivio de retroceso en el actuador y se lubrican cilindros.",
+      "Al final de turno nuevamente notifican que se repitió la novedad.",
+      "- Blíster 3: se recibe plancha de formado porque parte fracturada en uno de los costados estaba presentando fuga de aire lo que ocasionaba mal formado durante el proceso.",
+      "Se lleva a taller se limpia y se resana y sella. Se entrega queda pendiente hacer seguimiento del comportamiento en puesta en marcha.",
+      "- Blíster 9",
+      "Se atiende llamado por perdida de paso por problemas de estación ( se quedaba pegada )",
+      "Se vuelve a tomar el paso y se engrasa rodamientos, se baja temperatura por qué estiraba el PVC , se hace cuadra y queda operativa, aún así persiste la estación pegada"
+    ],
+    "texto": "EQUIPOS OPERATIVOS SEDE 4 T# \n\n*LIQUIDOS*\n\n*•BLISTER 3: FERBIN 250\n*•CL4 : ACIDO VALPROICO\n\n*•BLISTER2: DORMIX\n*•MT: SUPERFLUX\n*•LIQUIDOS 3: CANNEPI SOLUCIÓN \n*•CL2 : IBUPROFENO \n*•EMBASADORA 2: ZIPED\n\n*SOLIDOS*\n\n*•BIN: DISPONIBLE \n*•BOSH: DISPONIBLE \n*•NJP2 : DISPONIBLE \n*•NJP1 : DISPONIBLE \n*•NJP3 : OMEPRAZOL \n*•PILOTBLAB HUYTLIN40: DISPONIBLE\n*•SCHMUKER: FLEXTRIL\n*•BLISTER #9: DIMOFLAX\n*•BLISTER #6 MB432: NIFEDIPINO \n*•BLISTER #4 INTEGRA320: LOSARTAN \n*•BLISTER #8: ETORIMED\n*•EVOBLISTER 7: CRONOFEN\n*•MARZIO #4 : NOVABELLE \n*•HUTTLIN 600: ESOMEPRAZOL \n*•R200: DISPONIBLE \n*•R400: DISPONIBLE \n*•MARZIO 1: LIMPIEZA \n*•HUTTLIN 400: ESOMEPRAZOL \n*•RIMEK: TRIMEBUTINA \n*•FETE1010: DISPONIBLE \n*•FETTE20202: LIMPIEZA\n*•FETTE20201: LIMPIEZA \n*•CB550: GELYMED\n____________________\n       NOVEDADES\n\n- Turno pasado nos entrega planta con fluctuación de energía se restablecen las condiciones se arranca plantas de agua liquidos y sólidos \n\n- Banda de empaque blíster 2 atascada se encontró unos blíster entre la lona y el rodillo se sacan y se ajusta tensión de banda \n\n- Ms235 se atiende llamado porque se parte correa de la banda caída de blíster se intento desvarar con otras bandas parecidas trabajo 1.5hrs después y se volvió a dañar se detuvo el equipo y se bajó la banda para mantenimiento limpieza y lubricación pendiente para comenzar a montar\n\n- CL2: durante el turno se interviene actuador neumático de sistema de expulsión de cápsulas.\nPor lento retroceso se regula presión de entrada y salida de aire y alivio de retroceso en el actuador y se lubrican cilindros.\nAl final de turno nuevamente notifican que se repitió la novedad.\n\n- Blíster 3: se recibe plancha de formado porque parte fracturada en uno de los costados estaba presentando fuga de aire lo que ocasionaba mal formado durante el proceso.\nSe lleva a taller se limpia y se resana y sella. Se entrega queda pendiente hacer seguimiento del comportamiento en puesta en marcha.\n\n- Blíster 9 \nSe atiende llamado por perdida de paso por problemas de estación ( se quedaba pegada ) \nSe vuelve a tomar el paso y se engrasa rodamientos, se baja temperatura por qué estiraba el PVC , se hace cuadra y queda operativa, aún así persiste la estación pegada"
+  },
+  {
+    "id": "rt-20261024-1945",
+    "fecha": "2026-10-24",
+    "hora": "19:45",
+    "autor": "Jhon",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-24",
+    "equipos": [
+      {
+        "equipo": "[ÁREA DE SÓLIDOS]",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bin",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">Bosch",
+        "producto": ""
+      },
+      {
+        "equipo": ">NJP2",
+        "producto": ""
+      },
+      {
+        "equipo": ">NJP1",
+        "producto": ""
+      },
+      {
+        "equipo": ">NJP3",
+        "producto": "omeprazol flextril c"
+      },
+      {
+        "equipo": ">MB 432",
+        "producto": "congestex"
+      },
+      {
+        "equipo": ">Blíster #8",
+        "producto": ""
+      },
+      {
+        "equipo": ">Integra 320",
+        "producto": "Losartan"
+      },
+      {
+        "equipo": ">Estuchadora#1",
+        "producto": ""
+      },
+      {
+        "equipo": ">Blíster #9",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">MB 451",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": ">Estuchadora#2",
+        "producto": "cronofen"
+      },
+      {
+        "equipo": ">Schmucker",
+        "producto": "flextril"
+      },
+      {
+        "equipo": ">Marzio#4",
+        "producto": ""
+      },
+      {
+        "equipo": ">Marzio#5",
+        "producto": "novabelle"
+      },
+      {
+        "equipo": ">R400",
+        "producto": "dimoflax"
+      },
+      {
+        "equipo": ">Sólidos",
+        "producto": ""
+      },
+      {
+        "equipo": ">R200",
+        "producto": ""
+      },
+      {
+        "equipo": ">CB 550",
+        "producto": "gelimed"
+      },
+      {
+        "equipo": ">Fette 1010",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">fette 2020#1",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">Fette 2020#2",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": ">Rimex",
+        "producto": "Trimebutina+ simeticona"
+      },
+      {
+        "equipo": ">Pilot lab",
+        "producto": ""
+      },
+      {
+        "equipo": ">Huttlin 400",
+        "producto": "esomeprazol"
+      },
+      {
+        "equipo": ">Huttlin 600",
+        "producto": "montaje"
+      },
+      {
+        "equipo": ">Bombo 300#1",
+        "producto": ""
+      },
+      {
+        "equipo": ">Bombo 300 #2",
+        "producto": ""
+      },
+      {
+        "equipo": "[ÁREA DE LÍQUIDOS",
+        "producto": "]"
+      },
+      {
+        "equipo": ">CL #2",
+        "producto": "naproxeno + hiosina"
+      },
+      {
+        "equipo": ">CL #3",
+        "producto": ""
+      },
+      {
+        "equipo": ">CL #4",
+        "producto": "ácido valproico"
+      },
+      {
+        "equipo": ">Blíster #2",
+        "producto": "dormex"
+      },
+      {
+        "equipo": ">tangues de fabricacion liquidos",
+        "producto": ""
+      },
+      {
+        "equipo": ">Tangue de fabricación centro líquido",
+        "producto": ""
+      },
+      {
+        "equipo": ">Envasadora #2",
+        "producto": "zipep"
+      },
+      {
+        "equipo": ">Etiquetadora#2",
+        "producto": "zipep"
+      },
+      {
+        "equipo": ">Envasadora#3",
+        "producto": ""
+      },
+      {
+        "equipo": ">Etiquetadora#3",
+        "producto": ""
+      },
+      {
+        "equipo": ">Marchesine MT1100",
+        "producto": "superflux"
+      },
+      {
+        "equipo": ">Blíster #3",
+        "producto": "ferbir"
+      }
+    ],
+    "novedades": [
+      "*MT 1100:* llamado por qué estaba filtrando el sobre #1 se realiza revisión de alineación de las mordazas,se realiza ajustes  se hacen pruebas ok. Se entrega a producción.",
+      "*Huttlin 400:* llamado por humedad alta, se revisa se hacen ajustes, se entrega. Después otro llamado por humedad alta se verifica que la temperatura de agua estaba alta se llama al área encargada ok.",
+      "*Envasado #2:* llamado porque una boquilla quedaba con goteo, se revisa se baja se desarma se realiza limpieza se ajusta sello se hacen pruebas se entrega a producción.",
+      "*Estuchadora #2:* llamado porque se partió un palito guia de las cajas se realiza cambio de entrega a producción.",
+      "Se instalo cable de alimentación para desempolvar y se colocó conector, pendiente realiza cambio del conector en máquina.",
+      "*CB550:* Se ajusta mordazas verticales por mal sellado, Se cambian correa de arrastre y se le ajusta la presión de las bandas porque no mantenía centrado el laminado, queda pendiente una arruga que le sale en la presentación.",
+      "*SCHMUCKER:* Se habilita banda transportadora de sobres, se cambia correa de transmisión y mecanizado ajusta eje para diámetro interno de rodamientos, se realizan pruebas se entrega a producción, equipo trabaja S/N.",
+      "*T: 8 hrs*",
+      "*BLISTER 2:* Se corrige mal formación de alveolos, calibrando túnel de calefacción y parámetros de soplado.",
+      "*T:120mn*",
+      "*FLEXOGRAFÍCA:* Eje de cyrel presenta rosca dañada en uno de los extremos, se repara la misma y se agrega traba rosca, equipo operativo, se requiere embujar la misma.",
+      "*T: 120 mn*"
+    ],
+    "texto": "[REPORTE DE TURNO SEDE 4 ]     \n    \n*2026/10/20\n\n* TURNO #\n*******************\n\n[ÁREA DE SÓLIDOS]\n\n>Bin: limpieza \n>Bosch: \n>NJP2:\n>NJP1:\n>NJP3: omeprazol flextril c \n>MB 432:congestex \n>Blíster #8:\n>Integra 320: Losartan \n>Estuchadora#1:\n>Blíster #9: dimoflax \n>MB 451: cronofen \n>Estuchadora#2: cronofen \n>Schmucker: flextril \n>Marzio#4:\n>Marzio#5:novabelle \n>R400: dimoflax \n>Sólidos:\n>R200:\n>CB 550:gelimed \n>Fette 1010: limpieza \n>fette 2020#1: limpieza \n>Fette 2020#2: limpieza \n>Rimex: Trimebutina+ simeticona \n>Pilot lab:\n>Huttlin 400: esomeprazol \n>Huttlin 600: montaje \n>Bombo 300#1: \n>Bombo 300 #2:\n\n             \n\n[ÁREA DE LÍQUIDOS:]\n\n>CL #2: naproxeno + hiosina \n>CL #3:\n>CL #4: ácido valproico \n>Blíster #2:dormex\n>tangues de fabricacion liquidos:\n>Tangue de fabricación centro líquido:\n>Envasadora #2: zipep\n>Etiquetadora#2: zipep \n>Envasadora#3:\n>Etiquetadora#3: \n>Marchesine MT1100: superflux \n>Blíster #3: ferbir\n\n*NOVEDADES*\n*MT 1100:* llamado por qué estaba filtrando el sobre #1 se realiza revisión de alineación de las mordazas,se realiza ajustes  se hacen pruebas ok. Se entrega a producción.\n\n*Huttlin 400:* llamado por humedad alta, se revisa se hacen ajustes, se entrega. Después otro llamado por humedad alta se verifica que la temperatura de agua estaba alta se llama al área encargada ok.\n\n*Envasado #2:* llamado porque una boquilla quedaba con goteo, se revisa se baja se desarma se realiza limpieza se ajusta sello se hacen pruebas se entrega a producción.\n\n*Estuchadora #2:* llamado porque se partió un palito guia de las cajas se realiza cambio de entrega a producción.\n\nSe instalo cable de alimentación para desempolvar y se colocó conector, pendiente realiza cambio del conector en máquina.\n\n*CB550:* Se ajusta mordazas verticales por mal sellado, Se cambian correa de arrastre y se le ajusta la presión de las bandas porque no mantenía centrado el laminado, queda pendiente una arruga que le sale en la presentación.\n\n*SCHMUCKER:* Se habilita banda transportadora de sobres, se cambia correa de transmisión y mecanizado ajusta eje para diámetro interno de rodamientos, se realizan pruebas se entrega a producción, equipo trabaja S/N.\n*T: 8 hrs*\n\n*BLISTER 2:* Se corrige mal formación de alveolos, calibrando túnel de calefacción y parámetros de soplado.\n*T:120mn*\n\n*FLEXOGRAFÍCA:* Eje de cyrel presenta rosca dañada en uno de los extremos, se repara la misma y se agrega traba rosca, equipo operativo, se requiere embujar la misma.\n*T: 120 mn*"
+  },
+  {
+    "id": "rt-20261024-2346",
+    "fecha": "2026-10-24",
+    "hora": "23:46",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Día",
+    "fechaTurno": "2026-10-24",
+    "equipos": [
+      {
+        "equipo": "ENTREGA",
+        "producto": "DE TURNO - DÍA"
+      },
+      {
+        "equipo": "Fecha",
+        "producto": "24/10/2026"
+      },
+      {
+        "equipo": "1. PRODUCCIÓN EN CURSO",
+        "producto": ""
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "Actin (Terminado)"
+      },
+      {
+        "equipo": "GB 100",
+        "producto": "Deslodex"
+      },
+      {
+        "equipo": "Sólidos",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Horno",
+        "producto": "Carbamazepina"
+      },
+      {
+        "equipo": "Encapsulado",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Tableteado",
+        "producto": "Naproxeno + Cafeína"
+      },
+      {
+        "equipo": "Centro Líquido",
+        "producto": "Obligatorio / En Proceso"
+      }
+    ],
+    "novedades": [
+      "*2. NOVEDADES / TRABAJOS REALIZADOS*",
+      "- *Centro Líquido - Resistencia:*",
+      "- Novedad: La resistencia no estaba calentando.",
+      "- Trabajo: Se inspeccionó sistema eléctrico. Se detectó que la señal del celovovoltio  no llegaba del PLC a un relé.",
+      "- Solución: Se independizó el circuito.",
+      "- *Ascensor - Mantenimiento Externo:*",
+      "- Novedad: Visita de técnicos externos.",
+      "- Trabajo: Se recibió a técnicos de ASCONOR para mantenimiento de ascensor.",
+      "- Estado: En seguimiento.",
+      "-Líquido - Etiquetadora",
+      "Se apoyó a operadora de etiquetadora con ajuste de equipo."
+    ],
+    "texto": "*ENTREGA DE TURNO - DÍA*\n*Fecha: 24/10/2026*\n\n*1. PRODUCCIÓN EN CURSO*\n- *Blíster 5:* Actin (Terminado)\n- *GB 100:* Deslodex\n- *Sólidos:* Carbamazepina\n- *Horno:* Carbamazepina\n- *Encapsulado:* Disponible\n- *Tableteado:* Naproxeno + Cafeína\n- *Centro Líquido:* Obligatorio / En Proceso\n\n*2. NOVEDADES / TRABAJOS REALIZADOS*\n\n- *Centro Líquido - Resistencia:*\n    - Novedad: La resistencia no estaba calentando.\n    - Trabajo: Se inspeccionó sistema eléctrico. Se detectó que la señal del celovovoltio  no llegaba del PLC a un relé.\n    - Solución: Se independizó el circuito.\n\n- *Ascensor - Mantenimiento Externo:*\n    - Novedad: Visita de técnicos externos.\n    - Trabajo: Se recibió a técnicos de ASCONOR para mantenimiento de ascensor.\n    - Estado: En seguimiento.\n\n-Líquido - Etiquetadora\n  Se apoyó a operadora de etiquetadora con ajuste de equipo."
+  },
+  {
+    "id": "rt-20261025-0842",
+    "fecha": "2026-10-25",
+    "hora": "08:42",
+    "autor": "+57 312 7212941",
+    "sede": "Sede 2",
+    "turno": "Grupo Vía 40-2 · Noche",
+    "fechaTurno": "2026-10-24",
+    "equipos": [
+      {
+        "equipo": "Blister 5",
+        "producto": "dolorsinfem"
+      },
+      {
+        "equipo": "Gb 100",
+        "producto": "deslodex"
+      },
+      {
+        "equipo": "Envasadora1",
+        "producto": "chiquident"
+      },
+      {
+        "equipo": "Etiqueteadora",
+        "producto": "chiquident"
+      },
+      {
+        "equipo": "Cl",
+        "producto": "orlistat"
+      },
+      {
+        "equipo": "Marzzio",
+        "producto": "esomed"
+      }
+    ],
+    "novedades": [
+      "Cl se recibe maquina detenida por problemas en pt100 de selladora se independiza circuitos y se habilita.",
+      "Se atiende llamado en encapsuladora por problemas de dosificacion se se desacopla piñón se mueve un diente y se acopla nuevamente.",
+      "Cd40 se limpia filtro y trampa de bomba de vacío",
+      "Blíster 5 se  cambia  racor de plancha de formado en mal estado.",
+      "Gb100 se atiende llamado por que resistencia no estaba sellando se verifica y se observa que resistencia estaba por fuera se coloca nuevamente queda operativa",
+      "Se realiza recorrido a bombas de agua frías y umas"
+    ],
+    "texto": "Reporte de turno \nSede 2\n\nBlister 5  dolorsinfem\nGb 100 deslodex \nEnvasadora1 chiquident\nEtiqueteadora chiquident\nCl orlistat \nMarzzio esomed \n\nNovedades \n\nCl se recibe maquina detenida por problemas en pt100 de selladora se independiza circuitos y se habilita.\n\nSe atiende llamado en encapsuladora por problemas de dosificacion se se desacopla piñón se mueve un diente y se acopla nuevamente.\n\nCd40 se limpia filtro y trampa de bomba de vacío \n\nBlíster 5 se  cambia  racor de plancha de formado en mal estado.\n\nGb100 se atiende llamado por que resistencia no estaba sellando se verifica y se observa que resistencia estaba por fuera se coloca nuevamente queda operativa \n\nSe realiza recorrido a bombas de agua frías y umas"
+  },
+  {
+    "id": "rt-20261025-0907",
+    "fecha": "2026-10-25",
+    "hora": "09:07",
+    "autor": "+57 302 2801867",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-2 · Noche",
+    "fechaTurno": "2026-10-24",
+    "equipos": [
+      {
+        "equipo": "•BIN",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "•BOSCH",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•NJP1",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•NJP2",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "•PILOT LAB",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•MS 235",
+        "producto": "flexteil C"
+      },
+      {
+        "equipo": ".Blíster 9",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•MB 432",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "•INTEGRA 320",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•RC 200",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "•BLISTER 8",
+        "producto": "funzal"
+      },
+      {
+        "equipo": "•MB 235 EVO",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "•MARZIO 1",
+        "producto": "novabelle"
+      },
+      {
+        "equipo": "RC 400",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "•HUTTLIN 600",
+        "producto": "Flextril"
+      },
+      {
+        "equipo": "•MARZIO 5",
+        "producto": "Esomed"
+      },
+      {
+        "equipo": "•HUTTLIN 400",
+        "producto": "Esomeprazol"
+      },
+      {
+        "equipo": "•RIMEK",
+        "producto": "Trimebutina"
+      },
+      {
+        "equipo": "•FETTE 2020/2",
+        "producto": "acetaminofén"
+      },
+      {
+        "equipo": "•CB550",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•FETTE 1010",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "•FETTE 2020/1",
+        "producto": "limpieza"
+      },
+      {
+        "equipo": "•CLIQUIDOS 2",
+        "producto": "Dolorsin fem"
+      },
+      {
+        "equipo": "•CLIQUIDOS 3",
+        "producto": "disponible"
+      },
+      {
+        "equipo": "CLIQUIDOS 4",
+        "producto": "ferbim"
+      },
+      {
+        "equipo": "MT1100 Marchesini",
+        "producto": "Supreflux"
+      },
+      {
+        "equipo": "ENVASADORA #2",
+        "producto": "ziped"
+      },
+      {
+        "equipo": "•ML 642 ENVASADORA #3",
+        "producto": "azeflux"
+      },
+      {
+        "equipo": "BLISTER 2",
+        "producto": "ddormex"
+      },
+      {
+        "equipo": "BLÍSTER 3",
+        "producto": "ferbin"
+      }
+    ],
+    "novedades": [
+      "Blíster 3:se apoya en cuadre de estación de formado por problemas en formación de albeolos.",
+      "Envasado 2 se atiende llamado porque las tapas quedan atascada en el tobogán de la tapadora se evidencia golpe en un costado de la lámina la cual se aliena nuevamente y se toma el tiempo del picanplay 40min",
+      "Blíster 2 se atiende llamado porque se estaba pegando el pvc en la estación de formado se evidencia planchas caliente se purga mangueras y se entrega equipo 30min",
+      "Centro liquidos 2 se atiende llamado porque no accionaba en cilindro de expulsión se evidencia que se atascaba al momento de salir de ajusta queda ok 20min",
+      "Mt1100 se atiende llamado porque se partió resorte de uno de los bloques de cuchilla se cambia queda y se ajusta volante de fotocelda ya que se salió del lugar queda operativa  ok 40min",
+      "*Blíster 9*",
+      "Se atiende llamado por problemas de alimentación y pérdida de paso , nos percatamos que alimentador estaba muy pegado a la base de la guía se sube y se ajusta paso de blíster queda operativa 45min",
+      "fexografica",
+      "Se atiende llamdo sistema de moviendo de rodillo pegado , se desarma y se despega y queda operativo 40minutos",
+      "NJP2: se atiende llamado por no edad en sistema de expulsión, se evidencia pines totalmente doblados por colisión con porta cuerpo de una de las estaciones.",
+      "Se encuentra en el sistema de leva espárrago demaciado prolongado hacia arriba lo que no permitía el retroceso completo del sistema de expulsión y ocasionó la novedad.",
+      "Se normaliza recorrido del sistema se prueba y entrega ok.",
+      "*Nota*",
+      "Blíster 9 los operarios comentaron que el sistema de sellado aún sigue cerrandose hay que hacerle seguimiento"
+    ],
+    "texto": "*EQUIPOS OPERATIVOS SEDE 4 TN\n*•BIN: acetaminofén \n*•BOSCH: disponible \n*•NJP1: Disponible \n*•NJP2: Esomeprazol \n* NJP3: omeprazol \n*•PILOT LAB: Dimoflax \n*•MS 235: flexteil C \n*.Blíster 9:Dimoflax\n*•MB 432: congestex \n*•INTEGRA 320: Disponible \n*•RC 200: disponible\n*•BLISTER 8: funzal\n*•MB 235 EVO: acetaminofén \n*•MARZIO 1: novabelle\n*RC 400: Dimoflax\n*•HUTTLIN 600: Flextril \n*•MARZIO 5: Esomed \n*•HUTTLIN 400: Esomeprazol \n*•RIMEK: Trimebutina \n*•FETTE 2020/2 : acetaminofén\n*•CB550: Disponible \n*•FETTE 1010: Disponible\n*•FETTE 2020/1: limpieza\n*•CLIQUIDOS 2: Dolorsin fem \n *•CLIQUIDOS 3: disponible \n*CLIQUIDOS 4: ferbim \n*MT1100 Marchesini: Supreflux \n *ENVASADORA #2: ziped\n*•ML 642 ENVASADORA #3: azeflux\n*BLISTER 2: ddormex\n*BLÍSTER 3: ferbin  \n_________________________\n        *NOVEDADES*\nBlíster 3:se apoya en cuadre de estación de formado por problemas en formación de albeolos.\n\nEnvasado 2 se atiende llamado porque las tapas quedan atascada en el tobogán de la tapadora se evidencia golpe en un costado de la lámina la cual se aliena nuevamente y se toma el tiempo del picanplay 40min\n\nBlíster 2 se atiende llamado porque se estaba pegando el pvc en la estación de formado se evidencia planchas caliente se purga mangueras y se entrega equipo 30min\n\nCentro liquidos 2 se atiende llamado porque no accionaba en cilindro de expulsión se evidencia que se atascaba al momento de salir de ajusta queda ok 20min \n\nMt1100 se atiende llamado porque se partió resorte de uno de los bloques de cuchilla se cambia queda y se ajusta volante de fotocelda ya que se salió del lugar queda operativa  ok 40min\n\n*Blíster 9*\nSe atiende llamado por problemas de alimentación y pérdida de paso , nos percatamos que alimentador estaba muy pegado a la base de la guía se sube y se ajusta paso de blíster queda operativa 45min  \n\nfexografica \nSe atiende llamdo sistema de moviendo de rodillo pegado , se desarma y se despega y queda operativo 40minutos \n\nNJP2: se atiende llamado por no edad en sistema de expulsión, se evidencia pines totalmente doblados por colisión con porta cuerpo de una de las estaciones.\nSe encuentra en el sistema de leva espárrago demaciado prolongado hacia arriba lo que no permitía el retroceso completo del sistema de expulsión y ocasionó la novedad. \nSe normaliza recorrido del sistema se prueba y entrega ok. \n*Nota*\nBlíster 9 los operarios comentaron que el sistema de sellado aún sigue cerrandose hay que hacerle seguimiento"
+  },
+  {
+    "id": "rt-20261025-1930",
+    "fecha": "2026-10-25",
+    "hora": "19:30",
+    "autor": "Lucho",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-3 · Día",
+    "fechaTurno": "2026-10-25",
+    "equipos": [
+      {
+        "equipo": "CTL4",
+        "producto": "ácido valproico"
+      },
+      {
+        "equipo": "Blíster 2",
+        "producto": "Diclofenac"
+      },
+      {
+        "equipo": "Envasadora3",
+        "producto": "azeflu"
+      },
+      {
+        "equipo": "NJP 2",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "Fette",
+        "producto": "2020#2 Acetaminofén"
+      },
+      {
+        "equipo": "Fette",
+        "producto": "2020#1 limpieza"
+      },
+      {
+        "equipo": "CB550",
+        "producto": "colágeno"
+      },
+      {
+        "equipo": "NJP 3",
+        "producto": "omeprazol"
+      },
+      {
+        "equipo": "MS235",
+        "producto": "flextril"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "congestex"
+      },
+      {
+        "equipo": "Integra",
+        "producto": "Losartan"
+      },
+      {
+        "equipo": "Blíster5 funzal",
+        "producto": ""
+      },
+      {
+        "equipo": "MB",
+        "producto": "EVO Acetaminofén"
+      },
+      {
+        "equipo": "Marzio5",
+        "producto": "Novabell"
+      },
+      {
+        "equipo": "Marzio4",
+        "producto": "esomed"
+      },
+      {
+        "equipo": "R400",
+        "producto": "Dimoflax"
+      },
+      {
+        "equipo": "CTL 2",
+        "producto": "Dolorsinfen"
+      },
+      {
+        "equipo": "Envasadora2",
+        "producto": "ziped"
+      },
+      {
+        "equipo": "Huttlin 400",
+        "producto": "Esomeprazol"
+      }
+    ],
+    "novedades": [
+      "Blíster 3 se baja estación de formado por ruido se encuentra resorte partido y eje polea con desgaste cuña desgastada se hace cuña nueva con buen ajuste y se remplaza resorte de monta se hacen pruebas queda ok",
+      "MT 1100 se realiza mantenimiento a sistema de corte se cambian tornillos y resortes de abra facil con su tuerca original se cambian cuchillas y sufridera la máquina estaba en limpieza no se pudo probar queda pendiente",
+      "Huttlin 600 se limpia captador de polvo  estaba totalmente mente lleno de entrega a producción",
+      "Blíster-8 se atiende llamado porque los pines de la plancha de sellado no entraba en la plancha enfriamiento, se encuentra resto de un pin partido dentro de la plancha de enfriamiento, se retira y queda equipo operativo.",
+      "Envasadora 3: Maquina no mandaba alarma de cuba. Se encuentra terminal de señal de llenado de cuba en falso contacto Se ajusta frecuencia del VDF en proporción con el llenado de la máquina.",
+      "Se ajustan sensores por error en teste de frascos buenos.",
+      "Se entrega a operadores",
+      "Blister#2 Se recibe llamado de operador por perdida de paso.",
+      "Pvc se estaba pegando en la estación de formado. Se quitan calzas y se ajusta presión de arandelas cóncavas  de la estación..Se busca paso Se entrega a operador",
+      "CTL2 se Atiende llamado por fuga de producto se evidencia que es por los eyectores se cambian los oring queda ok",
+      "ETIQUETADORA ENVASE 2 se recibe llamado por lote borroso, se realiza desmonte de equipo codificador, se limpia completamente, también se baja base del equipo codificador y base de la sufridera, se rectifican roscas M6, se instala nueva tornillería para los soportes del equipo, se coloca caucho de la sufridera un poco más abajo y se adhiere con goma, se realiza montaje y ajustes finales realizando prueba de funcionamiento y se deja equipo habilitado."
+    ],
+    "texto": "Buenas noches \nReporte de turno \nSD 4 \n\nCTL4 ácido valproico \n\nBlíster 2 Diclofenac \n\nEnvasadora3 azeflu \n\nNJP 2 omeprazol \n\nFette 2020#2 Acetaminofén \n\nFette 2020#1 limpieza \n\nCB550 colágeno \n\nNJP 3 omeprazol \n\nMS235 flextril \n\nMB 432 congestex \n\nIntegra Losartan \n\nBlíster5 funzal \n\nMB EVO Acetaminofén \n\nMarzio5 Novabell\n\nMarzio4 esomed \n\nR400 Dimoflax \n\nCTL 2 Dolorsinfen \n\nEnvasadora2 ziped\n\nHuttlin 400 Esomeprazol\n\n Nota\nBlíster 3 se baja estación de formado por ruido se encuentra resorte partido y eje polea con desgaste cuña desgastada se hace cuña nueva con buen ajuste y se remplaza resorte de monta se hacen pruebas queda ok \n\nMT 1100 se realiza mantenimiento a sistema de corte se cambian tornillos y resortes de abra facil con su tuerca original se cambian cuchillas y sufridera la máquina estaba en limpieza no se pudo probar queda pendiente \n\nHuttlin 600 se limpia captador de polvo  estaba totalmente mente lleno de entrega a producción\n\nBlíster-8 se atiende llamado porque los pines de la plancha de sellado no entraba en la plancha enfriamiento, se encuentra resto de un pin partido dentro de la plancha de enfriamiento, se retira y queda equipo operativo.\n\nEnvasadora 3:\nMaquina no mandaba alarma de cuba.\nSe encuentra terminal de señal de llenado de cuba en falso contacto \nSe ajusta frecuencia del VDF en proporción con el llenado de la máquina.\n\nSe ajustan sensores por error en teste de frascos buenos.\n\nSe entrega a operadores\n\nBlister#2\nSe recibe llamado de operador por perdida de paso.\n\nPvc se estaba pegando en la estación de formado.\nSe quitan calzas y se ajusta presión de arandelas cóncavas  de la estación..Se busca paso Se entrega a operador\n\nCTL2 se Atiende llamado por fuga de producto se evidencia que es por los eyectores se cambian los oring queda ok\n\nETIQUETADORA ENVASE 2\nse recibe llamado por lote borroso, se realiza desmonte de equipo codificador, se limpia completamente, también se baja base del equipo codificador y base de la sufridera, se rectifican roscas M6, se instala nueva tornillería para los soportes del equipo, se coloca caucho de la sufridera un poco más abajo y se adhiere con goma, se realiza montaje y ajustes finales realizando prueba de funcionamiento y se deja equipo habilitado."
+  },
+  {
+    "id": "rt-20261026-0812",
+    "fecha": "2026-10-26",
+    "hora": "08:12",
+    "autor": "+57 323 3643481",
+    "sede": "Sede 2",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-25",
+    "equipos": [
+      {
+        "equipo": "ENTREGA",
+        "producto": "DE TURNO - NOCHE"
+      },
+      {
+        "equipo": "Fecha",
+        "producto": "26/10/2026"
+      },
+      {
+        "equipo": "1. PRODUCCIÓN EN CURSO",
+        "producto": ""
+      },
+      {
+        "equipo": "Envasadora",
+        "producto": "Humenas"
+      },
+      {
+        "equipo": "Encapsulado",
+        "producto": "Disponible"
+      },
+      {
+        "equipo": "Centro Líquido",
+        "producto": "Orlistat 120mg"
+      },
+      {
+        "equipo": "Sólidos",
+        "producto": "En limpieza"
+      },
+      {
+        "equipo": "GB100",
+        "producto": "Deslodex"
+      },
+      {
+        "equipo": "Blíster 5",
+        "producto": "Dolorsin Fem"
+      }
+    ],
+    "novedades": [
+      "/ TRABAJOS REALIZADOS*",
+      "- *Centro Líquido - Encapsuladora / Correa:*",
+      "- Novedad: Correa de encapsuladora partida. Ref. T5 690.",
+      "- Trabajo: Se reemplaza correa.",
+      "- Estado: *Operativo.*",
+      "- *Planta de Agua:*",
+      "- Novedad: Equipo en alarma.",
+      "- Trabajo: Se resetea alarma.",
+      "- Estado: *Operativo, continuó funcionando.*",
+      "- *Blíster 5:*",
+      "- Novedad: Pérdida de paso en línea.",
+      "- Trabajo: Se apoya a operario.",
+      "- Estado: *Operativo.*",
+      "*RECORRIDOS*",
+      "- Sin novedad."
+    ],
+    "texto": "*ENTREGA DE TURNO - NOCHE*\n*Fecha: 26/10/2026*\n\n*1. PRODUCCIÓN EN CURSO*\n- *Envasadora:* Humenas\n- *Encapsulado:* Disponible\n- *Centro Líquido:* Orlistat 120mg\n- *Sólidos:* En limpieza\n- *GB100:* Deslodex\n- *Blíster 5:* Dolorsin Fem\n\n*NOVEDADES / TRABAJOS REALIZADOS*\n\n- *Centro Líquido - Encapsuladora / Correa:*\n    - Novedad: Correa de encapsuladora partida. Ref. T5 690.\n    - Trabajo: Se reemplaza correa.\n    - Estado: *Operativo.*\n\n- *Planta de Agua:*\n    - Novedad: Equipo en alarma.\n    - Trabajo: Se resetea alarma.\n    - Estado: *Operativo, continuó funcionando.*\n\n- *Blíster 5:*\n    - Novedad: Pérdida de paso en línea.\n    - Trabajo: Se apoya a operario.\n    - Estado: *Operativo.*\n\n*RECORRIDOS*\n- Sin novedad."
+  },
+  {
+    "id": "rt-20261026-0830",
+    "fecha": "2026-10-26",
+    "hora": "08:30",
+    "autor": "Alexander Algarin",
+    "sede": "Sede 4",
+    "turno": "Grupo 4-1 · Noche",
+    "fechaTurno": "2026-10-25",
+    "equipos": [
+      {
+        "equipo": "CL2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "CL4",
+        "producto": "DOLORSIN"
+      },
+      {
+        "equipo": "MT 1100",
+        "producto": "SUPERFLUIX esperando solución."
+      },
+      {
+        "equipo": "BLÍSTER 3",
+        "producto": "FERBIN"
+      },
+      {
+        "equipo": "BLÍSTER 2",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "ENVASADO 3",
+        "producto": "AZEFLU"
+      },
+      {
+        "equipo": "CL3",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "ENVASADO 2",
+        "producto": "MONTAJE"
+      },
+      {
+        "equipo": "BIN BLENDER",
+        "producto": "Flumixol"
+      },
+      {
+        "equipo": "BOSCH",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "NJP1",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "NJP2",
+        "producto": "ESOMED"
+      },
+      {
+        "equipo": "NJP3",
+        "producto": "OMEPRAZOL"
+      },
+      {
+        "equipo": "PILOT LAB",
+        "producto": "LIMPIEZA"
+      },
+      {
+        "equipo": "MB 432",
+        "producto": "CONGESTEX"
+      },
+      {
+        "equipo": "BLÍSTER 8",
+        "producto": "FUNZALL"
+      },
+      {
+        "equipo": "SCHMUCKER",
+        "producto": "FLECTRIL"
+      },
+      {
+        "equipo": "Blíster 9",
+        "producto": "COLTRIM"
+      },
+      {
+        "equipo": "INTEGRA 320",
+        "producto": "LOSARTAN"
+      },
+      {
+        "equipo": "R200",
+        "producto": "COLTRIM"
+      },
+      {
+        "equipo": "MB 451 EVO",
+        "producto": "CRONOFEM"
+      },
+      {
+        "equipo": "MARZIO 5",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "HUTTLIN 600",
+        "producto": "FLEXTRIL"
+      },
+      {
+        "equipo": "R400",
+        "producto": "DIMOFLAX"
+      },
+      {
+        "equipo": "BOMBO 300",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "MARZIO 4",
+        "producto": "ESOMED"
+      },
+      {
+        "equipo": "HUTTLIN 400",
+        "producto": "ESOMEPRAZOL"
+      },
+      {
+        "equipo": "RIMEK",
+        "producto": "COLTRIM"
+      },
+      {
+        "equipo": "FETTE 1010",
+        "producto": "COMESTOX"
+      },
+      {
+        "equipo": "FETTE 2020 2",
+        "producto": "ACETAMINOFEN"
+      },
+      {
+        "equipo": "FETTE 2020 1",
+        "producto": "DISPONIBLE"
+      },
+      {
+        "equipo": "CB 550",
+        "producto": "GELIMED"
+      }
+    ],
+    "novedades": [
+      "*BLISTER 3:* Se ajusta túnel de calefacción y se calibra estacion de sellado, equipo S/N en el turno.",
+      "*T:60 mn aprox*",
+      "*NJP3:* LLamado por domos en cápsulas, se limpia filtros (colector de polvo), se alinea magazine y base de succión, equipo operativo.",
+      "*T:120 mn aprox*",
+      "*NJP1:* Equipo presenta falla en expulsión de capsulas y estación #6 no alinea, se cambian ejes doblados de segmento porta tapa, se lubrica estación de expulsión y se alinea torreta modular, equipo operativo.",
+      "*T:7Hrs aprox*",
+      "*Marzio 4:* llamado por problemas de tamaño y paso se revisa se encuentra mal cuadrado el equipo se proceso a realizar ajustes generales se hacen pruebas se entrega a producción ( 120 minutos).",
+      "*Fette 2020#1:* se cambia el conector de la máquina para la conexión del desempolvar se instalo y se hacen pruebas.",
+      "*Envasado #3:* llamado porque equipo estaba dañado los frascos se realizan ajustes de cuadre y se ajusta velocidad del equipo se hacen pruebas ok.",
+      "Después otro llamado porque no cargaba la cuba se realiza revisión se encuentra tangue lleno de espuma y poco producto y la bomba había cogido aire, se realiza cambio de tanque se hacen pruebas ok.(180 minutos).",
+      "*Tanques de fabricación #1:* llamado porqué no podía utilizar agua por alarma presente, se revisa se encuentra alarma el generador de ozono se reinicio se entrego( 30 minutos).",
+      "*ESTUCHADORA EVO;* LLamado por falla en 2da inserción de blísters, se posiciona sensor de cilindro, equipo operativo.",
+      "*T:50mn aprox*",
+      "Blíster #9: se abre la estación de sellado, y se coloca pin  que se salió de las caracolas ( guías de PVC )."
+    ],
+    "texto": "*REPORTE* *DE* *TURNO* \n *GRUPO 1 NOCHE*\n *SEDE* *4* \n- *CL2:* DISPONIBLE \n- *CL4:* DOLORSIN \n- *MT 1100:* SUPERFLUIX esperando solución.\n- *BLÍSTER 3:* FERBIN\n- *BLÍSTER 2 :* DISPONIBLE \n- *ENVASADO 3:* AZEFLU \n- *CL3:* DISPONIBLE \n- *ENVASADO 2:* MONTAJE\n- *BIN BLENDER:* Flumixol\n- *BOSCH:* DISPONIBLE \n- *NJP1:* DISPONIBLE \n- *NJP2:* ESOMED\n- *NJP3:* OMEPRAZOL\n- *PILOT LAB:* LIMPIEZA \n- *MB 432:* CONGESTEX\n- *BLÍSTER 8:* FUNZALL\n- *SCHMUCKER:* FLECTRIL\n- *Blíster 9:* COLTRIM\n- *INTEGRA 320:* LOSARTAN\n- *R200:* COLTRIM\n- *MB 451 EVO:* CRONOFEM\n- *MARZIO 5:* DISPONIBLE \n- *HUTTLIN 600:* FLEXTRIL \n- *R400:* DIMOFLAX\n- *BOMBO 300:* DISPONIBLE \n- *MARZIO 4:* ESOMED\n- *HUTTLIN 400:* ESOMEPRAZOL\n- *RIMEK:* COLTRIM\n- *FETTE 1010:* COMESTOX\n- *FETTE 2020 2:* ACETAMINOFEN\n- *FETTE 2020 1:* DISPONIBLE \n- *CB 550:* GELIMED\n*NOVEDADES:*\n*BLISTER 3:* Se ajusta túnel de calefacción y se calibra estacion de sellado, equipo S/N en el turno.\n*T:60 mn aprox*\n*NJP3:* LLamado por domos en cápsulas, se limpia filtros (colector de polvo), se alinea magazine y base de succión, equipo operativo.\n*T:120 mn aprox*\n*NJP1:* Equipo presenta falla en expulsión de capsulas y estación #6 no alinea, se cambian ejes doblados de segmento porta tapa, se lubrica estación de expulsión y se alinea torreta modular, equipo operativo.\n*T:7Hrs aprox*\n*Marzio 4:* llamado por problemas de tamaño y paso se revisa se encuentra mal cuadrado el equipo se proceso a realizar ajustes generales se hacen pruebas se entrega a producción ( 120 minutos).\n*Fette 2020#1:* se cambia el conector de la máquina para la conexión del desempolvar se instalo y se hacen pruebas.\n*Envasado #3:* llamado porque equipo estaba dañado los frascos se realizan ajustes de cuadre y se ajusta velocidad del equipo se hacen pruebas ok. \nDespués otro llamado porque no cargaba la cuba se realiza revisión se encuentra tangue lleno de espuma y poco producto y la bomba había cogido aire, se realiza cambio de tanque se hacen pruebas ok.(180 minutos).\n*Tanques de fabricación #1:* llamado porqué no podía utilizar agua por alarma presente, se revisa se encuentra alarma el generador de ozono se reinicio se entrego( 30 minutos).\n*ESTUCHADORA EVO;* LLamado por falla en 2da inserción de blísters, se posiciona sensor de cilindro, equipo operativo.\n*T:50mn aprox*\n\nBlíster #9: se abre la estación de sellado, y se coloca pin  que se salió de las caracolas ( guías de PVC )."
   }
 ];
