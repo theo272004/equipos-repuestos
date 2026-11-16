@@ -39,6 +39,9 @@ const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
 const DESDE = "2026-08-01";
 // Quien escribe en el grupo para pedir, recordar o felicitar, no para reportar
 const SUPERVISORES = /juan guilarte|fnegrete|estiven fuentes/i;
+// Mensajes de un técnico que no son de mantenimiento (descuentos, nómina,
+// reclamos laborales): no entran a los reportes ni al registro diario.
+const NO_MANTENIMIENTO = /descuento\s+de\s+mi\s+bolsillo|\bn[oó]mina\b|\bliquidaci[oó]n\b|\bcesant[ií]as\b/i;
 
 // ------------------------------------------------------------------ entrada
 function leerChat(ruta) {
@@ -339,7 +342,7 @@ const entradas = [];
 for (const m of msgs) {
   if (SUPERVISORES.test(m.autor)) continue;
   const cuerpo = limpiarCuerpo(m.cuerpo);
-  if (!cuerpo) continue;
+  if (!cuerpo || NO_MANTENIMIENTO.test(cuerpo)) continue;
   const lectura = L.leer(cuerpo);
   if (!lectura.novedades.length && lectura.estados.length < 2) continue;
   entradas.push({ msg: { ...m, cuerpo }, lectura });
