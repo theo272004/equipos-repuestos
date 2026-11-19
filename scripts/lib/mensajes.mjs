@@ -129,8 +129,12 @@ export function msgTurno(W, pan) {
   const T = W.TURNOS;
   if (!T) return "No encuentro el cuadro de turnos.";
   const hoy = pan.hoy;
-  const bloque = (fecha, clave) => Object.values(T.quienes(fecha, clave)).map((s) => `• ${esc(s.sede)}: ${s.gente.length ? s.gente.map((g) => esc(g.nombre.split(" ").slice(0, 2).join(" ")) + (g.fijo ? " (fijo)" : "")).join(", ") : "—"}`).join("\n");
-  return [`👷 <b>Turnos · ${esc(fechaCorta(hoy))}</b>`, "", "☀️ <b>Día</b> (8:00–20:00)", bloque(hoy, "dia"), "", "🌙 <b>Noche</b> (20:00–8:00)", bloque(hoy, "noche"), "", `<i>Mañana de día:</i>\n${bloque(sumaDias(hoy, 1), "dia")}`].join("\n");
+  // "Oscar de Jesús", no "Oscar de": si la segunda palabra es "de"/"del", se toma una más
+  const dos = (n) => { const p = n.split(" "); return p.slice(0, /^(de|del)$/i.test(p[1] || "") ? 3 : 2).join(" "); };
+  const bloque = (fecha, clave) => Object.values(T.quienes(fecha, clave)).map((s) => `• ${esc(s.sede)}: ${s.gente.length ? s.gente.map((g) => esc(dos(g.nombre)) + (g.fijo ? " (fijo)" : "")).join(", ") : "—"}`).join("\n");
+  const ap = T.apoyo ? T.apoyo(hoy) : [];
+  const apoyo = ap.length ? `\n• Apoyo: ${ap.filter((a) => a.trabaja).map((a) => esc(dos(a.nombre))).join(", ") || "—"}${ap.some((a) => !a.trabaja) ? ` <i>(no vienen: ${ap.filter((a) => !a.trabaja).map((a) => `${esc(a.nombre.split(" ")[0])}, ${esc(a.motivo.toLowerCase())}`).join("; ")})</i>` : ""}` : "";
+  return [`👷 <b>Turnos · ${esc(fechaCorta(hoy))}</b>`, "", "☀️ <b>Día</b> (8:00–20:00)", bloque(hoy, "dia") + apoyo, "", "🌙 <b>Noche</b> (20:00–8:00)", bloque(hoy, "noche"), "", `<i>Mañana de día:</i>\n${bloque(sumaDias(hoy, 1), "dia")}`].join("\n");
 }
 
 export function msgPresupuesto(pan) {

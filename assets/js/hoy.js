@@ -75,12 +75,10 @@
     </button>`;
   }
 
+  // La especialidad sale de turnos-data.js, la misma lista que usa la vista Turnos.
   function rolTecnico(nombre) {
-    const s = String(nombre || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    if (/\bnestor\b|ardila/i.test(s)) return "Locativo";
-    if (/\bjuan\b|estupinan/i.test(s)) return "Refrigeración";
-    if (/\byesid\b|\bheiner\b|\bbladimir\b|\bbrayan\b|\boscar\b|\bsergio\b|\bleo\b|\bleonardo\b/i.test(s)) return "Electricista";
-    return "Mecánico";
+    const T = window.TURNOS;
+    return T && T.especialidad ? T.especialidad(nombre).rol : "Mecánico";
   }
 
   function tarjetaTurno() {
@@ -88,6 +86,9 @@
     const t = N.turnoEnCurso();
     const quienes = T ? T.quienes(t.fecha, t.clave) : {};
 
+    // El apoyo (locativo, preventivo, refrigeración) trabaja solo de día.
+    const apoyo = T && T.apoyo && t.clave === "dia" ? T.apoyo(t.fecha).filter((a) => a.trabaja).map((a) => ({ nombre: a.nombre, grupo: a.area })) : [];
+    if (apoyo.length) quienes.apoyo = { sede: "Apoyo", gente: apoyo };
     const bloque = (k, sedeLabel) => {
       const g = (quienes[k] && quienes[k].gente) || [];
       const abierto = !!(vista.expandTurno && vista.expandTurno[k]);
@@ -109,7 +110,7 @@
           ${g.map((p) => {
             const rol = rolTecnico(p.nombre);
             const rolCls = rol === "Electricista" ? "hy-rol--elec" : rol === "Refrigeración" ? "hy-rol--refr" : rol === "Locativo" ? "hy-rol--loc" : "hy-rol--mec";
-            const corto = p.nombre.split(" ").slice(0, 2).join(" ");
+            const partes = p.nombre.split(" "), corto = partes.slice(0, /^(de|del)$/i.test(partes[1] || "") ? 3 : 2).join(" ");
             return `<li>
               <span class="ux-av ux-av--${N.tono(p.nombre)}">${esc(N.iniciales(p.nombre).toUpperCase())}</span>
               <div class="hy-turno-detalle__n">
@@ -134,6 +135,7 @@
         ${bloque("sede4", "Sede 4")}
         <hr class="ux-divider" style="margin:4px 0">
         ${bloque("sede2", "Sede 2")}
+        ${apoyo.length ? `<hr class="ux-divider" style="margin:4px 0">${bloque("apoyo", "Apoyo · ambas sedes")}` : ""}
       </div>
       <div class="hy-turno-foot">
         <button class="ux-link" type="button" data-hy="turnos">Ver cuadro completo →</button>

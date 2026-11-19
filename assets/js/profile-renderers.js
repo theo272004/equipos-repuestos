@@ -942,7 +942,7 @@ function dt(machine, campo) {
 
         const buckets = { dia: [], noche: [], descanso: [] };
         TN_ROSTER[tnSede].groups.forEach((g) => {
-          const members = g.members.filter((m) => tnVigente(m, fecha)).map(tnNombre);
+          const members = g.members.filter((m) => tnVigente(m, fecha) && !window.TURNOS.ausencia(tnNombre(m), fecha)).map(tnNombre);
           if (members.length) buckets[tnEstadoDe(g.phase, fecha)].push({ ...g, members });
         });
 
@@ -958,14 +958,20 @@ function dt(machine, campo) {
           const groups = buckets[est];
           // Los de turno fijo van siempre en la tarjeta de día: trabajan de 8 a 20
           // todos los días laborables, no rotan con su grupo.
-          const fijos = est === "dia" ? (TN_FIJOS[tnSede] || []).filter((f) => tnVigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha)) : [];
+          const fijos = est === "dia" ? (TN_FIJOS[tnSede] || []).filter((f) => tnVigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha) && !window.TURNOS.ausencia(f.nombre, fecha)) : [];
           const rotan = groups.length
             ? groups.map((g) => `<div class="tn-group">${escapeHtml(g.name)}</div><ul class="tn-people">${g.members.map((m) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(m).toUpperCase())}</span><span>${escapeHtml(m)} ${espBadge(m)}</span></li>`).join("")}</ul>`).join("")
             : "";
           const bloqueFijos = fijos.length
             ? `<div class="tn-group">Turno fijo</div><ul class="tn-people">${fijos.map((f) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(f.nombre).toUpperCase())}</span><span>${escapeHtml(f.nombre)} ${espBadge(f.nombre)}<span class="tn-fijo">${escapeHtml(f.horario)} &middot; ${escapeHtml(f.grupo)}</span></span></li>`).join("")}</ul>`
             : "";
-          const body = (rotan + bloqueFijos) || '<p class="tn-empty">—</p>';
+          // Quien le tocaba por el ciclo pero no viene (XX o vacaciones en el cuadro)
+          const fuera = est === "descanso" ? [] : TN_ROSTER[tnSede].groups.filter((g) => tnEstadoDe(g.phase, fecha) === est)
+            .flatMap((g) => g.members.filter((m) => tnVigente(m, fecha)).map(tnNombre))
+            .concat(est === "dia" ? (TN_FIJOS[tnSede] || []).filter((f) => tnVigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha)).map((f) => f.nombre) : [])
+            .map((n) => ({ n, motivo: window.TURNOS.ausencia(n, fecha) })).filter((x) => x.motivo);
+          const bloqueFuera = fuera.length ? `<div class="tn-group">No vienen</div><ul class="tn-people">${fuera.map((x) => `<li><span class="tn-ini">${escapeHtml(tnIniciales(x.n).toUpperCase())}</span><span>${escapeHtml(x.n)} <span class="tn-fijo">${escapeHtml(x.motivo)}</span></span></li>`).join("")}</ul>` : "";
+          const body = (rotan + bloqueFijos + bloqueFuera) || '<p class="tn-empty">—</p>';
           return `<section class="tn-card ${info.cls}"><div class="tn-head">${info.icon} ${info.label}</div><div class="tn-body">${body}</div></section>`;
         }).join("");
         const visibles = tnTurno === "todos" ? 3 : 1;
@@ -977,8 +983,8 @@ function dt(machine, campo) {
         const mostrar = (tnTurno === "todos" || tnTurno === "dia");
         soporte.innerHTML = mostrar
           ? `<h3>Personal de apoyo · turno fijo</h3>
-             <p class="tn-sub">Trabajan horario fijo de día (no rotan). Cubren ambas sedes.</p>
-             <div class="tn-support-grid">${TN_SUPPORT.map((s) => `<div class="tn-support-item"><b>${escapeHtml(s.area)}</b><div>${s.members.map((m) => `${escapeHtml(m)} ${espBadge(m)}`).join("<br>")}</div></div>`).join("")}</div>`
+             <p class="tn-sub">Trabajan de día (no rotan), descansan el sábado. Cubren ambas sedes.</p>
+             <div class="tn-support-grid">${TN_SUPPORT.map((s) => `<div class="tn-support-item"><b>${escapeHtml(s.area)}</b><div>${s.members.map((m) => { const a = window.TURNOS.apoyo(fecha).find((x) => x.nombre === m); return `${escapeHtml(m)} ${a && !a.trabaja ? `<span class="tn-fijo">${escapeHtml(a.motivo)} este día</span>` : espBadge(m)}`; }).join("<br>")}</div></div>`).join("")}</div>`
           : "";
         soporte.hidden = !mostrar;
       }

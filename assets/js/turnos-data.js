@@ -78,11 +78,38 @@
     return null;
   }
 
+  // Personal de apoyo: no rota, trabaja de día. En el cuadro sale "2" los días
+  // que trabaja y "XX" el sábado (libre: 6 = sábado, 0 = domingo).
   const TN_SUPPORT = [
-    { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"] },
-    { area: "Preventivo", members: ["Alexi Alexander Arroyo De Moya", "Leiner Andrés Montañez Rodríguez"] },
-    { area: "Refrigeración", members: ["Juan Carlos Estupiñán De la Cruz"] }
+    { area: "Locativo / Infraestructura", members: ["Néstor Ardila Esparza"], libre: [6] },
+    { area: "Preventivo", members: ["Alexi Alexander Arroyo De Moya", "Leiner Andrés Montañez Rodríguez"], libre: [6] },
+    { area: "Refrigeración", members: ["Juan Carlos Estupiñán De la Cruz"], libre: [6] }
   ];
+  // Días que alguien no trabaja aunque le toque por el ciclo ("XX" o "VV" en el
+  // cuadro). desde/hasta incluidos, AAAA-MM-DD.
+  const TN_AUSENCIAS = [
+    // Cuadro de noviembre de 2026
+    { nombre: "Quelbys Alberto Sandoval Villarreal", desde: "2026-11-01", hasta: "2026-11-01", motivo: "Libre" },
+    { nombre: "Quelbys Alberto Sandoval Villarreal", desde: "2026-11-03", hasta: "2026-11-03", motivo: "Libre" },
+    { nombre: "Jean Carlos Orellano Ebratt", desde: "2026-11-01", hasta: "2026-11-01", motivo: "Libre" },
+    { nombre: "Jesús Ángel Ortiz Zarate", desde: "2026-11-01", hasta: "2026-11-01", motivo: "Libre" },
+    { nombre: "Juan Carlos Estupiñán De la Cruz", desde: "2026-11-10", hasta: "2026-11-30", motivo: "Vacaciones" }
+  ];
+  // Motivo por el que alguien no trabaja esa fecha, o "" si trabaja normal.
+  function ausencia(nombre, fecha) {
+    const a = TN_AUSENCIAS.find((x) => x.nombre === nombre && fecha >= x.desde && fecha <= x.hasta);
+    return a ? a.motivo || "Ausente" : "";
+  }
+  // Personal de apoyo esa fecha: quién trabaja (de día) y quién no y por qué.
+  function apoyo(fecha) {
+    const dow = new Date(fecha + "T12:00:00Z").getUTCDay();
+    const out = [];
+    TN_SUPPORT.forEach((s) => s.members.forEach((m) => {
+      const fuera = ausencia(m, fecha) || ((s.libre || []).includes(dow) ? "Libre" : "");
+      out.push({ nombre: m, area: s.area, trabaja: !fuera, motivo: fuera });
+    }));
+    return out;
+  }
   const TN_ANCHOR = Date.UTC(2026, 6, 1); // ancla del ciclo: 1 de julio de 2026
   const TN_CICLO = 6;
   const TN_BLOQUE = 2;
@@ -108,9 +135,9 @@
       const gente = [];
       sede.groups.forEach((g) => {
         if (estadoDe(g.phase, fecha) !== turno) return;
-        g.members.filter((m) => vigente(m, fecha)).forEach((m) => gente.push({ nombre: nombre(m), grupo: g.name }));
+        g.members.filter((m) => vigente(m, fecha) && !ausencia(nombre(m), fecha)).forEach((m) => gente.push({ nombre: nombre(m), grupo: g.name }));
       });
-      if (turno === "dia") (TN_FIJOS[k] || []).filter((f) => vigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha))
+      if (turno === "dia") (TN_FIJOS[k] || []).filter((f) => vigente({ n: f.nombre, desde: f.desde, hasta: f.hasta }, fecha) && !ausencia(f.nombre, fecha))
         .forEach((f) => gente.push({ nombre: f.nombre, grupo: f.grupo, fijo: f.horario }));
       out[k] = { sede: sede.label, gente };
     });
@@ -146,5 +173,5 @@
     return { turno: t, fecha: f, grupo: ok ? g.grupo : "", sede: g ? g.sede : "" };
   }
 
-  raiz.TURNOS = { roster, fijos: TN_FIJOS, soporte: TN_SUPPORT, ancla: ANCLA, ciclo: CICLO, bloque: BLOQUE, fases: TN_PHASE_BLOCKS, estadoDe, quienes, nombre, vigente, especialidad, chat: TN_CHAT, grupoDeAutor, turnoDelMensaje };
+  raiz.TURNOS = { roster, fijos: TN_FIJOS, soporte: TN_SUPPORT, ausencias: TN_AUSENCIAS, ausencia, apoyo, ancla: ANCLA, ciclo: CICLO, bloque: BLOQUE, fases: TN_PHASE_BLOCKS, estadoDe, quienes, nombre, vigente, especialidad, chat: TN_CHAT, grupoDeAutor, turnoDelMensaje };
 })(typeof window !== "undefined" ? window : globalThis);
