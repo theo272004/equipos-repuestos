@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { config } from "./config.mjs";
 
 const RAIZ = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const DATOS = ["assets/js/mtto-data.js", "assets/js/reportes-data.js", "assets/js/turnos-data.js", "assets/js/centros-costo.js", "assets/js/reglas-pendientes.js", "assets/equipos.js", "assets/js/compras-data.js", "assets/js/componentes-registro.js"];
+const DATOS = ["assets/js/mtto-data.js", "assets/js/reportes-data.js", "assets/js/turnos-data.js", "assets/js/centros-costo.js", "assets/js/reglas-pendientes.js", "assets/equipos.js", "assets/js/compras-data.js", "assets/js/componentes-registro.js", "assets/js/inspecciones-registro.js"];
 const LOGICA = ["assets/js/compras.js", "assets/js/cambios-piezas.js"];
 
 const CO = 5 * 3600e3;

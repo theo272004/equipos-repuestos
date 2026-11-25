@@ -19,6 +19,9 @@ Es un servicio en línea (HTTP) que lee lo mismo que la app: los datos del repos
 | `buscar_repuesto` | Almacén: existencias, ubicación, compra, dónde se usa |
 | `estado_compra`, `repuestos_por_llegar`, `por_pedir` | Compras |
 | `personal_en_turno` | Quién está de turno |
+| `mantenimientos` | Mantenimientos e inspecciones detalladas (qué se hizo, pendientes, fotos) |
+| `reportes_turno` | Reportes de turno completos del chat y de la app |
+| `centro_costo_equipo` | Centro de costo oficial (DMM-229 / RE355) por equipo o máquina |
 
 **Escritura** (todas piden `confirmar: true`; sin eso solo devuelven una vista previa y no guardan nada)
 
@@ -28,6 +31,10 @@ Es un servicio en línea (HTTP) que lee lo mismo que la app: los datos del repos
 | `actualizar_pendiente` | `seguimiento` (+ `tareas` si es una tarea) |
 | `anotar_novedad` | `mtto_registros` |
 | `registrar_cambio_pieza` | `cambios` |
+| `anotar_mantenimiento` | `inspecciones` (mantenimiento detallado + pendientes + fotos) |
+| `actualizar_mantenimiento` | `inspecciones` (cerrar, anexar notas, hallazgos o fotos) |
+| `anotar_tarea` | `tareas` |
+| `preparar_ot_mecanizado` | `seguimiento` + `tareas` (arma OT lista para Fracttal con centro de costo) |
 
 Cada escritura queda a nombre de la persona dueña de la llave (`por`, `creadoPor`, `quien`, `src: "mcp"`).
 
@@ -86,11 +93,44 @@ gcloud run deploy mantenimiento-mcp --image REGION-docker.pkg.dev/PROYECTO/REPO/
 
 **Render / Railway / Fly.io:** servicio Docker apuntando a `mcp/Dockerfile` con contexto en la raíz, variable `MCP_TOKENS`, y `/health` como chequeo de salud.
 
-## Conectarlo
+## Conectarlo en local (sin subirlo a la nube)
 
-- **Claude (web/escritorio)** → Configuración → Conectores → *Agregar conector personalizado* → URL `https://TU-SERVICIO/mcp`. Si el cliente no deja poner encabezados, usa `https://TU-SERVICIO/t/<llave>/mcp`.
-- **Claude Code:** `claude mcp add --transport http mantenimiento https://TU-SERVICIO/mcp --header "Authorization: Bearer <llave>"`
+### 1. Claude Desktop (recomendado en tu PC — cero servidores)
+Usa el transporte local `mcp/stdio.mjs`. En `~/.config/Claude/claude_desktop_config.json` (Linux) o `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "mantenimiento": {
+      "command": "node",
+      "args": ["/home/mateocastro/Documentos/equipos-repuestos/mcp/stdio.mjs"],
+      "env": {
+        "MCP_USUARIO": "Mateo Castro",
+        "DATA_LOCAL_DIR": "/home/mateocastro/Documentos/equipos-repuestos"
+      }
+    }
+  }
+}
+```
+Reinicia Claude Desktop y ya aparecen las 24 herramientas (lectura + escritura directa en Firestore).
+
+### 2. Claude Code (terminal)
+```bash
+claude mcp add mantenimiento -- node /home/mateocastro/Documentos/equipos-repuestos/mcp/stdio.mjs
+```
+
+### 3. ChatGPT (Web / Móvil) o Claude Web sin subir a ningún hosting
+ChatGPT solo acepta conectores MCP por **URL HTTPS** (no ejecuta archivos locales). Si no quieres desplegarlo en un servidor externo, puedes arrancarlo en tu propio PC y abrir un túnel temporal gratis cuando lo vayas a usar:
+
+```bash
+# Terminal 1 (servidor local)
+cd mcp && MCP_TOKENS="mateo:tu-llave-secreta-larga" DATA_LOCAL_DIR=".." node server.mjs
+
+# Terminal 2 (túnel HTTPS temporal hacia tu PC, sin cuentas ni hosting)
+cloudflared tunnel --url http://localhost:8787
+```
+Luego en **ChatGPT → Configuración → Conectores (Apps / Developer Mode) → Nuevo MCP** pegas `https://<url-del-tunel>.trycloudflare.com/t/tu-llave-secreta-larga/mcp`.
 
 ## Cómo está hecho
 
-`server.mjs` (HTTP, llaves, límite) → `lib/tools.mjs` (herramientas y confirmación) → `lib/dominio.mjs` (consultas) → `lib/repo.mjs` (datos del repositorio ejecutados en un contexto aislado, con `compras.js` y `cambios-piezas.js` de la app) y `lib/nube.mjs` (Firestore con caché; reutiliza `scripts/lib/firestore-rest.mjs` del bot). Sin sesiones: cada petición se atiende sola, así que reiniciar el servicio no pierde nada.
+`stdio.mjs` (local para Claude Desktop / Claude Code) o `server.mjs` (HTTP con llaves y límite) → `lib/tools.mjs` (24 herramientas con vista previa y confirmación) → `lib/dominio.mjs` (consultas, mantenimientos, reportes y centros de costo) → `lib/repo.mjs` (datos del repositorio ejecutados en un contexto aislado, con `compras.js` y `cambios-piezas.js` de la app) y `lib/nube.mjs` (Firestore con caché; reutiliza `scripts/lib/firestore-rest.mjs` del bot).

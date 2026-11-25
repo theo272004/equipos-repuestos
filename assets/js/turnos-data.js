@@ -15,7 +15,7 @@
       groups: [
         { name: "Grupo Sede 4-1", phase: "dia", members: ["Alexander Alberto Algarín Pacheco", "Jhon Alexander Pájaro Ariza", "Leonardo Santos Ramírez", { n: "José Luis Vargas Buitrago", hasta: "2026-10-18" }, "Donicel", { n: "José Luis Vargas Buitrago", desde: "2026-11-01" }, { n: "Quelbys Alberto Sandoval Villarreal", desde: "2026-11-04" }] },
         { name: "Grupo Sede 4-2", phase: "noche", members: ["Bladimir Antonio Escorcia Santos", "Miguel Enrique De la Hoz Salcedo", "Andrés David Vega Ortiz", "Brayan Alexander Caro Mebarak", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-11-01", hasta: "2026-11-03" }, { n: "Oscar de Jesús Martínez Martínez", desde: "2026-11-04" }, { n: "Jean Carlos Orellano Ebratt", desde: "2026-11-04" }] },
-        { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", "Heiner Alcides Velásquez Mosquera", { n: "Sergio Alexander Vergara Aguirre", desde: "2026-11-04" }, { n: "Jesús Ángel Ortiz Zarate", desde: "2026-11-04" }] }
+        { name: "Grupo Sede 4-3", phase: "descanso", members: ["Luis Miguel Ruiz Bayuelo", "Diego Andrés Chacón Cano", "Yesid Alfredo Anaya Ramírez", { n: "Heiner Alcides Velásquez Mosquera", hasta: "2026-11-18" }, { n: "Sergio Alexander Vergara Aguirre", desde: "2026-11-04" }, { n: "Jesús Ángel Ortiz Zarate", desde: "2026-11-04" }] }
       ]
     },
     sede2: {
@@ -56,8 +56,8 @@
   // llega a las 9 de la mañana es de la noche anterior, no del día en que llegó.
   // Quien no está aquí (supervisores, electricistas de apoyo) se ubica por la hora.
   const TN_CHAT = {
-    "alexander algarin": "Grupo Sede 4-1", "jhon": "Grupo Sede 4-1", "jair mesa": "Grupo Sede 4-1", "mesari37": "Grupo Sede 4-1", "3481": "Grupo Sede 4-1", "4066": "Grupo Sede 4-1",
-    "3014": "Grupo Sede 4-2", "miguel": "Grupo Sede 4-2", "bladimir": "Grupo Sede 4-2", "brayan": "Grupo Sede 4-2", "1867": "Grupo Sede 4-2",
+    "alexander algarin": "Grupo Sede 4-1", "jhon": "Grupo Sede 4-1", "jair mesa": "Grupo Sede 4-1", "mesari37": "Grupo Sede 4-1", "3481": "Grupo Sede 4-1", "4066": "Grupo Sede 4-1", "donicel": "Grupo Sede 4-1", "sandobal": "Grupo Sede 4-1",
+    "3014": "Grupo Sede 4-2", "miguel": "Grupo Sede 4-2", "bladimir": "Grupo Sede 4-2", "brayan": "Grupo Sede 4-2", "1867": "Grupo Sede 4-2", "oscar 2 electricista": "Grupo Sede 4-2",
     "lucho": "Grupo Sede 4-3", "diego temporal": "Grupo Sede 4-3", "heiner": "Grupo Sede 4-3", "2880": "Grupo Sede 4-3",
     "alfonsoorozco10": "Grupo Vía 40-1", "sergio vergara electricista": "Grupo Vía 40-1", "2941": "Grupo Vía 40-2", "0864": "Grupo Vía 40-3",
   };
