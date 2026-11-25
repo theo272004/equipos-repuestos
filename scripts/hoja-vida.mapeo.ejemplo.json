@@ -1,0 +1,24 @@
+{
+  "_nota": "Copia este archivo como scripts/hoja-vida.mapeo.json y pon en cada campo el encabezado EXACTO de la hoja de vida (uno o varios alias). Deja [] los campos que no existan. Los nombres de campo son una PROPUESTA: cámbialos si la hoja de vida usa otros.",
+  "hoja": "NOMBRE DE LA HOJA CON LA BASE",
+  "fila_encabezado": null,
+  "campos": {
+    "codigo": [],
+    "nombre": [],
+    "marca": [],
+    "modelo": [],
+    "serie": [],
+    "fabricante": [],
+    "proveedor": [],
+    "anio_fabricacion": [],
+    "fecha_instalacion": [],
+    "area": [],
+    "ubicacion_detalle": [],
+    "potencia": [],
+    "voltaje": [],
+    "capacidad": [],
+    "criticidad": [],
+    "estado": []
+  },
+  "extras": {}
+}
