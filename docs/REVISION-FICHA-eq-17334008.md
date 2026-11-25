@@ -70,3 +70,10 @@ Resumen: **identidad (A)** = id, código, ubicación, centro de costo, parte del
 3. ¿El MT-1100 de Sede 4 envasa sólidos o líquidos? El registro dice «sólidos», la ficha y los manuales hablan de dosificación de líquidos con jeringa.
 4. ¿Confirmas el reparto de la sección 3 (MT-1100 → `17334018`; `17334008` queda mínima y oculta)?
 5. ¿Los PDF de la raíz del repositorio (copias idénticas, ignoradas por `.gitignore` pero ya versionadas) se quedan, o se retiran en otro PR?
+
+## 5. Respuestas del usuario (pendiente solo la placa)
+- **Dos juegos de manuales distintos:** `Manual electrico schmuker.pdf` (carpeta personal, no está en el repositorio) es de la MS235. Los 3 PDF de `manuales/stickpack/` son del **MT1100, serie S3240005**. La evidencia del repositorio manda: la ficha mezcla **dos** máquinas (identidad del Stick Pack #1 `17334008` y contenido técnico del MT-1100); la MS235 no entra.
+- **Placas:** no se pueden ver desde aquí. Hay que mirar la placa del MT-1100 de Sede 4 (¿dice `S3240005`?) y la de la MS235 (el repositorio la tiene como `S4220003`). Si la del MT-1100 no dice `S3240005`, se revisa antes de mover nada.
+- **«Encelofanado sólidos» vs. dosificación de líquidos:** el usuario cree que no hay contradicción: en el listado parece ser el **área** donde está la máquina, no lo que dosifica; la hoja de vida solo dice «empaca producto en sobre». La dosificación con jeringa podría ser una opción del equipo. **Por confirmar con quien la opera.**
+- **Reparto (sección 3):** el usuario lo aprobaría **después de ver la placa**. Todavía NO está confirmado: no se ejecuta.
+- **Copias de PDF en la raíz:** se dejan por ahora. Si un repositorio público debe guardar manuales de proveedor es una decisión aparte.
