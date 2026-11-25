@@ -198,6 +198,172 @@ export function pendientes(ctx, { eq = "", sede = "", limite = 30 }) {
   return { total: lista.length, pendientes: lista.slice(0, limite).map((p) => ({ id: p.id, origen: p.origen, titulo: p.titulo, equipo: p.eq || null, sede: p.sede || null, prioridad: p.prioridad, estado: p.estado, desde: p.fecha || null, edadDias: p.edad, responsable: p.responsable || null })) };
 }
 
+// ------------------------------------------------------------------ mantenimientos / inspecciones
+export function mantenimientosCombinados(W, nube) {
+  const porId = new Map();
+  const base = Array.isArray(W.INSPECCIONES_REGISTRO) ? W.INSPECCIONES_REGISTRO : [];
+  base.forEach((i) => { if (i && i.id) porId.set(i.id, { ...i, fuente: "repositorio" }); });
+  (nube.inspecciones || []).forEach((i) => { if (i && i.id) porId.set(i.id, { ...i, fuente: "nube" }); });
+  return [...porId.values()].filter((i) => !i.borrado).sort((a, b) => String(b.fecha || "").localeCompare(String(a.fecha || "")) || String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+}
+
+export function mantenimientos(W, nube, { equipo = "", estado = "", tipo = "", texto = "", desde = "", limite = 25 } = {}) {
+  const eqMap = new Map(listaEquipos(W).map((e) => [e.cod, e.nombre]));
+  const qEq = plano(equipo).split(" ").filter(Boolean);
+  const qTxt = plano(texto).split(" ").filter(Boolean);
+  const lista = mantenimientosCombinados(W, nube).filter((i) => {
+    const nomEq = eqMap.get(i.eq) || i.eq || "";
+    if (estado && (i.estado || "abierta") !== estado) return false;
+    if (tipo && i.tipo !== tipo) return false;
+    if (desde && String(i.fecha || "") < desde) return false;
+    if (qEq.length && !qEq.every((t) => plano(`${i.eq} ${nomEq}`).includes(t))) return false;
+    if (qTxt.length) {
+      const hay = plano(`${i.eq} ${nomEq} ${i.quien} ${i.revisado} ${i.hallazgos} ${(i.piezas || []).map((p) => `${p.cod} ${p.d}`).join(" ")}`);
+      if (!qTxt.every((t) => hay.includes(t))) return false;
+    }
+    return true;
+  });
+  return {
+    total: lista.length,
+    mantenimientos: lista.slice(0, limite).map((i) => ({
+      id: i.id, fecha: i.fecha || null, equipoCodigo: i.eq || null, equipoNombre: eqMap.get(i.eq) || i.eq || null,
+      tipo: i.tipo || "rutina", estado: i.estado || "abierta", quien: i.quien || null,
+      revisado: i.revisado || "", hallazgos: i.hallazgos || "",
+      piezasPendientes: (i.piezas || []).map((p) => ({ codigo: p.cod || null, descripcion: p.d || "", cantidad: p.q || null, urgencia: p.urgencia || "media", tipo: p.tipo || "pieza", hecho: p.hecho || null })),
+      fotosCount: Array.isArray(i.fotos) ? i.fotos.length : 0,
+      fuente: i.fuente,
+    })),
+  };
+}
+
+// ------------------------------------------------------------------ reportes de turno
+export function reportesTurno(W, nube, { desde = "", hasta = "", sede = "", turno = "", texto = "", limite = 10 } = {}) {
+  const porId = new Map();
+  (Array.isArray(W.REPORTES_TURNO) ? W.REPORTES_TURNO : []).forEach((r) => { if (r && r.id) porId.set(r.id, r); });
+  (nube.reportes || []).forEach((r) => { if (r && r.id) porId.set(r.id, r); });
+  const q = plano(texto).split(" ").filter(Boolean);
+  const lista = [...porId.values()].filter((r) => {
+    const f = r.fecha || r.f || "";
+    if (desde && f < desde) return false;
+    if (hasta && f > hasta) return false;
+    if (sede && plano(r.sede || r.s) !== plano(sede)) return false;
+    if (turno && plano(r.turno || r.t) !== plano(turno)) return false;
+    if (q.length && !q.every((t) => plano(`${r.autor || ""} ${r.texto || ""} ${r.sede || ""}`).includes(t))) return false;
+    return true;
+  }).sort((a, b) => String((b.fecha || b.f || "") + (b.hora || b.hr || "")).localeCompare(String((a.fecha || a.f || "") + (a.hora || a.hr || ""))));
+  return {
+    total: lista.length,
+    reportes: lista.slice(0, limite).map((r) => ({
+      id: r.id, fecha: r.fecha || r.f || null, hora: r.hora || r.hr || null,
+      sede: r.sede || r.s || null, turno: r.turno || r.t || null, autor: r.autor || null,
+      texto: String(r.texto || "").slice(0, 2200),
+    })),
+  };
+}
+
+// ------------------------------------------------------------------ centros de costo (DMM-229 / RE355)
+const REGLAS_CC = [
+  [/blister\s*#?\s*2|ups\s*300\s*r\b/i, "K9"],
+  [/blister\s*#?\s*3|b1240/i, "X8"],
+  [/blister\s*#?\s*4|integra\s*320/i, "CB"],
+  [/blister\s*#?\s*5/i, "CM"],
+  [/blister\s*#?\s*6|mb\s*432/i, "EF"],
+  [/blister\s*#?\s*7|evo|mb\s*451/i, "GX"],
+  [/blister\s*#?\s*[89]\b|blist/i, "L0"],
+  [/gb\s*-?\s*100/i, "CA"],
+  [/huttlin\s*600|hdgc\s*600/i, "HE"],
+  [/huttlin\s*400|hdgc\s*400/i, "DM"],
+  [/huttlin\s*40|pilot\s*lab/i, "DL"],
+  [/schmucker|ms\s*235/i, "GU"],
+  [/mt\s*1100|stick\s*pack/i, "DI"],
+  [/marzio\s*#?\s*2\b/i, "FD"],
+  [/marzio\s*#?\s*3\b/i, "FH"],
+  [/marzio\s*#?\s*4\b/i, "GA"],
+  [/marzio\s*#?\s*5\b/i, "GF"],
+  [/marzio\s*#?\s*6\b/i, "GG"],
+  [/marzio/i, "CD"],
+  [/cb\s*550|sacheteadora\s*vertical/i, "EK"],
+  [/colimatic/i, "L2"],
+  [/r\s*-?\s*200\b/i, "EW"],
+  [/r\s*-?\s*400\b/i, "HG"],
+  [/fette\s*1010|fette\s*p1010/i, "Z9"],
+  [/fette\s*2020[\s#-]*1\b|fette\s*p2020\b/i, "EX"],
+  [/fette\s*2020[\s#-]*2\b|fette\s*2020\s*ii/i, "FY"],
+  [/rimek/i, "FW"],
+  [/ronchi/i, "K2"],
+  [/bosch/i, "DU"],
+  [/njp\s*#?\s*1\b|njp\s*-?\s*1200\b(?!.*2)/i, "DZ"],
+  [/njp\s*#?\s*2\b|njp\s*-?\s*1200.*2/i, "EN"],
+  [/njp\s*#?\s*3\b|njp\s*-?\s*3500/i, "K7"],
+  [/envasad\w*\s*#?\s*1\b/i, "M0"],
+  [/envasad\w*\s*#?\s*2\b/i, "FV"],
+  [/envasad\w*\s*#?\s*3\b|ml\s*642/i, "FZ"],
+  [/cl\s*#?\s*3|centro\s+l[ií]quidos?\s*#?\s*3/i, "EG"],
+  [/cl\s*#?\s*[124]|centro\s+l[ií]quidos?/i, "M7"],
+  [/bin\s*blender|mezclador.*400/i, "DS"],
+  [/bomba.*agua\s*(fr[ií]a|helada|25|26)|chiller|uma\b|refrigeraci/i, "SA"],
+  [/planta\s+de\s+agua|agua\s+purificada/i, "X2"],
+  [/flexogr[aá]fica|tecnomaco|fx\s*30/i, "CC"],
+  [/horno/i, "GB"],
+];
+
+export function centroCostoDeEquipo(W, textoEquipo) {
+  const ccData = W.CENTROS_COSTO || { lista: [], equipos: {} };
+  const porCod = new Map((ccData.lista || []).map((c) => [c.cod, c]));
+  const candidatosEq = resolverEquipo(W, textoEquipo, 3);
+  const eq = candidatosEq[0] || null;
+
+  let sugerido = null;
+  let motivo = "";
+
+  // 1. Mapa oficial directo por código DMM (DMM-229)
+  if (eq && ccData.equipos && ccData.equipos[eq.cod] && porCod.has(ccData.equipos[eq.cod])) {
+    sugerido = porCod.get(ccData.equipos[eq.cod]);
+    motivo = `Asignación directa oficial DMM-229 para el activo ${eq.cod}`;
+  }
+  // 2. Reglas explícitas por nombre de máquina
+  if (!sugerido) {
+    const muestra = plano(`${textoEquipo} ${eq ? eq.nombre + " " + eq.nombresRegistro.join(" ") : ""}`);
+    for (const [rx, cod] of REGLAS_CC) {
+      if (rx.test(muestra) && porCod.has(cod)) {
+        sugerido = porCod.get(cod);
+        motivo = `Correspondencia de máquina/línea en catálogo DMM-229 (${cod})`;
+        break;
+      }
+    }
+  }
+  // 3. Búsqueda por tokens en lista oficial de centros de costo (ponderado por uso en ERP)
+  const qToks = plano(`${textoEquipo} ${eq ? eq.area : ""}`).split(" ").filter((t) => t.length > 1);
+  const scored = (ccData.lista || []).map((c) => {
+    const h = plano(`${c.cod} ${c.nombre}`);
+    const hits = qToks.filter((t) => h.includes(t)).length;
+    return { c, score: hits * 20 + Math.min(c.uso || 0, 100) / 20 };
+  }).filter((x) => x.score >= 20).sort((a, b) => b.score - a.score);
+
+  if (!sugerido && scored.length) {
+    sugerido = scored[0].c;
+    motivo = "Coincidencia por nombre/área en catálogo RE355/DMM-229";
+  }
+  if (!sugerido && porCod.has("S1")) {
+    sugerido = porCod.get("S1");
+    motivo = "Centro de costo general de Mantenimiento Medicamentos (sin centro específico de máquina)";
+  }
+
+  const alternativas = [];
+  const agregados = new Set(sugerido ? [sugerido.cod] : []);
+  for (const x of scored.slice(0, 4)) {
+    if (!agregados.has(x.c.cod)) { alternativas.push(x.c); agregados.add(x.c.cod); }
+  }
+  if (porCod.has("S1") && !agregados.has("S1")) { alternativas.push(porCod.get("S1")); agregados.add("S1"); }
+
+  return {
+    buscado: textoEquipo,
+    equipo: eq ? resumenEquipo(eq) : null,
+    centroCostoSugerido: sugerido ? { codigo: sugerido.cod, nombre: sugerido.nombre, tipo: sugerido.tipo || "operativo", usoErp: sugerido.uso || 0, motivo } : null,
+    alternativas: alternativas.map((c) => ({ codigo: c.cod, nombre: c.nombre, usoErp: c.uso || 0 })),
+  };
+}
+
 // ------------------------------------------------------------------ turno
 export function personalEnTurno(W, fecha, clave) {
   const t = turnoEnCurso();

@@ -203,6 +203,38 @@ export function registrarHerramientas(server, quien) {
     return salida("Personal en turno", D.personalEnTurno(W, fecha, turno));
   });
 
+  reg("mantenimientos", {
+    title: "Mantenimientos e inspecciones",
+    description: "Lista los mantenimientos e inspecciones detalladas registrados en la app (qué se revisó, qué se hizo, hallazgos/piezas pendientes, estado y cuántas fotos tiene). Combina el registro del repositorio y los guardados en Firestore.",
+    inputSchema: { equipo: z.string().optional(), estado: z.enum(["abierta", "cerrada"]).optional(), tipo: z.enum(["rutina", "parada", "correctiva", "arranque"]).optional(), texto: z.string().optional(), desde: fechaSchema.optional(), limite: z.number().int().min(1).max(60).default(20) },
+    annotations: L,
+  }, async (a) => {
+    const c = await D.contexto({ inv: false });
+    const r = D.mantenimientos(c.W, c.nube, a);
+    return salida(`${r.total} mantenimiento(s)`, r);
+  });
+
+  reg("reportes_turno", {
+    title: "Reportes de turno",
+    description: "Lee los reportes de turno completos enviados por WhatsApp o desde la app (por rango de fechas, sede, turno o palabra clave).",
+    inputSchema: { desde: fechaSchema.optional(), hasta: fechaSchema.optional(), sede: sedeSchema.optional(), turno: z.enum(["Día", "Noche"]).optional(), texto: z.string().optional(), limite: z.number().int().min(1).max(30).default(8) },
+    annotations: L,
+  }, async (a) => {
+    const c = await D.contexto({ inv: false });
+    const r = D.reportesTurno(c.W, c.nube, { ...a, desde: a.desde || D.sumaDias(c.hoy, -7), hasta: a.hasta || c.hoy });
+    return salida(`${r.total} reporte(s) de turno`, r);
+  });
+
+  reg("centro_costo_equipo", {
+    title: "Centro de costo de un equipo",
+    description: "Determina el centro de costo oficial de Farmacápsulas (catálogo DMM-229 / RE355) para un equipo o máquina, útil para requisiciones y órdenes de trabajo (Fracttal / mecanizado). Devuelve el centro sugerido y alternativas.",
+    inputSchema: { equipo: z.string().min(2).describe("nombre o código del equipo, p. ej. 'Blíster 8', 'Huttlin 400', 'Bomba 25', '17332003'") },
+    annotations: L,
+  }, async ({ equipo }) => {
+    const { W } = await D.contexto({ inv: false });
+    return salida(`Centro de costo para «${equipo}»`, D.centroCostoDeEquipo(W, equipo));
+  });
+
   // ======================================================================= ESCRITURA
   const vistaPrevia = (accion, doc) => salida(`VISTA PREVIA: ${accion}. Todavía NO se guardó nada. Muéstrale esto a la persona y, si dice que sí, repite la llamada con confirmar: true.`, doc);
   const guardado = (accion, doc) => salida(`GUARDADO: ${accion} (a nombre de ${quien}).`, doc);
@@ -302,5 +334,156 @@ export function registrarHerramientas(server, quien) {
     if (!a.confirmar) return vistaPrevia(`cambio de ${doc.d} en ${r.eq.nombre}`, { doc, aviso });
     await escribir("cambios", id, doc);
     return guardado("cambio de pieza registrado", { doc, aviso });
+  });
+
+  const piezaHallazgoSchema = z.object({
+    cod: z.string().max(40).default("").describe("código interno de almacén (si aplica)"),
+    d: z.string().min(3).max(300).describe("descripción de la pieza o trabajo pendiente"),
+    q: z.string().max(20).default("1"),
+    urgencia: z.enum(["alta", "media", "baja"]).default("media"),
+    tipo: z.enum(["pieza", "mecanica", "electrica", "desgaste", "otro"]).default("pieza"),
+  });
+
+  reg("anotar_mantenimiento", {
+    title: "Anotar un mantenimiento o inspección",
+    description: "Registra un mantenimiento o inspección detallada en la sección Mantenimiento → Inspecciones (y en la ficha del equipo). Permite documentar qué se revisó, qué se hizo, hallazgos/piezas pendientes y fotos. Sin confirmar:true solo muestra la vista previa.",
+    inputSchema: {
+      equipo: z.string().min(2).describe("nombre o código interno del equipo (p. ej. 'Blíster 8', 'Huttlin 400', '17332003')"),
+      fecha: fechaSchema.optional().describe("AAAA-MM-DD (por defecto hoy)"),
+      tipo: z.enum(["parada", "rutina", "correctiva", "arranque"]).default("parada"),
+      quien: z.string().max(120).optional().describe("técnico o grupo que ejecutó el mantenimiento"),
+      revisado: z.string().min(5).max(1500).describe("sistemas, estaciones o componentes revisados"),
+      hallazgos: z.string().min(5).max(3000).describe("qué se encontró y todo lo que se hizo en el mantenimiento"),
+      piezas_pendientes: z.array(piezaHallazgoSchema).max(20).optional().describe("repuestos o trabajos que quedaron pendientes"),
+      estado: z.enum(["abierta", "cerrada"]).optional().describe("por defecto 'abierta' si hay piezas_pendientes, si no 'cerrada'"),
+      fotos: z.array(z.object({ data: z.string().min(10), nombre: z.string().max(80).optional() })).max(6).optional().describe("opcional: fotos en data-URI base64 (image/jpeg) o URL"),
+      confirmar,
+    },
+    annotations: E,
+  }, async (a) => {
+    const c = await D.contexto({ inv: false });
+    const cand = D.resolverEquipo(c.W, a.equipo, 2);
+    const eqCod = cand.length === 1 || (cand[0] && [cand[0].cod, cand[0].nombre, ...cand[0].nombresRegistro].some((n) => n.toLowerCase() === a.equipo.trim().toLowerCase()))
+      ? cand[0].cod : a.equipo.trim();
+    const eqNombre = cand[0] && cand[0].cod === eqCod ? cand[0].nombre : eqCod;
+    const fecha = a.fecha || c.hoy;
+    const piezas = (a.piezas_pendientes || []).map((p) => ({ cod: p.cod || "", d: p.d.trim(), q: p.q || "1", urgencia: p.urgencia || "media", tipo: p.tipo || "pieza" }));
+    const estado = a.estado || (piezas.length ? "abierta" : "cerrada");
+    const fotos = (a.fotos || []).map((f, idx) => ({ data: f.data, nombre: f.nombre || `foto-${idx + 1}.jpg`, fecha }));
+    const ahora = new Date().toISOString();
+    const id = uid("i");
+    const doc = { id, eq: eqCod, fecha, tipo: a.tipo, quien: (a.quien || quien).trim(), revisado: a.revisado.trim(), hallazgos: a.hallazgos.trim(), piezas, fotos, estado, src: "mcp", createdAt: ahora, editadoAt: ahora };
+    const resumen = { ...doc, equipoNombre: eqNombre, fotos: `${fotos.length} foto(s)` };
+    if (!a.confirmar) return vistaPrevia(`mantenimiento en ${eqNombre} (${fecha})`, resumen);
+    await escribir("inspecciones", id, doc);
+    return guardado("mantenimiento anotado", resumen);
+  });
+
+  reg("actualizar_mantenimiento", {
+    title: "Actualizar o cerrar un mantenimiento",
+    description: "Actualiza un mantenimiento/inspección existente (por id obtenido con 'mantenimientos'): cambiar estado (abierta/cerrada), anexar notas a lo hecho, agregar hallazgos pendientes o adjuntar fotos. Sin confirmar:true solo muestra la vista previa.",
+    inputSchema: {
+      id: z.string().min(3),
+      estado: z.enum(["abierta", "cerrada"]).optional(),
+      anexar_hallazgos: z.string().max(2000).optional().describe("texto adicional que se añade al cierre o seguimiento del mantenimiento"),
+      agregar_piezas: z.array(piezaHallazgoSchema).max(10).optional(),
+      agregar_fotos: z.array(z.object({ data: z.string().min(10), nombre: z.string().max(80).optional() })).max(6).optional(),
+      confirmar,
+    },
+    annotations: E,
+  }, async (a) => {
+    const c = await D.contexto({ inv: false });
+    const actual = D.mantenimientosCombinados(c.W, c.nube).find((x) => x.id === a.id);
+    if (!actual) return falla(`No encontré ningún mantenimiento con id «${a.id}». Búscalo con la herramienta 'mantenimientos'.`);
+    const ahora = new Date().toISOString();
+    const { fuente, _doc, ...base } = actual;
+    const fotosActuales = Array.isArray(base.fotos) ? base.fotos : [];
+    const fotosNuevas = (a.agregar_fotos || []).map((f, idx) => ({ data: f.data, nombre: f.nombre || `foto-${fotosActuales.length + idx + 1}.jpg`, fecha: c.hoy }));
+    const doc = {
+      ...base,
+      estado: a.estado || base.estado || "abierta",
+      hallazgos: a.anexar_hallazgos ? `${base.hallazgos || ""}\n[${c.hoy} · ${quien}] ${a.anexar_hallazgos.trim()}`.trim() : (base.hallazgos || ""),
+      piezas: [...(base.piezas || []), ...(a.agregar_piezas || [])],
+      fotos: [...fotosActuales, ...fotosNuevas].slice(0, 8),
+      editadoAt: ahora,
+    };
+    const resumen = { id: doc.id, eq: doc.eq, fecha: doc.fecha, estado: doc.estado, piezas: doc.piezas.length, fotos: `${doc.fotos.length} foto(s)`, hallazgos: doc.hallazgos };
+    if (!a.confirmar) return vistaPrevia(`actualizar mantenimiento ${doc.id}`, resumen);
+    await escribir("inspecciones", doc.id, doc);
+    return guardado("mantenimiento actualizado", resumen);
+  });
+
+  reg("anotar_tarea", {
+    title: "Crear una tarea de mantenimiento",
+    description: "Crea una tarea en la pestaña Mantenimiento → Tareas (colección 'tareas' en Firestore). Aparece para todo el equipo y en Pendientes. Sin confirmar:true solo muestra la vista previa.",
+    inputSchema: {
+      titulo: z.string().min(5).max(180),
+      equipo: z.string().max(120).optional(),
+      detalle: z.string().max(1200).optional(),
+      prioridad: z.enum(["Alta", "Media", "Baja"]).default("Media"),
+      responsable: z.string().max(80).optional(),
+      vence: fechaSchema.optional().describe("fecha objetivo AAAA-MM-DD"),
+      confirmar,
+    },
+    annotations: E,
+  }, async (a) => {
+    const c = await D.contexto({ inv: false });
+    const ahora = new Date().toISOString();
+    const id = uid("t");
+    const doc = { id, title: a.titulo.trim(), notes: (a.detalle || "").trim(), machine: (a.equipo || "").trim(), priority: a.prioridad, status: "pendiente", assignee: (a.responsable || "").trim(), dueDate: a.vence || "", createdBy: quien, src: "mcp", createdAt: ahora, updatedAt: ahora };
+    if (!a.confirmar) return vistaPrevia(`nueva tarea «${doc.title}»`, doc);
+    await escribir("tareas", id, doc);
+    return guardado("tarea creada", doc);
+  });
+
+  reg("preparar_ot_mecanizado", {
+    title: "Preparar OT de mecanizado (con centro de costo)",
+    description: "Dado un equipo y la descripción de una pieza/trabajo (p. ej. a partir de una foto tomada en planta), determina el código DMM del equipo y el centro de costo oficial de Farmacápsulas (DMM-229 / RE355), arma el borrador completo listo para cargar en Fracttal y, al confirmar (confirmar: true), lo deja registrado en la app (Pendientes y Tareas) para seguimiento de mecanizado.",
+    inputSchema: {
+      equipo: z.string().min(2).describe("máquina o equipo, p. ej. 'Blíster 8', 'Huttlin 400', 'Marzio 4'"),
+      pieza: z.string().min(3).max(160).describe("nombre de la pieza a fabricar o rectificar, p. ej. 'Plancha porta-espárrago estación formado'"),
+      trabajo_solicitado: z.string().min(10).max(2000).describe("descripción técnica detallada del trabajo de mecanizado (daño observado en la foto, operación requerida, medidas/roscas/tolerancias)"),
+      material: z.string().max(120).optional().describe("ej. 'Acero inoxidable 316L', 'Acero 4140', 'Aluminio', 'Delrin / POM'"),
+      cantidad: z.number().int().min(1).max(100).default(1),
+      prioridad: z.enum(["alta", "media", "baja"]).default("alta"),
+      sede: sedeSchema.optional(),
+      centro_costo_override: z.string().max(20).optional().describe("si quieres forzar un código de centro de costo específico en lugar del sugerido"),
+      confirmar,
+    },
+    annotations: E,
+  }, async (a) => {
+    const c = await D.contexto({ inv: false });
+    const ccInfo = D.centroCostoDeEquipo(c.W, a.equipo);
+    const ccLista = (c.W.CENTROS_COSTO && c.W.CENTROS_COSTO.lista) || [];
+    const ccForzado = a.centro_costo_override ? ccLista.find((x) => x.cod.toUpperCase() === a.centro_costo_override.trim().toUpperCase()) : null;
+    const cc = ccForzado
+      ? { codigo: ccForzado.cod, nombre: ccForzado.nombre, motivo: "Seleccionado manualmente" }
+      : ccInfo.centroCostoSugerido;
+    const eqNombre = (ccInfo.equipo && ccInfo.equipo.nombre) || a.equipo.trim();
+    const eqCod = (ccInfo.equipo && ccInfo.equipo.codigo) || "Sin código DMM";
+    const sede = a.sede || (ccInfo.equipo && ccInfo.equipo.sede) || "";
+    const tituloOT = `OT Mecanizado · ${a.pieza.trim()} (${eqNombre})`;
+    const textoFracttal = [
+      `EQUIPO: ${eqNombre} (Código: ${eqCod})`,
+      `CENTRO DE COSTO: ${cc ? `${cc.codigo} - ${cc.nombre}` : "Por definir"}`,
+      `PIEZA: ${a.pieza.trim()} (Cant.: ${a.cantidad}${a.material ? ` · Material: ${a.material.trim()}` : ""})`,
+      `PRIORIDAD: ${a.prioridad.toUpperCase()}`,
+      `TRABAJO SOLICITADO: ${a.trabajo_solicitado.trim()}`,
+      `SOLICITANTE: ${quien} · Fecha: ${c.hoy}`,
+    ].join("\n");
+
+    const ahora = new Date().toISOString();
+    const idSeg = uid("s");
+    const idTar = uid("t");
+    const docSeg = { id: idSeg, origen: "manual", titulo: tituloOT, detalle: textoFracttal, eq: eqNombre, sede, prioridad: a.prioridad, estado: "abierto", fecha: c.hoy, creadoPor: quien, createdAt: ahora, updatedAt: ahora, por: quien, historial: [{ t: ahora, estado: "abierto", por: quien, nota: `OT de mecanizado preparada vía MCP (CC ${cc ? cc.codigo : "N/A"})` }] };
+    const docTar = { id: idTar, title: tituloOT, notes: textoFracttal, machine: eqNombre, priority: a.prioridad === "alta" ? "Alta" : a.prioridad === "baja" ? "Baja" : "Media", status: "pendiente", assignee: "Taller de Mecanizado", dueDate: "", createdBy: quien, src: "mcp", createdAt: ahora, updatedAt: ahora };
+
+    const paquete = {
+      fracttal: { titulo: tituloOT, activo: eqNombre, codigoActivo: eqCod, centroCosto: cc, alternativasCentroCosto: ccInfo.alternativas, textoListoParaCopiar: textoFracttal },
+      registrosEnApp: { pendienteId: idSeg, tareaId: idTar },
+    };
+    if (!a.confirmar) return vistaPrevia(`OT de mecanizado para ${eqNombre}`, paquete);
+    await Promise.all([escribir("seguimiento", idSeg, docSeg), escribir("tareas", idTar, docTar)]);
+    return guardado("OT de mecanizado preparada y registrada en la app (Pendientes + Tareas)", paquete);
   });
 }

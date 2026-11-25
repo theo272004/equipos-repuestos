@@ -19,6 +19,9 @@ Es un servicio en línea (HTTP) que lee lo mismo que la app: los datos del repos
 | `buscar_repuesto` | Almacén: existencias, ubicación, compra, dónde se usa |
 | `estado_compra`, `repuestos_por_llegar`, `por_pedir` | Compras |
 | `personal_en_turno` | Quién está de turno |
+| `mantenimientos` | Mantenimientos e inspecciones detalladas (qué se hizo, pendientes, fotos) |
+| `reportes_turno` | Reportes de turno completos del chat y de la app |
+| `centro_costo_equipo` | Centro de costo oficial (DMM-229 / RE355) por equipo o máquina |
 
 **Escritura** (todas piden `confirmar: true`; sin eso solo devuelven una vista previa y no guardan nada)
 
@@ -28,6 +31,10 @@ Es un servicio en línea (HTTP) que lee lo mismo que la app: los datos del repos
 | `actualizar_pendiente` | `seguimiento` (+ `tareas` si es una tarea) |
 | `anotar_novedad` | `mtto_registros` |
 | `registrar_cambio_pieza` | `cambios` |
+| `anotar_mantenimiento` | `inspecciones` (mantenimiento detallado + pendientes + fotos) |
+| `actualizar_mantenimiento` | `inspecciones` (cerrar, anexar notas, hallazgos o fotos) |
+| `anotar_tarea` | `tareas` |
+| `preparar_ot_mecanizado` | `seguimiento` + `tareas` (arma OT lista para Fracttal con centro de costo) |
 
 Cada escritura queda a nombre de la persona dueña de la llave (`por`, `creadoPor`, `quien`, `src: "mcp"`).
 

@@ -38,13 +38,14 @@ export const pieza = (cod) => conCache("cod:" + cod, config.ttl.codigo, async ()
 // Todo lo que las herramientas de lectura necesitan, y deja listo el estado que usan
 // compras.js y cambios-piezas.js (registros, cambios e inventario)
 export async function cargarNube({ inv = true } = {}) {
-  const [tareas, registros, estados, seguimiento, solicitudes, cambios, mapaInv] = await Promise.all([
+  const [tareas, registros, estados, seguimiento, solicitudes, cambios, inspecciones, reportes, mapaInv] = await Promise.all([
     coleccion("tareas"), coleccion("mtto_registros"), coleccion("mtto_estados"), coleccion("seguimiento"),
-    coleccion("solicitudes"), coleccion("cambios"), inv ? inventario().catch(() => null) : null,
+    coleccion("solicitudes"), coleccion("cambios"), coleccion("inspecciones"), coleccion("reportes_turno"),
+    inv ? inventario().catch(() => null) : null,
   ]);
   estadoVivo.cambios = cambios;
   estadoVivo.inventario = mapaInv || null;
-  return { tareas, registros, estados, seguimiento, solicitudes, cambios, presupuesto: [], movimientos: [], reportes: [] };
+  return { tareas, registros, estados, seguimiento, solicitudes, cambios, inspecciones, reportes, presupuesto: [], movimientos: [] };
 }
 
 export async function escribir(col, id, datos) {

@@ -26,7 +26,7 @@ usarCliente({
   actualizar: async (n, id, c) => { escrituras.push([n, id]); col(n).set(id, { ...(col(n).get(id) || {}), ...c }); return true; },
 });
 col("inventario").set("741901004", { id: "741901004", cod: "741901004", desc: "RODAMIENTO DE BOLA REF 6206 ZZ", exist: 10, um: "UN", ub: "R04/F1", pu: 5000, sitios: JSON.stringify([{ alm: "R04", ub: "F1", exist: 10 }]) });
-col("tareas").set("t1", { id: "t1", title: "Revisar chiller", status: "pendiente", priority: "Alta", createdAt: "2026-10-10T15:00:00Z" });
+col("tareas").set("t1", { id: "t1", title: "Revisar chiller", status: "pendiente", priority: "Alta", createdAt: new Date(Date.now() - 86400e3).toISOString() });
 
 let servidor, url;
 before(async () => { servidor = crearServidor(); await new Promise((r) => servidor.listen(0, r)); url = `http://127.0.0.1:${servidor.address().port}`; });
@@ -58,8 +58,8 @@ test("lista las herramientas con sus anotaciones", async () => {
   const c = await conectar();
   const { tools } = await c.listTools();
   const por = Object.fromEntries(tools.map((t) => [t.name, t]));
-  for (const n of ["resumen_planta", "equipos_a_atacar", "buscar_equipo", "buscar_repuesto", "estado_compra", "repuestos_por_llegar", "por_pedir", "cambios_de_piezas", "pendientes", "novedades", "historial_equipo", "personal_en_turno", "plan_mantenimiento"]) assert.equal(por[n].annotations.readOnlyHint, true, n);
-  for (const n of ["anotar_pendiente", "actualizar_pendiente", "anotar_novedad", "registrar_cambio_pieza"]) assert.equal(por[n].annotations.readOnlyHint, false, n);
+  for (const n of ["resumen_planta", "equipos_a_atacar", "buscar_equipo", "buscar_repuesto", "estado_compra", "repuestos_por_llegar", "por_pedir", "cambios_de_piezas", "pendientes", "novedades", "historial_equipo", "personal_en_turno", "plan_mantenimiento", "mantenimientos", "reportes_turno", "centro_costo_equipo"]) assert.equal(por[n].annotations.readOnlyHint, true, n);
+  for (const n of ["anotar_pendiente", "actualizar_pendiente", "anotar_novedad", "registrar_cambio_pieza", "anotar_mantenimiento", "actualizar_mantenimiento", "anotar_tarea", "preparar_ot_mecanizado"]) assert.equal(por[n].annotations.readOnlyHint, false, n);
   await c.close();
 });
 
@@ -156,5 +156,42 @@ test("escritura: novedad en un equipo de proceso; un equipo ambiguo se rechaza",
   assert.equal(d.ar, "Blisteado y estuchado");
   assert.equal(d.src, "mcp");
   assert.equal(d.por, "ana");
+  await c.close();
+});
+
+test("lectura: mantenimientos, reportes_turno y centro_costo_equipo", async () => {
+  const c = await conectar();
+  const m = await c.callTool({ name: "mantenimientos", arguments: { equipo: "Blíster 8" } });
+  assert.match(texto(m), /insp-20261124-blister8-formado-avance/);
+  const r = await c.callTool({ name: "reportes_turno", arguments: { desde: "2026-10-01", hasta: "2026-11-30", limite: 3 } });
+  assert.match(texto(r), /reportes/);
+  const cc = await c.callTool({ name: "centro_costo_equipo", arguments: { equipo: "Blíster 8" } });
+  assert.match(texto(cc), /"codigo": "L0"/);
+  const ccH = await c.callTool({ name: "centro_costo_equipo", arguments: { equipo: "Huttlin 600" } });
+  assert.match(texto(ccH), /"codigo": "HE"/);
+  await c.close();
+});
+
+test("escritura: anotar_mantenimiento, actualizar_mantenimiento, anotar_tarea y preparar_ot_mecanizado", async () => {
+  const c = await conectar("llave-de-luis-0123456789");
+  const prev = await c.callTool({ name: "anotar_mantenimiento", arguments: { equipo: "Blíster 8", revisado: "Estación de formado", hallazgos: "Se revisó plancha", confirmar: false } });
+  assert.match(texto(prev), /VISTA PREVIA/);
+
+  const okM = await c.callTool({ name: "anotar_mantenimiento", arguments: { equipo: "Blíster 8", revisado: "Estación de formado y avance", hallazgos: "Se cambia seguidor de leva y se ajustan tiempos", piezas_pendientes: [{ d: "Rectificar plancha", urgencia: "alta", tipo: "mecanica" }], confirmar: true } });
+  assert.match(texto(okM), /GUARDADO/);
+  const inspDoc = [...col("inspecciones").values()][0];
+  assert.equal(inspDoc.estado, "abierta");
+
+  const upd = await c.callTool({ name: "actualizar_mantenimiento", arguments: { id: inspDoc.id, estado: "cerrada", anexar_hallazgos: "Plancha rectificada y montada OK", confirmar: true } });
+  assert.match(texto(upd), /GUARDADO/);
+  assert.equal(col("inspecciones").get(inspDoc.id).estado, "cerrada");
+
+  const ot = await c.callTool({ name: "preparar_ot_mecanizado", arguments: { equipo: "Blíster 8", pieza: "Plancha porta-espárrago", trabajo_solicitado: "Rectificar orificio adelantado y roscas M6 según muestra", material: "Acero inoxidable 316L", prioridad: "alta", confirmar: true } });
+  assert.match(texto(ot), /GUARDADO/);
+  assert.match(texto(ot), /"codigo": "L0"/);
+  assert.ok([...col("tareas").values()].some((t) => /Plancha porta-espárrago/.test(t.title)));
+
+  const tar = await c.callTool({ name: "anotar_tarea", arguments: { titulo: "Revisar cortocircuito Bomba #25 Sede 2", equipo: "Bomba #25", prioridad: "Alta", confirmar: true } });
+  assert.match(texto(tar), /GUARDADO/);
   await c.close();
 });
