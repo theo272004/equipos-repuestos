@@ -16,6 +16,11 @@ Qué hace con cada dato
   - UBICACIÓN (más de 100 variantes): se separa en sede + área. La sede sale del texto
     ("sede 4", "planta 2") o, si no la trae, de --ubicacion. El área se limpia y, si está en
     scripts/hoja-vida.areas.json (variante -> área oficial, DMM-211B), se unifica.
+  - Celdas de relleno («N/A», «N/A.», «NA», «-», «--», «—», «No aplica», «S/N»…) cuentan como vacías:
+    no generan repuestos, marcas ni modelos.
+  - La sede se reconoce también en «PLANTA #2», «PLANTA#2», «PALANTA #2», «PLANTA 2/ÁREA», «PLANTA N°2».
+    Si trae otra planta o sede («PLANTA #4») la sede queda la del archivo, se quita del área y se avisa.
+  - Un código que sale en más de una fila del MISMO archivo no se mezcla: se omiten todas sus filas y se listan.
   - IMAGEN: solo el nombre del archivo, nunca la ruta (puede traer carpetas del servidor).
   - SERIAL: NO se guarda. Solo con --incluir-serial (el repositorio es público).
   - COD-REPn / REPn / CANT-REPn -> lista `repuestos` (los códigos también sin ceros).
@@ -52,7 +57,17 @@ def clave(t):
     return re.sub(r"[^a-z0-9]", "", sin_tildes(t).lower())
 
 
-def limpio(v):
+RELLENOS = {"n/a", "na", "n.a", "n/d", "nd", "s/d", "s/n", "no aplica", "noaplica", "ninguno", "ninguna", "sin dato", "sin datos", "sindato", "sindatos"}
+
+
+def es_relleno(t):
+    """«N/A», «N/A.», «NA», «-», «--», «—», «No aplica»… son celdas de relleno, no datos."""
+    k = re.sub(r"\s+", "", str(t).lower()).rstrip(".") if t is not None else ""
+    return k == "" or re.fullmatch(r"[-–—_.*/\\]+", k) is not None or k in {r.replace(" ", "") for r in RELLENOS}
+
+
+def limpio(v, crudo=False):
+    """Texto de una celda. Los valores de relleno (N/A, -, …) cuentan como vacíos, salvo crudo=True."""
     if v is None:
         return ""
     if hasattr(v, "date"):
@@ -60,7 +75,9 @@ def limpio(v):
     if isinstance(v, float) and v.is_integer():
         v = int(v)
     t = str(v).strip()
-    return "" if t.startswith("#") else t
+    if t.startswith("#"):
+        return ""
+    return t if crudo or not es_relleno(t) else ""
 
 
 def codigo(v):
@@ -87,22 +104,40 @@ def nombre_archivo(v):
     return re.split(r"[\\/]", t)[-1].strip() if t else ""
 
 
-def separar_ubicacion(texto, por_defecto=""):
-    """'Sede 4 - Encapsulado / Cuarto 2' -> ('SEDE 4', 'encapsulado cuarto 2' limpio)."""
+def _ubicacion(texto):
+    """-> (texto normalizado, coincidencia). Acepta «PLANTA #2», «PLANTA#2», «PALANTA #2», «Planta 2/Área», «Planta N°2», «SEDE 4»…"""
     t = sin_tildes(texto).lower()
+    t = re.sub(r"[#°ºª]", " ", t)                    # «#2», «N°2»
+    t = re.sub(r"\bn\s*o?\.?\s*(?=\d)", " ", t)       # «No. 2», «N 2»
+    t = re.sub(r"\s+", " ", t)
+    m = re.search(r"\b(sede|s|planta|palanta|plana|p)\s*-?\s*(\d)\b", t)
+    return t, m
+
+
+def separar_ubicacion(texto, por_defecto=""):
+    """'Sede 4 - Encapsulado / Cuarto 2' -> ('SEDE 4', 'encapsulado cuarto 2' limpio).
+    «Planta #4» y similares (número que no es Sede 4 ni Planta 2): se quita del área y la sede queda la del archivo."""
+    t, m = _ubicacion(texto)
     sede = por_defecto
-    m = re.search(r"\b(?:sede|s)\s*-?\s*4\b", t)
     if m:
-        sede = "SEDE 4"
-    else:
-        m = re.search(r"\b(?:planta|p)\s*-?\s*2\b", t)
-        if m:
+        tipo, n = m.group(1), m.group(2)
+        if tipo in ("sede", "s") and n == "4":
+            sede = "SEDE 4"
+        elif tipo in ("planta", "palanta", "plana", "p") and n == "2":
             sede = "PLANTA 2"
-    if m:
-        t = (t[: m.start()] + " " + t[m.end():])
+        t = t[: m.start()] + " " + t[m.end():]
     t = re.sub(r"[-·/|:;,_]+", " ", t)
     area = re.sub(r"\s+", " ", t).strip()
     return sede, area
+
+
+def sede_sin_reconocer(texto):
+    """«PLANTA #4», «SEDE 2»…: el texto trae planta o sede, pero no es ni Sede 4 ni Planta 2. -> el token o ''."""
+    t, m = _ubicacion(texto)
+    if not m:
+        return ""
+    ok = (m.group(1) in ("sede", "s") and m.group(2) == "4") or (m.group(1) in ("planta", "palanta", "plana", "p") and m.group(2) == "2")
+    return "" if ok else f"{m.group(1)} {m.group(2)}".upper()
 
 
 def hojas(ruta):
@@ -124,12 +159,20 @@ def listar_columnas(ruta, muestra=3):
         print(f"\nHoja «{nombre}»")
         n = 0
         for i, fila in enumerate(filas(), 1):
-            celdas = [limpio(c) for c in fila]
+            celdas = [limpio(c, crudo=True) for c in fila]
             if any(celdas):
                 print(f"  fila {i}: " + " | ".join(f"{j}:{c[:28]}" for j, c in enumerate(celdas) if c))
                 n += 1
             if n == muestra or i >= 15:
                 break
+
+
+def separar_repetidos(regs):
+    """Un código que sale en más de una fila del mismo archivo no se mezcla: se omiten todas sus filas.
+    -> (registros únicos, {código: número de filas})."""
+    n = Counter(r["codigo"] for r in regs)
+    rep_ = {c: k for c, k in n.items() if k > 1}
+    return [r for r in regs if r["codigo"] not in rep_], rep_
 
 
 def leer_registro():
@@ -190,6 +233,9 @@ def extraer(filas, mapeo, ubicacion="", areas=None, incluir_serial=False):
             sede, area = separar_ubicacion(orig, ubicacion)
             canon = areas.get(area)
             reg["sede"] = sede
+            raro = sede_sin_reconocer(orig)
+            if raro:
+                reg["sede_sin_reconocer"] = raro
             reg["area"] = canon or area
             if area and not canon:
                 reg["area_sin_normalizar"] = True
@@ -248,6 +294,7 @@ def main(argv=None):
             print(f"  {n:4d}  {v or '(vacía)'}")
         return
 
+    regs, repetidos = separar_repetidos(regs)
     registro = [e for e in leer_registro() if e["u"] == a.ubicacion]
     por_cod = {}
     for e in registro:
@@ -293,6 +340,11 @@ def main(argv=None):
         print("AVISO: se está guardando SERIAL; no subas ese JSON al repositorio público.")
     if sin_registro:
         print(f"Códigos que NO están en assets/equipos.js para {a.ubicacion} ({len(sin_registro)}): {', '.join(sorted(set(sin_registro))[:25])}")
+    if repetidos:
+        print(f"Códigos REPETIDOS dentro del archivo, omitidos sin mezclar ({len(repetidos)}): " + ", ".join(f"{c} (x{k})" for c, k in sorted(repetidos.items())))
+    raras = [r for r in regs if r.get("sede_sin_reconocer")]
+    if raras:
+        print(f"Filas cuya ubicación trae otra planta/sede ({len(raras)}): " + ", ".join(sorted({r["sede_sin_reconocer"] for r in raras})) + " (la sede se dejó como la del archivo)")
     if ambiguos:
         print(f"Códigos repetidos dentro de {a.ubicacion}, no se importaron: {', '.join(ambiguos)}")
     if a.probar:

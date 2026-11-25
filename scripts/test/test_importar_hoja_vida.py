@@ -59,6 +59,53 @@ class Importar(unittest.TestCase):
         self.assertEqual(ihv.separar_ubicacion("PLANTA 2 · Líquidos", "SEDE 4"), ("PLANTA 2", "liquidos"))
         self.assertEqual(ihv.separar_ubicacion("Bodega", "SEDE 4"), ("SEDE 4", "bodega"))
 
+    def test_rellenos_na_cuentan_como_vacios(self):
+        for v in ["N/A", "N/A.", "NA", "n.a.", "-", "--", "—", " n/a ", "No aplica", "S/N", "", None]:
+            self.assertTrue(ihv.es_relleno(v), v)
+        for v in ["Trane", "MT/R", "M/S", "0", "NASA 2"]:
+            self.assertFalse(ihv.es_relleno(v), v)
+        fila = ["CHILLER", "04307002", "Chiller #2", "Sede 4", "N/A", "N/A.", "NA", "-", None, "", None, "", "N/A", "N/A", "N/A", "N/A", "-", "", ""]
+        mapeo = json.loads((RAIZ / "scripts" / "hoja-vida.mapeo.json").read_text(encoding="utf-8"))
+        regs, _ = ihv.extraer([CAB, fila], mapeo, "SEDE 4")
+        self.assertEqual(len(regs), 1)
+        self.assertNotIn("marca", regs[0]); self.assertNotIn("modelo", regs[0]); self.assertNotIn("servicio", regs[0])
+        self.assertNotIn("repuestos", regs[0]); self.assertNotIn("frecuencias", regs[0])
+        self.assertEqual(regs[0]["descripcion"], "Chiller #2")
+
+    def test_ubicaciones_de_planta_con_numeral_y_errores_de_digitacion(self):
+        casos = {
+            "PLANTA #2": ("PLANTA 2", ""), "PLANTA#2": ("PLANTA 2", ""), "PALANTA #2": ("PLANTA 2", ""),
+            "PLANTA 2/ÁREA": ("PLANTA 2", "area"), "Planta N°2 - Granulación": ("PLANTA 2", "granulacion"),
+            "PLANTA 2": ("PLANTA 2", ""), "Bodega Planta 2": ("PLANTA 2", "bodega"),
+            "SEDE 4": ("SEDE 4", ""), "Sede #4 / Líquidos": ("SEDE 4", "liquidos"),
+        }
+        for texto, esperado in casos.items():
+            self.assertEqual(ihv.separar_ubicacion(texto, "OTRA"), esperado, texto)
+        # «PLANTA #4» no es Sede 4 ni Planta 2: se quita del área, la sede queda la del archivo y se avisa
+        self.assertEqual(ihv.separar_ubicacion("PLANTA #4", "PLANTA 2"), ("PLANTA 2", ""))
+        self.assertEqual(ihv.sede_sin_reconocer("PLANTA #4"), "PLANTA 4")
+        self.assertEqual(ihv.sede_sin_reconocer("PLANTA #2"), "")
+
+    def test_codigos_repetidos_en_el_archivo_no_se_mezclan(self):
+        regs = [{"codigo": "17303019", "marca": "A"}, {"codigo": "17303019", "marca": "B"}, {"codigo": "5", "marca": "C"}]
+        unicos, rep = ihv.separar_repetidos(regs)
+        self.assertEqual(unicos, [{"codigo": "5", "marca": "C"}])
+        self.assertEqual(rep, {"17303019": 2})
+        with tempfile.TemporaryDirectory() as d:
+            import io, contextlib
+            d = Path(d)
+            wb = openpyxl.Workbook(); ws = wb.active; ws.title = "BASE DE DATOS"
+            ws.append(CAB); ws.append(FILA); ws.append(FILA)   # mismo código dos veces
+            otra = list(FILA); otra[1] = "04307001"; ws.append(otra)  # este no se repite (4307001 existe en el registro)
+            wb.save(d / "hv.xlsx")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                ihv.main([str(d / "hv.xlsx"), "--ubicacion", "SEDE 4", "--salida", str(d / "o.json"), "--areas", str(d / "nada.json")])
+            out = buf.getvalue()
+            self.assertIn("REPETIDOS", out); self.assertIn("4307002 (x2)", out)
+            datos = json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"]
+            self.assertNotIn("eq-4307002", datos)  # no se mezcló ninguna de las dos filas
+
     def test_no_toca_equipos_js(self):
         antes = (RAIZ / "assets" / "equipos.js").read_bytes()
         self.correr()
