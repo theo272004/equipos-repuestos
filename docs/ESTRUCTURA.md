@@ -135,3 +135,14 @@ menciona DMM-179/179B, DMM-229 y RE355/RE356.
 7. Nada del contenido de las hojas de vida (ubicación exacta, fabricante, serie, fecha de instalación, fotos) está en el modelo del registro.
 
 Los PR de esta tanda atacan 3, 4 y 6 y preparan el 7 sin inventar columnas. Ver sus descripciones.
+
+## 6. Decisiones del usuario (noviembre 2026)
+
+- `125334007` (Chequeadora CS100) es **SEDE 4** (confirmado con DMM-179B).
+- «Invima» (código `1`) es una **evaluación**, no una máquina: se marca `evaluacion: true`, no se borra ni cuenta como equipo.
+- `17303002` y `17303018` son equipos distintos por planta: la clave es **planta + código** (también en `actualizar-plan-mtto.py`).
+- `17334008` (Stick Pack sin número) queda **por confirmar** como posible duplicado de `17334018` (MT-1100); no se elimina.
+- Los equipos del repositorio que no estén en el listado DMM-179 vigente **no se quitan**; solo se listan.
+- **No se agregan por ahora**: Blisteadoras #8 y #9 UPS 300, Codificadora Hitachi #7, Mezclador horizontal #4 (casi no aparecen en los reportes).
+- Hojas de vida: no se sube el serial al repositorio público; de IMAGEN solo el nombre del archivo.
+- Manuales: no se suben al repositorio; solo ruta relativa y tipo.
