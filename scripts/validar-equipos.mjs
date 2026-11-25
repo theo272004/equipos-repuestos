@@ -5,6 +5,14 @@
 //   node scripts/validar-equipos.mjs            informe; sale con 0 aunque haya avisos
 //   node scripts/validar-equipos.mjs --estricto sale con 1 si hay ERRORES (no avisos)
 //   node scripts/validar-equipos.mjs --json     lo mismo, en JSON
+//   node scripts/validar-equipos.mjs --listado DMM-179.csv
+//        compara con el listado oficial (CSV con el código en alguna columna) y SOLO LISTA
+//        los equipos del repositorio que no aparecen: nunca se quitan.
+//
+// Marcas que lleva el registro (no se borra nada):
+//   evaluacion: true   no es una máquina (ej. «Invima»): no cuenta como equipo.
+//   revision: "..."    el equipo queda «por confirmar» (ej. posible duplicado).
+// Los códigos se comparan sin ceros a la izquierda (04307001 = 4307001).
 //
 // ERROR = rompe algo (id repetido, código repetido dentro de la misma planta,
 //         ubicación que no es SEDE 4 ni PLANTA 2).
@@ -25,10 +33,29 @@ export function cargarRegistro(ruta) {
   return ctx.window.EQUIPOS_PLAN;
 }
 
-export function validar(plan) {
+export const sinCeros = (c) => String(c ?? "").trim().replace(/^0+(?=\d)/, "");
+
+export function codigosDeListado(texto) {
+  const set = new Set();
+  for (const linea of String(texto).split(/\r?\n/)) {
+    for (const celda of linea.split(/[,;\t]/)) {
+      const t = celda.replace(/^"|"$/g, "").trim();
+      if (/^\d{1,9}$/.test(t)) set.add(sinCeros(t));
+    }
+  }
+  return set;
+}
+
+export function validar(plan, listadoOficial = null) {
   const errores = [];
   const avisos = [];
-  const equipos = plan?.equipos ?? [];
+  const todos = plan?.equipos ?? [];
+  const evaluaciones = todos.filter((e) => e.evaluacion);
+  const equipos = todos.filter((e) => !e.evaluacion);
+  const porConfirmar = equipos.filter((e) => e.revision).map((e) => ({ id: e.id, detalle: `${e.n}: ${e.revision}` }));
+  const fueraDeListado = listadoOficial
+    ? equipos.filter((e) => !listadoOficial.has(sinCeros(e.c))).map((e) => ({ id: e.id, detalle: `${e.c} · ${e.n} (${e.u}) — no está en el listado oficial` }))
+    : null;
   const cuenta = (arr, f) => arr.reduce((m, x) => ((m[f(x)] = (m[f(x)] || 0) + 1), m), {});
 
   const porId = cuenta(equipos, (e) => e.id);
@@ -48,7 +75,6 @@ export function validar(plan) {
     if (!UBICACIONES.includes(e.u)) errores.push({ regla: "ubicacion-desconocida", id: e.id, detalle: `u="${e.u}" · ${e.n}` });
     if (!TIPOS.includes(e.tipo)) avisos.push({ regla: "tipo-desconocido", id: e.id, detalle: `tipo="${e.tipo}"` });
     if (!/^\d{7,9}$/.test(String(e.c))) avisos.push({ regla: "codigo-fuera-de-formato", id: e.id, detalle: `c="${e.c}" (se esperan 7 a 9 dígitos) · ${e.n}` });
-    if (e.tipo === "URGENCIA" || e.cc === "0") avisos.push({ regla: "comodin", id: e.id, detalle: `${e.n} (cc="${e.cc}")` });
     const sinCod = (e.r || []).filter((r) => !r.cod).length;
     if (sinCod) avisos.push({ regla: "repuestos-sin-codigo", id: e.id, detalle: `${sinCod} fila(s) del plan sin código de almacén` });
   }
@@ -57,6 +83,8 @@ export function validar(plan) {
   const ccArea = equipos.filter((e) => String(e.cc || "").includes("·")).length;
   const resumen = {
     equipos: equipos.length,
+    evaluacionesAparte: evaluaciones.map((e) => e.n),
+    porConfirmar: porConfirmar.length,
     porUbicacion: cuenta(equipos, (e) => e.u),
     porTipo: cuenta(equipos, (e) => e.tipo),
     conRepuestos: equipos.filter((e) => (e.r || []).length).length,
@@ -65,10 +93,10 @@ export function validar(plan) {
     ccComoAreaYZona: ccArea,
     ccOtro: equipos.length - ccCorto - ccArea,
   };
-  return { resumen, errores, avisos };
+  return { resumen, errores, avisos, porConfirmar, fueraDeListado };
 }
 
-function imprimir({ resumen, errores, avisos }) {
+function imprimir({ resumen, errores, avisos, porConfirmar, fueraDeListado }) {
   console.log("Resumen:", JSON.stringify(resumen, null, 2));
   const grupo = (tit, lista) => {
     console.log(`\n${tit}: ${lista.length}`);
@@ -82,11 +110,15 @@ function imprimir({ resumen, errores, avisos }) {
   };
   grupo("ERRORES", errores);
   grupo("AVISOS", avisos);
+  grupo("POR CONFIRMAR", porConfirmar.map((x) => ({ ...x, regla: "revision" })));
+  if (fueraDeListado) grupo("NO ESTÁ EN EL LISTADO OFICIAL (solo informativo, no se quita nada)", fueraDeListado.map((x) => ({ ...x, regla: "fuera-de-listado" })));
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
-  const informe = validar(cargarRegistro(join(raiz, "assets", "equipos.js")));
+  const i = process.argv.indexOf("--listado");
+  const listado = i > 0 ? codigosDeListado(readFileSync(process.argv[i + 1], "utf8")) : null;
+  const informe = validar(cargarRegistro(join(raiz, "assets", "equipos.js")), listado);
   if (process.argv.includes("--json")) console.log(JSON.stringify(informe, null, 2));
   else imprimir(informe);
   if (process.argv.includes("--estricto") && informe.errores.length) process.exit(1);

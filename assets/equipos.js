@@ -3049,7 +3049,7 @@ window.EQUIPOS_PLAN = {
       "mid": "",
       "n": "Chequeadora de Peso CS100",
       "nOriginal": "CHEQUEADORA DE PESO CS100",
-      "u": "SE",
+      "u": "SEDE 4",
       "cc": "ENCAP-SOL · ÁREA BLANCA",
       "tipo": "AUXILIAR",
       "r": []
@@ -22676,6 +22676,7 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "DI",
       "tipo": "PROCESO",
+      "revision": "Por confirmar: posible duplicado de 17334018 (Stick Pack MT-1100)",
       "r": [
         {
           "s": "",
@@ -22896,6 +22897,7 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "0",
       "tipo": "URGENCIA",
+      "evaluacion": true,
       "r": [
         {
           "s": "EDIFICACION",

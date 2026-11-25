@@ -17,6 +17,12 @@ pieza de cada equipo, la frecuencia, la última ejecución, la próxima y el est
 Uso:
   python3 scripts/actualizar-plan-mtto.py "ruta/MANTENIMIENTO POR SISTEMAS.xlsm"
   python3 scripts/actualizar-plan-mtto.py "ruta/archivo.xlsm" --probar     (no escribe, solo cuenta)
+  python3 scripts/actualizar-plan-mtto.py "ruta/archivo.xlsm" --ubicacion "PLANTA 2"
+
+El código de equipo NO es único: 17303002 y 17303018 existen en Sede 4 y en Planta 2. El
+cruce es por planta + código. Si el código está en una sola planta se usa esa; si está en las
+dos y no pasas --ubicacion, esas filas se OMITEN y se listan (no se adivina). Con --ubicacion
+solo se actualiza esa planta.
 
 Es seguro correrlo varias veces: con el mismo Excel la segunda vez no cambia nada.
 No ejecuta las macros del archivo: solo lee los valores guardados.
@@ -87,6 +93,8 @@ def main():
     if not args:
         sys.exit(__doc__)
     probar = "--probar" in sys.argv
+    ubicacion = sys.argv[sys.argv.index("--ubicacion") + 1].upper() if "--ubicacion" in sys.argv else ""
+    args = [a for a in args if a.upper() != ubicacion]
     filas, corte = leer_excel(args[0])
 
     s = DESTINO.read_text(encoding="utf-8")
@@ -94,7 +102,10 @@ def main():
     cuerpo = s[m.end():]
     fin = cuerpo.rstrip().rfind(";")
     datos = json.loads(cuerpo[:fin])
-    por_eq = {str(e["c"]): e for e in datos["equipos"]}
+    por_eq = defaultdict(list)          # código -> equipos (puede haber uno por planta)
+    for e in datos["equipos"]:
+        por_eq[str(e["c"])].append(e)
+    ambiguos = set()
 
     # Para copiar precio y ubicación de una pieza que la app ya conoce
     conocidas = {}
@@ -106,12 +117,16 @@ def main():
     usados = set()
     cambiadas, agregadas, sin_equipo = [], [], 0
     for x in filas:
-        e = por_eq.get(x["eq"])
-        if not e:
+        cands = [c for c in por_eq.get(x["eq"], []) if not ubicacion or c["u"] == ubicacion]
+        if not cands:
             sin_equipo += 1
             continue
+        if len(cands) > 1:
+            ambiguos.add(x["eq"])
+            continue
+        e = cands[0]
         # Misma pieza: mismo código y mismo sistema; si no, el mismo código
-        cand = [i for i, r in enumerate(e["r"]) if (x["eq"], i) not in usados and r.get("cod", "") == x["cod"]]
+        cand = [i for i, r in enumerate(e["r"]) if (e["id"], i) not in usados and r.get("cod", "") == x["cod"]]
         mismo = [i for i in cand if norm(e["r"][i].get("s")) == norm(x["sis"])]
         pool = mismo or cand
         nuevo_xls = {"f": x["f"], "ej": x["ej"], "px": x["px"], "st": x["st"]}
@@ -127,10 +142,10 @@ def main():
                 "ub": base.get("ub", ""), "pu": base.get("pu", 0),
                 "xls": {"f": x["f"], "ej": x["ej"], "px": x["px"], "st": x["st"]},
             })
-            usados.add((x["eq"], len(e["r"]) - 1))
+            usados.add((e["id"], len(e["r"]) - 1))
             agregadas.append((e["n"], x["cod"], x["sis"], x["ej"]))
             continue
-        usados.add((x["eq"], i))
+        usados.add((e["id"], i))
         r = e["r"][i]
         nuevo = {"f": x["f"], "ej": x["ej"], "px": x["px"], "st": x["st"]}
         if r.get("xls") != nuevo:
@@ -144,6 +159,8 @@ def main():
         por_eq_cambio[n] += 1
     for n, k in sorted(por_eq_cambio.items(), key=lambda t: -t[1]):
         print(f"  {k:3d}  {n}")
+    if ambiguos:
+        print(f"Códigos en más de una planta, OMITIDOS (usa --ubicacion): {', '.join(sorted(ambiguos))}")
     for n, c, sis, ej in agregadas:
         print(f"  + {n} · {c} · {sis or '—'} · ejecutado {ej or '—'}")
     if probar:

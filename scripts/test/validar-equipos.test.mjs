@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { validar } from "../validar-equipos.mjs";
+import { validar, codigosDeListado } from "../validar-equipos.mjs";
 
 const eq = (o) => ({ c: "17332002", id: "eq-17332002", n: "X", u: "SEDE 4", cc: "K9", tipo: "PROCESO", r: [], ...o });
 
@@ -21,8 +21,22 @@ test("mismo código en la misma planta y ubicación rara son errores", () => {
   assert.deepEqual(reglas, ["codigo-repetido-misma-planta", "ubicacion-desconocida"]);
 });
 
-test("comodín y código corto son avisos", () => {
-  const r = validar({ equipos: [eq({ c: "1", id: "eq-1", tipo: "URGENCIA", cc: "0" })] });
-  assert.ok(r.avisos.some((a) => a.regla === "comodin"));
-  assert.ok(r.avisos.some((a) => a.regla === "codigo-fuera-de-formato"));
+test("una evaluación no cuenta como equipo ni da avisos de formato", () => {
+  const r = validar({ equipos: [eq({}), eq({ c: "1", id: "eq-1", tipo: "URGENCIA", evaluacion: true })] });
+  assert.equal(r.resumen.equipos, 1);
+  assert.deepEqual(r.resumen.evaluacionesAparte, ["X"]);
+  assert.equal(r.avisos.length, 0);
+});
+
+test("«revision» deja el equipo por confirmar sin error", () => {
+  const r = validar({ equipos: [eq({ revision: "posible duplicado" })] });
+  assert.equal(r.porConfirmar.length, 1);
+  assert.equal(r.errores.length, 0);
+});
+
+test("listado oficial: solo lista lo que falta y compara sin ceros a la izquierda", () => {
+  const listado = codigosDeListado("codigo,nombre\n04307001,Chiller\n\"17332002\";x\n");
+  const r = validar({ equipos: [eq({ c: "4307001", id: "a" }), eq({}), eq({ c: "99999999", id: "b" })] }, listado);
+  assert.deepEqual(r.fueraDeListado.map((x) => x.id), ["b"]);
+  assert.equal(validar({ equipos: [eq({})] }).fueraDeListado, null);
 });
