@@ -13,7 +13,7 @@ def pieza(cod):
 
 
 class CruceConPlanta(unittest.TestCase):
-    def correr(self, extra):
+    def correr(self, extra, filas_u=""):
         with tempfile.TemporaryDirectory() as d:
             d = Path(d)
             datos = {"fuente": "x", "corte": "2026-01-01", "equipos": [
@@ -24,8 +24,8 @@ class CruceConPlanta(unittest.TestCase):
             dest.write_text("window.EQUIPOS_PLAN = " + json.dumps(datos) + ";\n", encoding="utf-8")
             wb = openpyxl.Workbook(); ws = wb.active; ws.title = "PLAN MTTO"; ws["X1"] = "2026-11-01"
             ws.append([]); ws.append([])
-            for eq, cod in (("17303002", "111"), ("5", "222")):
-                fila = [eq, "", "", "S", "MECANICA", cod, "", "", "", 1, 1, 0, 0, 0, 0, "", "", "3M", "2026-10-01", "2027-01-01", "", "EN TIEMPO", ""]
+            for eq, cod, u in (("17303002", "111", filas_u), ("5", "222", "SEDE 4")):
+                fila = [eq, "", u, "S", "MECANICA", cod, "", "", "", 1, 1, 0, 0, 0, 0, "", "", "3M", "2026-10-01", "2027-01-01", "", "EN TIEMPO", ""]
                 ws.append(fila)
             wb.save(d / "p.xlsx")
             apm.DESTINO = dest; apm.RAIZ = d
@@ -33,6 +33,10 @@ class CruceConPlanta(unittest.TestCase):
             apm.main()
             out = dest.read_text(encoding="utf-8")
             return {e["id"]: e["r"][0]["xls"]["f"] for e in json.loads(out[out.index("{"):out.rindex(";")])["equipos"]}
+
+    def test_planta_de_la_columna_C_resuelve_el_repetido(self):
+        f = self.correr([], filas_u="PLANTA 2")
+        self.assertEqual(f["eq-17303002-p2"], "3M"); self.assertEqual(f["eq-17303002"], "1A")
 
     def test_codigo_en_dos_plantas_se_omite_sin_ubicacion(self):
         f = self.correr([])

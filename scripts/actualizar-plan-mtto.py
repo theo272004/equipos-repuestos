@@ -20,9 +20,9 @@ Uso:
   python3 scripts/actualizar-plan-mtto.py "ruta/archivo.xlsm" --ubicacion "PLANTA 2"
 
 El código de equipo NO es único: 17303002 y 17303018 existen en Sede 4 y en Planta 2. El
-cruce es por planta + código. Si el código está en una sola planta se usa esa; si está en las
-dos y no pasas --ubicacion, esas filas se OMITEN y se listan (no se adivina). Con --ubicacion
-solo se actualiza esa planta.
+cruce es por planta + código. La planta sale de la columna C («UBICACIÓN») de la hoja PLAN
+MTTO. Si una fila no trae planta y su código está en las dos, se OMITE y se lista (no se
+adivina). Con --ubicacion solo se actualiza esa planta.
 
 Es seguro correrlo varias veces: con el mismo Excel la segunda vez no cambia nada.
 No ejecuta las macros del archivo: solo lee los valores guardados.
@@ -81,7 +81,7 @@ def leer_excel(ruta):
         if not eq:
             continue
         filas.append({
-            "eq": eq, "sis": texto(r[3]), "act": texto(r[4]), "cod": cod(r[5]), "d": texto(r[6]),
+            "eq": eq, "u": texto(r[2]).upper(), "sis": texto(r[3]), "act": texto(r[4]), "cod": cod(r[5]), "d": texto(r[6]),
             "q": num(r[9]), "e": num(r[10]), "w": [num(r[11]), num(r[12]), num(r[13]), num(r[14])],
             "f": texto(r[17]), "ej": fecha(r[18]), "px": fecha(r[19]), "st": texto(r[21]), "o": texto(r[22]),
         })
@@ -117,7 +117,10 @@ def main():
     usados = set()
     cambiadas, agregadas, sin_equipo = [], [], 0
     for x in filas:
-        cands = [c for c in por_eq.get(x["eq"], []) if not ubicacion or c["u"] == ubicacion]
+        # La hoja PLAN MTTO trae la planta en la columna C (UBICACIÓN): con eso se resuelven
+        # solos los códigos repetidos. --ubicacion, si se pasa, manda sobre la columna.
+        planta = ubicacion or (x["u"] if x["u"] in ("SEDE 4", "PLANTA 2") else "")
+        cands = [c for c in por_eq.get(x["eq"], []) if not planta or c["u"] == planta]
         if not cands:
             sin_equipo += 1
             continue
