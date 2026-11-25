@@ -31,6 +31,12 @@ test("recorre carpetas y cuenta archivos sin modificar nada", () => {
   assert.equal(r.length, 1);
   assert.equal(r[0].archivos, 2);
   assert.deepEqual(r[0].porTipo, { manual: 1, foto: 1 });
+  // solo ruta relativa y tipo: nada de rutas absolutas del PC
+  assert.deepEqual(r[0].lista, [
+    { ruta: "Uhlmann B1240/Manual de manejo.pdf", tipo: "manual" },
+    { ruta: "Uhlmann B1240/sub/foto.jpg", tipo: "foto" },
+  ]);
+  assert.ok(!JSON.stringify(r).includes(raiz));
 });
 
 test("un código corto como «1» no empareja cualquier carpeta; Integra320 = Integra 320", () => {

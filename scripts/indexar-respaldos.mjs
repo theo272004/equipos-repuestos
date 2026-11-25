@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 // Recorre la carpeta de respaldos (una carpeta por equipo: manuales, planos,
 // catálogos de repuestos) y PROPONE a qué equipo del registro pertenece cada una.
-// Solo lee nombres de archivos: no abre, copia, mueve ni borra nada.
+// Solo lee nombres de archivos: no abre, copia, mueve ni borra nada. NO sube manuales al
+// repositorio (es público): de cada archivo solo guarda la ruta RELATIVA a la carpeta de
+// respaldos y su tipo (manual, plano, repuestos, foto, otro). Nunca la ruta absoluta del PC.
 //
 //   node scripts/indexar-respaldos.mjs "C:\Users\...\Documents\Respaldos"
 //   node scripts/indexar-respaldos.mjs <carpeta> --salida propuesta.json --csv propuesta.csv
@@ -12,7 +14,7 @@
 //   "por confirmar": un humano decide el vínculo. Los PDF van a manuales/ solo cuando se acuerde.
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import vm from "node:vm";
-import { join, extname, dirname } from "node:path";
+import { join, extname, dirname, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 function cargarRegistro(ruta) {
@@ -61,12 +63,12 @@ export function estadoDe(c) {
   return "ambiguo";
 }
 
-function archivosDe(dir, acc = []) {
-  for (const f of readdirSync(dir)) {
+function archivosDe(dir, base, acc = []) {
+  for (const f of readdirSync(dir).sort()) {
     const p = join(dir, f);
     const st = statSync(p);
-    if (st.isDirectory()) archivosDe(p, acc);
-    else acc.push({ nombre: f, ext: extname(f).toLowerCase(), bytes: st.size });
+    if (st.isDirectory()) archivosDe(p, base, acc);
+    else acc.push({ nombre: f, ruta: relative(base, p).split(sep).join("/"), ext: extname(f).toLowerCase(), bytes: st.size });
   }
   return acc;
 }
@@ -74,11 +76,12 @@ function archivosDe(dir, acc = []) {
 export function indexar(raiz, equipos) {
   const carpetas = readdirSync(raiz).filter((d) => statSync(join(raiz, d)).isDirectory()).sort();
   return carpetas.map((c) => {
-    const archivos = archivosDe(join(raiz, c));
+    const archivos = archivosDe(join(raiz, c), raiz);
     const porTipo = {};
     for (const f of archivos) porTipo[tipoDeArchivo(f.nombre)] = (porTipo[tipoDeArchivo(f.nombre)] || 0) + 1;
     const cand = candidatos(c, equipos);
-    return { carpeta: c, archivos: archivos.length, bytes: archivos.reduce((s, f) => s + f.bytes, 0), porTipo, candidatos: cand, estado: estadoDe(cand) };
+    const lista = archivos.map((f) => ({ ruta: f.ruta, tipo: tipoDeArchivo(f.nombre) })); // solo ruta relativa + tipo
+    return { carpeta: c, lista, archivos: archivos.length, bytes: archivos.reduce((s, f) => s + f.bytes, 0), porTipo, candidatos: cand, estado: estadoDe(cand) };
   });
 }
 
@@ -91,7 +94,8 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const equipos = cargarRegistro(join(dir, "assets", "equipos.js")).equipos;
   const res = indexar(raiz, equipos);
   const salida = val("--salida") || "respaldos-propuesta.json";
-  writeFileSync(salida, JSON.stringify({ generado: new Date().toISOString().slice(0, 10), raiz, carpetas: res }, null, 2));
+  // «raiz» no se guarda: es una ruta del PC. Las rutas de cada archivo son relativas a esa carpeta.
+  writeFileSync(salida, JSON.stringify({ generado: new Date().toISOString().slice(0, 10), rutasRelativasA: "Respaldos", carpetas: res }, null, 2));
   if (val("--csv")) {
     const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
     const filas = res.map((r) => [r.carpeta, r.archivos, r.estado, r.candidatos[0]?.codigo, r.candidatos[0]?.ubicacion, r.candidatos[0]?.nombre, r.candidatos[0]?.puntaje].map(q).join(","));
@@ -99,5 +103,5 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   }
   const cuenta = (e) => res.filter((r) => r.estado === e).length;
   console.log(`${res.length} carpetas · sugeridas ${cuenta("sugerido")} · ambiguas ${cuenta("ambiguo")} · sin candidato ${cuenta("sin-candidato")}`);
-  console.log(`Escrito: ${salida} (no se tocó nada de ${raiz})`);
+  console.log(`Escrito: ${salida} (solo rutas relativas y tipo; no se copió ni se tocó ningún archivo)`);
 }
