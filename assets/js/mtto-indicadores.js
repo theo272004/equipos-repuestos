@@ -594,7 +594,7 @@
     const completas = machines.filter((m) => !m.fromRegistry);
     const basicas = total - completas.length;
     const conManual = machines.filter((m) => (m.documents ?? []).some((d) => d.file));
-    const conPlan = PLAN_EQUIPOS.filter((e) => e.r && e.r.length && !e.evaluacion); // las evaluaciones (Invima) no cuentan como equipo
+    const conPlan = PLAN_EQUIPOS.filter((e) => e.r && e.r.length && !e.evaluacion && !e.retirado); // evaluaciones (Invima) y equipos retirados no cuentan como equipo
     const retrasados = conPlan.reduce((n, e) => n + e.r.filter((r) => (r.xls || {}).st === "RETRASADO").length, 0);
     const sinStock = conPlan.reduce((n, e) => n + e.r.filter((r) => {
       const v = (typeof datosRep !== "undefined" && typeof datoClave === "function") ? datosRep[datoClave(e, r)] : null;
