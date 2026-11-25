@@ -61,7 +61,7 @@ Repuesto / actividad del plan (`r[]`, 856 filas):
 | `a` | Actividad: `MECANICA`, `ELECTRICA`, `CAMBIO DE FILTRO`, `INSTRUMENTACION Y CONTROL`, `LOCATIVO`, `FILTRACION`, `LUBRICACION`, `SEGURIDAD` |
 | `cod`, `d` | Código interno de almacén y descripción (16 filas sin código) |
 | `q` | Cantidad que lleva la máquina |
-| `e` | Existencia total; `w` = 4 cifras de existencia por bodega (columnas 12–15 del Excel). **¿Por confirmar?** qué bodega es cada posición |
+| `e` | Existencia total; `w` = existencia por bodega, en este orden: **R01, R02, R04, T51** (columnas 12–15 de la hoja PLAN MTTO; confirmado por el usuario) |
 | `o` | Observaciones |
 | `ub` | Ubicación en bodega (`R02/M0202 · R04/E0104`) |
 | `pu` | Precio unitario |
@@ -146,3 +146,6 @@ Los PR de esta tanda atacan 3, 4 y 6 y preparan el 7 sin inventar columnas. Ver 
 - **No se agregan por ahora**: Blisteadoras #8 y #9 UPS 300, Codificadora Hitachi #7, Mezclador horizontal #4 (casi no aparecen en los reportes).
 - Hojas de vida: no se sube el serial al repositorio público; de IMAGEN solo el nombre del archivo.
 - Manuales: no se suben al repositorio; solo ruta relativa y tipo.
+- `FREC-*` en las hojas de vida traen letras (`M`, `I`, `F`, `IE`, `M/S`, `MT`, `MT/R`, `X`), no fechas ni números. **Su significado no está definido**: el importador las guarda tal cual (solo limpia espacios) y no las interpreta.
+- En `PLAN MTTO` la columna C es `UBICACIÓN` (`SEDE 4` / `PLANTA 2`): el cruce por planta + código es automático.
+- `17334008` / `17334018`: el usuario recomienda dejar `17334018` como oficial y pasarle repuestos y ficha de `17334008`, **cuando se confirme que son el mismo equipo**. Aún no se hace.
