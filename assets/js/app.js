@@ -572,7 +572,7 @@ ${buildMachineContext(machine)}`;
         const total = machines.length;
         const completas = machines.filter((m) => !m.fromRegistry);
         const conManual = machines.filter((m) => (m.documents ?? []).some((d) => d.file));
-        const conPlan = PLAN_EQUIPOS.filter((e) => e.r.length);
+        const conPlan = PLAN_EQUIPOS.filter((e) => e.r.length && !e.evaluacion && !e.retirado); // evaluaciones (Invima) y equipos retirados no cuentan como equipo
         const lineas = conPlan.reduce((n, e) => n + e.r.length, 0);
         const retrasados = conPlan.reduce((n, e) => n + e.r.filter((r) => (r.xls || {}).st === "RETRASADO").length, 0);
         const sinStock = conPlan.reduce((n, e) => n + e.r.filter((r) => {

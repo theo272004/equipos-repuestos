@@ -6676,6 +6676,9 @@ const initialMachines = [
       function integrarEquipos() {
         const yaHay = new Set(machines.map((m) => m.id));
         PLAN_EQUIPOS.forEach((eq) => {
+          // Una evaluación (p. ej. «Invima») no es una máquina: no tiene ficha ni sale en
+          // la lista de Equipos. Sigue en el registro con su plan de repuestos.
+          if (eq.evaluacion || eq.retirado) return;
           const codigos = [...new Set(eq.r.map((r) => r.cod).filter(Boolean))];
           if (yaHay.has(eq.id)) {
             const m = machines.find((x) => x.id === eq.id);
