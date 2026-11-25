@@ -6126,35 +6126,89 @@ const initialMachines = [
         {
           "id": "eq-17334008",
           "equipoCod": "17334008",
-          "name": "Encelofanadora Stick Pack Líquidos Schmucker MT1100",
-          "model": "Schmucker MT1100 (S3240005)",
-          "current": "Código 17334008 · matrícula S3240005",
-          "area": "Líquidos · Envasado en stick pack",
+          "causaCod": "DI",
+          "causaDesc": "Encelofanadora para Líquidos en Sobre Stick Pack",
+          "name": "Encelofanadora para Líquidos en Sobre Stick Pack (Stick Pack #1)",
+          "model": "Empacando DXDL60 II",
+          "current": "Código 17334008 · retirado (fuera del listado DMM-179)",
+          "area": "Planta 2 · Líquidos",
           "location": "Planta 2",
-          "status": "Operativo",
-          "criticality": "Alta",
+          "status": "Fuera del listado",
+          "criticality": "Por definir",
+          "manual": "Pendiente de cargar",
+          "maintenance": "Retirado: sin plan activo",
+          "completion": 10,
+          "image": "",
+          "oculta": true,
+          "notes": "Equipo retirado: no está en el listado oficial DMM-179 vigente ni en el anterior. NO es duplicado de 17334018 (MT-1100). El contenido técnico que tenía esta ficha era del MT1100 (matrícula S3240005) y se copió a la ficha eq-17334018; el original sigue en el historial de git. Ver docs/REVISION-FICHA-eq-17334008.md (PR #68). Sus 3 filas de plan están en assets/data/equipos-retirados.json (PR #64).",
+          "searchAliases": [
+            "17334008",
+            "DI",
+            "stick pack #1",
+            "dxdl60",
+            "empacando",
+            "724001185",
+            "724001187",
+            "724001184"
+          ],
+          "description": "Stick Pack #1 de Planta 2 (Empacando DXDL60 II, 2016), retirado de la lista activa por no estar en el listado oficial. Se conserva para poder reactivarlo.",
+          "technicalData": {
+            "brand": "Empacando",
+            "capacity": "Por registrar",
+            "capsuleSizes": "Por registrar",
+            "dimensions": "Por registrar",
+            "dosingSystem": "Por registrar",
+            "function": "Envasado de líquidos en sobre (stick pack).",
+            "manufacturer": "Por registrar",
+            "power": "Por registrar",
+            "serialNumber": "Por registrar",
+            "voltage": "Por registrar",
+            "weight": "Por registrar",
+            "year": "2016"
+          },
+          "summarySpecs": [
+            {
+              "label": "Código de equipo",
+              "value": "17334008"
+            },
+            {
+              "label": "Ubicación",
+              "value": "Planta 2"
+            },
+            {
+              "label": "Estado",
+              "value": "Retirado (fuera del listado)"
+            }
+          ],
+          "documents": []
+        },
+        {
+          "id": "eq-17334018",
+          "equipoCod": "17334018",
+          "name": "Encelofanadora Stick Pack MT-1100",
+          "model": "Schmucker MT1100 (S3240005)",
+          "current": "Código 17334018 · matrícula S3240005 (por confirmar en la placa)",
+          "area": "Sede 4 · Encelofanado sólidos · Área blanca",
+          "location": "Sede 4",
+          "status": "Por confirmar",
+          "criticality": "Por definir",
           "manual": "Calibrado y regulaciones 01M04 (118 págs.) + Piezas de recambio 01M05 (85 págs.) + esquema eléctrico ES3240005 (126 págs.)",
           "maintenance": "Plan por horas de máquina H100–H3600 y meses M12–M24 (Calibrado p.34-56)",
           "completion": 65,
           "image": "",
-          "notes": "Ficha hecha solo con los manuales de la matrícula S3240005; cada dato lleva su página. Confirmar en la placa que S3240005 es esta unidad (17334008) y no la Stick Pack II o III. Los manuales no traen dimensiones ni peso. El número de pistas (8) se deduce de los dibujos (barra de enfriamiento con 8 boquillas), el texto no lo dice.",
-          "causaCod": "DI",
-          "causaDesc": "Encelofanadora para Líquidos en Sobre Stick Pack",
+          "notes": "Ficha copiada de la ficha eq-17334008 (revisión en el PR #68; allí queda el contenido original). Hecha solo con los manuales de la matrícula S3240005 (portada «MT1100 STICKPACKER»); cada dato lleva su página. POR CONFIRMAR: (1) que la placa del MT-1100 de Sede 4 diga S3240005; (2) con quien la opera, si dosifica líquidos con jeringa (como dicen los manuales) aunque el listado la ubique en «Encelofanado sólidos». Los manuales no traen dimensiones ni peso. El número de pistas (8) se deduce de los dibujos, el texto no lo dice.",
           "searchAliases": [
             "stick pack",
             "stickpack",
             "mt1100",
+            "mt-1100",
             "s3240005",
             "schmucker",
             "encelofanadora",
-            "17334008",
+            "17334018",
             "marchesini",
             "orugas",
-            "tubos formadores",
-            "DI",
-            "724001185",
-            "724001187",
-            "724001184"
+            "tubos formadores"
           ],
           "description": "Envasadora vertical de stick pack para líquidos Schmucker MT1100 (Marchesini Group), matrícula S3240005. La película se corta en tiras, se forma en tubo sobre los formadores, se suelda en vertical y en horizontal y se corta el stick. El líquido se dosifica con dosificadores de jeringa desde un tanque pulmón con celda de carga (esquema ES3240005).",
           "technicalData": {
@@ -6726,6 +6780,12 @@ const initialMachines = [
             searchAliases: [x.eq, x.ar, x.s]
           });
           yaHay.add(normId);
+        });
+        // Fichas ocultas: las marcadas `oculta` y las de equipos retirados o evaluaciones del registro.
+        // No se borran (siguen en initialMachines y en git); solo no salen en la lista de Equipos.
+        machines = machines.filter((m) => {
+          const eq = EQ_POR_ID.get(m.id);
+          return !(m.oculta || (eq && (eq.retirado || eq.evaluacion)));
         });
         window.machines = machines;
       }
