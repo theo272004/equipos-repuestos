@@ -148,4 +148,4 @@ Los PR de esta tanda atacan 3, 4 y 6 y preparan el 7 sin inventar columnas. Ver 
 - Manuales: no se suben al repositorio; solo ruta relativa y tipo.
 - `FREC-*` en las hojas de vida traen letras (`M`, `I`, `F`, `IE`, `M/S`, `MT`, `MT/R`, `X`), no fechas ni números. **Su significado no está definido**: el importador las guarda tal cual (solo limpia espacios) y no las interpreta.
 - En `PLAN MTTO` la columna C es `UBICACIÓN` (`SEDE 4` / `PLANTA 2`): el cruce por planta + código es automático.
-- `17334008` / `17334018`: el usuario recomienda dejar `17334018` como oficial y pasarle repuestos y ficha de `17334008`, **cuando se confirme que son el mismo equipo**. Aún no se hace.
+- `17334008` **NO** es duplicado de `17334018` (MT-1100): es otra máquina (Empacando DXDL60 II, 2016). No está en el listado DMM-179 vigente ni en el anterior, así que queda **retirado** (`retirado: true`, fuera de los totales) y su plan (3 filas) se guarda también en `assets/data/equipos-retirados.json`. No se borra ni se mueven repuestos ni ficha entre ambos.
