@@ -28,6 +28,13 @@ test("una evaluación no cuenta como equipo ni da avisos de formato", () => {
   assert.equal(r.avisos.length, 0);
 });
 
+test("un equipo retirado no cuenta en los totales, pero se lista aparte", () => {
+  const r = validar({ equipos: [eq({}), eq({ c: "17334008", id: "eq-17334008", retirado: true })] });
+  assert.equal(r.resumen.equipos, 1);
+  assert.equal(r.resumen.retiradosAparte.length, 1);
+  assert.equal(r.errores.length + r.avisos.length, 0);
+});
+
 test("«revision» deja el equipo por confirmar sin error", () => {
   const r = validar({ equipos: [eq({ revision: "posible duplicado" })] });
   assert.equal(r.porConfirmar.length, 1);

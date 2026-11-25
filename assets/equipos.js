@@ -22676,7 +22676,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "DI",
       "tipo": "PROCESO",
-      "revision": "Por confirmar: no está en el listado vigente. ¿Duplicado de 17334018 (MT-1100, Sede 4) o Stick Pack #1 de Planta 2 (17334015 y 17334016 son II y III)?",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial DMM-179 vigente y del anterior. Es otra máquina (Empacando DXDL60 II, 2016), no duplicado de 17334018 (MT-1100).",
       "r": [
         {
           "s": "",

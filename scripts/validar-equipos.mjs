@@ -11,7 +11,9 @@
 //
 // Marcas que lleva el registro (no se borra nada):
 //   evaluacion: true   no es una máquina (ej. «Invima»): no cuenta como equipo.
-//   revision: "..."    el equipo queda «por confirmar» (ej. posible duplicado).
+//   revision: "..."    el equipo queda «por confirmar».
+//   retirado: true     salió de la lista activa (fuera del listado oficial): no cuenta en los totales;
+//                      se conserva en el registro y en assets/data/equipos-retirados.json.
 // Los códigos se comparan sin ceros a la izquierda (04307001 = 4307001).
 //
 // ERROR = rompe algo (id repetido, código repetido dentro de la misma planta,
@@ -51,7 +53,8 @@ export function validar(plan, listadoOficial = null) {
   const avisos = [];
   const todos = plan?.equipos ?? [];
   const evaluaciones = todos.filter((e) => e.evaluacion);
-  const equipos = todos.filter((e) => !e.evaluacion);
+  const retirados = todos.filter((e) => e.retirado);
+  const equipos = todos.filter((e) => !e.evaluacion && !e.retirado);
   const porConfirmar = equipos.filter((e) => e.revision).map((e) => ({ id: e.id, detalle: `${e.n}: ${e.revision}` }));
   const fueraDeListado = listadoOficial
     ? equipos.filter((e) => !listadoOficial.has(sinCeros(e.c))).map((e) => ({ id: e.id, detalle: `${e.c} · ${e.n} (${e.u}) — no está en el listado oficial` }))
@@ -83,6 +86,7 @@ export function validar(plan, listadoOficial = null) {
   const ccArea = equipos.filter((e) => String(e.cc || "").includes("·")).length;
   const resumen = {
     equipos: equipos.length,
+    retiradosAparte: retirados.map((e) => `${e.c} · ${e.n} (${e.u})`),
     evaluacionesAparte: evaluaciones.map((e) => e.n),
     porConfirmar: porConfirmar.length,
     porUbicacion: cuenta(equipos, (e) => e.u),

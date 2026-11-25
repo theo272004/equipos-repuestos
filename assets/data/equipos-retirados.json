@@ -1,0 +1,89 @@
+{
+  "nota": "Equipos que salieron de la lista activa (fuera del listado oficial DMM-179). Se conservan aquí con todo su plan; en assets/equipos.js siguen con retirado:true para no perder el historial. Nada se borra.",
+  "retirados": [
+    {
+      "c": "17334008",
+      "id": "eq-17334008",
+      "mid": "",
+      "n": "Encelofanadora para Liquidos en Sobre Stick Pack",
+      "nOriginal": "ENCELOFANADORA PARA LIQUIDOS EN SOBRE STICK PACK",
+      "u": "PLANTA 2",
+      "cc": "DI",
+      "tipo": "PROCESO",
+      "r": [
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001185",
+          "d": "RODILLO ARRASTRE GRAFILADO PTA DIAMANTE STICK PACK",
+          "q": 0,
+          "e": 2,
+          "w": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0606",
+          "pu": 450000,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001187",
+          "d": "RESORTE AMORTIGUADOR SELLADO HORIZONTAL STICK PACK",
+          "q": 0,
+          "e": 4,
+          "w": [
+            4,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0105",
+          "pu": 92018,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-08-22",
+            "px": "2026-08-17",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001184",
+          "d": "CUCHILLA DENTADA STICK PACK",
+          "q": 0,
+          "e": 3,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0606",
+          "pu": 442750,
+          "xls": {
+            "f": "6M",
+            "ej": "2025-03-07",
+            "px": "2025-09-03",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial DMM-179 vigente y del anterior. Es otra máquina (Empacando DXDL60 II, 2016), no duplicado de 17334018 (MT-1100).",
+      "retiradoEn": "2026-11-25"
+    }
+  ]
+}
