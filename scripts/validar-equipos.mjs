@@ -12,6 +12,8 @@
 // Marcas que lleva el registro (no se borra nada):
 //   evaluacion: true   no es una máquina (ej. «Invima»): no cuenta como equipo.
 //   revision: "..."    el equipo queda «por confirmar».
+//   noEnListado: true  sigue ACTIVO y cuenta en los totales, pero no aparece en el listado oficial
+//                      DMM-179/179B (ej. las Marzio R-120, que tienen plan y novedades vigentes).
 //   retirado: true     salió de la lista activa (fuera del listado oficial): no cuenta en los totales;
 //                      se conserva en el registro y en assets/data/equipos-retirados.json.
 // Los códigos se comparan sin ceros a la izquierda (04307001 = 4307001).
@@ -55,6 +57,7 @@ export function validar(plan, listadoOficial = null, idsRespaldados = null) {
   const evaluaciones = todos.filter((e) => e.evaluacion);
   const retirados = todos.filter((e) => e.retirado);
   const equipos = todos.filter((e) => !e.evaluacion && !e.retirado);
+  const noEnListado = equipos.filter((e) => e.noEnListado).map((e) => ({ id: e.id, detalle: `${e.c} · ${e.n} (${e.u}) — activo, pero no está en el listado oficial` }));
   // Cada retirado debe tener su copia completa en assets/data/equipos-retirados.json (para poder reactivarlo)
   if (idsRespaldados) for (const e of retirados) if (!idsRespaldados.has(e.id)) errores.push({ regla: "retirado-sin-respaldo", id: e.id, detalle: `${e.n}: falta su copia en equipos-retirados.json` });
   const porConfirmar = equipos.filter((e) => e.revision).map((e) => ({ id: e.id, detalle: `${e.n}: ${e.revision}` }));
@@ -88,6 +91,7 @@ export function validar(plan, listadoOficial = null, idsRespaldados = null) {
   const ccArea = equipos.filter((e) => String(e.cc || "").includes("·")).length;
   const resumen = {
     equipos: equipos.length,
+    activosFueraDelListado: noEnListado.length,
     retiradosAparte: retirados.map((e) => `${e.c} · ${e.n} (${e.u})`),
     evaluacionesAparte: evaluaciones.map((e) => e.n),
     porConfirmar: porConfirmar.length,
@@ -99,10 +103,10 @@ export function validar(plan, listadoOficial = null, idsRespaldados = null) {
     ccComoAreaYZona: ccArea,
     ccOtro: equipos.length - ccCorto - ccArea,
   };
-  return { resumen, errores, avisos, porConfirmar, fueraDeListado };
+  return { resumen, errores, avisos, porConfirmar, noEnListado, fueraDeListado };
 }
 
-function imprimir({ resumen, errores, avisos, porConfirmar, fueraDeListado }) {
+function imprimir({ resumen, errores, avisos, porConfirmar, noEnListado, fueraDeListado }) {
   console.log("Resumen:", JSON.stringify(resumen, null, 2));
   const grupo = (tit, lista) => {
     console.log(`\n${tit}: ${lista.length}`);
@@ -116,6 +120,7 @@ function imprimir({ resumen, errores, avisos, porConfirmar, fueraDeListado }) {
   };
   grupo("ERRORES", errores);
   grupo("AVISOS", avisos);
+  grupo("ACTIVOS MARCADOS «NO ESTÁ EN EL LISTADO OFICIAL»", noEnListado.map((x) => ({ ...x, regla: "no-en-listado" })));
   grupo("POR CONFIRMAR", porConfirmar.map((x) => ({ ...x, regla: "revision" })));
   if (fueraDeListado) grupo("NO ESTÁ EN EL LISTADO OFICIAL (solo informativo, no se quita nada)", fueraDeListado.map((x) => ({ ...x, regla: "fuera-de-listado" })));
 }

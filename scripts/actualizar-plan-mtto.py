@@ -24,6 +24,9 @@ cruce es por planta + código. La planta sale de la columna C («UBICACIÓN») d
 MTTO. Si una fila no trae planta y su código está en las dos, se OMITE y se lista (no se
 adivina). Con --ubicacion solo se actualiza esa planta.
 
+Los equipos con `retirado: true` (fuera del listado oficial) NO se actualizan: sus filas del Excel
+se omiten y se listan. Los marcados `noEnListado` siguen activos y se actualizan normal.
+
 Es seguro correrlo varias veces: con el mismo Excel la segunda vez no cambia nada.
 No ejecuta las macros del archivo: solo lee los valores guardados.
 """
@@ -106,6 +109,7 @@ def main():
     for e in datos["equipos"]:
         por_eq[str(e["c"])].append(e)
     ambiguos = set()
+    omitidas_retirados = []
 
     # Para copiar precio y ubicación de una pieza que la app ya conoce
     conocidas = {}
@@ -128,6 +132,10 @@ def main():
             ambiguos.add(x["eq"])
             continue
         e = cands[0]
+        if e.get("retirado"):
+            # Equipo fuera del listado: sus filas no se actualizan, solo se listan
+            omitidas_retirados.append((e["c"], e["n"], x["cod"], x["sis"]))
+            continue
         # Misma pieza: mismo código y mismo sistema; si no, el mismo código
         cand = [i for i, r in enumerate(e["r"]) if (e["id"], i) not in usados and r.get("cod", "") == x["cod"]]
         mismo = [i for i in cand if norm(e["r"][i].get("s")) == norm(x["sis"])]
@@ -162,6 +170,10 @@ def main():
         por_eq_cambio[n] += 1
     for n, k in sorted(por_eq_cambio.items(), key=lambda t: -t[1]):
         print(f"  {k:3d}  {n}")
+    if omitidas_retirados:
+        print(f"Filas de equipos RETIRADOS, omitidas sin actualizar ({len(omitidas_retirados)}):")
+        for c, n, cd, sis in omitidas_retirados:
+            print(f"  - {c} · {n} · {cd or '—'} · {sis or '—'}")
     if ambiguos:
         print(f"Códigos en más de una planta, OMITIDOS (usa --ubicacion): {', '.join(sorted(ambiguos))}")
     for n, c, sis, ej in agregadas:

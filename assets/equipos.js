@@ -19225,8 +19225,7 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "CD",
       "tipo": "PROCESO",
-      "retirado": true,
-      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "noEnListado": true,
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -20113,8 +20112,7 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "FH",
       "tipo": "PROCESO",
-      "retirado": true,
-      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "noEnListado": true,
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -20978,8 +20976,7 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "GA",
       "tipo": "PROCESO",
-      "retirado": true,
-      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "noEnListado": true,
       "r": [
         {
           "s": "SISTEMA DE SELLADO INFERIOR",
@@ -21843,8 +21840,7 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "GF",
       "tipo": "PROCESO",
-      "retirado": true,
-      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "noEnListado": true,
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
