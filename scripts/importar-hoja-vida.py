@@ -19,7 +19,8 @@ Qué hace con cada dato
   - IMAGEN: solo el nombre del archivo, nunca la ruta (puede traer carpetas del servidor).
   - SERIAL: NO se guarda. Solo con --incluir-serial (el repositorio es público).
   - COD-REPn / REPn / CANT-REPn -> lista `repuestos` (los códigos también sin ceros).
-  - FREC-D/S/M/2M/3M/6M/A/2A -> `frecuencias` con lo que tenga la celda (sin interpretar).
+  - FREC-D/S/M/2M/3M/6M/A/2A -> `frecuencias` con las letras de la celda
+    (M, I, F, IE, M/S, MT, MT/R, X…): solo se limpian espacios y mayúsculas, NO se interpretan.
   - No modifica assets/equipos.js ni borra nada: suma/actualiza el JSON; lo que el Excel
     nuevo no trae se conserva. No ejecuta macros. .xlsb necesita `pip install pyxlsb`.
 """
@@ -65,6 +66,13 @@ def codigo(v):
     """04307001 -> 4307001 (también 4307001.0 -> 4307001)."""
     t = limpio(v)
     return re.sub(r"^0+(?=\d)", "", t) if re.fullmatch(r"\d+", t) else t
+
+
+def letra_frecuencia(v):
+    """Solo limpia el formato de una celda FREC-* (« mt / r » y «MT/R» quedan «MT/R»).
+    NO la interpreta: qué significa cada letra (M, I, F, IE, M/S, MT, MT/R, X…) no está decidido."""
+    t = re.sub(r"\s*/\s*", "/", re.sub(r"\s+", " ", limpio(v))).strip().upper()
+    return t
 
 
 def nombre_archivo(v):
@@ -192,7 +200,7 @@ def extraer(filas, mapeo, ubicacion="", areas=None, incluir_serial=False):
                 reps.append({k: v for k, v in (("cod", codigo(cd) if cd else ""), ("desc", ds), ("cant", ct)) if v})
         if reps:
             reg["repuestos"] = reps
-        frec = {k: limpio(celda(fila, p)) for k, p in pos_frec.items() if p is not None and limpio(celda(fila, p))}
+        frec = {k: letra_frecuencia(celda(fila, p)) for k, p in pos_frec.items() if p is not None and letra_frecuencia(celda(fila, p))}
         if frec:
             reg["frecuencias"] = frec
         out.append(reg)

@@ -7,9 +7,9 @@ spec = importlib.util.spec_from_file_location("ihv", RAIZ / "scripts" / "importa
 ihv = importlib.util.module_from_spec(spec); spec.loader.exec_module(ihv)
 
 CAB = ["TIPO DE EQUIPO", "CODIGO", "DESCRIPCION", "UBICACIÓN", "SERVICIO", "MARCA", "MODELO", "SERIAL", "AÑO DE FABRICACION",
-       "PROCEDENCIA", "AÑO DE INSTALACION", "PROCESO", "COD-REP1", "REP1", "CANT-REP1", "FREC-3M", "FREC-A", "REGISTRO/PROCEDIMIENTOS", "IMAGEN"]
+       "PROCEDENCIA", "AÑO DE INSTALACION", "PROCESO", "COD-REP1", "REP1", "CANT-REP-1", "FREC-3M", "FREC-A", "REGISTRO/PROCEDIMIENTOS", "IMAGEN"]
 FILA = ["CHILLER", "04307002", "Chiller #2", "Sede 4 - Chillers / Cuarto 2", "Frío", "Trane", "X1", "SER-SECRETO-99", 2015, "USA", 2016,
-        "Servicios", "0741903002", "Rodamiento", 2, "X", None, "PRO-01", "\\\\servidor\\FOTOS EQUIPOS\\chiller2.jpg"]
+        "Servicios", "0741903002", "Rodamiento", 2, " mt / r ", "X", "PRO-01", "\\\\servidor\\FOTOS EQUIPOS\\chiller2.jpg"]
 
 
 def libro(d):
@@ -32,7 +32,7 @@ class Importar(unittest.TestCase):
         self.assertEqual((e["sede"], e["area"]), ("SEDE 4", "Cuarto de chillers"))
         self.assertEqual(e["imagen"], "chiller2.jpg")
         self.assertEqual(e["repuestos"], [{"cod": "741903002", "desc": "Rodamiento", "cant": "2"}])
-        self.assertEqual(e["frecuencias"], {"3M": "X"})
+        self.assertEqual(e["frecuencias"], {"3M": "MT/R", "A": "X"})  # solo se limpia el formato; no se interpreta
         self.assertEqual(e["marca"], "Trane")
         self.assertNotIn("eq-99999999", out["equipos"])
 
