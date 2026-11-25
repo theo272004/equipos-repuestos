@@ -36,6 +36,14 @@ class Importar(unittest.TestCase):
         self.assertEqual(e["marca"], "Trane")
         self.assertNotIn("eq-99999999", out["equipos"])
 
+    def test_letras_fuera_de_la_leyenda_se_avisan_sin_traducir(self):
+        leyenda = json.loads((RAIZ / "scripts" / "hoja-vida.leyenda-frecuencia.json").read_text(encoding="utf-8"))["letras"]
+        self.assertEqual(ihv.letras_sin_leyenda({"3M": "M", "A": "IE", "6M": "MT/R", "M": "X", "S": "M/S"}, leyenda), ["M/S", "MT/R", "X"])
+        out = json.loads(self.correr())  # FREC-3M = «MT/R» en el ejemplo
+        self.assertEqual(out["equipos"]["eq-4307002"]["frecuenciasSinLeyenda"], ["MT/R", "X"])
+        self.assertEqual(out["leyendaFrecuencia"]["IE"]["texto"], "Inspección exhaustiva")
+        self.assertNotIn("MT", out["leyendaFrecuencia"])
+
     def test_serial_y_rutas_no_salen_por_defecto(self):
         txt = self.correr()
         self.assertNotIn("SER-SECRETO-99", txt)

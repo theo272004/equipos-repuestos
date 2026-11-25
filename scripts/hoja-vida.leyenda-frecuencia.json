@@ -1,0 +1,15 @@
+{
+  "_nota": "Leyenda de las letras de FREC-* tomada de la hoja DMM-199 (sección «Especificaciones de mantenimiento / Frecuencia»), confirmada por el usuario. decideEjecucion = lleva asterisco: determina la ejecución o no de un mantenimiento. NO están en la leyenda y NO se traducen: MT, R, X y M/S (consultar a quien llenó la hoja).",
+  "letras": {
+    "I":  { "texto": "Inspección" },
+    "M":  { "texto": "Mantenimiento" },
+    "F":  { "texto": "Cambio de filtros" },
+    "L":  { "texto": "Cambio de aceite", "soloEn": "SEDE 4" },
+    "IE": { "texto": "Inspección exhaustiva", "decideEjecucion": true },
+    "S":  { "texto": "Lavado de serpentín" },
+    "LC": { "texto": "Limpieza de condensador" },
+    "V":  { "texto": "Medición de vibraciones", "decideEjecucion": true },
+    "T":  { "texto": "Termografía" },
+    "A":  { "texto": "Análisis de aceite", "decideEjecucion": true }
+  }
+}
