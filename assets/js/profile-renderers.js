@@ -877,7 +877,7 @@ function dt(machine, campo) {
         inspPiezas = registro ? (registro.piezas || []).map((p) => ({ ...p, cod: p.cod || "", d: p.d || "", q: p.q || "", urgencia: p.urgencia || "media", tipo: p.tipo || "pieza" })) : [];
         inspFotosForm = registro && Array.isArray(registro.fotos) ? registro.fotos.map((f) => (typeof f === "string" ? { data: f, nombre: "", fecha: registro.fecha || "" } : { ...f })) : [];
 
-        sel.innerHTML = PLAN_EQUIPOS.map((e) => `<option value="${planEsc(e.c)}">${planEsc(e.n)}</option>`).join("");
+        sel.innerHTML = PLAN_EQUIPOS.filter((e) => !e.evaluacion).map((e) => `<option value="${planEsc(e.c)}">${planEsc(e.n)}</option>`).join("");
         form.reset();
         // Un equipo que ya no este en el listado oficial no debe perderse al editar.
         if (inspEquipoFijo && !PLAN_EQUIPOS.some((e) => e.c === inspEquipoFijo)) {
