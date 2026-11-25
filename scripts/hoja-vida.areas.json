@@ -1,0 +1,4 @@
+{
+  "_nota": "Variante de UBICACIÓN (tal como sale en la hoja de vida) -> área oficial. Se llena con el listado DMM-211B. Claves en minúsculas y sin tildes (usa --variantes para verlas). Lo que no esté aquí queda con el texto limpio y se marca area_sin_normalizar.",
+  "areas": {}
+}
