@@ -660,6 +660,7 @@ function dt(machine, campo) {
       function inspTarjeta(i, conEquipo) {
         const cerrada = (i.estado || "abierta") === "cerrada";
         const piezas = i.piezas || [];
+        const fotos = Array.isArray(i.fotos) ? i.fotos : [];
         return `
           <article class="in-card ${cerrada ? "is-cerrada" : ""}">
             <div class="in-card__top">
@@ -669,9 +670,9 @@ function dt(machine, campo) {
               <span class="in-estado ${cerrada ? "in-estado--cerrada" : ""}">${cerrada ? "Cerrada" : "Abierta"}</span>
             </div>
             ${i.revisado ? `<p class="in-bloque"><span class="in-lbl">Qué se revisó</span>${planEsc(i.revisado)}</p>` : ""}
-            ${i.hallazgos ? `<p class="in-bloque"><span class="in-lbl">Qué se encontró</span>${planEsc(i.hallazgos)}</p>` : ""}
+            ${i.hallazgos ? `<p class="in-bloque"><span class="in-lbl">Qué se encontró y qué se hizo</span>${planEsc(i.hallazgos)}</p>` : ""}
             ${piezas.length ? `<div class="in-piezas">
-              <span class="in-lbl">Piezas para cambiar</span>
+              <span class="in-lbl">Pendientes / hallazgos</span>
               ${piezas.map((p) => `<div class="in-pieza">
                 <span class="pl-code">${planEsc(p.cod) || "&mdash;"}</span>
                 <span class="in-pieza__d">${planEsc(p.d)}</span>
@@ -679,6 +680,21 @@ function dt(machine, campo) {
                 <span class="in-urg in-urg--${planEsc(p.urgencia || "media")}">${planEsc(INSP_URGENCIA[p.urgencia] || "Programar")}</span>
               </div>`).join("")}
             </div>` : ""}
+            <div class="in-fotos">
+              <div class="in-fotos__head">
+                <span class="in-lbl">Fotos${fotos.length ? ` (${fotos.length})` : ""}</span>
+                <label class="in-foto-btn">
+                  <input type="file" accept="image/*" multiple onchange="inspAgregarFotosTarjeta('${planEsc(i.id)}', this.files); this.value='';">
+                  <span>+ Subir fotos</span>
+                </label>
+              </div>
+              ${fotos.length ? `<div class="in-fotos-grid">
+                ${fotos.map((f, idx) => `<div class="in-foto-item">
+                  <img src="${planEsc(f.data || f)}" alt="${planEsc(f.nombre || "Foto " + (idx + 1))}" loading="lazy" onclick="inspVerFoto('${planEsc(i.id)}', ${idx})">
+                  <button type="button" class="in-foto-del" onclick="inspQuitarFotoTarjeta('${planEsc(i.id)}', ${idx})" aria-label="Quitar foto" title="Quitar foto">&times;</button>
+                </div>`).join("")}
+              </div>` : `<p class="in-fotos__vacio">Sin fotos todavía. Toca <strong>+ Subir fotos</strong> para adjuntar evidencia de este mantenimiento.</p>`}
+            </div>
             <div class="in-card__pie">
               <span class="in-quien">${i.quien ? "Revisó " + planEsc(i.quien) : "Sin firmar"}</span>
               <span class="in-acciones">
@@ -723,8 +739,120 @@ function dt(machine, campo) {
 
       // ----- Formulario (sirve para anotar una nueva y para editar una ya anotada) -----
       let inspPiezas = [];
+      let inspFotosForm = [];
       let inspEquipoFijo = "";
       let inspEditandoId = "";
+      const INSP_MAX_FOTOS = 8;
+
+      function inspComprimirFoto(file) {
+        return new Promise((resolve, reject) => {
+          if (!file || !/^image\//i.test(file.type || "")) { reject(new Error("no-img")); return; }
+          const reader = new FileReader();
+          reader.onerror = () => reject(new Error("read-err"));
+          reader.onload = () => {
+            const img = new Image();
+            img.onerror = () => reject(new Error("img-err"));
+            img.onload = () => {
+              const maxSide = 1080;
+              let w = img.naturalWidth || img.width;
+              let h = img.naturalHeight || img.height;
+              if (w > maxSide || h > maxSide) {
+                if (w >= h) { h = Math.round((h * maxSide) / w); w = maxSide; }
+                else { w = Math.round((w * maxSide) / h); h = maxSide; }
+              }
+              const canvas = document.createElement("canvas");
+              canvas.width = w;
+              canvas.height = h;
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(img, 0, 0, w, h);
+              resolve({
+                data: canvas.toDataURL("image/jpeg", 0.72),
+                nombre: String(file.name || "foto.jpg").slice(0, 80),
+                fecha: new Date().toISOString().slice(0, 10)
+              });
+            };
+            img.src = reader.result;
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      async function inspAgregarFotosTarjeta(id, files) {
+        const reg = inspecciones.find((x) => x.id === id);
+        if (!reg || !files || !files.length) return;
+        if (!Array.isArray(reg.fotos)) reg.fotos = [];
+        const espacio = INSP_MAX_FOTOS - reg.fotos.length;
+        if (espacio <= 0) { window.alert(`Máximo ${INSP_MAX_FOTOS} fotos por mantenimiento.`); return; }
+        const lista = [...files].slice(0, espacio);
+        let agregadas = 0;
+        for (const f of lista) {
+          try {
+            const foto = await inspComprimirFoto(f);
+            reg.fotos.push(foto);
+            agregadas++;
+          } catch (e) { console.error("[Fotos] error procesando imagen:", e); }
+        }
+        if (agregadas) {
+          reg.editadoAt = new Date().toISOString();
+          saveInsp();
+          renderInspecciones();
+        }
+      }
+
+      function inspQuitarFotoTarjeta(id, idx) {
+        const reg = inspecciones.find((x) => x.id === id);
+        if (!reg || !Array.isArray(reg.fotos) || !reg.fotos[idx]) return;
+        if (!window.confirm("¿Quitar esta foto del mantenimiento?")) return;
+        reg.fotos.splice(idx, 1);
+        reg.editadoAt = new Date().toISOString();
+        saveInsp();
+        renderInspecciones();
+      }
+
+      async function inspAgregarFotosForm(files) {
+        if (!files || !files.length) return;
+        const espacio = INSP_MAX_FOTOS - inspFotosForm.length;
+        if (espacio <= 0) { window.alert(`Máximo ${INSP_MAX_FOTOS} fotos por mantenimiento.`); return; }
+        for (const f of [...files].slice(0, espacio)) {
+          try {
+            inspFotosForm.push(await inspComprimirFoto(f));
+          } catch (e) { console.error("[Fotos] error procesando imagen:", e); }
+        }
+        inspPintarFotosForm();
+      }
+
+      function inspQuitarFotoForm(idx) {
+        inspFotosForm.splice(idx, 1);
+        inspPintarFotosForm();
+      }
+
+      function inspPintarFotosForm() {
+        const cont = document.getElementById("inspFotos");
+        if (!cont) return;
+        cont.innerHTML = inspFotosForm.length
+          ? inspFotosForm.map((f, idx) => `<div class="in-foto-item">
+              <img src="${planEsc(f.data || f)}" alt="${planEsc(f.nombre || "Foto " + (idx + 1))}">
+              <button type="button" class="in-foto-del" onclick="inspQuitarFotoForm(${idx})" aria-label="Quitar foto">&times;</button>
+            </div>`).join("")
+          : '<p class="pl-soft">Todavía no hay fotos adjuntas.</p>';
+      }
+
+      function inspVerFoto(id, idx) {
+        const reg = inspecciones.find((x) => x.id === id);
+        const f = reg && Array.isArray(reg.fotos) ? reg.fotos[idx] : null;
+        const box = document.getElementById("inspLightbox");
+        const img = document.getElementById("inspLightboxImg");
+        const cap = document.getElementById("inspLightboxCap");
+        if (!f || !box || !img) return;
+        img.src = f.data || f;
+        if (cap) cap.textContent = `${inspNombreEquipo(reg.eq)} · ${reg.fecha}${f.nombre ? " · " + f.nombre : ""}`;
+        box.hidden = false;
+      }
+
+      function inspCerrarFoto() {
+        const box = document.getElementById("inspLightbox");
+        if (box) box.hidden = true;
+      }
 
       // Abre la hoja en blanco para anotar. Con "eqCod" ya viene elegido el equipo.
       function inspAbrirForm(eqCod) { inspAbrirHoja({ eqCod: eqCod || "" }); }
@@ -747,6 +875,7 @@ function dt(machine, campo) {
         inspEditandoId = registro ? registro.id : "";
         inspEquipoFijo = registro ? registro.eq : eqCod;
         inspPiezas = registro ? (registro.piezas || []).map((p) => ({ ...p, cod: p.cod || "", d: p.d || "", q: p.q || "", urgencia: p.urgencia || "media", tipo: p.tipo || "pieza" })) : [];
+        inspFotosForm = registro && Array.isArray(registro.fotos) ? registro.fotos.map((f) => (typeof f === "string" ? { data: f, nombre: "", fecha: registro.fecha || "" } : { ...f })) : [];
 
         sel.innerHTML = PLAN_EQUIPOS.map((e) => `<option value="${planEsc(e.c)}">${planEsc(e.n)}</option>`).join("");
         form.reset();
@@ -771,6 +900,7 @@ function dt(machine, campo) {
         if (estadoWrap) estadoWrap.hidden = !registro; // una nueva nace abierta
 
         inspPintarPiezas();
+        inspPintarFotosForm();
         inspPintarChecklist();
         document.getElementById("inspSheetBackdrop").hidden = false;
         document.getElementById("inspSheet").hidden = false;
@@ -863,7 +993,8 @@ function dt(machine, campo) {
           quien: String(f.quien.value || "").trim(),
           revisado: String(f.revisado.value || "").trim(),
           hallazgos: String(f.hallazgos.value || "").trim(),
-          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim()).map((p) => { const x = { ...p }; if (!x.hecho) delete x.hecho; return x; })
+          piezas: inspPiezas.filter((p) => (p.cod || "").trim() || (p.d || "").trim()).map((p) => { const x = { ...p }; if (!x.hecho) delete x.hecho; return x; }),
+          fotos: inspFotosForm.slice(0, INSP_MAX_FOTOS)
         };
 
         const editada = inspEditandoId ? inspecciones.find((x) => x.id === inspEditandoId) : null;
@@ -894,7 +1025,10 @@ function dt(machine, campo) {
       }
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && !document.getElementById("inspSheet")?.hidden) inspCerrarForm();
+        if (e.key === "Escape") {
+          if (!document.getElementById("inspLightbox")?.hidden) { inspCerrarFoto(); return; }
+          if (!document.getElementById("inspSheet")?.hidden) inspCerrarForm();
+        }
       });
 
       inspSubscribe();
