@@ -35,6 +35,12 @@ test("un equipo retirado no cuenta en los totales, pero se lista aparte", () => 
   assert.equal(r.errores.length + r.avisos.length, 0);
 });
 
+test("un retirado sin copia en el archivo de retirados es error", () => {
+  const plan = { equipos: [eq({ c: "17334008", id: "eq-17334008", retirado: true })] };
+  assert.equal(validar(plan, null, new Set()).errores[0].regla, "retirado-sin-respaldo");
+  assert.equal(validar(plan, null, new Set(["eq-17334008"])).errores.length, 0);
+});
+
 test("«revision» deja el equipo por confirmar sin error", () => {
   const r = validar({ equipos: [eq({ revision: "posible duplicado" })] });
   assert.equal(r.porConfirmar.length, 1);

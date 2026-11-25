@@ -9038,6 +9038,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "J8",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "MOTRIZ",
@@ -18701,6 +18703,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -18736,6 +18740,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -18771,6 +18777,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -18806,6 +18814,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -18841,6 +18851,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -18991,6 +19003,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -19026,6 +19040,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -19061,6 +19077,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "R7",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -19096,6 +19114,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "J5",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "FILTRACION",
@@ -19131,6 +19151,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "J5",
       "tipo": "AUXILIAR",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "FILTRACION",
@@ -19166,6 +19188,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "J5",
       "tipo": "AUXILIAR",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "FILTRACION",
@@ -19201,6 +19225,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "CD",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -20087,6 +20113,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "FH",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -20950,6 +20978,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "GA",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA DE SELLADO INFERIOR",
@@ -21813,6 +21843,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "GF",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA MOTRIZ",
@@ -22759,6 +22791,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "J9",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "TAPA SOPORTE DE EJE",
@@ -22794,6 +22828,8 @@ window.EQUIPOS_PLAN = {
       "u": "PLANTA 2",
       "cc": "J9",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "",
@@ -23509,6 +23545,8 @@ window.EQUIPOS_PLAN = {
       "u": "SEDE 4",
       "cc": "EG",
       "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
       "r": [
         {
           "s": "SISTEMA DE SELLADO",

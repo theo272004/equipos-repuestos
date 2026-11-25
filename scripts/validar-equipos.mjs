@@ -48,13 +48,15 @@ export function codigosDeListado(texto) {
   return set;
 }
 
-export function validar(plan, listadoOficial = null) {
+export function validar(plan, listadoOficial = null, idsRespaldados = null) {
   const errores = [];
   const avisos = [];
   const todos = plan?.equipos ?? [];
   const evaluaciones = todos.filter((e) => e.evaluacion);
   const retirados = todos.filter((e) => e.retirado);
   const equipos = todos.filter((e) => !e.evaluacion && !e.retirado);
+  // Cada retirado debe tener su copia completa en assets/data/equipos-retirados.json (para poder reactivarlo)
+  if (idsRespaldados) for (const e of retirados) if (!idsRespaldados.has(e.id)) errores.push({ regla: "retirado-sin-respaldo", id: e.id, detalle: `${e.n}: falta su copia en equipos-retirados.json` });
   const porConfirmar = equipos.filter((e) => e.revision).map((e) => ({ id: e.id, detalle: `${e.n}: ${e.revision}` }));
   const fueraDeListado = listadoOficial
     ? equipos.filter((e) => !listadoOficial.has(sinCeros(e.c))).map((e) => ({ id: e.id, detalle: `${e.c} · ${e.n} (${e.u}) — no está en el listado oficial` }))
@@ -122,7 +124,9 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   const raiz = join(dirname(fileURLToPath(import.meta.url)), "..");
   const i = process.argv.indexOf("--listado");
   const listado = i > 0 ? codigosDeListado(readFileSync(process.argv[i + 1], "utf8")) : null;
-  const informe = validar(cargarRegistro(join(raiz, "assets", "equipos.js")), listado);
+  let respaldo = null;
+  try { respaldo = new Set(JSON.parse(readFileSync(join(raiz, "assets", "data", "equipos-retirados.json"), "utf8")).retirados.map((e) => e.id)); } catch {}
+  const informe = validar(cargarRegistro(join(raiz, "assets", "equipos.js")), listado, respaldo);
   if (process.argv.includes("--json")) console.log(JSON.stringify(informe, null, 2));
   else imprimir(informe);
   if (process.argv.includes("--estricto") && informe.errores.length) process.exit(1);

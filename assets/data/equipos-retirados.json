@@ -1,6 +1,570 @@
 {
-  "nota": "Equipos que salieron de la lista activa (fuera del listado oficial DMM-179). Se conservan aquí con todo su plan; en assets/equipos.js siguen con retirado:true para no perder el historial. Nada se borra.",
+  "nota": "Equipos que salieron de la lista activa por no estar en el listado oficial vigente DMM-179/179B. Aquí queda su copia completa (datos y filas de plan) para poder reactivarlos. En assets/equipos.js siguen con retirado:true (no se borra nada del historial). Para reactivar uno: quitar retirado, retiradoMotivo y retiradoEn de su registro en assets/equipos.js.",
   "retirados": [
+    {
+      "c": "16328028",
+      "id": "eq-16328028",
+      "mid": "",
+      "n": "Bombo # 28 de 350 Kg",
+      "nOriginal": "BOMBO # 28 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            3,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328029",
+      "id": "eq-16328029",
+      "mid": "",
+      "n": "Bombo # 29 de 350 Kg",
+      "nOriginal": "BOMBO # 29 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328030",
+      "id": "eq-16328030",
+      "mid": "",
+      "n": "Bombo # 30 de 350 Kg",
+      "nOriginal": "BOMBO # 30 de 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328031",
+      "id": "eq-16328031",
+      "mid": "",
+      "n": "Bombo # 31 de 350 Kg",
+      "nOriginal": "BOMBO # 31 de 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328032",
+      "id": "eq-16328032",
+      "mid": "",
+      "n": "Bombo # 32 de 350 Kg",
+      "nOriginal": "BOMBO # 32 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203067",
+          "d": "CORREA B49",
+          "q": 1,
+          "e": 6,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R01/O0303 · R02/E0303",
+          "pu": 13500,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "741901001",
+          "d": "RODAMIENTO DE BOLA REF 6205 ZZ",
+          "q": 0,
+          "e": 13,
+          "w": [
+            11,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R01/Z0505 · R01/Z0405",
+          "pu": 13277,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "741901004",
+          "d": "RODAMIENTO DE BOLA REF 6206 ZZ",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "742203009",
+          "d": "POTENCIOMETRO DE 0-1000 OHMS REF.943-90037.0807",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328036",
+      "id": "eq-16328036",
+      "mid": "",
+      "n": "Bombo # 36 de 350 Kg",
+      "nOriginal": "BOMBO # 36 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328040",
+      "id": "eq-16328040",
+      "mid": "",
+      "n": "Bombo # 40 de 350 Kg",
+      "nOriginal": "BOMBO # 40 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328041",
+      "id": "eq-16328041",
+      "mid": "",
+      "n": "Bombo # 41 de 350 Kg",
+      "nOriginal": "BOMBO # 41 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17303005",
+      "id": "eq-17303005",
+      "mid": "",
+      "n": "Granulador # 2",
+      "nOriginal": "GRANULADOR # 2",
+      "u": "PLANTA 2",
+      "cc": "J9",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "TAPA SOPORTE DE EJE",
+          "a": "MECANICA",
+          "cod": "741903024",
+          "d": "RODAMIENTO CONTACTO ANGULAR 7204C",
+          "q": 1,
+          "e": 5,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/D0102",
+          "pu": 242221,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-09-12",
+            "px": "2025-09-07",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17329001",
+      "id": "eq-17329001",
+      "mid": "",
+      "n": "Horno de Secado # 1",
+      "nOriginal": "HORNO DE SECADO # 1",
+      "u": "PLANTA 2",
+      "cc": "J9",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "712105018",
+          "d": "TEMPORIZADOR AUTONICS LE4SA DIGITAL",
+          "q": 0,
+          "e": 2,
+          "w": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/A0405 · R01/X0402",
+          "pu": 271470,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "742202425",
+          "d": "GUARDAMOTOR 4 A 6.3 AMP TELEMECANIQUE GV2P10",
+          "q": 0,
+          "e": 1,
+          "w": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/X0402",
+          "pu": 463615,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "741703045",
+          "d": "CONTROLADOR DE TEMPERATURA OMRON E5CN-HC2M-500",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "742202416",
+          "d": "CONTACTOR TELEMECANIQUE LC 1D 32 BOBINA A 220 VAC",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
     {
       "c": "17334008",
       "id": "eq-17334008",
@@ -83,6 +647,3752 @@
       ],
       "retirado": true,
       "retiradoMotivo": "Fuera del listado oficial DMM-179 vigente y del anterior. Es otra máquina (Empacando DXDL60 II, 2016), no duplicado de 17334018 (MT-1100).",
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17303001",
+      "id": "eq-17303001",
+      "mid": "",
+      "n": "Mezclador de # 2 300KG",
+      "nOriginal": "MEZCLADOR HORIZONTAL #2 DE 300KG",
+      "u": "SEDE 4",
+      "cc": "J8",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901286",
+          "d": "RODAMIENTO DE BOLA REF 1216 K",
+          "q": 2,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/Z0505",
+          "pu": 289616,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-03-03",
+            "px": "2025-02-20",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741906077",
+          "d": "MANGUITO H216 PARA EJE 70MM",
+          "q": 2,
+          "e": 0,
+          "w": [
+            10,
+            0,
+            1,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-03-03",
+            "px": "2025-02-20",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17304008",
+      "id": "eq-17304008",
+      "mid": "",
+      "n": "Selladora Secadora de Capsulas Qcaps3",
+      "nOriginal": "SELLADORA SECADORA DE CAPSULAS QCAPS3",
+      "u": "SEDE 4",
+      "cc": "EG",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA DE SELLADO",
+          "a": "MECANICA",
+          "cod": "741901287",
+          "d": "RODAMIENTO DE BOLA REF MF84 ZZ",
+          "q": 20,
+          "e": 0,
+          "w": [
+            10,
+            0,
+            1,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "6M",
+            "ej": "2025-01-16",
+            "px": "2025-07-15",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO",
+          "a": "MECANICA",
+          "cod": "724002020",
+          "d": "CORREA DENTADA 600-8M-18MM ENCAPSULADO LIQ.FIL 40",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-01-16",
+            "px": "2026-01-11",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203265",
+          "d": "",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-01-16",
+            "px": "2026-01-11",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17334007",
+      "id": "eq-17334007",
+      "mid": "",
+      "n": "Encelofanadora de Polvos Marzio R-120",
+      "nOriginal": "ENCELOFANADORA DE POLVOS MARZIO R-120",
+      "u": "SEDE 4",
+      "cc": "CD",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903133",
+          "d": "ROTULA 8MM IZQUIERDA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            4,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-05-05",
+            "px": "2026-04-25",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903134",
+          "d": "ROTULA 8MM DERECHA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-05-05",
+            "px": "2026-04-25",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010009",
+          "d": "JUEGO DE RESORTES MAQ R120 MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/K0301",
+          "pu": 600000,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-05-05",
+            "px": "2026-04-25",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "742901037",
+          "d": "TUERCA DE ACERO INOX DE 6MM",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "4A",
+            "ej": "2021-09-04",
+            "px": "2025-08-14",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-05-05",
+            "px": "2025-04-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-05-05",
+            "px": "2025-04-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-05-05",
+            "px": "2025-04-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901021",
+          "d": "RODAMIENTO DE BOLA REF 6300 ZZ",
+          "q": 12,
+          "e": 29,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R02/M0203",
+          "pu": 11463,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901291",
+          "d": "RODAMIENTO DE BOLA REF 698 ZZ",
+          "q": 16,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902210",
+          "d": "RETENEDOR 45MM X 750MM X 8MM PARA ACEITE",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R01/G0302",
+          "pu": 6374,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901026",
+          "d": "RODAMIENTO DE BOLA REF 3200 ATN9 DOBLE HILERA",
+          "q": 2,
+          "e": 3,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R01/Z0505",
+          "pu": 65414,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450002",
+          "d": "POLEA CONDUCTORA EN V DE 2,75 IN MARZIO",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "o": "POLEA CONDUCTORA",
+          "ub": "R02/J0605",
+          "pu": 659260,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-10",
+            "px": "2026-11-30",
+            "st": "ALERTA"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450003",
+          "d": "POLEA CONDUCIDA EN V DE 4 IN MARZIO",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "POLEA CONDUCIDA",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-10",
+            "px": "2026-11-30",
+            "st": "ALERTA"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            24,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "REDURCTOR",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903139",
+          "d": "ROTULA 6MM IZQUIERDA PHS6L",
+          "q": 10,
+          "e": 42,
+          "w": [
+            0,
+            42,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 59100,
+          "xls": {
+            "f": "1B",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903138",
+          "d": "ROTULA 6MM DERECHA PHS6",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010004",
+          "d": "EJES EN ACERO INOX 304 DE 5/8\" MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010003",
+          "d": "EJE EN ACERO PLATA 12MM MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010001",
+          "d": "BUJE BABITADO 16MM SISTEMA SELLADO MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010002",
+          "d": "BUJE BABITADO 12MM EMBUDO ABRIDOR MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            3,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE CORTE Y SELLADO",
+          "a": "MECANICA",
+          "cod": "724010020",
+          "d": "JUEGO DE CUCHILLAS PARA MARZIO R-120",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901255",
+          "d": "RODAMIENTO DE BOLA REF 6200 RS",
+          "q": 4,
+          "e": 10,
+          "w": [
+            0,
+            10,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 9865,
+          "xls": {
+            "f": "6M",
+            "ej": "2024-05-05",
+            "px": "2024-11-01",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-03-06",
+            "px": "2025-03-01",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-03-06",
+            "px": "2025-03-01",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010010",
+          "d": "RESISTENCIA LATERAL 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 229635,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-03-06",
+            "px": "2025-03-01",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SELLADO VERTICAL/HORIZONTAL SUPERIOR",
+          "a": "MECANICA",
+          "cod": "742001015",
+          "d": "BUJE BABITADO EXT:19.2 INT:5/8 LARGO:16 MARZIO",
+          "q": 25,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "BUJE: EXT:19,2 - INT:5/8 - LARGO :16",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "9M",
+            "ej": "2024-05-05",
+            "px": "2025-01-30",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE ARRASTRE",
+          "a": "MECANICA",
+          "cod": "724010008",
+          "d": "CILINDRO CORRECCION ADN-16-10-A-P-A MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0602",
+          "pu": 209074,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-05-05",
+            "px": "2025-04-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741906001",
+          "d": "CHUMACERA UCF-205 EJE 1\" FLANCHADA",
+          "q": 2,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/D0201",
+          "pu": 32000,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-05-05",
+            "px": "2025-04-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203068",
+          "d": "CORREA B40",
+          "q": 1,
+          "e": 4,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/R001",
+          "pu": 14950,
+          "xls": {
+            "f": "9M",
+            "ej": "2024-12-05",
+            "px": "2025-09-01",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ (MOTOR)",
+          "a": "MECANICA",
+          "cod": "741901001",
+          "d": "RODAMIENTO DE BOLA REF 6205 ZZ",
+          "q": 2,
+          "e": 13,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "MOTOR PRINCIPAL",
+          "ub": "R04/B0204 · R01/Z0505 · R01/Z0405",
+          "pu": 13277,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-05-05",
+            "px": "2025-04-30",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741909028",
+          "d": "SEGUIDOR DE LEVA CR20-PP",
+          "q": 2,
+          "e": 12,
+          "w": [
+            0,
+            0,
+            12,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0105",
+          "pu": 130966,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450033",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450032",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450031",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450006",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450005",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450001",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17334011",
+      "id": "eq-17334011",
+      "mid": "",
+      "n": "Encelofanadora de Polvos Marzio R-120 # 3",
+      "nOriginal": "ENCELOFANADORA DE POLVOS MARZIO R-120 # 3",
+      "u": "SEDE 4",
+      "cc": "FH",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450002",
+          "d": "POLEA CONDUCTORA EN V DE 2,75 IN MARZIO",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0605",
+          "pu": 659260,
+          "xls": {
+            "f": "4A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450003",
+          "d": "POLEA CONDUCIDA EN V DE 4 IN MARZIO",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "4A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010004",
+          "d": "EJES EN ACERO INOX 304 DE 5/8\" MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010003",
+          "d": "EJE EN ACERO PLATA 12MM MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "742901037",
+          "d": "TUERCA DE ACERO INOX DE 6MM",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "4A",
+            "ej": "2021-09-04",
+            "px": "2025-08-14",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            10,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            11,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903133",
+          "d": "ROTULA 8MM IZQUIERDA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903134",
+          "d": "ROTULA 8MM DERECHA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903139",
+          "d": "ROTULA 6MM IZQUIERDA PHS6L",
+          "q": 10,
+          "e": 42,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 59100,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903138",
+          "d": "ROTULA 6MM DERECHA PHS6",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ (MOTOR)",
+          "a": "MECANICA",
+          "cod": "741901021",
+          "d": "RODAMIENTO DE BOLA REF 6300 ZZ",
+          "q": 12,
+          "e": 29,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R02/M0203",
+          "pu": 11463,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901255",
+          "d": "RODAMIENTO DE BOLA REF 6200 RS",
+          "q": 4,
+          "e": 10,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 9865,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901026",
+          "d": "RODAMIENTO DE BOLA REF 3200 ATN9 DOBLE HILERA",
+          "q": 2,
+          "e": 3,
+          "w": [
+            0,
+            42,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/Z0505",
+          "pu": 65414,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902210",
+          "d": "RETENEDOR 45MM X 750MM X 8MM PARA ACEITE",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/G0302",
+          "pu": 6374,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            24,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "REDURCTOR",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            10,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            3,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010010",
+          "d": "RESISTENCIA LATERAL 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 229635,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203068",
+          "d": "CORREA B40",
+          "q": 1,
+          "e": 4,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/R001",
+          "pu": 14950,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE CORTE Y SELLADO",
+          "a": "MECANICA",
+          "cod": "724010020",
+          "d": "JUEGO DE CUCHILLAS PARA MARZIO R-120",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010001",
+          "d": "BUJE BABITADO 16MM SISTEMA SELLADO MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010002",
+          "d": "BUJE BABITADO 12MM EMBUDO ABRIDOR MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010009",
+          "d": "JUEGO DE RESORTES MAQ R120 MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            4,
+            0
+          ],
+          "o": "",
+          "ub": "R02/K0301",
+          "pu": 600000,
+          "xls": {
+            "f": "4A",
+            "ej": "2021-09-04",
+            "px": "2025-08-14",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901291",
+          "d": "RODAMIENTO DE BOLA REF 698 ZZ",
+          "q": 16,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-29",
+            "px": "2025-01-23",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE ARRASTRE",
+          "a": "MECANICA",
+          "cod": "724010008",
+          "d": "CILINDRO CORRECCION ADN-16-10-A-P-A MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0602",
+          "pu": 209074,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-07-04",
+            "px": "2025-06-23",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741906001",
+          "d": "CHUMACERA UCF-205 EJE 1\" FLANCHADA",
+          "q": 2,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/D0201",
+          "pu": 32000,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-07-04",
+            "px": "2025-06-23",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901001",
+          "d": "RODAMIENTO DE BOLA REF 6205 ZZ",
+          "q": 2,
+          "e": 13,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R01/Z0505 · R01/Z0405",
+          "pu": 13277,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741909028",
+          "d": "SEGUIDOR DE LEVA CR20-PP",
+          "q": 2,
+          "e": 12,
+          "w": [
+            0,
+            0,
+            12,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0105",
+          "pu": 130966,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450033",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450032",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450031",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450006",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450005",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450001",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17334012",
+      "id": "eq-17334012",
+      "mid": "",
+      "n": "Encelofanadora de Polvos Marzio R-120 # 4",
+      "nOriginal": "ENCELOFANADORA DE POLVOS MARZIO R-120 # 4",
+      "u": "SEDE 4",
+      "cc": "GA",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010004",
+          "d": "EJES EN ACERO INOX 304 DE 5/8\" MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010003",
+          "d": "EJE EN ACERO PLATA 12MM MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450002",
+          "d": "POLEA CONDUCTORA EN V DE 2,75 IN MARZIO",
+          "q": 1,
+          "e": 2,
+          "w": [
+            6,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0605",
+          "pu": 659260,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-07-04",
+            "px": "2026-06-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450003",
+          "d": "POLEA CONDUCIDA EN V DE 4 IN MARZIO",
+          "q": 1,
+          "e": 0,
+          "w": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-07-04",
+            "px": "2026-06-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE ARRASTRE",
+          "a": "MECANICA",
+          "cod": "724010008",
+          "d": "CILINDRO CORRECCION ADN-16-10-A-P-A MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0602",
+          "pu": 209074,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-07-04",
+            "px": "2026-06-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010010",
+          "d": "RESISTENCIA LATERAL 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 229635,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-15",
+            "px": "2025-07-10",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902210",
+          "d": "RETENEDOR 45MM X 750MM X 8MM PARA ACEITE",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/G0302",
+          "pu": 6374,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "REDURCTOR",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 2,
+          "e": 0,
+          "w": [
+            11,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE CORTE Y SELLADO",
+          "a": "MECANICA",
+          "cod": "724010020",
+          "d": "JUEGO DE CUCHILLAS PARA MARZIO R-120",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "742901037",
+          "d": "TUERCA DE ACERO INOX DE 6MM",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "3A",
+            "ej": "2022-06-04",
+            "px": "2025-05-19",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901255",
+          "d": "RODAMIENTO DE BOLA REF 6200 RS",
+          "q": 4,
+          "e": 10,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 9865,
+          "xls": {
+            "f": "9M",
+            "ej": "2024-08-04",
+            "px": "2025-05-01",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010009",
+          "d": "JUEGO DE RESORTES MAQ R120 MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R02/K0301",
+          "pu": 600000,
+          "xls": {
+            "f": "3A",
+            "ej": "2022-06-04",
+            "px": "2025-05-19",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203066",
+          "d": "CORREA B38",
+          "q": 1,
+          "e": 0,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "9M",
+            "ej": "2024-07-04",
+            "px": "2025-03-31",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903133",
+          "d": "ROTULA 8MM IZQUIERDA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903134",
+          "d": "ROTULA 8MM DERECHA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903139",
+          "d": "ROTULA 6MM IZQUIERDA PHS6L",
+          "q": 10,
+          "e": 42,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 59100,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903138",
+          "d": "ROTULA 6MM DERECHA PHS6",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741906001",
+          "d": "CHUMACERA UCF-205 EJE 1\" FLANCHADA",
+          "q": 2,
+          "e": 1,
+          "w": [
+            0,
+            10,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/D0201",
+          "pu": 32000,
+          "xls": {
+            "f": "3A",
+            "ej": "2022-06-04",
+            "px": "2025-05-19",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901291",
+          "d": "RODAMIENTO DE BOLA REF 698 ZZ",
+          "q": 16,
+          "e": 0,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ (MOTOR)",
+          "a": "MECANICA",
+          "cod": "741901021",
+          "d": "RODAMIENTO DE BOLA REF 6300 ZZ",
+          "q": 12,
+          "e": 29,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R02/M0203",
+          "pu": 11463,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901026",
+          "d": "RODAMIENTO DE BOLA REF 3200 ATN9 DOBLE HILERA",
+          "q": 2,
+          "e": 3,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/Z0505",
+          "pu": 65414,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010001",
+          "d": "BUJE BABITADO 16MM SISTEMA SELLADO MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010002",
+          "d": "BUJE BABITADO 12MM EMBUDO ABRIDOR MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            42,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901001",
+          "d": "RODAMIENTO DE BOLA REF 6205 ZZ",
+          "q": 2,
+          "e": 13,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R01/Z0505 · R01/Z0405",
+          "pu": 13277,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-01-24",
+            "px": "2025-01-18",
+            "st": ""
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741909028",
+          "d": "SEGUIDOR DE LEVA CR20-PP",
+          "q": 2,
+          "e": 12,
+          "w": [
+            0,
+            0,
+            12,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0105",
+          "pu": 130966,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450033",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450032",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450031",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450006",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450005",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450001",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17334013",
+      "id": "eq-17334013",
+      "mid": "",
+      "n": "Encelofanadora de Polvos Marzio R-120 # 5",
+      "nOriginal": "ENCELOFANADORA DE POLVOS MARZIO R-120 # 5",
+      "u": "SEDE 4",
+      "cc": "GF",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "742901037",
+          "d": "TUERCA DE ACERO INOX DE 6MM",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "4A",
+            "ej": "2022-10-19",
+            "px": "2026-09-28",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450002",
+          "d": "POLEA CONDUCTORA EN V DE 2,75 IN MARZIO",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0605",
+          "pu": 659260,
+          "xls": {
+            "f": "4A",
+            "ej": "2022-10-19",
+            "px": "2026-09-28",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450003",
+          "d": "POLEA CONDUCIDA EN V DE 4 IN MARZIO",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "4A",
+            "ej": "2022-10-19",
+            "px": "2026-09-28",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010009",
+          "d": "JUEGO DE RESORTES MAQ R120 MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/K0301",
+          "pu": 600000,
+          "xls": {
+            "f": "4A",
+            "ej": "2022-10-19",
+            "px": "2026-09-28",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010004",
+          "d": "EJES EN ACERO INOX 304 DE 5/8\" MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010003",
+          "d": "EJE EN ACERO PLATA 12MM MARZIO R-120",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE ARRASTRE",
+          "a": "MECANICA",
+          "cod": "724010008",
+          "d": "CILINDRO CORRECCION ADN-16-10-A-P-A MARZIO R-120",
+          "q": 1,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            11,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0602",
+          "pu": 209074,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-07-04",
+            "px": "2026-06-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741906001",
+          "d": "CHUMACERA UCF-205 EJE 1\" FLANCHADA",
+          "q": 2,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R02/D0201",
+          "pu": 32000,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-07-04",
+            "px": "2026-06-24",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903133",
+          "d": "ROTULA 8MM IZQUIERDA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903134",
+          "d": "ROTULA 8MM DERECHA PHSB8",
+          "q": 3,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903139",
+          "d": "ROTULA 6MM IZQUIERDA PHS6L",
+          "q": 10,
+          "e": 42,
+          "w": [
+            0,
+            24,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 59100,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741903138",
+          "d": "ROTULA 6MM DERECHA PHS6",
+          "q": 10,
+          "e": 0,
+          "w": [
+            3,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901291",
+          "d": "RODAMIENTO DE BOLA REF 698 ZZ",
+          "q": 16,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ (MOTOR)",
+          "a": "MECANICA",
+          "cod": "741901021",
+          "d": "RODAMIENTO DE BOLA REF 6300 ZZ",
+          "q": 12,
+          "e": 29,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R02/M0203",
+          "pu": 11463,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901255",
+          "d": "RODAMIENTO DE BOLA REF 6200 RS",
+          "q": 4,
+          "e": 10,
+          "w": [
+            11,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R02/M0203",
+          "pu": 9865,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901026",
+          "d": "RODAMIENTO DE BOLA REF 3200 ATN9 DOBLE HILERA",
+          "q": 2,
+          "e": 3,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/Z0505",
+          "pu": 65414,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "REDURCTOR",
+          "a": "MECANICA",
+          "cod": "741902211",
+          "d": "RETENEDOR 25MM X 52MM X 5MM PARA ACEITE",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE CORTE Y SELLADO",
+          "a": "MECANICA",
+          "cod": "724010020",
+          "d": "JUEGO DE CUCHILLAS PARA MARZIO R-120",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010001",
+          "d": "BUJE BABITADO 16MM SISTEMA SELLADO MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            42,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "724010002",
+          "d": "BUJE BABITADO 12MM EMBUDO ABRIDOR MARZIO R-120",
+          "q": 10,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203068",
+          "d": "CORREA B40",
+          "q": 1,
+          "e": 4,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/R001",
+          "pu": 14950,
+          "xls": {
+            "f": "9M",
+            "ej": "2024-06-10",
+            "px": "2025-03-07",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            24,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            10,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010012",
+          "d": "TERMOCUPLA BULBO DE 1/8 X 1\" MARZIO R-120",
+          "q": 2,
+          "e": 2,
+          "w": [
+            3,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 80500,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741902210",
+          "d": "RETENEDOR 45MM X 750MM X 8MM PARA ACEITE",
+          "q": 1,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/G0302",
+          "pu": 6374,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO SUPERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO INFERIOR",
+          "a": "ELECTRICA",
+          "cod": "724010011",
+          "d": "RESISTENCIA SUPERIOR 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO LATERAL",
+          "a": "ELECTRICA",
+          "cod": "724010010",
+          "d": "RESISTENCIA LATERAL 3/8\"X140MM 250W 220V MARZIO",
+          "q": 2,
+          "e": 2,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0207",
+          "pu": 229635,
+          "xls": {
+            "f": "1A",
+            "ej": "2023-12-28",
+            "px": "2024-12-22",
+            "st": ""
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901001",
+          "d": "RODAMIENTO DE BOLA REF 6205 ZZ",
+          "q": 2,
+          "e": 13,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R01/Z0505 · R01/Z0405",
+          "pu": 13277,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-06-10",
+            "px": "2025-06-05",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741909028",
+          "d": "SEGUIDOR DE LEVA CR20-PP",
+          "q": 2,
+          "e": 12,
+          "w": [
+            0,
+            0,
+            12,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0105",
+          "pu": 130966,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450033",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450032",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450031",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450006",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450005",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "MNP450001",
+          "d": "",
+          "q": 2,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-07-04",
+            "px": "2025-06-29",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17366001",
+      "id": "eq-17366001",
+      "mid": "",
+      "n": "Codificadora Laser #1 VJ3020",
+      "nOriginal": "CODIFICADORA LASER #1 VJ3020",
+      "u": "SEDE 4",
+      "cc": "J5",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "FILTRACION",
+          "a": "FILTRACION",
+          "cod": "732503064",
+          "d": "FILTRO HEPA 72313 CODIFICADORA LASER VIDEOJET 3020",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-29",
+            "px": "2026-12-19",
+            "st": "EN TIEMPO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17366002",
+      "id": "eq-17366002",
+      "mid": "",
+      "n": "Codificadora Laser #2 VJ3020",
+      "nOriginal": "CODIFICADORA LASER #2 VJ3020",
+      "u": "SEDE 4",
+      "cc": "J5",
+      "tipo": "AUXILIAR",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "FILTRACION",
+          "a": "FILTRACION",
+          "cod": "732503064",
+          "d": "FILTRO HEPA 72313 CODIFICADORA LASER VIDEOJET 3020",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-29",
+            "px": "2026-12-19",
+            "st": "EN TIEMPO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17366003",
+      "id": "eq-17366003",
+      "mid": "",
+      "n": "Codificadora Laser #3 VJ3020",
+      "nOriginal": "CODIFICADORA LASER #3 VJ3020",
+      "u": "SEDE 4",
+      "cc": "J5",
+      "tipo": "AUXILIAR",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "FILTRACION",
+          "a": "FILTRACION",
+          "cod": "732503064",
+          "d": "FILTRO HEPA 72313 CODIFICADORA LASER VIDEOJET 3020",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-29",
+            "px": "2026-12-19",
+            "st": "EN TIEMPO"
+          }
+        }
+      ],
       "retiradoEn": "2026-11-25"
     }
   ]
