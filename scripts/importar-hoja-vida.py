@@ -21,6 +21,7 @@ Qué hace con cada dato
   - La sede se reconoce también en «PLANTA #2», «PLANTA#2», «PALANTA #2», «PLANTA 2/ÁREA», «PLANTA N°2».
     Si trae otra planta o sede («PLANTA #4») la sede queda la del archivo, se quita del área y se avisa.
   - Un código que sale en más de una fila del MISMO archivo no se mezcla: se omiten todas sus filas y se listan.
+  - Con --listado listado-DMM-179-vigente.csv solo se importan los equipos que figuran en el listado vigente.
   - IMAGEN: solo el nombre del archivo, nunca la ruta (puede traer carpetas del servidor).
   - SERIAL: NO se guarda. Solo con --incluir-serial (el repositorio es público).
   - COD-REPn / REPn / CANT-REPn -> lista `repuestos` (los códigos también sin ceros).
@@ -140,6 +141,43 @@ def sede_sin_reconocer(texto):
     return "" if ok else f"{m.group(1)} {m.group(2)}".upper()
 
 
+def normalizar_area(area, areas):
+    """area (ya limpia: minúsculas, sin tildes) -> (área, detalle, normalizada?).
+    1) coincidencia exacta en areas["areas"]; 2) el prefijo más largo en areas["prefijos"] (el resto queda
+    como detalle: «microg lado a» -> MICROG + «lado a»); 3) sin coincidencia: texto limpio, sin normalizar."""
+    exactas = areas.get("areas", {})
+    if area in exactas:
+        return exactas[area], "", True
+    for pref in sorted(areas.get("prefijos", {}), key=len, reverse=True):
+        if area == pref or area.startswith(pref + " "):
+            return areas["prefijos"][pref], area[len(pref):].strip(), True
+    return area, "", False
+
+
+def cargar_listado(ruta):
+    """CSV del listado oficial (cod, desc, ubi, area) -> {codigo sin ceros: {ubicaciones}}."""
+    import csv
+    out = {}
+    with open(ruta, encoding="utf-8-sig", newline="") as f:
+        for fila in csv.DictReader(f):
+            f = {k.strip().lower(): v for k, v in fila.items() if k}
+            c = codigo(f.get("cod") or f.get("codigo"))
+            if c:
+                out.setdefault(c, set()).add((f.get("ubi") or f.get("ubicacion") or "").strip().upper())
+    return out
+
+
+def en_listado(cod, ubicacion, listado):
+    """-> (está?, aviso). Está si (código, planta del archivo) figura en el listado vigente; si el código figura
+    solo en la OTRA planta se acepta con aviso (el registro o el listado tienen la planta cruzada)."""
+    ubis = listado.get(cod)
+    if not ubis:
+        return False, ""
+    if ubicacion in ubis:
+        return True, ""
+    return True, f"listado dice {', '.join(sorted(u for u in ubis if u)) or 'sin ubicación'}"
+
+
 def hojas(ruta):
     ext = Path(ruta).suffix.lower()
     if ext == ".xlsb":
@@ -231,13 +269,15 @@ def extraer(filas, mapeo, ubicacion="", areas=None, incluir_serial=False):
         if pos.get("ubicacion") is not None:
             orig = limpio(celda(fila, pos["ubicacion"]))
             sede, area = separar_ubicacion(orig, ubicacion)
-            canon = areas.get(area)
+            canon, detalle, normalizada = normalizar_area(area, areas)
             reg["sede"] = sede
             raro = sede_sin_reconocer(orig)
             if raro:
                 reg["sede_sin_reconocer"] = raro
-            reg["area"] = canon or area
-            if area and not canon:
+            reg["area"] = canon
+            if detalle:
+                reg["areaDetalle"] = detalle
+            if area and not normalizada:
                 reg["area_sin_normalizar"] = True
             if orig:
                 reg["ubicacionOriginal"] = orig
@@ -269,6 +309,7 @@ def main(argv=None):
     ap.add_argument("--mapeo", default=str(MAPEO))
     ap.add_argument("--areas", default=str(AREAS))
     ap.add_argument("--leyenda", default=str(LEYENDA))
+    ap.add_argument("--listado", help="CSV del listado oficial vigente (DMM-179/179B): solo se importan los equipos que figuran en él")
     ap.add_argument("--salida", default=str(SALIDA))
     ap.add_argument("--incluir-serial", action="store_true", help="también guarda SERIAL (el repositorio es público: no recomendado)")
     ap.add_argument("--probar", action="store_true", help="cuenta, no escribe")
@@ -279,7 +320,8 @@ def main(argv=None):
     if not a.ubicacion:
         sys.exit('Falta --ubicacion ("SEDE 4" o "PLANTA 2").')
     mapeo = json.loads(Path(a.mapeo).read_text(encoding="utf-8"))
-    areas = json.loads(Path(a.areas).read_text(encoding="utf-8")).get("areas", {}) if Path(a.areas).exists() else {}
+    areas = json.loads(Path(a.areas).read_text(encoding="utf-8")) if Path(a.areas).exists() else {}
+    listado = cargar_listado(a.listado) if a.listado else None
     leyenda = json.loads(Path(a.leyenda).read_text(encoding="utf-8")).get("letras", {}) if Path(a.leyenda).exists() else {}
     libro = hojas(a.archivo)
     nombre = a.hoja or mapeo.get("hoja")
@@ -295,6 +337,17 @@ def main(argv=None):
         return
 
     regs, repetidos = separar_repetidos(regs)
+    fuera_listado, aviso_listado = [], []
+    if listado is not None:
+        dentro = []
+        for r in regs:
+            ok, aviso = en_listado(r["codigo"], a.ubicacion, listado)
+            if not ok:
+                fuera_listado.append(r["codigo"]); continue
+            if aviso:
+                aviso_listado.append(f"{r['codigo']} ({aviso})")
+            dentro.append(r)
+        regs = dentro
     registro = [e for e in leer_registro() if e["u"] == a.ubicacion]
     por_cod = {}
     for e in registro:
@@ -340,6 +393,10 @@ def main(argv=None):
         print("AVISO: se está guardando SERIAL; no subas ese JSON al repositorio público.")
     if sin_registro:
         print(f"Códigos que NO están en assets/equipos.js para {a.ubicacion} ({len(sin_registro)}): {', '.join(sorted(set(sin_registro))[:25])}")
+    if listado is not None:
+        print(f"Fuera del listado vigente, NO se importaron ({len(fuera_listado)}): {', '.join(sorted(set(fuera_listado))[:40])}")
+        if aviso_listado:
+            print(f"Planta distinta en el listado, se importaron igual ({len(aviso_listado)}): {', '.join(aviso_listado)}")
     if repetidos:
         print(f"Códigos REPETIDOS dentro del archivo, omitidos sin mezclar ({len(repetidos)}): " + ", ".join(f"{c} (x{k})" for c, k in sorted(repetidos.items())))
     raras = [r for r in regs if r.get("sede_sin_reconocer")]

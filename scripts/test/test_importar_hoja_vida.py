@@ -106,6 +106,33 @@ class Importar(unittest.TestCase):
             datos = json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"]
             self.assertNotIn("eq-4307002", datos)  # no se mezcló ninguna de las dos filas
 
+    def test_areas_por_prefijo_dejan_el_resto_como_detalle(self):
+        areas = json.loads((RAIZ / "scripts" / "hoja-vida.areas.json").read_text(encoding="utf-8"))
+        sede, area = ihv.separar_ubicacion("PLANTA #2 MICROG LADO A/ LADO C", "PLANTA 2")
+        self.assertEqual(ihv.normalizar_area(area, areas), ("MICROG", "lado a lado c", True))
+        self.assertEqual(ihv.normalizar_area("piso tecnico principal", areas), ("PISO TÉCNICO", "principal", True))
+        self.assertEqual(ihv.normalizar_area("liquidos", areas), ("LÍQUIDOS", "", True))
+        self.assertEqual(ihv.normalizar_area("microgrande", areas)[2], False)   # no es palabra completa
+        self.assertEqual(ihv.normalizar_area("cuarto 522", areas), ("cuarto 522", "", False))
+        self.assertEqual(ihv.normalizar_area("x", {"areas": {"x": "EXACTA"}, "prefijos": {"x": "OTRA"}}), ("EXACTA", "", True))
+
+    def test_listado_vigente_filtra_equipos(self):
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            (d / "l.csv").write_text('"cod","desc","ubi","area"\n"04307002","CHILLER","SEDE 4","BLISTEADO"\n"17303002","M","PLANTA 2","S"\n', encoding="utf-8")
+            lis = ihv.cargar_listado(d / "l.csv")
+            self.assertEqual(ihv.en_listado("4307002", "SEDE 4", lis), (True, ""))
+            self.assertEqual(ihv.en_listado("17303002", "SEDE 4", lis)[0], True)   # solo figura en la otra planta: se acepta con aviso
+            self.assertIn("PLANTA 2", ihv.en_listado("17303002", "SEDE 4", lis)[1])
+            self.assertEqual(ihv.en_listado("999", "SEDE 4", lis), (False, ""))
+            libro(d)
+            import io, contextlib
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                ihv.main([str(d / "hv.xlsx"), "--ubicacion", "SEDE 4", "--listado", str(d / "l.csv"), "--salida", str(d / "o.json")])
+            self.assertIn("Fuera del listado vigente, NO se importaron (1): 99999999", buf.getvalue())
+            self.assertIn("eq-4307002", json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"])
+
     def test_no_toca_equipos_js(self):
         antes = (RAIZ / "assets" / "equipos.js").read_bytes()
         self.correr()

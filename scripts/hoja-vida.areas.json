@@ -1,4 +1,36 @@
 {
-  "_nota": "Variante de UBICACIÓN (tal como sale en la hoja de vida) -> área oficial. Se llena con el listado DMM-211B. Claves en minúsculas y sin tildes (usa --variantes para verlas). Lo que no esté aquí queda con el texto limpio y se marca area_sin_normalizar.",
-  "areas": {}
+  "_nota": "Variante de UBICACIÓN -> área. «areas»: coincidencia exacta (texto ya limpio: minúsculas, sin tildes, sin signos). «prefijos»: la variante que EMPIEZA por esa palabra queda en esa área y el resto pasa a areaDetalle (p. ej. «microg lado a» -> MICROG + «lado a»). Los nombres siguen el vocabulario del listado DMM-179 vigente; «PISO TÉCNICO», «ALMACÉN», «LABORATORIO», «SECADO», «FITOTERAPÉUTICO» y «CENTRO LÍQUIDO» no figuran como área en el listado: confirmar contra el DMM-211B. Lo que no coincide queda con el texto limpio y area_sin_normalizar.",
+  "areas": {},
+  "prefijos": {
+    "microgranulos": "MICROG",
+    "microgranulo": "MICROG",
+    "microg": "MICROG",
+    "blisteado": "BLISTEADO",
+    "empaque": "EMPAQUE",
+    "area de empaque": "EMPAQUE",
+    "area tabletea": "TABLETEADO",
+    "area tableteado": "TABLETEADO",
+    "tableteado": "TABLETEADO",
+    "liquidos": "LÍQUIDOS",
+    "fab env liquidos": "FAB/ENV LÍQUIDOS",
+    "centro liquido": "CENTRO LÍQUIDO",
+    "solidos": "SÓLIDOS",
+    "encapsulado solidos": "ENCAPSULADO SÓLIDOS",
+    "encapsulado": "ENCAPSULADO",
+    "encaps": "ENCAPSULADO",
+    "encap sol": "ENCAP-SOL",
+    "encelofanado": "ENCELOFANADO",
+    "encelonado": "ENCELOFANADO",
+    "edificio": "EDIFICIO",
+    "w plant": "W-PLANT",
+    "planta de agua": "PLANTA DE AGUA",
+    "pesaje": "PESAJE",
+    "area tecnica": "ÁREA TÉCNICA",
+    "piso tecnico": "PISO TÉCNICO",
+    "recubrimiento": "RECUBRIMIENTO",
+    "almacen": "ALMACÉN",
+    "laboratorio": "LABORATORIO",
+    "secado": "SECADO",
+    "fitoterapeutico": "FITOTERAPÉUTICO"
+  }
 }
