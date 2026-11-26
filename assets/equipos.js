@@ -1477,7 +1477,7 @@ window.EQUIPOS_PLAN = {
       "mid": "",
       "n": "Blisteadora#5 UPS300Rent",
       "nOriginal": "BLISTEADORA #5 UPS300RENT",
-      "u": "SEDE 4",
+      "u": "PLANTA 2",
       "cc": "CM",
       "tipo": "PROCESO",
       "r": [
@@ -14043,7 +14043,7 @@ window.EQUIPOS_PLAN = {
       "mid": "blister3",
       "n": "Blisteadora#3 B1240 Uhlmann",
       "nOriginal": "BLISTEADORA #3 B1240 UHLMANN",
-      "u": "PLANTA 2",
+      "u": "SEDE 4",
       "cc": "X8",
       "tipo": "PROCESO",
       "r": [
