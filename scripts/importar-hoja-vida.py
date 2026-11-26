@@ -213,6 +213,31 @@ def separar_repetidos(regs):
     return [r for r in regs if r["codigo"] not in rep_], rep_
 
 
+def parecido(descripcion, equipo):
+    """0..1: qué parte de las palabras de la descripción de la hoja aparece en el nombre del equipo del registro."""
+    pal = lambda t: {w for w in re.sub(r"[^a-z0-9]+", " ", sin_tildes(t).lower()).split() if w and w not in {"de", "del", "la", "el", "no", "n"}}
+    d = pal(descripcion)
+    e = pal(equipo.get("n", "")) | pal(equipo.get("nOriginal", ""))
+    return len(d & e) / len(d) if d else 0.0
+
+
+TIPOS_VALIDOS = {"PROCESO", "AUXILIAR"}
+TIPOS_ERRATA = {"AUXLIAR": "AUXILIAR", "AUXILAR": "AUXILIAR", "AUXILIARE": "AUXILIAR", "PROCSO": "PROCESO"}
+
+
+def normalizar_tipo(valor, tipo_registro=""):
+    """«AUXLIAR»/«AUXILAR» -> AUXILIAR, «PROCESO:» -> PROCESO. Si queda algo que no es un tipo («BOMBA»,
+    «ENCELOFANADORA») se toma el tipo del registro (listados oficiales) y se guarda el original aparte.
+    -> (tipo, original o '')."""
+    v = re.sub(r"[\s:.;,]+$", "", str(valor or "").strip().upper())
+    v = TIPOS_ERRATA.get(v, v)
+    if v in TIPOS_VALIDOS:
+        return v, (valor if v != str(valor).strip() else "")
+    if tipo_registro in TIPOS_VALIDOS:
+        return tipo_registro, valor
+    return valor, ""
+
+
 def leer_registro():
     s = EQUIPOS.read_text(encoding="utf-8")
     m = re.search(r"window\.EQUIPOS_PLAN = ", s)
@@ -355,7 +380,7 @@ def main(argv=None):
     salida = Path(a.salida)
     previo = json.loads(salida.read_text(encoding="utf-8")) if salida.exists() else {"equipos": {}}
     nuevos = cambiados = 0
-    sin_registro, ambiguos, planta_distinta, en_dos_hojas = [], [], [], []
+    sin_registro, ambiguos, planta_distinta, en_dos_hojas, corregidos_tipo = [], [], [], [], []
     sin_leyenda = set()
     for r in regs:
         cand = por_cod.get(r["codigo"], [])
@@ -376,9 +401,24 @@ def main(argv=None):
         if eq["u"] != a.ubicacion:
             dato["plantaDistinta"] = True
             planta_distinta.append(f"{r['codigo']} (registro: {eq['u']})")
+        if "tipoEquipo" in dato:
+            tipo, original = normalizar_tipo(dato["tipoEquipo"], eq.get("tipo", ""))
+            if original:
+                dato["tipoEquipoOriginal"] = original
+                corregidos_tipo.append(f"{r['codigo']}: «{original}» → {tipo}")
+            dato["tipoEquipo"] = tipo
         previa = previo["equipos"].get(eid)
         if previa and previa.get("hojaDe") not in (None, a.ubicacion):
-            en_dos_hojas.append(r["codigo"])   # el mismo equipo figura en las dos hojas: no se mezclan
+            # El mismo código figura en las dos hojas. Se escoge la que describe al equipo del registro
+            # (a veces la otra hoja trae OTRA máquina con el mismo código); si no hay diferencia clara, no se mezcla:
+            # se conserva la primera. Nunca se combinan campos de las dos.
+            a_nueva, a_previa = parecido(dato.get("descripcion", ""), eq), parecido(previa.get("descripcion", ""), eq)
+            if a_nueva - a_previa >= 0.2:
+                en_dos_hojas.append(f"{r['codigo']} (se usó la hoja de {a.ubicacion}: «{dato.get('descripcion', '')}» coincide con el registro; la de {previa['hojaDe']} decía «{previa.get('descripcion', '')}»)")
+                previo["equipos"][eid] = dato
+                cambiados += 1
+            else:
+                en_dos_hojas.append(f"{r['codigo']} (se conservó la hoja de {previa['hojaDe']}" + (f"; la de {a.ubicacion} decía «{dato.get('descripcion', '')}»" if a_previa - a_nueva >= 0.2 else ": las dos describen lo mismo") + ")")
             continue
         if leyenda and r.get("frecuencias"):
             raras = letras_sin_leyenda(r["frecuencias"], leyenda)
@@ -411,7 +451,11 @@ def main(argv=None):
     if planta_distinta:
         print(f"Equipos que figuran en la hoja de {a.ubicacion} pero el registro los tiene en la otra planta, enlazados igual ({len(planta_distinta)}): {', '.join(planta_distinta)}")
     if en_dos_hojas:
-        print(f"Equipos que ya venían de la OTRA hoja: no se mezclan, se conservó la primera ({len(en_dos_hojas)}): {', '.join(en_dos_hojas)}")
+        print(f"Equipos que figuran en las DOS hojas, sin mezclar ({len(en_dos_hojas)}):")
+        for x in en_dos_hojas:
+            print("  - " + x)
+    if corregidos_tipo:
+        print(f"tipoEquipo corregido ({len(corregidos_tipo)}): {'; '.join(corregidos_tipo)}")
     if repetidos:
         print(f"Códigos REPETIDOS dentro del archivo, omitidos sin mezclar ({len(repetidos)}): " + ", ".join(f"{c} (x{k})" for c, k in sorted(repetidos.items())))
     raras = [r for r in regs if r.get("sede_sin_reconocer")]

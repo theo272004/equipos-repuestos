@@ -22,25 +22,37 @@
       "hojaDe": "SEDE 4"
     },
     "eq-17303017": {
-      "tipoEquipo": "AUXILIAR",
-      "descripcion": "AGITADOR PORTATIL PARA RECUBRIMIENTO",
-      "servicio": "AGITAR SOLUCIONES LIQUIDAS",
-      "marca": "LEESON",
-      "anioFabricacion": "2010",
-      "procedencia": "COLOMBIA",
-      "anioInstalacion": "2010",
-      "proceso": "AGITAR",
+      "tipoEquipo": "PROCESO",
+      "descripcion": "AGITADOR HEIDOLPH",
+      "servicio": "AGITAR",
+      "marca": "HEIDDOLPH",
+      "modelo": "HEI-TORQUE 100",
+      "anioFabricacion": "2020",
+      "procedencia": "ALEMANIA",
+      "anioInstalacion": "2022",
+      "proceso": "AGITAR SOLUCIONES",
       "registro": "DMM-031B, DMM-182B",
-      "sede": "SEDE 4",
+      "sede": "PLANTA 2",
       "area": "",
-      "ubicacionOriginal": "SEDE 4",
-      "imagen": "agitador portatil sede 4.jpg",
+      "ubicacionOriginal": "PLANTA 2",
+      "imagen": "AGITADOR.jpg",
+      "repuestos": [
+        {
+          "cod": "MNP190001",
+          "desc": "BASE AGITADOR MOVIL DE 3/8\" X DIA 6\" X 354,8MM",
+          "cant": "3"
+        },
+        {
+          "cod": "741905079",
+          "desc": "RUEDA DE 4\" FRENO GIRAT 800268 Z07-04-100-122",
+          "cant": "2"
+        }
+      ],
       "frecuencias": {
-        "3M": "M"
+        "3M": "X"
       },
       "codigoEquipo": "17303017",
-      "hojaDe": "SEDE 4",
-      "plantaDistinta": true
+      "hojaDe": "PLANTA 2"
     },
     "eq-16303002": {
       "tipoEquipo": "AUXILIAR",
@@ -2860,26 +2872,25 @@
     },
     "eq-17334006": {
       "tipoEquipo": "PROCESO",
-      "descripcion": "ENCELOFANADORA MULTIPHARMA",
-      "servicio": "ENCELOFANAR PRODUCTO",
-      "marca": "MULTIPHARMA",
-      "modelo": "MP100",
-      "anioFabricacion": "2009",
-      "procedencia": "ITALIA",
-      "anioInstalacion": "2009",
-      "proceso": "ENCELOFANADO",
-      "registro": "DMM-031B, DMM-160F",
+      "descripcion": "ENVASADORA DE LÍQUIDOS #2",
+      "servicio": "ENVASA LÍQUIDOS",
+      "marca": "FILAMATIC",
+      "modelo": "DAB-8-4 AUTOMÁTICA",
+      "anioFabricacion": "2022",
+      "procedencia": "COLOMBIA",
+      "anioInstalacion": "2022",
+      "proceso": "LLENAR JARABE A LOS ENVASES DE VIDRIO",
+      "registro": "DMM-031B, DMM-160C",
       "sede": "SEDE 4",
-      "area": "EMPAQUE",
-      "ubicacionOriginal": "SEDE 4 - EMPAQUE",
-      "imagen": "MULTIFARMA.jpg",
+      "area": "",
+      "ubicacionOriginal": "SEDE 4",
+      "imagen": "ENVASADORA #2.jpg",
       "frecuencias": {
-        "M": "I",
-        "3M": "M",
-        "A": "IE"
+        "3M": "M"
       },
       "codigoEquipo": "17334006",
-      "hojaDe": "SEDE 4"
+      "hojaDe": "PLANTA 2",
+      "plantaDistinta": true
     },
     "eq-17334016": {
       "tipoEquipo": "AUXILIAR",
@@ -3108,7 +3119,7 @@
       "hojaDe": "SEDE 4"
     },
     "eq-130378002": {
-      "tipoEquipo": "PROCESO:",
+      "tipoEquipo": "PROCESO",
       "descripcion": "EQUIPO LECHO DE FLUIDO 600",
       "servicio": "RECUBRIR Y GRANULAR",
       "marca": "SYNTEGON",
@@ -3126,10 +3137,11 @@
         "3M": "M"
       },
       "codigoEquipo": "130378002",
-      "hojaDe": "SEDE 4"
+      "hojaDe": "SEDE 4",
+      "tipoEquipoOriginal": "PROCESO:"
     },
     "eq-136372002": {
-      "tipoEquipo": "AUXILAR",
+      "tipoEquipo": "AUXILIAR",
       "descripcion": "ESTIBADOR ELÉCTRICO",
       "servicio": "TRASLADAR CARGAMENTO DE UN LUGAR A OTRO",
       "marca": "NOBELIFT",
@@ -3148,7 +3160,8 @@
         "A": "M"
       },
       "codigoEquipo": "136372002",
-      "hojaDe": "SEDE 4"
+      "hojaDe": "SEDE 4",
+      "tipoEquipoOriginal": "AUXILAR"
     },
     "eq-17332010": {
       "tipoEquipo": "PROCESO",
@@ -4002,7 +4015,7 @@
       "hojaDe": "SEDE 4"
     },
     "eq-17334018": {
-      "tipoEquipo": "ENCELOFANADORA",
+      "tipoEquipo": "PROCESO",
       "descripcion": "STICKPACKER MT-1100",
       "servicio": "ENCELOFANADORA DE SOBRES",
       "marca": "MARCHESINI",
@@ -4020,7 +4033,8 @@
         "3M": "M"
       },
       "codigoEquipo": "17334018",
-      "hojaDe": "SEDE 4"
+      "hojaDe": "SEDE 4",
+      "tipoEquipoOriginal": "ENCELOFANADORA"
     },
     "eq-17365007": {
       "tipoEquipo": "PROCESO",
@@ -6425,7 +6439,7 @@
       "hojaDe": "PLANTA 2"
     },
     "eq-17370011": {
-      "tipoEquipo": "BOMBA",
+      "tipoEquipo": "AUXILIAR",
       "descripcion": "BOMBA DE VACIO PRUEBA HERMETICIDAD",
       "servicio": "PRUEBA DE HERMETICIDAD",
       "marca": "OPTIC IVYMEN SYSTEM",
@@ -6440,7 +6454,8 @@
         "3M": "M"
       },
       "codigoEquipo": "17370011",
-      "hojaDe": "PLANTA 2"
+      "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "BOMBA"
     },
     "eq-17370004": {
       "tipoEquipo": "AUXILIAR",
@@ -8556,7 +8571,7 @@
       "hojaDe": "PLANTA 2"
     },
     "eq-17334015": {
-      "tipoEquipo": "ENCELOFANADOR",
+      "tipoEquipo": "PROCESO",
       "descripcion": "ENCELOFANADORA SOBRE STICK PACK II",
       "servicio": "ENCELOFANADORA DE SOBRES",
       "marca": "EMPACANDO",
@@ -8590,7 +8605,8 @@
         "3M": "M"
       },
       "codigoEquipo": "17334015",
-      "hojaDe": "PLANTA 2"
+      "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "ENCELOFANADOR"
     },
     "eq-17334004": {
       "tipoEquipo": "PROCESO",
@@ -9223,7 +9239,7 @@
       ]
     },
     "eq-17303024": {
-      "tipoEquipo": "GRANULADOR",
+      "tipoEquipo": "PROCESO",
       "descripcion": "GRANULADOR #3",
       "servicio": "ENERGIA",
       "marca": "LIGNED",
@@ -9260,7 +9276,8 @@
         "6M": "M"
       },
       "codigoEquipo": "17303024",
-      "hojaDe": "PLANTA 2"
+      "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "GRANULADOR"
     },
     "eq-17329004": {
       "tipoEquipo": "PROCESO",
@@ -9306,7 +9323,7 @@
       "plantaDistinta": true
     },
     "eq-17329007": {
-      "tipoEquipo": "HORNO",
+      "tipoEquipo": "AUXILIAR",
       "descripcion": "HORNO DE SECADO STC",
       "servicio": "SECADO",
       "marca": "STC",
@@ -9323,7 +9340,8 @@
         "6M": "M"
       },
       "codigoEquipo": "17329007",
-      "hojaDe": "PLANTA 2"
+      "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "HORNO"
     },
     "eq-17303018-p2": {
       "tipoEquipo": "PROCESO",
@@ -10560,7 +10578,7 @@
       "hojaDe": "PLANTA 2"
     },
     "eq-17303007": {
-      "tipoEquipo": "DEPOSITO",
+      "tipoEquipo": "PROCESO",
       "descripcion": "TANQUE DE PROCESAMIENTO 2",
       "servicio": "ALMACENAR Y/O MEZCLAR FLUIDOS",
       "marca": "INMECOLSA",
@@ -10599,7 +10617,8 @@
         "A": "M"
       },
       "codigoEquipo": "17303007",
-      "hojaDe": "PLANTA 2"
+      "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "DEPOSITO"
     },
     "eq-17303011": {
       "tipoEquipo": "AUXILIAR",
@@ -11445,7 +11464,7 @@
       ]
     },
     "eq-4310091": {
-      "tipoEquipo": "AUXLIAR",
+      "tipoEquipo": "AUXILIAR",
       "descripcion": "UMA LADO C",
       "servicio": "CONTROLAR EN AMBIENTE",
       "marca": "CONFORTFRESH",
@@ -11498,6 +11517,7 @@
       },
       "codigoEquipo": "4310091",
       "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "AUXLIAR",
       "frecuenciasSinLeyenda": [
         "M/S"
       ]
@@ -11838,7 +11858,7 @@
       ]
     },
     "eq-4310030": {
-      "tipoEquipo": "AUXLIAR",
+      "tipoEquipo": "AUXILIAR",
       "descripcion": "UMA SEGUNDO PISO",
       "servicio": "CONTROLAR AMBIENTE",
       "marca": "CONFORTFRESH",
@@ -11891,6 +11911,7 @@
       },
       "codigoEquipo": "4310030",
       "hojaDe": "PLANTA 2",
+      "tipoEquipoOriginal": "AUXLIAR",
       "frecuenciasSinLeyenda": [
         "M/S"
       ]

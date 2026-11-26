@@ -148,8 +148,38 @@ class Importar(unittest.TestCase):
             buf = io.StringIO()
             with contextlib.redirect_stdout(buf):
                 ihv.main([str(d / "hv.xlsx"), "--ubicacion", "SEDE 4", "--salida", salida, "--areas", str(d / "n.json")])
-            self.assertIn("OTRA hoja", buf.getvalue())
+            self.assertIn("DOS hojas", buf.getvalue())
             self.assertEqual(json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"]["eq-4307002"]["hojaDe"], "PLANTA 2")
+
+    def test_tipo_equipo_errores_de_digitacion(self):
+        self.assertEqual(ihv.normalizar_tipo("AUXLIAR"), ("AUXILIAR", "AUXLIAR"))
+        self.assertEqual(ihv.normalizar_tipo("AUXILAR"), ("AUXILIAR", "AUXILAR"))
+        self.assertEqual(ihv.normalizar_tipo("PROCESO:"), ("PROCESO", "PROCESO:"))
+        self.assertEqual(ihv.normalizar_tipo("PROCESO"), ("PROCESO", ""))
+        self.assertEqual(ihv.normalizar_tipo("BOMBA", "AUXILIAR"), ("AUXILIAR", "BOMBA"))      # no es un tipo: el del registro
+        self.assertEqual(ihv.normalizar_tipo("ENCELOFANADORA", "PROCESO"), ("PROCESO", "ENCELOFANADORA"))
+        self.assertEqual(ihv.normalizar_tipo("BOMBA", ""), ("BOMBA", ""))                       # sin registro: no se adivina
+
+    def test_dos_hojas_con_el_mismo_codigo_gana_la_que_describe_al_equipo_del_registro(self):
+        eq = {"n": "Agitador Heidolph #1", "nOriginal": "AGITADOR HEIDOLPH #1"}
+        self.assertGreaterEqual(ihv.parecido("AGITADOR HEIDOLPH", eq), 0.9)
+        self.assertLess(ihv.parecido("AGITADOR PORTATIL PARA RECUBRIMIENTO", eq), 0.4)
+        import io, contextlib
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            def hoja(nombre, desc):
+                wb = openpyxl.Workbook(); ws = wb.active; ws.title = "BASE DE DATOS"
+                f = list(FILA); f[1] = "04307002"; f[2] = desc   # el registro lo llama «Chiller #2 UPS300» (SEDE 4)
+                ws.append(CAB); ws.append(f); wb.save(d / nombre)
+            hoja("a.xlsx", "ENCELOFANADORA MULTIPHARMA")     # hoja de PLANTA 2: otra máquina con el mismo código
+            hoja("b.xlsx", "CHILLER #2 UPS300")             # hoja de SEDE 4: la del registro
+            for arch, ub in (("a.xlsx", "PLANTA 2"), ("b.xlsx", "SEDE 4")):
+                with contextlib.redirect_stdout(io.StringIO()) as buf:
+                    ihv.main([str(d / arch), "--ubicacion", ub, "--salida", str(d / "o.json"), "--areas", str(d / "n.json")])
+            e = json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"]["eq-4307002"]
+            self.assertEqual(e["descripcion"], "CHILLER #2 UPS300")
+            self.assertEqual(e["hojaDe"], "SEDE 4")
+            self.assertNotIn("MULTIPHARMA", json.dumps(e))     # no se mezcló nada de la otra hoja
 
     def test_no_toca_equipos_js(self):
         antes = (RAIZ / "assets" / "equipos.js").read_bytes()
