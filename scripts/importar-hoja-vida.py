@@ -348,27 +348,38 @@ def main(argv=None):
                 aviso_listado.append(f"{r['codigo']} ({aviso})")
             dentro.append(r)
         regs = dentro
-    registro = [e for e in leer_registro() if e["u"] == a.ubicacion]
-    por_cod = {}
-    for e in registro:
+    por_cod = {}                       # TODO el registro: el equipo puede figurar en la hoja de la otra planta
+    for e in leer_registro():
         por_cod.setdefault(codigo(e["c"]), []).append(e)
 
     salida = Path(a.salida)
     previo = json.loads(salida.read_text(encoding="utf-8")) if salida.exists() else {"equipos": {}}
     nuevos = cambiados = 0
-    sin_registro, ambiguos = [], []
+    sin_registro, ambiguos, planta_distinta, en_dos_hojas = [], [], [], []
     sin_leyenda = set()
     for r in regs:
         cand = por_cod.get(r["codigo"], [])
         if not cand:
             sin_registro.append(r["codigo"])
             continue
-        if len(cand) > 1:
+        # Un código en una sola planta del registro: se enlaza aunque la hoja sea de la otra (se avisa).
+        # En las dos plantas: manda la planta de la hoja. Si aun así no se decide, no se adivina.
+        mismos = [e for e in cand if e["u"] == a.ubicacion]
+        eq = cand[0] if len(cand) == 1 else (mismos[0] if len(mismos) == 1 else None)
+        if eq is None:
             ambiguos.append(r["codigo"])
             continue
-        eid = cand[0]["id"]
+        eid = eq["id"]
         dato = {k: v for k, v in r.items() if k != "codigo"}
-        dato["codigoEquipo"] = cand[0]["c"]
+        dato["codigoEquipo"] = eq["c"]
+        dato["hojaDe"] = a.ubicacion
+        if eq["u"] != a.ubicacion:
+            dato["plantaDistinta"] = True
+            planta_distinta.append(f"{r['codigo']} (registro: {eq['u']})")
+        previa = previo["equipos"].get(eid)
+        if previa and previa.get("hojaDe") not in (None, a.ubicacion):
+            en_dos_hojas.append(r["codigo"])   # el mismo equipo figura en las dos hojas: no se mezclan
+            continue
         if leyenda and r.get("frecuencias"):
             raras = letras_sin_leyenda(r["frecuencias"], leyenda)
             if raras:
@@ -392,11 +403,15 @@ def main(argv=None):
     if a.incluir_serial:
         print("AVISO: se está guardando SERIAL; no subas ese JSON al repositorio público.")
     if sin_registro:
-        print(f"Códigos que NO están en assets/equipos.js para {a.ubicacion} ({len(sin_registro)}): {', '.join(sorted(set(sin_registro))[:25])}")
+        print(f"Códigos que NO están en assets/equipos.js ({len(sin_registro)}): {', '.join(sorted(set(sin_registro))[:25])}")
     if listado is not None:
         print(f"Fuera del listado vigente, NO se importaron ({len(fuera_listado)}): {', '.join(sorted(set(fuera_listado))[:40])}")
         if aviso_listado:
             print(f"Planta distinta en el listado, se importaron igual ({len(aviso_listado)}): {', '.join(aviso_listado)}")
+    if planta_distinta:
+        print(f"Equipos que figuran en la hoja de {a.ubicacion} pero el registro los tiene en la otra planta, enlazados igual ({len(planta_distinta)}): {', '.join(planta_distinta)}")
+    if en_dos_hojas:
+        print(f"Equipos que ya venían de la OTRA hoja: no se mezclan, se conservó la primera ({len(en_dos_hojas)}): {', '.join(en_dos_hojas)}")
     if repetidos:
         print(f"Códigos REPETIDOS dentro del archivo, omitidos sin mezclar ({len(repetidos)}): " + ", ".join(f"{c} (x{k})" for c, k in sorted(repetidos.items())))
     raras = [r for r in regs if r.get("sede_sin_reconocer")]

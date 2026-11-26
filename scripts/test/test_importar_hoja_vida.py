@@ -133,6 +133,24 @@ class Importar(unittest.TestCase):
             self.assertIn("Fuera del listado vigente, NO se importaron (1): 99999999", buf.getvalue())
             self.assertIn("eq-4307002", json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"])
 
+    def test_equipo_en_la_hoja_de_la_otra_planta_se_enlaza_y_no_se_mezcla_entre_hojas(self):
+        import io, contextlib
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d); libro(d)   # 04307002 existe en el registro SOLO en SEDE 4
+            salida = str(d / "o.json")
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):   # la hoja es de PLANTA 2 pero el equipo es de SEDE 4
+                ihv.main([str(d / "hv.xlsx"), "--ubicacion", "PLANTA 2", "--salida", salida, "--areas", str(d / "n.json")])
+            e = json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"]["eq-4307002"]
+            self.assertTrue(e["plantaDistinta"]); self.assertEqual(e["hojaDe"], "PLANTA 2")
+            self.assertIn("4307002 (registro: SEDE 4)", buf.getvalue())
+            # la misma máquina en la hoja de SEDE 4: ya venía de la otra hoja, no se mezcla
+            buf = io.StringIO()
+            with contextlib.redirect_stdout(buf):
+                ihv.main([str(d / "hv.xlsx"), "--ubicacion", "SEDE 4", "--salida", salida, "--areas", str(d / "n.json")])
+            self.assertIn("OTRA hoja", buf.getvalue())
+            self.assertEqual(json.loads((d / "o.json").read_text(encoding="utf-8"))["equipos"]["eq-4307002"]["hojaDe"], "PLANTA 2")
+
     def test_no_toca_equipos_js(self):
         antes = (RAIZ / "assets" / "equipos.js").read_bytes()
         self.correr()
