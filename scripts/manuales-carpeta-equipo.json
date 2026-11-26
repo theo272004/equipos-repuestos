@@ -1,0 +1,327 @@
+{
+  "_nota": "Carpeta de Respaldos -> equipo(s) del registro. «asignada»: hay nombre o archivos que lo respaldan (confianza alta) o se infiere del nombre (media, a confirmar). «sin-asignar»: no se adivina. Una carpeta puede ir a varios equipos si es el mismo manual. Una carpeta que no esté aquí sale como sin asignar.",
+  "carpetas": {
+    "blisteadora 5": {
+      "estado": "asignada",
+      "equipos": [
+        "17332005"
+      ],
+      "confianza": "alta",
+      "motivo": "Los archivos dicen «Blisteadora #5 / UPS 300 No.5»."
+    },
+    "blisteadora 9 ups300": {
+      "estado": "asignada",
+      "equipos": [
+        "17332012"
+      ],
+      "confianza": "media",
+      "motivo": "El manual dice «BLI09 UPS 300»; es la Blisteadora #9 UPS 300."
+    },
+    "Blisteadora EVO MB451": {
+      "estado": "asignada",
+      "equipos": [
+        "17332009"
+      ],
+      "confianza": "alta",
+      "motivo": "Blisteadora #7 Marchesini EVO MB451."
+    },
+    "Blisteadora Uhlmann 1240": {
+      "estado": "asignada",
+      "equipos": [
+        "17332003"
+      ],
+      "confianza": "alta",
+      "motivo": "Los archivos dicen «Blister 3» (B1240, ficha del repositorio ya vinculada)."
+    },
+    "Blsiteadora Integra 320": {
+      "estado": "asignada",
+      "equipos": [
+        "17332004"
+      ],
+      "confianza": "alta",
+      "motivo": "Blisteadora #4 Integra320 (ficha del repositorio ya vinculada)."
+    },
+    "Blsiteadora MB432": {
+      "estado": "asignada",
+      "equipos": [
+        "17332008"
+      ],
+      "confianza": "alta",
+      "motivo": "Blisteadora #6 MB432 Marchesini."
+    },
+    "Calculo de Bombas": {
+      "estado": "sin-asignar",
+      "motivo": "Tablas de productos de bombas; no indican a qué equipo pertenecen."
+    },
+    "Codificadora EASY PRINT": {
+      "estado": "asignada",
+      "equipos": [
+        "125305001"
+      ],
+      "confianza": "alta",
+      "motivo": "Codificadora Easyprint #1 (único Easyprint del listado)."
+    },
+    "Encapsuladora Bosch": {
+      "estado": "asignada",
+      "equipos": [
+        "17333005"
+      ],
+      "confianza": "alta",
+      "motivo": "Encapsuladora Bosch GKF 2600 (kits de repuestos GKF 2600)."
+    },
+    "Encapsuladora Centro Líquido Qualicaps": {
+      "estado": "sin-asignar",
+      "motivo": "Hay 4 encapsuladoras de centro líquido (CL #1 a #4, Qualicaps) y la carpeta no dice cuál."
+    },
+    "Encapsuladora NJP": {
+      "estado": "asignada",
+      "equipos": [
+        "17333006",
+        "17333007"
+      ],
+      "confianza": "media",
+      "motivo": "Manual NJP-1200C; las dos NJP del listado (NJP 1 y NJP 2) ya comparten este manual en el repositorio."
+    },
+    "Envasadora liquidos 1": {
+      "estado": "asignada",
+      "equipos": [
+        "17334004"
+      ],
+      "confianza": "media",
+      "motivo": "«Envasadora liquidos 1» = Envasadora de Líquidos #1 (un solo archivo: LLENADORA FARMACAPSULAS)."
+    },
+    "Envasadora Líquidos 3 marchesini": {
+      "estado": "asignada",
+      "equipos": [
+        "125334003"
+      ],
+      "confianza": "media",
+      "motivo": "Línea Marchesini #3; la ficha del repositorio «Envasadora de Líquidos #3» usa el código 125334003 (llenadora-tapadora)."
+    },
+    "Estuchadora Ma 50 M1230014": {
+      "estado": "asignada",
+      "equipos": [
+        "17332010"
+      ],
+      "confianza": "alta",
+      "motivo": "Estuchadora Marchesini MA50-N."
+    },
+    "Estuchadora Robobuffer": {
+      "estado": "sin-asignar",
+      "motivo": "Dos documentos de un Robobuffer; hay varias estuchadoras y no dicen de cuál."
+    },
+    "Etiquetadora Marchesini": {
+      "estado": "asignada",
+      "equipos": [
+        "125334005"
+      ],
+      "confianza": "alta",
+      "motivo": "Etiquetadora SL-F220 Marchesini (única etiquetadora Marchesini del listado)."
+    },
+    "Etiqueteadora PMS": {
+      "estado": "sin-asignar",
+      "motivo": "Manual PMS Roller; el listado trae varias etiquetadoras envolventes sin marca."
+    },
+    "FETTE P2020#235491 C.I. FARMACAPSULAS_601364223": {
+      "estado": "sin-asignar",
+      "motivo": "Hay dos P2020 (P2020 y P2020 II) y la carpeta solo trae el número de serie 235491."
+    },
+    "FLEXOGRAFICA": {
+      "estado": "asignada",
+      "equipos": [
+        "16336008",
+        "16336009"
+      ],
+      "confianza": "media",
+      "motivo": "Manual FX30 PRO STEP matrícula 19021; las dos flexográficas ya comparten ese manual en el repositorio."
+    },
+    "Folletos ASEMAQ": {
+      "estado": "sin-asignar",
+      "motivo": "Catálogos y folletos de proveedor, sin equipo."
+    },
+    "HVAC Sede 4, líquidos": {
+      "estado": "sin-asignar",
+      "motivo": "Documentos de un sistema HVAC; no apuntan a un equipo único."
+    },
+    "HVAC vía 40": {
+      "estado": "sin-asignar",
+      "motivo": "Documentos de varias UMA/UCA; no apuntan a un equipo único."
+    },
+    "Impresora FlexCode (CENDI)": {
+      "estado": "sin-asignar",
+      "motivo": "Impresora FlexCode Mini: no figura en el listado vigente."
+    },
+    "Impresora Flexográfica": {
+      "estado": "asignada",
+      "equipos": [
+        "16336008",
+        "16336009"
+      ],
+      "confianza": "media",
+      "motivo": "Mismo manual FX30 PRO STEP matrícula 19021; las dos flexográficas ya lo comparten en el repositorio."
+    },
+    "Lecho Fluido 40": {
+      "estado": "asignada",
+      "equipos": [
+        "16372001"
+      ],
+      "confianza": "alta",
+      "motivo": "Equipo Lecho Fluido Huttlin 40."
+    },
+    "Lecho Fluido 400": {
+      "estado": "asignada",
+      "equipos": [
+        "130378001"
+      ],
+      "confianza": "alta",
+      "motivo": "Equipo Lecho Fluido Huttlin 400."
+    },
+    "Lecho Fluido 600": {
+      "estado": "asignada",
+      "equipos": [
+        "130378002"
+      ],
+      "confianza": "alta",
+      "motivo": "Equipo Lecho Fluido Huttlin 600."
+    },
+    "MARZIO": {
+      "estado": "sin-asignar",
+      "motivo": "Dos documentos de la R-120; hay 6 Marzio R-120 y no dicen cuál."
+    },
+    "Mezclador BIN": {
+      "estado": "sin-asignar",
+      "motivo": "Mantenimiento de mezclador de bines 1200 + columna CS200; no coincide con un solo equipo del listado."
+    },
+    "Multipharma": {
+      "estado": "sin-asignar",
+      "motivo": "Manual de operación Multipharma; sin equipo en el listado."
+    },
+    "NJP 3500": {
+      "estado": "asignada",
+      "equipos": [
+        "17333009"
+      ],
+      "confianza": "media",
+      "motivo": "«NJP 3500» = Encapsuladora NJP-3500 (un solo archivo ESCANEADO.pdf). No figura en el listado vigente."
+    },
+    "Planta de agua BWT": {
+      "estado": "sin-asignar",
+      "motivo": "Hay varias plantas de agua y la carpeta no dice a cuál corresponde."
+    },
+    "Planta de Agua PAF": {
+      "estado": "sin-asignar",
+      "motivo": "Hay varias plantas de agua y la carpeta no dice a cuál corresponde."
+    },
+    "Planta de agua WTS": {
+      "estado": "sin-asignar",
+      "motivo": "Hay varias plantas de agua y la carpeta no dice a cuál corresponde."
+    },
+    "Posicionadora Marchesini": {
+      "estado": "sin-asignar",
+      "motivo": "No está claro si es el «Orientador de envase Marchesini» (125334001) u otro equipo de la línea."
+    },
+    "Recubridor R200": {
+      "estado": "asignada",
+      "equipos": [
+        "141328042"
+      ],
+      "confianza": "alta",
+      "motivo": "Recubridor STE TP R200 Optima."
+    },
+    "Recubridor R400": {
+      "estado": "asignada",
+      "equipos": [
+        "141328043"
+      ],
+      "confianza": "alta",
+      "motivo": "Recubridor STE TP R400-0."
+    },
+    "Sacheteadora sobres Marchesini MS235": {
+      "estado": "asignada",
+      "equipos": [
+        "17334017"
+      ],
+      "confianza": "alta",
+      "motivo": "MS235 = 17334017 (confirmado por el usuario)."
+    },
+    "Sopladora Marchesini": {
+      "estado": "asignada",
+      "equipos": [
+        "125334002"
+      ],
+      "confianza": "alta",
+      "motivo": "Máquina sopladora de envase Marchesini."
+    },
+    "Tableteadora Fette 1010": {
+      "estado": "asignada",
+      "equipos": [
+        "17365003"
+      ],
+      "confianza": "alta",
+      "motivo": "Tableteadora Fette P1010."
+    },
+    "Tableteadora Fette 2020-1": {
+      "estado": "asignada",
+      "equipos": [
+        "17365007"
+      ],
+      "confianza": "media",
+      "motivo": "«2020-1» = primera P2020; la segunda figura como P2020 II."
+    },
+    "Tableteadora Ronchi": {
+      "estado": "asignada",
+      "equipos": [
+        "17365002"
+      ],
+      "confianza": "alta",
+      "motivo": "Única tableteadora Ronchi del listado."
+    },
+    "Tanque pulmon líquidos 3": {
+      "estado": "sin-asignar",
+      "motivo": "Documentos de un tanque (DQ 21093) sin equipo claro en el listado."
+    },
+    "Tanques CL Sede 4": {
+      "estado": "sin-asignar",
+      "motivo": "Tuberías de tanques; no apuntan a un equipo único."
+    },
+    "Validaciones": {
+      "estado": "sin-asignar",
+      "motivo": "Planos arquitectónicos y de clasificación de áreas: no son de un equipo."
+    }
+  },
+  "enRepo": {
+    "_nota": "Vínculos que ya existen en el repositorio (manuales/<carpeta>/ + documents[] de la ficha): NO se tocan. Se listan para no duplicarlos.",
+    "manuales/ms235": [
+      "17334017"
+    ],
+    "manuales/stickpack": [
+      "17334018"
+    ],
+    "manuales/blister3": [
+      "17332003"
+    ],
+    "manuales/integra320": [
+      "17332004"
+    ],
+    "manuales/gkf2600": [
+      "17333005"
+    ],
+    "manuales/njp1200": [
+      "17333006",
+      "17333007"
+    ],
+    "manuales/njp3500": [
+      "17333009"
+    ],
+    "manuales/fx30": [
+      "16336008",
+      "16336009"
+    ],
+    "manuales/hdgc400": [
+      "130378001"
+    ],
+    "manuales/ml642": [
+      "125334003"
+    ]
+  }
+}
