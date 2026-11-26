@@ -1,0 +1,912 @@
+{
+  "nota": "Equipos que salieron de la lista activa por no estar en el listado oficial vigente DMM-179/179B. Aquí queda su copia completa (datos y filas de plan) para poder reactivarlos. En assets/equipos.js siguen con retirado:true (no se borra nada del historial). Para reactivar uno: quitar retirado, retiradoMotivo y retiradoEn de su registro en assets/equipos.js.",
+  "retirados": [
+    {
+      "c": "16328028",
+      "id": "eq-16328028",
+      "mid": "",
+      "n": "Bombo # 28 de 350 Kg",
+      "nOriginal": "BOMBO # 28 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            3,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328029",
+      "id": "eq-16328029",
+      "mid": "",
+      "n": "Bombo # 29 de 350 Kg",
+      "nOriginal": "BOMBO # 29 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328030",
+      "id": "eq-16328030",
+      "mid": "",
+      "n": "Bombo # 30 de 350 Kg",
+      "nOriginal": "BOMBO # 30 de 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328031",
+      "id": "eq-16328031",
+      "mid": "",
+      "n": "Bombo # 31 de 350 Kg",
+      "nOriginal": "BOMBO # 31 de 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            2,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328032",
+      "id": "eq-16328032",
+      "mid": "",
+      "n": "Bombo # 32 de 350 Kg",
+      "nOriginal": "BOMBO # 32 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203067",
+          "d": "CORREA B49",
+          "q": 1,
+          "e": 6,
+          "w": [
+            0,
+            0,
+            5,
+            0
+          ],
+          "o": "",
+          "ub": "R01/O0303 · R02/E0303",
+          "pu": 13500,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "741901001",
+          "d": "RODAMIENTO DE BOLA REF 6205 ZZ",
+          "q": 0,
+          "e": 13,
+          "w": [
+            11,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R04/B0204 · R01/Z0505 · R01/Z0405",
+          "pu": 13277,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "741901004",
+          "d": "RODAMIENTO DE BOLA REF 6206 ZZ",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "742203009",
+          "d": "POTENCIOMETRO DE 0-1000 OHMS REF.943-90037.0807",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328036",
+      "id": "eq-16328036",
+      "mid": "",
+      "n": "Bombo # 36 de 350 Kg",
+      "nOriginal": "BOMBO # 36 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328040",
+      "id": "eq-16328040",
+      "mid": "",
+      "n": "Bombo # 40 de 350 Kg",
+      "nOriginal": "BOMBO # 40 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            0,
+            1,
+            1,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "16328041",
+      "id": "eq-16328041",
+      "mid": "",
+      "n": "Bombo # 41 de 350 Kg",
+      "nOriginal": "BOMBO # 41 DE 350 Kg",
+      "u": "PLANTA 2",
+      "cc": "R7",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203112",
+          "d": "CORREA B50",
+          "q": 1,
+          "e": 11,
+          "w": [
+            8,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0307",
+          "pu": 28950,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-07-21",
+            "px": "2026-07-16",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17303005",
+      "id": "eq-17303005",
+      "mid": "",
+      "n": "Granulador # 2",
+      "nOriginal": "GRANULADOR # 2",
+      "u": "PLANTA 2",
+      "cc": "J9",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "TAPA SOPORTE DE EJE",
+          "a": "MECANICA",
+          "cod": "741903024",
+          "d": "RODAMIENTO CONTACTO ANGULAR 7204C",
+          "q": 1,
+          "e": 5,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/D0102",
+          "pu": 242221,
+          "xls": {
+            "f": "1A",
+            "ej": "2024-09-12",
+            "px": "2025-09-07",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17329001",
+      "id": "eq-17329001",
+      "mid": "",
+      "n": "Horno de Secado # 1",
+      "nOriginal": "HORNO DE SECADO # 1",
+      "u": "PLANTA 2",
+      "cc": "J9",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "712105018",
+          "d": "TEMPORIZADOR AUTONICS LE4SA DIGITAL",
+          "q": 0,
+          "e": 2,
+          "w": [
+            1,
+            1,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/A0405 · R01/X0402",
+          "pu": 271470,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "742202425",
+          "d": "GUARDAMOTOR 4 A 6.3 AMP TELEMECANIQUE GV2P10",
+          "q": 0,
+          "e": 1,
+          "w": [
+            1,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/X0402",
+          "pu": 463615,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "741703045",
+          "d": "CONTROLADOR DE TEMPERATURA OMRON E5CN-HC2M-500",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "ELECTRICA",
+          "cod": "742202416",
+          "d": "CONTACTOR TELEMECANIQUE LC 1D 32 BOBINA A 220 VAC",
+          "q": 0,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17334008",
+      "id": "eq-17334008",
+      "mid": "",
+      "n": "Encelofanadora para Liquidos en Sobre Stick Pack",
+      "nOriginal": "ENCELOFANADORA PARA LIQUIDOS EN SOBRE STICK PACK",
+      "u": "PLANTA 2",
+      "cc": "DI",
+      "tipo": "PROCESO",
+      "r": [
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001185",
+          "d": "RODILLO ARRASTRE GRAFILADO PTA DIAMANTE STICK PACK",
+          "q": 0,
+          "e": 2,
+          "w": [
+            0,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0606",
+          "pu": 450000,
+          "xls": {
+            "f": "",
+            "ej": "",
+            "px": "",
+            "st": ""
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001187",
+          "d": "RESORTE AMORTIGUADOR SELLADO HORIZONTAL STICK PACK",
+          "q": 0,
+          "e": 4,
+          "w": [
+            4,
+            2,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R04/E0105",
+          "pu": 92018,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-08-22",
+            "px": "2026-08-17",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "",
+          "a": "MECANICA",
+          "cod": "724001184",
+          "d": "CUCHILLA DENTADA STICK PACK",
+          "q": 0,
+          "e": 3,
+          "w": [
+            0,
+            0,
+            2,
+            0
+          ],
+          "o": "",
+          "ub": "R02/J0606",
+          "pu": 442750,
+          "xls": {
+            "f": "6M",
+            "ej": "2025-03-07",
+            "px": "2025-09-03",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial DMM-179 vigente y del anterior. Es otra máquina (Empacando DXDL60 II, 2016), no duplicado de 17334018 (MT-1100).",
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17303001",
+      "id": "eq-17303001",
+      "mid": "",
+      "n": "Mezclador de # 2 300KG",
+      "nOriginal": "MEZCLADOR HORIZONTAL #2 DE 300KG",
+      "u": "SEDE 4",
+      "cc": "J8",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741901286",
+          "d": "RODAMIENTO DE BOLA REF 1216 K",
+          "q": 2,
+          "e": 1,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "R01/Z0505",
+          "pu": 289616,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-03-03",
+            "px": "2025-02-20",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741906077",
+          "d": "MANGUITO H216 PARA EJE 70MM",
+          "q": 2,
+          "e": 0,
+          "w": [
+            10,
+            0,
+            1,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2023-03-03",
+            "px": "2025-02-20",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17304008",
+      "id": "eq-17304008",
+      "mid": "",
+      "n": "Selladora Secadora de Capsulas Qcaps3",
+      "nOriginal": "SELLADORA SECADORA DE CAPSULAS QCAPS3",
+      "u": "SEDE 4",
+      "cc": "EG",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "SISTEMA DE SELLADO",
+          "a": "MECANICA",
+          "cod": "741901287",
+          "d": "RODAMIENTO DE BOLA REF MF84 ZZ",
+          "q": 20,
+          "e": 0,
+          "w": [
+            10,
+            0,
+            1,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "6M",
+            "ej": "2025-01-16",
+            "px": "2025-07-15",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA DE SELLADO",
+          "a": "MECANICA",
+          "cod": "724002020",
+          "d": "CORREA DENTADA 600-8M-18MM ENCAPSULADO LIQ.FIL 40",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-01-16",
+            "px": "2026-01-11",
+            "st": "RETRASADO"
+          }
+        },
+        {
+          "s": "SISTEMA MOTRIZ",
+          "a": "MECANICA",
+          "cod": "741203265",
+          "d": "",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1A",
+            "ej": "2025-01-16",
+            "px": "2026-01-11",
+            "st": "RETRASADO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17366001",
+      "id": "eq-17366001",
+      "mid": "",
+      "n": "Codificadora Laser #1 VJ3020",
+      "nOriginal": "CODIFICADORA LASER #1 VJ3020",
+      "u": "SEDE 4",
+      "cc": "J5",
+      "tipo": "PROCESO",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "FILTRACION",
+          "a": "FILTRACION",
+          "cod": "732503064",
+          "d": "FILTRO HEPA 72313 CODIFICADORA LASER VIDEOJET 3020",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-29",
+            "px": "2026-12-19",
+            "st": "EN TIEMPO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17366002",
+      "id": "eq-17366002",
+      "mid": "",
+      "n": "Codificadora Laser #2 VJ3020",
+      "nOriginal": "CODIFICADORA LASER #2 VJ3020",
+      "u": "SEDE 4",
+      "cc": "J5",
+      "tipo": "AUXILIAR",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "FILTRACION",
+          "a": "FILTRACION",
+          "cod": "732503064",
+          "d": "FILTRO HEPA 72313 CODIFICADORA LASER VIDEOJET 3020",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-29",
+            "px": "2026-12-19",
+            "st": "EN TIEMPO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    },
+    {
+      "c": "17366003",
+      "id": "eq-17366003",
+      "mid": "",
+      "n": "Codificadora Laser #3 VJ3020",
+      "nOriginal": "CODIFICADORA LASER #3 VJ3020",
+      "u": "SEDE 4",
+      "cc": "J5",
+      "tipo": "AUXILIAR",
+      "retirado": true,
+      "retiradoMotivo": "Fuera del listado oficial vigente DMM-179/179B (decisión del usuario, 2026-11-25). Se conserva para poder reactivarlo si vuelve al listado.",
+      "r": [
+        {
+          "s": "FILTRACION",
+          "a": "FILTRACION",
+          "cod": "732503064",
+          "d": "FILTRO HEPA 72313 CODIFICADORA LASER VIDEOJET 3020",
+          "q": 1,
+          "e": 0,
+          "w": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "o": "",
+          "ub": "",
+          "pu": 0,
+          "xls": {
+            "f": "1B",
+            "ej": "2024-12-29",
+            "px": "2026-12-19",
+            "st": "EN TIEMPO"
+          }
+        }
+      ],
+      "retiradoEn": "2026-11-25"
+    }
+  ]
+}

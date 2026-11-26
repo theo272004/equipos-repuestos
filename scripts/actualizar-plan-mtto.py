@@ -17,6 +17,15 @@ pieza de cada equipo, la frecuencia, la última ejecución, la próxima y el est
 Uso:
   python3 scripts/actualizar-plan-mtto.py "ruta/MANTENIMIENTO POR SISTEMAS.xlsm"
   python3 scripts/actualizar-plan-mtto.py "ruta/archivo.xlsm" --probar     (no escribe, solo cuenta)
+  python3 scripts/actualizar-plan-mtto.py "ruta/archivo.xlsm" --ubicacion "PLANTA 2"
+
+El código de equipo NO es único: 17303002 y 17303018 existen en Sede 4 y en Planta 2. El
+cruce es por planta + código. La planta sale de la columna C («UBICACIÓN») de la hoja PLAN
+MTTO. Si una fila no trae planta y su código está en las dos, se OMITE y se lista (no se
+adivina). Con --ubicacion solo se actualiza esa planta.
+
+Los equipos con `retirado: true` (fuera del listado oficial) NO se actualizan: sus filas del Excel
+se omiten y se listan. Los marcados `noEnListado` siguen activos y se actualizan normal.
 
 Es seguro correrlo varias veces: con el mismo Excel la segunda vez no cambia nada.
 No ejecuta las macros del archivo: solo lee los valores guardados.
@@ -75,7 +84,7 @@ def leer_excel(ruta):
         if not eq:
             continue
         filas.append({
-            "eq": eq, "sis": texto(r[3]), "act": texto(r[4]), "cod": cod(r[5]), "d": texto(r[6]),
+            "eq": eq, "u": texto(r[2]).upper(), "sis": texto(r[3]), "act": texto(r[4]), "cod": cod(r[5]), "d": texto(r[6]),
             "q": num(r[9]), "e": num(r[10]), "w": [num(r[11]), num(r[12]), num(r[13]), num(r[14])],
             "f": texto(r[17]), "ej": fecha(r[18]), "px": fecha(r[19]), "st": texto(r[21]), "o": texto(r[22]),
         })
@@ -87,6 +96,8 @@ def main():
     if not args:
         sys.exit(__doc__)
     probar = "--probar" in sys.argv
+    ubicacion = sys.argv[sys.argv.index("--ubicacion") + 1].upper() if "--ubicacion" in sys.argv else ""
+    args = [a for a in args if a.upper() != ubicacion]
     filas, corte = leer_excel(args[0])
 
     s = DESTINO.read_text(encoding="utf-8")
@@ -94,7 +105,11 @@ def main():
     cuerpo = s[m.end():]
     fin = cuerpo.rstrip().rfind(";")
     datos = json.loads(cuerpo[:fin])
-    por_eq = {str(e["c"]): e for e in datos["equipos"]}
+    por_eq = defaultdict(list)          # código -> equipos (puede haber uno por planta)
+    for e in datos["equipos"]:
+        por_eq[str(e["c"])].append(e)
+    ambiguos = set()
+    omitidas_retirados = []
 
     # Para copiar precio y ubicación de una pieza que la app ya conoce
     conocidas = {}
@@ -106,12 +121,23 @@ def main():
     usados = set()
     cambiadas, agregadas, sin_equipo = [], [], 0
     for x in filas:
-        e = por_eq.get(x["eq"])
-        if not e:
+        # La hoja PLAN MTTO trae la planta en la columna C (UBICACIÓN): con eso se resuelven
+        # solos los códigos repetidos. --ubicacion, si se pasa, manda sobre la columna.
+        planta = ubicacion or (x["u"] if x["u"] in ("SEDE 4", "PLANTA 2") else "")
+        cands = [c for c in por_eq.get(x["eq"], []) if not planta or c["u"] == planta]
+        if not cands:
             sin_equipo += 1
             continue
+        if len(cands) > 1:
+            ambiguos.add(x["eq"])
+            continue
+        e = cands[0]
+        if e.get("retirado"):
+            # Equipo fuera del listado: sus filas no se actualizan, solo se listan
+            omitidas_retirados.append((e["c"], e["n"], x["cod"], x["sis"]))
+            continue
         # Misma pieza: mismo código y mismo sistema; si no, el mismo código
-        cand = [i for i, r in enumerate(e["r"]) if (x["eq"], i) not in usados and r.get("cod", "") == x["cod"]]
+        cand = [i for i, r in enumerate(e["r"]) if (e["id"], i) not in usados and r.get("cod", "") == x["cod"]]
         mismo = [i for i in cand if norm(e["r"][i].get("s")) == norm(x["sis"])]
         pool = mismo or cand
         nuevo_xls = {"f": x["f"], "ej": x["ej"], "px": x["px"], "st": x["st"]}
@@ -127,10 +153,10 @@ def main():
                 "ub": base.get("ub", ""), "pu": base.get("pu", 0),
                 "xls": {"f": x["f"], "ej": x["ej"], "px": x["px"], "st": x["st"]},
             })
-            usados.add((x["eq"], len(e["r"]) - 1))
+            usados.add((e["id"], len(e["r"]) - 1))
             agregadas.append((e["n"], x["cod"], x["sis"], x["ej"]))
             continue
-        usados.add((x["eq"], i))
+        usados.add((e["id"], i))
         r = e["r"][i]
         nuevo = {"f": x["f"], "ej": x["ej"], "px": x["px"], "st": x["st"]}
         if r.get("xls") != nuevo:
@@ -144,6 +170,12 @@ def main():
         por_eq_cambio[n] += 1
     for n, k in sorted(por_eq_cambio.items(), key=lambda t: -t[1]):
         print(f"  {k:3d}  {n}")
+    if omitidas_retirados:
+        print(f"Filas de equipos RETIRADOS, omitidas sin actualizar ({len(omitidas_retirados)}):")
+        for c, n, cd, sis in omitidas_retirados:
+            print(f"  - {c} · {n} · {cd or '—'} · {sis or '—'}")
+    if ambiguos:
+        print(f"Códigos en más de una planta, OMITIDOS (usa --ubicacion): {', '.join(sorted(ambiguos))}")
     for n, c, sis, ej in agregadas:
         print(f"  + {n} · {c} · {sis or '—'} · ejecutado {ej or '—'}")
     if probar:
