@@ -1,0 +1,6207 @@
+{
+ "nota": "Cronograma anual de mantenimiento preventivo 2026: por equipo, las SEMANAS del año programadas en cada mes y la cantidad de actividades al año. Solo lo programado: no incluye ejecutado. Generado por scripts/importar-cronograma.py.",
+ "anio": 2026,
+ "generado": "2026-11-27",
+ "programas": {
+  "SEDE 4": "DMM-173B Programa anual de mantenimiento preventivo, equipos de proceso y auxiliares, Sede 4 (ED 2 V03-2026, 2026-06-17), hoja «2026»",
+  "PLANTA 2": "DMM-173 Programa anual de mantenimiento preventivo, equipos de proceso y auxiliares, Planta 2 (V01-2026), hoja «ED 4  V01-2026»"
+ },
+ "equipos": {
+  "blister3": {
+   "codigo": "17332003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Blisteadora#3 B1240 Uhlmann",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     34
+    ],
+    "11": [
+     45
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-120308038": {
+   "codigo": "120308038",
+   "ubicacion": "SEDE 4",
+   "nombre": "UMA Recubridor TP R200",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     26
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-120308039": {
+   "codigo": "120308039",
+   "ubicacion": "SEDE 4",
+   "nombre": "UMA Recubridor TP R400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     26
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-121101017": {
+   "codigo": "121101017",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Agua Purifica N°1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     10
+    ],
+    "6": [
+     26
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-121101018": {
+   "codigo": "121101018",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Agua Purifica N°2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     10
+    ],
+    "6": [
+     26
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-121101024": {
+   "codigo": "121101024",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Agua Purifica N°3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     10
+    ],
+    "6": [
+     26
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-121101025": {
+   "codigo": "121101025",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Agua Purifica N°4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     10
+    ],
+    "6": [
+     26
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-122354001": {
+   "codigo": "122354001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Planta de Agua # 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-122354002": {
+   "codigo": "122354002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Planta de Agua # 3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-125305001": {
+   "codigo": "125305001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Codificadora Easyprint #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-125334001": {
+   "codigo": "125334001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Orientador de Envase MARCHESINI",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     23
+    ],
+    "9": [
+     39
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-125334002": {
+   "codigo": "125334002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Máquina Sopladora de Envase MARCHESINI",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     23
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-125334003": {
+   "codigo": "125334003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Máquina Llenadora y Tapadora MARCHESINI",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     23
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-125334004": {
+   "codigo": "125334004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chequeadora de Peso Mettler Linea MARCHESINI Líquidos",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-125334005": {
+   "codigo": "125334005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Etiquetadora SL-F220 MARCHESINI",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "9": [
+     37
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-125334006": {
+   "codigo": "125334006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chequeadora de Peso Estuchadora MA50-N",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-125334007": {
+   "codigo": "125334007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chequeadora de Peso CS100",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ]
+   },
+   "frecuenciaAnual": 1,
+   "revision": "Chequeadora de peso CS100: el listado vigente la trae con ubicación «SE»; se revisa"
+  },
+  "eq-129101001": {
+   "codigo": "129101001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Preparación Soluciones Centro Líquidos 250L Fijo",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101002": {
+   "codigo": "129101002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101003": {
+   "codigo": "129101003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101004": {
+   "codigo": "129101004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101005": {
+   "codigo": "129101005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101006": {
+   "codigo": "129101006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #6",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101007": {
+   "codigo": "129101007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #7",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101008": {
+   "codigo": "129101008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #8",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-129101009": {
+   "codigo": "129101009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #9",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101002": {
+   "codigo": "130101002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Dispersor Preparación de Soluciones HUTTLIN 400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130101003": {
+   "codigo": "130101003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Preparación Soluciones HUTTLIN 400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ],
+    "5": [
+     21
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130101004": {
+   "codigo": "130101004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Centrifuga #1 Preparación LIQ",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101005": {
+   "codigo": "130101005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Centrifuga #2 Preparación LIQ",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101007": {
+   "codigo": "130101007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Preparación Soluciones HUTTLIN 600",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ],
+    "5": [
+     21
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130101008": {
+   "codigo": "130101008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Dispersor Preparación de Soluciones HUTTLIN 600",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130101009": {
+   "codigo": "130101009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Preparación Soluciones Centro Líquidos",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ],
+    "5": [
+     21
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130101011": {
+   "codigo": "130101011",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Neumatica de Doble Diafragma",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-130101012": {
+   "codigo": "130101012",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Centrifuga #4 Preparación LIQ",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101013": {
+   "codigo": "130101013",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Centrifuga #5 Preparación LIQ",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101014": {
+   "codigo": "130101014",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Centrifuga #6 Preparación LIQ",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101015": {
+   "codigo": "130101015",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Centrifuga #7 Preparación LIQ",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130101016": {
+   "codigo": "130101016",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Neumatica de Doble Diafragma #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-130107001": {
+   "codigo": "130107001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Monoblock 1 Huttlin 40",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130107002": {
+   "codigo": "130107002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Monoblock 2 HUTTLIN 400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130107003": {
+   "codigo": "130107003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Monoblock 3 HUTTLIN 600",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130302001": {
+   "codigo": "130302001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Cargue Solución #1 HUTTLIN 400",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302002": {
+   "codigo": "130302002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Cargue Solución #2 HUTTLIN 400",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302003": {
+   "codigo": "130302003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Preparación de Soluciones TL-M02 HUTTLIN 400",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302004": {
+   "codigo": "130302004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Preparación de Soluciones TL-M03 HUTTLIN 400",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302005": {
+   "codigo": "130302005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos #3 1500LT",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302006": {
+   "codigo": "130302006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos #3 1500LT #2 (trasvase)",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302007": {
+   "codigo": "130302007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos #3 600LT",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302011": {
+   "codigo": "130302011",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Centro Liquido 1500LT #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302012": {
+   "codigo": "130302012",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Centro Liquido 1500LT #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302013": {
+   "codigo": "130302013",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Preparación Soluciones #1 HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302014": {
+   "codigo": "130302014",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Preparación Soluciones #2 HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302015": {
+   "codigo": "130302015",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Preparación Soluciones #3 HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302016": {
+   "codigo": "130302016",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Cargue Solucion #1 HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302017": {
+   "codigo": "130302017",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Cargue Solucion #2 HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302018": {
+   "codigo": "130302018",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque Cargue Solucion #3 HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302019": {
+   "codigo": "130302019",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos 3000L #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302020": {
+   "codigo": "130302020",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos 3000L #4 (trasvase)",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302021": {
+   "codigo": "130302021",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos 1500L #6",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302022": {
+   "codigo": "130302022",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos 600L #7",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302023": {
+   "codigo": "130302023",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos 1200L #5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302024": {
+   "codigo": "130302024",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de Fabricación de Líquidos 300L #8",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302111": {
+   "codigo": "130302111",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque 1200L Fab/centro Liquido",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302112": {
+   "codigo": "130302112",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque 400L Fab/centro Liquido",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302113": {
+   "codigo": "130302113",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque 250L #1",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302114": {
+   "codigo": "130302114",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tanque de 250LT Movil #2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130302115": {
+   "codigo": "130302115",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque 250L #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-130310001": {
+   "codigo": "130310001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Captador Polvo Huttlin Hdgc400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130310002": {
+   "codigo": "130310002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Captador Polvo HUTTLIN Hdgc 400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130310003": {
+   "codigo": "130310003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Captador Polvo HUTTLIN HDGC600",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130317001": {
+   "codigo": "130317001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Secador de Aire II HUTTLIN 400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "4": [
+     16
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-130317002": {
+   "codigo": "130317002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Secador de Aire I HUTTLIN 40",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "4": [
+     16
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-130317003": {
+   "codigo": "130317003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Secador de Aire III HUTTLIN 600",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "4": [
+     16
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-130378001": {
+   "codigo": "130378001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Equipo Lecho Fluido Huttlin 400",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-130378002": {
+   "codigo": "130378002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Equipo Lecho Fluido HUTTLIN 600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-134303001": {
+   "codigo": "134303001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Columna Elevadora Mezcladora de Bines 1200L",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-134303002": {
+   "codigo": "134303002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Columna Elevadora STE TPH CB300",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-135351004": {
+   "codigo": "135351004",
+   "ubicacion": "SEDE 4",
+   "nombre": "CAB. Flujo Laminar Dispensación 3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-135408022": {
+   "codigo": "135408022",
+   "ubicacion": "SEDE 4",
+   "nombre": "CAB. Flujo Laminar Dispensación 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo-vigente",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4,
+   "codigoCronograma": "135351003",
+   "revision": "el cronograma trae el código antiguo 135351003; el vigente es 135408022"
+  },
+  "eq-135408024": {
+   "codigo": "135408024",
+   "ubicacion": "SEDE 4",
+   "nombre": "CAB. Flujo Laminar Dispensación 1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo-vigente",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4,
+   "codigoCronograma": "135351002",
+   "revision": "el cronograma trae el código antiguo 135351002; el vigente es 135408024"
+  },
+  "eq-136372002": {
+   "codigo": "136372002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Estibador Eléctrico",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "4": [
+     15
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-138411001": {
+   "codigo": "138411001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chequeadora de Peso BOSCH",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-141312001": {
+   "codigo": "141312001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Peristaltica #1 en Recubrimiento",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-141312002": {
+   "codigo": "141312002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Peristaltica #2 en Recubrimiento",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-141328042": {
+   "codigo": "141328042",
+   "ubicacion": "SEDE 4",
+   "nombre": "Recubridor STE TP R200 Optima",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     23
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-141328043": {
+   "codigo": "141328043",
+   "ubicacion": "SEDE 4",
+   "nombre": "Recubridor STE TP R400-0",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     23
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-141373003": {
+   "codigo": "141373003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Captador de Polvo Recubridor TP R200",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-141373004": {
+   "codigo": "141373004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Captador de Polvo Recubridor TP R400",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-15327006": {
+   "codigo": "15327006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Ascensor de Carga",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "2": [
+     7
+    ],
+    "3": [
+     10
+    ],
+    "4": [
+     15
+    ],
+    "5": [
+     20
+    ],
+    "6": [
+     23
+    ],
+    "7": [
+     28
+    ],
+    "8": [
+     32
+    ],
+    "9": [
+     37
+    ],
+    "10": [
+     41
+    ],
+    "11": [
+     45
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 12
+  },
+  "eq-16101001": {
+   "codigo": "16101001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Peristaltica #1 Microg",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16101002": {
+   "codigo": "16101002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Peristaltica #2 Microg",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16303001": {
+   "codigo": "16303001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Agitador para Preparar Soluciones",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16303002": {
+   "codigo": "16303002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Agitador Preparación de Soluciones HUTTLIN 40",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328001": {
+   "codigo": "16328001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bombo # 1 de 100 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328002": {
+   "codigo": "16328002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 2 para Ensayos de 100 KG Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328003": {
+   "codigo": "16328003",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 3 de 100 KG Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328004": {
+   "codigo": "16328004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 4 de 100 KG Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328005": {
+   "codigo": "16328005",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 5 de 100 KG Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328006": {
+   "codigo": "16328006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 6 para Ensayos de 20 KG Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328007": {
+   "codigo": "16328007",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 7 para Ensayos de 5 KG Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328014": {
+   "codigo": "16328014",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 14 de 300 KG Recubrimiento #6",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328015": {
+   "codigo": "16328015",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 15 de 300 KG Recubrimiento #7",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328021": {
+   "codigo": "16328021",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 21 de 60 KG para Ensayos Movil",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328022": {
+   "codigo": "16328022",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 22 de 350 KG Recubrimiento #1",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328023": {
+   "codigo": "16328023",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 23 de 350 KG Recubrimiento #2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328024": {
+   "codigo": "16328024",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 24 de 350 KG Recubrimiento #3",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328025": {
+   "codigo": "16328025",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bombo #25 de 350 KG",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328026": {
+   "codigo": "16328026",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bombo #26 de 350 KG",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328033": {
+   "codigo": "16328033",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 33 de 350 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328034": {
+   "codigo": "16328034",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 34 de 350 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328035": {
+   "codigo": "16328035",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bombo # 35 de 350 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328037": {
+   "codigo": "16328037",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 37 de 350 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328038": {
+   "codigo": "16328038",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 38 de 350 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16328039": {
+   "codigo": "16328039",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bombo # 39 de 350 Kg",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330001": {
+   "codigo": "16330001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330003": {
+   "codigo": "16330003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tamizadora Weston # 3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     22
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     48
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330004": {
+   "codigo": "16330004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tamizadora Weston # 4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     22
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     48
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330005": {
+   "codigo": "16330005",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston #5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330007": {
+   "codigo": "16330007",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston #7",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330008": {
+   "codigo": "16330008",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 8",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330009": {
+   "codigo": "16330009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tamizadora Weston # 9",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     22
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     48
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330010": {
+   "codigo": "16330010",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 10",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330011": {
+   "codigo": "16330011",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 11",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330013": {
+   "codigo": "16330013",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 13",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330015": {
+   "codigo": "16330015",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 15",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330017": {
+   "codigo": "16330017",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 17",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330019": {
+   "codigo": "16330019",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston # 19",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330025": {
+   "codigo": "16330025",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tamizadora Weston # 25",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     22
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     48
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330028": {
+   "codigo": "16330028",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tamizadora Weston #28",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16330032": {
+   "codigo": "16330032",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tamizadora Weston Lecho Fluido 40KG #14",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     22
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     48
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16331001": {
+   "codigo": "16331001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Micronizador #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ],
+    "5": [
+     19
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16331002": {
+   "codigo": "16331002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Micronizador #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     19
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16336008": {
+   "codigo": "16336008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Impresora Flexografica",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16336009": {
+   "codigo": "16336009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Impresora Flexografica 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16365007": {
+   "codigo": "16365007",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Graco #7",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16365010": {
+   "codigo": "16365010",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Graco #10",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16365017": {
+   "codigo": "16365017",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Graco #17",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16365020": {
+   "codigo": "16365020",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Graco #20",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16365021": {
+   "codigo": "16365021",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Graco #21",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     35
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16365025": {
+   "codigo": "16365025",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Graco #25",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-16370002": {
+   "codigo": "16370002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Transportador Neumatico OGA FETTE 1010",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     32
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-16370003": {
+   "codigo": "16370003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Transportador Neumatico OGA Fette 2020",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-16370004": {
+   "codigo": "16370004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Transportador Neumatico OGA MS235",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     32
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-16370005": {
+   "codigo": "16370005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Transportador Neumatico OGA FETTE 2020 II",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-16372001": {
+   "codigo": "16372001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Equipo Lecho Fluido Huttlin 40",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17303002": {
+   "codigo": "17303002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Mezclador Horizontal #1 de 40KG",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303002-p2": {
+   "codigo": "17303002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Mezclador #1 de 40KG",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303003": {
+   "codigo": "17303003",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Mezclador en V",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303004": {
+   "codigo": "17303004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Granulador #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17303006": {
+   "codigo": "17303006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque de Procesamiento de Jarabe # 1",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303007": {
+   "codigo": "17303007",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque de Procesamiento de Jarabe # 2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303009": {
+   "codigo": "17303009",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba para Filtros Jarabes",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17303011": {
+   "codigo": "17303011",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque de Procesamiento de Jarabe # 4",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303012": {
+   "codigo": "17303012",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque de Procesamiento de Jarabe # 5",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303013": {
+   "codigo": "17303013",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque de Almacenamiento para Centro Fab/env Líquidos 250L",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303016": {
+   "codigo": "17303016",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Agitador Portatil Fabricación Fab/env Líquidos",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17303017": {
+   "codigo": "17303017",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Agitador Heidolph #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17303018": {
+   "codigo": "17303018",
+   "ubicacion": "SEDE 4",
+   "nombre": "Agitador Heidolph #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17303018-p2": {
+   "codigo": "17303018",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Licuadora Industrial #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303019": {
+   "codigo": "17303019",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tanque de Procesamiento de Jarabe #6",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303023": {
+   "codigo": "17303023",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Mezclador #3 Horizontal de 300KG",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-17303024": {
+   "codigo": "17303024",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Granulador #3",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "5": [
+     19
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17304001": {
+   "codigo": "17304001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Selladora Secadora de Capsulas Qcaps1",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17304003": {
+   "codigo": "17304003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Selladora Secadora de Capsulas Qcaps2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17304004": {
+   "codigo": "17304004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Selladora Secadora de Capsulas QCAPS4",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17306001": {
+   "codigo": "17306001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Detector de Metal #1 CD40",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306002": {
+   "codigo": "17306002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Detector de Metal #2 NJP-1200 N°1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306003": {
+   "codigo": "17306003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Detector de Metal #3 NJP-1200 N°2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306004": {
+   "codigo": "17306004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Detector de Metal #4 Tableteadora RONCHI",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306005": {
+   "codigo": "17306005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Detector de Metal #5 Tableteadoleteadora FETTE P1010",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306006": {
+   "codigo": "17306006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Detector de Metal #6 Encapsuladora BOSCH",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306007": {
+   "codigo": "17306007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Detector de Metal #7 FETTE P2020",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17306008": {
+   "codigo": "17306008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Detector de Metal #8 FETTE P2020 II",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17310003": {
+   "codigo": "17310003",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cabina de Flujo Laminar Dispensación NO. 1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17310004": {
+   "codigo": "17310004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cabina de Flujo Laminar Dispensación NO. 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17329004": {
+   "codigo": "17329004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Horno Binder #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "5": [
+     19
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17329005": {
+   "codigo": "17329005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Horno Binder #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "9": [
+     39
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17329006": {
+   "codigo": "17329006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Horno Binder #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "9": [
+     39
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17329007": {
+   "codigo": "17329007",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Horno de Secado STC",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "5": [
+     19
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17329008": {
+   "codigo": "17329008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Horno Binder #4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "9": [
+     39
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17330006": {
+   "codigo": "17330006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encapsuladora CL #2 QUALICAPS2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17330007": {
+   "codigo": "17330007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encapsuladora CL #3 QUALICAPS F40",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17330008": {
+   "codigo": "17330008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Selladora Secadora de Capsulas QCAPS3",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17330009": {
+   "codigo": "17330009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encapsuladora CL #4",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332002": {
+   "codigo": "17332002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Blisteadora#2 UPS300R Uhlmann",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     34
+    ],
+    "11": [
+     45
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332005": {
+   "codigo": "17332005",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Blisteadora#5 UPS300Rent",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     14
+    ],
+    "7": [
+     27
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332006": {
+   "codigo": "17332006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Blisteadora GB100",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     14
+    ],
+    "7": [
+     27
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332007": {
+   "codigo": "17332007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Estuchadora Integra320 Marchesini",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     19
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332008": {
+   "codigo": "17332008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Blisteadora#6 MB432 Marchesini",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     34
+    ],
+    "11": [
+     45
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332009": {
+   "codigo": "17332009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Blisteadora #7 MARCHESINI EVO MB451",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     34
+    ],
+    "11": [
+     45
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17332010": {
+   "codigo": "17332010",
+   "ubicacion": "SEDE 4",
+   "nombre": "Estuchadora MARCHESINI MA50-N",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "5": [
+     19
+    ],
+    "8": [
+     32
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17333001": {
+   "codigo": "17333001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Encapsuladora # 1 (CD 40) Macofarm",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 5
+  },
+  "eq-17333004": {
+   "codigo": "17333004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Encapsuladora CL # 1 Qualicaps1",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 5
+  },
+  "eq-17333006": {
+   "codigo": "17333006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encapsuladora NJP-1200",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17333007": {
+   "codigo": "17333007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encapsuladora NJP 1200-2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334002": {
+   "codigo": "17334002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Encelofanadora Colimatic # 2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334004": {
+   "codigo": "17334004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Envasadora para Linea de FAB/ENV Liquidos",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334006": {
+   "codigo": "17334006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Envasadora de Líquidos #2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334009": {
+   "codigo": "17334009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encelofanadora Vertical CB550",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334010": {
+   "codigo": "17334010",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Encelofanadora de Polvos Marzio R-120 # 2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334014": {
+   "codigo": "17334014",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encelofanadora de Polvos Marzio R-120 # 6",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334015": {
+   "codigo": "17334015",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Encelofanadora para Líquidos en Sobre Stick Pack II",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334016": {
+   "codigo": "17334016",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Encelofanadora para Líquidos en Sobre Stick Pack III",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17334018": {
+   "codigo": "17334018",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encelofanadora Stick Pack MT-1100",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17335001": {
+   "codigo": "17335001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tapadora Rotativa",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17336008": {
+   "codigo": "17336008",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Codificadora VIDEOJET 1520",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     21
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17336009": {
+   "codigo": "17336009",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Codificadora INK JET Hitachi UX-B160WP",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     21
+    ],
+    "8": [
+     33
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17336010": {
+   "codigo": "17336010",
+   "ubicacion": "SEDE 4",
+   "nombre": "Codificadora Hitachi #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17336011": {
+   "codigo": "17336011",
+   "ubicacion": "SEDE 4",
+   "nombre": "Codificadora HITACHI #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17336013": {
+   "codigo": "17336013",
+   "ubicacion": "SEDE 4",
+   "nombre": "Codificadora HITACHI #5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17336014": {
+   "codigo": "17336014",
+   "ubicacion": "SEDE 4",
+   "nombre": "Codificadora HITACHI #6",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     13
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17351001": {
+   "codigo": "17351001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cabina de Flujo Laminar #1 Fab/env Líquidos",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17351002": {
+   "codigo": "17351002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cabina de Flujo Laminar #2 Fab/env Líquidos",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17365002": {
+   "codigo": "17365002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Tableteadoleteadora Ronchi PA 30",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17365003": {
+   "codigo": "17365003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tableteadora Fette P1010",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17365004": {
+   "codigo": "17365004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Desempolvador RONCHI",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "5": [
+     20
+    ],
+    "11": [
+     46
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17365005": {
+   "codigo": "17365005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Desempolvador Gratex 1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17365006": {
+   "codigo": "17365006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Desempolvador JFP-110A",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17365007": {
+   "codigo": "17365007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tableteadora Fette P2020",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17365008": {
+   "codigo": "17365008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Desempolvador Gratex 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17365009": {
+   "codigo": "17365009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Desempolvador JFP-110A #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17365010": {
+   "codigo": "17365010",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tableteadora Rimek",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17365011": {
+   "codigo": "17365011",
+   "ubicacion": "SEDE 4",
+   "nombre": "Tableteadora Fette P2020-2",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17365012": {
+   "codigo": "17365012",
+   "ubicacion": "SEDE 4",
+   "nombre": "Desempolvador Gratex 3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     30
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17367002": {
+   "codigo": "17367002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Etiquetadora Envolvente #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "5": [
+     20
+    ],
+    "11": [
+     47
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17367003": {
+   "codigo": "17367003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Etiquetadora Envolvente #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "9": [
+     37
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17368001": {
+   "codigo": "17368001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encintadora de Corrugados NO.1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17368002": {
+   "codigo": "17368002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encintadora de Corrugados NO.2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17368003": {
+   "codigo": "17368003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encintadora de Corrugados NO.3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17368004": {
+   "codigo": "17368004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encintadora de Corrugados NO.4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17368005": {
+   "codigo": "17368005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encintadora de Corrugados NO.5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17368006": {
+   "codigo": "17368006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encintadora de Corrugados NO.6",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17370001": {
+   "codigo": "17370001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Vacío CD40",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370004": {
+   "codigo": "17370004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Vacio Qualicaps#1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370005": {
+   "codigo": "17370005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacio Qualicaps#2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370006": {
+   "codigo": "17370006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Vacio Selladora CL#1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370007": {
+   "codigo": "17370007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacio Selladora CL#2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370008": {
+   "codigo": "17370008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío Encapsuladora CL#3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370009": {
+   "codigo": "17370009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío Selladora CL#3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370010": {
+   "codigo": "17370010",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío NJP 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370011": {
+   "codigo": "17370011",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Vacío Prueba Hermeticidad",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370012": {
+   "codigo": "17370012",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío NJP 1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370013": {
+   "codigo": "17370013",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío Encapsuladora CL#4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370014": {
+   "codigo": "17370014",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío Selladora CL#4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-17370015": {
+   "codigo": "17370015",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba de Vacío BOSCH",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "4": [
+     16
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371001": {
+   "codigo": "17371001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Banda Transportadora BLISTEADO#1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371002": {
+   "codigo": "17371002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371003": {
+   "codigo": "17371003",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Banda Transportadora BLISTEADO#3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "8": [
+     34
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371004": {
+   "codigo": "17371004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371005": {
+   "codigo": "17371005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371006": {
+   "codigo": "17371006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #6",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371007": {
+   "codigo": "17371007",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #7",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371008": {
+   "codigo": "17371008",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #8",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-17371009": {
+   "codigo": "17371009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Banda Transportadora #9",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     1
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-3608001": {
+   "codigo": "3608001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Dispensación 06",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608004": {
+   "codigo": "3608004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA #1 Dispensación 06",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608005": {
+   "codigo": "3608005",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA #2 Dispensación 06",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608006": {
+   "codigo": "3608006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Sólidos 08B",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608009": {
+   "codigo": "3608009",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Líquidos #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608012": {
+   "codigo": "3608012",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA #1 Líquidos #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608013": {
+   "codigo": "3608013",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA #2 Líquidos #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608014": {
+   "codigo": "3608014",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Centro Liquido a",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608015": {
+   "codigo": "3608015",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA #1 Centro Liquido a",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608016": {
+   "codigo": "3608016",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA #2 Centro Liquido a",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608020": {
+   "codigo": "3608020",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Líquidos #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-3608022": {
+   "codigo": "3608022",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Recubrimiento #10",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-363100001": {
+   "codigo": "363100001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cortina de Aire #1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "7": [
+     29
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-363100002": {
+   "codigo": "363100002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cortina de Aire #2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "7": [
+     29
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-363100003": {
+   "codigo": "363100003",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cortina de Aire #3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "7": [
+     29
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-363100004": {
+   "codigo": "363100004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Cortina de Aire #4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "7": [
+     29
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-41373001": {
+   "codigo": "41373001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Torre Lavadora Secadora de Mangas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     8
+    ],
+    "8": [
+     33
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "eq-4307002": {
+   "codigo": "4307002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chiller #2 UPS300",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4307003": {
+   "codigo": "4307003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chiller #3 CL 4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4307004": {
+   "codigo": "4307004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chiller #4 Integra",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4307005": {
+   "codigo": "4307005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chiller #5 UPS300",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4307006": {
+   "codigo": "4307006",
+   "ubicacion": "SEDE 4",
+   "nombre": "Chiller #6 MB432",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     29
+    ],
+    "10": [
+     42
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310001": {
+   "codigo": "4310001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA # 1 para Aire Comedor",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310011": {
+   "codigo": "4310011",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA # 1 para Comedor",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310018": {
+   "codigo": "4310018",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Centro Liquido B",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310021": {
+   "codigo": "4310021",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Sólidos 08A",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310022": {
+   "codigo": "4310022",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA de Empaque",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310025": {
+   "codigo": "4310025",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310030": {
+   "codigo": "4310030",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Segundo Piso",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310036": {
+   "codigo": "4310036",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 7",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310037": {
+   "codigo": "4310037",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 6",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310048": {
+   "codigo": "4310048",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310049": {
+   "codigo": "4310049",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310054": {
+   "codigo": "4310054",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA # 1 para Aire de Oficinas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310055": {
+   "codigo": "4310055",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA # 2 para Aire de Oficinas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310056": {
+   "codigo": "4310056",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA # 3 para Aire de Oficinas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310057": {
+   "codigo": "4310057",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA # 1 para Aire de Oficinas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310058": {
+   "codigo": "4310058",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA # 2 para Aire de Oficinas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310059": {
+   "codigo": "4310059",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA # 3 para Aire de Oficinas",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310062": {
+   "codigo": "4310062",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Cuarto de Retención",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310063": {
+   "codigo": "4310063",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UCA Cuarto de Retención",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     11
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     37
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310065": {
+   "codigo": "4310065",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Lado a",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310067": {
+   "codigo": "4310067",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 10",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310077": {
+   "codigo": "4310077",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310079": {
+   "codigo": "4310079",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 5",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310080": {
+   "codigo": "4310080",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 8",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310081": {
+   "codigo": "4310081",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Extractor de Polvo de Recubrimiento # 9",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     15
+    ],
+    "7": [
+     28
+    ],
+    "10": [
+     43
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310089": {
+   "codigo": "4310089",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Lado B",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310090": {
+   "codigo": "4310090",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA de Blisteado",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-4310091": {
+   "codigo": "4310091",
+   "ubicacion": "PLANTA 2",
+   "nombre": "UMA Lado C",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     51
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-44373001": {
+   "codigo": "44373001",
+   "ubicacion": "SEDE 4",
+   "nombre": "Aspiradora BOSCH",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-44373002": {
+   "codigo": "44373002",
+   "ubicacion": "SEDE 4",
+   "nombre": "Aspiradora NJP1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-44373003": {
+   "codigo": "44373003",
+   "ubicacion": "SEDE 4",
+   "nombre": "Aspiradora NJP 2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     6
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-49312008": {
+   "codigo": "49312008",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Peristaltica CL#1",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     24
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     50
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-49312009": {
+   "codigo": "49312009",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Peristaltica CL#2",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-49312010": {
+   "codigo": "49312010",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Peristaltica CL#3",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-49312011": {
+   "codigo": "49312011",
+   "ubicacion": "SEDE 4",
+   "nombre": "Bomba Peristaltica CL#4",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     4
+    ],
+    "4": [
+     17
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "eq-5101001": {
+   "codigo": "5101001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Recirculación de Agua # 25",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "6": [
+     25
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-5101002": {
+   "codigo": "5101002",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Recirculación de Agua # 26",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "6": [
+     25
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-5101003": {
+   "codigo": "5101003",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Recirculación de Agua # 31",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "6": [
+     25
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-5101004": {
+   "codigo": "5101004",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Recirculación de Agua # 32",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "6": [
+     25
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-5101005": {
+   "codigo": "5101005",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Recirculación de Agua # 33",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "6": [
+     25
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-5101006": {
+   "codigo": "5101006",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba de Recirculación de Agua # 34",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "6": [
+     25
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-5101222": {
+   "codigo": "5101222",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Bomba Impulsora Centro Liquido",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "9": [
+     38
+    ]
+   },
+   "frecuenciaAnual": 1
+  },
+  "eq-75354001": {
+   "codigo": "75354001",
+   "ubicacion": "PLANTA 2",
+   "nombre": "Planta de Agua",
+   "tipo": "AUXILIAR",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     2
+    ],
+    "7": [
+     28
+    ]
+   },
+   "frecuenciaAnual": 2
+  },
+  "gkf2600": {
+   "codigo": "17333005",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encapsuladora BOSCH GKF 2600",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "3": [
+     12
+    ],
+    "6": [
+     25
+    ],
+    "9": [
+     38
+    ],
+    "12": [
+     52
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "integra320": {
+   "codigo": "17332004",
+   "ubicacion": "SEDE 4",
+   "nombre": "Blisteadora#4 Integra320 Marchesini",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "2": [
+     7
+    ],
+    "5": [
+     20
+    ],
+    "8": [
+     34
+    ],
+    "11": [
+     45
+    ]
+   },
+   "frecuenciaAnual": 4
+  },
+  "ms235": {
+   "codigo": "17334017",
+   "ubicacion": "SEDE 4",
+   "nombre": "Encelofanadora Marchesini MS235",
+   "tipo": "PROCESO",
+   "enlace": "codigo",
+   "semanasProgramadas": {
+    "1": [
+     3
+    ],
+    "4": [
+     16
+    ],
+    "7": [
+     30
+    ],
+    "10": [
+     41
+    ]
+   },
+   "frecuenciaAnual": 4
+  }
+ }
+}

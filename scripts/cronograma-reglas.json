@@ -1,0 +1,24 @@
+{
+  "_nota": "Reglas para cruzar los programas anuales DMM-173 (Planta 2) y DMM-173B (Sede 4) con el registro. No se agregan equipos nuevos: lo que no enlaza queda en el reporte.",
+  "excluir": {
+    "17306009": "NJP 3500: Detector de metal #9 (decisión del usuario: fuera del cronograma)",
+    "17333008": "NJP 3500: Encapsuladora (decisión del usuario: fuera del cronograma)",
+    "17333010": "NJP 3500: código que el bloque derecho de la fila de la encapsuladora trae distinto del izquierdo (17333008)",
+    "17365013": "NJP 3500: Desempolvador vertical (decisión del usuario: fuera del cronograma)",
+    "4307007": "Chiller #7 EVO M451: no lo maneja mantenimiento (decisión del usuario)",
+    "4307008": "Chiller #8 UPS300: no lo maneja mantenimiento (decisión del usuario)"
+  },
+  "codigosViejos": {
+    "SEDE 4": {
+      "135351002": "135408024",
+      "135351003": "135408022"
+    },
+    "_nota": "Cabinas de flujo laminar de dispensación: el cronograma trae los códigos viejos (…1 y …2 → Dispensación 1 y 2); el vigente es 135408024 y 135408022. Se enlazan con el vigente y se anota el código antiguo."
+  },
+  "porDescripcion": {
+    "125334007": "Chequeadora de peso CS100: el listado vigente la trae con ubicación «SE»; se revisa",
+    "125334008": "Chequeadora de peso INSIGHT: código que no está en el registro",
+    "17336012": "Codificadora Hitachi #4: el cronograma la ubica en «SEDE 5»"
+  },
+  "umbralDescripcion": 0.8
+}
