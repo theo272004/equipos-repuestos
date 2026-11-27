@@ -597,7 +597,7 @@
       "anioInstalacion": "2017",
       "proceso": "BLISTEAR",
       "registro": "DMM-031B, DMM-160G",
-      "sede": "SEDE 4",
+      "sede": "PLANTA 2",
       "area": "BLISTEADO",
       "ubicacionOriginal": "SEDE 4 BLISTEADO",
       "imagen": "agitador portatil sede 4.jpg",
@@ -672,7 +672,9 @@
         "3M": "M"
       },
       "codigoEquipo": "17332005",
-      "hojaDe": "SEDE 4"
+      "hojaDe": "SEDE 4",
+      "plantaDistinta": true,
+      "ubicacionHojaDesactualizada": true
     },
     "eq-17332008": {
       "tipoEquipo": "PROCESO",
@@ -5641,8 +5643,7 @@
         "A": "M"
       },
       "codigoEquipo": "125334007",
-      "hojaDe": "SEDE 4",
-      "plantaDistinta": true
+      "hojaDe": "SEDE 4"
     },
     "eq-17371007": {
       "tipoEquipo": "AUXILIAR",
@@ -6011,9 +6012,8 @@
       "anioInstalacion": "2014",
       "proceso": "BLIST CAPS O TABLETA",
       "registro": "DMM-031B, DMM-160G",
-      "sede": "PLANTA 2",
+      "sede": "SEDE 4",
       "area": "BLISTEADO",
-      "areaDetalle": "area 225",
       "ubicacionOriginal": "PLANTA #2 BLISTEADO ÁREA 225",
       "imagen": "BLISTEADORA B1240.jpg",
       "repuestos": [
@@ -6097,7 +6097,9 @@
         "3M": "M"
       },
       "codigoEquipo": "17332003",
-      "hojaDe": "PLANTA 2"
+      "hojaDe": "PLANTA 2",
+      "plantaDistinta": true,
+      "ubicacionHojaDesactualizada": true
     },
     "eq-17332006": {
       "tipoEquipo": "PROCESO",

@@ -181,6 +181,20 @@ class Importar(unittest.TestCase):
             self.assertEqual(e["hojaDe"], "SEDE 4")
             self.assertNotIn("MULTIPHARMA", json.dumps(e))     # no se mezcló nada de la otra hoja
 
+    def test_equipo_movido_de_planta_toma_sede_y_area_del_listado_no_de_la_hoja(self):
+        areas = json.loads((RAIZ / "scripts" / "hoja-vida.areas.json").read_text(encoding="utf-8"))
+        vig = json.loads((RAIZ / "scripts" / "hoja-vida.ubicacion-vigente.json").read_text(encoding="utf-8"))["equipos"]
+        self.assertEqual(set(vig), {"17332003", "17332005"})
+        dato = {"sede": "PLANTA 2", "area": "BLISTEADO", "areaDetalle": "area 225", "ubicacionOriginal": "PLANTA #2 BLISTEADO ÁREA 225"}
+        self.assertTrue(ihv.aplicar_ubicacion_vigente(dato, "17332003", vig, {"17332003": "BLISTEADO"}, areas))
+        self.assertEqual((dato["sede"], dato["area"]), ("SEDE 4", "BLISTEADO"))
+        self.assertNotIn("areaDetalle", dato)                      # «área 225» era del sitio anterior
+        self.assertTrue(dato["ubicacionHojaDesactualizada"])
+        self.assertEqual(dato["ubicacionOriginal"], "PLANTA #2 BLISTEADO ÁREA 225")   # el texto de la hoja se conserva
+        otro = {"sede": "PLANTA 2"}
+        self.assertFalse(ihv.aplicar_ubicacion_vigente(otro, "99", vig, {}, areas))
+        self.assertEqual(otro, {"sede": "PLANTA 2"})
+
     def test_no_toca_equipos_js(self):
         antes = (RAIZ / "assets" / "equipos.js").read_bytes()
         self.correr()

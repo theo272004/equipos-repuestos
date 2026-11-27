@@ -47,6 +47,7 @@ SALIDA = RAIZ / "assets" / "data" / "hojas-de-vida.json"
 MAPEO = AQUI / "hoja-vida.mapeo.json"
 AREAS = AQUI / "hoja-vida.areas.json"
 LEYENDA = AQUI / "hoja-vida.leyenda-frecuencia.json"
+VIGENTE = AQUI / "hoja-vida.ubicacion-vigente.json"
 
 
 def sin_tildes(t):
@@ -167,6 +168,35 @@ def cargar_listado(ruta):
     return out
 
 
+def areas_del_listado(ruta):
+    """CSV del listado -> {codigo sin ceros: área del listado (texto)}."""
+    import csv
+    out = {}
+    with open(ruta, encoding="utf-8-sig", newline="") as f:
+        for fila in csv.DictReader(f):
+            f = {k.strip().lower(): v for k, v in fila.items() if k}
+            c = codigo(f.get("cod") or f.get("codigo"))
+            if c:
+                out[c] = (f.get("area") or "").strip()
+    return out
+
+
+def aplicar_ubicacion_vigente(dato, cod, vigente, areas_listado, areas):
+    """Para equipos que se movieron de planta: sede del registro/listado y área del listado, no las de la hoja."""
+    v = (vigente or {}).get(cod)
+    if not v:
+        return False
+    dato["sede"] = v["sede"]
+    dato.pop("areaDetalle", None)
+    dato.pop("area_sin_normalizar", None)
+    dato.pop("sede_sin_reconocer", None)
+    area = sin_tildes(areas_listado.get(cod, "")).lower().strip()
+    if area:
+        dato["area"] = normalizar_area(area, areas)[0] if normalizar_area(area, areas)[2] else areas_listado[cod]
+    dato["ubicacionHojaDesactualizada"] = True
+    return True
+
+
 def en_listado(cod, ubicacion, listado):
     """-> (está?, aviso). Está si (código, planta del archivo) figura en el listado vigente; si el código figura
     solo en la OTRA planta se acepta con aviso (el registro o el listado tienen la planta cruzada)."""
@@ -238,8 +268,8 @@ def normalizar_tipo(valor, tipo_registro=""):
     return valor, ""
 
 
-def leer_registro():
-    s = EQUIPOS.read_text(encoding="utf-8")
+def leer_registro(ruta=None):
+    s = Path(ruta or EQUIPOS).read_text(encoding="utf-8")
     m = re.search(r"window\.EQUIPOS_PLAN = ", s)
     cuerpo = s[m.end():]
     return json.loads(cuerpo[: cuerpo.rstrip().rfind(";")])["equipos"]
@@ -334,6 +364,8 @@ def main(argv=None):
     ap.add_argument("--mapeo", default=str(MAPEO))
     ap.add_argument("--areas", default=str(AREAS))
     ap.add_argument("--leyenda", default=str(LEYENDA))
+    ap.add_argument("--vigente", default=str(VIGENTE), help="equipos movidos de planta: su ubicación sale del registro/listado, no de la hoja")
+    ap.add_argument("--registro", default=str(EQUIPOS), help="equipos.js a usar (por omisión el del repositorio)")
     ap.add_argument("--listado", help="CSV del listado oficial vigente (DMM-179/179B): solo se importan los equipos que figuran en él")
     ap.add_argument("--salida", default=str(SALIDA))
     ap.add_argument("--incluir-serial", action="store_true", help="también guarda SERIAL (el repositorio es público: no recomendado)")
@@ -347,6 +379,8 @@ def main(argv=None):
     mapeo = json.loads(Path(a.mapeo).read_text(encoding="utf-8"))
     areas = json.loads(Path(a.areas).read_text(encoding="utf-8")) if Path(a.areas).exists() else {}
     listado = cargar_listado(a.listado) if a.listado else None
+    areas_listado = areas_del_listado(a.listado) if a.listado else {}
+    vigente = json.loads(Path(a.vigente).read_text(encoding="utf-8")).get("equipos", {}) if Path(a.vigente).exists() else {}
     leyenda = json.loads(Path(a.leyenda).read_text(encoding="utf-8")).get("letras", {}) if Path(a.leyenda).exists() else {}
     libro = hojas(a.archivo)
     nombre = a.hoja or mapeo.get("hoja")
@@ -374,13 +408,13 @@ def main(argv=None):
             dentro.append(r)
         regs = dentro
     por_cod = {}                       # TODO el registro: el equipo puede figurar en la hoja de la otra planta
-    for e in leer_registro():
+    for e in leer_registro(a.registro):
         por_cod.setdefault(codigo(e["c"]), []).append(e)
 
     salida = Path(a.salida)
     previo = json.loads(salida.read_text(encoding="utf-8")) if salida.exists() else {"equipos": {}}
     nuevos = cambiados = 0
-    sin_registro, ambiguos, planta_distinta, en_dos_hojas, corregidos_tipo = [], [], [], [], []
+    sin_registro, ambiguos, planta_distinta, en_dos_hojas, corregidos_tipo, movidos = [], [], [], [], [], []
     sin_leyenda = set()
     for r in regs:
         cand = por_cod.get(r["codigo"], [])
@@ -401,6 +435,8 @@ def main(argv=None):
         if eq["u"] != a.ubicacion:
             dato["plantaDistinta"] = True
             planta_distinta.append(f"{r['codigo']} (registro: {eq['u']})")
+        if aplicar_ubicacion_vigente(dato, r["codigo"], vigente, areas_listado, areas):
+            movidos.append(f"{r['codigo']} ({dato.get('ubicacionOriginal', '')} → {dato['sede']})")
         if "tipoEquipo" in dato:
             tipo, original = normalizar_tipo(dato["tipoEquipo"], eq.get("tipo", ""))
             if original:
@@ -454,6 +490,8 @@ def main(argv=None):
         print(f"Equipos que figuran en las DOS hojas, sin mezclar ({len(en_dos_hojas)}):")
         for x in en_dos_hojas:
             print("  - " + x)
+    if movidos:
+        print(f"Ubicación de la hoja DESACTUALIZADA (equipo movido de planta): se usó la del registro/listado ({len(movidos)}): {', '.join(movidos)}")
     if corregidos_tipo:
         print(f"tipoEquipo corregido ({len(corregidos_tipo)}): {'; '.join(corregidos_tipo)}")
     if repetidos:
