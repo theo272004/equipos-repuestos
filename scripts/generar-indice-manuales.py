@@ -40,8 +40,8 @@ def sin_ceros(c):
     return re.sub(r"^0+(?=\d)", "", str(c or "").strip())
 
 
-def leer_registro():
-    s = EQUIPOS.read_text(encoding="utf-8")
+def leer_registro(ruta=None):
+    s = Path(ruta or EQUIPOS).read_text(encoding="utf-8")
     m = re.search(r"window\.EQUIPOS_PLAN = ", s)
     cu = s[m.end():]
     return json.loads(cu[: cu.rstrip().rfind(";")])["equipos"]
@@ -131,6 +131,7 @@ def main(argv=None):
     ap.add_argument("--propuesta")
     ap.add_argument("--listado")
     ap.add_argument("--mapeo", default=str(MAPEO))
+    ap.add_argument("--registro", default=str(EQUIPOS), help="equipos.js a usar (por omisión el del repositorio)")
     ap.add_argument("--salida", default=str(SALIDA))
     ap.add_argument("--incluir-certificados", action="store_true", help="publica también los nombres de archivos de certificados (pueden traer nombres de personas)")
     ap.add_argument("--probar", action="store_true")
@@ -138,7 +139,7 @@ def main(argv=None):
 
     archivos = leer_csv(a.indice)
     mapeo = json.loads(Path(a.mapeo).read_text(encoding="utf-8"))
-    registro = leer_registro()
+    registro = leer_registro(a.registro)
     propuesta = leer_csv(a.propuesta) if a.propuesta else []
     listado = None
     if a.listado:

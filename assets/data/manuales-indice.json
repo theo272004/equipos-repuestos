@@ -1,6 +1,6 @@
 {
  "nota": "Índice de manuales por equipo: solo METADATOS (nombre, tipo, extensión, MB y ruta relativa a la carpeta Respaldos). No contiene ni sube los archivos. Lo que no tiene equipo claro está en sinAsignar para revisión. Generado por scripts/generar-indice-manuales.py.",
- "generado": "2026-11-26",
+ "generado": "2026-11-27",
  "rutasRelativasA": "Respaldos",
  "resumen": {
   "carpetas": 45,
@@ -48,7 +48,7 @@
  "equipos": {
   "blister3": {
    "codigo": "17332003",
-   "ubicacion": "PLANTA 2",
+   "ubicacion": "SEDE 4",
    "nombre": "Blisteadora#3 B1240 Uhlmann",
    "carpetas": [
     "Blisteadora Uhlmann 1240"
@@ -6890,7 +6890,7 @@
   },
   "eq-17332005": {
    "codigo": "17332005",
-   "ubicacion": "SEDE 4",
+   "ubicacion": "PLANTA 2",
    "nombre": "Blisteadora#5 UPS300Rent",
    "carpetas": [
     "blisteadora 5"

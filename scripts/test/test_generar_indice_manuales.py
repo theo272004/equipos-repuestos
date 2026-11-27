@@ -56,6 +56,12 @@ class Indice(unittest.TestCase):
             if regla["estado"] == "asignada":
                 self.assertTrue(regla["equipos"] and regla["confianza"] in ("alta", "media"), nombre)
 
+    def test_blister_3_sale_en_sede_4_y_blister_5_en_planta_2(self):
+        d = json.loads((RAIZ / "assets" / "data" / "manuales-indice.json").read_text(encoding="utf-8"))["equipos"]
+        self.assertEqual(d["blister3"]["ubicacion"], "SEDE 4")
+        self.assertEqual(d["blister3"]["codigo"], "17332003")
+        self.assertEqual(d["eq-17332005"]["ubicacion"], "PLANTA 2")
+
     def test_salida_publicada_no_trae_rutas_del_pc(self):
         d = json.loads((RAIZ / "assets" / "data" / "manuales-indice.json").read_text(encoding="utf-8"))
         t = json.dumps(d, ensure_ascii=False)
