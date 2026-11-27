@@ -37,3 +37,6 @@ __pycache__/
 
 mcp/node_modules/
 node_modules/
+
+# La documentación del repositorio sí va (el resto de .md es texto crudo de OCR)
+!docs/*.md
