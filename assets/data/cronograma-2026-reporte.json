@@ -1,0 +1,333 @@
+{
+ "generado": "2026-11-27",
+ "resumen": {
+  "filasLeidas": {
+   "SEDE 4": 196,
+   "PLANTA 2": 138
+  },
+  "equiposConCronograma": 323,
+  "porSede": {
+   "SEDE 4": 185,
+   "PLANTA 2": 138
+  },
+  "porEnlace": {
+   "codigo": 321,
+   "codigo-vigente": 2
+  },
+  "excluidos": 5,
+  "noEstanEnElRegistro": 4,
+  "paraRevisar": 5,
+  "actividadesAlAnio": 987,
+  "discrepanciasConPlanDeRepuestos": 1,
+  "discrepanciasConHojasDeVida": 21
+ },
+ "excluidos": [
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 77,
+   "codigo": "4307007",
+   "equipo": "CHILLER #7 EVO M451",
+   "motivo": "Chiller #7 EVO M451: no lo maneja mantenimiento (decisión del usuario)",
+   "modo": "excluido"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 78,
+   "codigo": "4307008",
+   "equipo": "CHILLER #8 UPS300",
+   "motivo": "Chiller #8 UPS300: no lo maneja mantenimiento (decisión del usuario)",
+   "modo": "excluido"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 93,
+   "codigo": "17365013",
+   "equipo": "DESEMPOLVADOR VERTICAL NJP3500",
+   "motivo": "NJP 3500: Desempolvador vertical (decisión del usuario: fuera del cronograma)",
+   "modo": "excluido"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 100,
+   "codigo": "17306009",
+   "equipo": "DETECTOR DE METAL #9 NJP 3500",
+   "motivo": "NJP 3500: Detector de metal #9 (decisión del usuario: fuera del cronograma)",
+   "modo": "excluido"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 109,
+   "codigo": "17333008",
+   "equipo": "ENCAPSULADORA NJP 3500",
+   "motivo": "NJP 3500: Encapsuladora (decisión del usuario: fuera del cronograma)",
+   "modo": "excluido"
+  }
+ ],
+ "noEstanEnElRegistro": [
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 23,
+   "codigo": "17332011",
+   "equipo": "BLISTEADORA #8 UPS 300",
+   "motivo": "no está en el registro (no se agregan equipos nuevos)",
+   "modo": "no-registro"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 24,
+   "codigo": "17332012",
+   "equipo": "BLISTEADORA #9 UPS 300",
+   "motivo": "no está en el registro (no se agregan equipos nuevos)",
+   "modo": "no-registro"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 85,
+   "codigo": "17336015",
+   "equipo": "CODIFICADORA HITACHI #7",
+   "motivo": "no está en el registro (no se agregan equipos nuevos)",
+   "modo": "no-registro"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 138,
+   "codigo": "17303026",
+   "equipo": "MEZCLADOR HORIZONTAL #4 DE 300KG",
+   "motivo": "no está en el registro (no se agregan equipos nuevos)",
+   "modo": "no-registro"
+  }
+ ],
+ "paraRevisar": [
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 59,
+   "codigo": "135351002",
+   "equipo": "CAB. FLUJO LAMINAR DISPENSACIÓN 1",
+   "motivo": "el cronograma trae el código antiguo 135351002; el vigente es 135408024",
+   "modo": "codigo-vigente",
+   "enlazadoCon": "eq-135408024"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 60,
+   "codigo": "135351003",
+   "equipo": "CAB. FLUJO LAMINAR DISPENSACIÓN 2",
+   "motivo": "el cronograma trae el código antiguo 135351003; el vigente es 135408022",
+   "modo": "codigo-vigente",
+   "enlazadoCon": "eq-135408022"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 68,
+   "codigo": "125334007",
+   "equipo": "CHEQUEADORA DE PESO CS100",
+   "motivo": "Chequeadora de peso CS100: el listado vigente la trae con ubicación «SE»; se revisa",
+   "modo": "codigo",
+   "enlazadoCon": "eq-125334007"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 71,
+   "codigo": "125334008",
+   "equipo": "CHEQUEADORA DE PESO INSIGHT",
+   "motivo": "Chequeadora de peso INSIGHT: código que no está en el registro; sin coincidencia clara por descripción (más parecidos: 138411001 Chequeadora de Peso BOSCH; 125334007 Chequeadora de Peso CS100; 125334006 Chequeadora de Peso Estuchadora MA50-N)",
+   "modo": "sin-enlace-claro"
+  },
+  {
+   "ubicacion": "SEDE 4",
+   "fila": 82,
+   "codigo": "17336012",
+   "equipo": "CODIFICADORA HITACHI #4",
+   "motivo": "Codificadora Hitachi #4: el cronograma la ubica en «SEDE 5»; sin coincidencia clara por descripción (más parecidos: 17336010 Codificadora Hitachi #2; 17336011 Codificadora HITACHI #3; 17336013 Codificadora HITACHI #5)",
+   "modo": "sin-enlace-claro"
+  }
+ ],
+ "avisos": [
+  "SEDE 4 fila 82 (17336012): la hoja dice ubicación «SEDE 5»",
+  "SEDE 4 fila 109: el código del bloque izquierdo (17333008) y el del derecho (17333010) no coinciden"
+ ],
+ "discrepancias": {
+  "nota": "Solo se reportan; no se corrigió nada. Plan de repuestos: el cronograma tiene MENOS actividades al año que la pieza más frecuente del plan (xls.f; «1B» = cada 2 años, inferido). Hojas de vida: la letra M (Mantenimiento) en una columna FREC implica otra cantidad al año (D y S no cuentan).",
+  "conPlanDeRepuestos": [
+   {
+    "id": "eq-122354002",
+    "codigo": "122354002",
+    "nombre": "Planta de Agua # 3",
+    "cronograma": 2,
+    "planDeRepuestos": "4 al año (pieza más frecuente: 0.25 años por ciclo)"
+   }
+  ],
+  "conHojasDeVida": [
+   {
+    "id": "eq-130101004",
+    "codigo": "130101004",
+    "nombre": "Bomba Centrifuga #1 Preparación LIQ",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-130101005",
+    "codigo": "130101005",
+    "nombre": "Bomba Centrifuga #2 Preparación LIQ",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-130101012",
+    "codigo": "130101012",
+    "nombre": "Bomba Centrifuga #4 Preparación LIQ",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-130101013",
+    "codigo": "130101013",
+    "nombre": "Bomba Centrifuga #5 Preparación LIQ",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-130101014",
+    "codigo": "130101014",
+    "nombre": "Bomba Centrifuga #6 Preparación LIQ",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-130101015",
+    "codigo": "130101015",
+    "nombre": "Bomba Centrifuga #7 Preparación LIQ",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-17370015",
+    "codigo": "17370015",
+    "nombre": "Bomba de Vacío BOSCH",
+    "cronograma": 2,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-130101011",
+    "codigo": "130101011",
+    "nombre": "Bomba Neumatica de Doble Diafragma",
+    "cronograma": 2,
+    "hojaDeVida": "letra M en FREC-A (1 al año)"
+   },
+   {
+    "id": "eq-130101016",
+    "codigo": "130101016",
+    "nombre": "Bomba Neumatica de Doble Diafragma #2",
+    "cronograma": 2,
+    "hojaDeVida": "letra M en FREC-A (1 al año)"
+   },
+   {
+    "id": "eq-130101009",
+    "codigo": "130101009",
+    "nombre": "Bomba Preparación Soluciones Centro Líquidos",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-A (1 al año)"
+   },
+   {
+    "id": "eq-16328001",
+    "codigo": "16328001",
+    "nombre": "Bombo # 1 de 100 Kg",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-6M (2 al año)"
+   },
+   {
+    "id": "eq-16328025",
+    "codigo": "16328025",
+    "nombre": "Bombo #25 de 350 KG",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-6M (2 al año)"
+   },
+   {
+    "id": "eq-16328026",
+    "codigo": "16328026",
+    "nombre": "Bombo #26 de 350 KG",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-6M (2 al año)"
+   },
+   {
+    "id": "eq-16328035",
+    "codigo": "16328035",
+    "nombre": "Bombo # 35 de 350 Kg",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-6M (2 al año)"
+   },
+   {
+    "id": "eq-17365012",
+    "codigo": "17365012",
+    "nombre": "Desempolvador Gratex 3",
+    "cronograma": 2,
+    "hojaDeVida": "letra M en FREC-A (1 al año)"
+   },
+   {
+    "id": "eq-125334002",
+    "codigo": "125334002",
+    "nombre": "Máquina Sopladora de Envase MARCHESINI",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-6M (2 al año)"
+   },
+   {
+    "id": "eq-125334001",
+    "codigo": "125334001",
+    "nombre": "Orientador de Envase MARCHESINI",
+    "cronograma": 4,
+    "hojaDeVida": "letra M en FREC-6M (2 al año)"
+   },
+   {
+    "id": "eq-129101002",
+    "codigo": "129101002",
+    "nombre": "Tanque de 250LT Movil",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-17333001",
+    "codigo": "17333001",
+    "nombre": "Encapsuladora # 1 (CD 40) Macofarm",
+    "cronograma": 5,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-17333004",
+    "codigo": "17333004",
+    "nombre": "Encapsuladora CL # 1 Qualicaps1",
+    "cronograma": 5,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   },
+   {
+    "id": "eq-17303018-p2",
+    "codigo": "17303018",
+    "nombre": "Licuadora Industrial #2",
+    "cronograma": 1,
+    "hojaDeVida": "letra M en FREC-3M (4 al año)"
+   }
+  ],
+  "equiposConPlanSinCronograma": [
+   {
+    "codigo": "17334007",
+    "ubicacion": "SEDE 4",
+    "nombre": "Encelofanadora de Polvos Marzio R-120"
+   },
+   {
+    "codigo": "17334011",
+    "ubicacion": "SEDE 4",
+    "nombre": "Encelofanadora de Polvos Marzio R-120 # 3"
+   },
+   {
+    "codigo": "17334012",
+    "ubicacion": "SEDE 4",
+    "nombre": "Encelofanadora de Polvos Marzio R-120 # 4"
+   },
+   {
+    "codigo": "17334013",
+    "ubicacion": "SEDE 4",
+    "nombre": "Encelofanadora de Polvos Marzio R-120 # 5"
+   }
+  ],
+  "equiposConCronogramaSinFrecuenciaEnElPlan": 269
+ }
+}
