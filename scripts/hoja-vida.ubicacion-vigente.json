@@ -1,0 +1,13 @@
+{
+  "_nota": "Equipos cuya UBICACIÓN en la hoja de vida quedó desactualizada porque se movieron físicamente de planta. Para estos el importador toma la sede del registro/listado vigente y el área del listado (no la de la hoja) y marca ubicacionHojaDesactualizada. Cuando la hoja se corrija (la fila pasa a la hoja de la otra planta) se puede quitar la entrada.",
+  "equipos": {
+    "17332003": {
+      "sede": "SEDE 4",
+      "motivo": "Blister 3 se movió de Planta 2 a Sede 4 (confirmado por el usuario). La hoja de vida de Planta 2 aún dice «PLANTA #2 BLISTEADO ÁREA 225»."
+    },
+    "17332005": {
+      "sede": "PLANTA 2",
+      "motivo": "Blister 5 se movió de Sede 4 a Planta 2 (confirmado por el usuario). La hoja de vida de Sede 4 aún la trae en su hoja."
+    }
+  }
+}

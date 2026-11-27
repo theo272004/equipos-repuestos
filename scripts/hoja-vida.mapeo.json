@@ -1,0 +1,29 @@
+{
+  "_nota": "Encabezados confirmados por el usuario para la hoja BASE DE DATOS de las hojas de vida DMM-199. El nombre de la hoja y COD-REP1, REP1 y CANT-REP-1 (con guion) confirmados. Las celdas FREC-* traen LETRAS (M, I, F, IE, M/S, MT, MT / R, X): su significado está POR CONFIRMAR y no se interpreta. Los encabezados se comparan sin tildes, mayúsculas, espacios ni guiones.",
+  "hoja": "BASE DE DATOS",
+  "fila_encabezado": null,
+  "campos": {
+    "codigo": ["CODIGO"],
+    "tipoEquipo": ["TIPO DE EQUIPO"],
+    "descripcion": ["DESCRIPCION"],
+    "ubicacion": ["UBICACIÓN"],
+    "servicio": ["SERVICIO"],
+    "marca": ["MARCA"],
+    "modelo": ["MODELO"],
+    "anioFabricacion": ["AÑO DE FABRICACION"],
+    "procedencia": ["PROCEDENCIA"],
+    "anioInstalacion": ["AÑO DE INSTALACION"],
+    "proceso": ["PROCESO"],
+    "registro": ["REGISTRO/PROCEDIMIENTOS"],
+    "imagen": ["IMAGEN"]
+  },
+  "opcionales": {
+    "_nota": "Campos que NO se guardan salvo que se pida con una opción explícita: el repositorio es público.",
+    "serial": ["SERIAL"]
+  },
+  "repuestos": { "cod": "COD-REP{n}", "desc": "REP{n}", "cant": "CANT-REP-{n}", "max": 15 },
+  "frecuencias": {
+    "D": "FREC-D", "S": "FREC-S", "M": "FREC-M", "2M": "FREC-2M",
+    "3M": "FREC-3M", "6M": "FREC-6M", "A": "FREC-A", "2A": "FREC-2A"
+  }
+}
