@@ -170,8 +170,10 @@ function detectarSede(cuerpo, autor) {
 // Lo decide turnos-data.js con la hora del mensaje, lo que dice el encabezado
 // y el grupo de quien firma (el turno que de verdad trabajó ese grupo).
 function pistaDe(cuerpo) {
-  const head = String(cuerpo || "").replace(/\*/g, "").slice(0, 400);
-  return /\bnoche\b/i.test(head) ? "Noche" : /\bd[ií]as?\b|\bma[ñn]ana\b/i.test(head) ? "Día" : "";
+  const head = String(cuerpo || "").replace(/\*/g, "").slice(0, 400).replace(/\bbuen[oa]s\s+d[ií]as?\b/gi, "");
+  if (/\b20\s*:\s*00\s*[-a]\s*0?8\s*:\s*00\b/.test(head) || /\bnoche\b/i.test(head)) return "Noche";
+  if (/\b0?8\s*:\s*00\s*[-a]\s*20\s*:\s*00\b/.test(head) || /\bd[ií]as?\b|\bma[ñn]ana\b/i.test(head)) return "Día";
+  return "";
 }
 function turnoReal(msg) {
   const pista = msg.pista !== undefined ? msg.pista : pistaDe(msg.cuerpo);
