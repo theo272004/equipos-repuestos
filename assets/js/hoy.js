@@ -660,7 +660,7 @@
     const norm = (s) => String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
     const neq = norm(eqNom);
     const cat = (window.MTTO && window.MTTO.catalogo && window.MTTO.catalogo.equipos) || [];
-    const itemsCat = cat.filter((x) => x.fi === cod || (cod && x.fi === `eq-${cod}`) || norm(x.eq) === neq);
+    const itemsCat = cat.filter((x) => (cod && (x.fi === cod || x.fi === `eq-${cod}`)) || (neq && norm(x.eq) === neq));
     const eqNames = new Set([eqNom, cod, ...itemsCat.map((x) => x.eq)].filter(Boolean));
     const eqNorms = new Set([...eqNames].map(norm));
 
@@ -668,7 +668,7 @@
       if (!r || r.borrado || r.f < desde || r.f > hoy) return false;
       if (vista.sede && r.s && r.s !== vista.sede) return false;
       const rn = norm(r.eq);
-      return eqNorms.has(rn) || [...eqNorms].some((en) => (en.length >= 4 && (rn.includes(en) || en.includes(rn))));
+      return Boolean(rn) && eqNorms.has(rn);
     }).sort((a, b) => (b.f + (b.hr || "")).localeCompare(a.f + (a.hr || ""))) : [];
 
     const correctivos = regs.filter((r) => r.cat === "Máquina" && r.tp === "Correctivo");
