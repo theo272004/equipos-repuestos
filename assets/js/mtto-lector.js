@@ -221,7 +221,7 @@
       vistos.add(clave);
       const eqs = buscarEquipos(tn.slice(0, 70)).length ? buscarEquipos(tn.slice(0, 70)) : buscarEquipos(tn);
       let eq = eqs.length ? eqs[0][2] : "No identificado";
-      if (!eqs.length && previo && (/^\s*[•\-*]/.test(b[0][0]) || /^\s*(?:NOTA|OTRO\s+LLAMAD|SE\s+ATIENDE\s+NUEVAMENTE|NUEVAMENTE|TAMBI[EÉ]N|ESTADO\s+FINAL|PENDIENTE\s+TURNO|EL\s+CAMBIO\s+DE|SE\s+HACE\s+PRESENCIA)/i.test(b[0][0].trim()))) eq = previo;
+      if (!eqs.length && previo && /^\s*[•\-*]?\s*(?:NOTA\b|OTRO\s+LLAMAD|SE\s+ATIENDE\s+NUEVAMENTE|SE\s+RECIBE\s+LLAMADO\s+NUEVAMENTE|NUEVAMENTE|TAMBI[EÉ]N|ESTADO\s+FINAL|PENDIENTE\s+TURNO|ACCIONES\s+REALIZADAS)/i.test(b[0][0].trim())) eq = previo;
       eq = porSede(eq, sede);
       previo = eq;
       const ar = areaDe(eq);
